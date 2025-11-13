@@ -39,6 +39,9 @@
       scroll-behavior: smooth;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      /* Enable hardware acceleration */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
     }
 
     body {
@@ -48,6 +51,12 @@
       overflow-x: hidden;
       background: var(--bg-main);
       -webkit-tap-highlight-color: transparent;
+      /* Mobile performance optimizations */
+      -webkit-overflow-scrolling: touch;
+      touch-action: manipulation;
+      /* Prevent text size adjustment on mobile */
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
 
     /* Hide scrollbars but keep functionality */
@@ -66,15 +75,26 @@
       line-height: 1.2;
     }
 
-    /* Animations */
+    /* GPU Acceleration for smooth mobile performance */
+    img, video, iframe, canvas, svg,
+    .hero-visual, .spline-container,
+    .feature-card, .stat-card, .benefit-item,
+    .btn, .nav-cta, a {
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* Animations with GPU acceleration */
     @keyframes fadeInUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(30px) translateZ(0);
       }
       to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) translateZ(0);
       }
     }
 
@@ -86,22 +106,22 @@
     @keyframes slideInLeft {
       from {
         opacity: 0;
-        transform: translateX(-50px);
+        transform: translateX(-50px) translateZ(0);
       }
       to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) translateZ(0);
       }
     }
 
     @keyframes slideInRight {
       from {
         opacity: 0;
-        transform: translateX(50px);
+        transform: translateX(50px) translateZ(0);
       }
       to {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) translateZ(0);
       }
     }
 
@@ -1692,20 +1712,27 @@
         height: 300px;
         max-width: 400px;
         margin: 0 auto;
-        transform: scale(0.75);
+        transform: scale(0.75) translateZ(0);
         pointer-events: auto;
         /* Performance optimization */
         will-change: transform;
         contain: layout style paint;
+        /* GPU acceleration */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        perspective: 1000px;
+        -webkit-perspective: 1000px;
       }
 
-      .spline-container iframe {
+      .spline-container iframe,
+      .spline-container spline-viewer {
         width: 100%;
         height: 100%;
         border: none;
         display: block;
-        /* Improve loading performance */
-        loading: lazy;
+        /* GPU acceleration for smooth rendering */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
       }
 
       /* Reduce motion for accessibility */
@@ -1765,13 +1792,23 @@
 
       /* Further optimize robot for mobile phones */
       .hero-visual {
-        min-height: 250px;
+        min-height: 280px;
+        margin-bottom: 2rem;
       }
 
       .spline-container {
-        height: 250px;
-        max-width: 350px;
-        transform: scale(0.65);
+        height: 280px;
+        max-width: 340px;
+        transform: scale(0.7) translateZ(0);
+        /* Additional mobile optimizations */
+        -webkit-transform: scale(0.7) translateZ(0);
+      }
+
+      .spline-container iframe,
+      .spline-container spline-viewer {
+        /* Ensure smooth rendering on mobile */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
       }
 
       .hero h1 {
