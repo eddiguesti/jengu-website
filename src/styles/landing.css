@@ -1707,31 +1707,50 @@
         font-size: 2.5rem;
       }
 
-      /* Show compact Spline robot on tablets and mobile - Best Practices */
+      /* ========================================
+         MOBILE/TABLET ROBOT DISPLAY (≤1024px)
+         Clean, organized mobile robot styling
+         ======================================== */
+
       .hero-visual {
-        order: -1;
-        min-height: 300px;
-        display: flex;
+        /* Layout */
+        order: -1 !important;
+        position: relative !important;
+        display: flex !important;
         align-items: center;
         justify-content: center;
-        position: relative;
+        min-height: 300px;
+        height: auto !important;
         overflow: hidden;
+
+        /* Styling */
         background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
                     radial-gradient(circle at 50% 80%, rgba(30, 64, 175, 0.06) 0%, transparent 50%);
+
+        /* Animation - keep it smooth */
+        animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .spline-container {
-        position: relative;
-        width: 100%;
-        height: 300px;
+        /* Override desktop absolute positioning */
+        position: relative !important;
+        top: auto !important;
+        transform: scale(0.75) translateZ(0) !important;
+        -webkit-transform: scale(0.75) translateZ(0) !important;
+
+        /* Mobile sizing */
+        width: 100% !important;
+        height: 300px !important;
         max-width: 400px;
-        margin: 0 auto;
-        transform: scale(0.75) translateZ(0);
+        margin: 0 auto !important;
+        margin-left: auto !important;
+
+        /* Interaction */
         pointer-events: auto;
-        /* Performance optimization */
+
+        /* Performance optimizations */
         will-change: transform;
         contain: layout style paint;
-        /* GPU acceleration */
         backface-visibility: hidden;
         -webkit-backface-visibility: hidden;
         perspective: 1000px;
@@ -1740,11 +1759,12 @@
 
       .spline-container iframe,
       .spline-container spline-viewer {
-        width: 100%;
-        height: 100%;
+        width: 100% !important;
+        height: 100% !important;
         border: none;
-        display: block;
-        /* GPU acceleration for smooth rendering */
+        display: block !important;
+
+        /* GPU acceleration */
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
       }
@@ -1752,32 +1772,8 @@
       /* Reduce motion for accessibility */
       @media (prefers-reduced-motion: reduce) {
         .spline-container {
-          transform: scale(0.75);
-          transition: none;
-        }
-      }
-
-      @keyframes floatOrb1 {
-        0%, 100% {
-          transform: translate(0, 0) scale(1);
-        }
-        33% {
-          transform: translate(50px, -30px) scale(1.1);
-        }
-        66% {
-          transform: translate(-30px, 40px) scale(0.9);
-        }
-      }
-
-      @keyframes floatOrb2 {
-        0%, 100% {
-          transform: translate(0, 0) scale(1);
-        }
-        33% {
-          transform: translate(-40px, 30px) scale(0.9);
-        }
-        66% {
-          transform: translate(40px, -40px) scale(1.1);
+          transform: scale(0.75) translateZ(0) !important;
+          transition: none !important;
         }
       }
 
@@ -1804,25 +1800,29 @@
         display: none;
       }
 
-      /* Further optimize robot for mobile phones */
+      /* ========================================
+         MOBILE PHONE ROBOT DISPLAY (≤768px)
+         Smaller, optimized for phones
+         ======================================== */
+
       .hero-visual {
-        min-height: 280px;
+        min-height: 280px !important;
         margin-bottom: 2rem;
       }
 
       .spline-container {
-        height: 280px;
-        max-width: 340px;
-        transform: scale(0.7) translateZ(0);
-        /* Additional mobile optimizations */
-        -webkit-transform: scale(0.7) translateZ(0);
+        /* Smaller scale for phones */
+        height: 280px !important;
+        max-width: 340px !important;
+        transform: scale(0.7) translateZ(0) !important;
+        -webkit-transform: scale(0.7) translateZ(0) !important;
       }
 
       .spline-container iframe,
       .spline-container spline-viewer {
         /* Ensure smooth rendering on mobile */
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
+        transform: translateZ(0) !important;
+        -webkit-transform: translateZ(0) !important;
       }
 
       .hero h1 {
