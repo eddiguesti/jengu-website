@@ -123,113 +123,87 @@ const seo = generateSEO({
     </div>
   </section>
 
-  <!-- How It Works -->
-  <section class="features" id="how-it-works">
+  <!-- Platform Showcase: How It Works -->
+  <section class="platform-showcase-section" id="how-it-works">
     <div class="container">
       <div class="section-header">
         <span class="section-badge">
           <i class="fas fa-cogs"></i>
-          How It Works
+          Inside the Platform
         </span>
-        <h2>Smart Pricing That Runs on Autopilot</h2>
-        <p>Our AI analyzes dozens of factors every hour to set the perfect price for every site type</p>
+        <h2>See How Dynamic Pricing Works</h2>
+        <p>Explore the AI-powered features that make intelligent campsite pricing possible</p>
       </div>
 
-      <div class="features-grid-new">
-        <div class="feature-card-new">
-          <div class="feature-header">
-            <div class="feature-icon-new">
-              <i class="fas fa-brain"></i>
+      <div class="screenshot-grid">
+        <!-- Competitor Discovery -->
+        <div class="screenshot-item">
+          <img src="/images/competitor-discovery.png" alt="Competitor Discovery Interface" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-binoculars"></i> Competitor Discovery & Tracking</h4>
+            <p>Never miss a competitor price change again. The system automatically discovers nearby campsites within your custom radius using camping-and-co.com data, monitors their pricing strategies in real-time, and alerts you to significant market shifts. Track 10+ competitors effortlessly and ensure your prices remain competitive without manual research.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> Automatic competitor discovery</span>
+              <span><i class="fas fa-check"></i> Real-time price monitoring</span>
+              <span><i class="fas fa-check"></i> Market position alerts</span>
             </div>
-            <h3>AI-Powered Analysis</h3>
           </div>
-          <p>Machine learning algorithms analyze your historical data, market trends, and external factors to predict optimal pricing.</p>
-          <ul class="feature-benefits">
-            <li><i class="fas fa-check"></i> Historical booking patterns</li>
-            <li><i class="fas fa-check"></i> Seasonal demand trends</li>
-            <li><i class="fas fa-check"></i> Day-of-week variations</li>
-            <li><i class="fas fa-check"></i> Lead time optimization</li>
-          </ul>
         </div>
 
-        <div class="feature-card-new">
-          <div class="feature-header">
-            <div class="feature-icon-new">
-              <i class="fas fa-cloud-sun"></i>
+        <!-- Data Enrichment -->
+        <div class="screenshot-item screenshot-reverse">
+          <img src="/images/data-enrichment.png" alt="Data Enrichment Dashboard" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-database"></i> Multi-Source Data Intelligence</h4>
+            <p>The platform enriches your historical booking data with weather forecasts (temperature, precipitation, sunshine hours), holiday calendars, school breaks, and temporal patterns. All data sources sync automatically and feed into machine learning models that identify pricing correlations—like how sunny weather increases bookings by 30% or how local festivals affect demand.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> Weather data integration</span>
+              <span><i class="fas fa-check"></i> Holiday & event overlays</span>
+              <span><i class="fas fa-check"></i> Pattern recognition</span>
             </div>
-            <h3>Real-Time Market Data</h3>
           </div>
-          <p>Continuously monitors external factors that affect campsite demand and adjusts prices automatically.</p>
-          <ul class="feature-benefits">
-            <li><i class="fas fa-check"></i> Weather forecasts</li>
-            <li><i class="fas fa-check"></i> Local events & festivals</li>
-            <li><i class="fas fa-check"></i> School holidays</li>
-            <li><i class="fas fa-check"></i> Competitor pricing</li>
-          </ul>
         </div>
 
-        <div class="feature-card-new">
-          <div class="feature-header">
-            <div class="feature-icon-new">
-              <i class="fas fa-sync-alt"></i>
+        <!-- Pricing Strategy -->
+        <div class="screenshot-item">
+          <img src="/images/pricing-strategy.png" alt="Pricing Strategy Selection" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-sliders-h"></i> Flexible Pricing Strategies</h4>
+            <p>Choose from Conservative (steady prices, high occupancy), Balanced (optimal revenue/occupancy mix), or Aggressive (maximum revenue extraction) strategies. Fine-tune demand sensitivity (30%-90%), price aggression (40%-100%), and occupancy targets (65%-90%). Each strategy adapts dynamically based on forecasted demand, giving you full control over your pricing philosophy while letting AI handle the optimization.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> 3 pricing strategies</span>
+              <span><i class="fas fa-check"></i> Customizable parameters</span>
+              <span><i class="fas fa-check"></i> Manual overrides anytime</span>
             </div>
-            <h3>Automatic Updates</h3>
           </div>
-          <p>Seamlessly updates prices across all your booking channels in real-time—no manual work required.</p>
-          <ul class="feature-benefits">
-            <li><i class="fas fa-check"></i> Direct booking website</li>
-            <li><i class="fas fa-check"></i> Booking.com integration</li>
-            <li><i class="fas fa-check"></i> Airbnb sync</li>
-            <li><i class="fas fa-check"></i> RMS/PMS integration</li>
-          </ul>
         </div>
 
-        <div class="feature-card-new">
-          <div class="feature-header">
-            <div class="feature-icon-new">
-              <i class="fas fa-sliders-h"></i>
+        <!-- Price Optimization -->
+        <div class="screenshot-item screenshot-reverse">
+          <img src="/images/price-optimization.png" alt="Price Optimization Timeline" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-chart-area"></i> ML-Powered Price Optimization</h4>
+            <p>Advanced machine learning algorithms analyze demand forecasts, competitor pricing, weather patterns, and historical correlations to predict optimal prices up to 60 days ahead. The interactive visualization shows current vs. AI-optimized pricing overlaid with demand forecasts, so you can see exactly why each price recommendation makes sense and what revenue impact to expect.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> 14-60 day forecasts</span>
+              <span><i class="fas fa-check"></i> Visual optimization timeline</span>
+              <span><i class="fas fa-check"></i> Instant scenario comparison</span>
             </div>
-            <h3>Full Control & Overrides</h3>
           </div>
-          <p>You're always in control with manual overrides, pricing rules, and customizable strategies.</p>
-          <ul class="feature-benefits">
-            <li><i class="fas fa-check"></i> Set min/max price limits</li>
-            <li><i class="fas fa-check"></i> Create custom rules</li>
-            <li><i class="fas fa-check"></i> Manual overrides anytime</li>
-            <li><i class="fas fa-check"></i> Site-specific strategies</li>
-          </ul>
         </div>
 
-        <div class="feature-card-new">
-          <div class="feature-header">
-            <div class="feature-icon-new">
-              <i class="fas fa-chart-bar"></i>
+        <!-- Revenue & Occupancy Forecasts -->
+        <div class="screenshot-item">
+          <img src="/images/forecasting.png" alt="Revenue and Occupancy Forecasting" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-chart-line"></i> Revenue & Occupancy Forecasting</h4>
+            <p>Dual forecasting charts compare current revenue/occupancy projections against ML-optimized predictions over 14-day horizons. See potential revenue uplift at a glance—typically 20-40% increases during peak periods without sacrificing occupancy. The system helps you balance revenue goals with capacity management, ensuring you never leave money on the table while maintaining healthy occupancy rates.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> Revenue uplift projections</span>
+              <span><i class="fas fa-check"></i> Occupancy optimization</span>
+              <span><i class="fas fa-check"></i> Goal tracking</span>
             </div>
-            <h3>Performance Analytics</h3>
           </div>
-          <p>Detailed insights into revenue performance, booking patterns, and optimization opportunities.</p>
-          <ul class="feature-benefits">
-            <li><i class="fas fa-check"></i> Revenue vs. last year</li>
-            <li><i class="fas fa-check"></i> Occupancy tracking</li>
-            <li><i class="fas fa-check"></i> Price elasticity analysis</li>
-            <li><i class="fas fa-check"></i> Custom reports</li>
-          </ul>
-        </div>
-
-        <div class="feature-card-new">
-          <div class="feature-header">
-            <div class="feature-icon-new">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h3>Mobile Dashboard</h3>
-          </div>
-          <p>Monitor and manage pricing from anywhere with our mobile-optimized dashboard.</p>
-          <ul class="feature-benefits">
-            <li><i class="fas fa-check"></i> Real-time notifications</li>
-            <li><i class="fas fa-check"></i> Quick price adjustments</li>
-            <li><i class="fas fa-check"></i> Revenue tracking</li>
-            <li><i class="fas fa-check"></i> iOS & Android apps</li>
-          </ul>
         </div>
       </div>
     </div>
@@ -350,6 +324,38 @@ const seo = generateSEO({
       </p>
     </div>
   </section>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+    <button class="modal-close" onclick="closeImageModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <img src="" alt="Platform Screenshot" class="modal-content-img" id="modalImage">
+  </div>
+
+  <!-- JavaScript for Image Modal -->
+  <script is:inline>
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImg.src = src;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+  </script>
 </BaseLayout>
 
 <style>
@@ -480,6 +486,149 @@ const seo = generateSEO({
   @keyframes float-4 {
     0%, 100% { transform: translateY(0px) rotate(3deg); }
     50% { transform: translateY(-12px) rotate(3deg); }
+  }
+
+  /* Platform Showcase Section */
+  .platform-showcase-section {
+    background: var(--bg-main);
+    padding: 6rem 2rem;
+  }
+
+  .screenshot-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    margin-top: 4rem;
+  }
+
+  .screenshot-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .screenshot-reverse {
+    direction: rtl;
+  }
+
+  .screenshot-reverse > * {
+    direction: ltr;
+  }
+
+  .screenshot-img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .screenshot-img:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 70px rgba(6, 182, 212, 0.4);
+    border-color: var(--secondary-brand);
+  }
+
+  .screenshot-caption h4 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .screenshot-caption h4 i {
+    color: var(--secondary-brand);
+    font-size: 1.3rem;
+  }
+
+  .screenshot-caption p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-benefits-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .feature-benefits-inline span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(6, 182, 212, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+  }
+
+  .feature-benefits-inline span i {
+    color: var(--success);
+    font-size: 0.85rem;
+  }
+
+  /* Image Modal */
+  .image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .image-modal.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    z-index: 10000;
+  }
+
+  .modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+  }
+
+  .modal-content-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8);
   }
 
   .section-dark {
@@ -679,6 +828,43 @@ const seo = generateSEO({
       display: none;
     }
 
+    /* Mobile Platform Showcase */
+    .platform-showcase-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .screenshot-grid {
+      gap: 4rem;
+      margin-top: 3rem;
+    }
+
+    .screenshot-item {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .screenshot-reverse {
+      direction: ltr;
+    }
+
+    .screenshot-caption h4 {
+      font-size: 1.3rem;
+    }
+
+    .screenshot-caption p {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .feature-benefits-inline {
+      gap: 0.75rem;
+    }
+
+    .feature-benefits-inline span {
+      font-size: 0.9rem;
+      padding: 0.4rem 0.8rem;
+    }
+
     .problem-grid {
       grid-template-columns: 1fr;
       gap: 1.5rem;
@@ -703,6 +889,19 @@ const seo = generateSEO({
     .cta-note {
       flex-direction: column;
       gap: 0.25rem;
+    }
+
+    .modal-close {
+      top: 1rem;
+      right: 1rem;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+    }
+
+    .modal-content-img {
+      max-width: 95vw;
+      max-height: 85vh;
     }
   }
 </style>
