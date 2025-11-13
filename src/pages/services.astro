@@ -4,8 +4,8 @@ import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'Our Services - AI Automation & Custom Software',
-  description: 'From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations.',
+  title: 'AI Automation Services for Tourism & Hospitality | Jengu',
+  description: 'AI booking agents, customer service automation, workflow integrations, and custom software for hotels, tour operators, and travel agencies. See how we automate tourism operations.',
   canonical: `${Astro.site}services/`,
   ogType: 'website'
 });
@@ -23,9 +23,9 @@ const jsonLd = [
   <!-- Hero -->
   <section class="hero">
     <div class="hero-container">
-      <h1>Our <span class="gradient-text">Services</span></h1>
+      <h1>AI Automation <span class="gradient-text">Services</span> for Tourism Businesses</h1>
       <p>
-        From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations
+        We build custom AI agents, integrate your systems, and automate workflows—so you can focus on guests, not repetitive tasks
       </p>
     </div>
   </section>
@@ -40,71 +40,75 @@ const jsonLd = [
       </div>
 
       <div class="services-grid">
-        <!-- AI Chatbots & Phone Bots -->
+        <!-- AI Booking & Inquiry Agents -->
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-robot"></i>
           </div>
-          <h3>AI Chatbots & Phone Bots</h3>
-          <p>Custom-built conversational AI agents that handle guest communications 24/7 across text and voice channels.</p>
+          <h3>AI Booking & Inquiry Agents</h3>
+          <p>Custom AI chatbots and phone bots that handle reservations, answer questions, and provide 24/7 guest support across all channels.</p>
           <ul class="service-features">
-            <li>Natural language processing in 100+ languages</li>
-            <li>Voice AI for phone calls with human-like conversations</li>
-            <li>Website chat, WhatsApp, SMS integration</li>
-            <li>Booking, inquiries, and support automation</li>
-            <li>Seamless handoff to human agents when needed</li>
+            <li>Automated booking assistance with real-time availability</li>
+            <li>Multi-language support (40+ languages)</li>
+            <li>24/7 availability across web, WhatsApp, phone, SMS</li>
+            <li>Instant responses to availability and pricing questions</li>
+            <li>Automated confirmations, reminders, and follow-ups</li>
           </ul>
+          <p class="service-outcome"><strong>Outcome:</strong> Up to 30% more bookings, 80% of inquiries handled automatically</p>
           <a href="/contact" class="service-cta">Learn More →</a>
         </div>
 
-        <!-- Custom Software Development -->
+        <!-- Customer Support & FAQ Automation -->
         <div class="service-card">
           <div class="service-icon">
-            <i class="fas fa-code"></i>
+            <i class="fas fa-headset"></i>
           </div>
-          <h3>Custom Software Development</h3>
-          <p>Purpose-built applications designed specifically for your business workflows and operational needs.</p>
+          <h3>Customer Support & FAQ Automation</h3>
+          <p>AI-powered systems that answer common questions, handle email inquiries, and route complex issues to human agents automatically.</p>
           <ul class="service-features">
-            <li>Dynamic pricing engines with AI optimization</li>
-            <li>Custom booking and reservation systems</li>
-            <li>Inventory and resource management tools</li>
-            <li>Analytics dashboards and reporting platforms</li>
-            <li>Mobile apps for staff and guests</li>
+            <li>AI chatbots trained on your FAQs and policies</li>
+            <li>Automated email response systems</li>
+            <li>Multi-channel support (website, WhatsApp, SMS, phone)</li>
+            <li>Smart routing to human agents when needed</li>
+            <li>Sentiment analysis for urgent or negative issues</li>
           </ul>
+          <p class="service-outcome"><strong>Outcome:</strong> Response time reduced from hours to seconds, 40% lower call volumes</p>
           <a href="/contact" class="service-cta">Learn More →</a>
         </div>
 
-        <!-- API Integrations -->
+        <!-- Workflow & Back-Office Automation -->
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-network-wired"></i>
           </div>
-          <h3>API Integrations & Automation</h3>
-          <p>Connect your entire tech stack with intelligent workflows that eliminate manual data entry and errors.</p>
+          <h3>Workflow & Back-Office Automation</h3>
+          <p>API integrations and custom software that sync your systems, eliminate manual data entry, and streamline operations management.</p>
           <ul class="service-features">
-            <li>PMS, CRM, and booking engine integrations</li>
-            <li>Payment processor and accounting software sync</li>
-            <li>Channel manager and OTA connections</li>
-            <li>Email and communication platform automation</li>
-            <li>Custom middleware for legacy systems</li>
+            <li>API integrations with PMS, CRM, booking engines</li>
+            <li>Automated data sync across all systems</li>
+            <li>Custom software for operations management</li>
+            <li>Dynamic pricing engines with AI optimization</li>
+            <li>Inventory and resource management automation</li>
           </ul>
+          <p class="service-outcome"><strong>Outcome:</strong> 40+ hours saved weekly, eliminate manual data entry errors</p>
           <a href="/contact" class="service-cta">Learn More →</a>
         </div>
 
-        <!-- Email Automation -->
+        <!-- Multi-Channel Communication Automation -->
         <div class="service-card">
           <div class="service-icon">
             <i class="fas fa-envelope"></i>
           </div>
-          <h3>AI Email Management</h3>
-          <p>Intelligent email sorting, categorization, and auto-response systems that handle guest communications at scale.</p>
+          <h3>Multi-Channel Communication Automation</h3>
+          <p>Unified systems that manage email, WhatsApp, SMS, and all guest communications with automated workflows and personalized sequences.</p>
           <ul class="service-features">
-            <li>Smart inbox organization and prioritization</li>
-            <li>AI-generated responses with brand voice</li>
-            <li>Automatic categorization and routing</li>
-            <li>Sentiment analysis for urgent issues</li>
-            <li>Integration with ticketing systems</li>
+            <li>Unified inbox for all communication channels</li>
+            <li>Automated email sequences and drip campaigns</li>
+            <li>Booking confirmation and reminder workflows</li>
+            <li>Pre-arrival and post-stay communications</li>
+            <li>Review request automation and follow-ups</li>
           </ul>
+          <p class="service-outcome"><strong>Outcome:</strong> Consistent communication, improved guest satisfaction scores</p>
           <a href="/contact" class="service-cta">Learn More →</a>
         </div>
       </div>
@@ -190,10 +194,10 @@ const jsonLd = [
   <section class="content-section bg-main">
     <div class="section-container">
       <div class="cta-box">
-        <h2>Ready to Automate Your Operations?</h2>
-        <p>Calculate your potential ROI in just 2 minutes</p>
-        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
-          Calculate Your ROI <i class="fas fa-arrow-right"></i>
+        <h2>Ready to Automate Your Tourism Operations?</h2>
+        <p>Get a free automation plan tailored to your business. Book a 30-minute strategy call to discuss your needs.</p>
+        <a href="/contact" class="btn btn-primary">
+          Book Your Free Strategy Call <i class="fas fa-arrow-right"></i>
         </a>
       </div>
     </div>

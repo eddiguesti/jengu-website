@@ -2035,3 +2035,15 @@
         height: 32px;
       }
     }
+
+    /* Service Outcome Styling */
+    .service-outcome {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--primary-cta);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
