@@ -1673,27 +1673,30 @@
         font-size: 2.5rem;
       }
 
-      /* Show compact Spline robot on tablets */
+      /* Show compact Spline robot on tablets and mobile - Best Practices */
       .hero-visual {
         order: -1;
-        min-height: 350px;
+        min-height: 300px;
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         overflow: hidden;
-        background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
-                    radial-gradient(circle at 50% 80%, rgba(30, 64, 175, 0.08) 0%, transparent 50%);
+        background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+                    radial-gradient(circle at 50% 80%, rgba(30, 64, 175, 0.06) 0%, transparent 50%);
       }
 
       .spline-container {
         position: relative;
         width: 100%;
-        height: 350px;
-        max-width: 450px;
+        height: 300px;
+        max-width: 400px;
         margin: 0 auto;
-        transform: scale(0.85);
+        transform: scale(0.75);
         pointer-events: auto;
+        /* Performance optimization */
+        will-change: transform;
+        contain: layout style paint;
       }
 
       .spline-container iframe {
@@ -1701,6 +1704,16 @@
         height: 100%;
         border: none;
         display: block;
+        /* Improve loading performance */
+        loading: lazy;
+      }
+
+      /* Reduce motion for accessibility */
+      @media (prefers-reduced-motion: reduce) {
+        .spline-container {
+          transform: scale(0.75);
+          transition: none;
+        }
       }
 
       @keyframes floatOrb1 {
@@ -1748,6 +1761,17 @@
     @media (max-width: 768px) {
       .nav-links {
         display: none;
+      }
+
+      /* Further optimize robot for mobile phones */
+      .hero-visual {
+        min-height: 250px;
+      }
+
+      .spline-container {
+        height: 250px;
+        max-width: 350px;
+        transform: scale(0.65);
       }
 
       .hero h1 {

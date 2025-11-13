@@ -37,9 +37,14 @@ const jsonLd = [
         </div>
       </div>
       <div class="hero-visual">
-        <div class="spline-container">
+        <div class="spline-container" role="img" aria-label="Interactive 3D robot animation showcasing AI automation">
           <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
-          <spline-viewer url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode" style="width: 160%; height: 100vh;"></spline-viewer>
+          <spline-viewer
+            url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode"
+            style="width: 160%; height: 100vh;"
+            loading="lazy"
+            aria-label="3D animated robot demonstrating AI capabilities"
+          ></spline-viewer>
         </div>
       </div>
     </div>
