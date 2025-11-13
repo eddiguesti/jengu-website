@@ -4,8 +4,8 @@ import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'AI Automation Case Studies - Tourism Industry Results | Jengu',
-  description: 'See how hotels, campsites, and travel agencies increased bookings and reduced admin work with Jengu\'s AI automation. Real results: 35% less admin, 20% more revenue.',
+  title: 'Case Studies - Real Results from AI Automation',
+  description: 'See how tourism businesses transformed their operations with our AI automation solutions. Real results from hotels, resorts, and campsites.',
   canonical: `${Astro.site}case-studies/`,
   ogType: 'website'
 });
@@ -22,9 +22,9 @@ const jsonLd = [
 <BaseLayout seo={seo} jsonLd={jsonLd}>
   <section class="hero">
     <div class="hero-container">
-      <h1>Real Results from <span class="gradient-text">Tourism Businesses</span></h1>
+      <h1><span class="gradient-text">Real Results</span> from Real Businesses</h1>
       <p>
-        See how AI agents and automation helped tourism businesses increase bookings, reduce workload, and improve guest satisfaction
+        See how tourism businesses transformed their operations with our AI automation solutions
       </p>
     </div>
   </section>
@@ -32,11 +32,6 @@ const jsonLd = [
   <!-- Featured Case Study -->
   <section class="case-studies-section">
     <div class="section-container">
-      <div class="intro-text" style="margin-bottom: 3rem; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
-        <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary);">
-          These case studies show measurable results from tourism businesses that implemented Jengu's custom AI agents, workflow automation, and API integrations. Every solution was built specifically for their operations—not generic software.
-        </p>
-      </div>
       <div class="case-study-card">
         <div class="case-study-header">
           <span class="case-study-badge">Campsite Hospitality</span>
@@ -124,13 +119,13 @@ const jsonLd = [
     <div class="section-container">
       <div class="cta-box">
         <h2>Ready to Achieve Similar Results?</h2>
-        <p>See your potential ROI or schedule a free consultation to discuss how AI automation can transform your tourism business</p>
+        <p>Calculate your potential ROI or book a consultation to discuss your automation needs</p>
         <div class="cta-buttons">
           <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
             Calculate Your ROI <i class="fas fa-calculator"></i>
           </a>
           <a href="/contact" class="btn btn-secondary">
-            Book a Strategy Call <i class="fas fa-calendar"></i>
+            Book a Consultation <i class="fas fa-calendar"></i>
           </a>
         </div>
       </div>
