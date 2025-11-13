@@ -1,0 +1,347 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Histoires de Succès en Automatisation IA - Études de Cas Tourisme',
+  description: 'Comment Campasuns a réduit les tâches administratives de 35% avec suivi concurrentiel alimenté par IA et tarification dynamique. Résultats réels provenant d\'entreprises hôtelières utilisant l\'automatisation IA. Lire l\'étude de cas complète.',
+  canonical: `${Astro.site}fr/case-studies/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Accueil', url: Astro.site?.href || '' },
+    { name: 'Études de Cas', url: `${Astro.site}fr/case-studies/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1><span class="gradient-text">Des Résultats Réels</span> d'Entreprises Réelles</h1>
+      <p>
+        Découvrez comment les entreprises touristiques ont transformé leurs opérations grâce à nos solutions d'automatisation IA
+      </p>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="case-studies-section">
+    <div class="section-container">
+
+      <!-- Case Study 1: Campasuns -->
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="case-study-info">
+            <span class="case-study-badge">Hôtellerie de Camping</span>
+            <h2>Campasuns</h2>
+            <p class="case-study-subtitle">
+              Comment un exploitant de camping multi-sites a réalisé une réduction de 35% de la charge administrative et une augmentation de 20% des revenus grâce à l'automatisation alimentée par IA et à la tarification dynamique
+            </p>
+            <div class="case-study-meta">
+              <div class="meta-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>France</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-building"></i>
+                <span>Plusieurs Sites</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>Hôtellerie de Camping</span>
+              </div>
+            </div>
+          </div>
+          <div class="case-study-stats">
+            <div class="stat-box">
+              <span class="stat-value">35%</span>
+              <span class="stat-label">Réduction Administrative</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value">20%</span>
+              <span class="stat-label">Augmentation des Revenus</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value">25%</span>
+              <span class="stat-label">Amélioration de la Satisfaction</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-study-content">
+          <div class="case-study-section">
+            <h3>Le Défi</h3>
+            <p>
+              En gérant 8 campings dans le sud de la France, Campasuns a fait face à des inefficacités opérationnelles importantes qui entravaient la croissance et la rentabilité.
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h4>Goulots d'Étranglement dans la Communication</h4>
+                  <p>La gestion manuelle des e-mails a entraîné des réponses retardées, une qualité de communication incohérente et un personnel débordé pendant les saisons de pointe</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-tags"></i>
+                </div>
+                <div>
+                  <h4>Limitations des Tarifs Fixes</h4>
+                  <p>Les modèles de tarification fixes ne pouvaient pas s'adapter aux fluctuations du marché, aux changements concurrentiels, aux conditions météorologiques ou aux événements locaux, laissant des revenus sur la table</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                  <h4>Incohérences Opérationnelles</h4>
+                  <p>Les processus différents d'un site de camping à l'autre ont créé des inefficacités et rendu l'expansion difficile</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Notre Solution</h3>
+            <p>
+              Nous avons mis en œuvre une stratégie complète d'automatisation et d'optimisation qui a abordé chaque défi de manière systématique :
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+                <div>
+                  <h4>Cartographie et Optimisation des Processus</h4>
+                  <p>Nous avons utilisé Miro pour cartographier tous les processus métier entre les campings, identifier les inefficacités et standardiser les meilleures pratiques</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <div>
+                  <h4>Automatisation des E-mails par IA</h4>
+                  <p>Nous avons développé une application Python personnalisée intégrée à l'API OpenAI pour gérer automatiquement, catégoriser et répondre aux e-mails des clients 24/7</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                <div>
+                  <h4>Automatisation des Systèmes Opérationnels</h4>
+                  <p>Nous avons automatisé les tâches administratives répétitives et créé des flux de travail cohérents dans les 8 sites de camping</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div>
+                  <h4>Logiciel de Tarification Dynamique Personnalisé</h4>
+                  <p>Nous avons construit le premier moteur de tarification dynamique alimenté par IA spécifiquement conçu pour les campings, surveillant les concurrents, la météo, les événements et les données historiques pour optimiser les revenus</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Innovation en Tarification Dynamique</h3>
+            <p>
+              Le joyau de cette transformation était notre plateforme de tarification dynamique personnalisée, un système ML sophistiqué qui n'existe nulle part ailleurs dans l'industrie des campings. Les outils de tarification traditionnels ne pouvaient pas gérer les complexités uniques de la gestion des campings, nous avons donc construit un système de zéro.
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-binoculars"></i>
+                </div>
+                <div>
+                  <h4>Intelligence Concurrentielle</h4>
+                  <p>Découverte automatique des concurrents et suivi des prix via camping-and-co.com, surveillant les tarifs du marché dans des zones de rayon personnalisables</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cloud-sun-rain"></i>
+                </div>
+                <div>
+                  <h4>Enrichissement des Données Multi-Sources</h4>
+                  <p>Intégration en temps réel des prévisions météorologiques, calendriers de vacances, événements locaux et caractéristiques temporelles pour identifier les corrélations de prix</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                  <h4>Prédictions d'Apprentissage Automatique</h4>
+                  <p>Les algorithmes ML avancés analysent les modèles historiques, la gestion de la capacité et les conditions du marché pour prédire les prix optimaux alignés avec les objectifs métier</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-sliders-h"></i>
+                </div>
+                <div>
+                  <h4>Stratégies de Tarification Flexibles</h4>
+                  <p>Choisissez entre des approches de tarification conservatrices, équilibrées ou agressives avec des contrôles affinés pour la sensibilité à la demande et l'agressivité des prix</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Les Fonctionnalités de la Plateforme</h3>
+            <div class="results-grid">
+              <div class="result-card">
+                <h4>Moteur de Tarification Intelligent</h4>
+                <ul>
+                  <li>Tarification multi-stratégie (Conservatrice, Équilibrée, Agressive)</li>
+                  <li>Sensibilité à la demande personnalisable et agressivité des prix</li>
+                  <li>Optimisation des objectifs d'occupation (65%-90%)</li>
+                  <li>Horizons de prévision de 14 à 60 jours</li>
+                  <li>Visualisation de la chronologie d'optimisation des prix en temps réel</li>
+                </ul>
+              </div>
+              <div class="result-card">
+                <h4>Intelligence Pilotée par les Données</h4>
+                <ul>
+                  <li>Découverte automatique des concurrents dans un rayon personnalisé</li>
+                  <li>Intégration de données météorologiques (température, précipitations, ensoleillement)</li>
+                  <li>Superpositions de vacances et de congés scolaires</li>
+                  <li>Analyse des modèles de réservation historiques</li>
+                  <li>Prévisions de revenus et d'occupation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            "Jengu a construit quelque chose qui n'existait tout simplement pas dans l'industrie des campings, un moteur de tarification alimenté par l'IA qui comprend réellement notre marché. Le système surveille les concurrents, superpose les données météorologiques et de vacances, analyse des années de modèles de réservation et utilise l'apprentissage automatique pour prédire les prix optimaux. Cela a transformé la façon dont nous gérons la tarification sur nos 8 sites. Ce niveau d'intelligence était auparavant réservé aux hôtels, et maintenant nous l'avons adapté spécifiquement pour les campings."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">C</div>
+            <div class="author-info">
+              <h5>Direction de Campasuns</h5>
+              <p>Opérations de Camping Multi-sites, Sud de la France</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform Showcase -->
+        <div class="platform-showcase">
+          <div class="showcase-header">
+            <h3>À l'Intérieur de la Plateforme</h3>
+            <p>Explorez les fonctionnalités alimentées par l'IA qui rendent possible la tarification intelligente des campings</p>
+          </div>
+
+          <div class="screenshot-grid">
+            <!-- Competitor Discovery -->
+            <div class="screenshot-item">
+              <img src="/images/competitor-discovery.png" alt="Interface de Découverte des Concurrents" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-binoculars"></i> Découverte des Concurrents</h4>
+                <p>Découvrez et suivez automatiquement les campings concurrents dans un rayon personnalisable en utilisant les données de camping-and-co.com. Le système surveille 10+ concurrents en temps réel, suivi leurs stratégies de tarification et leur disponibilité pour prendre des décisions de tarification intelligentes.</p>
+              </div>
+            </div>
+
+            <!-- Data Enrichment -->
+            <div class="screenshot-item">
+              <img src="/images/data-enrichment.png" alt="Tableau de Bord d'Enrichissement des Données" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-database"></i> Enrichissement des Données Multi-Sources</h4>
+                <p>La plateforme enrichit les données de réservation historiques avec des informations météorologiques (température, précipitations, heures d'ensoleillement), des calendriers de vacances, des congés scolaires et des caractéristiques temporelles (jour de la semaine, saison, indicateurs de week-end). Toutes les sources de données sont automatiquement synchronisées et traitées pour l'analyse ML.</p>
+              </div>
+            </div>
+
+            <!-- Pricing Strategy -->
+            <div class="screenshot-item">
+              <img src="/images/pricing-strategy.png" alt="Sélection de Stratégie de Tarification" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-sliders-h"></i> Contrôles de Tarification Stratégiques</h4>
+                <p>Choisissez parmi les stratégies de tarification conservatrice, équilibrée ou agressive avec des contrôles affinés pour la sensibilité à la demande (30%-90%), l'agressivité des prix (40%-100%) et les objectifs d'occupation (65%-90%). Chaque stratégie s'adapte dynamiquement en fonction de la demande prévue et des conditions du marché.</p>
+              </div>
+            </div>
+
+            <!-- Price Optimization -->
+            <div class="screenshot-item">
+              <img src="/images/price-optimization.png" alt="Chronologie d'Optimisation des Prix" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-chart-area"></i> Optimisation des Prix Alimentée par ML</h4>
+                <p>Les algorithmes d'apprentissage automatique avancés analysent les prévisions de demande, la tarification concurrente, les modèles météorologiques et les corrélations historiques pour prédire les prix optimaux jusqu'à 60 jours à l'avance. La visualisation montre la tarification actuelle par rapport à la tarification optimisée, superposée avec les prévisions de demande, permettant des décisions de tarification basées sur les données.</p>
+              </div>
+            </div>
+
+            <!-- Revenue & Occupancy Forecasts -->
+            <div class="screenshot-item">
+              <img src="/images/forecasting.png" alt="Prévisions des Revenus et de l'Occupation" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-chart-line"></i> Prévisions des Revenus et de l'Occupation</h4>
+                <p>Les graphiques de prévision doubles comparent les projections actuelles de revenus/occupation aux prédictions optimisées par ML. Le système fournit des prévisions de 14 jours montrant les augmentations potentielles des revenus et les améliorations d'occupation, aidant les responsables à prendre des décisions éclairées en matière de capacité et de tarification.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+    <button class="modal-close" onclick="closeImageModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <img src="" alt="Platform Screenshot" class="modal-content-img" id="modalImage">
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-container">
+      <h2>Prêt à Écrire Votre <span class="gradient-text">Histoire de Succès?</span></h2>
+      <p>
+        Découvrez combien de temps et d'argent l'automatisation IA peut économiser à votre entreprise. Obtenez votre calcul de ROI personnalisé en 2 minutes.
+      </p>
+      <a href="/#calculator" onclick="openCalculatorModal(); return false;" class="cta-button">
+        <i class="fas fa-calculator"></i> Calculer Votre ROI
+      </a>
+    </div>
+  </section>
+
+  <!-- JavaScript for Image Modal -->
+  <script is:inline>
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImg.src = src;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+  </script>
+</BaseLayout>

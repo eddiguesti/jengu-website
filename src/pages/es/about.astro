@@ -1,0 +1,177 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Acerca de Jengu - Expertos en Automatización de IA para Turismo',
+  description: 'Ayudamos a empresas de turismo a automatizar operaciones con agentes de IA personalizados. Especializados en hostelería, agencias de viajes, DMCs y operadores turísticos. Basados en Reino Unido y Europa, sirviendo clientes en todo el mundo.',
+  canonical: `${Astro.site}es/about/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Inicio', url: Astro.site?.href || '' },
+    { name: 'Acerca de', url: `${Astro.site}es/about/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Acerca de <span class="gradient-text">Jengu</span></h1>
+      <p>
+        Estamos en una misión para transformar el turismo y la hostelería mediante automatización inteligente de IA, desarrollo de software personalizado e integraciones de API sin problemas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="content-section bg-light">
+    <div class="section-container">
+      <div class="mission-vision-grid">
+        <div class="mission-card">
+          <div class="mission-card-icon">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3>Nuestra Misión</h3>
+          <p>
+            Empoderar a empresas de turismo y hostelería con agentes de IA de última generación, software personalizado y automatización inteligente que transforma operaciones, maximiza ingresos y crea experiencias excepcionales para los huéspedes.
+          </p>
+        </div>
+        <div class="mission-card">
+          <div class="mission-card-icon">
+            <i class="fas fa-eye"></i>
+          </div>
+          <h3>Nuestra Visión</h3>
+          <p>
+            Ser el proveedor líder de soluciones impulsadas por IA en la industria del turismo, permitiendo que cada negocio, desde hoteles boutique hasta grandes resorts, aproveche el poder de la inteligencia artificial y la automatización.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Nuestra Historia</span>
+        <h2>Cómo Nació Jengu</h2>
+        <p>
+          Fundada por un equipo de ingenieros de IA y expertos en hostelería, Jengu surgió de una observación simple: las empresas de turismo dedican innumerables horas a tareas repetitivas que podrían automatizarse, impidiéndoles enfocarse en lo que realmente importa: sus huéspedes.
+        </p>
+      </div>
+      <div class="mission-card">
+        <p style="font-size: 1.1rem; line-height: 1.9; color: var(--gray); margin-bottom: 1.5rem;">
+          Después de años construyendo sistemas de IA para empresas Fortune 500, vimos una oportunidad de llevar automatización a nivel empresarial a la industria del turismo. Nos dimos cuenta de que hoteles, resorts, campings y agencias de viajes estaban ahogados en correos electrónicos, luchaban con sistemas de reservas obsoletos y perdían oportunidades de ingresos debido a procesos manuales.
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.9; color: var(--gray);">
+          Hoy en día, construimos chatbots de IA personalizados, bots telefónicos, sistemas de automatización de correos electrónicos, motores de precios dinámicos e integraciones API completas que conectan toda tu pila tecnológica. Cada solución se adapta a tus necesidades comerciales específicas, asegurando que obtengas exactamente lo que necesitas, nada más y nada menos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Values -->
+  <section class="content-section bg-light">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Nuestros Valores</span>
+        <h2>Qué nos Impulsa</h2>
+        <p>
+          Estos principios fundamentales guían todo lo que hacemos en Jengu
+        </p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <h4>Innovación Primero</h4>
+          <p>Aprovechamos las tecnologías de IA más recientes para construir soluciones que están años por delante del software tradicional.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4>Centrado en el Cliente</h4>
+          <p>Cada solución se construye personalizadamente alrededor de tus flujos de trabajo específicos, desafíos y objetivos comerciales.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h4>Seguridad y Privacidad</h4>
+          <p>Encriptación a nivel bancario, cumplimiento del RGPD y estándares de seguridad empresarial en cada sistema que construimos.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h4>Orientado a Resultados</h4>
+          <p>Medimos el éxito por tu ROI: tiempo ahorrado, ingresos aumentados y costos reducidos.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h4>Asociación a Largo Plazo</h4>
+          <p>Proporcionamos soporte continuo, capacitación y optimización para asegurar que tus sistemas evolucionen con tu negocio.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h4>Transparencia</h4>
+          <p>Precios claros, plazos honestos y comunicación directa en cada paso del proceso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Impacto y Crecimiento</span>
+        <h2>Jengu por los Números</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Clientes en Todo el Mundo</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">£50M+</span>
+          <span class="stat-label">Ahorrados para Clientes</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">1M+</span>
+          <span class="stat-label">Horas Automatizadas</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">98%</span>
+          <span class="stat-label">Satisfacción del Cliente</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="cta-box">
+        <h2>¿Listo para Transformar tu Negocio?</h2>
+        <p>Calcula tu ROI potencial en solo 2 minutos</p>
+        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
+          Calcula tu ROI <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

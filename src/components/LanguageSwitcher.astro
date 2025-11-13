@@ -1,0 +1,182 @@
+---
+import { getLocaleFromUrl } from '../i18n';
+
+const currentPath = Astro.url.pathname;
+const currentLocale = getLocaleFromUrl(currentPath);
+
+// Extract the path without locale prefix
+let basePath = currentPath;
+if (currentPath.startsWith('/fr/')) {
+  basePath = currentPath.substring(3);
+} else if (currentPath.startsWith('/es/')) {
+  basePath = currentPath.substring(3);
+}
+
+// Ensure basePath starts with /
+if (!basePath.startsWith('/')) {
+  basePath = '/' + basePath;
+}
+
+// Remove trailing slash if present (except for root)
+if (basePath !== '/' && basePath.endsWith('/')) {
+  basePath = basePath.slice(0, -1);
+}
+
+const enPath = basePath;
+const frPath = '/fr' + basePath;
+const esPath = '/es' + basePath;
+---
+
+<div class="language-switcher">
+  <button class="lang-toggle" id="langToggle">
+    <i class="fas fa-globe"></i>
+    <span class="current-lang">{currentLocale.toUpperCase()}</span>
+    <i class="fas fa-chevron-down"></i>
+  </button>
+  <div class="lang-dropdown" id="langDropdown">
+    <a href={enPath} class={currentLocale === 'en' ? 'lang-option active' : 'lang-option'}>
+      <span class="lang-flag">🇬🇧</span>
+      <span>English</span>
+    </a>
+    <a href={frPath} class={currentLocale === 'fr' ? 'lang-option active' : 'lang-option'}>
+      <span class="lang-flag">🇫🇷</span>
+      <span>Français</span>
+    </a>
+    <a href={esPath} class={currentLocale === 'es' ? 'lang-option active' : 'lang-option'}>
+      <span class="lang-flag">🇪🇸</span>
+      <span>Español</span>
+    </a>
+  </div>
+</div>
+
+<style>
+  .language-switcher {
+    position: relative;
+    display: inline-block;
+  }
+
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .lang-toggle:hover {
+    background: var(--bg-card);
+    border-color: var(--primary-cta);
+  }
+
+  .current-lang {
+    font-weight: 600;
+    min-width: 24px;
+  }
+
+  .lang-toggle i:last-child {
+    font-size: 0.75rem;
+    transition: transform 0.3s ease;
+  }
+
+  .lang-toggle.active i:last-child {
+    transform: rotate(180deg);
+  }
+
+  .lang-dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  .lang-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .lang-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .lang-option:last-child {
+    border-bottom: none;
+  }
+
+  .lang-option:hover {
+    background: var(--bg-elevated);
+  }
+
+  .lang-option.active {
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(74, 0, 224, 0.1) 100%);
+    color: var(--primary-cta);
+    font-weight: 600;
+  }
+
+  .lang-flag {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  @media (max-width: 768px) {
+    .lang-toggle {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .lang-dropdown {
+      min-width: 160px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const langToggle = document.getElementById('langToggle');
+    const langDropdown = document.getElementById('langDropdown');
+
+    if (langToggle && langDropdown) {
+      langToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langToggle.classList.toggle('active');
+        langDropdown.classList.toggle('show');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', () => {
+        langToggle.classList.remove('active');
+        langDropdown.classList.remove('show');
+      });
+
+      // Prevent dropdown from closing when clicking inside it
+      langDropdown.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+  });
+</script>

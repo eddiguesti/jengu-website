@@ -4,8 +4,8 @@ import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateWebSiteSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'AI Agents for Hotels, Travel Agencies & Tourism Businesses | Jengu',
-  description: 'Custom AI agents that automate bookings, customer support, and operations for tourism businesses. Increase conversions by up to 30% and save 40+ hours weekly. Get your free ROI plan.',
+  title: 'AI Automation for Tourism & Hospitality',
+  description: 'Transform your tourism business with custom AI agents. Automate bookings, customer support & operations. Boost conversions by 30%, save 40+ hours weekly. Free ROI calculator & consultation.',
   canonical: Astro.site?.href,
   ogType: 'website'
 });
@@ -17,7 +17,7 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <section class="hero">
+  <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
         <span class="hero-badge">Custom AI Agents for Tourism & Hospitality</span>
@@ -280,53 +280,103 @@ const jsonLd = [
 
       <div class="faq-grid">
         <div class="faq-item">
-          <h3>What is an AI agent for tourism businesses?</h3>
-          <p>An AI agent is custom software that uses artificial intelligence to handle specific tasks automatically—like answering booking inquiries, processing reservations, managing customer support, or syncing data between your systems. Unlike generic chatbots, Jengu's AI agents are built specifically for your tourism business, trained on your services, policies, and guest data to provide accurate, personalized responses 24/7.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>What is an AI agent for tourism businesses?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>An AI agent is custom software that uses artificial intelligence to handle specific tasks automatically—like answering booking inquiries, processing reservations, managing customer support, or syncing data between your systems. Unlike generic chatbots, Jengu's AI agents are built specifically for your tourism business, trained on your services, policies, and guest data to provide accurate, personalized responses 24/7.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>Which types of tourism companies does Jengu work with?</h3>
-          <p>We work with hotels, resorts, boutique accommodations, campsites, holiday parks, tour operators, travel agencies, DMCs (Destination Management Companies), and activity providers across the UK, Europe, and beyond. Any tourism business that handles bookings, customer inquiries, or repetitive admin work can benefit from AI automation.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>Which types of tourism companies does Jengu work with?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>We work with hotels, resorts, boutique accommodations, campsites, holiday parks, tour operators, travel agencies, DMCs (Destination Management Companies), and activity providers across the UK, Europe, and beyond. Any tourism business that handles bookings, customer inquiries, or repetitive admin work can benefit from AI automation.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>What tasks can Jengu's AI agents automate?</h3>
-          <p>Common automation tasks include: booking inquiries and reservations (web, WhatsApp, phone, email), customer support and FAQ responses (24/7, multi-language), email management and categorization, booking confirmations and reminders, pre-arrival and check-in communications, review requests and follow-ups, data entry and system synchronization, dynamic pricing adjustments, and inventory and availability management.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>What tasks can Jengu's AI agents automate?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Common automation tasks include: booking inquiries and reservations (web, WhatsApp, phone, email), customer support and FAQ responses (24/7, multi-language), email management and categorization, booking confirmations and reminders, pre-arrival and check-in communications, review requests and follow-ups, data entry and system synchronization, dynamic pricing adjustments, and inventory and availability management.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>How long does it take to go live with AI automation?</h3>
-          <p>Most projects go from initial consultation to live deployment in 2-6 weeks, depending on complexity. Simple chatbots and email automation can launch in 2-3 weeks. Custom software and complex API integrations typically take 4-6 weeks. Unlike enterprise software implementations, we focus on fast deployment with immediate results.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>How long does it take to go live with AI automation?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Most projects go from initial consultation to live deployment in 2-6 weeks, depending on complexity. Simple chatbots and email automation can launch in 2-3 weeks. Custom software and complex API integrations typically take 4-6 weeks. Unlike enterprise software implementations, we focus on fast deployment with immediate results.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>What systems can you integrate with?</h3>
-          <p>We integrate with most tourism technology systems via API, including Property Management Systems (PMS), booking engines and channel managers, CRMs, email platforms (Gmail, Outlook, etc.), payment processors, accounting software, review platforms, and communication tools (WhatsApp Business API, SMS gateways). If a system doesn't have an API, we can often build custom integrations using webhooks, data scraping, or middleware solutions.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>What systems can you integrate with?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>We integrate with most tourism technology systems via API, including Property Management Systems (PMS), booking engines and channel managers, CRMs, email platforms (Gmail, Outlook, etc.), payment processors, accounting software, review platforms, and communication tools (WhatsApp Business API, SMS gateways). If a system doesn't have an API, we can often build custom integrations using webhooks, data scraping, or middleware solutions.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>How do you measure the ROI of AI automation?</h3>
-          <p>We track ROI through three key metrics: (1) Time Savings - hours saved per week on repetitive tasks (typically 40+ hours), (2) Revenue Increase - more bookings from 24/7 availability and faster responses (up to 30% improvement), and (3) Cost Reduction - lower labor costs from automation (varies by business size). Use our ROI calculator to see your specific potential savings based on your current operations. Most clients see 300-500% ROI within their first year.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>How do you measure the ROI of AI automation?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>We track ROI through three key metrics: (1) Time Savings - hours saved per week on repetitive tasks (typically 40+ hours), (2) Revenue Increase - more bookings from 24/7 availability and faster responses (up to 30% improvement), and (3) Cost Reduction - lower labor costs from automation (varies by business size). Use our ROI calculator to see your specific potential savings based on your current operations. Most clients see 300-500% ROI within their first year.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>Do AI agents replace staff or support them?</h3>
-          <p>AI agents support your staff, not replace them. They handle repetitive, time-consuming tasks (routine inquiries, data entry, confirmations) so your team can focus on high-value activities—complex guest needs, personalized service, upselling, and creating memorable experiences. Many tourism businesses use AI automation to avoid hiring additional admin staff as they grow.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>Do AI agents replace staff or support them?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>AI agents support your staff, not replace them. They handle repetitive, time-consuming tasks (routine inquiries, data entry, confirmations) so your team can focus on high-value activities—complex guest needs, personalized service, upselling, and creating memorable experiences. Many tourism businesses use AI automation to avoid hiring additional admin staff as they grow.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>What if the AI agent doesn't know how to answer a question?</h3>
-          <p>Our AI agents are designed with intelligent escalation. If a question is too complex, requires human judgment, or falls outside the AI's training, it automatically routes the conversation to your team with full context. This ensures guests always get accurate answers while your staff only handles questions that truly need human expertise.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>What if the AI agent doesn't know how to answer a question?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Our AI agents are designed with intelligent escalation. If a question is too complex, requires human judgment, or falls outside the AI's training, it automatically routes the conversation to your team with full context. This ensures guests always get accurate answers while your staff only handles questions that truly need human expertise.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>Is my guest data secure?</h3>
-          <p>Yes. We implement bank-level security with AES-256 encryption for data at rest, TLS 1.3 encryption for data in transit, GDPR compliance built-in, data stored in EU/UK/US regions (your choice), regular security audits, 99.9% uptime SLA, and role-based access controls.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>Is my guest data secure?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Yes. We implement bank-level security with AES-256 encryption for data at rest, TLS 1.3 encryption for data in transit, GDPR compliance built-in, data stored in EU/UK/US regions (your choice), regular security audits, 99.9% uptime SLA, and role-based access controls.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>How much does AI automation cost?</h3>
-          <p>Pricing varies based on your specific needs—complexity of AI agents, number of integrations, and custom features required. We provide clear, transparent quotes before we start. We focus on measurable ROI: if automation saves you 40 hours weekly at £15/hour, that's £2,400/month in value. Most projects deliver 3-10x return on investment. Use our calculator for a personalized estimate.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>How much does AI automation cost?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Pricing varies based on your specific needs—complexity of AI agents, number of integrations, and custom features required. We provide clear, transparent quotes before we start. We focus on measurable ROI: if automation saves you 40 hours weekly at £15/hour, that's £2,400/month in value. Most projects deliver 3-10x return on investment. Use our calculator for a personalized estimate.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -348,25 +398,65 @@ const jsonLd = [
     .faq-item {
       background: var(--bg-card);
       border-radius: 16px;
-      padding: 2rem;
+      padding: 0;
       box-shadow: var(--shadow-md);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
     }
 
     .faq-item:hover {
-      transform: translateY(-4px);
+      border-color: var(--border-medium);
       box-shadow: var(--shadow-lg);
     }
 
-    .faq-item h3 {
-      font-size: 1.3rem;
+    .faq-item.active {
+      border-color: var(--primary-cta);
+      box-shadow: 0 8px 30px rgba(138, 43, 226, 0.15);
+    }
+
+    .faq-question-home {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.75rem 2rem;
+      background: transparent;
+      border: none;
       color: var(--text-primary);
-      margin-bottom: 1rem;
+      font-size: 1.25rem;
       font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
       line-height: 1.4;
     }
 
-    .faq-item p {
+    .faq-question-home:hover {
+      color: var(--primary-cta);
+    }
+
+    .faq-question-home span {
+      flex: 1;
+    }
+
+    .faq-question-home i {
+      font-size: 1.2rem;
+      color: var(--primary-cta);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-answer-home {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-answer-home p {
+      padding: 0 2rem 1.75rem;
       font-size: 1.05rem;
       line-height: 1.8;
       color: var(--text-secondary);
@@ -444,6 +534,45 @@ const jsonLd = [
 
   <!-- Feature Data for Modal -->
   <script is:inline>
+    // Homepage FAQ Toggle Function
+    function toggleHomeFAQ(button) {
+      const faqItem = button.parentElement;
+      const answer = faqItem.querySelector('.faq-answer-home');
+      const icon = button.querySelector('i');
+      const isActive = faqItem.classList.contains('active');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem && item.classList.contains('active')) {
+          item.classList.remove('active');
+          const otherAnswer = item.querySelector('.faq-answer-home');
+          const otherIcon = item.querySelector('i');
+          if (otherAnswer) otherAnswer.style.maxHeight = '0';
+          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle current FAQ
+      if (isActive) {
+        // Close this FAQ
+        faqItem.classList.remove('active');
+        answer.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        // Open this FAQ - answer pops out underneath
+        faqItem.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    // Initialize on page load - ensure all answers start closed
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.faq-answer-home').forEach(answer => {
+        answer.style.maxHeight = '0';
+      });
+    });
+
     // Feature modal data
     window.featureData = {
       email: {

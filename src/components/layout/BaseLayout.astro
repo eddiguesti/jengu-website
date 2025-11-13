@@ -1,6 +1,8 @@
 ---
 import SEOHead from '../seo/SEOHead.astro';
 import JsonLd from '../seo/JsonLd.astro';
+import Hreflang from '../seo/Hreflang.astro';
+import LanguageSwitcher from '../LanguageSwitcher.astro';
 import type { SEOConfig } from '../../lib/seo/metadata';
 import '../../styles/landing.css';
 
@@ -10,6 +12,7 @@ interface Props {
 }
 
 const { seo, jsonLd } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -29,6 +32,7 @@ const { seo, jsonLd } = Astro.props;
 
   <!-- SEO -->
   <SEOHead seo={seo} />
+  <Hreflang currentPath={currentPath} />
   {jsonLd && <JsonLd schema={jsonLd} />}
 </head>
 <body>
@@ -43,10 +47,14 @@ const { seo, jsonLd } = Astro.props;
         <li><a href="/about">About</a></li>
         <li><a href="/services">Services</a></li>
         <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/faq">FAQ</a></li>
         <li><a href="/team">Team</a></li>
         <li><a href="/contact">Contact</a></li>
       </ul>
-      <a href="#calculator" class="nav-cta">Calculate ROI</a>
+      <div class="nav-actions">
+        <LanguageSwitcher />
+        <a href="#calculator" class="nav-cta">Calculate ROI</a>
+      </div>
     </div>
   </nav>
 
@@ -78,6 +86,7 @@ const { seo, jsonLd } = Astro.props;
         <h4>Resources</h4>
         <ul class="footer-links">
           <li><a href="/case-studies">Case Studies</a></li>
+          <li><a href="/faq">FAQ</a></li>
           <li><a href="#calculator">ROI Calculator</a></li>
           <li><a href="/contact">Contact Us</a></li>
         </ul>

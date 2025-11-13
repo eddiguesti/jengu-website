@@ -1,0 +1,643 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateWebSiteSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Automatización con IA para Turismo y Hospitalidad',
+  description: 'Transforme su negocio turístico con agentes de IA personalizados. Automatice reservas, atención al cliente y operaciones. Aumente conversiones hasta 30%, ahorre 40+ horas semanales. Calculadora ROI y consulta gratis.',
+  canonical: '/es/',
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateWebSiteSchema()
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero hero-home">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge">Agentes de IA Personalizados para Turismo y Hospitalidad</span>
+        <h1>
+          Aumente Reservas y Automatice su <span class="gradient-text">Negocio Turístico</span> con Agentes de IA
+        </h1>
+        <p>
+          Construimos agentes de IA personalizados que gestionan reservas, consultas de clientes y tareas administrativas repetitivas para hoteles, operadores turísticos, agencias de viajes y DMCs. Aumente conversiones hasta 30%, ahorre 40+ horas semanales y ofrezca servicio instantáneo 24/7.
+        </p>
+        <div class="hero-cta-group">
+          <a href="/contact" class="btn btn-primary">
+            Obtenga su Plan de Automatización IA Gratis <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#" onclick="openCalculatorModal(); return false;" class="btn btn-secondary">
+            Calcule su ROI en 2 Minutos
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="spline-container">
+          <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+          <spline-viewer url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode" style="width: 160%; height: 100vh;"></spline-viewer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-card animate-on-scroll">
+        <span class="stat-number">Hasta 30%</span>
+        <span class="stat-label">Aumento en Conversión de Reservas</span>
+      </div>
+      <div class="stat-card animate-on-scroll" style="transition-delay: 0.1s;">
+        <span class="stat-number">80%</span>
+        <span class="stat-label">Consultas de Clientes Automatizadas</span>
+      </div>
+      <div class="stat-card animate-on-scroll" style="transition-delay: 0.2s;">
+        <span class="stat-number">Segundos</span>
+        <span class="stat-label">Tiempo de Respuesta (vs. 15-20 min)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-header">
+      <span class="section-badge">Lo Que Construimos</span>
+      <h2>Soluciones de IA Personalizadas Que Gestionan Sus Operaciones Diarias</h2>
+      <p>Construimos agentes de IA, conectamos sus sistemas vía APIs y desarrollamos software personalizado—todo adaptado para resolver los desafíos específicos de su negocio turístico</p>
+    </div>
+    <div class="features-grid">
+      <!-- Top Row: 4 Cards -->
+      <div class="features-row features-row-top">
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('email')">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>Automatización de Email y Comunicaciones con IA</h3>
+          <p>Gestione emails, chat en vivo y llamadas telefónicas automáticamente—reduzca el tiempo de respuesta de horas a segundos</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('pricing')">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Software de Automatización Personalizado</h3>
+          <p>Motores de precios dinámicos, sistemas de reservas y herramientas de flujo de trabajo construidos específicamente para su negocio turístico</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('booking')">
+          <div class="feature-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3>Agentes de IA para Reservas y Soporte</h3>
+          <p>Chatbots y bots telefónicos que gestionan reservas, responden preguntas y brindan soporte 24/7 a los huéspedes</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('integration')">
+          <div class="feature-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>Integraciones API y Flujos de Trabajo</h3>
+          <p>Conecte sus sistemas de reservas, CRM, email y más—elimine la entrada manual de datos y tareas repetitivas</p>
+        </div>
+      </div>
+
+      <!-- Bottom Row: 2 Cards -->
+      <div class="features-row features-row-bottom">
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('security')">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Seguridad Empresarial</h3>
+          <p>Encriptación de nivel bancario, cumplimiento GDPR, SLA garantizado de 99.9% de disponibilidad</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('support')">
+          <div class="feature-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Capacitación e Implementación</h3>
+          <p>Capacitación integral y soporte continuo para asegurar que su equipo domine el sistema</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits">
+    <div class="benefits-container">
+      <div class="benefits-content animate-on-scroll">
+        <span class="section-badge">Resultados Medibles</span>
+        <h2>Cómo los Agentes de IA Transforman las Operaciones Turísticas</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+          Construimos agentes de IA personalizados, integramos sus sistemas y automatizamos flujos de trabajo. Los negocios turísticos que utilizan automatización con IA ven mejoras inmediatas y medibles:
+        </p>
+        <ul class="benefits-list">
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>40+ Horas Ahorradas Semanalmente</h4>
+              <p>Los agentes de IA gestionan automáticamente el 80% de las consultas rutinarias de huéspedes—preguntas de reservas, FAQs, confirmaciones y solicitudes de soporte—liberando a su equipo para enfocarse en necesidades complejas y la experiencia del huésped</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-pound-sign"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>Hasta 30% Más Reservas</h4>
+              <p>Los agentes de IA para reservas proporcionan respuestas instantáneas 24/7 en todos los canales—web, WhatsApp, teléfono—capturando oportunidades que de otro modo se perderían por tiempos de respuesta lentos o consultas fuera de horario</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-smile"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>Tiempo de Respuesta: Segundos No Horas</h4>
+              <p>Los chatbots y bots telefónicos personalizados con IA responden preguntas de huéspedes instantáneamente en lugar de la típica espera de 15-20 minutos—mejorando la satisfacción mientras reducen el volumen de llamadas en más del 40%</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>ROI en 3-4 Meses</h4>
+              <p>La mayoría de los negocios turísticos ven un ROI de 300-500% en su primer año gracias a la reducción de costos laborales, aumento de reservas y ganancias en eficiencia operativa</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="benefits-visual animate-on-scroll">
+        <div class="roi-preview" id="roiPreview">
+          <h3>Resultados Típicos de Clientes</h3>
+          <div class="roi-metric">
+            <div class="roi-label">
+              <span>Ahorro en Costos Laborales</span>
+              <span><strong>£85,000/año</strong></span>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-fill" style="--width: 85%;"></div>
+            </div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-label">
+              <span>Aumento de Ingresos</span>
+              <span><strong>£65,000/año</strong></span>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-fill" style="--width: 65%;"></div>
+            </div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-label">
+              <span>Impulso de Conversión</span>
+              <span><strong>£45,000/año</strong></span>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-fill" style="--width: 45%;"></div>
+            </div>
+          </div>
+          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f0f0f0;">
+            <div class="roi-label" style="margin-bottom: 0;">
+              <span style="font-weight: 700; color: var(--text-primary); font-size: 1.1rem;">Beneficio Anual Total</span>
+              <span style="font-weight: 900; color: var(--primary-cta); font-size: 1.5rem;">£195,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Calculator Section -->
+  <section class="cta-calculator" id="calculator">
+    <div class="cta-content">
+      <h2>
+        Calcule <span class="gradient-text">Su ROI de Automatización</span>
+      </h2>
+      <p>
+        Vea cuánto tiempo y dinero podría ahorrar su negocio turístico con agentes de IA y automatización. Obtenga su cálculo de ROI personalizado en 2 minutos—sin registro requerido.
+      </p>
+      <a href="#" onclick="openCalculatorModal(); return false;" class="cta-btn-large">
+        <i class="fas fa-calculator"></i>
+        Iniciar Calculadora
+      </a>
+      <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.7;">
+        Sin registro requerido • Toma 2 minutos • Resultados instantáneos
+      </p>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="social-proof">
+    <div class="section-header">
+      <span class="section-badge">Especialistas en Turismo y Hospitalidad</span>
+      <h2>Por Qué los Negocios Turísticos Eligen Jengu</h2>
+    </div>
+    <div class="trust-badges">
+      <div class="trust-badge animate-on-scroll">
+        <div class="trust-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <h4>Construcción Personalizada</h4>
+        <p>Cada solución está adaptada específicamente a su negocio - sin plantillas genéricas o paquetes únicos para todos</p>
+      </div>
+      <div class="trust-badge animate-on-scroll" style="transition-delay: 0.1s;">
+        <div class="trust-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <h4>Implementación Rápida</h4>
+        <p>De la consulta a la implementación en vivo en 2-6 semanas - obtenga resultados rápidamente sin largos ciclos de ventas empresariales</p>
+      </div>
+      <div class="trust-badge animate-on-scroll" style="transition-delay: 0.2s;">
+        <div class="trust-icon">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <h4>Precios Transparentes</h4>
+        <p>Cotizaciones de proyecto claras sin cargos ocultos - sepa exactamente lo que está pagando antes de comenzar</p>
+      </div>
+      <div class="trust-badge animate-on-scroll" style="transition-delay: 0.3s;">
+        <div class="trust-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h4>Cumplimiento GDPR</h4>
+        <p>Cumplimiento total con las regulaciones de protección de datos del Reino Unido y la UE integrado en cada solución</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Preguntas Comunes</span>
+        <h2>Preguntas Frecuentes Sobre Automatización con IA</h2>
+        <p>Todo lo que necesita saber sobre implementar agentes de IA y automatización para su negocio turístico</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>¿Qué es un agente de IA para negocios turísticos?</h3>
+          <p>Un agente de IA es software personalizado que utiliza inteligencia artificial para manejar tareas específicas automáticamente—como responder consultas de reservas, procesar reservaciones, gestionar soporte al cliente o sincronizar datos entre sus sistemas. A diferencia de los chatbots genéricos, los agentes de IA de Jengu están construidos específicamente para su negocio turístico, entrenados con sus servicios, políticas y datos de huéspedes para proporcionar respuestas precisas y personalizadas 24/7.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Con qué tipos de empresas turísticas trabaja Jengu?</h3>
+          <p>Trabajamos con hoteles, resorts, alojamientos boutique, campamentos, parques vacacionales, operadores turísticos, agencias de viajes, DMCs (Empresas de Gestión de Destinos) y proveedores de actividades en el Reino Unido, Europa y más allá. Cualquier negocio turístico que maneje reservas, consultas de clientes o trabajo administrativo repetitivo puede beneficiarse de la automatización con IA.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué tareas pueden automatizar los agentes de IA de Jengu?</h3>
+          <p>Las tareas comunes de automatización incluyen: consultas y reservas (web, WhatsApp, teléfono, email), soporte al cliente y respuestas a FAQs (24/7, multiidioma), gestión y categorización de emails, confirmaciones y recordatorios de reservas, comunicaciones previas a la llegada y check-in, solicitudes de reseñas y seguimientos, entrada de datos y sincronización de sistemas, ajustes de precios dinámicos y gestión de inventario y disponibilidad.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cuánto tiempo toma poner en marcha la automatización con IA?</h3>
+          <p>La mayoría de los proyectos van desde la consulta inicial hasta la implementación en vivo en 2-6 semanas, dependiendo de la complejidad. Los chatbots simples y la automatización de email pueden lanzarse en 2-3 semanas. El software personalizado y las integraciones API complejas típicamente toman 4-6 semanas. A diferencia de las implementaciones de software empresarial, nos enfocamos en implementación rápida con resultados inmediatos.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Con qué sistemas pueden integrarse?</h3>
+          <p>Nos integramos con la mayoría de los sistemas tecnológicos turísticos vía API, incluyendo Sistemas de Gestión de Propiedades (PMS), motores de reservas y channel managers, CRMs, plataformas de email (Gmail, Outlook, etc.), procesadores de pago, software de contabilidad, plataformas de reseñas y herramientas de comunicación (WhatsApp Business API, gateways SMS). Si un sistema no tiene API, a menudo podemos construir integraciones personalizadas usando webhooks, scraping de datos o soluciones middleware.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cómo miden el ROI de la automatización con IA?</h3>
+          <p>Rastreamos el ROI a través de tres métricas clave: (1) Ahorro de Tiempo - horas ahorradas por semana en tareas repetitivas (típicamente 40+ horas), (2) Aumento de Ingresos - más reservas gracias a la disponibilidad 24/7 y respuestas más rápidas (hasta 30% de mejora), y (3) Reducción de Costos - menores costos laborales gracias a la automatización (varía según el tamaño del negocio). Use nuestra calculadora ROI para ver sus ahorros potenciales específicos basados en sus operaciones actuales. La mayoría de los clientes ven un ROI de 300-500% en su primer año.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Los agentes de IA reemplazan al personal o los apoyan?</h3>
+          <p>Los agentes de IA apoyan a su personal, no los reemplazan. Manejan tareas repetitivas y que consumen tiempo (consultas rutinarias, entrada de datos, confirmaciones) para que su equipo pueda enfocarse en actividades de alto valor—necesidades complejas de huéspedes, servicio personalizado, ventas adicionales y crear experiencias memorables. Muchos negocios turísticos usan automatización con IA para evitar contratar personal administrativo adicional mientras crecen.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Qué pasa si el agente de IA no sabe cómo responder una pregunta?</h3>
+          <p>Nuestros agentes de IA están diseñados con escalamiento inteligente. Si una pregunta es demasiado compleja, requiere juicio humano o está fuera del entrenamiento de la IA, automáticamente redirige la conversación a su equipo con contexto completo. Esto asegura que los huéspedes siempre obtengan respuestas precisas mientras su personal solo maneja preguntas que realmente necesitan experiencia humana.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Los datos de mis huéspedes están seguros?</h3>
+          <p>Sí. Implementamos seguridad de nivel bancario con encriptación AES-256 para datos en reposo, encriptación TLS 1.3 para datos en tránsito, cumplimiento GDPR integrado, datos almacenados en regiones UE/Reino Unido/EE.UU. (su elección), auditorías de seguridad regulares, SLA de 99.9% de disponibilidad y controles de acceso basados en roles.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>¿Cuánto cuesta la automatización con IA?</h3>
+          <p>Los precios varían según sus necesidades específicas—complejidad de los agentes de IA, número de integraciones y características personalizadas requeridas. Proporcionamos cotizaciones claras y transparentes antes de comenzar. Nos enfocamos en ROI medible: si la automatización le ahorra 40 horas semanales a £15/hora, eso es £2,400/mes en valor. La mayoría de los proyectos entregan un retorno de inversión de 3-10x. Use nuestra calculadora para una estimación personalizada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .faq-section {
+      padding: 6rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .faq-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .faq-item h3 {
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .faq-item p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .faq-section {
+        padding: 4rem 1.5rem;
+      }
+
+      .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .faq-item {
+        padding: 1.5rem;
+      }
+
+      .faq-item h3 {
+        font-size: 1.15rem;
+      }
+
+      .faq-item p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+
+  <!-- Calculator Modal HTML -->
+  <div id="calculatorModalOverlay" class="calculator-modal-overlay" onclick="if(event.target === this) closeCalculatorModal()">
+    <div class="calculator-modal-content">
+      <button class="calculator-modal-close" onclick="closeCalculatorModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <iframe
+        src="/calculator-ai-agents-2025.html"
+        class="calculator-iframe"
+        title="AI ROI Calculator">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Feature Modal System -->
+  <div id="featureModalOverlay" class="feature-modal-overlay">
+    <div class="feature-modal">
+      <button class="feature-modal-close" onclick="closeFeatureModal()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="feature-modal-header">
+        <div class="feature-modal-icon" id="modalIcon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h2 class="feature-modal-title" id="modalTitle">Feature Title</h2>
+        <p class="feature-modal-subtitle" id="modalSubtitle">Feature subtitle</p>
+      </div>
+
+      <div class="feature-modal-content">
+        <div class="feature-modal-section">
+          <h4>Key Benefits</h4>
+          <div class="feature-benefits-list" id="modalBenefits">
+          </div>
+        </div>
+
+        <div class="feature-modal-section">
+          <h4>Performance Metrics</h4>
+          <div class="feature-stats-grid" id="modalStats">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Data for Modal -->
+  <script is:inline>
+    // Feature modal data
+    window.featureData = {
+      email: {
+        icon: 'fa-robot',
+        title: 'Bots de IA para Email y Comunicación',
+        subtitle: 'Agentes de IA personalizados para email, chat y comunicación por voz',
+        benefits: [
+          {
+            icon: '⚡',
+            title: 'Agentes de IA Multicanal',
+            desc: 'Construimos bots personalizados que gestionan emails, chat en vivo, WhatsApp y llamadas telefónicas con respuestas instantáneas 24/7.'
+          },
+          {
+            icon: '🎯',
+            title: 'Enrutamiento y Priorización Inteligente',
+            desc: 'Los agentes de IA categorizan y enrutan mensajes, escalando solicitudes urgentes a su equipo mientras manejan consultas rutinarias.'
+          },
+          {
+            icon: '🌍',
+            title: 'Voz y Texto Multiidioma',
+            desc: 'Entrenados personalizadamente en su negocio con soporte para más de 40 idiomas en todos los canales de comunicación.'
+          },
+          {
+            icon: '📊',
+            title: 'Aprendizaje Continuo',
+            desc: 'Sus agentes de IA mejoran con el tiempo, aprendiendo de las interacciones y adaptándose a las necesidades de su negocio.'
+          }
+        ],
+        stats: [
+          { value: '90%', label: 'Respuestas Más Rápidas' },
+          { value: '40hrs', label: 'Ahorradas Semanalmente' },
+          { value: '£35k', label: 'Ahorro Anual' }
+        ]
+      },
+      pricing: {
+        icon: 'fa-chart-line',
+        title: 'Soluciones de Software Personalizadas',
+        subtitle: 'Aplicaciones diseñadas a propósito y adaptadas a las necesidades específicas de su negocio',
+        benefits: [
+          {
+            icon: '📈',
+            title: 'Construido para Su Flujo de Trabajo',
+            desc: 'Desarrollamos herramientas personalizadas como motores de precios dinámicos, gestores de inventario y paneles de informes diseñados específicamente para cómo trabaja.'
+          },
+          {
+            icon: '🎯',
+            title: 'Integración Sin Problemas',
+            desc: 'El software personalizado se conecta directamente a sus sistemas existentes vía API, asegurando flujo de datos y automatización sin problemas.'
+          },
+          {
+            icon: '⚖️',
+            title: 'Inteligencia Automatizada',
+            desc: 'Toma de decisiones impulsada por IA integrada en sus herramientas - desde optimización de precios hasta pronóstico de demanda y asignación de recursos.'
+          },
+          {
+            icon: '💰',
+            title: 'Escalable y Mantenible',
+            desc: 'Arquitectura de software profesional que crece con su negocio, con soporte continuo y actualizaciones incluidas.'
+          }
+        ],
+        stats: [
+          { value: '100%', label: 'Personalizado' },
+          { value: '2-6sem', label: 'Desarrollo' },
+          { value: '£68k', label: 'Ganancia Anual Prom.' }
+        ]
+      },
+      booking: {
+        icon: 'fa-calendar-check',
+        title: 'Chatbots y Bots Telefónicos con IA',
+        subtitle: 'Agentes de IA personalizados por voz y texto para comunicación completa con huéspedes',
+        benefits: [
+          {
+            icon: '💬',
+            title: 'Agentes de IA por Voz y Texto',
+            desc: 'Construimos chatbots personalizados para su sitio web y bots telefónicos que manejan llamadas 24/7 - ambos suenan naturales y manejan conversaciones complejas.'
+          },
+          {
+            icon: '🎁',
+            title: 'Entrenados en Su Negocio',
+            desc: 'Los agentes de IA aprenden sus habitaciones, políticas, precios y servicios para proporcionar recomendaciones personalizadas precisas y reservas.'
+          },
+          {
+            icon: '🔄',
+            title: 'Implementación Multiplataforma',
+            desc: 'Implemente en chat de sitio web, WhatsApp, SMS, líneas telefónicas y redes sociales - todo conectado a sus sistemas.'
+          },
+          {
+            icon: '📱',
+            title: 'Integración de Reservas y Pagos',
+            desc: 'Los bots pueden verificar disponibilidad, procesar reservas, tomar pagos y enviar confirmaciones a través de conexiones API directas.'
+          }
+        ],
+        stats: [
+          { value: '35%', label: 'Más Conversiones' },
+          { value: '24/7', label: 'Disponibilidad' },
+          { value: '£32k', label: 'Ingresos Extra' }
+        ]
+      },
+      integration: {
+        icon: 'fa-network-wired',
+        title: 'Automatización Impulsada por API',
+        subtitle: 'Automatice toda su pila tecnológica con conexiones API e integraciones inteligentes',
+        benefits: [
+          {
+            icon: '🔌',
+            title: 'Conecte Cualquier Sistema',
+            desc: 'Construimos integraciones API entre su PMS, CRM, motores de reservas, procesadores de pago y cualquier otro software - incluso sistemas legados personalizados.'
+          },
+          {
+            icon: '⚡',
+            title: 'Automatización de Email y Flujos de Trabajo',
+            desc: 'Automatice secuencias de email entre sistemas, active acciones basadas en eventos y cree flujos de trabajo inteligentes que abarquen múltiples plataformas.'
+          },
+          {
+            icon: '🔄',
+            title: 'Sincronización de Datos en Tiempo Real',
+            desc: 'Las conexiones API bidireccionales mantienen todos los sistemas actualizados instantáneamente con webhooks y sincronización programada - eliminando la entrada manual de datos.'
+          },
+          {
+            icon: '🛡️',
+            title: 'Soluciones de Integración Personalizadas',
+            desc: 'Si no hay API, podemos construir herramientas de scraping, bots RPA o middleware personalizado para conectar cualquier sistema.'
+          }
+        ],
+        stats: [
+          { value: '50+', label: 'Integraciones API' },
+          { value: '2-4hrs', label: 'Tiempo de Configuración' },
+          { value: '99.9%', label: 'Disponibilidad' }
+        ]
+      },
+      security: {
+        icon: 'fa-shield-alt',
+        title: 'Seguridad Empresarial',
+        subtitle: 'Protección de nivel bancario para sus datos y huéspedes',
+        benefits: [
+          {
+            icon: '🔒',
+            title: 'Encriptación de Grado Militar',
+            desc: 'Encriptación AES-256 para datos en reposo y TLS 1.3 para datos en tránsito protege toda la información de huéspedes.'
+          },
+          {
+            icon: '✅',
+            title: 'Cumplimiento Total GDPR',
+            desc: 'Controles de privacidad de datos integrados, gestión de consentimiento y flujos de trabajo de derecho al olvido.'
+          },
+          {
+            icon: '🏛️',
+            title: 'Certificado SOC 2 Type II',
+            desc: 'Auditorías anuales de terceros verifican nuestros controles de seguridad y prácticas de manejo de datos.'
+          },
+          {
+            icon: '🌐',
+            title: 'Centros de Datos Globales',
+            desc: 'Datos almacenados en regiones UE/Reino Unido/EE.UU. con respaldos automáticos y recuperación ante desastres.'
+          }
+        ],
+        stats: [
+          { value: '99.9%', label: 'SLA de Disponibilidad' },
+          { value: '24/7', label: 'Monitoreo' },
+          { value: '< 4hrs', label: 'Respuesta de Soporte' }
+        ]
+      },
+      support: {
+        icon: 'fa-graduation-cap',
+        title: 'Capacitación e Implementación',
+        subtitle: 'Capacitamos a su equipo para dominar los sistemas que construimos',
+        benefits: [
+          {
+            icon: '🎓',
+            title: 'Programa de Capacitación Integral',
+            desc: 'Capacitación práctica completa para su equipo en todos los sistemas personalizados, agentes de IA e integraciones que construimos para usted.'
+          },
+          {
+            icon: '📚',
+            title: 'Documentación Personalizada',
+            desc: 'Guías detalladas y tutoriales en video adaptados a su implementación específica, facilitando que los nuevos miembros del equipo se pongan al día.'
+          },
+          {
+            icon: '🔧',
+            title: 'Soporte Continuo',
+            desc: 'Soporte por email y video durante horas de negocio para ayudar a solucionar problemas y responder preguntas a medida que surgen.'
+          },
+          {
+            icon: '📈',
+            title: 'Revisiones de Rendimiento',
+            desc: 'Revisiones periódicas para optimizar el rendimiento del sistema, recopilar retroalimentación e implementar mejoras basadas en su uso.'
+          }
+        ],
+        stats: [
+          { value: '100%', label: 'Equipo Capacitado' },
+          { value: '2-3 días', label: 'Implementación' },
+          { value: 'Continuo', label: 'Soporte' }
+        ]
+      }
+    };
+  </script>
+</BaseLayout>

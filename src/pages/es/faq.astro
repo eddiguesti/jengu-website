@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'FAQ de Automatización con IA para Empresas de Turismo',
+  description: 'Respuestas a preguntas frecuentes sobre agentes de IA, chatbots, tiempo de configuración, precios y ROI. Descubre cómo la automatización con IA transforma hoteles, agencias de viajes y operaciones hoteleras. Consulta gratuita disponible.',
+  canonical: `${Astro.site}es/faq/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Inicio', url: Astro.site?.href || '' },
+    { name: 'FAQ', url: `${Astro.site}es/faq/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Preguntas <span class="gradient-text">Frecuentes</span></h1>
+      <p>
+        Todo lo que necesitas saber sobre la automatización con IA para empresas de turismo
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="content-section bg-light">
+    <div class="section-container">
+      <div class="faq-container">
+
+        <!-- FAQ Item 1 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Qué es un agente de IA?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Un agente de IA es un sistema de software inteligente que puede entender el lenguaje natural, tomar decisiones y ejecutar acciones de forma autónoma. En el sector turístico y hotelero, los agentes de IA se encargan de tareas como responder a consultas de huéspedes, procesar reservas, gestionar reservaciones y automatizar trabajos administrativos repetitivos, sin intervención humana. Funcionan 24/7, aprenden de las interacciones y pueden gestionar múltiples conversaciones simultáneamente.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿A quién ayudamos?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Nos especializamos en ayudar a empresas de turismo y hotelería, incluyendo:
+            </p>
+            <ul>
+              <li>Hoteles, resorts y alojamientos boutique</li>
+              <li>Campings y parques vacacionales</li>
+              <li>Agencias de viajes y operadores turísticos</li>
+              <li>Empresas de Gestión de Destinos (DMCs)</li>
+              <li>Bed & Breakfasts y casas de huéspedes</li>
+              <li>Empresas de gestión de alquileres vacacionales</li>
+            </ul>
+            <p>
+              Si gestionas consultas de clientes, reservas o tareas administrativas en la industria del turismo, podemos ayudarte a automatizar tus operaciones.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Qué tareas pueden automatizar los agentes de IA?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Los agentes de IA pueden gestionar una amplia variedad de tareas, incluyendo:
+            </p>
+            <ul>
+              <li><strong>Comunicación con clientes:</strong> Responder consultas mediante chat, email, SMS y teléfono</li>
+              <li><strong>Gestión de reservas:</strong> Procesar reservaciones, cancelaciones y modificaciones</li>
+              <li><strong>Entrega de información:</strong> Proporcionar precios, disponibilidad, políticas y recomendaciones locales</li>
+              <li><strong>Gestión de correos electrónicos:</strong> Clasificar, categorizar y responder emails automáticamente</li>
+              <li><strong>Calificación de clientes potenciales:</strong> Identificar y priorizar prospectos de alto valor</li>
+              <li><strong>Tareas administrativas:</strong> Entrada de datos, generación de reportes, gestión de calendarios</li>
+              <li><strong>Soporte multilingüe:</strong> Comunicación en 100+ idiomas</li>
+              <li><strong>Seguimiento:</strong> Recordatorios automáticos, confirmaciones y solicitudes de retroalimentación</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Cuánto tiempo tarda la configuración?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Los plazos de configuración varían según la complejidad, pero los proyectos típicos siguen este cronograma:
+            </p>
+            <ul>
+              <li><strong>Chatbot de IA simple:</strong> 2-3 semanas (consulta, capacitación, pruebas, implementación)</li>
+              <li><strong>Sistema de automatización de correos:</strong> 3-4 semanas (mapeo de procesos, integración, pruebas)</li>
+              <li><strong>Desarrollo de software personalizado:</strong> 6-12 semanas (diseño, desarrollo, capacitación)</li>
+              <li><strong>Suite de automatización completa:</strong> 8-16 semanas (transformación integral de flujos de trabajo)</li>
+            </ul>
+            <p>
+              Trabajamos por fases, por lo que verás resultados rápidamente mientras continuamos construyendo características más avanzadas. La mayoría de los clientes comienzan a ver ahorros de tiempo dentro del primer mes.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Los agentes de IA reemplazan el personal humano?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              No, los agentes de IA complementan tu equipo, no lo reemplazan. Así es como funciona:
+            </p>
+            <p>
+              <strong>Los agentes de IA se encargan de:</strong> Tareas repetitivas y que consumen tiempo, como responder preguntas básicas, procesar reservas estándar, clasificar correos y proporcionar respuestas instantáneas a consultas comunes.
+            </p>
+            <p>
+              <strong>Tu equipo se enfoca en:</strong> Resolución de problemas complejos, experiencias personalizadas para huéspedes, construcción de relaciones, decisiones estratégicas y situaciones que requieren empatía y criterio humano.
+            </p>
+            <p>
+              Piensa en los agentes de IA como un asistente para tu equipo, encargándose del trabajo rutinario para que tu personal pueda enfocarse en actividades de alto valor que realmente requieren experiencia humana. La mayoría de los clientes reportan que sus equipos se sienten menos abrumados y más comprometidos después de implementar la automatización con IA.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 6 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Cómo medimos el ROI?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Realizamos un seguimiento del ROI en múltiples dimensiones:
+            </p>
+            <ul>
+              <li><strong>Ahorro de tiempo:</strong> Horas ahorradas por semana en tareas administrativas (típicamente 40+ horas)</li>
+              <li><strong>Velocidad de respuesta:</strong> Reducción en el tiempo de respuesta (de 15-20 minutos a segundos)</li>
+              <li><strong>Tasa de conversión:</strong> Aumento en conversiones de reservas (típicamente 20-30%)</li>
+              <li><strong>Reducción de costos:</strong> Disminución de costos de personal para tareas rutinarias</li>
+              <li><strong>Crecimiento de ingresos:</strong> Reservas adicionales por disponibilidad 24/7 y respuestas más rápidas</li>
+              <li><strong>Satisfacción del cliente:</strong> Mejora en puntuaciones CSAT y calificaciones de reseñas</li>
+            </ul>
+            <p>
+              Utiliza nuestro <a href="/#calculator" onclick="openCalculatorModal(); return false;" style="color: var(--primary-cta); text-decoration: underline;">Calculador de ROI</a> para obtener una estimación personalizada basada en tus métricas comerciales.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 7 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Qué pasa si la IA comete un error?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Diseñamos sistemas de IA con múltiples medidas de seguridad:
+            </p>
+            <ul>
+              <li><strong>Umbrales de confianza:</strong> La IA escala a humanos cuando no está segura de una respuesta</li>
+              <li><strong>Supervisión humana:</strong> Todas las decisiones críticas (cancelaciones, reembolsos, excepciones de política) se derivan a tu equipo</li>
+              <li><strong>Aprendizaje continuo:</strong> La IA mejora a partir de correcciones y retroalimentación</li>
+              <li><strong>Límites claros:</strong> Definimos exactamente qué puede y no puede hacer la IA durante la configuración</li>
+              <li><strong>Pruebas y capacitación:</strong> Pruebas exhaustivas antes del lanzamiento para minimizar errores</li>
+            </ul>
+            <p>
+              Nuestros sistemas de IA son transparentes: siempre puedes revisar conversaciones, ajustar respuestas y mantener control total sobre tus interacciones con clientes.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 8 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Cuánto cuesta?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Los precios varían según tus necesidades específicas y la complejidad de la solución. Aquí hay una guía general:
+            </p>
+            <ul>
+              <li><strong>Chatbot de IA:</strong> Desde £X/mes (incluye configuración, capacitación, alojamiento, soporte)</li>
+              <li><strong>Automatización de correos:</strong> Desde £X/mes (incluye integración, optimización continua)</li>
+              <li><strong>Software personalizado:</strong> Precios basados en proyectos (£X-£X según el alcance)</li>
+              <li><strong>Suite de automatización completa:</strong> Paquetes personalizados (típicamente £X-£X/mes)</li>
+            </ul>
+            <p>
+              La mayoría de los clientes ven ROI completo en 6-12 meses. Reserva una <a href="/contact" style="color: var(--primary-cta); text-decoration: underline;">consulta gratuita</a> para obtener una cotización detallada personalizada para tu negocio.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 9 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Puede la IA manejar múltiples idiomas?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              ¡Sí! Nuestros agentes de IA soportan 100+ idiomas con comunicación natural y fluida. Esto significa:
+            </p>
+            <ul>
+              <li>Los huéspedes pueden comunicarse en su idioma preferido</li>
+              <li>La IA detecta automáticamente y responde en el mismo idioma</li>
+              <li>No hay necesidad de contratar personal multilingüe para consultas básicas</li>
+              <li>Expándete a nuevos mercados sin barreras de idioma</li>
+              <li>Mantén calidad consistente en todos los idiomas</li>
+            </ul>
+            <p>
+              Esto es particularmente valioso para empresas de turismo que sirven a viajeros internacionales.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 10 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>¿Qué integraciones soportan?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Nos integramos con prácticamente cualquier sistema que utilice tu negocio:
+            </p>
+            <ul>
+              <li><strong>Sistemas de Gestión de Propiedades (PMS):</strong> Opera, Mews, Cloudbeds, Guesty, etc.</li>
+              <li><strong>Motores de reserva:</strong> Booking.com, Expedia, Airbnb, plataformas de reserva directa</li>
+              <li><strong>Email y comunicación:</strong> Gmail, Outlook, WhatsApp Business, proveedores de SMS</li>
+              <li><strong>Sistemas CRM:</strong> Salesforce, HubSpot, Zoho, CRMs personalizados</li>
+              <li><strong>Procesadores de pago:</strong> Stripe, PayPal, Square</li>
+              <li><strong>Gestores de canales:</strong> SiteMinder, Channex, RoomRaccoon</li>
+            </ul>
+            <p>
+              Si utilizas un sistema que no aparece aquí, podemos construir integraciones personalizadas de API para conectar todo sin inconvenientes.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="cta-box">
+        <h2>¿Tienes más preguntas?</h2>
+        <p>Reserva una consulta gratuita de 30 minutos para discutir tus necesidades específicas</p>
+        <a href="/contact" class="btn btn-primary">
+          Agendar una llamada <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Toggle Script -->
+  <script is:inline>
+    function toggleFAQ(button) {
+      const faqItem = button.parentElement;
+      const answer = faqItem.querySelector('.faq-answer');
+      const icon = button.querySelector('i');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem && item.classList.contains('active')) {
+          item.classList.remove('active');
+          item.querySelector('.faq-answer').style.maxHeight = null;
+          item.querySelector('i').style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle current FAQ
+      faqItem.classList.toggle('active');
+
+      if (faqItem.classList.contains('active')) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        answer.style.maxHeight = null;
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+  </script>
+</BaseLayout>

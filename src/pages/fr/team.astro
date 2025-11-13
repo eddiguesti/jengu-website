@@ -1,20 +1,20 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
-import { generateSEO } from '../lib/seo/metadata';
-import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'Meet Our Team - AI & Tourism Automation Experts',
-  description: 'Meet the AI engineers, software developers & hospitality experts behind Jengu. Combining technical expertise with deep tourism industry knowledge to deliver results-driven automation.',
-  canonical: `${Astro.site}team/`,
+  title: 'Rencontrez Notre Équipe - Experts en IA et Automatisation du Tourisme',
+  description: 'Rencontrez les ingénieurs IA, développeurs logiciels et experts en hôtellerie derrière Jengu. Combinant expertise technique et connaissance approfondie de l\'industrie touristique pour fournir une automatisation orientée résultats.',
+  canonical: `${Astro.site}fr/team/`,
   ogType: 'website'
 });
 
 const jsonLd = [
   generateOrganizationSchema(),
   generateBreadcrumbSchema([
-    { name: 'Home', url: Astro.site?.href || '' },
-    { name: 'Team', url: `${Astro.site}team/` }
+    { name: 'Accueil', url: Astro.site?.href || '' },
+    { name: 'Équipe', url: `${Astro.site}fr/team/` }
   ])
 ];
 ---
@@ -22,9 +22,9 @@ const jsonLd = [
 <BaseLayout seo={seo} jsonLd={jsonLd}>
   <section class="hero">
     <div class="hero-container">
-      <h1>Meet Our <span class="gradient-text">Expert Team</span></h1>
+      <h1>Rencontrez Notre <span class="gradient-text">Équipe d'Experts</span></h1>
       <p>
-        AI engineers, software developers, and hospitality experts working together to transform tourism with technology
+        Ingénieurs IA, développeurs logiciels et experts en hôtellerie travaillant ensemble pour transformer le tourisme par la technologie
       </p>
     </div>
   </section>
@@ -33,9 +33,9 @@ const jsonLd = [
   <section class="team-section">
     <div class="section-container">
       <div class="section-header">
-        <span class="section-badge">Leadership</span>
-        <h2>The People Behind Jengu</h2>
-        <p>A diverse team united by a passion for innovation and excellence</p>
+        <span class="section-badge">Direction</span>
+        <h2>Les Personnes Derrière Jengu</h2>
+        <p>Une équipe diversifiée unie par la passion de l'innovation et l'excellence</p>
       </div>
 
       <div class="team-grid">
@@ -43,9 +43,9 @@ const jsonLd = [
           <div class="team-avatar">DS</div>
           <div class="team-info">
             <h3 class="team-name">Danny Smith</h3>
-            <p class="team-role">Director</p>
+            <p class="team-role">Directeur</p>
             <p class="team-bio">
-              Leading Jengu's strategic vision and business development, Danny brings extensive experience in technology innovation and business transformation for the tourism industry.
+              Pilotant la vision stratégique et le développement commercial de Jengu, Danny apporte une vaste expérience en innovation technologique et transformation commerciale pour l'industrie touristique.
             </p>
             <div class="team-social">
               <a href="https://www.linkedin.com/in/danny-smith" class="social-link"><i class="fab fa-linkedin-in"></i></a>
@@ -58,9 +58,9 @@ const jsonLd = [
           <div class="team-avatar">EG</div>
           <div class="team-info">
             <h3 class="team-name">Edward Guest</h3>
-            <p class="team-role">Chief Innovation Officer</p>
+            <p class="team-role">Directeur de l'Innovation</p>
             <p class="team-bio">
-              Driving innovation and AI strategy at Jengu, Edward specializes in developing cutting-edge automation solutions that transform business operations.
+              Pilotant l'innovation et la stratégie IA chez Jengu, Edward se spécialise dans le développement de solutions d'automatisation de pointe qui transforment les opérations commerciales.
             </p>
             <div class="team-social">
               <a href="https://www.linkedin.com/in/edward-guest" class="social-link"><i class="fab fa-linkedin-in"></i></a>
@@ -73,9 +73,9 @@ const jsonLd = [
           <div class="team-avatar">CG</div>
           <div class="team-info">
             <h3 class="team-name">Christopher Guest</h3>
-            <p class="team-role">Senior Process Automation Engineer</p>
+            <p class="team-role">Ingénieur Senior en Automatisation des Processus</p>
             <p class="team-bio">
-              Christopher designs and implements complex automation workflows, helping businesses streamline operations and maximize efficiency through intelligent process mapping.
+              Christopher conçoit et met en œuvre des flux d'automatisation complexes, aidant les entreprises à rationaliser les opérations et à maximiser l'efficacité grâce à la cartographie intelligente des processus.
             </p>
             <div class="team-social">
               <a href="https://www.linkedin.com/in/christopher-guest" class="social-link"><i class="fab fa-linkedin-in"></i></a>
@@ -88,9 +88,9 @@ const jsonLd = [
           <div class="team-avatar">LM</div>
           <div class="team-info">
             <h3 class="team-name">Lisa Mitte</h3>
-            <p class="team-role">Lead Business Process Analyst</p>
+            <p class="team-role">Analyste Principal des Processus Commerciaux</p>
             <p class="team-bio">
-              Lisa specializes in analyzing business processes and identifying automation opportunities, ensuring every solution delivers measurable ROI for clients.
+              Lisa se spécialise dans l'analyse des processus commerciaux et l'identification des opportunités d'automatisation, en garantissant que chaque solution génère un ROI mesurable pour les clients.
             </p>
             <div class="team-social">
               <a href="https://www.linkedin.com/in/lisa-mitte" class="social-link"><i class="fab fa-linkedin-in"></i></a>
@@ -106,12 +106,12 @@ const jsonLd = [
   <section class="join-team-section">
     <div class="section-container">
       <div class="join-team-card">
-        <h2>Join Our <span class="gradient-text">Growing Team</span></h2>
+        <h2>Rejoignez Notre <span class="gradient-text">Équipe en Croissance</span></h2>
         <p>
-          We're always looking for talented engineers, developers, and hospitality experts who are passionate about transforming the tourism industry with AI. If you love solving complex problems and building technology that makes a real difference, we'd love to hear from you.
+          Nous recherchons toujours des ingénieurs, développeurs et experts en hôtellerie talentueux qui sont passionnés par la transformation de l'industrie touristique avec l'IA. Si vous aimez résoudre des problèmes complexes et construire une technologie qui fait une réelle différence, nous serions ravis de vous entendre.
         </p>
         <a href="/contact" class="cta-button">
-          <i class="fas fa-users"></i> View Open Positions
+          <i class="fas fa-users"></i> Voir les Postes Disponibles
         </a>
       </div>
     </div>

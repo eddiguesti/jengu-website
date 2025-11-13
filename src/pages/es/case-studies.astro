@@ -1,0 +1,347 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Historias de Éxito de Automatización de IA - Casos de Estudio de Turismo',
+  description: 'Cómo Campasuns redujo la administración en un 35% con seguimiento de competidores impulsado por IA y precios dinámicos. Resultados reales de empresas hoteleras que utilizan automatización de IA. Lee el caso de estudio completo.',
+  canonical: `${Astro.site}es/case-studies/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Inicio', url: Astro.site?.href || '' },
+    { name: 'Casos de Estudio', url: `${Astro.site}es/case-studies/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1><span class="gradient-text">Resultados Reales</span> de Negocios Reales</h1>
+      <p>
+        Descubre cómo las empresas de turismo transformaron sus operaciones con nuestras soluciones de automatización de IA
+      </p>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="case-studies-section">
+    <div class="section-container">
+
+      <!-- Case Study 1: Campasuns -->
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="case-study-info">
+            <span class="case-study-badge">Hospitalidad en Campings</span>
+            <h2>Campasuns</h2>
+            <p class="case-study-subtitle">
+              Cómo un operador de camping en múltiples ubicaciones logró una reducción del 35% en la carga administrativa y un aumento del 20% en ingresos a través de automatización impulsada por IA y precios dinámicos
+            </p>
+            <div class="case-study-meta">
+              <div class="meta-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Francia</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-building"></i>
+                <span>Múltiples Ubicaciones</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>Hospitalidad en Campings</span>
+              </div>
+            </div>
+          </div>
+          <div class="case-study-stats">
+            <div class="stat-box">
+              <span class="stat-value">35%</span>
+              <span class="stat-label">Reducción Administrativa</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value">20%</span>
+              <span class="stat-label">Aumento de Ingresos</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value">25%</span>
+              <span class="stat-label">Incremento de Satisfacción</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-study-content">
+          <div class="case-study-section">
+            <h3>El Desafío</h3>
+            <p>
+              Gestionando 8 campings en el sur de Francia, Campasuns enfrentaba ineficiencias operacionales significativas que limitaban el crecimiento y la rentabilidad.
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h4>Cuellos de Botella en la Comunicación</h4>
+                  <p>El manejo manual de correos electrónicos generaba respuestas retrasadas, calidad de comunicación inconsistente y personal abrumado durante temporadas altas</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-tags"></i>
+                </div>
+                <div>
+                  <h4>Limitaciones de Precios Estáticos</h4>
+                  <p>Los modelos de precios fijos no podían adaptarse a fluctuaciones del mercado, cambios de competencia, patrones climáticos o eventos locales, dejando ingresos sobre la mesa</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                  <h4>Inconsistencias Operacionales</h4>
+                  <p>Los procesos variantes entre diferentes ubicaciones de campings creaban ineficiencias e hicieron difícil el escalado</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Nuestra Solución</h3>
+            <p>
+              Implementamos una estrategia integral de automatización y optimización que abordó cada desafío de manera sistemática:
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+                <div>
+                  <h4>Mapeo y Optimización de Procesos</h4>
+                  <p>Utilizamos Miro para mapear todos los procesos comerciales en los campings, identificando ineficiencias y estandarizando mejores prácticas</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <div>
+                  <h4>Automatización de Correos Electrónicos con IA</h4>
+                  <p>Desarrollamos una aplicación Python personalizada integrada con la API de OpenAI para manejar, categorizar y responder automáticamente a correos de clientes 24/7</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                <div>
+                  <h4>Automatización de Sistemas Operacionales</h4>
+                  <p>Automatizamos tareas administrativas repetitivas y creamos flujos de trabajo consistentes en los 8 campings</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div>
+                  <h4>Software Personalizado de Precios Dinámicos</h4>
+                  <p>Construimos el primer motor de precios dinámicos impulsado por IA de la industria específicamente diseñado para campings, monitoreando competencia, clima, eventos y datos históricos para optimizar ingresos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Innovación en Precios Dinámicos</h3>
+            <p>
+              La joya de la corona de esta transformación fue nuestra plataforma de precios dinámicos personalizada: un sistema de ML sofisticado que no existe en ningún otro lugar de la industria de campings. Las herramientas de precios tradicionales no podían manejar las complejidades únicas de la gestión de campings, así que la construimos desde cero.
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-binoculars"></i>
+                </div>
+                <div>
+                  <h4>Inteligencia de Competencia</h4>
+                  <p>Descubrimiento automatizado de competidores y seguimiento de precios usando camping-and-co.com, monitoreando tasas de mercado en zonas de radio personalizables</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cloud-sun-rain"></i>
+                </div>
+                <div>
+                  <h4>Enriquecimiento de Datos Multifuente</h4>
+                  <p>Integración en tiempo real de pronósticos del tiempo, calendarios de vacaciones, eventos locales y características temporales para identificar correlaciones de precios</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                  <h4>Predicciones de Aprendizaje Automático</h4>
+                  <p>Algoritmos avanzados de ML analizan patrones históricos, gestión de capacidad y condiciones de mercado para predecir precios óptimos alineados con objetivos comerciales</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-sliders-h"></i>
+                </div>
+                <div>
+                  <h4>Estrategias de Precios Flexibles</h4>
+                  <p>Elige entre estrategias de precios Conservadores, Equilibrados o Agresivos con controles afinados para sensibilidad a la demanda y agresividad de precios</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Características de la Plataforma</h3>
+            <div class="results-grid">
+              <div class="result-card">
+                <h4>Motor de Precios Inteligente</h4>
+                <ul>
+                  <li>Precios multiestrategia (Conservador, Equilibrado, Agresivo)</li>
+                  <li>Sensibilidad a la demanda y agresividad de precios personalizables</li>
+                  <li>Optimización de objetivo de ocupación (65%-90%)</li>
+                  <li>Horizontes de pronóstico de 14 a 60 días</li>
+                  <li>Visualización de cronograma de optimización de precios en tiempo real</li>
+                </ul>
+              </div>
+              <div class="result-card">
+                <h4>Inteligencia Impulsada por Datos</h4>
+                <ul>
+                  <li>Descubrimiento automático de competencia dentro de radio personalizado</li>
+                  <li>Integración de datos meteorológicos (temperatura, precipitación, sol)</li>
+                  <li>Superposiciones de vacaciones y recesos escolares</li>
+                  <li>Análisis de patrones de reserva históricos</li>
+                  <li>Pronóstico de ingresos y ocupación</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            "Jengu construyó algo que simplemente no existía en la industria de campings: un motor de precios impulsado por IA que realmente entiende nuestro mercado. El sistema monitorea competencia, superpone datos meteorológicos y de vacaciones, analiza años de patrones de reserva y usa aprendizaje automático para predecir precios óptimos. Ha transformado cómo gestionamos precios en nuestros 8 ubicaciones. Este nivel de inteligencia estaba disponible previamente solo para hoteles, y ahora lo tenemos personalizado específicamente para campings."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">C</div>
+            <div class="author-info">
+              <h5>Gestión de Campasuns</h5>
+              <p>Operaciones de Camping Multiubicación, Sur de Francia</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform Showcase -->
+        <div class="platform-showcase">
+          <div class="showcase-header">
+            <h3>Dentro de la Plataforma</h3>
+            <p>Explora las características impulsadas por IA que hacen posible la fijación de precios inteligente en campings</p>
+          </div>
+
+          <div class="screenshot-grid">
+            <!-- Competitor Discovery -->
+            <div class="screenshot-item">
+              <img src="/images/competitor-discovery.png" alt="Interfaz de Descubrimiento de Competencia" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-binoculars"></i> Descubrimiento de Competencia</h4>
+                <p>Descubre y monitorea automáticamente campings competidores dentro de un radio personalizable usando datos de camping-and-co.com. El sistema monitorea más de 10 competidores en tiempo real, rastreando sus estrategias de precios y disponibilidad para informar decisiones de precios inteligentes.</p>
+              </div>
+            </div>
+
+            <!-- Data Enrichment -->
+            <div class="screenshot-item">
+              <img src="/images/data-enrichment.png" alt="Panel de Enriquecimiento de Datos" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-database"></i> Enriquecimiento de Datos Multifuente</h4>
+                <p>La plataforma enriquece datos de reservas históricas con información meteorológica (temperatura, precipitación, horas de sol), calendarios de vacaciones, recesos escolares y características temporales (día de la semana, estación, indicadores de fin de semana). Todas las fuentes de datos se sincronizan automáticamente y se procesan para análisis de ML.</p>
+              </div>
+            </div>
+
+            <!-- Pricing Strategy -->
+            <div class="screenshot-item">
+              <img src="/images/pricing-strategy.png" alt="Selección de Estrategia de Precios" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-sliders-h"></i> Controles de Precios Estratégicos</h4>
+                <p>Elige entre estrategias de precios Conservadores, Equilibrados o Agresivos con controles afinados para sensibilidad a la demanda (30%-90%), agresividad de precios (40%-100%) y objetivos de ocupación (65%-90%). Cada estrategia se adapta dinámicamente según la demanda pronosticada y las condiciones del mercado.</p>
+              </div>
+            </div>
+
+            <!-- Price Optimization -->
+            <div class="screenshot-item">
+              <img src="/images/price-optimization.png" alt="Cronograma de Optimización de Precios" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-chart-area"></i> Optimización de Precios Impulsada por ML</h4>
+                <p>Algoritmos avanzados de aprendizaje automático analizan pronósticos de demanda, precios de competencia, patrones climáticos y correlaciones históricas para predecir precios óptimos hasta 60 días por adelantado. La visualización muestra precios actuales versus optimizados superpuestos con pronósticos de demanda, permitiendo decisiones de precios basadas en datos.</p>
+              </div>
+            </div>
+
+            <!-- Revenue & Occupancy Forecasts -->
+            <div class="screenshot-item">
+              <img src="/images/forecasting.png" alt="Pronóstico de Ingresos y Ocupación" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-chart-line"></i> Pronóstico de Ingresos y Ocupación</h4>
+                <p>Los gráficos de pronóstico duales comparan proyecciones actuales de ingresos/ocupación contra predicciones optimizadas por ML. El sistema proporciona pronósticos de 14 días mostrando posibles aumentos de ingresos y mejoras de ocupación, ayudando a los gerentes a tomar decisiones informadas sobre capacidad y precios.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+    <button class="modal-close" onclick="closeImageModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <img src="" alt="Platform Screenshot" class="modal-content-img" id="modalImage">
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-container">
+      <h2>¿Listo para Escribir tu <span class="gradient-text">Historia de Éxito?</span></h2>
+      <p>
+        Descubre cuánto tiempo y dinero la automatización de IA puede ahorrar a tu negocio. Obtén tu cálculo de ROI personalizado en 2 minutos.
+      </p>
+      <a href="/#calculator" onclick="openCalculatorModal(); return false;" class="cta-button">
+        <i class="fas fa-calculator"></i> Calcula tu ROI
+      </a>
+    </div>
+  </section>
+
+  <!-- JavaScript for Image Modal -->
+  <script is:inline>
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImg.src = src;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Servicios de Automatización con IA para Negocios de Turismo',
+  description: 'Chatbots de IA, asistentes telefónicos, software personalizado e integraciones API para turismo. Soporte a huéspedes 24/7, gestión inteligente de correos, precios dinámicos e integración PMS sin problemas. Transforma tus operaciones.',
+  canonical: `${Astro.site}es/services/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Inicio', url: Astro.site?.href || '' },
+    { name: 'Servicios', url: `${Astro.site}es/services/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Nuestros <span class="gradient-text">Servicios</span></h1>
+      <p>
+        Desde chatbots de IA y asistentes telefónicos hasta software personalizado e integraciones API, construimos soluciones inteligentes que transforman las operaciones de turismo
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Services -->
+  <section class="services-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Lo Que Construimos</span>
+        <h2>Soluciones Personalizadas de IA y Automatización</h2>
+        <p>Tecnología adaptada que resuelve tus desafíos empresariales específicos</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- AI Chatbots & Phone Bots -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>Chatbots de IA y Asistentes Telefónicos</h3>
+          <p>Agentes de IA conversacionales personalizados que manejan las comunicaciones con huéspedes 24/7 a través de canales de texto y voz.</p>
+          <ul class="service-features">
+            <li>Procesamiento de lenguaje natural en más de 100 idiomas</li>
+            <li>IA de voz para llamadas telefónicas con conversaciones naturales</li>
+            <li>Integración de chat web, WhatsApp y SMS</li>
+            <li>Automatización de reservas, consultas y soporte</li>
+            <li>Transferencia sin problemas a agentes humanos cuando sea necesario</li>
+          </ul>
+          <a href="/es/contact" class="service-cta">Saber Más →</a>
+        </div>
+
+        <!-- Custom Software Development -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Desarrollo de Software Personalizado</h3>
+          <p>Aplicaciones diseñadas específicamente para tus flujos de trabajo empresarial y necesidades operacionales.</p>
+          <ul class="service-features">
+            <li>Motores de precios dinámicos con optimización de IA</li>
+            <li>Sistemas de reserva y reservaciones personalizados</li>
+            <li>Herramientas de gestión de inventario y recursos</li>
+            <li>Paneles de análisis y plataformas de informes</li>
+            <li>Aplicaciones móviles para personal e huéspedes</li>
+          </ul>
+          <a href="/es/contact" class="service-cta">Saber Más →</a>
+        </div>
+
+        <!-- API Integrations -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>Integraciones de API y Automatización</h3>
+          <p>Conecta tu pila tecnológica completa con flujos de trabajo inteligentes que eliminan la entrada manual de datos y errores.</p>
+          <ul class="service-features">
+            <li>Integraciones de PMS, CRM y motores de reserva</li>
+            <li>Sincronización de procesadores de pagos y software de contabilidad</li>
+            <li>Conexiones de gestor de canales y OTA</li>
+            <li>Automatización de plataformas de correo y comunicación</li>
+            <li>Middleware personalizado para sistemas heredados</li>
+          </ul>
+          <a href="/es/contact" class="service-cta">Saber Más →</a>
+        </div>
+
+        <!-- Email Automation -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Gestión Inteligente de Correos</h3>
+          <p>Sistemas inteligentes de clasificación, categorización y respuesta automática que manejan comunicaciones con huéspedes a escala.</p>
+          <ul class="service-features">
+            <li>Organización y priorización inteligente de bandeja de entrada</li>
+            <li>Respuestas generadas por IA con voz de marca</li>
+            <li>Categorización y enrutamiento automático</li>
+            <li>Análisis de sentimiento para cuestiones urgentes</li>
+            <li>Integración con sistemas de tickets</li>
+          </ul>
+          <a href="/es/contact" class="service-cta">Saber Más →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Services -->
+  <section class="services-section" style="padding-top: 0;">
+    <div class="section-container">
+      <div class="services-grid">
+        <!-- Process Mapping -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3>Mapeo y Optimización de Procesos</h3>
+          <p>Visualización clara de tus flujos de trabajo para identificar ineficiencias y oportunidades de automatización.</p>
+          <ul class="service-features">
+            <li>Documentación completa de flujos de trabajo</li>
+            <li>Identificación y análisis de cuellos de botella</li>
+            <li>Evaluación de oportunidades de automatización</li>
+            <li>Cálculo de ROI para mejoras</li>
+            <li>Creación de hoja de ruta de implementación</li>
+          </ul>
+          <a href="/es/contact" class="service-cta">Saber Más →</a>
+        </div>
+
+        <!-- Training & Support -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Capacitación y Soporte Continuo</h3>
+          <p>Incorporación integral y soporte continuo para garantizar que tu equipo domine cada sistema que construimos.</p>
+          <ul class="service-features">
+            <li>Capacitación práctica para todos los niveles de personal</li>
+            <li>Documentación personalizada y tutoriales en video</li>
+            <li>Equipo de soporte dedicado durante horario laboral</li>
+            <li>Revisiones periódicas de optimización del sistema</li>
+            <li>Actualizaciones y mejoras de características</li>
+          </ul>
+          <a href="/es/contact" class="service-cta">Saber Más →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Cómo Trabajamos</span>
+        <h2>Nuestro Proceso de Desarrollo</h2>
+        <p>Desde el descubrimiento hasta la implementación, seguimos un proceso probado que entrega resultados</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-number">1</div>
+          <h4>Descubrimiento</h4>
+          <p>Mapeamos tus procesos, comprendemos tus desafíos e identificamos oportunidades de automatización</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">2</div>
+          <h4>Diseño</h4>
+          <p>Diseño de solución personalizada adaptado a tus flujos de trabajo específicos y objetivos empresariales</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">3</div>
+          <h4>Desarrollo</h4>
+          <p>Desarrollo ágil con check-ins regulares y ciclos de retroalimentación iterativos</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">4</div>
+          <h4>Implementación y Soporte</h4>
+          <p>Implementación suave, capacitación del equipo y optimización y soporte continuo</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="cta-box">
+        <h2>¿Listo para Automatizar tus Operaciones?</h2>
+        <p>Calcula tu ROI potencial en solo 2 minutos</p>
+        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
+          Calcula tu ROI <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

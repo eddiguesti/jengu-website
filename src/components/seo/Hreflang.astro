@@ -1,0 +1,35 @@
+---
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+const siteUrl = 'https://jengu.ai';
+
+// Extract the path without locale prefix
+let basePath = currentPath;
+if (currentPath.startsWith('/fr/')) {
+  basePath = currentPath.substring(3);
+} else if (currentPath.startsWith('/es/')) {
+  basePath = currentPath.substring(3);
+}
+
+// Ensure basePath starts with /
+if (!basePath.startsWith('/')) {
+  basePath = '/' + basePath;
+}
+
+// Remove trailing slash if present (except for root)
+if (basePath !== '/' && basePath.endsWith('/')) {
+  basePath = basePath.slice(0, -1);
+}
+
+const enUrl = `${siteUrl}${basePath}`;
+const frUrl = `${siteUrl}/fr${basePath}`;
+const esUrl = `${siteUrl}/es${basePath}`;
+---
+
+<link rel="alternate" hreflang="en" href={enUrl} />
+<link rel="alternate" hreflang="fr" href={frUrl} />
+<link rel="alternate" hreflang="es" href={esUrl} />
+<link rel="alternate" hreflang="x-default" href={enUrl} />

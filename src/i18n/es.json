@@ -1,0 +1,44 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Acerca de",
+    "services": "Servicios",
+    "caseStudies": "Casos de Éxito",
+    "faq": "Preguntas Frecuentes",
+    "team": "Equipo",
+    "contact": "Contacto",
+    "calculateROI": "Calcular ROI"
+  },
+  "footer": {
+    "company": "Empresa",
+    "resources": "Recursos",
+    "legal": "Legal",
+    "description": "Soluciones de automatización con IA para turismo y hospitalidad. Creamos chatbots personalizados, bots telefónicos, software e integraciones API.",
+    "email": "info@jengu.ai",
+    "aboutUs": "Acerca de",
+    "caseStudiesLink": "Casos de Éxito",
+    "roiCalculator": "Calculadora ROI",
+    "contactUs": "Contáctenos",
+    "terms": "Términos y Condiciones",
+    "privacy": "Política de Privacidad",
+    "copyright": "Jengu Ltd. Todos los derechos reservados.",
+    "companyNumber": "Número de empresa 15940007"
+  },
+  "buttons": {
+    "getStarted": "Comenzar",
+    "learnMore": "Saber Más",
+    "bookConsultation": "Reservar Consulta Gratuita",
+    "calculateROI": "Calcular Tu ROI",
+    "sendMessage": "Enviar Mensaje",
+    "scheduleCall": "Agendar Llamada",
+    "tryCalculator": "Probar Calculadora",
+    "viewCaseStudies": "Ver Casos de Éxito",
+    "readMore": "Leer Más"
+  },
+  "common": {
+    "readMore": "Leer Más →",
+    "learnMore": "Saber Más →",
+    "getInTouch": "Contáctenos",
+    "contactUs": "Contáctenos"
+  }
+}
