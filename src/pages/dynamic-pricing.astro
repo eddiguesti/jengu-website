@@ -98,26 +98,42 @@ const seo = generateSEO({
         <p>Traditional flat-rate pricing costs campsite owners thousands in lost revenue every season</p>
       </div>
 
-      <div class="problem-grid">
-        <div class="problem-card">
-          <i class="fas fa-calendar-times"></i>
-          <h3>Peak Season Underpricing</h3>
-          <p>You could charge 2-3x more during holidays and weekends, but stick to flat rates</p>
+      <div class="problem-list">
+        <div class="problem-item">
+          <div class="problem-icon">
+            <i class="fas fa-calendar-times"></i>
+          </div>
+          <div class="problem-content">
+            <h3>Peak Season Underpricing</h3>
+            <p>You could charge 2-3x more during holidays and weekends, but stick to flat rates—leaving thousands in revenue on the table during your busiest periods</p>
+          </div>
         </div>
-        <div class="problem-card">
-          <i class="fas fa-bed"></i>
-          <h3>Empty Sites in Low Season</h3>
-          <p>Lower prices could fill empty sites, but manual adjustments are time-consuming</p>
+        <div class="problem-item">
+          <div class="problem-icon">
+            <i class="fas fa-bed"></i>
+          </div>
+          <div class="problem-content">
+            <h3>Empty Sites in Low Season</h3>
+            <p>Lower prices could fill empty sites and generate revenue, but manual adjustments are time-consuming and you're never sure if you're pricing optimally</p>
+          </div>
         </div>
-        <div class="problem-card">
-          <i class="fas fa-users-slash"></i>
-          <h3>Missing Market Signals</h3>
-          <p>Local events, weather forecasts, and competitor pricing change daily—do you?</p>
+        <div class="problem-item">
+          <div class="problem-icon">
+            <i class="fas fa-users-slash"></i>
+          </div>
+          <div class="problem-content">
+            <h3>Missing Market Signals</h3>
+            <p>Local events, weather forecasts, and competitor pricing change daily—but your rates stay static, causing you to miss opportunities or price yourself out of the market</p>
+          </div>
         </div>
-        <div class="problem-card">
-          <i class="fas fa-clock"></i>
-          <h3>Manual Price Management</h3>
-          <p>Hours spent updating rates across booking platforms instead of growing your business</p>
+        <div class="problem-item">
+          <div class="problem-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="problem-content">
+            <h3>Manual Price Management</h3>
+            <p>Hours spent every week updating rates across multiple booking platforms instead of focusing on guest experience and growing your business</p>
+          </div>
         </div>
       </div>
     </div>
@@ -499,6 +515,9 @@ const seo = generateSEO({
     flex-direction: column;
     gap: 6rem;
     margin-top: 4rem;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .screenshot-item {
@@ -506,6 +525,8 @@ const seo = generateSEO({
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   .screenshot-reverse {
@@ -646,43 +667,68 @@ const seo = generateSEO({
     margin: 0 auto;
   }
 
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  .problem-list {
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
     margin-top: 3rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .problem-card {
+  .problem-item {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: 16px;
     padding: 2rem;
-    text-align: center;
     transition: all 0.3s ease;
   }
 
-  .problem-card:hover {
+  .problem-item:hover {
     border-color: var(--primary-cta);
-    transform: translateY(-5px);
+    transform: translateX(10px);
     box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
   }
 
-  .problem-card i {
-    font-size: 3rem;
-    color: var(--primary-cta);
-    margin-bottom: 1rem;
+  .problem-icon {
+    flex-shrink: 0;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(234, 88, 12, 0.15));
+    border: 2px solid rgba(249, 115, 22, 0.3);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
   }
 
-  .problem-card h3 {
-    font-size: 1.3rem;
+  .problem-item:hover .problem-icon {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(234, 88, 12, 0.25));
+    transform: scale(1.05) rotate(-5deg);
+  }
+
+  .problem-icon i {
+    font-size: 2rem;
+    color: var(--primary-cta);
+  }
+
+  .problem-content h3 {
+    font-size: 1.35rem;
     margin-bottom: 0.75rem;
     color: var(--text-primary);
+    font-weight: 700;
   }
 
-  .problem-card p {
+  .problem-content p {
     color: var(--text-secondary);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin: 0;
   }
 
   .factors-grid {
@@ -690,6 +736,9 @@ const seo = generateSEO({
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
     margin-top: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .factor-item {
@@ -759,7 +808,7 @@ const seo = generateSEO({
     gap: 0.5rem;
   }
 
-  /* Mobile Optimizations */
+  /* Tablet Optimizations */
   @media (max-width: 1024px) {
     .hero-container-pricing {
       flex-direction: column;
@@ -800,6 +849,24 @@ const seo = generateSEO({
     .screenshot-4 {
       width: 200px;
       height: 150px;
+    }
+
+    /* Problem list stays vertical on tablet */
+    .problem-list {
+      gap: 1.5rem;
+    }
+
+    .problem-item {
+      padding: 1.5rem;
+    }
+
+    .problem-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    .problem-icon i {
+      font-size: 1.75rem;
     }
   }
 
@@ -865,9 +932,34 @@ const seo = generateSEO({
       padding: 0.4rem 0.8rem;
     }
 
-    .problem-grid {
-      grid-template-columns: 1fr;
+    /* Mobile problem list */
+    .problem-list {
       gap: 1.5rem;
+    }
+
+    .problem-item {
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .problem-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto;
+    }
+
+    .problem-icon i {
+      font-size: 1.5rem;
+    }
+
+    .problem-content h3 {
+      font-size: 1.2rem;
+    }
+
+    .problem-content p {
+      font-size: 1rem;
     }
 
     .factors-grid {
