@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "cf:optimize": "node cloudflare-api-setup.mjs",
+    "optimize-images": "node optimize-images.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
