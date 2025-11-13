@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Services - Jengu | AI Automation & Custom Software Solutions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Discover Jengu's AI automation services: custom chatbots, phone bots, API integrations, dynamic pricing, and workflow automation for tourism businesses.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-brand: #1E40AF;
+      --secondary-brand: #06B6D4;
+      --primary-cta: #F97316;
+      --primary-cta-hover: #EA580C;
+      --success: #10B981;
+      --accent-yellow: #FBBF24;
+      --bg-main: #000000;
+      --bg-light: #121212;
+      --bg-card: #181818;
+      --bg-elevated: #282828;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #6A6A6A;
+      --border-light: #282828;
+      --border-medium: #404040;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+      --jengu-gradient: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
+      --dark: var(--text-primary);
+      --gray: var(--text-secondary);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: var(--bg-main);
+    }
+
+    * {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-cta);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-cta);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--primary-cta);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-cta-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(249, 115, 22, 0.4);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-main);
+      position: relative;
+      overflow: hidden;
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 8s ease-in-out infinite;
+      filter: blur(60px);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero .gradient-text {
+      background: var(--jengu-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--gray);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Services Section */
+    .services-section {
+      padding: 6rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .section-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--secondary-brand);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Service Cards */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-bottom: 6rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 3rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .service-card:hover::before {
+      left: 100%;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-medium);
+    }
+
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--jengu-gradient);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .service-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      color: var(--gray);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .service-features li {
+      color: var(--gray);
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .service-features li:last-child {
+      border-bottom: none;
+    }
+
+    .service-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .service-cta {
+      display: inline-block;
+      background: var(--primary-cta);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .service-cta:hover {
+      background: var(--primary-cta-hover);
+      transform: translateX(5px);
+    }
+
+    /* Process Section */
+    .process-section {
+      padding: 6rem 2rem;
+      background: var(--bg-main);
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step::after {
+      content: '→';
+      position: absolute;
+      top: 40px;
+      right: -2rem;
+      font-size: 2rem;
+      color: var(--border-medium);
+    }
+
+    .process-step:last-child::after {
+      display: none;
+    }
+
+    .process-number {
+      width: 80px;
+      height: 80px;
+      background: var(--jengu-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 900;
+      color: white;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .process-step h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .process-step p {
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      color: white;
+      padding: 4rem 2rem 2rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-logo {
+      height: 60px;
+      width: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 2rem;
+      background: var(--jengu-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+    }
+
+    .footer-section h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-cta);
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-step::after {
+        display: none;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .section-header h2 {
+        font-size: 2rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="landing-page.html" class="logo">
+        <img src="images/logo.png" alt="Jengu" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="landing-page.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="case-studies.html">Case Studies</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Our <span class="gradient-text">Services</span></h1>
+      <p>
+        From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Services -->
+  <section class="services-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">What We Build</span>
+        <h2>Custom AI & Automation Solutions</h2>
+        <p>Tailored technology that solves your specific business challenges</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- AI Chatbots & Phone Bots -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI Chatbots & Phone Bots</h3>
+          <p>Custom-built conversational AI agents that handle guest communications 24/7 across text and voice channels.</p>
+          <ul class="service-features">
+            <li>Natural language processing in 100+ languages</li>
+            <li>Voice AI for phone calls with human-like conversations</li>
+            <li>Website chat, WhatsApp, SMS integration</li>
+            <li>Booking, inquiries, and support automation</li>
+            <li>Seamless handoff to human agents when needed</li>
+          </ul>
+          <a href="contact.html" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- Custom Software Development -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Custom Software Development</h3>
+          <p>Purpose-built applications designed specifically for your business workflows and operational needs.</p>
+          <ul class="service-features">
+            <li>Dynamic pricing engines with AI optimization</li>
+            <li>Custom booking and reservation systems</li>
+            <li>Inventory and resource management tools</li>
+            <li>Analytics dashboards and reporting platforms</li>
+            <li>Mobile apps for staff and guests</li>
+          </ul>
+          <a href="contact.html" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- API Integrations -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>API Integrations & Automation</h3>
+          <p>Connect your entire tech stack with intelligent workflows that eliminate manual data entry and errors.</p>
+          <ul class="service-features">
+            <li>PMS, CRM, and booking engine integrations</li>
+            <li>Payment processor and accounting software sync</li>
+            <li>Channel manager and OTA connections</li>
+            <li>Email and communication platform automation</li>
+            <li>Custom middleware for legacy systems</li>
+          </ul>
+          <a href="contact.html" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- Email Automation -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>AI Email Management</h3>
+          <p>Intelligent email sorting, categorization, and auto-response systems that handle guest communications at scale.</p>
+          <ul class="service-features">
+            <li>Smart inbox organization and prioritization</li>
+            <li>AI-generated responses with brand voice</li>
+            <li>Automatic categorization and routing</li>
+            <li>Sentiment analysis for urgent issues</li>
+            <li>Integration with ticketing systems</li>
+          </ul>
+          <a href="contact.html" class="service-cta">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Services -->
+  <section class="services-section" style="background: var(--bg-main); padding-top: 0;">
+    <div class="section-container">
+      <div class="services-grid">
+        <!-- Process Mapping -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3>Process Mapping & Optimization</h3>
+          <p>Clear visualization of your workflows to identify inefficiencies and automation opportunities.</p>
+          <ul class="service-features">
+            <li>Complete workflow documentation</li>
+            <li>Bottleneck identification and analysis</li>
+            <li>Automation opportunity assessment</li>
+            <li>ROI calculation for improvements</li>
+            <li>Implementation roadmap creation</li>
+          </ul>
+          <a href="contact.html" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- Training & Support -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Training & Ongoing Support</h3>
+          <p>Comprehensive onboarding and continuous support to ensure your team masters every system we build.</p>
+          <ul class="service-features">
+            <li>Hands-on training for all staff levels</li>
+            <li>Custom documentation and video tutorials</li>
+            <li>Dedicated support team during business hours</li>
+            <li>Regular system optimization reviews</li>
+            <li>Feature updates and enhancements</li>
+          </ul>
+          <a href="contact.html" class="service-cta">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">How We Work</span>
+        <h2>Our Development Process</h2>
+        <p>From discovery to deployment, we follow a proven process that delivers results</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-number">1</div>
+          <h4>Discovery</h4>
+          <p>We map your processes, understand your challenges, and identify automation opportunities</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">2</div>
+          <h4>Design</h4>
+          <p>Custom solution design tailored to your specific workflows and business goals</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">3</div>
+          <h4>Development</h4>
+          <p>Agile development with regular check-ins and iterative feedback loops</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">4</div>
+          <h4>Deploy & Support</h4>
+          <p>Smooth rollout, team training, and ongoing optimization and support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Jengu" class="footer-logo">
+        <p>
+          AI automation solutions for tourism and hospitality. We build custom chatbots, phone bots, software, and API integrations.
+        </p>
+        <div class="footer-contact">
+          <p><i class="fas fa-envelope"></i> info@jengu.ai</p>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="landing-page.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="landing-page.html#calculator">ROI Calculator</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jengu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+
+</body>
+</html>

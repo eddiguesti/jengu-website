@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Case Studies - Jengu | Real Results from AI Automation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Discover how tourism businesses transformed their operations with Jengu's AI automation solutions. Real case studies, real results.">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-brand: #1E40AF;
+      --secondary-brand: #06B6D4;
+      --primary-cta: #F97316;
+      --primary-cta-hover: #EA580C;
+      --success: #10B981;
+      --accent-yellow: #FBBF24;
+      --bg-main: #000000;
+      --bg-light: #121212;
+      --bg-card: #181818;
+      --bg-elevated: #282828;
+      --text-primary: #FFFFFF;
+      --text-secondary: #B3B3B3;
+      --text-muted: #6A6A6A;
+      --border-light: #282828;
+      --border-medium: #404040;
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 10px 25px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+      --jengu-gradient: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
+      --dark: var(--text-primary);
+      --gray: var(--text-secondary);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background: var(--bg-main);
+    }
+
+    * {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    *::-webkit-scrollbar {
+      display: none;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--dark);
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      padding: 1rem 0;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-links a.active {
+      color: var(--primary-cta);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-cta);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      background: var(--primary-cta);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .nav-cta:hover {
+      background: var(--primary-cta-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(249, 115, 22, 0.4);
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-main);
+      position: relative;
+      overflow: hidden;
+      padding-top: 120px;
+      padding-bottom: 80px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle at 30% 30%, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: pulse 8s ease-in-out infinite;
+      filter: blur(60px);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero .gradient-text {
+      background: var(--jengu-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--gray);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Case Studies Section */
+    .case-studies-section {
+      padding: 6rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .case-study {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 4rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      margin-bottom: 4rem;
+      transition: all 0.3s ease;
+    }
+
+    .case-study:hover {
+      border-color: var(--border-medium);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .case-study-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 3rem;
+      gap: 3rem;
+    }
+
+    .case-study-info {
+      flex: 1;
+    }
+
+    .case-study-badge {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--secondary-brand);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .case-study h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .case-study-subtitle {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .case-study-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--gray);
+    }
+
+    .meta-item i {
+      color: var(--primary-cta);
+      font-size: 1.2rem;
+    }
+
+    .case-study-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      min-width: 400px;
+    }
+
+    .stat-box {
+      background: var(--bg-elevated);
+      padding: 1.5rem;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid var(--border-light);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      background: var(--jengu-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .case-study-content {
+      margin-bottom: 3rem;
+    }
+
+    .case-study-section {
+      margin-bottom: 3rem;
+    }
+
+    .case-study-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .case-study-section h3::before {
+      content: '';
+      width: 4px;
+      height: 30px;
+      background: var(--jengu-gradient);
+      border-radius: 2px;
+    }
+
+    .case-study-section p {
+      color: var(--gray);
+      font-size: 1.1rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .solutions-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .solution-item {
+      background: var(--bg-elevated);
+      padding: 1.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+    }
+
+    .solution-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--jengu-gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .solution-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .solution-item p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .result-card {
+      background: var(--bg-elevated);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+    }
+
+    .result-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--primary-cta);
+    }
+
+    .result-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .result-card li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: var(--gray);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .result-card li:last-child {
+      border-bottom: none;
+    }
+
+    .result-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .testimonial {
+      background: var(--bg-elevated);
+      padding: 3rem;
+      border-radius: 20px;
+      border-left: 4px solid var(--primary-cta);
+      margin-top: 3rem;
+    }
+
+    .testimonial-quote {
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 60px;
+      height: 60px;
+      background: var(--jengu-gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .author-info h5 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .author-info p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    /* Platform Showcase */
+    .platform-showcase {
+      margin-top: 4rem;
+      padding: 3rem;
+      background: var(--bg-elevated);
+      border-radius: 24px;
+      border: 1px solid var(--border-medium);
+    }
+
+    .showcase-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .showcase-header h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .showcase-header p {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .screenshot-item {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+    }
+
+    .screenshot-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-cta);
+    }
+
+    .screenshot-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      cursor: pointer;
+    }
+
+    .screenshot-caption {
+      padding: 1.5rem;
+      background: var(--bg-card);
+    }
+
+    .screenshot-caption h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary-cta);
+    }
+
+    .screenshot-caption p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Image Modal */
+    .image-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      padding: 2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-modal.active {
+      display: flex;
+    }
+
+    .modal-content-img {
+      max-width: 95%;
+      max-height: 90vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-cta);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--primary-cta-hover);
+      transform: scale(1.1);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 2rem;
+      background: var(--bg-main);
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-section .gradient-text {
+      background: var(--jengu-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      color: var(--gray);
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--primary-cta);
+      color: white;
+      padding: 1.5rem 3rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+    }
+
+    .cta-button:hover {
+      background: var(--primary-cta-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(249, 115, 22, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      color: white;
+      padding: 4rem 2rem 2rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-logo {
+      height: 60px;
+      width: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 2rem;
+      background: var(--jengu-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+    }
+
+    .footer-section h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-cta);
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .case-study-header {
+        flex-direction: column;
+      }
+
+      .case-study-stats {
+        min-width: 100%;
+      }
+
+      .solutions-list,
+      .results-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .case-study {
+        padding: 2rem;
+      }
+
+      .case-study h2 {
+        font-size: 2rem;
+      }
+
+      .case-study-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="landing-page.html" class="logo">
+        <img src="images/logo.png" alt="Jengu" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="landing-page.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="case-studies.html" class="active">Case Studies</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="nav-cta">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1><span class="gradient-text">Real Results</span> from Real Businesses</h1>
+      <p>
+        See how tourism businesses transformed their operations with our AI automation solutions
+      </p>
+    </div>
+  </section>
+
+  <!-- Case Studies -->
+  <section class="case-studies-section">
+    <div class="section-container">
+
+      <!-- Case Study 1: Campasuns -->
+      <div class="case-study">
+        <div class="case-study-header">
+          <div class="case-study-info">
+            <span class="case-study-badge">Campsite Hospitality</span>
+            <h2>Campasuns</h2>
+            <p class="case-study-subtitle">
+              How a multi-location campsite operator achieved 35% reduction in admin workload and 20% revenue increase through AI-powered automation and dynamic pricing
+            </p>
+            <div class="case-study-meta">
+              <div class="meta-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>France</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-building"></i>
+                <span>Multiple Locations</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-users"></i>
+                <span>Campsite Hospitality</span>
+              </div>
+            </div>
+          </div>
+          <div class="case-study-stats">
+            <div class="stat-box">
+              <span class="stat-value">35%</span>
+              <span class="stat-label">Admin Reduction</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value">20%</span>
+              <span class="stat-label">Revenue Increase</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-value">25%</span>
+              <span class="stat-label">Satisfaction Boost</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-study-content">
+          <div class="case-study-section">
+            <h3>The Challenge</h3>
+            <p>
+              Managing 8 campsites across the South of France, Campasuns faced significant operational inefficiencies that were holding back growth and profitability.
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h4>Communication Bottlenecks</h4>
+                  <p>Manual email handling led to delayed responses, inconsistent communication quality, and overwhelmed staff during peak seasons</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-tags"></i>
+                </div>
+                <div>
+                  <h4>Static Pricing Limitations</h4>
+                  <p>Fixed pricing models couldn't adapt to market fluctuations, competitor changes, weather patterns, or local events—leaving revenue on the table</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <div>
+                  <h4>Operational Inconsistencies</h4>
+                  <p>Varying processes across different campsite locations created inefficiencies and made scaling difficult</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Our Solution</h3>
+            <p>
+              We implemented a comprehensive automation and optimization strategy that addressed each challenge systematically:
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+                <div>
+                  <h4>Process Mapping & Optimization</h4>
+                  <p>Used Miro to map out all business processes across campsites, identifying inefficiencies and standardizing best practices</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <div>
+                  <h4>AI Email Automation</h4>
+                  <p>Developed custom Python application integrated with OpenAI API to automatically handle, categorize, and respond to customer emails 24/7</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cog"></i>
+                </div>
+                <div>
+                  <h4>Operational Systems Automation</h4>
+                  <p>Automated repetitive administrative tasks and created consistent workflows across all 8 campsite locations</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-brain"></i>
+                </div>
+                <div>
+                  <h4>Custom Dynamic Pricing Software</h4>
+                  <p>Built the industry's first AI-powered dynamic pricing engine specifically designed for campsites—monitoring competitors, weather, events, and historical data to optimize revenue</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>Dynamic Pricing Innovation</h3>
+            <p>
+              The crown jewel of this transformation was our custom-built dynamic pricing platform—a sophisticated ML system that doesn't exist anywhere else in the campsite industry. Traditional pricing tools couldn't handle the unique complexities of campsite management, so we built one from the ground up.
+            </p>
+            <div class="solutions-list">
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-binoculars"></i>
+                </div>
+                <div>
+                  <h4>Competitor Intelligence</h4>
+                  <p>Automated competitor discovery and price tracking using camping-and-co.com, monitoring market rates within customizable radius zones</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-cloud-sun-rain"></i>
+                </div>
+                <div>
+                  <h4>Multi-Source Data Enrichment</h4>
+                  <p>Real-time integration of weather forecasts, holiday calendars, local events, and temporal features to identify pricing correlations</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                  <h4>Machine Learning Predictions</h4>
+                  <p>Advanced ML algorithms analyze historical patterns, capacity management, and market conditions to predict optimal prices aligned with business goals</p>
+                </div>
+              </div>
+              <div class="solution-item">
+                <div class="solution-icon">
+                  <i class="fas fa-sliders-h"></i>
+                </div>
+                <div>
+                  <h4>Flexible Pricing Strategies</h4>
+                  <p>Choose from Conservative, Balanced, or Aggressive pricing approaches with fine-tuned controls for demand sensitivity and price aggression</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-study-section">
+            <h3>The Platform Features</h3>
+            <div class="results-grid">
+              <div class="result-card">
+                <h4>Intelligent Pricing Engine</h4>
+                <ul>
+                  <li>Multi-strategy pricing (Conservative, Balanced, Aggressive)</li>
+                  <li>Customizable demand sensitivity and price aggression</li>
+                  <li>Occupancy target optimization (65%-90%)</li>
+                  <li>14-day to 60-day forecast horizons</li>
+                  <li>Real-time price optimization timeline visualization</li>
+                </ul>
+              </div>
+              <div class="result-card">
+                <h4>Data-Driven Intelligence</h4>
+                <ul>
+                  <li>Automatic competitor discovery within custom radius</li>
+                  <li>Weather data integration (temperature, precipitation, sunshine)</li>
+                  <li>Holiday and school break overlays</li>
+                  <li>Historical booking pattern analysis</li>
+                  <li>Revenue and occupancy forecasting</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <p class="testimonial-quote">
+            "Jengu built something that simply didn't exist in the campsite industry—an AI-powered pricing engine that actually understands our market. The system monitors competitors, overlays weather and holiday data, analyzes years of booking patterns, and uses machine learning to predict optimal prices. It's transformed how we manage pricing across our 8 locations. This level of intelligence was previously only available to hotels, and now we have it tailored specifically for campsites."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">C</div>
+            <div class="author-info">
+              <h5>Campasuns Management</h5>
+              <p>Multi-location Campsite Operations, South of France</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Platform Showcase -->
+        <div class="platform-showcase">
+          <div class="showcase-header">
+            <h3>Inside the Platform</h3>
+            <p>Explore the AI-powered features that make intelligent campsite pricing possible</p>
+          </div>
+
+          <div class="screenshot-grid">
+            <!-- Competitor Discovery -->
+            <div class="screenshot-item">
+              <img src="images/competitor-discovery.png" alt="Competitor Discovery Interface" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-binoculars"></i> Competitor Discovery</h4>
+                <p>Automatically discover and track competitor campsites within a customizable radius using camping-and-co.com data. The system monitors 10+ competitors in real-time, tracking their pricing strategies and availability to inform intelligent pricing decisions.</p>
+              </div>
+            </div>
+
+            <!-- Data Enrichment -->
+            <div class="screenshot-item">
+              <img src="images/data-enrichment.png" alt="Data Enrichment Dashboard" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-database"></i> Multi-Source Data Enrichment</h4>
+                <p>The platform enriches historical booking data with weather information (temperature, precipitation, sunshine hours), holiday calendars, school breaks, and temporal features (day of week, season, weekend indicators). All data sources are automatically synchronized and processed for ML analysis.</p>
+              </div>
+            </div>
+
+            <!-- Pricing Strategy -->
+            <div class="screenshot-item">
+              <img src="images/pricing-strategy.png" alt="Pricing Strategy Selection" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-sliders-h"></i> Strategic Pricing Controls</h4>
+                <p>Choose from Conservative, Balanced, or Aggressive pricing strategies with fine-tuned controls for demand sensitivity (30%-90%), price aggression (40%-100%), and occupancy targets (65%-90%). Each strategy adapts dynamically based on forecasted demand and market conditions.</p>
+              </div>
+            </div>
+
+            <!-- Price Optimization -->
+            <div class="screenshot-item">
+              <img src="images/price-optimization.png" alt="Price Optimization Timeline" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-chart-area"></i> ML-Powered Price Optimization</h4>
+                <p>Advanced machine learning algorithms analyze demand forecasts, competitor pricing, weather patterns, and historical correlations to predict optimal prices up to 60 days ahead. The visualization shows current vs. optimized pricing overlaid with demand forecasts, enabling data-driven pricing decisions.</p>
+              </div>
+            </div>
+
+            <!-- Revenue & Occupancy Forecasts -->
+            <div class="screenshot-item">
+              <img src="images/forecasting.png" alt="Revenue and Occupancy Forecasting" class="screenshot-img" onclick="openImageModal(this.src)">
+              <div class="screenshot-caption">
+                <h4><i class="fas fa-chart-line"></i> Revenue & Occupancy Forecasting</h4>
+                <p>Dual forecasting charts compare current revenue/occupancy projections against ML-optimized predictions. The system provides 14-day forecasts showing potential revenue uplift and occupancy improvements, helping managers make informed capacity and pricing decisions.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Image Modal -->
+  <div class="image-modal" id="imageModal" onclick="closeImageModal()">
+    <button class="modal-close" onclick="closeImageModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <img src="" alt="Platform Screenshot" class="modal-content-img" id="modalImage">
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="section-container">
+      <h2>Ready to Write Your <span class="gradient-text">Success Story?</span></h2>
+      <p>
+        See how much time and money AI automation can save your business. Get your personalized ROI calculation in 2 minutes.
+      </p>
+      <a href="landing-page.html#calculator" class="cta-button">
+        <i class="fas fa-calculator"></i> Calculate Your ROI
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="images/logo.png" alt="Jengu" class="footer-logo">
+        <p>
+          AI automation solutions for tourism and hospitality. We build custom chatbots, phone bots, software, and API integrations.
+        </p>
+        <div class="footer-contact">
+          <p><i class="fas fa-envelope"></i> info@jengu.ai</p>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="landing-page.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="team.html">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="landing-page.html#calculator">ROI Calculator</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jengu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Image Modal Functions
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImage');
+      modal.classList.add('active');
+      modalImg.src = src;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

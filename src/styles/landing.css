@@ -2047,3 +2047,739 @@
       color: var(--text-secondary);
       line-height: 1.6;
     }
+
+    /* Services Page Styles */
+    .services-section {
+      padding: 6rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-bottom: 6rem;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 3rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.05), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .service-card:hover::before {
+      left: 100%;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-medium);
+    }
+
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-brand);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: white;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .service-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .service-features {
+      list-style: none;
+      margin-bottom: 2rem;
+      padding: 0;
+    }
+
+    .service-features li {
+      color: var(--text-secondary);
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .service-features li:last-child {
+      border-bottom: none;
+    }
+
+    .service-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .service-cta {
+      display: inline-block;
+      background: var(--primary-cta);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .service-cta:hover {
+      background: var(--primary-cta-hover);
+      transform: translateX(5px);
+    }
+
+    .process-section {
+      padding: 6rem 2rem;
+      background: var(--bg-main);
+    }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .process-step {
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step::after {
+      content: '→';
+      position: absolute;
+      top: 40px;
+      right: -2rem;
+      font-size: 2rem;
+      color: var(--border-medium);
+    }
+
+    .process-step:last-child::after {
+      display: none;
+    }
+
+    .process-number {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-brand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 900;
+      color: white;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .process-step h4 {
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .process-step p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* About Page Styles */
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .mission-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 3rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+    }
+
+    .mission-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .mission-card-icon {
+      width: 70px;
+      height: 70px;
+      background: var(--gradient-brand);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
+    }
+
+    .mission-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .mission-card p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* Values Grid */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .value-card {
+      background: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-cta);
+      box-shadow: 0 10px 40px rgba(249, 115, 22, 0.2);
+    }
+
+    .value-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--primary-cta) 0%, var(--primary-cta-hover) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+    }
+
+    .value-card h4 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .value-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Stats Section */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: 20px;
+      border: 1px solid var(--border-light);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* Team Page Styles */
+    .team-section {
+      padding: 6rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-bottom: 6rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .team-member {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 0;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .team-member:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-medium);
+    }
+
+    .team-avatar {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 0;
+    }
+
+    .team-info {
+      padding: 2rem;
+    }
+
+    .team-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-role {
+      color: var(--primary-cta);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .team-bio {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-social {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--bg-elevated);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+      border: 1px solid var(--border-light);
+      text-decoration: none;
+    }
+
+    .social-link:hover {
+      background: var(--primary-cta);
+      color: white;
+      border-color: var(--primary-cta);
+      transform: translateY(-3px);
+    }
+
+    /* Join Team Section */
+    .join-team-section {
+      padding: 6rem 2rem;
+      background: var(--bg-main);
+      text-align: center;
+    }
+
+    .join-team-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    .join-team-card h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .join-team-card p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--primary-cta);
+      color: white;
+      padding: 1.25rem 3rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+    }
+
+    .cta-button:hover {
+      background: var(--primary-cta-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(249, 115, 22, 0.5);
+    }
+
+    .feature-card-circular {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 2.5rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      transition: all 0.4s ease;
+    }
+
+    .feature-card-circular:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--border-medium);
+    }
+
+    .feature-card-inner {
+      text-align: center;
+    }
+
+    .feature-card-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-brand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: white;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+    }
+
+    .feature-card-circular h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .feature-card-circular p {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Case Studies Page Styles */
+    .case-studies-section {
+      padding: 6rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .case-study-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 4rem;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow);
+      margin-bottom: 4rem;
+      transition: all 0.3s ease;
+    }
+
+    .case-study-card:hover {
+      border-color: var(--border-medium);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .case-study-header {
+      margin-bottom: 3rem;
+    }
+
+    .case-study-badge {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--secondary-brand);
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .case-study-card h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .case-study-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .case-study-meta {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .meta-item i {
+      color: var(--primary-cta);
+      font-size: 1.1rem;
+    }
+
+    .case-study-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      padding: 3rem;
+      background: var(--bg-elevated);
+      border-radius: 16px;
+      margin-bottom: 3rem;
+    }
+
+    .stat-box {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: var(--primary-cta);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .case-study-details {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
+
+    .detail-section h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .detail-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .solution-list,
+    .results-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+    .solution-list li,
+    .results-list li {
+      padding: 1rem 0;
+      padding-left: 2.5rem;
+      position: relative;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      font-size: 1.05rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .solution-list li:last-child,
+    .results-list li:last-child {
+      border-bottom: none;
+    }
+
+    .solution-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--primary-cta);
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .results-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .coming-soon-section {
+      text-align: center;
+      padding: 4rem 3rem;
+      background: var(--bg-elevated);
+      border-radius: 16px;
+      border: 1px solid var(--border-light);
+    }
+
+    .coming-soon-section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .coming-soon-section p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    /* Responsive adjustments for page-specific styles */
+    @media (max-width: 968px) {
+      .services-grid,
+      .mission-vision-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .values-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .process-step::after {
+        display: none;
+      }
+
+      .case-study-stats {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .service-card,
+      .mission-card,
+      .case-study-card {
+        padding: 2rem;
+      }
+    }
+
+    @media (max-width: 568px) {
+      .process-steps {
+        grid-template-columns: 1fr;
+      }
+
+      .values-grid,
+      .stats-grid,
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-card h3,
+      .case-study-card h2 {
+        font-size: 1.8rem;
+      }
+
+      .stat-value,
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .join-team-card {
+        padding: 2.5rem 2rem;
+      }
+    }
