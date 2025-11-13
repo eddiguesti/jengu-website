@@ -117,7 +117,30 @@
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0;
+  width: 100%;
+}
+
+/* Desktop: ensure cards are centered and properly aligned */
+@media (min-width: 1025px) {
+  .features-grid-new {
+    padding: 0 2rem;
+    justify-items: center;
+  }
+
+  /* Ensure 2-column layout on medium desktop screens */
+  @media (max-width: 1400px) {
+    .features-grid-new {
+      grid-template-columns: repeat(2, minmax(350px, 500px));
+    }
+  }
+
+  /* 3-column layout on larger screens */
+  @media (min-width: 1401px) {
+    .features-grid-new {
+      grid-template-columns: repeat(3, minmax(350px, 380px));
+    }
+  }
 }
 
 .feature-card-new {
