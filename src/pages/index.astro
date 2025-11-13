@@ -39,10 +39,23 @@ const jsonLd = [
       <div class="hero-visual">
         <div class="spline-container" role="img" aria-label="Interactive 3D robot animation showcasing AI automation">
           <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+
+          <!-- Desktop Spline Scene -->
           <spline-viewer
-            id="spline-robot"
+            id="spline-robot-desktop"
+            class="spline-desktop"
             url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode"
             style="width: 160%; height: 100vh;"
+            loading="lazy"
+            aria-label="3D animated robot demonstrating AI capabilities"
+          ></spline-viewer>
+
+          <!-- Mobile/Tablet Optimized Spline Scene -->
+          <spline-viewer
+            id="spline-robot-mobile"
+            class="spline-mobile"
+            url="https://prod.spline.design/yDmGw5HPEZImTgwbMYxor6hI/scene.splinecode"
+            style="width: 110vw; height: 100%;"
             loading="lazy"
             aria-label="3D animated robot demonstrating AI capabilities"
           ></spline-viewer>
@@ -50,25 +63,32 @@ const jsonLd = [
       </div>
 
       <script is:inline>
-        // Mobile performance optimization for Spline
+        // Mobile/Desktop Spline scene switching and optimization
         (function() {
-          const splineViewer = document.getElementById('spline-robot');
-          const isMobile = window.innerWidth <= 768;
-          const isTablet = window.innerWidth <= 1024 && window.innerWidth > 768;
+          const desktopViewer = document.getElementById('spline-robot-desktop');
+          const mobileViewer = document.getElementById('spline-robot-mobile');
+          const isMobile = window.innerWidth <= 1024;
 
-          if (splineViewer && (isMobile || isTablet)) {
-            // Reduce quality on mobile/tablet for better performance
-            splineViewer.addEventListener('load', function() {
-              try {
-                // Lower frame rate on mobile
-                if (isMobile) {
-                  splineViewer.shadowRoot?.querySelector('canvas')?.setAttribute('data-fps', '30');
-                }
-              } catch(e) {
-                console.log('Spline optimization applied');
-              }
-            });
+          // Show appropriate scene based on screen size
+          if (isMobile) {
+            if (desktopViewer) desktopViewer.style.display = 'none';
+            if (mobileViewer) mobileViewer.style.display = 'block';
+          } else {
+            if (desktopViewer) desktopViewer.style.display = 'block';
+            if (mobileViewer) mobileViewer.style.display = 'none';
           }
+
+          // Handle window resize
+          window.addEventListener('resize', function() {
+            const nowMobile = window.innerWidth <= 1024;
+            if (nowMobile) {
+              if (desktopViewer) desktopViewer.style.display = 'none';
+              if (mobileViewer) mobileViewer.style.display = 'block';
+            } else {
+              if (desktopViewer) desktopViewer.style.display = 'block';
+              if (mobileViewer) mobileViewer.style.display = 'none';
+            }
+          });
 
           // Use passive listeners for better scroll performance
           document.addEventListener('touchstart', function(){}, { passive: true });
