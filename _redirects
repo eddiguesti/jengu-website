@@ -1,0 +1,14 @@
+# Cloudflare Pages Redirects Configuration
+
+# Redirect old paths to new paths (add your redirects here)
+# Example: /old-page /new-page 301
+
+# Ensure trailing slashes are handled consistently
+# /about /about/ 301
+# /services /services/ 301
+
+# Redirect www to non-www (when domain is connected)
+# https://www.jengu.ai/* https://jengu.ai/:splat 301
+
+# Language-specific redirects (optional)
+# You can add browser language detection redirects here if needed

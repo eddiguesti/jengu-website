@@ -1,0 +1,42 @@
+# Cloudflare Pages Headers Configuration
+# This file controls HTTP headers for static assets and pages
+
+# Global security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Cache static assets aggressively
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache fonts
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# WebP images with proper MIME type
+/*.webp
+  Content-Type: image/webp
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - short cache with revalidation
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Sitemaps and robots
+/sitemap*.xml
+  Content-Type: application/xml
+  Cache-Control: public, max-age=3600
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+
+# Service worker (if added later)
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
