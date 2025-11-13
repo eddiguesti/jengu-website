@@ -86,6 +86,20 @@
       -webkit-backface-visibility: hidden;
     }
 
+    /* Prevent layout thrashing on mobile */
+    @media (max-width: 1024px) {
+      /* Optimize animations to use only transform and opacity */
+      .hero-content, .hero-visual,
+      .feature-card, .stat-card, .benefit-item {
+        will-change: transform, opacity;
+      }
+
+      /* Reduce paint complexity */
+      section {
+        contain: layout style paint;
+      }
+    }
+
     /* Animations with GPU acceleration */
     @keyframes fadeInUp {
       from {

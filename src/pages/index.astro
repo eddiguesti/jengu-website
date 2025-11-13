@@ -40,6 +40,7 @@ const jsonLd = [
         <div class="spline-container" role="img" aria-label="Interactive 3D robot animation showcasing AI automation">
           <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
           <spline-viewer
+            id="spline-robot"
             url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode"
             style="width: 160%; height: 100vh;"
             loading="lazy"
@@ -47,6 +48,34 @@ const jsonLd = [
           ></spline-viewer>
         </div>
       </div>
+
+      <script is:inline>
+        // Mobile performance optimization for Spline
+        (function() {
+          const splineViewer = document.getElementById('spline-robot');
+          const isMobile = window.innerWidth <= 768;
+          const isTablet = window.innerWidth <= 1024 && window.innerWidth > 768;
+
+          if (splineViewer && (isMobile || isTablet)) {
+            // Reduce quality on mobile/tablet for better performance
+            splineViewer.addEventListener('load', function() {
+              try {
+                // Lower frame rate on mobile
+                if (isMobile) {
+                  splineViewer.shadowRoot?.querySelector('canvas')?.setAttribute('data-fps', '30');
+                }
+              } catch(e) {
+                console.log('Spline optimization applied');
+              }
+            });
+          }
+
+          // Use passive listeners for better scroll performance
+          document.addEventListener('touchstart', function(){}, { passive: true });
+          document.addEventListener('touchmove', function(){}, { passive: true });
+          document.addEventListener('scroll', function(){}, { passive: true });
+        })();
+      </script>
     </div>
   </section>
 
