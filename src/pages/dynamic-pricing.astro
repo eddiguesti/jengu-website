@@ -1,0 +1,507 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+
+const seo = generateSEO({
+  title: 'Dynamic Pricing Software for Campsites | Maximize Revenue with AI',
+  description: 'Smart dynamic pricing system for campsites and RV parks. Increase revenue by up to 40% with AI-powered pricing that adapts to demand, seasonality, and competition.',
+  canonical: '/dynamic-pricing',
+  ogType: 'website'
+});
+---
+
+<BaseLayout seo={seo}>
+  <!-- Hero Section -->
+  <section class="hero hero-pricing">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge">
+          <i class="fas fa-chart-line"></i>
+          Dynamic Pricing for Campsites
+        </span>
+        <h1>
+          Maximize Your Campsite Revenue with <span class="gradient-text">AI-Powered Pricing</span>
+        </h1>
+        <p class="hero-description">
+          Our dynamic pricing system automatically adjusts your campsite rates based on demand, seasonality, weather, events, and competition—increasing revenue by up to 40% while keeping occupancy high.
+        </p>
+
+        <div class="hero-stats-mini">
+          <div class="mini-stat">
+            <strong>Up to 40%</strong>
+            <span>Revenue Increase</span>
+          </div>
+          <div class="mini-stat">
+            <strong>24/7</strong>
+            <span>Automated</span>
+          </div>
+          <div class="mini-stat">
+            <strong>Real-time</strong>
+            <span>Price Updates</span>
+          </div>
+        </div>
+
+        <div class="hero-cta-group">
+          <a href="/contact" class="btn btn-primary btn-large">
+            <i class="fas fa-calendar-check"></i>
+            Get Free Demo
+          </a>
+          <a href="#how-it-works" class="btn btn-secondary btn-large">
+            <i class="fas fa-play-circle"></i>
+            See How It Works
+          </a>
+        </div>
+
+        <p class="hero-trust">
+          <i class="fas fa-check-circle"></i>
+          Free consultation & demo
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="section-dark">
+    <div class="container-narrow">
+      <div class="section-header">
+        <h2>Stop Leaving Money on the Table</h2>
+        <p>Traditional flat-rate pricing costs campsite owners thousands in lost revenue every season</p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <i class="fas fa-calendar-times"></i>
+          <h3>Peak Season Underpricing</h3>
+          <p>You could charge 2-3x more during holidays and weekends, but stick to flat rates</p>
+        </div>
+        <div class="problem-card">
+          <i class="fas fa-bed"></i>
+          <h3>Empty Sites in Low Season</h3>
+          <p>Lower prices could fill empty sites, but manual adjustments are time-consuming</p>
+        </div>
+        <div class="problem-card">
+          <i class="fas fa-users-slash"></i>
+          <h3>Missing Market Signals</h3>
+          <p>Local events, weather forecasts, and competitor pricing change daily—do you?</p>
+        </div>
+        <div class="problem-card">
+          <i class="fas fa-clock"></i>
+          <h3>Manual Price Management</h3>
+          <p>Hours spent updating rates across booking platforms instead of growing your business</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="features" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">
+          <i class="fas fa-cogs"></i>
+          How It Works
+        </span>
+        <h2>Smart Pricing That Runs on Autopilot</h2>
+        <p>Our AI analyzes dozens of factors every hour to set the perfect price for every site type</p>
+      </div>
+
+      <div class="features-grid-new">
+        <div class="feature-card-new">
+          <div class="feature-header">
+            <div class="feature-icon-new">
+              <i class="fas fa-brain"></i>
+            </div>
+            <h3>AI-Powered Analysis</h3>
+          </div>
+          <p>Machine learning algorithms analyze your historical data, market trends, and external factors to predict optimal pricing.</p>
+          <ul class="feature-benefits">
+            <li><i class="fas fa-check"></i> Historical booking patterns</li>
+            <li><i class="fas fa-check"></i> Seasonal demand trends</li>
+            <li><i class="fas fa-check"></i> Day-of-week variations</li>
+            <li><i class="fas fa-check"></i> Lead time optimization</li>
+          </ul>
+        </div>
+
+        <div class="feature-card-new">
+          <div class="feature-header">
+            <div class="feature-icon-new">
+              <i class="fas fa-cloud-sun"></i>
+            </div>
+            <h3>Real-Time Market Data</h3>
+          </div>
+          <p>Continuously monitors external factors that affect campsite demand and adjusts prices automatically.</p>
+          <ul class="feature-benefits">
+            <li><i class="fas fa-check"></i> Weather forecasts</li>
+            <li><i class="fas fa-check"></i> Local events & festivals</li>
+            <li><i class="fas fa-check"></i> School holidays</li>
+            <li><i class="fas fa-check"></i> Competitor pricing</li>
+          </ul>
+        </div>
+
+        <div class="feature-card-new">
+          <div class="feature-header">
+            <div class="feature-icon-new">
+              <i class="fas fa-sync-alt"></i>
+            </div>
+            <h3>Automatic Updates</h3>
+          </div>
+          <p>Seamlessly updates prices across all your booking channels in real-time—no manual work required.</p>
+          <ul class="feature-benefits">
+            <li><i class="fas fa-check"></i> Direct booking website</li>
+            <li><i class="fas fa-check"></i> Booking.com integration</li>
+            <li><i class="fas fa-check"></i> Airbnb sync</li>
+            <li><i class="fas fa-check"></i> RMS/PMS integration</li>
+          </ul>
+        </div>
+
+        <div class="feature-card-new">
+          <div class="feature-header">
+            <div class="feature-icon-new">
+              <i class="fas fa-sliders-h"></i>
+            </div>
+            <h3>Full Control & Overrides</h3>
+          </div>
+          <p>You're always in control with manual overrides, pricing rules, and customizable strategies.</p>
+          <ul class="feature-benefits">
+            <li><i class="fas fa-check"></i> Set min/max price limits</li>
+            <li><i class="fas fa-check"></i> Create custom rules</li>
+            <li><i class="fas fa-check"></i> Manual overrides anytime</li>
+            <li><i class="fas fa-check"></i> Site-specific strategies</li>
+          </ul>
+        </div>
+
+        <div class="feature-card-new">
+          <div class="feature-header">
+            <div class="feature-icon-new">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3>Performance Analytics</h3>
+          </div>
+          <p>Detailed insights into revenue performance, booking patterns, and optimization opportunities.</p>
+          <ul class="feature-benefits">
+            <li><i class="fas fa-check"></i> Revenue vs. last year</li>
+            <li><i class="fas fa-check"></i> Occupancy tracking</li>
+            <li><i class="fas fa-check"></i> Price elasticity analysis</li>
+            <li><i class="fas fa-check"></i> Custom reports</li>
+          </ul>
+        </div>
+
+        <div class="feature-card-new">
+          <div class="feature-header">
+            <div class="feature-icon-new">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>Mobile Dashboard</h3>
+          </div>
+          <p>Monitor and manage pricing from anywhere with our mobile-optimized dashboard.</p>
+          <ul class="feature-benefits">
+            <li><i class="fas fa-check"></i> Real-time notifications</li>
+            <li><i class="fas fa-check"></i> Quick price adjustments</li>
+            <li><i class="fas fa-check"></i> Revenue tracking</li>
+            <li><i class="fas fa-check"></i> iOS & Android apps</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Proven Results for Campsite Owners</h2>
+        <p>Real data from campsites using our dynamic pricing system</p>
+      </div>
+
+      <div class="stats-container">
+        <div class="stat-card">
+          <span class="stat-number">+38%</span>
+          <span class="stat-label">Average Revenue Increase</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">+15%</span>
+          <span class="stat-label">Occupancy Improvement</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">10hrs</span>
+          <span class="stat-label">Saved Weekly</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">24/7</span>
+          <span class="stat-label">Automatic Optimization</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Factors -->
+  <section class="section-light">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">
+          <i class="fas fa-lightbulb"></i>
+          Smart Factors
+        </span>
+        <h2>What Influences Your Prices?</h2>
+        <p>Our AI considers 20+ data points to calculate the optimal price</p>
+      </div>
+
+      <div class="factors-grid">
+        <div class="factor-item">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Booking lead time</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-sun"></i>
+          <span>Weather forecasts</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-chart-line"></i>
+          <span>Historical demand</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-users"></i>
+          <span>Current occupancy</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-calendar-week"></i>
+          <span>Day of week</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-snowflake"></i>
+          <span>Season & holidays</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-music"></i>
+          <span>Local events</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-school"></i>
+          <span>School vacations</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-store"></i>
+          <span>Competitor rates</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-clock"></i>
+          <span>Time until arrival</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-moon"></i>
+          <span>Length of stay</span>
+        </div>
+        <div class="factor-item">
+          <i class="fas fa-rocket"></i>
+          <span>Booking velocity</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Increase Your Campsite Revenue?</h2>
+      <p>Get a free consultation and see how much more you could be earning with dynamic pricing</p>
+      <div class="cta-buttons">
+        <a href="/contact" class="btn btn-primary btn-large">
+          <i class="fas fa-calendar-check"></i>
+          Schedule Free Demo
+        </a>
+        <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large">
+          <i class="fas fa-calculator"></i>
+          Calculate Potential ROI
+        </a>
+      </div>
+      <p class="cta-note">
+        <i class="fas fa-shield-alt"></i>
+        No credit card required • Free setup consultation • 30-day money-back guarantee
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-pricing {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-pricing::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+
+  .section-dark {
+    background: var(--bg-darker);
+    padding: 6rem 2rem;
+  }
+
+  .section-light {
+    background: var(--bg-main);
+    padding: 6rem 2rem;
+  }
+
+  .container-narrow {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .problem-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .problem-card:hover {
+    border-color: var(--primary-cta);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
+  }
+
+  .problem-card i {
+    font-size: 3rem;
+    color: var(--primary-cta);
+    margin-bottom: 1rem;
+  }
+
+  .problem-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .problem-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .factors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .factor-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .factor-item:hover {
+    border-color: var(--secondary-brand);
+    transform: translateX(5px);
+  }
+
+  .factor-item i {
+    font-size: 1.5rem;
+    color: var(--secondary-brand);
+    flex-shrink: 0;
+  }
+
+  .factor-item span {
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  .cta-section {
+    background: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+
+  .cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 1rem;
+  }
+
+  .cta-content > p {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-note {
+    margin-top: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  /* Mobile Optimizations */
+  @media (max-width: 768px) {
+    .hero-pricing::before {
+      width: 600px;
+      height: 600px;
+      top: -30%;
+      right: -40%;
+    }
+
+    .problem-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .factors-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-content h2 {
+      font-size: 2rem;
+    }
+
+    .cta-content > p {
+      font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .cta-note {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>
