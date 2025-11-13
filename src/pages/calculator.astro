@@ -1,0 +1,155 @@
+---
+// ROI Calculator - Standalone page for mobile users
+const seo = {
+  title: 'AI Agent ROI Calculator | Jengu',
+  description: 'Calculate how much time and money you can save with custom AI agents for your tourism or hospitality business.',
+  canonical: '/calculator',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{seo.title}</title>
+  <meta name="description" content={seo.description}>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="canonical" href={`https://jengu.ai${seo.canonical}`}>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- Chart.js for visualizations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <style>
+    /* Import calculator styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: #FFFFFF;
+      min-height: 100vh;
+    }
+
+    /* Mobile-optimized header */
+    .calc-header {
+      background: linear-gradient(135deg, #06B6D4 0%, #1E40AF 100%);
+      padding: 1.5rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .calc-header h1 {
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem 0;
+      font-weight: 800;
+    }
+
+    .calc-header p {
+      font-size: 0.9rem;
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .back-btn {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    /* Container for calculator iframe/content */
+    .calc-container {
+      width: 100%;
+      height: calc(100vh - 100px);
+      position: relative;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Loading state */
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 1.2rem;
+      color: #06B6D4;
+    }
+
+    @media (max-width: 768px) {
+      .calc-header h1 {
+        font-size: 1.25rem;
+      }
+
+      .calc-header p {
+        font-size: 0.85rem;
+      }
+
+      .back-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="calc-header">
+    <a href="/" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Back</span>
+    </a>
+    <h1>AI Agent ROI Calculator</h1>
+    <p>Calculate your potential savings and ROI</p>
+  </div>
+
+  <div class="calc-container">
+    <div class="loading" id="loading">
+      <i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Loading calculator...
+    </div>
+    <iframe
+      id="calculator-frame"
+      src="/calculator-ai-agents-2025.html"
+      title="ROI Calculator"
+      style="display: none;"
+    ></iframe>
+  </div>
+
+  <script>
+    // Show calculator when loaded
+    const iframe = document.getElementById('calculator-frame');
+    const loading = document.getElementById('loading');
+
+    iframe.addEventListener('load', () => {
+      loading.style.display = 'none';
+      iframe.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

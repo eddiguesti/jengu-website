@@ -199,7 +199,21 @@ const currentLocale = getLocaleFromUrl(currentPath);
       statObserver.observe(card);
     });
 
-    // Calculator Modal Functions
+    // Hybrid Calculator Handler - Modal on desktop, page on mobile
+    function handleCalculatorClick(e) {
+      e.preventDefault();
+
+      // Mobile: redirect to dedicated page
+      if (window.innerWidth <= 768) {
+        window.location.href = '/calculator';
+        return;
+      }
+
+      // Desktop: open modal
+      openCalculatorModal();
+    }
+
+    // Calculator Modal Functions (Desktop only)
     function openCalculatorModal() {
       const overlay = document.getElementById('calculatorModalOverlay');
       if (overlay) {
@@ -217,6 +231,7 @@ const currentLocale = getLocaleFromUrl(currentPath);
     }
 
     // Make functions global
+    window.handleCalculatorClick = handleCalculatorClick;
     window.openCalculatorModal = openCalculatorModal;
     window.closeCalculatorModal = closeCalculatorModal;
 
