@@ -13,8 +13,8 @@ const seo = generateSEO({
 <BaseLayout seo={seo}>
   <!-- Hero Section -->
   <section class="hero hero-pricing">
-    <div class="hero-container">
-      <div class="hero-content">
+    <div class="hero-container-pricing">
+      <div class="hero-content-pricing">
         <span class="hero-badge">
           <i class="fas fa-chart-line"></i>
           Dynamic Pricing for Campsites
@@ -56,6 +56,36 @@ const seo = generateSEO({
           <i class="fas fa-check-circle"></i>
           Free consultation & demo
         </p>
+      </div>
+
+      <!-- App Screenshots Collage -->
+      <div class="hero-visual-pricing desktop-only">
+        <div class="screenshots-collage">
+          <div class="screenshot-card screenshot-1">
+            <picture>
+              <source srcset="/images/price-optimization.webp" type="image/webp">
+              <img src="/images/price-optimization.png" alt="Price Optimization Dashboard" loading="eager">
+            </picture>
+          </div>
+          <div class="screenshot-card screenshot-2">
+            <picture>
+              <source srcset="/images/forecasting.webp" type="image/webp">
+              <img src="/images/forecasting.png" alt="Revenue Forecasting" loading="eager">
+            </picture>
+          </div>
+          <div class="screenshot-card screenshot-3">
+            <picture>
+              <source srcset="/images/pricing-strategy.webp" type="image/webp">
+              <img src="/images/pricing-strategy.png" alt="Pricing Strategy" loading="eager">
+            </picture>
+          </div>
+          <div class="screenshot-card screenshot-4">
+            <picture>
+              <source srcset="/images/competitor-discovery.webp" type="image/webp">
+              <img src="/images/competitor-discovery.png" alt="Competitor Analysis" loading="eager">
+            </picture>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -341,6 +371,117 @@ const seo = generateSEO({
     filter: blur(80px);
   }
 
+  .hero-container-pricing {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 8rem 2rem 6rem;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-content-pricing {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .hero-visual-pricing {
+    flex: 1;
+    position: relative;
+    min-width: 500px;
+  }
+
+  /* Screenshot Collage */
+  .screenshots-collage {
+    position: relative;
+    width: 100%;
+    height: 600px;
+  }
+
+  .screenshot-card {
+    position: absolute;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 2px solid rgba(6, 182, 212, 0.2);
+    background: var(--bg-card);
+  }
+
+  .screenshot-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 30px 80px rgba(6, 182, 212, 0.3);
+    border-color: var(--secondary-brand);
+    z-index: 10 !important;
+  }
+
+  .screenshot-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Collage Layout - Overlapping Cards */
+  .screenshot-1 {
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 240px;
+    z-index: 4;
+    animation: float-1 6s ease-in-out infinite;
+  }
+
+  .screenshot-2 {
+    top: 60px;
+    right: 0;
+    width: 280px;
+    height: 210px;
+    z-index: 3;
+    animation: float-2 7s ease-in-out infinite;
+  }
+
+  .screenshot-3 {
+    bottom: 120px;
+    left: 40px;
+    width: 300px;
+    height: 220px;
+    z-index: 2;
+    animation: float-3 8s ease-in-out infinite;
+  }
+
+  .screenshot-4 {
+    bottom: 0;
+    right: 40px;
+    width: 260px;
+    height: 195px;
+    z-index: 1;
+    animation: float-4 9s ease-in-out infinite;
+  }
+
+  /* Floating Animations */
+  @keyframes float-1 {
+    0%, 100% { transform: translateY(0px) rotate(-2deg); }
+    50% { transform: translateY(-20px) rotate(-2deg); }
+  }
+
+  @keyframes float-2 {
+    0%, 100% { transform: translateY(0px) rotate(2deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+  }
+
+  @keyframes float-3 {
+    0%, 100% { transform: translateY(0px) rotate(-1deg); }
+    50% { transform: translateY(-18px) rotate(-1deg); }
+  }
+
+  @keyframes float-4 {
+    0%, 100% { transform: translateY(0px) rotate(3deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+
   .section-dark {
     background: var(--bg-darker);
     padding: 6rem 2rem;
@@ -470,12 +611,72 @@ const seo = generateSEO({
   }
 
   /* Mobile Optimizations */
+  @media (max-width: 1024px) {
+    .hero-container-pricing {
+      flex-direction: column;
+      padding: 4rem 2rem 3rem;
+      gap: 3rem;
+    }
+
+    .hero-content-pricing {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .hero-visual-pricing {
+      min-width: auto;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .screenshots-collage {
+      height: 400px;
+    }
+
+    .screenshot-1 {
+      width: 240px;
+      height: 180px;
+    }
+
+    .screenshot-2 {
+      width: 220px;
+      height: 165px;
+    }
+
+    .screenshot-3 {
+      width: 230px;
+      height: 172px;
+    }
+
+    .screenshot-4 {
+      width: 200px;
+      height: 150px;
+    }
+  }
+
   @media (max-width: 768px) {
     .hero-pricing::before {
       width: 600px;
       height: 600px;
       top: -30%;
       right: -40%;
+    }
+
+    .hero-container-pricing {
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .hero-content-pricing h1 {
+      font-size: 2rem !important;
+    }
+
+    .hero-description {
+      font-size: 1rem !important;
+    }
+
+    /* Hide screenshots on mobile for performance */
+    .hero-visual-pricing {
+      display: none;
     }
 
     .problem-grid {
