@@ -1,0 +1,290 @@
+---
+import SEOHead from '../seo/SEOHead.astro';
+import JsonLd from '../seo/JsonLd.astro';
+import type { SEOConfig } from '../../lib/seo/metadata';
+import '../../styles/landing.css';
+
+interface Props {
+  seo: SEOConfig;
+  jsonLd?: object | object[];
+}
+
+const { seo, jsonLd } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+  <!-- SEO -->
+  <SEOHead seo={seo} />
+  {jsonLd && <JsonLd schema={jsonLd} />}
+</head>
+<body>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <img src="/images/logo.png" alt="Jengu" class="logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/services">Services</a></li>
+        <li><a href="/case-studies">Case Studies</a></li>
+        <li><a href="/team">Team</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <a href="#calculator" class="nav-cta">Calculate ROI</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <slot />
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="/images/logo.png" alt="Jengu" class="footer-logo">
+        <p>
+          AI automation solutions for tourism and hospitality. We build custom chatbots, phone bots, software, and API integrations.
+        </p>
+        <div class="footer-contact">
+          <p><i class="fas fa-envelope"></i> info@jengu.ai</p>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/team">Team</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li><a href="/case-studies">Case Studies</a></li>
+          <li><a href="#calculator">ROI Calculator</a></li>
+          <li><a href="/contact">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul class="footer-links">
+          <li><a href="/terms">Terms & Conditions</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Jengu. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Global JavaScript -->
+  <script is:inline>
+    'use strict';
+
+    // Utility: Throttle function for performance
+    const throttle = (func, delay) => {
+      let lastCall = 0;
+      return function(...args) {
+        const now = Date.now();
+        if (now - lastCall >= delay) {
+          lastCall = now;
+          return func(...args);
+        }
+      };
+    };
+
+    // Navbar scroll effect with throttling
+    const navbar = document.getElementById('navbar');
+    let scrolled = false;
+
+    const handleScroll = throttle(() => {
+      const isScrolled = window.scrollY > 50;
+      if (isScrolled !== scrolled) {
+        scrolled = isScrolled;
+        navbar.classList.toggle('scrolled', isScrolled);
+      }
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // Intersection Observer for scroll animations
+    const animateObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          animateObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => animateObserver.observe(el));
+
+    // ROI preview animation
+    const roiPreview = document.getElementById('roiPreview');
+    if (roiPreview) {
+      const roiObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          entries[0].target.classList.add('animate');
+          roiObserver.disconnect();
+        }
+      }, { threshold: 0.5 });
+
+      roiObserver.observe(roiPreview);
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Feature cards stagger animation
+    document.querySelectorAll('.feature-card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.15}s`;
+    });
+
+    // Stat cards animation
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const statCard = entry.target;
+          statCard.style.animation = 'slideInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-card').forEach(card => {
+      statObserver.observe(card);
+    });
+
+    // Calculator Modal Functions
+    function openCalculatorModal() {
+      const overlay = document.getElementById('calculatorModalOverlay');
+      if (overlay) {
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeCalculatorModal() {
+      const overlay = document.getElementById('calculatorModalOverlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    // Make functions global
+    window.openCalculatorModal = openCalculatorModal;
+    window.closeCalculatorModal = closeCalculatorModal;
+
+    // Close on overlay click
+    document.addEventListener('click', function(e) {
+      const calcOverlay = document.getElementById('calculatorModalOverlay');
+      if (calcOverlay && e.target === calcOverlay) {
+        closeCalculatorModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeCalculatorModal();
+        closeFeatureModal();
+      }
+    });
+
+    // Feature Modal Functions
+    function openFeatureModal(featureId) {
+      const overlay = document.getElementById('featureModalOverlay');
+      if (!overlay) return;
+
+      const featureData = window.featureData || {};
+      const data = featureData[featureId];
+      if (!data) return;
+
+      const modalIcon = document.getElementById('modalIcon');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalSubtitle = document.getElementById('modalSubtitle');
+      const modalBenefits = document.getElementById('modalBenefits');
+      const modalStats = document.getElementById('modalStats');
+
+      if (modalIcon) modalIcon.innerHTML = `<i class="fas ${data.icon}"></i>`;
+      if (modalTitle) modalTitle.textContent = data.title;
+      if (modalSubtitle) modalSubtitle.textContent = data.subtitle;
+
+      if (modalBenefits) {
+        modalBenefits.innerHTML = data.benefits.map(benefit => `
+          <div class="feature-benefit-item">
+            <div class="feature-benefit-icon">${benefit.icon}</div>
+            <div class="feature-benefit-text">
+              <strong>${benefit.title}</strong>
+              <p>${benefit.desc}</p>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      if (modalStats) {
+        modalStats.innerHTML = data.stats.map(stat => `
+          <div class="feature-stat">
+            <span class="feature-stat-value">${stat.value}</span>
+            <span class="feature-stat-label">${stat.label}</span>
+          </div>
+        `).join('');
+      }
+
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFeatureModal() {
+      const overlay = document.getElementById('featureModalOverlay');
+      if (overlay) {
+        overlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    window.openFeatureModal = openFeatureModal;
+    window.closeFeatureModal = closeFeatureModal;
+
+    document.addEventListener('click', function(e) {
+      const overlay = document.getElementById('featureModalOverlay');
+      if (overlay && e.target === overlay) {
+        closeFeatureModal();
+      }
+    });
+  </script>
+</body>
+</html>

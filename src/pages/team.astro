@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Our Team - Meet the Jengu Experts',
+  description: 'AI engineers, software developers, and hospitality experts working together to transform tourism with technology.',
+  canonical: `${Astro.site}team/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'Team', url: `${Astro.site}team/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Meet Our <span class="gradient-text">Expert Team</span></h1>
+      <p>
+        AI engineers, software developers, and hospitality experts working together to transform tourism with technology
+      </p>
+    </div>
+  </section>
+
+  <!-- Leadership Team -->
+  <section class="team-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">Leadership</span>
+        <h2>The People Behind Jengu</h2>
+        <p>A diverse team united by a passion for innovation and excellence</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-member">
+          <div class="team-avatar">DS</div>
+          <div class="team-info">
+            <h3 class="team-name">Danny Smith</h3>
+            <p class="team-role">Director</p>
+            <p class="team-bio">
+              Leading Jengu's strategic vision and business development, Danny brings extensive experience in technology innovation and business transformation for the tourism industry.
+            </p>
+            <div class="team-social">
+              <a href="https://www.linkedin.com/in/danny-smith" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="mailto:info@jengu.ai" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="team-avatar">EG</div>
+          <div class="team-info">
+            <h3 class="team-name">Edward Guest</h3>
+            <p class="team-role">Chief Innovation Officer</p>
+            <p class="team-bio">
+              Driving innovation and AI strategy at Jengu, Edward specializes in developing cutting-edge automation solutions that transform business operations.
+            </p>
+            <div class="team-social">
+              <a href="https://www.linkedin.com/in/edward-guest" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="mailto:info@jengu.ai" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="team-avatar">CG</div>
+          <div class="team-info">
+            <h3 class="team-name">Christopher Guest</h3>
+            <p class="team-role">Senior Process Automation Engineer</p>
+            <p class="team-bio">
+              Christopher designs and implements complex automation workflows, helping businesses streamline operations and maximize efficiency through intelligent process mapping.
+            </p>
+            <div class="team-social">
+              <a href="https://www.linkedin.com/in/christopher-guest" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="mailto:info@jengu.ai" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-member">
+          <div class="team-avatar">LM</div>
+          <div class="team-info">
+            <h3 class="team-name">Lisa Mitte</h3>
+            <p class="team-role">Lead Business Process Analyst</p>
+            <p class="team-bio">
+              Lisa specializes in analyzing business processes and identifying automation opportunities, ensuring every solution delivers measurable ROI for clients.
+            </p>
+            <div class="team-social">
+              <a href="https://www.linkedin.com/in/lisa-mitte" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+              <a href="mailto:info@jengu.ai" class="social-link"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join Team CTA -->
+  <section class="join-team-section">
+    <div class="section-container">
+      <div class="join-team-card">
+        <h2>Join Our <span class="gradient-text">Growing Team</span></h2>
+        <p>
+          We're always looking for talented engineers, developers, and hospitality experts who are passionate about transforming the tourism industry with AI. If you love solving complex problems and building technology that makes a real difference, we'd love to hear from you.
+        </p>
+        <a href="/contact" class="cta-button">
+          <i class="fas fa-users"></i> View Open Positions
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,316 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Case Studies - Real Results from AI Automation',
+  description: 'See how tourism businesses transformed their operations with our AI automation solutions. Real results from hotels, resorts, and campsites.',
+  canonical: `${Astro.site}case-studies/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'Case Studies', url: `${Astro.site}case-studies/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <h1><span class="gradient-text">Real Results</span> from Real Businesses</h1>
+      <p>
+        See how tourism businesses transformed their operations with our AI automation solutions
+      </p>
+    </div>
+  </section>
+
+  <!-- Featured Case Study -->
+  <section class="case-studies-section">
+    <div class="section-container">
+      <div class="case-study-card">
+        <div class="case-study-header">
+          <span class="case-study-badge">Campsite Hospitality</span>
+          <h2>Campasuns</h2>
+          <p class="case-study-subtitle">
+            How a multi-location campsite operator achieved 35% reduction in admin workload and 20% revenue increase through AI-powered automation and dynamic pricing
+          </p>
+          <div class="case-study-meta">
+            <div class="meta-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>France</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-building"></i>
+              <span>8 Locations</span>
+            </div>
+            <div class="meta-item">
+              <i class="fas fa-users"></i>
+              <span>Campsite Hospitality</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-study-stats">
+          <div class="stat-box">
+            <span class="stat-value">35%</span>
+            <span class="stat-label">Admin Reduction</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value">20%</span>
+            <span class="stat-label">Revenue Increase</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-value">25%</span>
+            <span class="stat-label">Satisfaction Boost</span>
+          </div>
+        </div>
+
+        <div class="case-study-details">
+          <div class="detail-section">
+            <h3>The Challenge</h3>
+            <p>
+              Managing 8 campsites across the South of France, Campasuns faced significant operational inefficiencies with manual email handling, static pricing that couldn't adapt to market conditions, and inconsistent processes across locations.
+            </p>
+          </div>
+
+          <div class="detail-section">
+            <h3>Our Solution</h3>
+            <ul class="solution-list">
+              <li><strong>Process Mapping:</strong> Used Miro to map and optimize business processes across all locations</li>
+              <li><strong>AI Email Automation:</strong> Custom Python application with OpenAI API handling customer emails 24/7</li>
+              <li><strong>Dynamic Pricing Engine:</strong> Industry-first AI-powered pricing system monitoring competitors, weather, events, and historical data</li>
+              <li><strong>Operational Automation:</strong> Standardized workflows across all 8 campsite locations</li>
+            </ul>
+          </div>
+
+          <div class="detail-section">
+            <h3>Key Results</h3>
+            <ul class="results-list">
+              <li>35% reduction in admin workload through email automation and process optimization</li>
+              <li>20% revenue increase from dynamic pricing and improved availability management</li>
+              <li>25% improvement in guest satisfaction from faster, consistent communication</li>
+              <li>Automated competitor price tracking within customizable radius zones</li>
+              <li>Real-time pricing adjustments based on weather, events, and demand</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coming Soon Section -->
+      <div class="coming-soon-section">
+        <h3>More Case Studies Coming Soon</h3>
+        <p>
+          We're currently documenting additional success stories from hotels, resorts, and travel agencies. Check back soon to see how other tourism businesses are transforming with AI automation.
+        </p>
+        <a href="/contact" class="btn btn-primary">
+          Discuss Your Project <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="cta-box">
+        <h2>Ready to Achieve Similar Results?</h2>
+        <p>Calculate your potential ROI or book a consultation to discuss your automation needs</p>
+        <div class="cta-buttons">
+          <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
+            Calculate Your ROI <i class="fas fa-calculator"></i>
+          </a>
+          <a href="/contact" class="btn btn-secondary">
+            Book a Consultation <i class="fas fa-calendar"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .case-studies-section {
+      padding: 4rem 2rem;
+      background: var(--bg-light);
+    }
+
+    .case-study-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 4rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .case-study-header {
+      margin-bottom: 2rem;
+    }
+
+    .case-study-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--primary-cta);
+      color: white;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .case-study-card h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .case-study-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .case-study-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .meta-item i {
+      color: var(--primary-cta);
+    }
+
+    .case-study-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      background: var(--bg-elevated);
+      border-radius: 16px;
+      margin-bottom: 2rem;
+    }
+
+    .stat-box {
+      text-align: center;
+    }
+
+    .stat-value {
+      display: block;
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--primary-cta);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+
+    .case-study-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .detail-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .detail-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .solution-list, .results-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .solution-list li, .results-list li {
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .solution-list li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: var(--primary-cta);
+      font-weight: bold;
+    }
+
+    .results-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    .coming-soon-section {
+      text-align: center;
+      padding: 3rem;
+      background: var(--bg-elevated);
+      border-radius: 16px;
+    }
+
+    .coming-soon-section h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .coming-soon-section p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .case-study-card {
+        padding: 2rem;
+      }
+
+      .case-study-card h2 {
+        font-size: 2rem;
+      }
+
+      .case-study-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</BaseLayout>

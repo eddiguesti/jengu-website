@@ -1,0 +1,20 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+
+# Redirect /admin to Sanity Studio (when you set it up later)
+# [[redirects]]
+#   from = "/admin/*"
+#   to = "https://your-studio.sanity.studio/:splat"
+#   status = 200
+
+# Configure webhook in Netlify UI:
+# Settings > Build & Deploy > Build hooks
+# Create hook named "Content Update"
+# Use webhook URL in Sanity webhook settings

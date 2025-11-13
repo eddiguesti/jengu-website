@@ -1,0 +1,515 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateWebSiteSchema } from '../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'AI Automation for Tourism & Hospitality',
+  description: 'Custom AI agents, chatbots, phone bots, and API integrations for hotels, resorts, and travel agencies. Transform your business with intelligent automation.',
+  canonical: Astro.site?.href,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateWebSiteSchema()
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-badge">AI-Powered Tourism Solutions</span>
+        <h1>
+          Transform Your <span class="gradient-text">Tourism Business</span> with AI Automation
+        </h1>
+        <p>
+          We build custom AI agents, connect your systems via API, and automate your workflows. From chatbots to phone bots to complete system integrations - discover your ROI in 2 minutes.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
+            Calculate Your ROI <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="https://www.jengu.ai" class="btn btn-secondary">
+            Learn More
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="spline-container">
+          <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+          <spline-viewer url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode" style="width: 160%; height: 100vh;"></spline-viewer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <div class="stat-card animate-on-scroll">
+        <span class="stat-number">£150k+</span>
+        <span class="stat-label">Average Annual Savings</span>
+      </div>
+      <div class="stat-card animate-on-scroll" style="transition-delay: 0.1s;">
+        <span class="stat-number">40hrs</span>
+        <span class="stat-label">Time Saved Per Week</span>
+      </div>
+      <div class="stat-card animate-on-scroll" style="transition-delay: 0.2s;">
+        <span class="stat-number">< 1mo</span>
+        <span class="stat-label">Typical ROI Timeline</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-header">
+      <span class="section-badge">Why Choose AI Automation</span>
+      <h2>Custom-Built Solutions for Tourism & Hospitality</h2>
+      <p>We develop AI agents, build integrations, and create purpose-built software to solve your unique operational challenges</p>
+    </div>
+    <div class="features-grid">
+      <!-- Top Row: 4 Cards -->
+      <div class="features-row features-row-top">
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('email')">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI Email & Communication Bots</h3>
+          <p>Custom-built AI agents handle emails, chats, and calls 24/7, reducing response time by 90%</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('pricing')">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Custom Software Solutions</h3>
+          <p>Purpose-built tools like dynamic pricing engines tailored to your exact business needs</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('booking')">
+          <div class="feature-icon">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3>AI Chatbots & Phone Bots</h3>
+          <p>Custom voice and text agents that handle bookings, inquiries, and support autonomously</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('integration')">
+          <div class="feature-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>API-Powered Automation</h3>
+          <p>Automate your tech stack with API integrations for complete workflow automation</p>
+        </div>
+      </div>
+
+      <!-- Bottom Row: 2 Cards -->
+      <div class="features-row features-row-bottom">
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('security')">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Enterprise Security</h3>
+          <p>Bank-level encryption, GDPR compliance, 99.9% uptime SLA guaranteed</p>
+        </div>
+        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('support')">
+          <div class="feature-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Training & Onboarding</h3>
+          <p>Comprehensive training and ongoing support to ensure your team masters the system</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits">
+    <div class="benefits-container">
+      <div class="benefits-content animate-on-scroll">
+        <span class="section-badge">Real Results</span>
+        <h2>Custom Automation Solutions That Actually Work</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+          We build, integrate, and automate. Our clients see immediate improvements because every solution is tailored to their specific workflow:
+        </p>
+        <ul class="benefits-list">
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>75% Time Savings</h4>
+              <p>AI agents and API integrations handle repetitive tasks automatically. Our clients free up 30-50 hours per week for guest experience.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-pound-sign"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>20-25% Revenue Increase</h4>
+              <p>Custom software solutions and AI-powered optimization boost revenue through better pricing, faster bookings, and automated upsells.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-smile"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>35% Higher Conversion</h4>
+              <p>Custom-built chatbots and phone bots provide instant responses 24/7, converting more visitors into bookings with intelligent conversations.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>Break Even in < 2 Months</h4>
+              <p>Custom automation and AI agents deliver fast ROI - most clients break even in 4-8 weeks. See your exact timeline with the calculator below.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="benefits-visual animate-on-scroll">
+        <div class="roi-preview" id="roiPreview">
+          <h3>Typical Client Results</h3>
+          <div class="roi-metric">
+            <div class="roi-label">
+              <span>Labor Cost Savings</span>
+              <span><strong>£85,000/year</strong></span>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-fill" style="--width: 85%;"></div>
+            </div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-label">
+              <span>Revenue Increase</span>
+              <span><strong>£65,000/year</strong></span>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-fill" style="--width: 65%;"></div>
+            </div>
+          </div>
+          <div class="roi-metric">
+            <div class="roi-label">
+              <span>Conversion Boost</span>
+              <span><strong>£45,000/year</strong></span>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-fill" style="--width: 45%;"></div>
+            </div>
+          </div>
+          <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #f0f0f0;">
+            <div class="roi-label" style="margin-bottom: 0;">
+              <span style="font-weight: 700; color: var(--text-primary); font-size: 1.1rem;">Total Annual Benefit</span>
+              <span style="font-weight: 900; color: var(--primary-cta); font-size: 1.5rem;">£195,000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Calculator Section -->
+  <section class="cta-calculator" id="calculator">
+    <div class="cta-content">
+      <h2>
+        Ready to See <span class="gradient-text">Your Numbers?</span>
+      </h2>
+      <p>
+        See exactly what custom AI agents, API integrations, and purpose-built software could save your business. Get your personalized ROI in 2 minutes.
+      </p>
+      <a href="#" onclick="openCalculatorModal(); return false;" class="cta-btn-large">
+        <i class="fas fa-calculator"></i>
+        Launch Calculator
+      </a>
+      <p style="margin-top: 2rem; font-size: 0.95rem; opacity: 0.7;">
+        No signup required • Takes 2 minutes • Instant results
+      </p>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="social-proof">
+    <div class="section-header">
+      <span class="section-badge">Built for Tourism & Hospitality</span>
+      <h2>Why We're Different</h2>
+    </div>
+    <div class="trust-badges">
+      <div class="trust-badge animate-on-scroll">
+        <div class="trust-icon">
+          <i class="fas fa-code"></i>
+        </div>
+        <h4>Custom Built</h4>
+        <p>Every solution is tailored specifically to your business - no generic templates or one-size-fits-all packages</p>
+      </div>
+      <div class="trust-badge animate-on-scroll" style="transition-delay: 0.1s;">
+        <div class="trust-icon">
+          <i class="fas fa-rocket"></i>
+        </div>
+        <h4>Fast Deployment</h4>
+        <p>From consultation to live deployment in 2-6 weeks - get results quickly without lengthy enterprise sales cycles</p>
+      </div>
+      <div class="trust-badge animate-on-scroll" style="transition-delay: 0.2s;">
+        <div class="trust-icon">
+          <i class="fas fa-handshake"></i>
+        </div>
+        <h4>Transparent Pricing</h4>
+        <p>Clear project quotes with no hidden fees - know exactly what you're paying for before we start</p>
+      </div>
+      <div class="trust-badge animate-on-scroll" style="transition-delay: 0.3s;">
+        <div class="trust-icon">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h4>GDPR Compliant</h4>
+        <p>Full compliance with UK and EU data protection regulations built into every solution</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Modal HTML -->
+  <div id="calculatorModalOverlay" class="calculator-modal-overlay" onclick="if(event.target === this) closeCalculatorModal()">
+    <div class="calculator-modal-content">
+      <button class="calculator-modal-close" onclick="closeCalculatorModal()">
+        <i class="fas fa-times"></i>
+      </button>
+      <iframe
+        src="/calculator-ai-agents-2025.html"
+        class="calculator-iframe"
+        title="AI ROI Calculator">
+      </iframe>
+    </div>
+  </div>
+
+  <!-- Feature Modal System -->
+  <div id="featureModalOverlay" class="feature-modal-overlay">
+    <div class="feature-modal">
+      <button class="feature-modal-close" onclick="closeFeatureModal()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="feature-modal-header">
+        <div class="feature-modal-icon" id="modalIcon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h2 class="feature-modal-title" id="modalTitle">Feature Title</h2>
+        <p class="feature-modal-subtitle" id="modalSubtitle">Feature subtitle</p>
+      </div>
+
+      <div class="feature-modal-content">
+        <div class="feature-modal-section">
+          <h4>Key Benefits</h4>
+          <div class="feature-benefits-list" id="modalBenefits">
+          </div>
+        </div>
+
+        <div class="feature-modal-section">
+          <h4>Performance Metrics</h4>
+          <div class="feature-stats-grid" id="modalStats">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature Data for Modal -->
+  <script is:inline>
+    // Feature modal data
+    window.featureData = {
+      email: {
+        icon: 'fa-robot',
+        title: 'AI Email & Communication Bots',
+        subtitle: 'Custom-built AI agents for email, chat, and voice communication',
+        benefits: [
+          {
+            icon: '⚡',
+            title: 'Multi-Channel AI Agents',
+            desc: 'We build custom bots that handle emails, live chat, WhatsApp, and phone calls with instant responses 24/7.'
+          },
+          {
+            icon: '🎯',
+            title: 'Smart Routing & Prioritization',
+            desc: 'AI agents categorize and route messages, escalating urgent requests to your team while handling routine inquiries.'
+          },
+          {
+            icon: '🌍',
+            title: 'Multi-Language Voice & Text',
+            desc: 'Custom-trained on your business with support for 40+ languages across all communication channels.'
+          },
+          {
+            icon: '📊',
+            title: 'Continuously Learning',
+            desc: 'Your AI agents improve over time, learning from interactions and adapting to your business needs.'
+          }
+        ],
+        stats: [
+          { value: '90%', label: 'Faster Responses' },
+          { value: '40hrs', label: 'Saved Weekly' },
+          { value: '£35k', label: 'Annual Savings' }
+        ]
+      },
+      pricing: {
+        icon: 'fa-chart-line',
+        title: 'Custom Software Solutions',
+        subtitle: 'Purpose-built applications tailored to your specific business needs',
+        benefits: [
+          {
+            icon: '📈',
+            title: 'Built for Your Workflow',
+            desc: 'We develop custom tools like dynamic pricing engines, inventory managers, and reporting dashboards designed specifically for how you work.'
+          },
+          {
+            icon: '🎯',
+            title: 'Seamless Integration',
+            desc: 'Custom software connects directly to your existing systems via API, ensuring smooth data flow and automation.'
+          },
+          {
+            icon: '⚖️',
+            title: 'Automated Intelligence',
+            desc: 'AI-powered decision making built into your tools - from pricing optimization to demand forecasting and resource allocation.'
+          },
+          {
+            icon: '💰',
+            title: 'Scalable & Maintainable',
+            desc: 'Professional software architecture that grows with your business, with ongoing support and updates included.'
+          }
+        ],
+        stats: [
+          { value: '100%', label: 'Custom Built' },
+          { value: '2-6wks', label: 'Development' },
+          { value: '£68k', label: 'Avg Annual Gain' }
+        ]
+      },
+      booking: {
+        icon: 'fa-calendar-check',
+        title: 'AI Chatbots & Phone Bots',
+        subtitle: 'Custom voice and text AI agents for complete guest communication',
+        benefits: [
+          {
+            icon: '💬',
+            title: 'Voice & Text AI Agents',
+            desc: 'We build custom chatbots for your website and phone bots that handle calls 24/7 - both sound natural and handle complex conversations.'
+          },
+          {
+            icon: '🎁',
+            title: 'Trained on Your Business',
+            desc: 'AI agents learn your rooms, policies, pricing, and services to provide accurate personalized recommendations and bookings.'
+          },
+          {
+            icon: '🔄',
+            title: 'Multi-Platform Deployment',
+            desc: 'Deploy across website chat, WhatsApp, SMS, phone lines, and social media - all connected to your systems.'
+          },
+          {
+            icon: '📱',
+            title: 'Booking & Payment Integration',
+            desc: 'Bots can check availability, process bookings, take payments, and send confirmations through direct API connections.'
+          }
+        ],
+        stats: [
+          { value: '35%', label: 'More Conversions' },
+          { value: '24/7', label: 'Availability' },
+          { value: '£32k', label: 'Extra Revenue' }
+        ]
+      },
+      integration: {
+        icon: 'fa-network-wired',
+        title: 'API-Powered Automation',
+        subtitle: 'Automate your entire tech stack with API connections and smart integrations',
+        benefits: [
+          {
+            icon: '🔌',
+            title: 'Connect Any System',
+            desc: 'We build API integrations between your PMS, CRM, booking engines, payment processors, and any other software - even custom legacy systems.'
+          },
+          {
+            icon: '⚡',
+            title: 'Email & Workflow Automation',
+            desc: 'Automate email sequences between systems, trigger actions based on events, and create intelligent workflows that span multiple platforms.'
+          },
+          {
+            icon: '🔄',
+            title: 'Real-Time Data Sync',
+            desc: 'Bidirectional API connections keep all systems updated instantly with webhooks and scheduled sync - eliminating manual data entry.'
+          },
+          {
+            icon: '🛡️',
+            title: 'Custom Integration Solutions',
+            desc: 'If there\'s no API, we can build scraping tools, RPA bots, or custom middleware to connect any systems together.'
+          }
+        ],
+        stats: [
+          { value: '50+', label: 'API Integrations' },
+          { value: '2-4hrs', label: 'Setup Time' },
+          { value: '99.9%', label: 'Uptime' }
+        ]
+      },
+      security: {
+        icon: 'fa-shield-alt',
+        title: 'Enterprise Security',
+        subtitle: 'Bank-level protection for your data and guests',
+        benefits: [
+          {
+            icon: '🔒',
+            title: 'Military-Grade Encryption',
+            desc: 'AES-256 encryption for data at rest and TLS 1.3 for data in transit protects all guest information.'
+          },
+          {
+            icon: '✅',
+            title: 'Full GDPR Compliance',
+            desc: 'Built-in data privacy controls, consent management, and right-to-erasure workflows.'
+          },
+          {
+            icon: '🏛️',
+            title: 'SOC 2 Type II Certified',
+            desc: 'Annual third-party audits verify our security controls and data handling practices.'
+          },
+          {
+            icon: '🌐',
+            title: 'Global Data Centers',
+            desc: 'Data stored in EU/UK/US regions with automatic backups and disaster recovery.'
+          }
+        ],
+        stats: [
+          { value: '99.9%', label: 'Uptime SLA' },
+          { value: '24/7', label: 'Monitoring' },
+          { value: '< 4hrs', label: 'Support Response' }
+        ]
+      },
+      support: {
+        icon: 'fa-graduation-cap',
+        title: 'Training & Onboarding',
+        subtitle: 'We train your team to master the systems we build',
+        benefits: [
+          {
+            icon: '🎓',
+            title: 'Comprehensive Training Program',
+            desc: 'Complete hands-on training for your team on all custom systems, AI agents, and integrations we build for you.'
+          },
+          {
+            icon: '📚',
+            title: 'Custom Documentation',
+            desc: 'Detailed guides and video tutorials tailored to your specific implementation, making it easy for new team members to get up to speed.'
+          },
+          {
+            icon: '🔧',
+            title: 'Ongoing Support',
+            desc: 'Email and video support during business hours to help troubleshoot issues and answer questions as they arise.'
+          },
+          {
+            icon: '📈',
+            title: 'Performance Reviews',
+            desc: 'Periodic check-ins to optimize system performance, gather feedback, and implement improvements based on your usage.'
+          }
+        ],
+        stats: [
+          { value: '100%', label: 'Team Trained' },
+          { value: '2-3 days', label: 'Onboarding' },
+          { value: 'Ongoing', label: 'Support' }
+        ]
+      }
+    };
+  </script>
+</BaseLayout>

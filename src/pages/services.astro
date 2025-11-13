@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Our Services - AI Automation & Custom Software',
+  description: 'From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations.',
+  canonical: `${Astro.site}services/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'Services', url: `${Astro.site}services/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Our <span class="gradient-text">Services</span></h1>
+      <p>
+        From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Services -->
+  <section class="services-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">What We Build</span>
+        <h2>Custom AI & Automation Solutions</h2>
+        <p>Tailored technology that solves your specific business challenges</p>
+      </div>
+
+      <div class="services-grid">
+        <!-- AI Chatbots & Phone Bots -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3>AI Chatbots & Phone Bots</h3>
+          <p>Custom-built conversational AI agents that handle guest communications 24/7 across text and voice channels.</p>
+          <ul class="service-features">
+            <li>Natural language processing in 100+ languages</li>
+            <li>Voice AI for phone calls with human-like conversations</li>
+            <li>Website chat, WhatsApp, SMS integration</li>
+            <li>Booking, inquiries, and support automation</li>
+            <li>Seamless handoff to human agents when needed</li>
+          </ul>
+          <a href="/contact" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- Custom Software Development -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Custom Software Development</h3>
+          <p>Purpose-built applications designed specifically for your business workflows and operational needs.</p>
+          <ul class="service-features">
+            <li>Dynamic pricing engines with AI optimization</li>
+            <li>Custom booking and reservation systems</li>
+            <li>Inventory and resource management tools</li>
+            <li>Analytics dashboards and reporting platforms</li>
+            <li>Mobile apps for staff and guests</li>
+          </ul>
+          <a href="/contact" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- API Integrations -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>API Integrations & Automation</h3>
+          <p>Connect your entire tech stack with intelligent workflows that eliminate manual data entry and errors.</p>
+          <ul class="service-features">
+            <li>PMS, CRM, and booking engine integrations</li>
+            <li>Payment processor and accounting software sync</li>
+            <li>Channel manager and OTA connections</li>
+            <li>Email and communication platform automation</li>
+            <li>Custom middleware for legacy systems</li>
+          </ul>
+          <a href="/contact" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- Email Automation -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>AI Email Management</h3>
+          <p>Intelligent email sorting, categorization, and auto-response systems that handle guest communications at scale.</p>
+          <ul class="service-features">
+            <li>Smart inbox organization and prioritization</li>
+            <li>AI-generated responses with brand voice</li>
+            <li>Automatic categorization and routing</li>
+            <li>Sentiment analysis for urgent issues</li>
+            <li>Integration with ticketing systems</li>
+          </ul>
+          <a href="/contact" class="service-cta">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Additional Services -->
+  <section class="services-section" style="background: var(--bg-main); padding-top: 0;">
+    <div class="section-container">
+      <div class="services-grid">
+        <!-- Process Mapping -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3>Process Mapping & Optimization</h3>
+          <p>Clear visualization of your workflows to identify inefficiencies and automation opportunities.</p>
+          <ul class="service-features">
+            <li>Complete workflow documentation</li>
+            <li>Bottleneck identification and analysis</li>
+            <li>Automation opportunity assessment</li>
+            <li>ROI calculation for improvements</li>
+            <li>Implementation roadmap creation</li>
+          </ul>
+          <a href="/contact" class="service-cta">Learn More →</a>
+        </div>
+
+        <!-- Training & Support -->
+        <div class="service-card">
+          <div class="service-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Training & Ongoing Support</h3>
+          <p>Comprehensive onboarding and continuous support to ensure your team masters every system we build.</p>
+          <ul class="service-features">
+            <li>Hands-on training for all staff levels</li>
+            <li>Custom documentation and video tutorials</li>
+            <li>Dedicated support team during business hours</li>
+            <li>Regular system optimization reviews</li>
+            <li>Feature updates and enhancements</li>
+          </ul>
+          <a href="/contact" class="service-cta">Learn More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process-section">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-badge">How We Work</span>
+        <h2>Our Development Process</h2>
+        <p>From discovery to deployment, we follow a proven process that delivers results</p>
+      </div>
+
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-number">1</div>
+          <h4>Discovery</h4>
+          <p>We map your processes, understand your challenges, and identify automation opportunities</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">2</div>
+          <h4>Design</h4>
+          <p>Custom solution design tailored to your specific workflows and business goals</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">3</div>
+          <h4>Development</h4>
+          <p>Agile development with regular check-ins and iterative feedback loops</p>
+        </div>
+        <div class="process-step">
+          <div class="process-number">4</div>
+          <h4>Deploy & Support</h4>
+          <p>Smooth rollout, team training, and ongoing optimization and support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="content-section bg-main">
+    <div class="section-container">
+      <div class="cta-box">
+        <h2>Ready to Automate Your Operations?</h2>
+        <p>Calculate your potential ROI in just 2 minutes</p>
+        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
+          Calculate Your ROI <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

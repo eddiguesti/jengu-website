@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'AI ROI Calculator - Calculate Your Automation Savings',
+  description: 'Calculate potential savings and ROI from AI automation, chatbots, and custom software for your tourism business in just 2 minutes.',
+  canonical: `${Astro.site}calculator/ai-agents-roi/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'ROI Calculator', url: `${Astro.site}calculator/ai-agents-roi/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="calculator-page-section">
+    <div class="calculator-page-container">
+      <div class="calculator-page-header">
+        <h1>AI Automation <span class="gradient-text">ROI Calculator</span></h1>
+        <p>
+          Calculate your potential savings from AI chatbots, phone bots, and automation in just 2 minutes. Get instant insights into how AI can transform your business operations.
+        </p>
+      </div>
+
+      <div class="calculator-iframe-wrapper">
+        <iframe
+          src="/calculator-ai-agents-2025.html"
+          class="calculator-page-iframe"
+          title="AI ROI Calculator"
+          loading="eager">
+        </iframe>
+      </div>
+
+      <div class="calculator-cta-section">
+        <h2>Want to Discuss Your Results?</h2>
+        <p>Book a free 30-minute consultation with our team to explore your automation opportunities</p>
+        <a href="/contact" class="btn btn-primary">
+          Contact Us <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .calculator-page-section {
+      min-height: 100vh;
+      padding: 6rem 2rem 4rem;
+      background: var(--bg-main);
+    }
+
+    .calculator-page-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .calculator-page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .calculator-page-header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .calculator-page-header p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .calculator-iframe-wrapper {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 4rem;
+    }
+
+    .calculator-page-iframe {
+      width: 100%;
+      height: 800px;
+      border: none;
+      display: block;
+    }
+
+    .calculator-cta-section {
+      text-align: center;
+      padding: 3rem;
+      background: var(--bg-card);
+      border-radius: 20px;
+    }
+
+    .calculator-cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .calculator-cta-section p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .calculator-page-header h1 {
+        font-size: 2rem;
+      }
+
+      .calculator-page-iframe {
+        height: 600px;
+      }
+    }
+  </style>
+</BaseLayout>

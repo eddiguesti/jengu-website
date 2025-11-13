@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Terms & Conditions',
+  description: 'Terms and Conditions for using Jengu Ltd services and website.',
+  canonical: `${Astro.site}terms/`,
+  ogType: 'website',
+  noindex: false
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'Terms & Conditions', url: `${Astro.site}terms/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Terms & <span class="gradient-text">Conditions</span></h1>
+      <p>Please read these terms carefully before using our services</p>
+    </div>
+  </section>
+
+  <section class="legal-content-section">
+    <div class="legal-container">
+      <div class="legal-content">
+        <h2>1. Introduction</h2>
+        <p>
+          Welcome to Jengu Ltd. These Terms govern use of www.jengu.ai and services provided. Accessing the website means agreeing to comply with these Terms.
+        </p>
+
+        <h2>2. Company Information</h2>
+        <ul>
+          <li><strong>Company Name:</strong> Jengu Ltd</li>
+          <li><strong>Company Number:</strong> 14157991</li>
+          <li><strong>Jurisdiction:</strong> United Kingdom</li>
+        </ul>
+
+        <h2>3. Use of the Website</h2>
+        <p>The site is for lawful purposes only. Users agree not to:</p>
+        <ul>
+          <li>Engage in fraudulent, unlawful, or harmful activities</li>
+          <li>Attempt unauthorized system access</li>
+          <li>Use automated tools to extract data without permission</li>
+          <li>Disrupt website security, performance, or availability</li>
+        </ul>
+
+        <h2>4. Services and Content</h2>
+        <p>
+          Jengu Ltd provides process automation and AI-driven solutions for businesses. Content accuracy is maintained but not guaranteed. Services may be modified or discontinued anytime without notice.
+        </p>
+
+        <h2>5. Intellectual Property</h2>
+        <p>
+          All website content is owned by Jengu Ltd or licensed. Content cannot be copied, modified, distributed, or reproduced without written permission.
+        </p>
+
+        <h2>6. User Submissions</h2>
+        <p>
+          Submitted contact information must be accurate and lawful. Data may be used to respond to inquiries and stored securely in the CRM per the Privacy Policy.
+        </p>
+
+        <h2>7. Third-Party Links</h2>
+        <p>
+          The site may link to third-party websites. Jengu Ltd is not responsible for their content, security, or privacy practices.
+        </p>
+
+        <h2>8. Limitation of Liability</h2>
+        <p>
+          Jengu Ltd disclaims liability for damages, errors, technical issues, or data loss resulting from website use.
+        </p>
+
+        <h2>9. Indemnification</h2>
+        <p>
+          Users agree to protect Jengu Ltd from claims arising from violations or website misuse.
+        </p>
+
+        <h2>10. Changes to Terms</h2>
+        <p>
+          Terms may be updated anytime. Continued use indicates acceptance of revisions.
+        </p>
+
+        <h2>11. Governing Law</h2>
+        <p>
+          These Terms follow United Kingdom law, with disputes resolved in England and Wales courts.
+        </p>
+
+        <h2>12. Contact Information</h2>
+        <p>
+          For questions about these Terms & Conditions, please contact us:
+        </p>
+        <p>
+          <strong>Email:</strong> <a href="mailto:info@jengu.ai">info@jengu.ai</a>
+        </p>
+
+        <div class="last-updated">
+          <p><em>Last updated: 2025</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .legal-content-section {
+      padding: 4rem 2rem;
+      background: var(--bg-light);
+      min-height: 60vh;
+    }
+
+    .legal-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .legal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .legal-content h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .legal-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content ul {
+      list-style: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-content a {
+      color: var(--primary-cta);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .legal-content a:hover {
+      color: var(--primary-cta-hover);
+      text-decoration: underline;
+    }
+
+    .last-updated {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .last-updated p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .legal-content {
+        padding: 2rem;
+      }
+
+      .legal-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</BaseLayout>
