@@ -152,72 +152,72 @@ const seo = generateSEO({
       </div>
 
       <div class="screenshot-grid">
-        <!-- Competitor Discovery -->
+        <!-- Step 1: Connect PMS & Upload Data -->
         <div class="screenshot-item">
-          <img src="/images/competitor-discovery.png" alt="Competitor Discovery Interface" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <img src="/images/data-enrichment.png" alt="Connect PMS and Upload Historical Data" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
           <div class="screenshot-caption">
-            <h4><i class="fas fa-binoculars"></i> Competitor Discovery & Tracking</h4>
-            <p>Never miss a competitor price change again. The system automatically discovers nearby campsites within your custom radius using camping-and-co.com data, monitors their pricing strategies in real-time, and alerts you to significant market shifts. Track 10+ competitors effortlessly and ensure your prices remain competitive without manual research.</p>
+            <h4><i class="fas fa-upload"></i> Step 1: Connect Your PMS & Upload Data</h4>
+            <p>Simply connect your existing Property Management System or upload your historical booking data (CSV, Excel). The platform instantly imports years of reservations, pricing history, and occupancy patterns. Once uploaded, our AI begins analyzing your past performance to understand what drives bookings at your campsite—no complex setup required, just plug and play.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> Direct PMS integration</span>
+              <span><i class="fas fa-check"></i> CSV/Excel upload</span>
+              <span><i class="fas fa-check"></i> Automatic data import</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: AI Analysis & Correlation Discovery -->
+        <div class="screenshot-item screenshot-reverse">
+          <img src="/images/price-optimization.png" alt="AI Analysis Dashboard" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-brain"></i> Step 2: AI Discovers Pricing Correlations</h4>
+            <p>The platform enriches your historical data with weather conditions (temperature, rain, sunshine), holiday calendars, school breaks, local events, and seasonality patterns. Machine learning algorithms then identify powerful correlations: "Sunny weekends in July drive 40% higher bookings" or "Competitor price drops reduce our occupancy by 15%." These insights become the foundation for intelligent pricing decisions tailored specifically to your campsite's unique patterns.</p>
+            <div class="feature-benefits-inline">
+              <span><i class="fas fa-check"></i> Weather correlation analysis</span>
+              <span><i class="fas fa-check"></i> Holiday & season patterns</span>
+              <span><i class="fas fa-check"></i> Capacity optimization insights</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Track Competitors -->
+        <div class="screenshot-item">
+          <img src="/images/competitor-discovery.png" alt="Competitor Tracking Interface" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <div class="screenshot-caption">
+            <h4><i class="fas fa-binoculars"></i> Step 3: Follow Your Competition</h4>
+            <p>The system automatically discovers nearby campsites within your custom radius using camping-and-co.com data and monitors their pricing strategies 24/7. See exactly what your competitors charge for similar dates, track their occupancy levels, and receive alerts when they make significant price changes. Never get undercut or lose bookings to competitors again—you'll always know where you stand in the market.</p>
             <div class="feature-benefits-inline">
               <span><i class="fas fa-check"></i> Automatic competitor discovery</span>
-              <span><i class="fas fa-check"></i> Real-time price monitoring</span>
+              <span><i class="fas fa-check"></i> Real-time price tracking</span>
               <span><i class="fas fa-check"></i> Market position alerts</span>
             </div>
           </div>
         </div>
 
-        <!-- Data Enrichment -->
+        <!-- Step 4: Configure Pricing Strategy -->
         <div class="screenshot-item screenshot-reverse">
-          <img src="/images/data-enrichment.png" alt="Data Enrichment Dashboard" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <img src="/images/pricing-strategy.png" alt="Configure Dynamic Pricing Strategy" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
           <div class="screenshot-caption">
-            <h4><i class="fas fa-database"></i> Multi-Source Data Intelligence</h4>
-            <p>The platform enriches your historical booking data with weather forecasts (temperature, precipitation, sunshine hours), holiday calendars, school breaks, and temporal patterns. All data sources sync automatically and feed into machine learning models that identify pricing correlations—like how sunny weather increases bookings by 30% or how local festivals affect demand.</p>
-            <div class="feature-benefits-inline">
-              <span><i class="fas fa-check"></i> Weather data integration</span>
-              <span><i class="fas fa-check"></i> Holiday & event overlays</span>
-              <span><i class="fas fa-check"></i> Pattern recognition</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pricing Strategy -->
-        <div class="screenshot-item">
-          <img src="/images/pricing-strategy.png" alt="Pricing Strategy Selection" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-          <div class="screenshot-caption">
-            <h4><i class="fas fa-sliders-h"></i> Flexible Pricing Strategies</h4>
-            <p>Choose from Conservative (steady prices, high occupancy), Balanced (optimal revenue/occupancy mix), or Aggressive (maximum revenue extraction) strategies. Fine-tune demand sensitivity (30%-90%), price aggression (40%-100%), and occupancy targets (65%-90%). Each strategy adapts dynamically based on forecasted demand, giving you full control over your pricing philosophy while letting AI handle the optimization.</p>
+            <h4><i class="fas fa-sliders-h"></i> Step 4: Tweak Your Pricing Strategy</h4>
+            <p>You're in full control. Choose from Conservative (steady prices, maximize occupancy), Balanced (optimal revenue/occupancy mix), or Aggressive (maximum revenue extraction) strategies. Fine-tune how aggressively the AI responds to demand spikes, set minimum and maximum price limits, define occupancy targets, and decide how much weight to give competitor pricing. The AI learns your preferences and optimizes within your rules—you set the guardrails, AI does the heavy lifting.</p>
             <div class="feature-benefits-inline">
               <span><i class="fas fa-check"></i> 3 pricing strategies</span>
-              <span><i class="fas fa-check"></i> Customizable parameters</span>
-              <span><i class="fas fa-check"></i> Manual overrides anytime</span>
+              <span><i class="fas fa-check"></i> Custom sensitivity controls</span>
+              <span><i class="fas fa-check"></i> Min/max price limits</span>
             </div>
           </div>
         </div>
 
-        <!-- Price Optimization -->
-        <div class="screenshot-item screenshot-reverse">
-          <img src="/images/price-optimization.png" alt="Price Optimization Timeline" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-          <div class="screenshot-caption">
-            <h4><i class="fas fa-chart-area"></i> ML-Powered Price Optimization</h4>
-            <p>Advanced machine learning algorithms analyze demand forecasts, competitor pricing, weather patterns, and historical correlations to predict optimal prices up to 60 days ahead. The interactive visualization shows current vs. AI-optimized pricing overlaid with demand forecasts, so you can see exactly why each price recommendation makes sense and what revenue impact to expect.</p>
-            <div class="feature-benefits-inline">
-              <span><i class="fas fa-check"></i> 14-60 day forecasts</span>
-              <span><i class="fas fa-check"></i> Visual optimization timeline</span>
-              <span><i class="fas fa-check"></i> Instant scenario comparison</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Revenue & Occupancy Forecasts -->
+        <!-- Step 5: Beautiful Calendar Interface -->
         <div class="screenshot-item">
-          <img src="/images/forecasting.png" alt="Revenue and Occupancy Forecasting" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
+          <img src="/images/forecasting.png" alt="Beautiful Calendar Pricing Interface" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
           <div class="screenshot-caption">
-            <h4><i class="fas fa-chart-line"></i> Revenue & Occupancy Forecasting</h4>
-            <p>Dual forecasting charts compare current revenue/occupancy projections against ML-optimized predictions over 14-day horizons. See potential revenue uplift at a glance—typically 20-40% increases during peak periods without sacrificing occupancy. The system helps you balance revenue goals with capacity management, ensuring you never leave money on the table while maintaining healthy occupancy rates.</p>
+            <h4><i class="fas fa-calendar-alt"></i> Step 5: Manage Prices on a Beautiful Calendar</h4>
+            <p>All your pricing comes together in a stunning, intuitive calendar interface. See AI-recommended prices for the next 60 days, color-coded by demand level and revenue potential. Hover over any date to see why the AI suggests that price (weather forecast, competitor rates, holidays, historical patterns). Don't like a recommendation? Click to override manually. Drag to bulk-edit multiple dates. It's visual, fast, and gives you complete visibility and control over your entire pricing strategy at a glance.</p>
             <div class="feature-benefits-inline">
-              <span><i class="fas fa-check"></i> Revenue uplift projections</span>
-              <span><i class="fas fa-check"></i> Occupancy optimization</span>
-              <span><i class="fas fa-check"></i> Goal tracking</span>
+              <span><i class="fas fa-check"></i> 60-day visual calendar</span>
+              <span><i class="fas fa-check"></i> One-click manual overrides</span>
+              <span><i class="fas fa-check"></i> Bulk editing & drag controls</span>
             </div>
           </div>
         </div>
