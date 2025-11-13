@@ -3602,3 +3602,211 @@
         margin-bottom: 0.5rem;
       }
     }
+
+    /* Language-specific optimizations */
+    /* French text is typically 15-20% longer than English, so we reduce font sizes slightly */
+    html[lang="fr"] .hero h1 {
+      font-size: 3.6rem;
+      line-height: 1.15;
+    }
+
+    html[lang="fr"] .hero p {
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    html[lang="fr"] .hero-badge {
+      font-size: 0.85rem;
+    }
+
+    html[lang="fr"] .btn {
+      font-size: 1.05rem;
+      padding: 0.95rem 2.3rem;
+    }
+
+    html[lang="fr"] .section-header h2 {
+      font-size: 2.3rem;
+    }
+
+    html[lang="fr"] .section-header p {
+      font-size: 1.1rem;
+    }
+
+    html[lang="fr"] .feature-card h3 {
+      font-size: 1.4rem;
+    }
+
+    html[lang="fr"] .feature-card p {
+      font-size: 1rem;
+    }
+
+    html[lang="fr"] .benefit-item h3 {
+      font-size: 1.3rem;
+    }
+
+    html[lang="fr"] .benefit-item p {
+      font-size: 1rem;
+    }
+
+    html[lang="fr"] .cta-content h2 {
+      font-size: 2.8rem;
+    }
+
+    html[lang="fr"] .cta-content p {
+      font-size: 1.15rem;
+    }
+
+    html[lang="fr"] .faq-question {
+      font-size: 1.15rem;
+    }
+
+    html[lang="fr"] .faq-answer p,
+    html[lang="fr"] .faq-answer li {
+      font-size: 1rem;
+    }
+
+    /* Spanish optimizations - Spanish is similar length to English but can be slightly longer */
+    html[lang="es"] .hero h1 {
+      font-size: 3.8rem;
+    }
+
+    html[lang="es"] .hero p {
+      font-size: 1.2rem;
+    }
+
+    html[lang="es"] .btn {
+      font-size: 1.08rem;
+    }
+
+    html[lang="es"] .section-header h2 {
+      font-size: 2.4rem;
+    }
+
+    /* Laptop-specific language adjustments */
+    @media (min-width: 1025px) and (max-width: 1440px) {
+      html[lang="fr"] .hero h1 {
+        font-size: 3rem;
+      }
+
+      html[lang="fr"] .hero p {
+        font-size: 1.05rem;
+      }
+
+      html[lang="fr"] .hero-badge {
+        font-size: 0.8rem;
+      }
+
+      html[lang="fr"] .btn {
+        font-size: 0.95rem;
+        padding: 0.85rem 1.8rem;
+      }
+
+      html[lang="fr"] .section-header h2 {
+        font-size: 2.1rem;
+      }
+
+      html[lang="fr"] .section-header p {
+        font-size: 1rem;
+      }
+
+      html[lang="fr"] .feature-card h3 {
+        font-size: 1.25rem;
+      }
+
+      html[lang="fr"] .feature-card p {
+        font-size: 0.9rem;
+      }
+
+      html[lang="fr"] .cta-content h2 {
+        font-size: 2.3rem;
+      }
+
+      html[lang="es"] .hero h1 {
+        font-size: 3.1rem;
+      }
+
+      html[lang="es"] .hero p {
+        font-size: 1.05rem;
+      }
+
+      html[lang="es"] .btn {
+        font-size: 0.98rem;
+      }
+
+      html[lang="es"] .section-header h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    /* Tablet adjustments for languages */
+    @media (max-width: 1024px) {
+      html[lang="fr"] .hero h1 {
+        font-size: 2.7rem;
+      }
+
+      html[lang="fr"] .hero p {
+        font-size: 1.05rem;
+      }
+
+      html[lang="fr"] .btn {
+        font-size: 0.95rem;
+        padding: 0.9rem 1.8rem;
+      }
+
+      html[lang="fr"] .section-header h2 {
+        font-size: 2rem;
+      }
+
+      html[lang="es"] .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      html[lang="es"] .section-header h2 {
+        font-size: 2.1rem;
+      }
+    }
+
+    /* Mobile adjustments for languages */
+    @media (max-width: 768px) {
+      html[lang="fr"] .hero h1 {
+        font-size: 2rem;
+      }
+
+      html[lang="fr"] .hero p {
+        font-size: 0.95rem;
+      }
+
+      html[lang="fr"] .hero-badge {
+        font-size: 0.75rem;
+        padding: 0.4rem 1rem;
+      }
+
+      html[lang="fr"] .btn {
+        font-size: 0.9rem;
+        padding: 0.85rem 1.5rem;
+      }
+
+      html[lang="fr"] .section-header h2 {
+        font-size: 1.8rem;
+      }
+
+      html[lang="fr"] .section-header p {
+        font-size: 0.95rem;
+      }
+
+      html[lang="fr"] .feature-card h3 {
+        font-size: 1.15rem;
+      }
+
+      html[lang="fr"] .feature-card p {
+        font-size: 0.85rem;
+      }
+
+      html[lang="es"] .hero h1 {
+        font-size: 2.1rem;
+      }
+
+      html[lang="es"] .section-header h2 {
+        font-size: 1.85rem;
+      }
+    }
