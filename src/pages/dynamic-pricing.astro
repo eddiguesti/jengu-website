@@ -98,41 +98,48 @@ const seo = generateSEO({
         <p>Traditional flat-rate pricing costs campsite owners thousands in lost revenue every season</p>
       </div>
 
-      <div class="problem-list">
-        <div class="problem-item">
-          <div class="problem-icon">
+      <div class="problems-creative-grid">
+        <div class="problem-card-creative problem-primary">
+          <div class="problem-number">01</div>
+          <div class="problem-icon-creative">
             <i class="fas fa-calendar-times"></i>
           </div>
-          <div class="problem-content">
-            <h3>Peak Season Underpricing</h3>
-            <p>You could charge 2-3x more during holidays and weekends, but stick to flat rates—leaving thousands in revenue on the table during your busiest periods</p>
+          <h3>Peak Season Underpricing</h3>
+          <p>You could charge <span class="highlight">2-3x more</span> during holidays and weekends, but stick to flat rates—leaving <span class="highlight-negative">thousands in revenue</span> on the table</p>
+          <div class="problem-impact">
+            <span class="impact-label">Lost Revenue:</span>
+            <span class="impact-value">€15,000+/season</span>
           </div>
         </div>
-        <div class="problem-item">
-          <div class="problem-icon">
+
+        <div class="problem-card-creative">
+          <div class="problem-number">02</div>
+          <div class="problem-icon-creative">
             <i class="fas fa-bed"></i>
           </div>
-          <div class="problem-content">
-            <h3>Empty Sites in Low Season</h3>
-            <p>Lower prices could fill empty sites and generate revenue, but manual adjustments are time-consuming and you're never sure if you're pricing optimally</p>
-          </div>
+          <h3>Empty Sites in Low Season</h3>
+          <p>Lower prices could fill empty sites and generate revenue, but manual adjustments are <span class="highlight-negative">time-consuming</span> and you're never sure if you're pricing optimally</p>
         </div>
-        <div class="problem-item">
-          <div class="problem-icon">
+
+        <div class="problem-card-creative">
+          <div class="problem-number">03</div>
+          <div class="problem-icon-creative">
             <i class="fas fa-users-slash"></i>
           </div>
-          <div class="problem-content">
-            <h3>Missing Market Signals</h3>
-            <p>Local events, weather forecasts, and competitor pricing change daily—but your rates stay static, causing you to miss opportunities or price yourself out of the market</p>
-          </div>
+          <h3>Missing Market Signals</h3>
+          <p>Local events, weather forecasts, and competitor pricing change <span class="highlight">daily</span>—but your rates stay <span class="highlight-negative">static</span>, causing you to miss opportunities</p>
         </div>
-        <div class="problem-item">
-          <div class="problem-icon">
+
+        <div class="problem-card-creative problem-accent">
+          <div class="problem-number">04</div>
+          <div class="problem-icon-creative">
             <i class="fas fa-clock"></i>
           </div>
-          <div class="problem-content">
-            <h3>Manual Price Management</h3>
-            <p>Hours spent every week updating rates across multiple booking platforms instead of focusing on guest experience and growing your business</p>
+          <h3>Manual Price Management</h3>
+          <p><span class="highlight-negative">Hours wasted every week</span> updating rates across multiple booking platforms instead of focusing on guest experience</p>
+          <div class="problem-impact">
+            <span class="impact-label">Time Lost:</span>
+            <span class="impact-value">10+ hrs/week</span>
           </div>
         </div>
       </div>
@@ -667,68 +674,156 @@ const seo = generateSEO({
     margin: 0 auto;
   }
 
-  .problem-list {
-    display: flex;
-    flex-direction: column;
+  /* Creative Problem Cards Grid */
+  .problems-creative-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
     margin-top: 3rem;
-    max-width: 900px;
+    max-width: 1100px;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .problem-item {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-    background: var(--bg-card);
-    border: 1px solid var(--border-light);
-    border-radius: 16px;
-    padding: 2rem;
-    transition: all 0.3s ease;
+  .problem-card-creative {
+    position: relative;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
+    border: 2px solid rgba(249, 115, 22, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .problem-item:hover {
+  .problem-card-creative::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-cta), rgba(249, 115, 22, 0.5));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+
+  .problem-card-creative:hover::before {
+    transform: scaleX(1);
+  }
+
+  .problem-card-creative:hover {
     border-color: var(--primary-cta);
-    transform: translateX(10px);
-    box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(249, 115, 22, 0.3);
   }
 
-  .problem-icon {
-    flex-shrink: 0;
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(234, 88, 12, 0.15));
-    border: 2px solid rgba(249, 115, 22, 0.3);
-    border-radius: 16px;
+  /* Accent cards for emphasis */
+  .problem-primary {
+    grid-column: span 1;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 88, 12, 0.1) 100%);
+    border-color: rgba(249, 115, 22, 0.4);
+  }
+
+  .problem-accent {
+    grid-column: span 1;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(234, 88, 12, 0.08) 100%);
+    border-color: rgba(249, 115, 22, 0.35);
+  }
+
+  .problem-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(249, 115, 22, 0.1);
+    line-height: 1;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .problem-icon-creative {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.15));
+    border: 3px solid rgba(249, 115, 22, 0.4);
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 1.5rem;
     transition: all 0.3s ease;
   }
 
-  .problem-item:hover .problem-icon {
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.25), rgba(234, 88, 12, 0.25));
+  .problem-card-creative:hover .problem-icon-creative {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.25));
+    border-color: var(--primary-cta);
     transform: scale(1.05) rotate(-5deg);
   }
 
-  .problem-icon i {
-    font-size: 2rem;
+  .problem-icon-creative i {
+    font-size: 2.5rem;
     color: var(--primary-cta);
   }
 
-  .problem-content h3 {
-    font-size: 1.35rem;
-    margin-bottom: 0.75rem;
+  .problem-card-creative h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: 800;
+    position: relative;
+    z-index: 2;
   }
 
-  .problem-content p {
+  .problem-card-creative p {
     color: var(--text-secondary);
     line-height: 1.7;
     font-size: 1.05rem;
     margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .problem-card-creative .highlight {
+    color: var(--primary-cta);
+    font-weight: 700;
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), transparent);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+
+  .problem-card-creative .highlight-negative {
+    color: #ef4444;
+    font-weight: 700;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+
+  .problem-impact {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(249, 115, 22, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .impact-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .impact-value {
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary-cta), #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .factors-grid {
@@ -851,22 +946,26 @@ const seo = generateSEO({
       height: 150px;
     }
 
-    /* Problem list stays vertical on tablet */
-    .problem-list {
+    /* Creative problem cards on tablet */
+    .problems-creative-grid {
       gap: 1.5rem;
     }
 
-    .problem-item {
-      padding: 1.5rem;
+    .problem-card-creative {
+      padding: 2rem;
     }
 
-    .problem-icon {
-      width: 60px;
-      height: 60px;
+    .problem-icon-creative {
+      width: 70px;
+      height: 70px;
     }
 
-    .problem-icon i {
-      font-size: 1.75rem;
+    .problem-icon-creative i {
+      font-size: 2rem;
+    }
+
+    .problem-number {
+      font-size: 3.5rem;
     }
   }
 
@@ -932,34 +1031,44 @@ const seo = generateSEO({
       padding: 0.4rem 0.8rem;
     }
 
-    /* Mobile problem list */
-    .problem-list {
+    /* Mobile creative problem cards */
+    .problems-creative-grid {
+      grid-template-columns: 1fr;
       gap: 1.5rem;
     }
 
-    .problem-item {
-      flex-direction: column;
-      gap: 1.25rem;
-      padding: 1.5rem;
-      text-align: center;
+    .problem-card-creative {
+      padding: 2rem 1.5rem;
     }
 
-    .problem-icon {
+    .problem-number {
+      font-size: 3rem;
+      top: 1rem;
+      right: 1rem;
+    }
+
+    .problem-icon-creative {
       width: 60px;
       height: 60px;
-      margin: 0 auto;
+      margin-bottom: 1.25rem;
     }
 
-    .problem-icon i {
-      font-size: 1.5rem;
+    .problem-icon-creative i {
+      font-size: 1.75rem;
     }
 
-    .problem-content h3 {
-      font-size: 1.2rem;
+    .problem-card-creative h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
     }
 
-    .problem-content p {
+    .problem-card-creative p {
       font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .impact-value {
+      font-size: 1.3rem;
     }
 
     .factors-grid {
