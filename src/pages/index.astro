@@ -20,21 +20,44 @@ const jsonLd = [
   <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
-        <span class="hero-badge">Custom AI Agents for Tourism & Hospitality</span>
+        <span class="hero-badge">
+          <i class="fas fa-sparkles"></i>
+          AI Automation for Tourism & Hospitality
+        </span>
         <h1>
-          Boost Bookings & Automate Your <span class="gradient-text">Tourism Business</span> with AI Agents
+          Automate Bookings & Customer Service with <span class="gradient-text">Custom AI Agents</span>
         </h1>
-        <p>
-          We build custom AI agents that handle bookings, customer inquiries, and repetitive admin tasks for hotels, tour operators, travel agencies, and DMCs. Increase conversions by up to 30%, save 40+ hours weekly, and deliver instant 24/7 service.
+        <p class="hero-description">
+          We build custom AI agents that handle bookings, answer inquiries, and automate repetitive tasks 24/7. Increase conversions by 30%, save 40+ hours weekly, and never miss a customer again.
         </p>
+        <div class="hero-stats-mini">
+          <div class="mini-stat">
+            <strong>+30%</strong>
+            <span>Conversions</span>
+          </div>
+          <div class="mini-stat">
+            <strong>40+hrs</strong>
+            <span>Saved Weekly</span>
+          </div>
+          <div class="mini-stat">
+            <strong>24/7</strong>
+            <span>Available</span>
+          </div>
+        </div>
         <div class="hero-cta-group">
-          <a href="/contact" class="btn btn-primary">
-            Get Your Free AI Automation Plan <i class="fas fa-arrow-right"></i>
+          <a href="/contact" class="btn btn-primary btn-large">
+            <i class="fas fa-calendar-check"></i>
+            Get Free Consultation
           </a>
-          <a href="#" onclick="openCalculatorModal(); return false;" class="btn btn-secondary">
-            Calculate Your ROI in 2 Minutes
+          <a href="#" onclick="openCalculatorModal(); return false;" class="btn btn-secondary btn-large">
+            <i class="fas fa-calculator"></i>
+            Calculate ROI
           </a>
         </div>
+        <p class="hero-trust">
+          <i class="fas fa-check-circle"></i>
+          Free consultation • No credit card required • 2-week setup
+        </p>
       </div>
       <div class="hero-visual">
         <!-- Desktop: Spline 3D Robot -->
@@ -127,59 +150,126 @@ const jsonLd = [
   <!-- Features Section -->
   <section class="features">
     <div class="section-header">
-      <span class="section-badge">What We Build</span>
-      <h2>Custom AI Solutions That Handle Your Daily Operations</h2>
-      <p>We build AI agents, connect your systems via APIs, and develop custom software—all tailored to solve your specific tourism business challenges</p>
+      <span class="section-badge">
+        <i class="fas fa-rocket"></i>
+        What We Build
+      </span>
+      <h2>AI Solutions That Actually Work for Tourism</h2>
+      <p>Custom AI agents, integrations, and automation—built specifically for hotels, tour operators, and travel businesses</p>
     </div>
-    <div class="features-grid">
-      <!-- Top Row: 4 Cards -->
-      <div class="features-row features-row-top">
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('email')">
-          <div class="feature-icon">
+    <div class="features-grid-new">
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
             <i class="fas fa-robot"></i>
           </div>
-          <h3>AI Email & Communication Automation</h3>
-          <p>Handle emails, live chat, and phone calls automatically—reduce response time from hours to seconds</p>
+          <h3>AI Email & Chat Automation</h3>
         </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('pricing')">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3>Custom Automation Software</h3>
-          <p>Dynamic pricing engines, booking systems, and workflow tools built specifically for your tourism business</p>
-        </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('booking')">
-          <div class="feature-icon">
-            <i class="fas fa-calendar-check"></i>
-          </div>
-          <h3>AI Booking & Support Agents</h3>
-          <p>Chatbots and phone bots that handle reservations, answer questions, and provide 24/7 guest support</p>
-        </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('integration')">
-          <div class="feature-icon">
-            <i class="fas fa-network-wired"></i>
-          </div>
-          <h3>API Integrations & Workflows</h3>
-          <p>Connect your booking systems, CRM, email, and more—eliminate manual data entry and repetitive tasks</p>
-        </div>
+        <p>Automate customer emails, live chat, and inquiries with AI that responds in seconds—not hours.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Instant 24/7 responses</li>
+          <li><i class="fas fa-check"></i> Handles 80% of inquiries</li>
+          <li><i class="fas fa-check"></i> Multi-language support</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('email')">
+          Learn More
+          <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
-      <!-- Bottom Row: 2 Cards -->
-      <div class="features-row features-row-bottom">
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('security')">
-          <div class="feature-icon">
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3>AI Booking Agents</h3>
+        </div>
+        <p>Chatbots and voice agents that handle reservations, cancellations, and support around the clock.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Book while you sleep</li>
+          <li><i class="fas fa-check"></i> Phone & web support</li>
+          <li><i class="fas fa-check"></i> Payment processing</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('booking')">
+          Learn More
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>System Integrations</h3>
+        </div>
+        <p>Connect your booking system, CRM, email, and tools—no more manual data entry or copy-pasting.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> API connections</li>
+          <li><i class="fas fa-check"></i> Automated workflows</li>
+          <li><i class="fas fa-check"></i> Real-time sync</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('integration')">
+          Learn More
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Custom Software</h3>
+        </div>
+        <p>Pricing engines, booking systems, and workflow tools built specifically for your business needs.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Dynamic pricing</li>
+          <li><i class="fas fa-check"></i> Custom dashboards</li>
+          <li><i class="fas fa-check"></i> Reporting & analytics</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('pricing')">
+          Learn More
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
             <i class="fas fa-shield-alt"></i>
           </div>
           <h3>Enterprise Security</h3>
-          <p>Bank-level encryption, GDPR compliance, 99.9% uptime SLA guaranteed</p>
         </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('support')">
-          <div class="feature-icon">
+        <p>Bank-level encryption, GDPR compliance, and 99.9% uptime SLA—your data is always protected.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> SSL encryption</li>
+          <li><i class="fas fa-check"></i> GDPR compliant</li>
+          <li><i class="fas fa-check"></i> 99.9% uptime</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('security')">
+          Learn More
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
             <i class="fas fa-graduation-cap"></i>
           </div>
-          <h3>Training & Onboarding</h3>
-          <p>Comprehensive training and ongoing support to ensure your team masters the system</p>
+          <h3>Training & Support</h3>
         </div>
+        <p>Comprehensive onboarding, training, and ongoing support to ensure your team succeeds.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Full training included</li>
+          <li><i class="fas fa-check"></i> Dedicated support</li>
+          <li><i class="fas fa-check"></i> Regular updates</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('support')">
+          Learn More
+          <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
     </div>
   </section>
