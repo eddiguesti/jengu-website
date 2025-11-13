@@ -370,7 +370,7 @@
       padding: 4rem 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1rem;
       align-items: center;
       position: relative;
       z-index: 2;
@@ -393,7 +393,7 @@
     }
 
     .hero h1 {
-      font-size: 4rem;
+      font-size: 3.2rem;
       font-weight: 900;
       margin-bottom: 1.5rem;
       line-height: 1.1;
@@ -410,10 +410,10 @@
     }
 
     .hero p {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
-      line-height: 1.8;
+      line-height: 1.7;
     }
 
     .hero-cta-group {
@@ -502,9 +502,9 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 160%;
+      width: 155%;
       height: 100vh;
-      margin-left: -45%;
+      margin-left: -70%;
       pointer-events: auto;
     }
 
