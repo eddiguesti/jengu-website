@@ -254,11 +254,17 @@ const currentLocale = getLocaleFromUrl(currentPath);
     // Feature Modal Functions
     function openFeatureModal(featureId) {
       const overlay = document.getElementById('featureModalOverlay');
-      if (!overlay) return;
+      if (!overlay) {
+        console.error('Feature modal overlay not found');
+        return;
+      }
 
       const featureData = window.featureData || {};
       const data = featureData[featureId];
-      if (!data) return;
+      if (!data) {
+        console.error(`Feature data not found for: ${featureId}`, 'Available:', Object.keys(featureData));
+        return;
+      }
 
       const modalIcon = document.getElementById('modalIcon');
       const modalTitle = document.getElementById('modalTitle');
