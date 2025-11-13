@@ -542,12 +542,12 @@
       pointer-events: auto;
     }
 
-    /* Desktop and Mobile Spline viewers */
-    .spline-desktop {
+    /* Desktop/Mobile Display Control */
+    .desktop-only {
       display: block;
     }
 
-    .spline-mobile {
+    .mobile-only {
       display: none;
     }
 
@@ -557,6 +557,51 @@
       height: 100%;
       border: none;
       display: block;
+    }
+
+    /* SVG Robot Container (Mobile) */
+    .svg-robot-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .svg-robot {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      filter: drop-shadow(0 10px 30px rgba(6, 182, 212, 0.3));
+    }
+
+    /* SVG Robot Animations - Lightweight & Smooth */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { filter: drop-shadow(0 10px 30px rgba(6, 182, 212, 0.3)); }
+      50% { filter: drop-shadow(0 10px 40px rgba(6, 182, 212, 0.5)); }
+    }
+
+    .svg-robot {
+      animation: float 3s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+    }
+
+    .antenna-light {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .chest-light {
+      animation: pulse 2s ease-in-out infinite;
     }
 
     /* Stats Section */
@@ -1767,27 +1812,29 @@
         -webkit-perspective: 1000px;
       }
 
-      /* Switch to mobile Spline scene */
-      .spline-desktop {
+      /* Switch to lightweight SVG robot on mobile */
+      .desktop-only {
         display: none !important;
       }
 
-      .spline-mobile {
-        display: block !important;
-        width: 110vw !important;
-        height: 100% !important;
+      .mobile-only {
+        display: flex !important;
       }
 
-      .spline-container iframe,
-      .spline-container spline-viewer {
+      .svg-robot-container {
+        position: relative !important;
         width: 100% !important;
-        height: 100% !important;
-        border: none;
-        display: block !important;
+        height: auto !important;
+        min-height: 300px;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0;
+      }
 
-        /* GPU acceleration */
-        transform: translateZ(0);
-        -webkit-transform: translateZ(0);
+      .svg-robot {
+        max-width: 350px !important;
+        width: 90% !important;
       }
 
       /* Reduce motion for accessibility */
@@ -1822,28 +1869,23 @@
       }
 
       /* ========================================
-         MOBILE PHONE ROBOT DISPLAY (≤768px)
-         Smaller, optimized for phones
+         MOBILE PHONE SVG ROBOT (≤768px)
+         Smaller, lightweight for phones
          ======================================== */
 
       .hero-visual {
-        min-height: 280px !important;
-        margin-bottom: 2rem;
+        min-height: 250px !important;
+        margin-bottom: 1.5rem;
       }
 
-      .spline-container {
-        /* Smaller scale for phones */
-        height: 280px !important;
-        max-width: 340px !important;
-        transform: scale(0.7) translateZ(0) !important;
-        -webkit-transform: scale(0.7) translateZ(0) !important;
+      .svg-robot-container {
+        min-height: 250px !important;
+        padding: 1.5rem 0 !important;
       }
 
-      .spline-container iframe,
-      .spline-container spline-viewer {
-        /* Ensure smooth rendering on mobile */
-        transform: translateZ(0) !important;
-        -webkit-transform: translateZ(0) !important;
+      .svg-robot {
+        max-width: 300px !important;
+        width: 85% !important;
       }
 
       .hero h1 {
