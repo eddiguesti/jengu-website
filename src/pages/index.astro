@@ -60,20 +60,14 @@ const jsonLd = [
         </p>
       </div>
 
-      <!-- Mobile only: Robot Image & Video -->
+      <!-- Mobile only: Spline 3D Robot -->
       <div class="hero-visual mobile-only">
-        <div class="mobile-robot-container">
-          <img src="/images/robot.png" alt="AI Robot Assistant" class="mobile-robot-image" loading="eager" />
-          <video
-            class="mobile-robot-video"
-            autoplay
-            loop
-            muted
-            playsinline
-            poster="/images/robot.png"
-          >
-            <source src="/images/robot-video.mp4" type="video/mp4" />
-          </video>
+        <div class="mobile-spline-container" role="img" aria-label="Interactive 3D robot animation">
+          <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
+          <spline-viewer
+            url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode"
+            loading="eager"
+          ></spline-viewer>
         </div>
       </div>
 
@@ -876,13 +870,5 @@ const jsonLd = [
         ]
       }
     };
-
-    // Mobile robot video handler
-    const mobileVideo = document.querySelector('.mobile-robot-video');
-    if (mobileVideo) {
-      mobileVideo.addEventListener('loadeddata', () => {
-        mobileVideo.classList.add('loaded');
-      });
-    }
   </script>
 </BaseLayout>
