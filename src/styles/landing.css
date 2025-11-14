@@ -1750,10 +1750,10 @@
         background: #000000;
         position: relative;
         overflow: hidden;
-        min-height: 100vh;
+        min-height: calc(100vh - 80px);
         display: flex;
         align-items: center;
-        padding: 2rem 0;
+        padding: 1rem 0;
       }
 
       /* Cyan/teal gradient (brand color) - fades out on scroll */
