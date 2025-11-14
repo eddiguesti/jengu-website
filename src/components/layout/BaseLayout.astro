@@ -134,11 +134,10 @@ const currentLocale = getLocaleFromUrl(currentPath);
         navbar.classList.toggle('scrolled', isScrolled);
       }
 
-      // Parallax color transition effect on mobile
+      // Parallax color transition effect on mobile - smooth and optimized
       const heroHome = document.querySelector('.hero-home');
       if (heroHome && window.innerWidth <= 1024) {
-        const scrollProgress = Math.min(window.scrollY / 400, 1);
-        // Smoothly transition opacity based on scroll position
+        const scrollProgress = Math.min(window.scrollY / 500, 1);
         heroHome.style.setProperty('--scroll-opacity', scrollProgress);
       }
     }, 100);

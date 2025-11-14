@@ -1744,7 +1744,7 @@
     }
 
     @media (max-width: 1024px) {
-      /* Parallax color transition hero - using original brand colors */
+      /* Parallax color transition hero - smooth mobile experience */
       .hero-home {
         --scroll-opacity: 0;
         background: #000000;
@@ -1758,7 +1758,7 @@
         padding-top: 80px;
       }
 
-      /* Cyan/teal gradient (brand color) - fades out on scroll */
+      /* Cyan/teal gradient (brand color) - smooth fade on scroll */
       .hero-home::before {
         content: '';
         position: absolute;
@@ -1768,15 +1768,16 @@
         bottom: 0;
         background: radial-gradient(
           ellipse 80% 50% at 50% -20%,
-          rgba(6, 182, 212, 0.2),
+          rgba(6, 182, 212, 0.25),
           transparent
         );
-        opacity: calc(1 - var(--scroll-opacity) * 0.7);
+        opacity: calc(1 - var(--scroll-opacity) * 0.75);
         pointer-events: none;
         z-index: 0;
+        will-change: opacity;
       }
 
-      /* Purple accent (brand color) - fades out on scroll */
+      /* Purple accent (brand color) - smooth fade on scroll */
       .hero-home::after {
         content: '';
         position: absolute;
@@ -1786,12 +1787,13 @@
         bottom: 50%;
         background: radial-gradient(
           ellipse 60% 40% at 50% 0%,
-          rgba(124, 58, 237, 0.18),
+          rgba(124, 58, 237, 0.22),
           transparent 60%
         );
-        opacity: calc(1 - var(--scroll-opacity) * 0.8);
+        opacity: calc(1 - var(--scroll-opacity) * 0.85);
         pointer-events: none;
         z-index: 0;
+        will-change: opacity;
       }
 
       .hero-container,
