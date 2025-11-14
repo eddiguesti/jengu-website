@@ -133,6 +133,13 @@ const currentLocale = getLocaleFromUrl(currentPath);
         scrolled = isScrolled;
         navbar.classList.toggle('scrolled', isScrolled);
       }
+
+      // GitHub-style hero darkening effect on mobile
+      const heroHome = document.querySelector('.hero-home');
+      if (heroHome && window.innerWidth <= 1024) {
+        const scrollProgress = Math.min(window.scrollY / 300, 1);
+        heroHome.classList.toggle('scrolled', scrollProgress > 0.3);
+      }
     }, 100);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
