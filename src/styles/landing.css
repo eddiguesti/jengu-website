@@ -1748,45 +1748,58 @@
       .benefits-container {
         grid-template-columns: 1fr;
         gap: 2rem;
-        padding: 3rem 1.5rem;
+        padding: 1rem 1.5rem 2rem;
       }
 
       .hero-content {
+        order: 2;
         text-align: center;
         max-width: 100%;
+        padding: 1.5rem 1rem;
       }
 
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
         line-height: 1.2;
         margin-bottom: 1.25rem;
       }
 
       .hero p {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         margin-bottom: 1.5rem;
+        line-height: 1.6;
+        opacity: 0.95;
       }
 
       .hero-badge {
         margin-bottom: 1.25rem;
+        font-size: 0.9rem;
+        padding: 0.5rem 1.25rem;
       }
 
       .hero-stats-mini {
         justify-content: center;
         gap: 1rem;
         margin: 1.5rem 0;
+        flex-wrap: wrap;
+      }
+
+      .mini-stat {
+        flex: 0 0 auto;
       }
 
       .hero-cta-group {
         flex-direction: column;
         gap: 1rem;
-        max-width: 400px;
-        margin: 0 auto;
+        max-width: 100%;
+        margin: 2rem auto 0;
       }
 
       .btn-large {
         width: 100%;
         justify-content: center;
+        padding: 1rem 1.75rem;
+        font-size: 1rem;
       }
 
       .section-header h2 {
@@ -1808,21 +1821,22 @@
 
       .hero-visual {
         /* Layout */
-        order: -1 !important;
+        order: 1 !important;
         position: relative !important;
         display: flex !important;
         align-items: center;
         justify-content: center;
-        min-height: 300px;
+        min-height: 350px;
         height: auto !important;
-        overflow: hidden;
+        overflow: visible;
+        padding: 1rem 0 0.5rem;
 
         /* Styling */
-        background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
-                    radial-gradient(circle at 50% 80%, rgba(30, 64, 175, 0.06) 0%, transparent 50%);
+        background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+                    radial-gradient(circle at 50% 80%, rgba(30, 64, 175, 0.05) 0%, transparent 60%);
 
         /* Animation - keep it smooth */
-        animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1);
+        animation: fadeIn 0.8s ease-out;
       }
 
       .spline-container {
@@ -1863,23 +1877,22 @@
       .mobile-spline-container {
         position: relative;
         width: 100%;
-        height: 450px;
-        max-height: 55vh;
+        height: 400px;
+        max-height: 50vh;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: visible;
-        padding: 2rem 0;
-        margin: 1rem 0;
+        padding: 1rem 0;
+        margin: 0;
       }
 
       .mobile-spline-container spline-viewer {
-        width: 120% !important;
-        height: 120% !important;
-        max-width: 600px;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 500px;
         border: none;
         display: block;
-        transform: scale(1.1);
       }
 
       .svg-robot-container {
