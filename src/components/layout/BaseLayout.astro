@@ -134,11 +134,12 @@ const currentLocale = getLocaleFromUrl(currentPath);
         navbar.classList.toggle('scrolled', isScrolled);
       }
 
-      // GitHub-style hero darkening effect on mobile
+      // Parallax color transition effect on mobile
       const heroHome = document.querySelector('.hero-home');
       if (heroHome && window.innerWidth <= 1024) {
-        const scrollProgress = Math.min(window.scrollY / 300, 1);
-        heroHome.classList.toggle('scrolled', scrollProgress > 0.3);
+        const scrollProgress = Math.min(window.scrollY / 400, 1);
+        // Smoothly transition opacity based on scroll position
+        heroHome.style.setProperty('--scroll-opacity', scrollProgress);
       }
     }, 100);
 

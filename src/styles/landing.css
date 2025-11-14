@@ -1744,15 +1744,16 @@
     }
 
     @media (max-width: 1024px) {
-      /* GitHub-style mobile hero - gradient from purple to dark */
+      /* Parallax color transition hero */
       .hero-home {
+        --scroll-opacity: 0;
         background: #0d1117;
         position: relative;
         overflow: hidden;
         padding: 5rem 0 4rem;
       }
 
-      /* Animated gradient overlay - GitHub style */
+      /* Blue gradient layer - fades out on scroll */
       .hero-home::before {
         content: '';
         position: absolute;
@@ -1762,16 +1763,15 @@
         bottom: 0;
         background: radial-gradient(
           ellipse 80% 50% at 50% -20%,
-          rgba(56, 139, 253, 0.15),
+          rgba(56, 139, 253, 0.18),
           transparent
         );
-        opacity: 1;
-        transition: opacity 0.6s ease-out;
+        opacity: calc(1 - var(--scroll-opacity) * 0.7);
         pointer-events: none;
         z-index: 0;
       }
 
-      /* Purple accent glow */
+      /* Purple accent glow - fades out on scroll */
       .hero-home::after {
         content: '';
         position: absolute;
@@ -1781,19 +1781,12 @@
         bottom: 50%;
         background: radial-gradient(
           ellipse 60% 40% at 50% 0%,
-          rgba(139, 92, 246, 0.12),
+          rgba(139, 92, 246, 0.15),
           transparent 60%
         );
-        opacity: 1;
-        transition: opacity 0.6s ease-out;
+        opacity: calc(1 - var(--scroll-opacity) * 0.8);
         pointer-events: none;
         z-index: 0;
-      }
-
-      /* Fade gradient on scroll */
-      .hero-home.scrolled::before,
-      .hero-home.scrolled::after {
-        opacity: 0.4;
       }
 
       .hero-container,
