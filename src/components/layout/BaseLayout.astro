@@ -203,30 +203,22 @@ const currentLocale = getLocaleFromUrl(currentPath);
     function handleCalculatorClick(e) {
       if (e) e.preventDefault();
 
-      console.log('Calculator clicked, width:', window.innerWidth);
-
       // Mobile: redirect to dedicated page
       if (window.innerWidth <= 768) {
-        console.log('Mobile detected, redirecting to /calculator');
         window.location.href = '/calculator';
         return;
       }
 
       // Desktop: open modal
-      console.log('Desktop detected, opening modal');
       openCalculatorModal();
     }
 
     // Calculator Modal Functions (Desktop only)
     function openCalculatorModal() {
       const overlay = document.getElementById('calculatorModalOverlay');
-      console.log('openCalculatorModal called, overlay:', overlay);
       if (overlay) {
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
-        console.log('Modal opened, active class added');
-      } else {
-        console.error('Calculator modal overlay not found!');
       }
     }
 
@@ -243,11 +235,16 @@ const currentLocale = getLocaleFromUrl(currentPath);
     window.openCalculatorModal = openCalculatorModal;
     window.closeCalculatorModal = closeCalculatorModal;
 
-    // Close on overlay click
+    // Close on overlay click (handles both modals)
     document.addEventListener('click', function(e) {
       const calcOverlay = document.getElementById('calculatorModalOverlay');
+      const featureOverlay = document.getElementById('featureModalOverlay');
+
       if (calcOverlay && e.target === calcOverlay) {
         closeCalculatorModal();
+      }
+      if (featureOverlay && e.target === featureOverlay) {
+        closeFeatureModal();
       }
     });
 
@@ -262,17 +259,11 @@ const currentLocale = getLocaleFromUrl(currentPath);
     // Feature Modal Functions
     function openFeatureModal(featureId) {
       const overlay = document.getElementById('featureModalOverlay');
-      if (!overlay) {
-        console.error('Feature modal overlay not found');
-        return;
-      }
+      if (!overlay) return;
 
       const featureData = window.featureData || {};
       const data = featureData[featureId];
-      if (!data) {
-        console.error(`Feature data not found for: ${featureId}`, 'Available:', Object.keys(featureData));
-        return;
-      }
+      if (!data) return;
 
       const modalIcon = document.getElementById('modalIcon');
       const modalTitle = document.getElementById('modalTitle');
@@ -319,13 +310,6 @@ const currentLocale = getLocaleFromUrl(currentPath);
 
     window.openFeatureModal = openFeatureModal;
     window.closeFeatureModal = closeFeatureModal;
-
-    document.addEventListener('click', function(e) {
-      const overlay = document.getElementById('featureModalOverlay');
-      if (overlay && e.target === overlay) {
-        closeFeatureModal();
-      }
-    });
   </script>
 </body>
 </html>

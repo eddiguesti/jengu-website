@@ -70,12 +70,6 @@ const jsonLd = [
           ></spline-viewer>
         </div>
       </div>
-
-      <script is:inline>
-        document.addEventListener('touchstart', function(){}, { passive: true });
-        document.addEventListener('touchmove', function(){}, { passive: true });
-        document.addEventListener('scroll', function(){}, { passive: true });
-      </script>
     </div>
   </section>
 
@@ -621,12 +615,14 @@ const jsonLd = [
         <div class="feature-modal-section">
           <h4>Key Benefits</h4>
           <div class="feature-benefits-list" id="modalBenefits">
+            <!-- Content populated by JavaScript -->
           </div>
         </div>
 
         <div class="feature-modal-section">
           <h4>Performance Metrics</h4>
           <div class="feature-stats-grid" id="modalStats">
+            <!-- Content populated by JavaScript -->
           </div>
         </div>
       </div>
@@ -666,13 +662,6 @@ const jsonLd = [
         icon.style.transform = 'rotate(180deg)';
       }
     }
-
-    // Initialize on page load - ensure all answers start closed
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.faq-answer-home').forEach(answer => {
-        answer.style.maxHeight = '0';
-      });
-    });
 
     // Feature modal data
     window.featureData = {
