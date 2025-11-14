@@ -59,6 +59,24 @@ const jsonLd = [
           Free consultation
         </p>
       </div>
+
+      <!-- Mobile only: Robot Image & Video -->
+      <div class="hero-visual mobile-only">
+        <div class="mobile-robot-container">
+          <img src="/images/robot.png" alt="AI Robot Assistant" class="mobile-robot-image" loading="eager" />
+          <video
+            class="mobile-robot-video"
+            autoplay
+            loop
+            muted
+            playsinline
+            poster="/images/robot.png"
+          >
+            <source src="/images/robot-video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
       <!-- Desktop only: Spline 3D Robot -->
       <div class="hero-visual desktop-only">
         <div class="spline-container" role="img" aria-label="Interactive 3D robot animation">
@@ -858,5 +876,13 @@ const jsonLd = [
         ]
       }
     };
+
+    // Mobile robot video handler
+    const mobileVideo = document.querySelector('.mobile-robot-video');
+    if (mobileVideo) {
+      mobileVideo.addEventListener('loadeddata', () => {
+        mobileVideo.classList.add('loaded');
+      });
+    }
   </script>
 </BaseLayout>
