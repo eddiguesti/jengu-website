@@ -614,11 +614,11 @@
     }
 
     .promo-container {
-      max-width: 1280px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 5rem;
       align-items: center;
     }
 
