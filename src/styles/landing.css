@@ -2807,6 +2807,24 @@
         font-size: 1rem;
       }
 
+      /* Compact hero on contact page for mobile */
+      .hero-container {
+        padding: 2rem 1.5rem;
+      }
+
+      .hero h1 {
+        margin-bottom: 0.75rem;
+      }
+
+      /* Contact page mobile optimizations */
+      .contact-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .contact-card {
+        padding: 1.75rem;
+      }
+
       .hero-cta-group {
         flex-direction: column;
         gap: 1rem;
