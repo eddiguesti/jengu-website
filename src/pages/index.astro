@@ -30,9 +30,9 @@ const jsonLd = [
           Automate Bookings & Customer Service with <span class="gradient-text">Custom AI Agents</span>
         </h1>
 
-        <!-- Mobile headline - clean single line -->
-        <h1 class="mobile-only">
-          <span class="gradient-text">AI Agents for Tourism</span>
+        <!-- Mobile headline - animated -->
+        <h1 class="mobile-only mobile-hero-title">
+          AI Agents<br/>for Tourism
         </h1>
 
         <!-- Desktop description -->
@@ -40,33 +40,13 @@ const jsonLd = [
           We build custom AI agents that handle bookings, answer inquiries, and automate repetitive tasks 24/7. Increase conversions by 30%, save 40+ hours weekly, and never miss a customer again.
         </p>
 
-        <!-- Mobile description - concise & powerful -->
-        <p class="hero-description mobile-only">
-          Automate bookings and customer service 24/7
-        </p>
-
-        <!-- Mobile only: Promo Video -->
-        <div class="mobile-promo-video mobile-only">
-          <div class="mobile-video-wrapper">
-            <video
-              autoplay
-              muted
-              loop
-              playsinline
-            >
-              <source src="/videos/finalpromo.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-
-        <div class="hero-cta-group">
-          <a href="/contact" class="btn btn-primary btn-large">
-            <span class="desktop-only">Get Free Consultation</span>
-            <span class="mobile-only">Get Started</span>
+        <!-- Desktop CTAs -->
+        <div class="hero-cta-group desktop-only">
+          <a href="/contact" class="btn btn-primary btn-large btn-modern">
+            <span>Get Free Consultation</span>
           </a>
-          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large" id="calc-btn">
-            <span class="desktop-only">Calculate ROI</span>
-            <span class="mobile-only">See ROI</span>
+          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
+            <span>Calculate ROI</span>
           </a>
         </div>
         <p class="hero-trust desktop-only">
@@ -84,6 +64,38 @@ const jsonLd = [
             url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
             loading="lazy"
           ></spline-viewer>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile only: Fullscreen Video Hero -->
+    <div class="mobile-only mobile-fullscreen-hero">
+      <video
+        class="mobile-hero-video"
+        autoplay
+        muted
+        loop
+        playsinline
+      >
+        <source src="/videos/finalpromo.mp4" type="video/mp4">
+      </video>
+
+      <!-- Gradient overlay -->
+      <div class="mobile-hero-gradient"></div>
+
+      <!-- Content overlay -->
+      <div class="mobile-hero-overlay">
+        <p class="mobile-hero-label">Jengu® AI Agents</p>
+        <h1 class="mobile-hero-headline">
+          Meet your new<br/>super power
+        </h1>
+        <div class="mobile-hero-actions">
+          <a href="/contact" class="mobile-hero-btn mobile-hero-btn-primary">
+            Learn more
+          </a>
+          <button class="mobile-hero-btn mobile-hero-btn-secondary">
+            <i class="fas fa-play"></i> Watch video
+          </button>
         </div>
       </div>
     </div>
