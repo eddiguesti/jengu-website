@@ -1492,6 +1492,12 @@
       padding: 2rem;
     }
 
+    @media (max-width: 767px) {
+      .feature-modal-overlay.active {
+        padding: 0.5rem;
+      }
+    }
+
     .feature-modal {
       background: var(--bg-card);
       border-radius: 32px;
