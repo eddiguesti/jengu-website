@@ -159,26 +159,43 @@ const currentLocale = getLocaleFromUrl(currentPath);
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => animateObserver.observe(el));
 
-    // iOS video autoplay fix - simple and reliable
+    // iOS video autoplay fix - aggressive approach for iPhone
     const mobileVideo = document.querySelector('.mobile-hero-video');
     if (mobileVideo && window.innerWidth <= 1024) {
-      // Set muted property programmatically (iOS requirement)
+      // Force muted state (iOS requirement)
       mobileVideo.muted = true;
+      mobileVideo.defaultMuted = true;
       mobileVideo.setAttribute('muted', '');
+      mobileVideo.setAttribute('playsinline', '');
 
-      // Play when ready
-      mobileVideo.addEventListener('loadedmetadata', () => {
-        mobileVideo.play().catch(() => {
-          // Fallback: play on any user interaction
-          const playOnInteraction = () => {
-            mobileVideo.play();
-            document.removeEventListener('touchstart', playOnInteraction);
-            document.removeEventListener('click', playOnInteraction);
-          };
-          document.addEventListener('touchstart', playOnInteraction);
-          document.addEventListener('click', playOnInteraction);
-        });
-      });
+      // Attempt to play immediately
+      const attemptPlay = () => {
+        const playPromise = mobileVideo.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log('Autoplay prevented, will play on user interaction:', error);
+          });
+        }
+      };
+
+      // Try multiple events to ensure playback
+      mobileVideo.addEventListener('loadeddata', attemptPlay, { once: true });
+      mobileVideo.addEventListener('canplay', attemptPlay, { once: true });
+
+      // Force load
+      mobileVideo.load();
+
+      // Fallback: play on any user interaction
+      const playOnInteraction = () => {
+        mobileVideo.play();
+        document.removeEventListener('touchstart', playOnInteraction, true);
+        document.removeEventListener('click', playOnInteraction, true);
+        document.removeEventListener('scroll', playOnInteraction, true);
+      };
+
+      document.addEventListener('touchstart', playOnInteraction, { once: true, capture: true });
+      document.addEventListener('click', playOnInteraction, { once: true, capture: true });
+      document.addEventListener('scroll', playOnInteraction, { once: true, capture: true });
     }
 
     // ROI preview animation
