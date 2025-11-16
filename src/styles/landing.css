@@ -732,16 +732,25 @@
 
     /* Mobile responsive - FULLSCREEN VIDEO HERO */
     @media (max-width: 1024px) {
+      /* Remove any body margins on mobile */
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
       /* Hide desktop promo section on mobile */
       .promo-video-section {
         display: none;
       }
 
-      /* Mobile hero - minimal background */
+      /* Mobile hero - minimal background, no padding */
       .hero {
         background: var(--bg-main);
-        min-height: auto;
-        padding-top: 0;
+        min-height: 100vh;
+        padding: 0;
+        margin: 0;
+        display: block;
+        position: relative;
       }
 
       .hero::before,
@@ -754,12 +763,15 @@
         display: none;
       }
 
-      /* Fullscreen Video Hero Container */
+      /* Fullscreen Video Hero Container - absolute positioning to cover from top */
       .mobile-fullscreen-hero {
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100vh;
         overflow: hidden;
+        z-index: 0;
       }
 
       /* Fullscreen Video */
