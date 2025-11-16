@@ -617,8 +617,8 @@
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 5rem;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 4rem;
       align-items: center;
     }
 
@@ -691,42 +691,34 @@
 
     /* Mobile responsive */
     @media (max-width: 1024px) {
-      .promo-container {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-
-      .promo-content {
-        text-align: center;
-      }
-
-      .promo-content h2 {
-        font-size: 2rem;
-      }
-
-      .promo-features {
-        display: inline-block;
-        text-align: left;
-      }
-    }
-
-    @media (max-width: 768px) {
+      /* Hide desktop promo section on mobile */
       .promo-video-section {
-        padding: 4rem 1.5rem;
+        display: none;
       }
 
-      .promo-content h2 {
-        font-size: 1.75rem;
+      /* Mobile promo video in hero */
+      .mobile-promo-video {
+        margin-top: 2rem;
+        width: 100%;
       }
 
-      .promo-content p {
-        font-size: 1rem;
+      .mobile-video-wrapper {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
+                    0 0 0 1px rgba(255, 255, 255, 0.05);
+        background: var(--bg-card);
       }
 
-      .promo-features li {
-        font-size: 0.9375rem;
+      .mobile-video-wrapper video {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
       }
     }
+
 
     /* Stats Section */
     .stats-section {
