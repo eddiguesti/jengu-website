@@ -513,21 +513,6 @@
       color: #06b6d4;
     }
 
-    /* Logo Header */
-    .logo-header {
-      text-align: center;
-      padding: 1.5rem 0;
-      margin: -1.25rem -1.25rem 1rem -1.25rem;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .logo-header img {
-      height: 32px;
-      width: auto;
-    }
-
     /* Solution Cards Grid */
     .solutions-grid {
       display: grid;
@@ -605,11 +590,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- Logo Header -->
-    <div class="logo-header">
-      <img src="/images/logo.png" alt="Jengu">
-    </div>
-
     <!-- Progress Bar -->
     <div class="progress-bar">
       <div class="progress-track">
@@ -662,6 +642,13 @@
             <div class="business-type-content">
               <i class="fas fa-hiking"></i>
               <span>Activity Provider</span>
+            </div>
+          </label>
+          <label class="business-type-card">
+            <input type="radio" name="businessType" value="other">
+            <div class="business-type-content">
+              <i class="fas fa-ellipsis-h"></i>
+              <span>Other</span>
             </div>
           </label>
         </div>
