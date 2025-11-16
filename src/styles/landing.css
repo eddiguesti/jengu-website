@@ -831,6 +831,7 @@
         color: rgba(255, 255, 255, 0.8);
         margin-bottom: 0.75rem;
         font-weight: 600;
+        text-align: left;
       }
 
       /* Headline */
