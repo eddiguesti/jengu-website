@@ -534,7 +534,7 @@
       top: 50%;
       transform: translateY(-50%);
       width: 160%;
-      height: 100vh;
+      height: 120vh;
       margin-left: -32%;
       pointer-events: auto;
     }
