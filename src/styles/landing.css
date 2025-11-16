@@ -696,26 +696,70 @@
         display: none;
       }
 
-      /* Mobile promo video in hero */
+      /* Hero content padding - generous whitespace */
+      .hero-content {
+        padding: 0 2rem;
+        max-width: 100%;
+      }
+
+      /* Title - clear and large */
+      .hero-home h1 {
+        font-size: 2.5rem;
+        line-height: 1.15;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      /* Description - clean spacing */
+      .hero-description {
+        margin-bottom: 3rem;
+        font-size: 1.15rem;
+        line-height: 1.5;
+        opacity: 0.9;
+      }
+
+      /* Mobile promo video - generous spacing */
       .mobile-promo-video {
-        margin-top: 2rem;
+        margin: 0 0 3rem 0;
         width: 100%;
       }
 
       .mobile-video-wrapper {
         position: relative;
-        border-radius: 12px;
+        border-radius: 20px;
         overflow: hidden;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4),
-                    0 0 0 1px rgba(255, 255, 255, 0.05);
+        box-shadow:
+          0 25px 60px rgba(0, 0, 0, 0.6),
+          0 8px 16px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.1);
         background: var(--bg-card);
+        aspect-ratio: 16 / 9;
       }
 
       .mobile-video-wrapper video {
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
         display: block;
-        border-radius: 12px;
+      }
+
+      /* CTA buttons - clean spacing */
+      .hero-cta-group {
+        margin-top: 0;
+        gap: 1rem;
+        flex-direction: column;
+      }
+
+      .hero-cta-group .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1.25rem 2rem;
+        font-size: 1.1rem;
+      }
+
+      /* Remove icons on mobile for cleaner look */
+      .hero-cta-group .btn i {
+        display: none;
       }
     }
 
