@@ -248,20 +248,22 @@
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
+      background: transparent;
+      backdrop-filter: none;
       z-index: 100;
-      padding: 1rem 0;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      transition: padding 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-      will-change: padding, box-shadow;
+      padding: 1.5rem 0;
+      box-shadow: none;
+      border-bottom: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: padding, box-shadow, background;
     }
 
     nav.scrolled {
-      padding: 0.5rem 0;
+      padding: 0.75rem 0;
       box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
       background: rgba(0, 0, 0, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .nav-container {
