@@ -159,25 +159,25 @@ const currentLocale = getLocaleFromUrl(currentPath);
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => animateObserver.observe(el));
 
-    // iOS video autoplay fix
+    // iOS video autoplay fix - simple and reliable
     const mobileVideo = document.querySelector('.mobile-hero-video');
-    if (mobileVideo) {
-      // Force play on iOS
-      const playPromise = mobileVideo.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log('Video autoplay prevented:', error);
-          // Try again after user interaction
-          document.addEventListener('touchstart', function() {
-            mobileVideo.play();
-          }, { once: true });
-        });
-      }
+    if (mobileVideo && window.innerWidth <= 1024) {
+      // Set muted property programmatically (iOS requirement)
+      mobileVideo.muted = true;
+      mobileVideo.setAttribute('muted', '');
 
-      // Ensure video loops properly on iOS
-      mobileVideo.addEventListener('ended', function() {
-        this.currentTime = 0;
-        this.play();
+      // Play when ready
+      mobileVideo.addEventListener('loadedmetadata', () => {
+        mobileVideo.play().catch(() => {
+          // Fallback: play on any user interaction
+          const playOnInteraction = () => {
+            mobileVideo.play();
+            document.removeEventListener('touchstart', playOnInteraction);
+            document.removeEventListener('click', playOnInteraction);
+          };
+          document.addEventListener('touchstart', playOnInteraction);
+          document.addEventListener('click', playOnInteraction);
+        });
       });
     }
 

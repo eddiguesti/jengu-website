@@ -76,12 +76,11 @@ const jsonLd = [
         muted
         loop
         playsinline
-        webkit-playsinline
-        preload="auto"
-        poster="/videos/mobile-hero-poster.jpg"
+        defaultMuted
+        x-webkit-airplay="allow"
+        preload="metadata"
       >
-        <source src="/videos/mobile-hero.mp4" type="video/mp4">
-        <source src="/videos/mobile-hero.webm" type="video/webm">
+        <source src="/videos/mobile-hero.mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2">
       </video>
 
       <!-- Gradient overlay -->
