@@ -532,12 +532,14 @@
     .spline-container {
       position: absolute;
       top: 50%;
-      transform: translateY(-50%);
-      width: 155%;
+      transform: translateY(-50%) translateZ(0);
+      -webkit-transform: translateY(-50%) translateZ(0);
+      width: 165%;
       height: 100vh;
       margin-left: -70%;
       pointer-events: auto;
       z-index: 1;
+      will-change: transform;
     }
 
     /* Desktop/Mobile Display Control */
