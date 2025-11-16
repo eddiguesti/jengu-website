@@ -696,42 +696,44 @@
         display: none;
       }
 
-      /* Hero content padding - generous whitespace */
+      /* Hero content - modern spacing */
       .hero-content {
-        padding: 0 2rem;
+        padding: 0 1.5rem;
         max-width: 100%;
       }
 
-      /* Title - clear and large */
+      /* Title - modern, clean */
       .hero-home h1 {
-        font-size: 2.5rem;
-        line-height: 1.15;
-        margin-bottom: 1.5rem;
-        letter-spacing: -0.02em;
+        font-size: 2.25rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+        letter-spacing: -0.025em;
+        font-weight: 700;
       }
 
-      /* Description - clean spacing */
+      /* Description - subtle */
       .hero-description {
-        margin-bottom: 3rem;
-        font-size: 1.15rem;
+        margin-bottom: 2rem;
+        font-size: 1.05rem;
         line-height: 1.5;
-        opacity: 0.9;
+        opacity: 0.85;
+        font-weight: 400;
       }
 
-      /* Mobile promo video - generous spacing */
+      /* Mobile promo video - clean */
       .mobile-promo-video {
-        margin: 0 0 3rem 0;
+        margin: 0 0 2rem 0;
         width: 100%;
       }
 
       .mobile-video-wrapper {
         position: relative;
-        border-radius: 20px;
+        border-radius: 16px;
         overflow: hidden;
         box-shadow:
-          0 25px 60px rgba(0, 0, 0, 0.6),
-          0 8px 16px rgba(0, 0, 0, 0.4),
-          0 0 0 1px rgba(255, 255, 255, 0.1);
+          0 20px 50px rgba(0, 0, 0, 0.5),
+          0 4px 12px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(255, 255, 255, 0.08);
         background: var(--bg-card);
         aspect-ratio: 16 / 9;
       }
@@ -743,21 +745,23 @@
         display: block;
       }
 
-      /* CTA buttons - clean spacing */
+      /* CTA buttons - modern, compact */
       .hero-cta-group {
         margin-top: 0;
-        gap: 1rem;
+        gap: 0.75rem;
         flex-direction: column;
       }
 
       .hero-cta-group .btn {
         width: 100%;
         justify-content: center;
-        padding: 1.25rem 2rem;
-        font-size: 1.1rem;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 12px;
       }
 
-      /* Remove icons on mobile for cleaner look */
+      /* Remove icons on mobile */
       .hero-cta-group .btn i {
         display: none;
       }
