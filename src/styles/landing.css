@@ -2807,7 +2807,12 @@
         font-size: 1rem;
       }
 
-      /* Compact hero on contact page for mobile */
+      /* ========================================
+         GLOBAL MOBILE OPTIMIZATIONS FOR ALL PAGES
+         Compact heroes, reduced padding, content on first fold
+         ======================================== */
+
+      /* Compact hero on ALL pages */
       .hero-container {
         padding: 2rem 1.5rem;
       }
@@ -2816,11 +2821,38 @@
         margin-bottom: 0.75rem;
       }
 
-      /* Contact page mobile optimizations */
-      .contact-section {
-        padding: 2rem 1.5rem;
+      .hero p {
+        margin-bottom: 1rem;
       }
 
+      /* Reduce ALL section padding from 6-8rem to 3-4rem on mobile */
+      .promo-video-section,
+      .services-section,
+      .process-section,
+      .team-section,
+      .join-team-section,
+      .content-section,
+      .case-studies-section,
+      .cta-section,
+      .contact-section,
+      .calendly-section {
+        padding: 3rem 1.5rem;
+      }
+
+      /* Slightly more padding for feature sections */
+      .features,
+      .benefits,
+      .cta-calculator,
+      .social-proof {
+        padding: 4rem 1.5rem;
+      }
+
+      /* Stats section stays compact */
+      .stats-section {
+        padding: 3rem 1.5rem;
+      }
+
+      /* Contact-specific optimizations */
       .contact-card {
         padding: 1.75rem;
       }
@@ -2844,20 +2876,8 @@
         font-size: 1.1rem;
       }
 
-      .features, .benefits, .cta-calculator, .social-proof {
-        padding: 4rem 1.5rem;
-      }
-
-      .stats-section {
-        padding: 3rem 1.5rem;
-      }
-
       .hero {
         padding-top: 70px;
-      }
-
-      .hero-container {
-        padding: 2rem 1.5rem;
       }
 
       /* Feature Modal Mobile Optimization */
