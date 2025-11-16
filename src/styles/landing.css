@@ -2685,13 +2685,17 @@
       .features-row-top,
       .features-row-bottom {
         grid-template-columns: 1fr;
-        max-width: 280px;
+        max-width: 100%;
+        width: 100%;
       }
 
       .feature-card {
-        width: 260px;
-        height: 260px;
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        min-height: 260px;
         padding: 1.75rem 1.25rem;
+        margin: 0 auto;
       }
 
       .feature-icon {
