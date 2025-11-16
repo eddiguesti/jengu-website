@@ -811,14 +811,15 @@
         z-index: 2;
       }
 
-      /* Content Overlay - Positioned at bottom with more space */
+      /* Content Overlay - Positioned higher to avoid iPhone bottom bar */
       .mobile-hero-overlay {
         position: absolute;
-        bottom: 5rem;
+        bottom: 8rem;
         left: 0;
         right: 0;
         padding: 0 1.5rem;
         z-index: 3;
+        text-align: center;
         animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
       }
 
@@ -847,6 +848,7 @@
         display: flex;
         gap: 1rem;
         align-items: center;
+        justify-content: center;
       }
 
       .mobile-hero-btn {
