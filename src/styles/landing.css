@@ -765,32 +765,22 @@
         display: none;
       }
 
-      /* Fullscreen Video Hero Container - absolutely fills entire viewport */
-      .mobile-fullscreen-hero {
+      /* Video background container */
+      .video-bg {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100vw;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        z-index: 0;
-      }
-
-      /* Fullscreen Video - covers entire container */
-      .mobile-hero-video {
-        position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      /* Background video */
+      #bg-video {
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        z-index: 1;
-        margin: 0;
-        padding: 0;
       }
 
       /* Gradient Overlay - Dark at bottom like Chobani */

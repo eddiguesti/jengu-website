@@ -160,7 +160,7 @@ const currentLocale = getLocaleFromUrl(currentPath);
     document.querySelectorAll('.animate-on-scroll').forEach(el => animateObserver.observe(el));
 
     // iOS video autoplay fix - aggressive approach for iPhone
-    const mobileVideo = document.querySelector('.mobile-hero-video');
+    const mobileVideo = document.getElementById('bg-video');
     if (mobileVideo && window.innerWidth <= 1024) {
       // Force muted state (iOS requirement)
       mobileVideo.muted = true;
