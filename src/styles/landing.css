@@ -819,14 +819,11 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
         color: rgba(255, 255, 255, 0.8);
-        margin: 0 0 0.75rem 0;
-        margin-left: -0.1em;
+        margin: 0 0 0.75rem -0.075em;
         padding: 0;
         font-weight: 600;
         text-align: left;
         display: block;
-        position: relative;
-        left: -0.05em;
       }
 
       /* Headline */
@@ -1499,18 +1496,20 @@
       background: var(--bg-card);
       border-radius: 32px;
       border: 1px solid var(--border-medium);
-      width: 98vw;
-      max-height: 92vh;
+      max-width: 700px;
+      max-height: 85vh;
       overflow-y: auto;
       position: relative;
       animation: modalSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
       box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8);
+      padding: 3rem;
     }
 
-    @media (min-width: 768px) {
+    @media (max-width: 767px) {
       .feature-modal {
-        width: auto;
-        max-width: 700px;
+        width: 98vw;
+        max-height: 92vh;
+        padding: 2rem 1.5rem;
       }
     }
 
