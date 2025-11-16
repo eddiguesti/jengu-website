@@ -159,6 +159,28 @@ const currentLocale = getLocaleFromUrl(currentPath);
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => animateObserver.observe(el));
 
+    // iOS video autoplay fix
+    const mobileVideo = document.querySelector('.mobile-hero-video');
+    if (mobileVideo) {
+      // Force play on iOS
+      const playPromise = mobileVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log('Video autoplay prevented:', error);
+          // Try again after user interaction
+          document.addEventListener('touchstart', function() {
+            mobileVideo.play();
+          }, { once: true });
+        });
+      }
+
+      // Ensure video loops properly on iOS
+      mobileVideo.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+      });
+    }
+
     // ROI preview animation
     const roiPreview = document.getElementById('roiPreview');
     if (roiPreview) {
