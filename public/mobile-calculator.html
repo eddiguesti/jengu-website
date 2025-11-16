@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AI ROI Calculator - Mobile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #0a0e1a 0%, #0d111c 100%);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Animated background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 100%;
+      padding: 1.25rem;
+      padding-bottom: 3rem;
+    }
+
+    /* Progress indicator */
+    .progress-bar {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(20px);
+      padding: 1rem 1.25rem;
+      margin: -1.25rem -1.25rem 1.5rem -1.25rem;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .progress-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+      border-radius: 10px;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 0%;
+    }
+
+    .step-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .step-number {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .step-title {
+      font-weight: 700;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.75rem 1.5rem;
+      margin-bottom: 1.25rem;
+      animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .card-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Form elements */
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .value-display {
+      float: right;
+      color: #06b6d4;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* Select */
+    select {
+      width: 100%;
+      padding: 1.125rem 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%2306b6d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 3rem;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #06b6d4;
+      background: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.1);
+    }
+
+    option {
+      background: #0d111c;
+      color: #fff;
+      padding: 1rem;
+    }
+
+    /* Range slider */
+    .slider-container {
+      padding-top: 0.5rem;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+      margin: 1rem 0;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.2);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.875rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 1.125rem 1.5rem;
+      border: none;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #06b6d4, #0891b2);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.35);
+    }
+
+    .btn-primary:active {
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .btn-secondary:active {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Results */
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .result-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 0.75rem;
+    }
+
+    .result-value {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .result-unit {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 0.25rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.15));
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .cta-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .cta-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-text {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    /* Hidden class */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Info pills */
+    .info-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pill i {
+      color: #06b6d4;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="step-info">
+        <span class="step-number" id="stepNumber">Step 1 of 3</span>
+        <span class="step-title" id="stepTitle">Business Info</span>
+      </div>
+    </div>
+
+    <!-- Step 1: Business Type -->
+    <div class="card" id="step1">
+      <h2 class="card-title">Tell us about your business</h2>
+      <p class="card-subtitle">This helps us calculate accurate savings for your specific situation</p>
+
+      <div class="form-group">
+        <label class="form-label">What type of business?</label>
+        <select id="businessType">
+          <option value="hotel">🏨 Hotel</option>
+          <option value="tour">🚌 Tour Operator</option>
+          <option value="restaurant">🍽️ Restaurant</option>
+          <option value="rental">🏠 Vacation Rental</option>
+          <option value="activity">🎯 Activity Provider</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Business size</label>
+        <select id="businessSize">
+          <option value="small">Small (1-10 employees)</option>
+          <option value="medium">Medium (11-50 employees)</option>
+          <option value="large">Large (50+ employees)</option>
+        </select>
+      </div>
+
+      <div class="info-pills">
+        <div class="pill"><i class="fas fa-lock"></i> 100% Private</div>
+        <div class="pill"><i class="fas fa-clock"></i> Takes 2 min</div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="nextStep()">
+          Continue <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Monthly Volume -->
+    <div class="card hidden" id="step2">
+      <h2 class="card-title">Your monthly numbers</h2>
+      <p class="card-subtitle">Adjust the sliders to match your typical month</p>
+
+      <div class="form-group">
+        <label class="form-label">
+          Customer inquiries per month
+          <span class="value-display" id="inquiriesValue">150</span>
+        </label>
+        <div class="slider-container">
+          <input type="range" id="inquiries" min="20" max="1000" value="150" step="10" oninput="updateSlider('inquiries')">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          Bookings/Reservations
+          <span class="value-display" id="bookingsValue">75</span>
+        </label>
+        <div class="slider-container">
+          <input type="range" id="bookings" min="10" max="500" value="75" step="5" oninput="updateSlider('bookings')">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          Hours on admin tasks
+          <span class="value-display" id="hoursValue">50</span>
+        </label>
+        <div class="slider-container">
+          <input type="range" id="hours" min="5" max="200" value="50" step="5" oninput="updateSlider('hours')">
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="calculateROI()">
+          See My Results <i class="fas fa-calculator"></i>
+        </button>
+        <button class="btn btn-secondary" onclick="prevStep()">
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Results -->
+    <div class="card hidden" id="step3">
+      <h2 class="card-title">Your Potential Savings</h2>
+      <p class="card-subtitle">Based on your business data</p>
+
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-label">Time Saved</div>
+          <div class="result-value" id="timeSaved">0</div>
+          <div class="result-unit">hours/month</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Cost Saved</div>
+          <div class="result-value" id="costSaved">$0</div>
+          <div class="result-unit">per month</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">ROI</div>
+          <div class="result-value" id="roi">0%</div>
+          <div class="result-unit">yearly return</div>
+        </div>
+        <div class="result-card">
+          <div class="result-label">Annual Savings</div>
+          <div class="result-value" id="annual">$0</div>
+          <div class="result-unit">per year</div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <div class="cta-icon">🚀</div>
+        <h3 class="cta-title">Ready to get started?</h3>
+        <p class="cta-text">Let's build your custom AI agent solution and start saving time today</p>
+        <button class="btn btn-primary" onclick="window.location.href='/contact'">
+          Get Started Now <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="btn-group" style="margin-top: 1.5rem;">
+        <button class="btn btn-secondary" onclick="reset()">
+          <i class="fas fa-redo"></i> Start Over
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const steps = ['Business Info', 'Monthly Volume', 'Results'];
+
+    function updateProgress() {
+      const progress = ((currentStep - 1) / 2) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+      document.getElementById('stepNumber').textContent = `Step ${currentStep} of 3`;
+      document.getElementById('stepTitle').textContent = steps[currentStep - 1];
+    }
+
+    function nextStep() {
+      if (currentStep < 3) {
+        document.getElementById('step' + currentStep).classList.add('hidden');
+        currentStep++;
+        document.getElementById('step' + currentStep).classList.remove('hidden');
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        document.getElementById('step' + currentStep).classList.add('hidden');
+        currentStep--;
+        document.getElementById('step' + currentStep).classList.remove('hidden');
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateSlider(id) {
+      const value = document.getElementById(id).value;
+      document.getElementById(id + 'Value').textContent = value;
+    }
+
+    function calculateROI() {
+      const inquiries = parseInt(document.getElementById('inquiries').value);
+      const bookings = parseInt(document.getElementById('bookings').value);
+      const hours = parseInt(document.getElementById('hours').value);
+
+      // Calculate time saved (hours per month)
+      const timeSaved = Math.round((inquiries * 0.2) + (bookings * 0.4) + (hours * 0.6));
+
+      // Calculate cost saved (assuming $30/hour)
+      const hourlyRate = 30;
+      const costSaved = Math.round(timeSaved * hourlyRate);
+
+      // Annual savings
+      const annualSavings = costSaved * 12;
+
+      // ROI calculation (assuming $399/month AI cost)
+      const aiCost = 399;
+      const netAnnual = annualSavings - (aiCost * 12);
+      const roi = Math.round((netAnnual / (aiCost * 12)) * 100);
+
+      // Update results
+      document.getElementById('timeSaved').textContent = timeSaved;
+      document.getElementById('costSaved').textContent = '$' + costSaved.toLocaleString();
+      document.getElementById('roi').textContent = roi + '%';
+      document.getElementById('annual').textContent = '$' + annualSavings.toLocaleString();
+
+      nextStep();
+    }
+
+    function reset() {
+      currentStep = 1;
+      document.querySelectorAll('.card').forEach(card => card.classList.add('hidden'));
+      document.getElementById('step1').classList.remove('hidden');
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize
+    updateProgress();
+  </script>
+</body>
+</html>
