@@ -43,11 +43,20 @@ const currentLocale = getLocaleFromUrl(currentPath);
     href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap"
     rel="stylesheet"
     media="print"
-    onload="this.media='all'"
+    onload="this.media='all';this.onload=null"
   >
   <noscript>
     <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
   </noscript>
+
+  <!-- Preload critical font to reduce FCP -->
+  <link
+    rel="preload"
+    href="https://fonts.gstatic.com/s/figtree/v5/_Xmz-H4zszafZw3A-KPSZutNxgKQu_avK2SZ.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+  >
 
   <!-- Font Awesome: Deferred loading -->
   <link
