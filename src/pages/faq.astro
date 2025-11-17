@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import CTASection from '../components/sections/CTASection.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
@@ -20,15 +22,11 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Frequently Asked <span class="gradient-text">Questions</span></h1>
-      <p>
-        Everything you need to know about AI automation for tourism businesses
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Frequently Asked"
+    highlight="Questions"
+    description="Everything you need to know about AI automation for tourism businesses"
+  />
 
   <!-- FAQ Section -->
   <section class="content-section bg-light">
@@ -259,18 +257,13 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="content-section bg-main">
-    <div class="section-container">
-      <div class="cta-box">
-        <h2>Still Have Questions?</h2>
-        <p>Book a free 30-minute consultation to discuss your specific needs</p>
-        <a href="/contact" class="btn btn-primary">
-          Schedule a Call <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="Still Have Questions?"
+    description="Book a free 30-minute consultation to discuss your specific needs"
+    buttonText="Schedule a Call"
+    buttonHref="/contact"
+    onClick=""
+  />
 
   <!-- FAQ Toggle Script -->
   <script is:inline>

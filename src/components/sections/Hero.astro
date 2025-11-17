@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  highlight?: string;
+  description: string;
+  className?: string;
+}
+
+const { title, highlight, description, className = '' } = Astro.props;
+---
+
+<section class={`hero ${className}`}>
+  <div class="hero-container">
+    <h1>
+      {title}
+      {highlight && <span class="gradient-text">{highlight}</span>}
+    </h1>
+    <p>{description}</p>
+  </div>
+</section>

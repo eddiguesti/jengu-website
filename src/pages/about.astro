@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import SectionHeader from '../components/sections/SectionHeader.astro';
+import CTASection from '../components/sections/CTASection.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
@@ -20,15 +23,11 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>About <span class="gradient-text">Jengu</span></h1>
-      <p>
-        We're on a mission to transform tourism and hospitality through intelligent AI automation, custom software development, and seamless API integrations.
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="About"
+    highlight="Jengu"
+    description="We're on a mission to transform tourism and hospitality through intelligent AI automation, custom software development, and seamless API integrations."
+  />
 
   <!-- Mission & Vision -->
   <section class="content-section bg-light">
@@ -59,13 +58,11 @@ const jsonLd = [
   <!-- Our Story -->
   <section class="content-section bg-main">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Our Story</span>
-        <h2>How Jengu Was Born</h2>
-        <p>
-          Founded by a team of AI engineers and hospitality experts, Jengu emerged from a simple observation: tourism businesses spend countless hours on repetitive tasks that could be automated, preventing them from focusing on what truly matters—their guests.
-        </p>
-      </div>
+      <SectionHeader
+        badge="Our Story"
+        title="How Jengu Was Born"
+        description="Founded by a team of AI engineers and hospitality experts, Jengu emerged from a simple observation: tourism businesses spend countless hours on repetitive tasks that could be automated, preventing them from focusing on what truly matters—their guests."
+      />
       <div class="mission-card">
         <p style="font-size: 1.1rem; line-height: 1.9; color: var(--gray); margin-bottom: 1.5rem;">
           After years of building AI systems for Fortune 500 companies, we saw an opportunity to bring enterprise-level automation to the tourism industry. We realized that hotels, resorts, campsites, and travel agencies were drowning in emails, struggling with outdated booking systems, and missing revenue opportunities due to manual processes.
@@ -80,13 +77,11 @@ const jsonLd = [
   <!-- Our Values -->
   <section class="content-section bg-light">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Our Values</span>
-        <h2>What Drives Us</h2>
-        <p>
-          These core principles guide everything we do at Jengu
-        </p>
-      </div>
+      <SectionHeader
+        badge="Our Values"
+        title="What Drives Us"
+        description="These core principles guide everything we do at Jengu"
+      />
       <div class="values-grid">
         <div class="value-card">
           <div class="value-icon">
@@ -137,10 +132,10 @@ const jsonLd = [
   <!-- Stats -->
   <section class="content-section bg-main">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Impact & Growth</span>
-        <h2>Jengu by the Numbers</h2>
-      </div>
+      <SectionHeader
+        badge="Impact & Growth"
+        title="Jengu by the Numbers"
+      />
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-number">500+</span>
@@ -162,16 +157,8 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="content-section bg-main">
-    <div class="section-container">
-      <div class="cta-box">
-        <h2>Ready to Transform Your Business?</h2>
-        <p>Calculate your potential ROI in just 2 minutes</p>
-        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
-          Calculate Your ROI <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="Ready to Transform Your Business?"
+    description="Calculate your potential ROI in just 2 minutes"
+  />
 </BaseLayout>

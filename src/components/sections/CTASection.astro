@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  buttonText?: string;
+  buttonHref?: string;
+  onClick?: string;
+}
+
+const {
+  title,
+  description,
+  buttonText = 'Calculate Your ROI',
+  buttonHref = '#calculator',
+  onClick = 'openCalculatorModal(); return false;'
+} = Astro.props;
+---
+
+<section class="content-section bg-main">
+  <div class="section-container">
+    <div class="cta-box">
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <a href={buttonHref} onclick={onClick} class="btn btn-primary">
+        {buttonText} <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>

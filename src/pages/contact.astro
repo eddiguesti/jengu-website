@@ -20,16 +20,6 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Get in <span class="gradient-text">Touch</span></h1>
-      <p>
-        Ready to transform your business with AI? Let's discuss your specific needs and create a custom solution
-      </p>
-    </div>
-  </section>
-
   <!-- Contact Section -->
   <section class="contact-section">
     <div class="contact-container">
@@ -164,4 +154,14 @@ const jsonLd = [
       event.target.reset();
     }
   </script>
+
+  <style>
+    /* Contact Page - Start at top of viewport on desktop */
+    @media (min-width: 769px) {
+      .contact-section {
+        padding-top: 100px !important;
+        margin-top: 0 !important;
+      }
+    }
+  </style>
 </BaseLayout>

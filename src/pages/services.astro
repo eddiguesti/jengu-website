@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import SectionHeader from '../components/sections/SectionHeader.astro';
+import CTASection from '../components/sections/CTASection.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
@@ -20,24 +23,20 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Our <span class="gradient-text">Services</span></h1>
-      <p>
-        From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Our"
+    highlight="Services"
+    description="From AI chatbots and phone bots to custom software and API integrations—we build intelligent solutions that transform tourism operations"
+  />
 
   <!-- Main Services -->
   <section class="services-section">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">What We Build</span>
-        <h2>Custom AI & Automation Solutions</h2>
-        <p>Tailored technology that solves your specific business challenges</p>
-      </div>
+      <SectionHeader
+        badge="What We Build"
+        title="Custom AI & Automation Solutions"
+        description="Tailored technology that solves your specific business challenges"
+      />
 
       <div class="services-grid">
         <!-- AI Chatbots & Phone Bots -->
@@ -155,11 +154,11 @@ const jsonLd = [
   <!-- Process Section -->
   <section class="process-section">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">How We Work</span>
-        <h2>Our Development Process</h2>
-        <p>From discovery to deployment, we follow a proven process that delivers results</p>
-      </div>
+      <SectionHeader
+        badge="How We Work"
+        title="Our Development Process"
+        description="From discovery to deployment, we follow a proven process that delivers results"
+      />
 
       <div class="process-steps">
         <div class="process-step">
@@ -186,16 +185,8 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="content-section bg-main">
-    <div class="section-container">
-      <div class="cta-box">
-        <h2>Ready to Automate Your Operations?</h2>
-        <p>Calculate your potential ROI in just 2 minutes</p>
-        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
-          Calculate Your ROI <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="Ready to Automate Your Operations?"
+    description="Calculate your potential ROI in just 2 minutes"
+  />
 </BaseLayout>

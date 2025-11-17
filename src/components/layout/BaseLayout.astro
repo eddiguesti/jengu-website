@@ -6,7 +6,6 @@ import LanguageSwitcher from '../LanguageSwitcher.astro';
 import { getLocaleFromUrl } from '../../i18n';
 import type { SEOConfig } from '../../lib/seo/metadata';
 import '../../styles/landing.css';
-import '../../styles/landing-redesign.css';
 
 interface Props {
   seo: SEOConfig;
@@ -45,21 +44,84 @@ const currentLocale = getLocaleFromUrl(currentPath);
       <a href="/" class="logo">
         <img src="/images/logo.png" alt="Jengu" class="logo-img">
       </a>
-      <ul class="nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/services">Services</a></li>
-        <li><a href="/case-studies">Case Studies</a></li>
-        <li><a href="/faq">FAQ</a></li>
-        <li><a href="/team">Team</a></li>
-        <li><a href="/contact">Contact</a></li>
-      </ul>
-      <div class="nav-actions">
+
+      <div class="nav-right">
+        <!-- Language Switcher -->
         <LanguageSwitcher />
-        <a href="#" onclick="handleCalculatorClick(event)" class="nav-cta">Calculate ROI</a>
+
+        <!-- Burger Menu Button -->
+        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
       </div>
     </div>
   </nav>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar Menu - Rebuilt from scratch -->
+  <aside id="sidebar">
+    <!-- Header with logo and close button -->
+    <div class="sidebar-header">
+      <a href="/" class="sidebar-logo">
+        <img src="/images/logo.png" alt="Jengu" />
+      </a>
+      <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Navigation links (scrollable) -->
+    <nav class="sidebar-nav">
+      <a href="/" class="sidebar-link">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/about" class="sidebar-link">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="/services" class="sidebar-link">
+        <i class="fas fa-cogs"></i>
+        <span>Services</span>
+      </a>
+      <a href="/dynamic-pricing" class="sidebar-link">
+        <i class="fas fa-chart-line"></i>
+        <span>Dynamic Pricing</span>
+      </a>
+      <a href="/case-studies" class="sidebar-link">
+        <i class="fas fa-briefcase"></i>
+        <span>Case Studies</span>
+      </a>
+      <a href="/faq" class="sidebar-link">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+      <a href="/team" class="sidebar-link">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+      </a>
+      <a href="/contact" class="sidebar-link">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+
+    <!-- CTA buttons at bottom -->
+    <div class="sidebar-cta-container">
+      <a href="/contact" class="sidebar-cta sidebar-cta-primary">
+        <i class="fas fa-comments"></i>
+        <span>Get a Free Consultation</span>
+      </a>
+      <a href="#" onclick="handleCalculatorClick(event)" class="sidebar-cta sidebar-cta-secondary">
+        <i class="fas fa-calculator"></i>
+        <span>Calculate Your ROI</span>
+      </a>
+    </div>
+  </aside>
 
   <!-- Main Content -->
   <slot />
@@ -107,255 +169,22 @@ const currentLocale = getLocaleFromUrl(currentPath);
     </div>
   </footer>
 
+  <!-- Calculator Modal (Desktop Only) -->
+  <div id="calculatorModalOverlay" class="calculator-modal-overlay">
+    <div class="calculator-modal">
+      <button class="calculator-modal-close" id="calculatorModalClose" aria-label="Close calculator">
+        <i class="fas fa-times"></i>
+      </button>
+      <iframe
+        id="calculatorIframe"
+        src="/calculator-ai-agents-2025.html"
+        title="ROI Calculator"
+        frameborder="0"
+      ></iframe>
+    </div>
+  </div>
+
   <!-- Global JavaScript -->
-  <script is:inline>
-    'use strict';
-
-    // Utility: Throttle function for performance
-    const throttle = (func, delay) => {
-      let lastCall = 0;
-      return function(...args) {
-        const now = Date.now();
-        if (now - lastCall >= delay) {
-          lastCall = now;
-          return func(...args);
-        }
-      };
-    };
-
-    // Navbar scroll effect with throttling
-    const navbar = document.getElementById('navbar');
-    let scrolled = false;
-
-    const handleScroll = throttle(() => {
-      const isScrolled = window.scrollY > 50;
-      if (isScrolled !== scrolled) {
-        scrolled = isScrolled;
-        navbar.classList.toggle('scrolled', isScrolled);
-      }
-
-      // Parallax color transition effect on mobile - smooth and optimized
-      const heroHome = document.querySelector('.hero-home');
-      if (heroHome && window.innerWidth <= 1024) {
-        const scrollProgress = Math.min(window.scrollY / 500, 1);
-        heroHome.style.setProperty('--scroll-opacity', scrollProgress);
-      }
-    }, 100);
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-
-    // Intersection Observer for scroll animations
-    const animateObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          animateObserver.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    });
-
-    document.querySelectorAll('.animate-on-scroll').forEach(el => animateObserver.observe(el));
-
-    // iOS video autoplay fix - aggressive approach for iPhone
-    const mobileVideo = document.getElementById('bg-video');
-    if (mobileVideo && window.innerWidth <= 1024) {
-      // Force muted state (iOS requirement)
-      mobileVideo.muted = true;
-      mobileVideo.defaultMuted = true;
-      mobileVideo.setAttribute('muted', '');
-      mobileVideo.setAttribute('playsinline', '');
-
-      // Attempt to play immediately
-      const attemptPlay = () => {
-        const playPromise = mobileVideo.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {
-            console.log('Autoplay prevented, will play on user interaction:', error);
-          });
-        }
-      };
-
-      // Try multiple events to ensure playback
-      mobileVideo.addEventListener('loadeddata', attemptPlay, { once: true });
-      mobileVideo.addEventListener('canplay', attemptPlay, { once: true });
-
-      // Force load
-      mobileVideo.load();
-
-      // Fallback: play on any user interaction
-      const playOnInteraction = () => {
-        mobileVideo.play();
-        document.removeEventListener('touchstart', playOnInteraction, true);
-        document.removeEventListener('click', playOnInteraction, true);
-        document.removeEventListener('scroll', playOnInteraction, true);
-      };
-
-      document.addEventListener('touchstart', playOnInteraction, { once: true, capture: true });
-      document.addEventListener('click', playOnInteraction, { once: true, capture: true });
-      document.addEventListener('scroll', playOnInteraction, { once: true, capture: true });
-    }
-
-    // ROI preview animation
-    const roiPreview = document.getElementById('roiPreview');
-    if (roiPreview) {
-      const roiObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          entries[0].target.classList.add('animate');
-          roiObserver.disconnect();
-        }
-      }, { threshold: 0.5 });
-
-      roiObserver.observe(roiPreview);
-    }
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    // Feature cards stagger animation
-    document.querySelectorAll('.feature-card').forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.15}s`;
-    });
-
-    // Stat cards animation
-    const statObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const statCard = entry.target;
-          statCard.style.animation = 'slideInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards';
-          statObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.stat-card').forEach(card => {
-      statObserver.observe(card);
-    });
-
-    // Hybrid Calculator Handler - Modal on desktop, page on mobile
-    function handleCalculatorClick(e) {
-      if (e) e.preventDefault();
-
-      // Mobile: redirect to dedicated page
-      if (window.innerWidth <= 768) {
-        window.location.href = '/calculator';
-        return;
-      }
-
-      // Desktop: open modal
-      openCalculatorModal();
-    }
-
-    // Calculator Modal Functions (Desktop only)
-    function openCalculatorModal() {
-      const overlay = document.getElementById('calculatorModalOverlay');
-      if (overlay) {
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-    }
-
-    function closeCalculatorModal() {
-      const overlay = document.getElementById('calculatorModalOverlay');
-      if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
-    }
-
-    // Make functions global
-    window.handleCalculatorClick = handleCalculatorClick;
-    window.openCalculatorModal = openCalculatorModal;
-    window.closeCalculatorModal = closeCalculatorModal;
-
-    // Close on overlay click (handles both modals)
-    document.addEventListener('click', function(e) {
-      const calcOverlay = document.getElementById('calculatorModalOverlay');
-      const featureOverlay = document.getElementById('featureModalOverlay');
-
-      if (calcOverlay && e.target === calcOverlay) {
-        closeCalculatorModal();
-      }
-      if (featureOverlay && e.target === featureOverlay) {
-        closeFeatureModal();
-      }
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeCalculatorModal();
-        closeFeatureModal();
-      }
-    });
-
-    // Feature Modal Functions
-    function openFeatureModal(featureId) {
-      const overlay = document.getElementById('featureModalOverlay');
-      if (!overlay) return;
-
-      const featureData = window.featureData || {};
-      const data = featureData[featureId];
-      if (!data) return;
-
-      const modalIcon = document.getElementById('modalIcon');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalSubtitle = document.getElementById('modalSubtitle');
-      const modalBenefits = document.getElementById('modalBenefits');
-      const modalStats = document.getElementById('modalStats');
-
-      if (modalIcon) modalIcon.innerHTML = `<i class="fas ${data.icon}"></i>`;
-      if (modalTitle) modalTitle.textContent = data.title;
-      if (modalSubtitle) modalSubtitle.textContent = data.subtitle;
-
-      if (modalBenefits) {
-        modalBenefits.innerHTML = data.benefits.map(benefit => `
-          <div class="feature-benefit-item">
-            <div class="feature-benefit-icon">${benefit.icon}</div>
-            <div class="feature-benefit-text">
-              <strong>${benefit.title}</strong>
-              <p>${benefit.desc}</p>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      if (modalStats) {
-        modalStats.innerHTML = data.stats.map(stat => `
-          <div class="feature-stat">
-            <span class="feature-stat-value">${stat.value}</span>
-            <span class="feature-stat-label">${stat.label}</span>
-          </div>
-        `).join('');
-      }
-
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeFeatureModal() {
-      const overlay = document.getElementById('featureModalOverlay');
-      if (overlay) {
-        overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      }
-    }
-
-    window.openFeatureModal = openFeatureModal;
-    window.closeFeatureModal = closeFeatureModal;
-  </script>
+  <script is:inline src="/scripts/main.js"></script>
 </body>
 </html>
