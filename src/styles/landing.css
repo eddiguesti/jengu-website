@@ -437,6 +437,7 @@
       width: 280px !important;
       max-width: 80vw !important;
       height: 100vh !important;
+      height: 100dvh !important; /* Use dynamic viewport height for mobile browsers */
       background: #2b2e3f !important;
       transform: translateX(100%) !important;
       transition: transform 0.3s ease !important;
@@ -447,6 +448,7 @@
       border-top-left-radius: 16px !important;
       border-bottom-left-radius: 16px !important;
       overflow: hidden !important;
+      padding-bottom: env(safe-area-inset-bottom, 0) !important; /* Account for device notches */
     }
 
     #sidebar.active {
@@ -499,6 +501,8 @@
       flex-direction: column !important;
       gap: 0.4rem !important;
       background: #2b2e3f !important;
+      min-height: 0 !important; /* Allow grid to properly shrink this row */
+      -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
     }
 
     #sidebar .sidebar-link {
@@ -531,11 +535,13 @@
     #sidebar .sidebar-cta-container {
       grid-row: 3 !important;
       padding: 1rem !important;
+      padding-bottom: max(1rem, env(safe-area-inset-bottom, 0)) !important; /* Ensure visible above iOS home indicator */
       border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
       background: #2b2e3f !important;
       display: flex !important;
       flex-direction: column !important;
       gap: 0.75rem !important;
+      flex-shrink: 0 !important; /* Prevent shrinking */
     }
 
     /* Base CTA button styles */
