@@ -59,13 +59,29 @@ const jsonLd = [
       <!-- Desktop only: Spline 3D Robot -->
       <div class="hero-visual desktop-only">
         <div class="spline-container" role="img" aria-label="Animación 3D de robot interactivo">
-          <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
           <spline-viewer
             url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
             loading="lazy"
           ></spline-viewer>
         </div>
       </div>
+
+      <!-- Deferred Spline Viewer Loading -->
+      <script>
+        // Load Spline viewer only when browser is idle to prevent blocking
+        function loadSplineViewer() {
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = 'https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js';
+          document.head.appendChild(script);
+        }
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadSplineViewer, { timeout: 2000 });
+        } else {
+          setTimeout(loadSplineViewer, 1000);
+        }
+      </script>
     </div>
 
     <!-- Mobile only: Fullscreen Video Hero -->
