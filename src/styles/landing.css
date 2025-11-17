@@ -3375,7 +3375,8 @@
       }
 
       .hero {
-        padding-top: 70px;
+        min-height: auto !important;
+        padding: 5rem 1.5rem 3rem !important;
       }
 
       /* Feature Modal Mobile Optimization */
