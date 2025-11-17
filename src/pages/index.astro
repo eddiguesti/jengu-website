@@ -970,5 +970,43 @@ const jsonLd = [
         ]
       }
     };
+
+    // Scroll-triggered sequential reveal animation for process steps
+    document.addEventListener('DOMContentLoaded', () => {
+      const processSteps = document.querySelectorAll('.process-step');
+      const arrows = document.querySelectorAll('.step-arrow');
+
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: '0px 0px -100px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const step = entry.target;
+            const stepIndex = Array.from(processSteps).indexOf(step);
+
+            // Reveal step immediately
+            setTimeout(() => {
+              step.classList.add('reveal');
+            }, 100);
+
+            // Reveal arrow after step animation completes
+            if (arrows[stepIndex]) {
+              setTimeout(() => {
+                arrows[stepIndex].classList.add('reveal');
+              }, 700); // Matches step animation duration + small delay
+            }
+
+            // Stop observing once revealed
+            observer.unobserve(step);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all steps
+      processSteps.forEach(step => observer.observe(step));
+    });
   </script>
 </BaseLayout>
