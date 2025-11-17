@@ -95,6 +95,80 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Promo Video Section - GitHub Style -->
+  <section class="promo-video-section">
+    <div class="promo-container">
+      <div class="promo-content">
+        <h2>Cómo Trabajamos</h2>
+        <p>Nuestro proceso de automatización de IA transforma sus operaciones de hospitalidad a través del diseño inteligente de flujos de trabajo e integración perfecta.</p>
+
+        <div class="process-flow">
+          <div class="process-step">
+            <div class="step-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="step-content">
+              <h3>1. Descubrir</h3>
+              <p>Analizamos sus operaciones e identificamos oportunidades de automatización</p>
+            </div>
+            <div class="step-arrow">
+              <i class="fas fa-arrow-down"></i>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <div class="step-content">
+              <h3>2. Diseñar</h3>
+              <p>Agentes de IA personalizados construidos para sus flujos de trabajo específicos</p>
+            </div>
+            <div class="step-arrow">
+              <i class="fas fa-arrow-down"></i>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-icon">
+              <i class="fas fa-plug"></i>
+            </div>
+            <div class="step-content">
+              <h3>3. Implementar</h3>
+              <p>Integración perfecta con sus sistemas existentes</p>
+            </div>
+            <div class="step-arrow">
+              <i class="fas fa-arrow-down"></i>
+            </div>
+          </div>
+
+          <div class="process-step">
+            <div class="step-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="step-content">
+              <h3>4. Optimizar</h3>
+              <p>Mejora continua y monitoreo de rendimiento</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="promo-video">
+        <div class="video-wrapper">
+          <video
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src="/videos/finalpromo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Stats Section -->
   <section class="stats-section">
     <div class="stats-container">
@@ -116,59 +190,126 @@ const jsonLd = [
   <!-- Features Section -->
   <section class="features">
     <div class="section-header">
-      <span class="section-badge">Lo Que Construimos</span>
-      <h2>Soluciones de IA Personalizadas Que Gestionan Sus Operaciones Diarias</h2>
-      <p>Construimos agentes de IA, conectamos sus sistemas vía APIs y desarrollamos software personalizado—todo adaptado para resolver los desafíos específicos de su negocio turístico</p>
+      <span class="section-badge">
+        <i class="fas fa-rocket"></i>
+        Lo Que Construimos
+      </span>
+      <h2>Soluciones de IA Que Funcionan Realmente para el Turismo</h2>
+      <p>Agentes de IA personalizados, integraciones y automatización—diseñados específicamente para hoteles, operadores turísticos y negocios de viajes</p>
     </div>
-    <div class="features-grid">
-      <!-- Top Row: 4 Cards -->
-      <div class="features-row features-row-top">
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('email')">
-          <div class="feature-icon">
+    <div class="features-grid-new">
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
             <i class="fas fa-robot"></i>
           </div>
-          <h3>Automatización de Email y Comunicaciones con IA</h3>
-          <p>Gestione emails, chat en vivo y llamadas telefónicas automáticamente—reduzca el tiempo de respuesta de horas a segundos</p>
+          <h3>Automatización de Email y Chat con IA</h3>
         </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('pricing')">
-          <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h3>Software de Automatización Personalizado</h3>
-          <p>Motores de precios dinámicos, sistemas de reservas y herramientas de flujo de trabajo construidos específicamente para su negocio turístico</p>
-        </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('booking')">
-          <div class="feature-icon">
-            <i class="fas fa-calendar-check"></i>
-          </div>
-          <h3>Agentes de IA para Reservas y Soporte</h3>
-          <p>Chatbots y bots telefónicos que gestionan reservas, responden preguntas y brindan soporte 24/7 a los huéspedes</p>
-        </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('integration')">
-          <div class="feature-icon">
-            <i class="fas fa-network-wired"></i>
-          </div>
-          <h3>Integraciones API y Flujos de Trabajo</h3>
-          <p>Conecte sus sistemas de reservas, CRM, email y más—elimine la entrada manual de datos y tareas repetitivas</p>
-        </div>
+        <p>Automatice emails de clientes, chat en vivo y consultas con IA que responde en segundos—no en horas.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Respuestas instantáneas 24/7</li>
+          <li><i class="fas fa-check"></i> Gestiona 80% de consultas</li>
+          <li><i class="fas fa-check"></i> Soporte multiidioma</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('email')">
+          Más Información
+          <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
 
-      <!-- Bottom Row: 2 Cards -->
-      <div class="features-row features-row-bottom">
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('security')">
-          <div class="feature-icon">
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-calendar-check"></i>
+          </div>
+          <h3>Agentes de IA para Reservas</h3>
+        </div>
+        <p>Chatbots y agentes de voz que gestionan reservas, cancelaciones y soporte día y noche.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Reserve mientras duerme</li>
+          <li><i class="fas fa-check"></i> Soporte telefónico y web</li>
+          <li><i class="fas fa-check"></i> Procesamiento de pagos</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('booking')">
+          Más Información
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3>Integraciones de Sistemas</h3>
+        </div>
+        <p>Conecte su sistema de reservas, CRM, email y herramientas—no más entrada manual ni copiar y pegar.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Conexiones API</li>
+          <li><i class="fas fa-check"></i> Flujos de trabajo automatizados</li>
+          <li><i class="fas fa-check"></i> Sincronización en tiempo real</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('integration')">
+          Más Información
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Software Personalizado</h3>
+        </div>
+        <p>Motores de precios, sistemas de reservas y herramientas de flujo de trabajo diseñados específicamente para sus necesidades.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Precios dinámicos</li>
+          <li><i class="fas fa-check"></i> Paneles personalizados</li>
+          <li><i class="fas fa-check"></i> Informes y análisis</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('pricing')">
+          Más Información
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
             <i class="fas fa-shield-alt"></i>
           </div>
           <h3>Seguridad Empresarial</h3>
-          <p>Encriptación de nivel bancario, cumplimiento GDPR, SLA garantizado de 99.9% de disponibilidad</p>
         </div>
-        <div class="feature-card animate-on-scroll" onclick="openFeatureModal('support')">
-          <div class="feature-icon">
+        <p>Encriptación de nivel bancario, cumplimiento GDPR y SLA de disponibilidad del 99.9%—sus datos siempre protegidos.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Encriptación SSL</li>
+          <li><i class="fas fa-check"></i> Cumplimiento GDPR</li>
+          <li><i class="fas fa-check"></i> Disponibilidad 99.9%</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('security')">
+          Más Información
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
             <i class="fas fa-graduation-cap"></i>
           </div>
-          <h3>Capacitación e Implementación</h3>
-          <p>Capacitación integral y soporte continuo para asegurar que su equipo domine el sistema</p>
+          <h3>Capacitación y Soporte</h3>
         </div>
+        <p>Incorporación completa, capacitación y soporte continuo para asegurar el éxito de su equipo.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Capacitación completa incluida</li>
+          <li><i class="fas fa-check"></i> Soporte dedicado</li>
+          <li><i class="fas fa-check"></i> Actualizaciones regulares</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openFeatureModal('support')">
+          Más Información
+          <i class="fas fa-arrow-right"></i>
+        </button>
       </div>
     </div>
   </section>
@@ -330,53 +471,103 @@ const jsonLd = [
 
       <div class="faq-grid">
         <div class="faq-item">
-          <h3>¿Qué es un agente de IA para negocios turísticos?</h3>
-          <p>Un agente de IA es software personalizado que utiliza inteligencia artificial para manejar tareas específicas automáticamente—como responder consultas de reservas, procesar reservaciones, gestionar soporte al cliente o sincronizar datos entre sus sistemas. A diferencia de los chatbots genéricos, los agentes de IA de Jengu están construidos específicamente para su negocio turístico, entrenados con sus servicios, políticas y datos de huéspedes para proporcionar respuestas precisas y personalizadas 24/7.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Qué es un agente de IA para negocios turísticos?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Un agente de IA es software personalizado que utiliza inteligencia artificial para manejar tareas específicas automáticamente—como responder consultas de reservas, procesar reservaciones, gestionar soporte al cliente o sincronizar datos entre sus sistemas. A diferencia de los chatbots genéricos, los agentes de IA de Jengu están construidos específicamente para su negocio turístico, entrenados con sus servicios, políticas y datos de huéspedes para proporcionar respuestas precisas y personalizadas 24/7.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Con qué tipos de empresas turísticas trabaja Jengu?</h3>
-          <p>Trabajamos con hoteles, resorts, alojamientos boutique, campamentos, parques vacacionales, operadores turísticos, agencias de viajes, DMCs (Empresas de Gestión de Destinos) y proveedores de actividades en el Reino Unido, Europa y más allá. Cualquier negocio turístico que maneje reservas, consultas de clientes o trabajo administrativo repetitivo puede beneficiarse de la automatización con IA.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Con qué tipos de empresas turísticas trabaja Jengu?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Trabajamos con hoteles, resorts, alojamientos boutique, campamentos, parques vacacionales, operadores turísticos, agencias de viajes, DMCs (Empresas de Gestión de Destinos) y proveedores de actividades en el Reino Unido, Europa y más allá. Cualquier negocio turístico que maneje reservas, consultas de clientes o trabajo administrativo repetitivo puede beneficiarse de la automatización con IA.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Qué tareas pueden automatizar los agentes de IA de Jengu?</h3>
-          <p>Las tareas comunes de automatización incluyen: consultas y reservas (web, WhatsApp, teléfono, email), soporte al cliente y respuestas a FAQs (24/7, multiidioma), gestión y categorización de emails, confirmaciones y recordatorios de reservas, comunicaciones previas a la llegada y check-in, solicitudes de reseñas y seguimientos, entrada de datos y sincronización de sistemas, ajustes de precios dinámicos y gestión de inventario y disponibilidad.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Qué tareas pueden automatizar los agentes de IA de Jengu?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Las tareas comunes de automatización incluyen: consultas y reservas (web, WhatsApp, teléfono, email), soporte al cliente y respuestas a FAQs (24/7, multiidioma), gestión y categorización de emails, confirmaciones y recordatorios de reservas, comunicaciones previas a la llegada y check-in, solicitudes de reseñas y seguimientos, entrada de datos y sincronización de sistemas, ajustes de precios dinámicos y gestión de inventario y disponibilidad.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Cuánto tiempo toma poner en marcha la automatización con IA?</h3>
-          <p>La mayoría de los proyectos van desde la consulta inicial hasta la implementación en vivo en 2-6 semanas, dependiendo de la complejidad. Los chatbots simples y la automatización de email pueden lanzarse en 2-3 semanas. El software personalizado y las integraciones API complejas típicamente toman 4-6 semanas. A diferencia de las implementaciones de software empresarial, nos enfocamos en implementación rápida con resultados inmediatos.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Cuánto tiempo toma poner en marcha la automatización con IA?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>La mayoría de los proyectos van desde la consulta inicial hasta la implementación en vivo en 2-6 semanas, dependiendo de la complejidad. Los chatbots simples y la automatización de email pueden lanzarse en 2-3 semanas. El software personalizado y las integraciones API complejas típicamente toman 4-6 semanas. A diferencia de las implementaciones de software empresarial, nos enfocamos en implementación rápida con resultados inmediatos.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Con qué sistemas pueden integrarse?</h3>
-          <p>Nos integramos con la mayoría de los sistemas tecnológicos turísticos vía API, incluyendo Sistemas de Gestión de Propiedades (PMS), motores de reservas y channel managers, CRMs, plataformas de email (Gmail, Outlook, etc.), procesadores de pago, software de contabilidad, plataformas de reseñas y herramientas de comunicación (WhatsApp Business API, gateways SMS). Si un sistema no tiene API, a menudo podemos construir integraciones personalizadas usando webhooks, scraping de datos o soluciones middleware.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Con qué sistemas pueden integrarse?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Nos integramos con la mayoría de los sistemas tecnológicos turísticos vía API, incluyendo Sistemas de Gestión de Propiedades (PMS), motores de reservas y channel managers, CRMs, plataformas de email (Gmail, Outlook, etc.), procesadores de pago, software de contabilidad, plataformas de reseñas y herramientas de comunicación (WhatsApp Business API, gateways SMS). Si un sistema no tiene API, a menudo podemos construir integraciones personalizadas usando webhooks, scraping de datos o soluciones middleware.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Cómo miden el ROI de la automatización con IA?</h3>
-          <p>Rastreamos el ROI a través de tres métricas clave: (1) Ahorro de Tiempo - horas ahorradas por semana en tareas repetitivas (típicamente 40+ horas), (2) Aumento de Ingresos - más reservas gracias a la disponibilidad 24/7 y respuestas más rápidas (hasta 30% de mejora), y (3) Reducción de Costos - menores costos laborales gracias a la automatización (varía según el tamaño del negocio). Use nuestra calculadora ROI para ver sus ahorros potenciales específicos basados en sus operaciones actuales. La mayoría de los clientes ven un ROI de 300-500% en su primer año.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Cómo miden el ROI de la automatización con IA?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Rastreamos el ROI a través de tres métricas clave: (1) Ahorro de Tiempo - horas ahorradas por semana en tareas repetitivas (típicamente 40+ horas), (2) Aumento de Ingresos - más reservas gracias a la disponibilidad 24/7 y respuestas más rápidas (hasta 30% de mejora), y (3) Reducción de Costos - menores costos laborales gracias a la automatización (varía según el tamaño del negocio). Use nuestra calculadora ROI para ver sus ahorros potenciales específicos basados en sus operaciones actuales. La mayoría de los clientes ven un ROI de 300-500% en su primer año.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Los agentes de IA reemplazan al personal o los apoyan?</h3>
-          <p>Los agentes de IA apoyan a su personal, no los reemplazan. Manejan tareas repetitivas y que consumen tiempo (consultas rutinarias, entrada de datos, confirmaciones) para que su equipo pueda enfocarse en actividades de alto valor—necesidades complejas de huéspedes, servicio personalizado, ventas adicionales y crear experiencias memorables. Muchos negocios turísticos usan automatización con IA para evitar contratar personal administrativo adicional mientras crecen.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Los agentes de IA reemplazan al personal o los apoyan?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Los agentes de IA apoyan a su personal, no los reemplazan. Manejan tareas repetitivas y que consumen tiempo (consultas rutinarias, entrada de datos, confirmaciones) para que su equipo pueda enfocarse en actividades de alto valor—necesidades complejas de huéspedes, servicio personalizado, ventas adicionales y crear experiencias memorables. Muchos negocios turísticos usan automatización con IA para evitar contratar personal administrativo adicional mientras crecen.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Qué pasa si el agente de IA no sabe cómo responder una pregunta?</h3>
-          <p>Nuestros agentes de IA están diseñados con escalamiento inteligente. Si una pregunta es demasiado compleja, requiere juicio humano o está fuera del entrenamiento de la IA, automáticamente redirige la conversación a su equipo con contexto completo. Esto asegura que los huéspedes siempre obtengan respuestas precisas mientras su personal solo maneja preguntas que realmente necesitan experiencia humana.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Qué pasa si el agente de IA no sabe cómo responder una pregunta?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Nuestros agentes de IA están diseñados con escalamiento inteligente. Si una pregunta es demasiado compleja, requiere juicio humano o está fuera del entrenamiento de la IA, automáticamente redirige la conversación a su equipo con contexto completo. Esto asegura que los huéspedes siempre obtengan respuestas precisas mientras su personal solo maneja preguntas que realmente necesitan experiencia humana.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Los datos de mis huéspedes están seguros?</h3>
-          <p>Sí. Implementamos seguridad de nivel bancario con encriptación AES-256 para datos en reposo, encriptación TLS 1.3 para datos en tránsito, cumplimiento GDPR integrado, datos almacenados en regiones UE/Reino Unido/EE.UU. (su elección), auditorías de seguridad regulares, SLA de 99.9% de disponibilidad y controles de acceso basados en roles.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Los datos de mis huéspedes están seguros?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Sí. Implementamos seguridad de nivel bancario con encriptación AES-256 para datos en reposo, encriptación TLS 1.3 para datos en tránsito, cumplimiento GDPR integrado, datos almacenados en regiones UE/Reino Unido/EE.UU. (su elección), auditorías de seguridad regulares, SLA de 99.9% de disponibilidad y controles de acceso basados en roles.</p>
+          </div>
         </div>
 
         <div class="faq-item">
-          <h3>¿Cuánto cuesta la automatización con IA?</h3>
-          <p>Los precios varían según sus necesidades específicas—complejidad de los agentes de IA, número de integraciones y características personalizadas requeridas. Proporcionamos cotizaciones claras y transparentes antes de comenzar. Nos enfocamos en ROI medible: si la automatización le ahorra 40 horas semanales a £15/hora, eso es £2,400/mes en valor. La mayoría de los proyectos entregan un retorno de inversión de 3-10x. Use nuestra calculadora para una estimación personalizada.</p>
+          <button class="faq-question-home" onclick="toggleHomeFAQ(this)">
+            <span>¿Cuánto cuesta la automatización con IA?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer-home">
+            <p>Los precios varían según sus necesidades específicas—complejidad de los agentes de IA, número de integraciones y características personalizadas requeridas. Proporcionamos cotizaciones claras y transparentes antes de comenzar. Nos enfocamos en ROI medible: si la automatización le ahorra 40 horas semanales a £15/hora, eso es £2,400/mes en valor. La mayoría de los proyectos entregan un retorno de inversión de 3-10x. Use nuestra calculadora para una estimación personalizada.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -398,25 +589,65 @@ const jsonLd = [
     .faq-item {
       background: var(--bg-card);
       border-radius: 16px;
-      padding: 2rem;
+      padding: 0;
       box-shadow: var(--shadow-md);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
     }
 
     .faq-item:hover {
-      transform: translateY(-4px);
+      border-color: var(--border-medium);
       box-shadow: var(--shadow-lg);
     }
 
-    .faq-item h3 {
-      font-size: 1.3rem;
+    .faq-item.active {
+      border-color: var(--primary-cta);
+      box-shadow: 0 8px 30px rgba(138, 43, 226, 0.15);
+    }
+
+    .faq-question-home {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.75rem 2rem;
+      background: transparent;
+      border: none;
       color: var(--text-primary);
-      margin-bottom: 1rem;
+      font-size: 1.25rem;
       font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.3s ease;
       line-height: 1.4;
     }
 
-    .faq-item p {
+    .faq-question-home:hover {
+      color: var(--primary-cta);
+    }
+
+    .faq-question-home span {
+      flex: 1;
+    }
+
+    .faq-question-home i {
+      font-size: 1.2rem;
+      color: var(--primary-cta);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .faq-answer-home {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-answer-home p {
+      padding: 0 2rem 1.75rem;
       font-size: 1.05rem;
       line-height: 1.8;
       color: var(--text-secondary);
@@ -494,6 +725,38 @@ const jsonLd = [
 
   <!-- Feature Data for Modal -->
   <script is:inline>
+    // Homepage FAQ Toggle Function
+    function toggleHomeFAQ(button) {
+      const faqItem = button.parentElement;
+      const answer = faqItem.querySelector('.faq-answer-home');
+      const icon = button.querySelector('i');
+      const isActive = faqItem.classList.contains('active');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== faqItem && item.classList.contains('active')) {
+          item.classList.remove('active');
+          const otherAnswer = item.querySelector('.faq-answer-home');
+          const otherIcon = item.querySelector('i');
+          if (otherAnswer) otherAnswer.style.maxHeight = '0';
+          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      // Toggle current FAQ
+      if (isActive) {
+        // Close this FAQ
+        faqItem.classList.remove('active');
+        answer.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        // Open this FAQ - answer pops out underneath
+        faqItem.classList.add('active');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
     // Feature modal data
     window.featureData = {
       email: {

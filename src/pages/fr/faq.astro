@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import CTASection from '../../components/sections/CTASection.astro';
 import { generateSEO } from '../../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
@@ -20,15 +22,11 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Questions <span class="gradient-text">Fréquemment Posées</span></h1>
-      <p>
-        Tout ce que vous devez savoir sur l'automatisation par IA pour les entreprises du tourisme
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Questions"
+    highlight="Fréquemment Posées"
+    description="Tout ce que vous devez savoir sur l'automatisation IA pour les entreprises touristiques"
+  />
 
   <!-- FAQ Section -->
   <section class="content-section bg-light">
@@ -259,18 +257,10 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="content-section bg-main">
-    <div class="section-container">
-      <div class="cta-box">
-        <h2>Vous avez encore des questions?</h2>
-        <p>Réservez une consultation gratuite de 30 minutes pour discuter de vos besoins spécifiques</p>
-        <a href="/fr/contact" class="btn btn-primary">
-          Planifier un appel <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="Prêt à automatiser vos opérations?"
+    description="Calculez votre ROI potentiel en seulement 2 minutes"
+  />
 
   <!-- FAQ Toggle Script -->
   <script is:inline>
@@ -278,26 +268,38 @@ const jsonLd = [
       const faqItem = button.parentElement;
       const answer = faqItem.querySelector('.faq-answer');
       const icon = button.querySelector('i');
+      const isActive = faqItem.classList.contains('active');
 
       // Close all other FAQs
       document.querySelectorAll('.faq-item').forEach(item => {
         if (item !== faqItem && item.classList.contains('active')) {
           item.classList.remove('active');
-          item.querySelector('.faq-answer').style.maxHeight = null;
-          item.querySelector('i').style.transform = 'rotate(0deg)';
+          const otherAnswer = item.querySelector('.faq-answer');
+          const otherIcon = item.querySelector('i');
+          if (otherAnswer) otherAnswer.style.maxHeight = '0';
+          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
         }
       });
 
       // Toggle current FAQ
-      faqItem.classList.toggle('active');
-
-      if (faqItem.classList.contains('active')) {
+      if (isActive) {
+        // Close this FAQ
+        faqItem.classList.remove('active');
+        answer.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        // Open this FAQ - answer pops out underneath
+        faqItem.classList.add('active');
         answer.style.maxHeight = answer.scrollHeight + 'px';
         icon.style.transform = 'rotate(180deg)';
-      } else {
-        answer.style.maxHeight = null;
-        icon.style.transform = 'rotate(0deg)';
       }
     }
+
+    // Initialize on page load - ensure all answers start closed
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.faq-answer').forEach(answer => {
+        answer.style.maxHeight = '0';
+      });
+    });
   </script>
 </BaseLayout>
