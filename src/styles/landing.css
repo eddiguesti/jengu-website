@@ -1196,15 +1196,13 @@
         text-align: left;
       }
 
-      /* Subheadline */
-      .mobile-hero-subheadline {
+      /* Subheadline - Fresh rebuild */
+      .mobile-subhead {
         font-size: 1rem;
         line-height: 1.5;
         font-weight: 400;
         color: rgba(255, 255, 255, 0.85);
-        margin: 0 0 1.5rem 0;
-        padding: 0;
-        text-align: left;
+        margin-bottom: 1.5rem;
       }
 
       /* Action Buttons */
