@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import SectionHeader from '../../components/sections/SectionHeader.astro';
+import CTASection from '../../components/sections/CTASection.astro';
 import { generateSEO } from '../../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
@@ -20,15 +23,11 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Acerca de <span class="gradient-text">Jengu</span></h1>
-      <p>
-        Estamos en una misión para transformar el turismo y la hostelería mediante automatización inteligente de IA, desarrollo de software personalizado e integraciones de API sin problemas.
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Acerca de"
+    highlight="Jengu"
+    description="Estamos en una misión para transformar el turismo y la hostelería mediante automatización inteligente de IA, desarrollo de software personalizado e integraciones de API sin problemas."
+  />
 
   <!-- Mission & Vision -->
   <section class="content-section bg-light">
@@ -59,13 +58,11 @@ const jsonLd = [
   <!-- Our Story -->
   <section class="content-section bg-main">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Nuestra Historia</span>
-        <h2>Cómo Nació Jengu</h2>
-        <p>
-          Fundada por un equipo de ingenieros de IA y expertos en hostelería, Jengu surgió de una observación simple: las empresas de turismo dedican innumerables horas a tareas repetitivas que podrían automatizarse, impidiéndoles enfocarse en lo que realmente importa: sus huéspedes.
-        </p>
-      </div>
+      <SectionHeader
+        badge="Nuestra Historia"
+        title="Cómo Nació Jengu"
+        description="Fundada por un equipo de ingenieros de IA y expertos en hostelería, Jengu surgió de una observación simple: las empresas de turismo dedican innumerables horas a tareas repetitivas que podrían automatizarse, impidiéndoles enfocarse en lo que realmente importa: sus huéspedes."
+      />
       <div class="mission-card">
         <p style="font-size: 1.1rem; line-height: 1.9; color: var(--gray); margin-bottom: 1.5rem;">
           Después de años construyendo sistemas de IA para empresas Fortune 500, vimos una oportunidad de llevar automatización a nivel empresarial a la industria del turismo. Nos dimos cuenta de que hoteles, resorts, campings y agencias de viajes estaban ahogados en correos electrónicos, luchaban con sistemas de reservas obsoletos y perdían oportunidades de ingresos debido a procesos manuales.
@@ -80,13 +77,11 @@ const jsonLd = [
   <!-- Our Values -->
   <section class="content-section bg-light">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Nuestros Valores</span>
-        <h2>Qué nos Impulsa</h2>
-        <p>
-          Estos principios fundamentales guían todo lo que hacemos en Jengu
-        </p>
-      </div>
+      <SectionHeader
+        badge="Nuestros Valores"
+        title="Qué nos Impulsa"
+        description="Estos principios fundamentales guían todo lo que hacemos en Jengu"
+      />
       <div class="values-grid">
         <div class="value-card">
           <div class="value-icon">
@@ -137,10 +132,10 @@ const jsonLd = [
   <!-- Stats -->
   <section class="content-section bg-main">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Impacto y Crecimiento</span>
-        <h2>Jengu por los Números</h2>
-      </div>
+      <SectionHeader
+        badge="Impacto y Crecimiento"
+        title="Jengu por los Números"
+      />
       <div class="stats-grid">
         <div class="stat-card">
           <span class="stat-number">500+</span>
@@ -162,16 +157,8 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="content-section bg-main">
-    <div class="section-container">
-      <div class="cta-box">
-        <h2>¿Listo para Transformar tu Negocio?</h2>
-        <p>Calcula tu ROI potencial en solo 2 minutos</p>
-        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
-          Calcula tu ROI <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="¿Listo para Transformar tu Negocio?"
+    description="Calcula tu ROI potencial en solo 2 minutos"
+  />
 </BaseLayout>
