@@ -1,5 +1,8 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import SectionHeader from '../../components/sections/SectionHeader.astro';
+import CTASection from '../../components/sections/CTASection.astro';
 import { generateSEO } from '../../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
@@ -20,24 +23,20 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Nuestros <span class="gradient-text">Servicios</span></h1>
-      <p>
-        Desde chatbots de IA y asistentes telefónicos hasta software personalizado e integraciones API, construimos soluciones inteligentes que transforman las operaciones de turismo
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Nuestros"
+    highlight="Servicios"
+    description="Desde chatbots de IA y asistentes telefónicos hasta software personalizado e integraciones API, construimos soluciones inteligentes que transforman las operaciones de turismo"
+  />
 
   <!-- Main Services -->
   <section class="services-section">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Lo Que Construimos</span>
-        <h2>Soluciones Personalizadas de IA y Automatización</h2>
-        <p>Tecnología adaptada que resuelve tus desafíos empresariales específicos</p>
-      </div>
+      <SectionHeader
+        badge="Lo Que Construimos"
+        title="Soluciones Personalizadas de IA y Automatización"
+        description="Tecnología adaptada que resuelve tus desafíos empresariales específicos"
+      />
 
       <div class="services-grid">
         <!-- AI Chatbots & Phone Bots -->
@@ -155,11 +154,11 @@ const jsonLd = [
   <!-- Process Section -->
   <section class="process-section">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Cómo Trabajamos</span>
-        <h2>Nuestro Proceso de Desarrollo</h2>
-        <p>Desde el descubrimiento hasta la implementación, seguimos un proceso probado que entrega resultados</p>
-      </div>
+      <SectionHeader
+        badge="Cómo Trabajamos"
+        title="Nuestro Proceso de Desarrollo"
+        description="Desde el descubrimiento hasta la implementación, seguimos un proceso probado que entrega resultados"
+      />
 
       <div class="process-steps">
         <div class="process-step">
@@ -186,16 +185,8 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="content-section bg-main">
-    <div class="section-container">
-      <div class="cta-box">
-        <h2>¿Listo para Automatizar tus Operaciones?</h2>
-        <p>Calcula tu ROI potencial en solo 2 minutos</p>
-        <a href="#calculator" onclick="openCalculatorModal(); return false;" class="btn btn-primary">
-          Calcula tu ROI <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  <CTASection
+    title="¿Listo para Automatizar tus Operaciones?"
+    description="Calcula tu ROI potencial en solo 2 minutos"
+  />
 </BaseLayout>

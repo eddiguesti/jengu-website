@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import SectionHeader from '../../components/sections/SectionHeader.astro';
 import { generateSEO } from '../../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
@@ -20,23 +22,20 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Rencontrez Notre <span class="gradient-text">Équipe d'Experts</span></h1>
-      <p>
-        Ingénieurs IA, développeurs logiciels et experts en hôtellerie travaillant ensemble pour transformer le tourisme par la technologie
-      </p>
-    </div>
-  </section>
+  <Hero
+    title="Rencontrez Notre"
+    highlight="Équipe d'Experts"
+    description="Ingénieurs IA, développeurs logiciels et experts en hôtellerie travaillant ensemble pour transformer le tourisme par la technologie"
+  />
 
   <!-- Leadership Team -->
   <section class="team-section">
     <div class="section-container">
-      <div class="section-header">
-        <span class="section-badge">Direction</span>
-        <h2>Les Personnes Derrière Jengu</h2>
-        <p>Une équipe diversifiée unie par la passion de l'innovation et l'excellence</p>
-      </div>
+      <SectionHeader
+        badge="Direction"
+        title="Les Personnes Derrière Jengu"
+        description="Une équipe diversifiée unie par la passion de l'innovation et l'excellence"
+      />
 
       <div class="team-grid">
         <div class="team-member">
