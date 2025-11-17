@@ -42,7 +42,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--text-secondary);
       line-height: 1.6;
       overflow-x: hidden;
@@ -66,10 +66,22 @@
       display: none; /* Chrome, Safari, Opera */
     }
 
-    h1, h2, h3, h4, h5, h6 {
+    /* Headings - Sulphur Point Bold for h1 and h3, Figtree for others */
+    h1, h3 {
       font-family: 'Sulphur Point', sans-serif;
       font-weight: 700;
       line-height: 1.2;
+    }
+
+    h2, h4, h5, h6 {
+      font-family: 'Figtree', sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    /* Body text and UI labels */
+    p, span, a, button, input, textarea, select, label {
+      font-family: 'Figtree', sans-serif;
     }
 
     /* GPU Acceleration for smooth mobile performance */
@@ -4615,7 +4627,7 @@
       border-radius: 12px;
       color: var(--text-primary);
       font-size: 1rem;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Figtree', sans-serif;
       transition: all 0.3s ease;
     }
 
@@ -4841,7 +4853,7 @@
       color: var(--text-primary);
       font-size: 1.15rem;
       font-weight: 600;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Figtree', sans-serif;
       text-align: left;
       cursor: pointer;
       transition: all 0.3s ease;
