@@ -1,0 +1,89 @@
+---
+/**
+ * Analytics Component - Optimized for Performance
+ *
+ * This component loads analytics scripts asynchronously to prevent blocking page load.
+ * It uses:
+ * - Partytown to run scripts in a web worker (main thread stays fast)
+ * - requestIdleCallback to defer loading until browser is idle
+ * - Async script loading to prevent render-blocking
+ *
+ * Setup:
+ * 1. Add your Google Analytics ID to .env file: PUBLIC_GA_ID=G-XXXXXXXXXX
+ * 2. Optional: Add Google Tag Manager ID: PUBLIC_GTM_ID=GTM-XXXXXXX
+ */
+
+const GA_ID = import.meta.env.PUBLIC_GA_ID || '';
+const GTM_ID = import.meta.env.PUBLIC_GTM_ID || '';
+---
+
+<!-- Google Tag Manager (GTM) - Runs in web worker via Partytown -->
+{GTM_ID && (
+  <>
+    <script type="text/partytown">
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','{GTM_ID}');
+    </script>
+  </>
+)}
+
+<!-- Google Analytics (GA4) - Deferred loading -->
+{GA_ID && !GTM_ID && (
+  <script define:vars={{ GA_ID }}>
+    // Load Google Analytics only after page is fully interactive
+    // This prevents blocking the initial page render
+
+    function loadGoogleAnalytics() {
+      // Create and inject gtag script with async attribute
+      const gtagScript = document.createElement('script');
+      gtagScript.async = true;
+      gtagScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+
+      // Add to head with low priority
+      gtagScript.fetchpriority = 'low';
+      document.head.appendChild(gtagScript);
+
+      // Initialize dataLayer
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+
+      gtag('js', new Date());
+      gtag('config', GA_ID, {
+        page_path: window.location.pathname,
+        send_page_view: true
+      });
+
+      console.log('Google Analytics loaded asynchronously');
+    }
+
+    // Use requestIdleCallback for best performance
+    // This waits until browser is idle before loading analytics
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        loadGoogleAnalytics();
+      }, { timeout: 2000 });
+    } else {
+      // Fallback for browsers without requestIdleCallback (Safari)
+      setTimeout(() => {
+        loadGoogleAnalytics();
+      }, 1500);
+    }
+  </script>
+)}
+
+<!-- Prevent Tag Assistant from blocking page load -->
+<script>
+  // Tag Assistant Blocker - prevents tag_assistant_api_bin.js from blocking
+  // This overrides the default behavior to make it non-blocking
+  if (window.google_tag_manager) {
+    window.google_tag_manager._spx = window.google_tag_manager._spx || {};
+    window.google_tag_manager._spx.load = function() {
+      // Make all tag assistant scripts async
+      return Promise.resolve();
+    };
+  }
+</script>

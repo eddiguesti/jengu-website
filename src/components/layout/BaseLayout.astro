@@ -2,6 +2,7 @@
 import SEOHead from '../seo/SEOHead.astro';
 import JsonLd from '../seo/JsonLd.astro';
 import Hreflang from '../seo/Hreflang.astro';
+import Analytics from '../seo/Analytics.astro';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
 import { getLocaleFromUrl } from '../../i18n';
 import type { SEOConfig } from '../../lib/seo/metadata';
@@ -187,5 +188,8 @@ const currentLocale = getLocaleFromUrl(currentPath);
 
   <!-- Global JavaScript -->
   <script is:inline src="/scripts/main.js"></script>
+
+  <!-- Analytics - Loaded last to prevent blocking -->
+  <Analytics />
 </body>
 </html>
