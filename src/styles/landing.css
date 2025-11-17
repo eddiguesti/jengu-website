@@ -921,11 +921,11 @@
       line-height: 1.6;
     }
 
-    /* Process Flow Styles - Enhanced with Modern Design */
+    /* Process Flow Styles - Compact & Modern */
     .process-flow {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.75rem;
+      gap: 0;
       margin-top: 3rem;
       position: relative;
     }
@@ -933,8 +933,9 @@
     .process-step {
       background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.6));
       border: 1px solid rgba(139, 92, 246, 0.15);
-      border-radius: 20px;
-      padding: 2.25rem;
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2.5rem;
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
@@ -943,6 +944,9 @@
       animation: slideInLeft 0.7s ease-out forwards;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
     }
 
     .process-step:nth-child(1) { animation-delay: 0.15s; }
@@ -1004,15 +1008,15 @@
     }
 
     .step-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4),
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3),
                   inset 0 1px 0 rgba(255, 255, 255, 0.2);
       transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
@@ -1044,7 +1048,7 @@
 
     .step-icon i {
       color: #fff;
-      font-size: 1.75rem;
+      font-size: 1.3rem;
       position: relative;
       z-index: 1;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
@@ -1053,12 +1057,13 @@
     .step-content {
       position: relative;
       z-index: 1;
+      flex: 1;
     }
 
     .step-content h3 {
-      font-size: 1.4rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      margin: 0 0 0.875rem 0;
+      margin: 0 0 0.35rem 0;
       color: var(--text-primary);
       transition: all 0.3s ease;
       position: relative;
@@ -1090,8 +1095,8 @@
     .step-content p {
       margin: 0;
       color: var(--text-secondary);
-      font-size: 1.05rem;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      line-height: 1.5;
       transition: color 0.3s ease;
     }
 
@@ -1102,21 +1107,24 @@
     .step-arrow {
       position: absolute;
       left: 50%;
-      bottom: -1.5rem;
+      bottom: -2rem;
       transform: translateX(-50%);
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
+      background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
       animation: bounce 2.5s ease-in-out infinite;
     }
 
     .step-arrow i {
-      color: rgba(139, 92, 246, 0.6);
-      font-size: 1.75rem;
-      filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4));
+      color: #fff;
+      font-size: 1.2rem;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
 
     .process-step:last-child .step-arrow {
