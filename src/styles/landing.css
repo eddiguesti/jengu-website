@@ -534,31 +534,31 @@
     /* CTA buttons container - Grid Row 3 (at bottom) */
     #sidebar .sidebar-cta-container {
       grid-row: 3 !important;
-      padding: 1rem !important;
-      padding-bottom: max(1rem, env(safe-area-inset-bottom, 0)) !important; /* Ensure visible above iOS home indicator */
+      padding: 0.75rem 0.875rem !important;
+      padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem)) !important; /* Ensure visible above iOS home indicator */
       border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
       background: #2b2e3f !important;
       display: flex !important;
       flex-direction: column !important;
-      gap: 0.75rem !important;
+      gap: 0.5rem !important;
       flex-shrink: 0 !important; /* Prevent shrinking */
     }
 
     /* Base CTA button styles */
     #sidebar .sidebar-cta {
       width: 100% !important;
-      height: 46px !important;
+      height: 38px !important;
       display: flex !important;
       flex-direction: row !important;
       justify-content: center !important;
       align-items: center !important;
-      gap: 0.5rem !important;
-      padding: 0 !important;
+      gap: 0.4rem !important;
+      padding: 0 0.75rem !important;
       margin: 0 !important;
       border: none !important;
       border-radius: 8px !important;
       color: white !important;
-      font-size: 0.9rem !important;
+      font-size: 0.85rem !important;
       font-weight: 600 !important;
       text-decoration: none !important;
       cursor: pointer !important;
@@ -591,7 +591,13 @@
     }
 
     #sidebar .sidebar-cta i {
-      font-size: 1rem !important;
+      font-size: 0.9rem !important;
+    }
+
+    #sidebar .sidebar-cta span {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
     }
 
     /* Hero Section with Multi-Stop Gradient */
