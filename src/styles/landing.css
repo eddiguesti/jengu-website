@@ -3376,7 +3376,16 @@
 
       .hero {
         min-height: auto !important;
-        padding: 5rem 1.5rem 3rem !important;
+        padding: 6.5rem 1.5rem 3rem !important;
+      }
+
+      /* Exception: Homepage hero with video should be fullscreen */
+      .hero-home {
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        min-height: 100dvh !important;
+        padding: 0 !important;
       }
 
       /* Feature Modal Mobile Optimization */
