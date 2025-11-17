@@ -127,9 +127,6 @@ const jsonLd = [
               <h3>1. Discover</h3>
               <p>We analyze your operations and identify automation opportunities</p>
             </div>
-            <div class="step-arrow">
-              <i class="fas fa-arrow-down"></i>
-            </div>
           </div>
 
           <div class="process-step">
@@ -140,9 +137,6 @@ const jsonLd = [
               <h3>2. Design</h3>
               <p>Custom AI agents built for your specific workflows</p>
             </div>
-            <div class="step-arrow">
-              <i class="fas fa-arrow-down"></i>
-            </div>
           </div>
 
           <div class="process-step">
@@ -152,9 +146,6 @@ const jsonLd = [
             <div class="step-content">
               <h3>3. Deploy</h3>
               <p>Seamless integration with your existing systems</p>
-            </div>
-            <div class="step-arrow">
-              <i class="fas fa-arrow-down"></i>
             </div>
           </div>
 
@@ -971,10 +962,9 @@ const jsonLd = [
       }
     };
 
-    // Scroll-triggered sequential reveal animation for process steps
+    // Scroll-triggered reveal animation for process steps
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-step');
-      const arrows = document.querySelectorAll('.step-arrow');
 
       const observerOptions = {
         threshold: 0.3,
@@ -984,28 +974,14 @@ const jsonLd = [
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            const step = entry.target;
-            const stepIndex = Array.from(processSteps).indexOf(step);
-
-            // Reveal step immediately
             setTimeout(() => {
-              step.classList.add('reveal');
+              entry.target.classList.add('reveal');
             }, 100);
-
-            // Reveal arrow after step animation completes
-            if (arrows[stepIndex]) {
-              setTimeout(() => {
-                arrows[stepIndex].classList.add('reveal');
-              }, 700); // Matches step animation duration + small delay
-            }
-
-            // Stop observing once revealed
-            observer.unobserve(step);
+            observer.unobserve(entry.target);
           }
         });
       }, observerOptions);
 
-      // Observe all steps
       processSteps.forEach(step => observer.observe(step));
     });
   </script>
