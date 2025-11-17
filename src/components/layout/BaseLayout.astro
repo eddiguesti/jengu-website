@@ -111,17 +111,8 @@ const currentLocale = getLocaleFromUrl(currentPath);
 
   <!-- Sidebar Menu - Rebuilt from scratch -->
   <aside id="sidebar">
-    <!-- Header with logo and close button -->
+    <!-- Header with close button -->
     <div class="sidebar-header">
-      <a href="/" class="sidebar-logo">
-        <OptimizedImage
-          src="/images/logo.png"
-          alt="Jengu"
-          loading="lazy"
-          width={120}
-          height={40}
-        />
-      </a>
       <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
         <i class="fas fa-times"></i>
       </button>
@@ -148,6 +139,10 @@ const currentLocale = getLocaleFromUrl(currentPath);
       <a href="/case-studies" class="sidebar-link">
         <i class="fas fa-briefcase"></i>
         <span>Case Studies</span>
+      </a>
+      <a href="/blog" class="sidebar-link">
+        <i class="fas fa-newspaper"></i>
+        <span>Blog</span>
       </a>
       <a href="/faq" class="sidebar-link">
         <i class="fas fa-question-circle"></i>
@@ -210,6 +205,7 @@ const currentLocale = getLocaleFromUrl(currentPath);
       <div class="footer-section">
         <h4>Resources</h4>
         <ul class="footer-links">
+          <li><a href="/blog">Blog & News</a></li>
           <li><a href="/case-studies">Case Studies</a></li>
           <li><a href="/faq">FAQ</a></li>
           <li><a href="#" onclick="handleCalculatorClick(event)">ROI Calculator</a></li>
