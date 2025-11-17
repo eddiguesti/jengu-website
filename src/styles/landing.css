@@ -994,40 +994,21 @@
       margin: 0 auto 2rem auto;
       display: block;
       opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .curvy-arrow.draw {
       opacity: 1;
-      transition: opacity 0.3s ease;
     }
 
     .curvy-arrow .arrow-path {
       stroke-dasharray: 200;
       stroke-dashoffset: 200;
+      transition: stroke-dashoffset 1.5s ease-out;
     }
 
     .curvy-arrow.draw .arrow-path {
-      animation: drawPath 1.5s ease-out forwards;
-    }
-
-    .curvy-arrow .arrow-head {
-      opacity: 0;
-    }
-
-    .curvy-arrow.draw .arrow-head {
-      animation: fadeInHead 0.3s ease-out 1.2s forwards;
-    }
-
-    @keyframes drawPath {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
-    @keyframes fadeInHead {
-      to {
-        opacity: 1;
-      }
+      stroke-dashoffset: 0;
     }
 
 
