@@ -2296,6 +2296,24 @@
           ]
         },
         {
+          id: 'dynamic-pricing',
+          name: '💰 Dynamic Pricing Software',
+          type: 'revenue',
+          savings: 0,
+          desc: 'AI-powered pricing that automatically adjusts rates based on demand, seasonality & competition',
+          metrics: [],
+          whatItDoes: 'Our dynamic pricing system automatically adjusts your rates based on demand, seasonality, weather, events, and competition in real-time—maximizing revenue while maintaining high occupancy.',
+          howItHelps: 'Increase revenue by up to 40% without lifting a finger. Our AI analyzes market conditions 24/7 and optimizes pricing to ensure you're never leaving money on the table during peak demand or losing bookings during low seasons.',
+          realWorld: 'Hotels using dynamic pricing see average revenue increases of 25-40% with improved occupancy rates. The system pays for itself within the first month.',
+          stats: [
+            { value: 'Up to 40%', label: 'Revenue Increase' },
+            { value: '24/7', label: 'Automated' },
+            { value: 'Real-time', label: 'Price Updates' }
+          ],
+          isExternal: true,
+          externalLink: '/dynamic-pricing'
+        },
+        {
           id: 'custom-ai-software',
           name: '🎯 Custom AI Software',
           type: 'custom',
@@ -2836,6 +2854,12 @@
     }
 
     function toggleSolution(solution) {
+      // If external link (like dynamic pricing), redirect to that page
+      if (solution.isExternal && solution.externalLink) {
+        window.location.href = solution.externalLink;
+        return;
+      }
+
       // If custom software is selected, go to inquiry form immediately
       if (solution.isCustom) {
         currentStep = 5;
