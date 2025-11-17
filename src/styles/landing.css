@@ -581,11 +581,11 @@
       justify-content: center;
       background: linear-gradient(
         180deg,
-        #0a0e1a 0%,
-        #0f1420 20%,
-        #121826 40%,
-        #0f1420 60%,
-        #0a0e1a 80%,
+        #000000 0%,
+        #050810 20%,
+        #0a0e1a 40%,
+        #050810 60%,
+        #000000 80%,
         var(--bg-main) 100%
       );
       position: relative;
@@ -662,7 +662,7 @@
       padding: 4rem 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 4rem;
       align-items: center;
       position: relative;
       z-index: 2;
@@ -1190,9 +1190,20 @@
         line-height: 1.1;
         font-weight: 800;
         color: white;
-        margin: 0 0 1.5rem 0;
+        margin: 0 0 1rem 0;
         padding: 0;
         letter-spacing: -0.02em;
+        text-align: left;
+      }
+
+      /* Subheadline */
+      .mobile-hero-subheadline {
+        font-size: 1rem;
+        line-height: 1.5;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0 0 1.5rem 0;
+        padding: 0;
         text-align: left;
       }
 
