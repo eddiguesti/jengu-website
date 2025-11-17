@@ -20,26 +20,76 @@ const jsonLd = [
   <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
-        <span class="hero-badge">Agentes de IA Personalizados para Turismo y Hospitalidad</span>
-        <h1>
-          Aumente Reservas y Automatice su <span class="gradient-text">Negocio Turístico</span> con Agentes de IA
+        <span class="hero-badge">
+          <i class="fas fa-sparkles"></i>
+          Automatización con IA para Turismo y Hospitalidad
+        </span>
+
+        <!-- Desktop headline -->
+        <h1 class="desktop-only">
+          Agentes IA inteligentes para Hospitalidad. <span class="gradient-text">Mejores operaciones, mayores ingresos.</span>
         </h1>
-        <p>
-          Construimos agentes de IA personalizados que gestionan reservas, consultas de clientes y tareas administrativas repetitivas para hoteles, operadores turísticos, agencias de viajes y DMCs. Aumente conversiones hasta 30%, ahorre 40+ horas semanales y ofrezca servicio instantáneo 24/7.
+
+        <!-- Mobile headline - animated -->
+        <h1 class="mobile-only mobile-hero-title">
+          IA que gestiona<br/>tus operaciones
+        </h1>
+
+        <!-- Desktop description -->
+        <p class="hero-description desktop-only">
+          Tu sistema de automatización unificado para tareas, comunicaciones y experiencia del huésped.
         </p>
-        <div class="hero-cta-group">
-          <a href="/es/contact" class="btn btn-primary">
-            Obtenga su Plan de Automatización IA Gratis <i class="fas fa-arrow-right"></i>
+
+        <!-- Desktop CTAs -->
+        <div class="hero-cta-group desktop-only">
+          <a href="/es/contact" class="btn btn-primary btn-large btn-modern">
+            <span>Consulta Gratuita</span>
           </a>
-          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary">
-            Calcule su ROI en 2 Minutos
+          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
+            <span>Calcule su ROI</span>
           </a>
         </div>
+        <p class="hero-trust desktop-only">
+          <i class="fas fa-check-circle"></i>
+          Alto valor, sin presión, orientación real
+        </p>
       </div>
-      <div class="hero-visual">
-        <div class="spline-container">
+
+
+      <!-- Desktop only: Spline 3D Robot -->
+      <div class="hero-visual desktop-only">
+        <div class="spline-container" role="img" aria-label="Animación 3D de robot interactivo">
           <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
-          <spline-viewer url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode" style="width: 160%; height: 100vh;"></spline-viewer>
+          <spline-viewer
+            url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
+            loading="lazy"
+          ></spline-viewer>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile only: Fullscreen Video Hero -->
+    <div class="mobile-only video-bg">
+      <video autoplay muted playsinline loop id="bg-video">
+        <source src="/videos/mobile-hero.mp4" type="video/mp4">
+      </video>
+
+      <!-- Gradient overlay -->
+      <div class="mobile-hero-gradient"></div>
+
+      <!-- Content overlay -->
+      <div class="mobile-hero-overlay">
+        <h1 class="mobile-hero-headline">
+          IA que gestiona<br/>tus operaciones
+        </h1>
+        <div class="mobile-subhead">Diseñado para Hospitalidad. Creado para aumentar ingresos y reducir trabajo manual.</div>
+        <div class="mobile-hero-actions">
+          <a href="/es/contact" class="mobile-hero-btn mobile-hero-btn-primary">
+            Consulta Gratuita
+          </a>
+          <a href="#" onclick="handleCalculatorClick(event)" class="mobile-hero-btn mobile-hero-btn-secondary">
+            Calcule su ROI
+          </a>
         </div>
       </div>
     </div>

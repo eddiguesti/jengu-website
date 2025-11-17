@@ -20,26 +20,76 @@ const jsonLd = [
   <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
-        <span class="hero-badge">Agents IA Sur Mesure pour le Tourisme et l'Hôtellerie</span>
-        <h1>
-          Boostez vos Réservations et Automatisez Votre <span class="gradient-text">Entreprise Touristique</span> avec des Agents IA
+        <span class="hero-badge">
+          <i class="fas fa-sparkles"></i>
+          Automatisation IA pour le Tourisme et l'Hôtellerie
+        </span>
+
+        <!-- Desktop headline -->
+        <h1 class="desktop-only">
+          Agents IA intelligents pour l'Hôtellerie. <span class="gradient-text">Meilleures opérations, revenus plus élevés.</span>
         </h1>
-        <p>
-          Nous créons des agents IA personnalisés qui gèrent les réservations, les demandes clients et les tâches administratives répétitives pour les hôtels, tour-opérateurs, agences de voyage et DMC. Augmentez les conversions jusqu'à 30%, économisez 40+ heures par semaine et offrez un service instantané 24h/24 et 7j/7.
+
+        <!-- Mobile headline - animated -->
+        <h1 class="mobile-only mobile-hero-title">
+          L'IA qui gère<br/>vos opérations
+        </h1>
+
+        <!-- Desktop description -->
+        <p class="hero-description desktop-only">
+          Votre système d'automatisation unifié pour les tâches, communications et expérience client.
         </p>
-        <div class="hero-cta-group">
-          <a href="/fr/contact" class="btn btn-primary">
-            Obtenez Votre Plan d'Automatisation IA Gratuit <i class="fas fa-arrow-right"></i>
+
+        <!-- Desktop CTAs -->
+        <div class="hero-cta-group desktop-only">
+          <a href="/fr/contact" class="btn btn-primary btn-large btn-modern">
+            <span>Consultation Gratuite</span>
           </a>
-          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary">
-            Calculez Votre ROI en 2 Minutes
+          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
+            <span>Calculez Votre ROI</span>
           </a>
         </div>
+        <p class="hero-trust desktop-only">
+          <i class="fas fa-check-circle"></i>
+          Haute valeur, sans pression, conseils réels
+        </p>
       </div>
-      <div class="hero-visual">
-        <div class="spline-container">
+
+
+      <!-- Desktop only: Spline 3D Robot -->
+      <div class="hero-visual desktop-only">
+        <div class="spline-container" role="img" aria-label="Animation 3D de robot interactif">
           <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js"></script>
-          <spline-viewer url="https://prod.spline.design/u0k9uWnu51Qp6daH/scene.splinecode" style="width: 160%; height: 100vh;"></spline-viewer>
+          <spline-viewer
+            url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
+            loading="lazy"
+          ></spline-viewer>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile only: Fullscreen Video Hero -->
+    <div class="mobile-only video-bg">
+      <video autoplay muted playsinline loop id="bg-video">
+        <source src="/videos/mobile-hero.mp4" type="video/mp4">
+      </video>
+
+      <!-- Gradient overlay -->
+      <div class="mobile-hero-gradient"></div>
+
+      <!-- Content overlay -->
+      <div class="mobile-hero-overlay">
+        <h1 class="mobile-hero-headline">
+          L'IA qui gère<br/>vos opérations
+        </h1>
+        <div class="mobile-subhead">Conçu pour l'Hôtellerie. Pensé pour augmenter les revenus et réduire le travail manuel.</div>
+        <div class="mobile-hero-actions">
+          <a href="/fr/contact" class="mobile-hero-btn mobile-hero-btn-primary">
+            Consultation Gratuite
+          </a>
+          <a href="#" onclick="handleCalculatorClick(event)" class="mobile-hero-btn mobile-hero-btn-secondary">
+            Calculez Votre ROI
+          </a>
         </div>
       </div>
     </div>
