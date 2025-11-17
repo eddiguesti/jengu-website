@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+
+/**
+ * Optimized Image Component
+ * Uses Astro's built-in Image optimization with automatic format conversion,
+ * resizing, and lazy loading for optimal performance
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  loading?: 'lazy' | 'eager';
+  class?: string;
+  decoding?: 'async' | 'sync' | 'auto';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  format?: 'webp' | 'avif' | 'png' | 'jpg';
+  quality?: number;
+}
+
+const {
+  src,
+  alt,
+  width = 800,
+  height,
+  loading = 'lazy',
+  class: className = '',
+  decoding = 'async',
+  fetchpriority = 'auto',
+  format = 'webp',
+  quality = 80
+} = Astro.props;
+
+// For external URLs or when using public folder, use regular img tag
+const isPublicAsset = src.startsWith('/') || src.startsWith('http');
+---
+
+{isPublicAsset ? (
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    class={className}
+  />
+) : (
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding={decoding}
+    fetchpriority={fetchpriority}
+    class={className}
+    format={format}
+    quality={quality}
+  />
+)}

@@ -32,6 +32,42 @@ export default defineConfig({
   ],
   output: 'static',
   build: {
-    format: 'directory' // Clean URLs: /about/ instead of /about.html
-  }
+    format: 'directory', // Clean URLs: /about/ instead of /about.html
+    inlineStylesheets: 'auto', // Inline small CSS files
+    assets: '_assets' // Custom assets folder name
+  },
+  vite: {
+    build: {
+      cssCodeSplit: true, // Split CSS for better caching
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Split vendor code for better caching
+            'vendor': ['astro']
+          }
+        }
+      }
+    },
+    // Enable compression
+    build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true, // Remove console.logs in production
+          drop_debugger: true
+        }
+      }
+    }
+  },
+  // Image optimization settings
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp'
+    },
+    remotePatterns: [{
+      protocol: 'https'
+    }]
+  },
+  // Enable compression
+  compressHTML: true
 });

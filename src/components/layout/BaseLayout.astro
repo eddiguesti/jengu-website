@@ -3,6 +3,7 @@ import SEOHead from '../seo/SEOHead.astro';
 import JsonLd from '../seo/JsonLd.astro';
 import Hreflang from '../seo/Hreflang.astro';
 import Analytics from '../seo/Analytics.astro';
+import OptimizedImage from '../OptimizedImage.astro';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
 import { getLocaleFromUrl } from '../../i18n';
 import type { SEOConfig } from '../../lib/seo/metadata';
@@ -26,12 +27,36 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <meta name="generator" content={Astro.generator} />
 
-  <!-- Fonts -->
+  <!-- Performance: DNS Prefetch & Preconnect for external resources -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fonts: Optimized loading with font-display swap -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap"
+    rel="stylesheet"
+    media="print"
+    onload="this.media='all'"
+  >
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- Font Awesome: Deferred loading -->
+  <link
+    rel="preload"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    as="style"
+    onload="this.onload=null;this.rel='stylesheet'"
+  >
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
+
+  <!-- Preload critical assets -->
+  <link rel="preload" href="/images/logo.png" as="image" type="image/png">
+  <link rel="preload" href="/scripts/main.js" as="script">
 
   <!-- SEO -->
   <SEOHead seo={seo} />
@@ -43,7 +68,15 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <nav id="navbar">
     <div class="nav-container">
       <a href="/" class="logo">
-        <img src="/images/logo.png" alt="Jengu" class="logo-img">
+        <OptimizedImage
+          src="/images/logo.png"
+          alt="Jengu"
+          class="logo-img"
+          loading="eager"
+          fetchpriority="high"
+          width={120}
+          height={40}
+        />
       </a>
 
       <div class="nav-right">
@@ -68,7 +101,13 @@ const currentLocale = getLocaleFromUrl(currentPath);
     <!-- Header with logo and close button -->
     <div class="sidebar-header">
       <a href="/" class="sidebar-logo">
-        <img src="/images/logo.png" alt="Jengu" />
+        <OptimizedImage
+          src="/images/logo.png"
+          alt="Jengu"
+          loading="lazy"
+          width={120}
+          height={40}
+        />
       </a>
       <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
         <i class="fas fa-times"></i>
@@ -131,7 +170,14 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <footer>
     <div class="footer-container">
       <div class="footer-brand">
-        <img src="/images/logo.png" alt="Jengu" class="footer-logo">
+        <OptimizedImage
+          src="/images/logo.png"
+          alt="Jengu"
+          class="footer-logo"
+          loading="lazy"
+          width={120}
+          height={40}
+        />
         <p>
           AI automation solutions for tourism and hospitality. We build custom chatbots, phone bots, software, and API integrations.
         </p>
@@ -186,8 +232,8 @@ const currentLocale = getLocaleFromUrl(currentPath);
     </div>
   </div>
 
-  <!-- Global JavaScript -->
-  <script is:inline src="/scripts/main.js"></script>
+  <!-- Global JavaScript - Deferred for better performance -->
+  <script is:inline src="/scripts/main.js" defer></script>
 
   <!-- Analytics - Loaded last to prevent blocking -->
   <Analytics />
