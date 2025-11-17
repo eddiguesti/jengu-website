@@ -3381,10 +3381,10 @@
 
       /* Exception: Homepage hero with video should be fullscreen */
       .hero-home {
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
+        height: 85vh !important;
+        height: 85dvh !important;
+        min-height: 85vh !important;
+        min-height: 85dvh !important;
         padding: 0 !important;
       }
 
