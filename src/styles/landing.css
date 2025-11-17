@@ -1189,7 +1189,7 @@
       /* Content Overlay - Positioned higher to avoid iPhone bottom bar */
       .mobile-hero-overlay {
         position: absolute;
-        bottom: 8rem;
+        bottom: 4rem;
         left: 0;
         right: 0;
         padding: 0 1.5rem;
