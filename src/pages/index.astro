@@ -129,16 +129,14 @@ const jsonLd = [
             </div>
           </div>
 
-          <svg class="curvy-arrow" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="arrowGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.9" />
-              </linearGradient>
-            </defs>
-            <path class="arrow-path" d="M 50 10 C 20 30, 20 50, 50 70 C 80 90, 80 110, 50 130" stroke="url(#arrowGradient1)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <div class="flow-connector">
+            <div class="connector-line"></div>
+            <div class="flow-particles">
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+            </div>
+          </div>
 
           <div class="process-step">
             <div class="step-icon">
@@ -150,16 +148,14 @@ const jsonLd = [
             </div>
           </div>
 
-          <svg class="curvy-arrow" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="arrowGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.9" />
-              </linearGradient>
-            </defs>
-            <path class="arrow-path" d="M 50 10 C 80 30, 80 50, 50 70 C 20 90, 20 110, 50 130" stroke="url(#arrowGradient2)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <div class="flow-connector">
+            <div class="connector-line"></div>
+            <div class="flow-particles">
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+            </div>
+          </div>
 
           <div class="process-step">
             <div class="step-icon">
@@ -171,16 +167,14 @@ const jsonLd = [
             </div>
           </div>
 
-          <svg class="curvy-arrow" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="arrowGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.9" />
-                <stop offset="50%" style="stop-color:#a78bfa;stop-opacity:1" />
-                <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:0.9" />
-              </linearGradient>
-            </defs>
-            <path class="arrow-path" d="M 50 10 C 20 30, 20 50, 50 70 C 80 90, 80 110, 50 130" stroke="url(#arrowGradient3)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <div class="flow-connector">
+            <div class="connector-line"></div>
+            <div class="flow-particles">
+              <div class="particle"></div>
+              <div class="particle"></div>
+              <div class="particle"></div>
+            </div>
+          </div>
 
           <div class="process-step">
             <div class="step-icon">
@@ -995,10 +989,10 @@ const jsonLd = [
       }
     };
 
-    // Premium scroll-triggered reveal animation - Studio Quality
+    // Premium scroll-triggered reveal animation - Ultra Studio Quality
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-step');
-      const curvyArrows = document.querySelectorAll('.curvy-arrow');
+      const flowConnectors = document.querySelectorAll('.flow-connector');
 
       // More refined intersection observer settings
       const observerOptions = {
@@ -1021,13 +1015,13 @@ const jsonLd = [
                 setTimeout(() => {
                   entry.target.classList.add('reveal');
 
-                  // Find the next arrow after this step
-                  const nextArrow = entry.target.nextElementSibling;
-                  if (nextArrow && nextArrow.classList.contains('curvy-arrow')) {
-                    // Arrow draws after content animation completes
+                  // Find the next flow connector after this step
+                  const nextConnector = entry.target.nextElementSibling;
+                  if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                    // Connector animates after content animation completes
                     setTimeout(() => {
-                      nextArrow.classList.add('draw');
-                    }, 900); // Arrow starts drawing 900ms after box begins
+                      nextConnector.classList.add('draw');
+                    }, 900); // Connector starts 900ms after box begins
                   }
                 }, 150);
               });
@@ -1040,11 +1034,11 @@ const jsonLd = [
               requestAnimationFrame(() => {
                 entry.target.classList.remove('reveal');
 
-                // Reset the arrow with slight delay for smooth reversal
-                const nextArrow = entry.target.nextElementSibling;
-                if (nextArrow && nextArrow.classList.contains('curvy-arrow')) {
+                // Reset the connector with slight delay for smooth reversal
+                const nextConnector = entry.target.nextElementSibling;
+                if (nextConnector && nextConnector.classList.contains('flow-connector')) {
                   setTimeout(() => {
-                    nextArrow.classList.remove('draw');
+                    nextConnector.classList.remove('draw');
                   }, 100);
                 }
               });
