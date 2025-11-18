@@ -1009,6 +1009,7 @@
       opacity: 0;
       transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       transition-delay: 0.5s;
+      text-align: left;
     }
 
     .process-step.reveal .step-content {
@@ -1026,6 +1027,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      text-align: left;
     }
 
     .step-content p {
@@ -1034,6 +1036,7 @@
       font-size: 1.05rem;
       line-height: 1.6;
       opacity: 0.9;
+      text-align: left;
     }
 
     /* Flow Connector - Ultra Premium */
