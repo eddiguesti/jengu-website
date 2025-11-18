@@ -13,7 +13,8 @@ const seo = generateSEO({
 <BaseLayout seo={seo}>
   <!-- Hero Section -->
   <section class="hero hero-pricing">
-    <div class="hero-container-pricing">
+    <!-- Desktop Hero -->
+    <div class="hero-container-pricing desktop-only">
       <div class="hero-content-pricing">
         <span class="hero-badge">
           <i class="fas fa-chart-line"></i>
@@ -59,7 +60,7 @@ const seo = generateSEO({
       </div>
 
       <!-- App Screenshots Collage -->
-      <div class="hero-visual-pricing desktop-only">
+      <div class="hero-visual-pricing">
         <div class="screenshots-collage">
           <div class="screenshot-card screenshot-1" onclick="openImageModal('/images/price-optimization.png')">
             <picture>
@@ -85,6 +86,32 @@ const seo = generateSEO({
               <img src="/images/competitor-discovery.png" alt="Competitor Analysis" loading="eager">
             </picture>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile only: Fullscreen Video Hero -->
+    <div class="mobile-only video-bg">
+      <video autoplay muted playsinline loop id="pricing-bg-video">
+        <source src="/videos/mobile-hero.mp4" type="video/mp4">
+      </video>
+
+      <!-- Gradient overlay -->
+      <div class="mobile-hero-gradient"></div>
+
+      <!-- Content overlay -->
+      <div class="mobile-hero-overlay">
+        <h1 class="mobile-hero-headline">
+          Maximize Your Revenue with <span class="gradient-text">AI Pricing</span>
+        </h1>
+        <div class="mobile-subhead">Smart dynamic pricing for campsites. Increase revenue by up to 40% with automated pricing adjustments.</div>
+        <div class="mobile-hero-actions">
+          <a href="#how-it-works" class="mobile-hero-btn mobile-hero-btn-primary">
+            Check Out How It Works
+          </a>
+          <a href="/contact" class="mobile-hero-btn mobile-hero-btn-secondary">
+            Get Free Demo
+          </a>
         </div>
       </div>
     </div>
