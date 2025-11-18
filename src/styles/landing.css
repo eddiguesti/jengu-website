@@ -1271,7 +1271,8 @@
       }
 
       /* Hide desktop hero content on mobile */
-      .hero-container {
+      .hero-container,
+      .hero-container-pricing {
         display: none;
       }
 
@@ -1287,7 +1288,8 @@
       }
 
       /* Background video */
-      #bg-video {
+      #bg-video,
+      #pricing-bg-video {
         width: 100%;
         height: 100%;
         object-fit: cover;
