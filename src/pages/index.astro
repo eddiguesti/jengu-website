@@ -989,10 +989,13 @@ const jsonLd = [
       }
     };
 
-    // Premium scroll-triggered reveal animation - Ultra Studio Quality
+    // Premium scroll-triggered reveal animation - Persistent Stack Mode
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-step');
       const flowConnectors = document.querySelectorAll('.flow-connector');
+
+      // Track permanently revealed elements (once revealed, stays revealed)
+      const permanentlyRevealed = new Set();
 
       // More refined intersection observer settings
       const observerOptions = {
@@ -1000,20 +1003,18 @@ const jsonLd = [
         rootMargin: '0px 0px -15% 0px'
       };
 
-      // Track which elements have been revealed to prevent re-animation on small scrolls
-      const revealedSteps = new Set();
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Scrolling into view - reveal with premium timing
-            if (!revealedSteps.has(entry.target)) {
-              revealedSteps.add(entry.target);
+            // Scrolling into view - reveal with premium timing (only first time)
+            if (!permanentlyRevealed.has(entry.target)) {
+              permanentlyRevealed.add(entry.target);
 
               // Stagger the reveal for buttery smooth orchestration
               requestAnimationFrame(() => {
                 setTimeout(() => {
                   entry.target.classList.add('reveal');
+                  entry.target.classList.add('revealed-once'); // Mark as permanently revealed
 
                   // Find the next flow connector after this step
                   const nextConnector = entry.target.nextElementSibling;
@@ -1027,21 +1028,13 @@ const jsonLd = [
               });
             }
           } else {
-            // Scrolling out of view - reverse animation for endless scroll delight
-            if (revealedSteps.has(entry.target)) {
-              revealedSteps.delete(entry.target);
-
-              requestAnimationFrame(() => {
-                entry.target.classList.remove('reveal');
-
-                // Reset the connector with slight delay for smooth reversal
-                const nextConnector = entry.target.nextElementSibling;
-                if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                  setTimeout(() => {
-                    nextConnector.classList.remove('draw');
-                  }, 100);
-                }
-              });
+            // When scrolling out of view
+            // Keep boxes visible but hide connectors for clean stacked look
+            if (permanentlyRevealed.has(entry.target)) {
+              const nextConnector = entry.target.nextElementSibling;
+              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                nextConnector.classList.remove('draw');
+              }
             }
           }
         });
