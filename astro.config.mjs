@@ -30,7 +30,7 @@ export default defineConfig({
       },
     })
   ],
-  output: 'static',
+  output: 'hybrid', // Enable server endpoints for API routes
   build: {
     format: 'directory', // Clean URLs: /about/ instead of /about.html
     inlineStylesheets: 'auto', // Inline small CSS files

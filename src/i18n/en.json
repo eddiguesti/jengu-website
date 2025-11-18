@@ -3,11 +3,15 @@
     "home": "Home",
     "about": "About",
     "services": "Services",
+    "dynamicPricing": "Dynamic Pricing",
     "caseStudies": "Case Studies",
+    "blog": "Blog",
     "faq": "FAQ",
     "team": "Team",
     "contact": "Contact",
-    "calculateROI": "Calculate ROI"
+    "calculateROI": "Calculate ROI",
+    "freeConsultation": "Free Consultation",
+    "getConsultation": "Get a Free Consultation"
   },
   "footer": {
     "company": "Company",

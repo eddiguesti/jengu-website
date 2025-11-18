@@ -5,7 +5,8 @@ import Hreflang from '../seo/Hreflang.astro';
 import Analytics from '../seo/Analytics.astro';
 import OptimizedImage from '../OptimizedImage.astro';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
-import { getLocaleFromUrl } from '../../i18n';
+import BookingModal from '../BookingModal.astro';
+import { getLocaleFromUrl, getTranslations } from '../../i18n';
 import type { SEOConfig } from '../../lib/seo/metadata';
 import '../../styles/landing.css';
 
@@ -17,6 +18,7 @@ interface Props {
 const { seo, jsonLd } = Astro.props;
 const currentPath = Astro.url.pathname;
 const currentLocale = getLocaleFromUrl(currentPath);
+const t = getTranslations(currentLocale);
 ---
 
 <!DOCTYPE html>
@@ -71,6 +73,10 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <link rel="preload" href="/images/logo.png" as="image" type="image/png">
   <link rel="preload" href="/scripts/main.js" as="script">
 
+  <!-- Calendly widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+  <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
   <!-- SEO -->
   <SEOHead seo={seo} />
   <Hreflang currentPath={currentPath} />
@@ -93,6 +99,12 @@ const currentLocale = getLocaleFromUrl(currentPath);
       </a>
 
       <div class="nav-right">
+        <!-- Free Consultation CTA -->
+        <button onclick="openBookingModal()" class="nav-consultation-cta">
+          <i class="fas fa-calendar-check"></i>
+          <span>{t.nav.freeConsultation}</span>
+        </button>
+
         <!-- Language Switcher -->
         <LanguageSwitcher />
 
@@ -122,39 +134,39 @@ const currentLocale = getLocaleFromUrl(currentPath);
     <nav class="sidebar-nav">
       <a href="/" class="sidebar-link">
         <i class="fas fa-home"></i>
-        <span>Home</span>
+        <span>{t.nav.home}</span>
       </a>
       <a href="/about" class="sidebar-link">
         <i class="fas fa-info-circle"></i>
-        <span>About</span>
+        <span>{t.nav.about}</span>
       </a>
       <a href="/services" class="sidebar-link">
         <i class="fas fa-cogs"></i>
-        <span>Services</span>
+        <span>{t.nav.services}</span>
       </a>
       <a href="/dynamic-pricing" class="sidebar-link">
         <i class="fas fa-chart-line"></i>
-        <span>Dynamic Pricing</span>
+        <span>{t.nav.dynamicPricing}</span>
       </a>
       <a href="/case-studies" class="sidebar-link">
         <i class="fas fa-briefcase"></i>
-        <span>Case Studies</span>
+        <span>{t.nav.caseStudies}</span>
       </a>
       <a href="/blog" class="sidebar-link">
         <i class="fas fa-newspaper"></i>
-        <span>Blog</span>
+        <span>{t.nav.blog}</span>
       </a>
       <a href="/faq" class="sidebar-link">
         <i class="fas fa-question-circle"></i>
-        <span>FAQ</span>
+        <span>{t.nav.faq}</span>
       </a>
       <a href="/team" class="sidebar-link">
         <i class="fas fa-users"></i>
-        <span>Team</span>
+        <span>{t.nav.team}</span>
       </a>
       <a href="/contact" class="sidebar-link">
         <i class="fas fa-envelope"></i>
-        <span>Contact</span>
+        <span>{t.nav.contact}</span>
       </a>
     </nav>
 
@@ -162,11 +174,11 @@ const currentLocale = getLocaleFromUrl(currentPath);
     <div class="sidebar-cta-container">
       <a href="/contact" class="sidebar-cta sidebar-cta-primary">
         <i class="fas fa-comments"></i>
-        <span>Get a Free Consultation</span>
+        <span>{t.nav.getConsultation}</span>
       </a>
       <a href="#" onclick="handleCalculatorClick(event)" class="sidebar-cta sidebar-cta-secondary">
         <i class="fas fa-calculator"></i>
-        <span>Calculate Your ROI</span>
+        <span>{t.nav.calculateROI}</span>
       </a>
     </div>
   </aside>
@@ -241,8 +253,12 @@ const currentLocale = getLocaleFromUrl(currentPath);
     </div>
   </div>
 
+  <!-- Booking Modal -->
+  <BookingModal />
+
   <!-- Global JavaScript -->
   <script is:inline src="/scripts/main.js"></script>
+  <script is:inline src="/scripts/language-persistence.js"></script>
 
   <!-- Analytics - Loaded last to prevent blocking -->
   <Analytics />

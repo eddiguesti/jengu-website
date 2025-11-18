@@ -3,11 +3,15 @@
     "home": "Accueil",
     "about": "À Propos",
     "services": "Services",
+    "dynamicPricing": "Tarification Dynamique",
     "caseStudies": "Études de Cas",
+    "blog": "Blog",
     "faq": "FAQ",
     "team": "Équipe",
     "contact": "Contact",
-    "calculateROI": "Calculer le ROI"
+    "calculateROI": "Calculer le ROI",
+    "freeConsultation": "Consultation Gratuite",
+    "getConsultation": "Obtenez une Consultation Gratuite"
   },
   "footer": {
     "company": "Entreprise",

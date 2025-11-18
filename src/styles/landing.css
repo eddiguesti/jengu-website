@@ -276,9 +276,9 @@
     nav.scrolled {
       padding: 0.75rem 0;
       box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
-      background: rgba(0, 0, 0, 0.98);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(15, 23, 42, 0.98));
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(99, 102, 241, 0.25);
     }
 
     .nav-container {
@@ -326,7 +326,7 @@
     }
 
     .nav-links a.active {
-      color: var(--primary-cta);
+      color: #818cf8;
     }
 
     .nav-links a::after {
@@ -336,7 +336,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--primary-cta);
+      background: linear-gradient(90deg, #6366f1, #818cf8);
       transition: width 0.3s ease;
     }
 
@@ -352,20 +352,22 @@
     }
 
     .nav-cta {
-      background: var(--primary-cta);
+      background: linear-gradient(135deg, #6366f1, #818cf8);
       color: white;
       padding: 0.75rem 2rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+      border: 1px solid rgba(129, 140, 248, 0.4);
     }
 
     .nav-cta:hover {
-      background: var(--primary-cta-hover);
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
       transform: translateY(-2px);
-      box-shadow: 0 6px 25px rgba(249, 115, 22, 0.4);
+      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.7);
+      border-color: rgba(129, 140, 248, 0.6);
     }
 
     /* Nav right section */
@@ -373,6 +375,68 @@
       display: flex;
       align-items: center;
       gap: 1rem;
+    }
+
+    /* Free Consultation CTA in navbar */
+    .nav-consultation-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      color: white;
+      padding: 0.625rem 1.25rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: 'Figtree', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      border: 1px solid rgba(129, 140, 248, 0.3);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-consultation-cta i {
+      font-size: 0.9rem;
+    }
+
+    .nav-consultation-cta:hover {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+      border-color: rgba(129, 140, 248, 0.5);
+    }
+
+    /* Hide consultation CTA on smaller screens */
+    @media (max-width: 768px) {
+      .nav-consultation-cta {
+        display: none;
+      }
+    }
+
+    /* Calendly widget styling - prevent flash */
+    .calendly-overlay {
+      background: rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .calendly-popup-content {
+      background: #0a0e1a !important;
+    }
+
+    /* Smooth fade-in for Calendly popup */
+    .calendly-overlay,
+    .calendly-popup-content {
+      animation: calendlyFadeIn 0.3s ease-in-out !important;
+    }
+
+    @keyframes calendlyFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
     /* ========== BURGER MENU & SIDEBAR - COMPLETELY NEW ========== */
@@ -612,6 +676,12 @@
       position: relative;
       overflow: hidden;
       padding-top: 80px;
+    }
+
+    /* Ensure pricing hero takes full viewport height on desktop */
+    .hero-pricing {
+      height: 100vh;
+      min-height: 100vh;
     }
 
     /* Animated gradient overlay */

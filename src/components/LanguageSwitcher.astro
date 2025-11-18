@@ -33,15 +33,15 @@ const esPath = '/es' + basePath;
     <span class="current-lang">{currentLocale.toUpperCase()}</span>
   </button>
   <div class="lang-dropdown" id="langDropdown">
-    <a href={enPath} class={currentLocale === 'en' ? 'lang-option active' : 'lang-option'}>
+    <a href={enPath} data-lang-switch="en" class={currentLocale === 'en' ? 'lang-option active' : 'lang-option'}>
       <span class="lang-flag">🇬🇧</span>
       <span>English</span>
     </a>
-    <a href={frPath} class={currentLocale === 'fr' ? 'lang-option active' : 'lang-option'}>
+    <a href={frPath} data-lang-switch="fr" class={currentLocale === 'fr' ? 'lang-option active' : 'lang-option'}>
       <span class="lang-flag">🇫🇷</span>
       <span>Français</span>
     </a>
-    <a href={esPath} class={currentLocale === 'es' ? 'lang-option active' : 'lang-option'}>
+    <a href={esPath} data-lang-switch="es" class={currentLocale === 'es' ? 'lang-option active' : 'lang-option'}>
       <span class="lang-flag">🇪🇸</span>
       <span>Español</span>
     </a>
