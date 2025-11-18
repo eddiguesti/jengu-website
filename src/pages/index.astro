@@ -989,13 +989,13 @@ const jsonLd = [
       }
     };
 
-    // Premium scroll-triggered reveal animation - Persistent Stack Mode
+    // Premium scroll-triggered reveal animation - Reverse Stack Mode
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-step');
       const flowConnectors = document.querySelectorAll('.flow-connector');
 
-      // Track permanently revealed elements (once revealed, stays revealed)
-      const permanentlyRevealed = new Set();
+      // Track which steps have been revealed on first load
+      const hasBeenRevealed = new Set();
 
       // More refined intersection observer settings
       const observerOptions = {
@@ -1006,31 +1006,36 @@ const jsonLd = [
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Scrolling into view - reveal with premium timing (only first time)
-            if (!permanentlyRevealed.has(entry.target)) {
-              permanentlyRevealed.add(entry.target);
+            // Scrolling into view
+            if (!hasBeenRevealed.has(entry.target)) {
+              // First time reveal - full animation with connectors
+              hasBeenRevealed.add(entry.target);
 
-              // Stagger the reveal for buttery smooth orchestration
               requestAnimationFrame(() => {
                 setTimeout(() => {
                   entry.target.classList.add('reveal');
-                  entry.target.classList.add('revealed-once'); // Mark as permanently revealed
 
-                  // Find the next flow connector after this step
+                  // Show connector only on first reveal
                   const nextConnector = entry.target.nextElementSibling;
                   if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                    // Connector animates after content animation completes
                     setTimeout(() => {
                       nextConnector.classList.add('draw');
-                    }, 900); // Connector starts 900ms after box begins
+                      // Mark connector as shown
+                      nextConnector.classList.add('has-animated');
+                    }, 900);
                   }
                 }, 150);
               });
+            } else {
+              // Re-entering viewport - just show (no animation)
+              entry.target.classList.add('reveal');
             }
           } else {
-            // When scrolling out of view
-            // Keep boxes visible but hide connectors for clean stacked look
-            if (permanentlyRevealed.has(entry.target)) {
+            // Scrolling out of view - reverse animation
+            if (hasBeenRevealed.has(entry.target)) {
+              entry.target.classList.remove('reveal');
+
+              // Hide connector permanently after first animation
               const nextConnector = entry.target.nextElementSibling;
               if (nextConnector && nextConnector.classList.contains('flow-connector')) {
                 nextConnector.classList.remove('draw');
