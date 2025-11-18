@@ -936,7 +936,7 @@
       border: 1px solid rgba(139, 92, 246, 0.2);
       border-radius: 20px;
       padding: 2rem 2.5rem;
-      margin-bottom: 5rem;
+      margin-bottom: 10px;
       position: relative;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -1041,7 +1041,7 @@
       position: relative;
       width: 2px;
       height: 100px;
-      margin: 0 auto 3rem auto;
+      margin: 0 auto 10px auto;
       opacity: 0;
       transform: scaleY(0);
       transform-origin: top;
