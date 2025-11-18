@@ -1262,7 +1262,9 @@
 
     .video-wrapper video {
       width: 100%;
-      height: auto;
+      height: 100%;
+      min-height: 600px;
+      object-fit: cover;
       display: block;
       vertical-align: bottom;
       border-radius: 0;
