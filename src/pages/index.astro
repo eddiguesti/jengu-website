@@ -1031,15 +1031,23 @@ const jsonLd = [
               entry.target.classList.add('reveal');
             }
           } else {
-            // Scrolling out of view - reverse animation
+            // Scrolling out of view - staggered reverse animation
             if (hasBeenRevealed.has(entry.target)) {
-              entry.target.classList.remove('reveal');
+              // Get the index of this step for staggered timing
+              const stepIndex = Array.from(processSteps).indexOf(entry.target);
 
-              // Hide connector permanently after first animation
-              const nextConnector = entry.target.nextElementSibling;
-              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                nextConnector.classList.remove('draw');
-              }
+              // Stagger the hide animation - first box hides immediately, others wait
+              const delay = stepIndex * 100; // 100ms between each box
+
+              setTimeout(() => {
+                entry.target.classList.remove('reveal');
+
+                // Hide connector permanently after first animation
+                const nextConnector = entry.target.nextElementSibling;
+                if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                  nextConnector.classList.remove('draw');
+                }
+              }, delay);
             }
           }
         });
