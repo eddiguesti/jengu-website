@@ -1238,6 +1238,8 @@
                   0 0 0 1px rgba(255, 255, 255, 0.05);
       background: var(--bg-card);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 0;
+      margin: 0;
     }
 
     .video-wrapper:hover {
@@ -1262,7 +1264,10 @@
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 12px;
+      vertical-align: bottom;
+      border-radius: 0;
+      margin: 0;
+      padding: 0;
     }
 
     /* Mobile responsive - FULLSCREEN VIDEO HERO */
