@@ -5,7 +5,6 @@ import Hreflang from '../seo/Hreflang.astro';
 import Analytics from '../seo/Analytics.astro';
 import OptimizedImage from '../OptimizedImage.astro';
 import LanguageSwitcher from '../LanguageSwitcher.astro';
-import BookingModal from '../BookingModal.astro';
 import { getLocaleFromUrl, getTranslations } from '../../i18n';
 import type { SEOConfig } from '../../lib/seo/metadata';
 import '../../styles/landing.css';
@@ -100,10 +99,10 @@ const t = getTranslations(currentLocale);
 
       <div class="nav-right">
         <!-- Free Consultation CTA -->
-        <button onclick="openBookingModal()" class="nav-consultation-cta">
+        <a href="https://calendly.com/jengu-meeting/30min" target="_blank" rel="noopener noreferrer" class="nav-consultation-cta">
           <i class="fas fa-calendar-check"></i>
           <span>{t.nav.freeConsultation}</span>
-        </button>
+        </a>
 
         <!-- Language Switcher -->
         <LanguageSwitcher />
@@ -252,9 +251,6 @@ const t = getTranslations(currentLocale);
       ></iframe>
     </div>
   </div>
-
-  <!-- Booking Modal -->
-  <BookingModal />
 
   <!-- Global JavaScript -->
   <script is:inline src="/scripts/main.js"></script>

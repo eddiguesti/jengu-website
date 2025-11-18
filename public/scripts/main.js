@@ -19,10 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebarOverlay = document.getElementById('sidebarOverlay');
   const sidebarClose = document.getElementById('sidebarClose');
 
-  console.log('Sidebar elements:', { burgerMenu, sidebar, sidebarOverlay, sidebarClose });
-
   function openSidebar() {
-    console.log('Opening sidebar');
     if (sidebar) sidebar.classList.add('active');
     if (sidebarOverlay) sidebarOverlay.classList.add('active');
     if (burgerMenu) burgerMenu.classList.add('active');
@@ -30,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeSidebar() {
-    console.log('Closing sidebar');
     if (sidebar) sidebar.classList.remove('active');
     if (sidebarOverlay) sidebarOverlay.classList.remove('active');
     if (burgerMenu) burgerMenu.classList.remove('active');
@@ -39,31 +35,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Event listeners for sidebar
   if (burgerMenu) {
-    console.log('Adding burger menu click listener');
     burgerMenu.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       openSidebar();
     });
-  } else {
-    console.error('Burger menu not found!');
   }
 
   if (sidebarClose) {
-    console.log('Adding close button click listener');
     sidebarClose.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
       closeSidebar();
     });
-  } else {
-    console.error('Sidebar close button not found!');
   }
 
   if (sidebarOverlay) {
     sidebarOverlay.addEventListener('click', closeSidebar);
-  } else {
-    console.error('Sidebar overlay not found!');
   }
 
   // Close sidebar when clicking a link
@@ -124,7 +112,7 @@ if (mobileVideo && window.innerWidth <= 1024) {
     const playPromise = mobileVideo.play();
     if (playPromise !== undefined) {
       playPromise.catch(error => {
-        console.log('Autoplay prevented, will play on user interaction:', error);
+        // Autoplay prevented, will play on user interaction
       });
     }
   };
@@ -198,37 +186,28 @@ document.querySelectorAll('.stat-card').forEach(card => {
 
 // Hybrid Calculator Handler - Modal on desktop, page on mobile
 function handleCalculatorClick(e) {
-  console.log('handleCalculatorClick called, window width:', window.innerWidth);
   if (e) e.preventDefault();
 
   // Mobile: redirect to dedicated page
   if (window.innerWidth <= 768) {
-    console.log('Mobile detected, redirecting to /calculator');
     window.location.href = '/calculator';
     return;
   }
 
   // Desktop: open modal
-  console.log('Desktop detected, opening modal');
   openCalculatorModal();
 }
 
 // Calculator Modal Functions (Desktop only)
 function openCalculatorModal() {
-  console.log('openCalculatorModal called');
   const overlay = document.getElementById('calculatorModalOverlay');
-  console.log('Overlay element:', overlay);
   if (overlay) {
     // Set display first, then trigger animation
     overlay.style.display = 'flex';
-    console.log('Set display to flex');
     requestAnimationFrame(() => {
       overlay.classList.add('active');
       document.body.style.overflow = 'hidden';
-      console.log('Added active class and disabled scroll');
     });
-  } else {
-    console.error('Calculator modal overlay not found!');
   }
 }
 

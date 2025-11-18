@@ -814,8 +814,8 @@ const seo = generateSEO({
 
   .problem-card-creative {
     position: relative;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%);
-    border: 2px solid rgba(249, 115, 22, 0.2);
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.95) 0%, rgba(30, 41, 59, 0.9) 100%);
+    border: 2px solid rgba(139, 92, 246, 0.25);
     border-radius: 20px;
     padding: 2.5rem;
     overflow: hidden;
@@ -829,7 +829,7 @@ const seo = generateSEO({
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-cta), rgba(249, 115, 22, 0.5));
+    background: linear-gradient(90deg, rgba(139, 92, 246, 0.8), rgba(168, 85, 247, 0.6));
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -840,22 +840,22 @@ const seo = generateSEO({
   }
 
   .problem-card-creative:hover {
-    border-color: var(--primary-cta);
+    border-color: rgba(139, 92, 246, 0.5);
     transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(249, 115, 22, 0.3);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
   }
 
   /* Accent cards for emphasis */
   .problem-primary {
     grid-column: span 1;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 88, 12, 0.1) 100%);
-    border-color: rgba(249, 115, 22, 0.4);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(124, 58, 237, 0.1) 100%);
+    border-color: rgba(139, 92, 246, 0.4);
   }
 
   .problem-accent {
     grid-column: span 1;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.12) 0%, rgba(234, 88, 12, 0.08) 100%);
-    border-color: rgba(249, 115, 22, 0.35);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12) 0%, rgba(124, 58, 237, 0.08) 100%);
+    border-color: rgba(139, 92, 246, 0.35);
   }
 
   .problem-number {
@@ -864,7 +864,7 @@ const seo = generateSEO({
     right: 1.5rem;
     font-size: 4rem;
     font-weight: 900;
-    color: rgba(249, 115, 22, 0.1);
+    color: rgba(139, 92, 246, 0.12);
     line-height: 1;
     font-family: 'Inter', sans-serif;
   }
@@ -872,8 +872,8 @@ const seo = generateSEO({
   .problem-icon-creative {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.15));
-    border: 3px solid rgba(249, 115, 22, 0.4);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(124, 58, 237, 0.15));
+    border: 3px solid rgba(139, 92, 246, 0.4);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -883,14 +883,14 @@ const seo = generateSEO({
   }
 
   .problem-card-creative:hover .problem-icon-creative {
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.25));
-    border-color: var(--primary-cta);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.25));
+    border-color: rgba(168, 85, 247, 0.6);
     transform: scale(1.05) rotate(-5deg);
   }
 
   .problem-icon-creative i {
     font-size: 2.5rem;
-    color: var(--primary-cta);
+    color: #a855f7;
   }
 
   .problem-card-creative h3 {
@@ -912,17 +912,17 @@ const seo = generateSEO({
   }
 
   .problem-card-creative .highlight {
-    color: var(--primary-cta);
+    color: #a855f7;
     font-weight: 700;
-    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), transparent);
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), transparent);
     padding: 0.15rem 0.4rem;
     border-radius: 4px;
   }
 
   .problem-card-creative .highlight-negative {
-    color: #ef4444;
+    color: #f87171;
     font-weight: 700;
-    background: rgba(239, 68, 68, 0.1);
+    background: rgba(248, 113, 113, 0.15);
     padding: 0.15rem 0.4rem;
     border-radius: 4px;
   }
@@ -930,7 +930,7 @@ const seo = generateSEO({
   .problem-impact {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(249, 115, 22, 0.2);
+    border-top: 1px solid rgba(139, 92, 246, 0.25);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -947,7 +947,7 @@ const seo = generateSEO({
   .impact-value {
     font-size: 1.5rem;
     font-weight: 900;
-    background: linear-gradient(135deg, var(--primary-cta), #ef4444);
+    background: linear-gradient(135deg, #a855f7, #f87171);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
