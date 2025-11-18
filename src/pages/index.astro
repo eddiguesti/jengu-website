@@ -1008,71 +1008,38 @@ const jsonLd = [
           if (entry.isIntersecting) {
             // Scrolling into view
             if (!hasBeenRevealed.has(entry.target)) {
-              // First time reveal - full animation with connectors
+              // First time reveal - with connectors
               hasBeenRevealed.add(entry.target);
 
-              requestAnimationFrame(() => {
-                setTimeout(() => {
-                  entry.target.classList.add('reveal');
+              entry.target.classList.add('reveal');
 
-                  // Show connector only on first reveal
-                  const nextConnector = entry.target.nextElementSibling;
-                  if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                    setTimeout(() => {
-                      nextConnector.classList.add('draw');
-                      // Mark connector as shown
-                      nextConnector.classList.add('has-animated');
-                    }, 900);
-                  }
-                }, 150);
-              });
+              // Show connector only on first reveal
+              const nextConnector = entry.target.nextElementSibling;
+              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                setTimeout(() => {
+                  nextConnector.classList.add('draw');
+                }, 400);
+              }
             } else {
-              // Re-entering viewport - just show (no animation)
+              // Re-entering viewport - just show
               entry.target.classList.add('reveal');
             }
           } else {
-            // Scrolling out of view - staggered reverse animation
+            // Scrolling out of view - hide immediately
             if (hasBeenRevealed.has(entry.target)) {
-              // Get the index of this step for staggered timing
-              const stepIndex = Array.from(processSteps).indexOf(entry.target);
+              entry.target.classList.remove('reveal');
 
-              // Stagger the hide animation - first box hides immediately, others wait
-              const delay = stepIndex * 100; // 100ms between each box
-
-              setTimeout(() => {
-                entry.target.classList.remove('reveal');
-
-                // Hide connector permanently after first animation
-                const nextConnector = entry.target.nextElementSibling;
-                if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                  nextConnector.classList.remove('draw');
-                }
-              }, delay);
+              // Hide connector
+              const nextConnector = entry.target.nextElementSibling;
+              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                nextConnector.classList.remove('draw');
+              }
             }
           }
         });
       }, observerOptions);
 
       processSteps.forEach(step => observer.observe(step));
-
-      // Add subtle parallax effect on scroll for extra polish
-      let ticking = false;
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            const scrolled = window.pageYOffset;
-            processSteps.forEach((step, index) => {
-              if (step.classList.contains('reveal')) {
-                const speed = 0.05 * (index + 1);
-                const yPos = -(scrolled * speed);
-                step.style.transform = `translateY(${Math.max(yPos, -30)}px) scale(1)`;
-              }
-            });
-            ticking = false;
-          });
-          ticking = true;
-        }
-      });
     });
   </script>
 </BaseLayout>
