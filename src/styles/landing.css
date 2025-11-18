@@ -3817,15 +3817,6 @@
     }
 
     .process-step::after {
-      content: '→';
-      position: absolute;
-      top: 40px;
-      right: -2rem;
-      font-size: 2rem;
-      color: var(--border-medium);
-    }
-
-    .process-step:last-child::after {
       display: none;
     }
 
