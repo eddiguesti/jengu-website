@@ -44,5 +44,106 @@
     "learnMore": "En Savoir Plus →",
     "getInTouch": "Contactez-nous",
     "contactUs": "Nous Contacter"
+  },
+  "booking": {
+    "title": "Planifier un appel",
+    "duration": "30 MIN • VISIOCONFÉRENCE",
+    "subtitle": "Choisissez une date et une heure qui vous convient. Tous les horaires sont affichés dans votre fuseau horaire local.",
+    "step1": "Choisir la date",
+    "step2": "Choisir l'heure",
+    "step3": "Confirmer",
+    "availability": "Disponibilité",
+    "weekdays": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam",
+      "sun": "Dim"
+    },
+    "weekdaysFull": {
+      "sunday": "Dimanche",
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi"
+    },
+    "months": {
+      "january": "Janvier",
+      "february": "Février",
+      "march": "Mars",
+      "april": "Avril",
+      "may": "Mai",
+      "june": "Juin",
+      "july": "Juillet",
+      "august": "Août",
+      "september": "Septembre",
+      "october": "Octobre",
+      "november": "Novembre",
+      "december": "Décembre"
+    },
+    "legend": {
+      "selected": "Sélectionné",
+      "available": "Disponible"
+    },
+    "noDateSelected": "Aucune date sélectionnée",
+    "selectedPrefix": "Sélectionné : ",
+    "availableSlots": "Créneaux disponibles",
+    "approxDuration": "Environ 30 minutes",
+    "timezone": "Fuseau horaire",
+    "timezones": {
+      "local": "Heure locale (auto)",
+      "madrid": "Europe/Madrid",
+      "london": "Europe/Londres",
+      "newYork": "Amérique/New York",
+      "losAngeles": "Amérique/Los Angeles"
+    },
+    "yourSelection": "Votre Sélection",
+    "status": {
+      "tentative": "Provisoire",
+      "awaitingTime": "En attente de l'heure",
+      "readyToConfirm": "Prêt à confirmer"
+    },
+    "chooseDateAndTime": "Choisir une date et une heure",
+    "videoMeetingDuration": "Visioconférence de 30 minutes",
+    "calendarInviteMessage": "Vous recevrez l'invitation du calendrier et le lien de réunion après confirmation",
+    "yourDetails": "Vos informations",
+    "form": {
+      "name": "Votre nom",
+      "company": "Nom de l'entreprise (facultatif)",
+      "email": "Adresse e-mail",
+      "phone": "Numéro de téléphone (facultatif)",
+      "contactMethodLabel": "Comment souhaitez-vous être contacté ?",
+      "extraInfoLabel": "Y a-t-il quelque chose que nous devrions savoir avant la réunion ? (facultatif)",
+      "extraInfoPlaceholder": "Partagez vos objectifs, sujets, liens ou contexte qui rendront l'appel plus utile."
+    },
+    "contactMethods": {
+      "zoom": "Zoom",
+      "googleMeet": "Google Meet",
+      "teams": "Teams",
+      "phone": "Téléphone",
+      "other": "Autre"
+    },
+    "buttons": {
+      "reset": "Réinitialiser",
+      "confirm": "Confirmer la réservation"
+    },
+    "messages": {
+      "selectBoth": "Veuillez choisir une date et un créneau horaire.",
+      "fillRequired": "Veuillez ajouter votre nom, e-mail et méthode de contact préférée pour confirmer.",
+      "creating": "Création de votre événement de calendrier…",
+      "confirmationPrefix": "Réservation confirmée pour le ",
+      "confirmationAt": " à ",
+      "confirmationVia": " via ",
+      "confirmationEmail": ". Nous enverrons un e-mail à ",
+      "confirmationDetails": " avec les détails.",
+      "errorSave": "Nous n'avons pas pu enregistrer cela dans le calendrier. Veuillez réessayer ou contacter le support.",
+      "errorCreate": "Échec de la création de l'événement de calendrier.",
+      "awaitingTimeSelection": "Maintenant, choisissez un créneau horaire à droite pour compléter votre réservation.",
+      "scheduledInTimezone": "Votre réunion sera programmée en "
+    }
   }
 }

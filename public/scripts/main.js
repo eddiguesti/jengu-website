@@ -242,8 +242,8 @@ document.addEventListener('click', function(e) {
   if (featureOverlay && e.target === featureOverlay) {
     closeFeatureModal();
   }
-  if (bookingOverlay && e.target === bookingOverlay) {
-    closeBookingModal();
+  if (bookingOverlay && e.target === bookingOverlay && window.closeBookingModal) {
+    window.closeBookingModal();
   }
 });
 
@@ -260,7 +260,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeCalculatorModal();
     closeFeatureModal();
-    closeBookingModal();
+    if (window.closeBookingModal) window.closeBookingModal();
   }
 });
 
@@ -319,30 +319,4 @@ function closeFeatureModal() {
 window.openFeatureModal = openFeatureModal;
 window.closeFeatureModal = closeFeatureModal;
 
-// Booking Modal Functions
-function openBookingModal() {
-  const overlay = document.getElementById('bookingModalOverlay');
-  if (overlay) {
-    overlay.style.display = 'flex';
-    requestAnimationFrame(() => {
-      overlay.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    });
-  }
-}
-
-function closeBookingModal() {
-  const overlay = document.getElementById('bookingModalOverlay');
-  if (overlay) {
-    overlay.classList.remove('active');
-    setTimeout(() => {
-      if (!overlay.classList.contains('active')) {
-        overlay.style.display = 'none';
-      }
-    }, 400);
-    document.body.style.overflow = 'auto';
-  }
-}
-
-window.openBookingModal = openBookingModal;
-window.closeBookingModal = closeBookingModal;
+// Booking Modal Functions are defined in BookingModal.astro component

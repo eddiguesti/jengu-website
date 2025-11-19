@@ -3,11 +3,15 @@
     "home": "Inicio",
     "about": "Acerca de",
     "services": "Servicios",
+    "dynamicPricing": "Precios Dinámicos",
     "caseStudies": "Casos de Éxito",
+    "blog": "Blog",
     "faq": "Preguntas Frecuentes",
     "team": "Equipo",
     "contact": "Contacto",
-    "calculateROI": "Calcular ROI"
+    "calculateROI": "Calcular ROI",
+    "freeConsultation": "Consulta Gratuita",
+    "getConsultation": "Obtener Consulta Gratuita"
   },
   "footer": {
     "company": "Empresa",
@@ -40,5 +44,106 @@
     "learnMore": "Saber Más →",
     "getInTouch": "Contáctenos",
     "contactUs": "Contáctenos"
+  },
+  "booking": {
+    "title": "Programar una llamada",
+    "duration": "30 MIN • VIDEOLLAMADA",
+    "subtitle": "Elija una fecha y hora que le convenga. Todos los horarios se muestran en su zona horaria local.",
+    "step1": "Elegir fecha",
+    "step2": "Elegir hora",
+    "step3": "Confirmar",
+    "availability": "Disponibilidad",
+    "weekdays": {
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mié",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sáb",
+      "sun": "Dom"
+    },
+    "weekdaysFull": {
+      "sunday": "Domingo",
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado"
+    },
+    "months": {
+      "january": "Enero",
+      "february": "Febrero",
+      "march": "Marzo",
+      "april": "Abril",
+      "may": "Mayo",
+      "june": "Junio",
+      "july": "Julio",
+      "august": "Agosto",
+      "september": "Septiembre",
+      "october": "Octubre",
+      "november": "Noviembre",
+      "december": "Diciembre"
+    },
+    "legend": {
+      "selected": "Seleccionado",
+      "available": "Disponible"
+    },
+    "noDateSelected": "Ninguna fecha seleccionada",
+    "selectedPrefix": "Seleccionado: ",
+    "availableSlots": "Horarios disponibles",
+    "approxDuration": "Aprox. 30 minutos",
+    "timezone": "Zona horaria",
+    "timezones": {
+      "local": "Hora local (auto)",
+      "madrid": "Europa/Madrid",
+      "london": "Europa/Londres",
+      "newYork": "América/Nueva York",
+      "losAngeles": "América/Los Ángeles"
+    },
+    "yourSelection": "Su Selección",
+    "status": {
+      "tentative": "Tentativo",
+      "awaitingTime": "Esperando hora",
+      "readyToConfirm": "Listo para confirmar"
+    },
+    "chooseDateAndTime": "Elija una fecha y hora",
+    "videoMeetingDuration": "Videollamada de 30 minutos",
+    "calendarInviteMessage": "Recibirá la invitación del calendario y el enlace de la reunión después de confirmar",
+    "yourDetails": "Sus datos",
+    "form": {
+      "name": "Su nombre",
+      "company": "Nombre de la empresa (opcional)",
+      "email": "Dirección de correo electrónico",
+      "phone": "Número de teléfono (opcional)",
+      "contactMethodLabel": "¿Cómo desea que lo contacten?",
+      "extraInfoLabel": "¿Hay algo que debamos saber antes de la reunión? (opcional)",
+      "extraInfoPlaceholder": "Comparta objetivos, temas, enlaces o contexto que ayuden a que la llamada sea más útil."
+    },
+    "contactMethods": {
+      "zoom": "Zoom",
+      "googleMeet": "Google Meet",
+      "teams": "Teams",
+      "phone": "Teléfono",
+      "other": "Otro"
+    },
+    "buttons": {
+      "reset": "Restablecer",
+      "confirm": "Confirmar reserva"
+    },
+    "messages": {
+      "selectBoth": "Por favor, elija una fecha y un horario.",
+      "fillRequired": "Por favor, agregue su nombre, correo electrónico y método de contacto preferido para confirmar.",
+      "creating": "Creando su evento de calendario…",
+      "confirmationPrefix": "Reserva confirmada para el ",
+      "confirmationAt": " a las ",
+      "confirmationVia": " vía ",
+      "confirmationEmail": ". Le enviaremos un correo electrónico a ",
+      "confirmationDetails": " con los detalles.",
+      "errorSave": "No pudimos guardar esto en el calendario. Por favor, inténtelo de nuevo o contacte al soporte.",
+      "errorCreate": "Error al crear el evento de calendario.",
+      "awaitingTimeSelection": "Ahora elija un horario a la derecha para completar su reserva.",
+      "scheduledInTimezone": "Su reunión se programará en "
+    }
   }
 }

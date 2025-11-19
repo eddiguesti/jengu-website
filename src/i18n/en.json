@@ -44,5 +44,106 @@
     "learnMore": "Learn More →",
     "getInTouch": "Get in Touch",
     "contactUs": "Contact Us"
+  },
+  "booking": {
+    "title": "Schedule a call",
+    "duration": "30 MIN • VIDEO MEETING",
+    "subtitle": "Pick a date & time that works for you. All times are shown in your local timezone.",
+    "step1": "Choose date",
+    "step2": "Choose time",
+    "step3": "Confirm",
+    "availability": "Availability",
+    "weekdays": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+    "weekdaysFull": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "legend": {
+      "selected": "Selected",
+      "available": "Available"
+    },
+    "noDateSelected": "No date selected",
+    "selectedPrefix": "Selected: ",
+    "availableSlots": "Available time slots",
+    "approxDuration": "Approx. 30 minutes",
+    "timezone": "Timezone",
+    "timezones": {
+      "local": "Local time (auto)",
+      "madrid": "Europe/Madrid",
+      "london": "Europe/London",
+      "newYork": "America/New_York",
+      "losAngeles": "America/Los_Angeles"
+    },
+    "yourSelection": "Your Selection",
+    "status": {
+      "tentative": "Tentative",
+      "awaitingTime": "Awaiting time",
+      "readyToConfirm": "Ready to confirm"
+    },
+    "chooseDateAndTime": "Choose a date & time",
+    "videoMeetingDuration": "30-minute video meeting",
+    "calendarInviteMessage": "You'll receive the calendar invite & meeting link after confirming",
+    "yourDetails": "Your details",
+    "form": {
+      "name": "Your name",
+      "company": "Company name (optional)",
+      "email": "Email address",
+      "phone": "Phone number (optional)",
+      "contactMethodLabel": "How do you want to be contacted?",
+      "extraInfoLabel": "Anything we should know before the meeting? (optional)",
+      "extraInfoPlaceholder": "Share goals, topics, links or context that will help make the call more useful."
+    },
+    "contactMethods": {
+      "zoom": "Zoom",
+      "googleMeet": "Google Meet",
+      "teams": "Teams",
+      "phone": "Phone",
+      "other": "Other"
+    },
+    "buttons": {
+      "reset": "Reset",
+      "confirm": "Confirm booking"
+    },
+    "messages": {
+      "selectBoth": "Please choose both a date and a time slot.",
+      "fillRequired": "Please add your name, email and preferred contact method to confirm.",
+      "creating": "Creating your calendar event…",
+      "confirmationPrefix": "Booking confirmed for ",
+      "confirmationAt": " at ",
+      "confirmationVia": " via ",
+      "confirmationEmail": ". We'll email ",
+      "confirmationDetails": " with the details.",
+      "errorSave": "We couldn't save this to the calendar. Please try again or contact support.",
+      "errorCreate": "Failed to create calendar event.",
+      "awaitingTimeSelection": "Now choose a time slot on the right to complete your booking.",
+      "scheduledInTimezone": "Your meeting will be scheduled in "
+    }
   }
 }

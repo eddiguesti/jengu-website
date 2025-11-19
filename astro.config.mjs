@@ -64,10 +64,10 @@ export default defineConfig({
       }
     }
   },
-  // Image optimization settings
+  // Image optimization settings - use noop for Cloudflare
   image: {
     service: {
-      entrypoint: 'astro/assets/services/sharp'
+      entrypoint: 'astro/assets/services/noop'
     },
     remotePatterns: [{
       protocol: 'https'

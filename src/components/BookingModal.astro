@@ -1,5 +1,10 @@
 ---
 // BookingModal - Beautiful calendar booking widget with Microsoft Graph integration
+import { getLocaleFromUrl, getTranslations } from '../i18n';
+
+const currentPath = Astro.url.pathname;
+const currentLocale = getLocaleFromUrl(currentPath);
+const t = getTranslations(currentLocale);
 ---
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -19,27 +24,27 @@
           <div class="booking-header">
             <div class="booking-title-group">
               <div class="booking-title">
-                Schedule a call
+                {t.booking.title}
               </div>
               <div class="booking-title-pill">
                 <span class="booking-title-pill-dot"></span>
-                30 MIN • VIDEO MEETING
+                {t.booking.duration}
               </div>
               <div class="booking-subtitle">
-                Pick a date &amp; time that works for you. All times are shown in your local timezone.
+                {t.booking.subtitle}
               </div>
             </div>
             <div class="booking-steps">
-              <div class="step-chip step-chip--active"><span>1</span>Choose date</div>
-              <div class="step-chip"><span>2</span>Choose time</div>
-              <div class="step-chip"><span>3</span>Confirm</div>
+              <div class="step-chip step-chip--active"><span>1</span>{t.booking.step1}</div>
+              <div class="step-chip"><span>2</span>{t.booking.step2}</div>
+              <div class="step-chip"><span>3</span>{t.booking.step3}</div>
             </div>
           </div>
 
           <div class="calendar-card">
             <div class="calendar-header">
               <div class="calendar-current">
-                <span>Availability</span>
+                <span>{t.booking.availability}</span>
                 <span id="calendarMonthLabel">Month 2025</span>
               </div>
               <div class="calendar-nav">
@@ -59,13 +64,13 @@
             </div>
 
             <div class="calendar-weekdays">
-              <span>Mon</span>
-              <span>Tue</span>
-              <span>Wed</span>
-              <span>Thu</span>
-              <span>Fri</span>
-              <span>Sat</span>
-              <span>Sun</span>
+              <span>{t.booking.weekdays.mon}</span>
+              <span>{t.booking.weekdays.tue}</span>
+              <span>{t.booking.weekdays.wed}</span>
+              <span>{t.booking.weekdays.thu}</span>
+              <span>{t.booking.weekdays.fri}</span>
+              <span>{t.booking.weekdays.sat}</span>
+              <span>{t.booking.weekdays.sun}</span>
             </div>
             <div class="calendar-grid" id="calendarGrid">
               <!-- days injected by JS -->
@@ -75,15 +80,15 @@
               <div class="calendar-footer-legend">
                 <span class="legend-pill">
                   <span class="legend-dot legend-dot--selected"></span>
-                  Selected
+                  {t.booking.legend.selected}
                 </span>
                 <span class="legend-pill">
                   <span class="legend-dot"></span>
-                  Available
+                  {t.booking.legend.available}
                 </span>
               </div>
               <div class="calendar-footer-date">
-                <span id="selectedDateLabel">No date selected</span>
+                <span id="selectedDateLabel">{t.booking.noDateSelected}</span>
               </div>
             </div>
           </div>
@@ -91,9 +96,9 @@
           <!-- Time slots under calendar -->
           <div class="slots-card">
             <div class="slots-header">
-              <span>Available time slots</span>
+              <span>{t.booking.availableSlots}</span>
               <span class="slots-duration">
-                Approx. 30 minutes
+                {t.booking.approxDuration}
               </span>
             </div>
             <div class="slots-scroll" id="slotsContainer">
@@ -106,15 +111,15 @@
         <div class="booking-right">
           <div class="timezone-row">
             <div class="timezone-label">
-              Timezone
+              {t.booking.timezone}
             </div>
             <div class="timezone-select-wrap">
               <select class="timezone-select" id="timezoneSelect">
-                <option value="local">Local time (auto)</option>
-                <option value="Europe/Madrid">Europe/Madrid</option>
-                <option value="Europe/London">Europe/London</option>
-                <option value="America/New_York">America/New_York</option>
-                <option value="America/Los_Angeles">America/Los_Angeles</option>
+                <option value="local">{t.booking.timezones.local}</option>
+                <option value="Europe/Madrid">{t.booking.timezones.madrid}</option>
+                <option value="Europe/London">{t.booking.timezones.london}</option>
+                <option value="America/New_York">{t.booking.timezones.newYork}</option>
+                <option value="America/Los_Angeles">{t.booking.timezones.losAngeles}</option>
               </select>
             </div>
           </div>
@@ -125,11 +130,11 @@
               <div class="summary-header">
                 <div class="summary-label">
                   <i class="fas fa-calendar-check"></i>
-                  Your Selection
+                  {t.booking.yourSelection}
                 </div>
                 <div class="summary-status" id="summaryStatus">
                   <span class="summary-status-dot"></span>
-                  Tentative
+                  {t.booking.status.tentative}
                 </div>
               </div>
 
@@ -140,10 +145,10 @@
                 </div>
                 <div class="selection-details">
                   <div class="summary-value" id="summaryMain">
-                    Choose a date &amp; time
+                    {t.booking.chooseDateAndTime}
                   </div>
                   <div class="summary-secondary" id="summarySecondary">
-                    30-minute video meeting
+                    {t.booking.videoMeetingDuration}
                   </div>
                 </div>
               </div>
@@ -151,64 +156,64 @@
               <!-- Meeting Info -->
               <div class="meeting-info">
                 <i class="fas fa-info-circle"></i>
-                <span>You'll receive the calendar invite &amp; meeting link after confirming</span>
+                <span>{t.booking.calendarInviteMessage}</span>
               </div>
 
               <div class="booking-form-divider"></div>
 
               <div class="booking-form-label booking-form-label--main">
                 <i class="fas fa-user"></i>
-                Your details
+                {t.booking.yourDetails}
               </div>
               <div class="booking-form">
                 <div class="booking-form-row">
-                  <input type="text" id="userName" class="booking-input" placeholder="Your name" />
-                  <input type="text" id="companyName" class="booking-input" placeholder="Company name (optional)" />
+                  <input type="text" id="userName" class="booking-input" placeholder={t.booking.form.name} />
+                  <input type="text" id="companyName" class="booking-input" placeholder={t.booking.form.company} />
                 </div>
                 <div class="booking-form-row">
-                  <input type="email" id="userEmail" class="booking-input" placeholder="Email address" />
-                  <input type="tel" id="userPhone" class="booking-input" placeholder="Phone number (optional)" />
+                  <input type="email" id="userEmail" class="booking-input" placeholder={t.booking.form.email} />
+                  <input type="tel" id="userPhone" class="booking-input" placeholder={t.booking.form.phone} />
                 </div>
                 <div class="booking-form-row">
                   <div class="contact-method-container">
-                    <div class="booking-form-label">How do you want to be contacted?</div>
+                    <div class="booking-form-label">{t.booking.form.contactMethodLabel}</div>
                     <div class="contact-method-group" id="contactMethodGroup">
                       <button type="button" class="contact-method-chip" data-method="Zoom">
                         <span class="contact-method-icon">Z</span>
-                        <span>Zoom</span>
+                        <span>{t.booking.contactMethods.zoom}</span>
                       </button>
                       <button type="button" class="contact-method-chip" data-method="Google Meet">
                         <span class="contact-method-icon">GM</span>
-                        <span>Google Meet</span>
+                        <span>{t.booking.contactMethods.googleMeet}</span>
                       </button>
                       <button type="button" class="contact-method-chip" data-method="Microsoft Teams">
                         <span class="contact-method-icon">T</span>
-                        <span>Teams</span>
+                        <span>{t.booking.contactMethods.teams}</span>
                       </button>
                       <button type="button" class="contact-method-chip" data-method="Phone call">
                         <span class="contact-method-icon">P</span>
-                        <span>Phone</span>
+                        <span>{t.booking.contactMethods.phone}</span>
                       </button>
                       <button type="button" class="contact-method-chip" data-method="Other">
                         <span class="contact-method-icon">⋯</span>
-                        <span>Other</span>
+                        <span>{t.booking.contactMethods.other}</span>
                       </button>
                     </div>
                     <input type="hidden" id="contactMethod" />
                   </div>
                 </div>
                 <div>
-                  <div class="booking-form-label">Anything we should know before the meeting? (optional)</div>
-                  <textarea id="extraInfo" class="booking-textarea" placeholder="Share goals, topics, links or context that will help make the call more useful."></textarea>
+                  <div class="booking-form-label">{t.booking.form.extraInfoLabel}</div>
+                  <textarea id="extraInfo" class="booking-textarea" placeholder={t.booking.form.extraInfoPlaceholder}></textarea>
                 </div>
               </div>
 
               <div class="summary-actions">
                 <button type="button" class="btn btn-secondary" id="clearBtn">
-                  Reset
+                  {t.booking.buttons.reset}
                 </button>
                 <button type="button" class="btn btn-primary" id="confirmBtn" disabled>
-                  Confirm booking
+                  {t.booking.buttons.confirm}
                 </button>
               </div>
 
@@ -220,6 +225,11 @@
     </div>
   </div>
 </div>
+
+<script is:inline define:vars={{ translations: t.booking }}>
+  // Make translations available globally for the booking modal
+  window.bookingTranslations = translations;
+</script>
 
 <style is:global>
   :root {
@@ -1514,12 +1524,12 @@
 </style>
 
 <script is:inline>
-  // Initialize booking modal on DOM ready
-  document.addEventListener('DOMContentLoaded', function() {
-    initBookingModal();
-  });
+  // Lazy initialization - only initialize when modal is first opened
+  let bookingModalInitialized = false;
 
   function initBookingModal() {
+    if (bookingModalInitialized) return;
+    bookingModalInitialized = true;
     const calendarGrid = document.getElementById("calendarGrid");
     const monthLabel = document.getElementById("calendarMonthLabel");
     const selectedDateLabel = document.getElementById("selectedDateLabel");
@@ -1565,10 +1575,31 @@
     let selectedDate = null; // YYYY-MM-DD
     let selectedTime = null; // "HH:MM"
 
-    const weekdayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    // Get translations from window object
+    const t = window.bookingTranslations || {};
+
+    const weekdayNames = [
+      t.weekdaysFull?.sunday || "Sunday",
+      t.weekdaysFull?.monday || "Monday",
+      t.weekdaysFull?.tuesday || "Tuesday",
+      t.weekdaysFull?.wednesday || "Wednesday",
+      t.weekdaysFull?.thursday || "Thursday",
+      t.weekdaysFull?.friday || "Friday",
+      t.weekdaysFull?.saturday || "Saturday"
+    ];
     const monthNames = [
-      "January","February","March","April","May","June",
-      "July","August","September","October","November","December"
+      t.months?.january || "January",
+      t.months?.february || "February",
+      t.months?.march || "March",
+      t.months?.april || "April",
+      t.months?.may || "May",
+      t.months?.june || "June",
+      t.months?.july || "July",
+      t.months?.august || "August",
+      t.months?.september || "September",
+      t.months?.october || "October",
+      t.months?.november || "November",
+      t.months?.december || "December"
     ];
 
     // Example time slots (feel free to customize)
@@ -1706,14 +1737,14 @@
       const hasTime = !!selectedTime;
 
       selectedDateLabel.textContent = hasDate
-        ? "Selected: " + formatReadableDate(selectedDate)
-        : "No date selected";
+        ? (t.selectedPrefix || "Selected: ") + formatReadableDate(selectedDate)
+        : (t.noDateSelected || "No date selected");
 
       if (!hasDate && !hasTime) {
-        summaryMain.textContent = "Choose a date & time";
-        summarySecondary.textContent =
+        summaryMain.textContent = t.chooseDateAndTime || "Choose a date & time";
+        summarySecondary.textContent = t.calendarInviteMessage ||
           "You'll receive the calendar invite & meeting link right after confirming.";
-        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>Tentative';
+        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>' + (t.status?.tentative || "Tentative");
         confirmBtn.disabled = true;
         summaryMessage.textContent = "";
         summaryMessage.className = "summary-message";
@@ -1722,9 +1753,9 @@
 
       if (hasDate && !hasTime) {
         summaryMain.textContent = formatReadableDate(selectedDate);
-        summarySecondary.textContent =
+        summarySecondary.textContent = t.messages?.awaitingTimeSelection ||
           "Now choose a time slot on the right to complete your booking.";
-        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>Awaiting time';
+        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>' + (t.status?.awaitingTime || "Awaiting time");
         confirmBtn.disabled = true;
         summaryMessage.textContent = "";
         summaryMessage.className = "summary-message";
@@ -1734,8 +1765,8 @@
       if (hasDate && hasTime) {
         summaryMain.textContent = formatReadableDate(selectedDate) + " • " + selectedTime;
         const timezoneLabel = timezoneSelect.options[timezoneSelect.selectedIndex].textContent;
-        summarySecondary.textContent = "Your meeting will be scheduled in " + timezoneLabel + ".";
-        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>Ready to confirm';
+        summarySecondary.textContent = (t.messages?.scheduledInTimezone || "Your meeting will be scheduled in ") + timezoneLabel + ".";
+        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>' + (t.status?.readyToConfirm || "Ready to confirm");
         confirmBtn.disabled = false;
         summaryMessage.textContent = "";
         summaryMessage.className = "summary-message";
@@ -1795,7 +1826,7 @@
     if (confirmBtn) {
       confirmBtn.addEventListener("click", async function () {
       if (!selectedDate || !selectedTime) {
-        summaryMessage.textContent = "Please choose both a date and a time slot.";
+        summaryMessage.textContent = t.messages?.selectBoth || "Please choose both a date and a time slot.";
         summaryMessage.className = "summary-message summary-message--error";
         return;
       }
@@ -1808,7 +1839,7 @@
       const extraInfo = extraInfoInput.value.trim();
 
       if (!name || !email || !contactMethod) {
-        summaryMessage.textContent = "Please add your name, email and preferred contact method to confirm.";
+        summaryMessage.textContent = t.messages?.fillRequired || "Please add your name, email and preferred contact method to confirm.";
         summaryMessage.className = "summary-message summary-message--error";
         return;
       }
@@ -1827,12 +1858,7 @@
         extraInfo
       };
 
-      console.log('=== BOOKING SUBMISSION DEBUG ===');
-      console.log('Payload object:', payload);
-      console.log('Stringified payload:', JSON.stringify(payload));
-      console.log('Payload string length:', JSON.stringify(payload).length);
-
-      summaryMessage.textContent = "Creating your calendar event…";
+      summaryMessage.textContent = t.messages?.creating || "Creating your calendar event…";
       summaryMessage.className = "summary-message";
 
       try {
@@ -1841,36 +1867,30 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         };
-        console.log('Fetch options:', fetchOptions);
-        console.log('Fetch URL:', "/api/book");
 
         const res = await fetch("/api/book", fetchOptions);
-        console.log('Response status:', res.status);
-        console.log('Response headers:', res.headers);
 
         if (!res.ok) {
-          let errMsg = "Failed to create calendar event.";
+          let errMsg = t.messages?.errorCreate || "Failed to create calendar event.";
           try {
             const err = await res.json();
-            console.log('Error response:', err);
             if (err && err.error) errMsg = err.error;
           } catch (_) {}
           throw new Error(errMsg);
         }
 
         const data = await res.json();
-        console.log("Booking created in backend", data);
 
         summaryMessage.textContent =
-          "Booking confirmed for " +
+          (t.messages?.confirmationPrefix || "Booking confirmed for ") +
           formatReadableDate(selectedDate) +
-          " at " +
+          (t.messages?.confirmationAt || " at ") +
           selectedTime +
-          " via " +
+          (t.messages?.confirmationVia || " via ") +
           contactMethod +
-          ". We'll email " +
+          (t.messages?.confirmationEmail || ". We'll email ") +
           email +
-          " with the details.";
+          (t.messages?.confirmationDetails || " with the details.");
         summaryMessage.className = "summary-message summary-message--success";
 
         // Clear form and close modal after 3 seconds
@@ -1882,7 +1902,7 @@
         }, 2000);
       } catch (err) {
         console.error(err);
-        summaryMessage.textContent =
+        summaryMessage.textContent = t.messages?.errorSave ||
           "We couldn't save this to the calendar. Please try again or contact support.";
         summaryMessage.className = "summary-message summary-message--error";
       }
@@ -1904,38 +1924,20 @@
 
     // Auto-select today's date and time BEFORE rendering
     const todayStr = toISODate(today.getFullYear(), today.getMonth(), today.getDate());
-    console.log('Setting auto-selections:', { todayStr, time: "14:00" });
     selectedDate = todayStr;
     selectedTime = "14:00";
-    console.log('After setting:', { selectedDate, selectedTime });
 
     // Now render with selections already set
     renderCalendar();
     renderSlots();
     updateLabels();
-
-    console.log('Booking modal initialized. Final state:', { selectedDate, selectedTime });
-    console.log('Calendar elements with --selected class:', document.querySelectorAll('.calendar-day--selected').length);
-    console.log('Slot elements with --selected class:', document.querySelectorAll('.slot-btn--selected').length);
-
-    // Debug: Log all selected elements
-    const selectedDays = document.querySelectorAll('.calendar-day--selected');
-    const selectedSlots = document.querySelectorAll('.slot-btn--selected');
-    console.log('Selected calendar days:', selectedDays);
-    console.log('Selected slots:', selectedSlots);
-
-    if (selectedDays.length > 0) {
-      console.log('First selected day classes:', selectedDays[0].className);
-      console.log('First selected day computed style:', window.getComputedStyle(selectedDays[0]).animation);
-    }
-    if (selectedSlots.length > 0) {
-      console.log('First selected slot classes:', selectedSlots[0].className);
-      console.log('First selected slot computed style:', window.getComputedStyle(selectedSlots[0]).animation);
-    }
   }
 
   // Modal open/close functions - globally accessible
   window.openBookingModal = function() {
+    // Lazy initialize modal on first open
+    initBookingModal();
+
     const overlay = document.getElementById('bookingModalOverlay');
     if (overlay) {
       overlay.style.display = 'flex';
