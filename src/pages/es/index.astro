@@ -74,6 +74,31 @@ const jsonLd = [
           script.type = 'module';
           script.src = 'https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js';
           document.head.appendChild(script);
+
+          // Show Spline when it's actually loaded
+          script.onload = () => {
+            setTimeout(() => {
+              const container = document.querySelector('.spline-container');
+              const viewer = document.querySelector('spline-viewer');
+
+              if (viewer && container) {
+                // Check if canvas is ready
+                const checkCanvas = setInterval(() => {
+                  const canvas = viewer.shadowRoot?.querySelector('canvas');
+                  if (canvas && canvas.width > 0) {
+                    clearInterval(checkCanvas);
+                    container.classList.add('loaded');
+                  }
+                }, 100);
+
+                // Fallback: show after 3 seconds regardless
+                setTimeout(() => {
+                  container.classList.add('loaded');
+                  clearInterval(checkCanvas);
+                }, 3000);
+              }
+            }, 100);
+          };
         }
 
         if ('requestIdleCallback' in window) {

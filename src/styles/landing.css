@@ -895,6 +895,12 @@
       margin-left: -32%;
       pointer-events: auto;
       background: transparent;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .spline-container.loaded {
+      opacity: 1;
     }
 
     /* Desktop/Mobile Display Control */
