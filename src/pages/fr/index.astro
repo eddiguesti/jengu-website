@@ -45,7 +45,7 @@ const jsonLd = [
           <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
             <span>Consultation Gratuite</span>
           </button>
-          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
+          <a href="/fr/calculator/ai-agents-roi" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
             <span>Calculez Votre ROI</span>
           </a>
         </div>
@@ -128,7 +128,7 @@ const jsonLd = [
           <button onclick="openBookingModal()" class="mobile-hero-btn mobile-hero-btn-primary">
             Consultation Gratuite
           </button>
-          <a href="#" onclick="handleCalculatorClick(event)" class="mobile-hero-btn mobile-hero-btn-secondary">
+          <a href="/fr/calculator/ai-agents-roi" class="mobile-hero-btn mobile-hero-btn-secondary">
             Calculez Votre ROI
           </a>
         </div>
@@ -471,7 +471,7 @@ const jsonLd = [
       <p>
         Découvrez combien de temps et d'argent votre entreprise touristique pourrait économiser avec des agents IA et l'automatisation. Obtenez votre calcul de ROI personnalisé en 2 minutes—aucune inscription requise.
       </p>
-      <a href="#" onclick="openCalculatorModal(); return false;" class="cta-btn-large">
+      <a href="/fr/calculator/ai-agents-roi" class="cta-btn-large">
         <i class="fas fa-calculator"></i>
         Lancer le Calculateur
       </a>
@@ -736,20 +736,6 @@ const jsonLd = [
       }
     }
   </style>
-
-  <!-- Calculator Modal HTML -->
-  <div id="calculatorModalOverlay" class="calculator-modal-overlay" onclick="if(event.target === this) closeCalculatorModal()">
-    <div class="calculator-modal-content">
-      <button class="calculator-modal-close" onclick="closeCalculatorModal()">
-        <i class="fas fa-times"></i>
-      </button>
-      <iframe
-        src="/calculator-ai-agents-2025.html"
-        class="calculator-iframe"
-        title="AI ROI Calculator">
-      </iframe>
-    </div>
-  </div>
 
   <!-- Feature Modal System -->
   <div id="featureModalOverlay" class="feature-modal-overlay">
