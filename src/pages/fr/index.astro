@@ -59,10 +59,6 @@ const jsonLd = [
       <!-- Desktop only: Spline 3D Robot -->
       <div class="hero-visual desktop-only">
         <div class="spline-container" role="img" aria-label="Animation 3D de robot interactif">
-          <!-- Loading placeholder - shows until Spline loads -->
-          <div class="spline-loading-placeholder">
-            <img src="/images/robot-loading.png" alt="Robot IA" />
-          </div>
           <spline-viewer
             url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
             loading="lazy"
@@ -72,62 +68,15 @@ const jsonLd = [
 
       <!-- Deferred Spline Viewer Loading -->
       <script>
-        // Load Spline viewer immediately for seamless transition
+        // Load Spline viewer immediately
         function loadSplineViewer() {
           const script = document.createElement('script');
           script.type = 'module';
           script.src = 'https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js';
           document.head.appendChild(script);
-
-          // Hide placeholder once Spline loads - seamless fade
-          script.onload = function() {
-            const checkSplineLoaded = setInterval(() => {
-              const splineViewer = document.querySelector('spline-viewer');
-              const placeholder = document.querySelector('.spline-loading-placeholder');
-
-              if (splineViewer && placeholder) {
-                // Check if Spline has fully loaded by listening to the load event
-                splineViewer.addEventListener('load', function() {
-                  clearInterval(checkSplineLoaded);
-                  // Fade out placeholder smoothly
-                  placeholder.style.transition = 'opacity 0.15s ease-out';
-                  placeholder.style.opacity = '0';
-                  setTimeout(() => {
-                    placeholder.style.display = 'none';
-                  }, 150);
-                }, { once: true });
-
-                // Also check if it's already loaded (in case event already fired)
-                if (splineViewer.shadowRoot) {
-                  const canvas = splineViewer.shadowRoot.querySelector('canvas');
-                  if (canvas) {
-                    clearInterval(checkSplineLoaded);
-                    placeholder.style.transition = 'opacity 0.15s ease-out';
-                    placeholder.style.opacity = '0';
-                    setTimeout(() => {
-                      placeholder.style.display = 'none';
-                    }, 150);
-                  }
-                }
-              }
-            }, 100);
-
-            // Fallback: hide after 5 seconds regardless
-            setTimeout(() => {
-              clearInterval(checkSplineLoaded);
-              const placeholder = document.querySelector('.spline-loading-placeholder');
-              if (placeholder && placeholder.style.opacity !== '0') {
-                placeholder.style.transition = 'opacity 0.15s ease-out';
-                placeholder.style.opacity = '0';
-                setTimeout(() => {
-                  placeholder.style.display = 'none';
-                }, 150);
-              }
-            }, 5000);
-          };
         }
 
-        // Load immediately on DOM ready for seamless experience
+        // Load immediately on DOM ready
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', loadSplineViewer);
         } else {

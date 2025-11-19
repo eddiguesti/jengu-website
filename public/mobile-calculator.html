@@ -716,15 +716,25 @@
 
     /* Navigation Bar */
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 101;
-      padding: 1rem 0;
-      background: rgba(0, 0, 0, 0.95);
+      padding: 1.5rem 0;
+      background: transparent;
+      backdrop-filter: none;
+      box-shadow: none;
+      border-bottom: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    nav.scrolled {
+      padding: 0.75rem 0;
+      background: rgba(0, 0, 0, 0.98);
       backdrop-filter: blur(20px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      transition: all 0.4s ease;
+      box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.25);
     }
 
     .nav-container {
@@ -796,6 +806,34 @@
     }
 
     /* Nav Consultation CTA */
+    .nav-calculator-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: #10b981;
+      padding: 0.625rem 1.25rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      border: 2px solid #10b981;
+      white-space: nowrap;
+      cursor: pointer;
+      margin-right: 0.75rem;
+    }
+
+    .nav-calculator-cta i {
+      font-size: 0.9rem;
+    }
+
+    .nav-calculator-cta:hover {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: #059669;
+      color: #059669;
+      transform: scale(1.05);
+    }
+
     .nav-consultation-cta {
       display: inline-flex;
       align-items: center;
@@ -819,6 +857,98 @@
     .nav-consultation-cta:hover {
       background: #059669;
       transform: scale(1.05);
+    }
+
+    /* Language Switcher */
+    .language-switcher {
+      position: relative;
+      margin-right: 0.75rem;
+    }
+
+    .language-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .language-btn:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .language-btn i:last-child {
+      font-size: 0.75rem;
+      transition: transform 0.2s ease;
+    }
+
+    .language-btn.active i:last-child {
+      transform: rotate(180deg);
+    }
+
+    .language-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      right: 0;
+      background: #1a1a1a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      min-width: 180px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s ease;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .language-dropdown.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .language-option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: white;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      font-size: 0.9rem;
+    }
+
+    .language-option:first-child {
+      border-radius: 8px 8px 0 0;
+    }
+
+    .language-option:last-child {
+      border-radius: 0 0 8px 8px;
+    }
+
+    .language-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .language-option .flag {
+      font-size: 1.25rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-calculator-cta,
+      .nav-consultation-cta,
+      .language-switcher {
+        display: none;
+      }
     }
 
     /* Burger menu */
@@ -1174,11 +1304,40 @@
       </a>
 
       <div class="nav-right">
+        <!-- Try Calculator CTA -->
+        <button onclick="window.location.href='/calculator'" class="nav-calculator-cta">
+          <i class="fas fa-calculator"></i>
+          <span>Try Calculator</span>
+        </button>
+
         <!-- Free Consultation CTA -->
         <button onclick="window.location.href='/contact'" class="nav-consultation-cta">
           <i class="fas fa-calendar-check"></i>
           <span>Free Consultation</span>
         </button>
+
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+          <button class="language-btn" id="languageBtn">
+            <i class="fas fa-globe"></i>
+            <span id="currentLang">EN</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="language-dropdown" id="languageDropdown">
+            <a href="/calculator" class="language-option" data-lang="en">
+              <span class="flag">🇬🇧</span>
+              <span>English</span>
+            </a>
+            <a href="/fr/calculator" class="language-option" data-lang="fr">
+              <span class="flag">🇫🇷</span>
+              <span>Français</span>
+            </a>
+            <a href="/es/calculator" class="language-option" data-lang="es">
+              <span class="flag">🇪🇸</span>
+              <span>Español</span>
+            </a>
+          </div>
+        </div>
 
         <!-- Burger Menu Button -->
         <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
@@ -1654,8 +1813,31 @@
   </div>
 
   <script>
-    // Sidebar functionality
+    // Language Switcher functionality
     document.addEventListener('DOMContentLoaded', function() {
+      const languageBtn = document.getElementById('languageBtn');
+      const languageDropdown = document.getElementById('languageDropdown');
+
+      if (languageBtn && languageDropdown) {
+        languageBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          languageBtn.classList.toggle('active');
+          languageDropdown.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', () => {
+          languageBtn.classList.remove('active');
+          languageDropdown.classList.remove('active');
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        languageDropdown.addEventListener('click', (e) => {
+          e.stopPropagation();
+        });
+      }
+
+      // Sidebar functionality
       const burgerMenu = document.getElementById('burgerMenu');
       const sidebar = document.getElementById('sidebar');
       const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -1702,6 +1884,22 @@
           setTimeout(closeSidebar, 200);
         });
       });
+
+      // Navbar scroll behavior
+      const navbar = document.getElementById('navbar');
+      let lastScrollTop = 0;
+
+      window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollTop > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+
+        lastScrollTop = scrollTop;
+      }, { passive: true });
     });
 
     // Calculator functionality
