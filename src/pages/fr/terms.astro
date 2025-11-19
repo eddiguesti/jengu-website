@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Conditions générales',
+  description: 'Conditions générales d\'utilisation des services et du site Web de Jengu Ltd.',
+  canonical: `${Astro.site}fr/terms/`,
+  ogType: 'website',
+  noindex: false
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Accueil', url: Astro.site?.href || '' },
+    { name: 'Conditions générales', url: `${Astro.site}fr/terms/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Conditions <span class="gradient-text">générales</span></h1>
+      <p>Veuillez lire attentivement ces conditions avant d'utiliser nos services</p>
+    </div>
+  </section>
+
+  <section class="legal-content-section">
+    <div class="legal-container">
+      <div class="legal-content">
+        <h2>1. Introduction</h2>
+        <p>
+          Bienvenue chez Jengu Ltd. Ces Conditions régissent l'utilisation de www.jengu.ai et des services fournis. Accéder au site Web signifie accepter de se conformer à ces Conditions.
+        </p>
+
+        <h2>2. Informations sur l'entreprise</h2>
+        <ul>
+          <li><strong>Nom de l'entreprise :</strong> Jengu Ltd</li>
+          <li><strong>Numéro d'entreprise :</strong> 14157991</li>
+          <li><strong>Juridiction :</strong> Royaume-Uni</li>
+        </ul>
+
+        <h2>3. Utilisation du site Web</h2>
+        <p>Le site est réservé à des fins légales uniquement. Les utilisateurs acceptent de ne pas :</p>
+        <ul>
+          <li>S'engager dans des activités frauduleuses, illégales ou nuisibles</li>
+          <li>Tenter un accès système non autorisé</li>
+          <li>Utiliser des outils automatisés pour extraire des données sans autorisation</li>
+          <li>Perturber la sécurité, les performances ou la disponibilité du site Web</li>
+        </ul>
+
+        <h2>4. Services et contenu</h2>
+        <p>
+          Jengu Ltd fournit des solutions d'automatisation de processus et basées sur l'IA pour les entreprises. L'exactitude du contenu est maintenue mais non garantie. Les services peuvent être modifiés ou interrompus à tout moment sans préavis.
+        </p>
+
+        <h2>5. Propriété intellectuelle</h2>
+        <p>
+          Tout le contenu du site Web appartient à Jengu Ltd ou est sous licence. Le contenu ne peut être copié, modifié, distribué ou reproduit sans autorisation écrite.
+        </p>
+
+        <h2>6. Soumissions des utilisateurs</h2>
+        <p>
+          Les informations de contact soumises doivent être exactes et légales. Les données peuvent être utilisées pour répondre aux demandes et stockées en toute sécurité dans le CRM conformément à la politique de confidentialité.
+        </p>
+
+        <h2>7. Liens tiers</h2>
+        <p>
+          Le site peut créer des liens vers des sites Web tiers. Jengu Ltd n'est pas responsable de leur contenu, de leur sécurité ou de leurs pratiques de confidentialité.
+        </p>
+
+        <h2>8. Limitation de responsabilité</h2>
+        <p>
+          Jengu Ltd décline toute responsabilité pour les dommages, erreurs, problèmes techniques ou perte de données résultant de l'utilisation du site Web.
+        </p>
+
+        <h2>9. Indemnisation</h2>
+        <p>
+          Les utilisateurs acceptent de protéger Jengu Ltd contre les réclamations découlant de violations ou d'une utilisation abusive du site Web.
+        </p>
+
+        <h2>10. Modifications des conditions</h2>
+        <p>
+          Les conditions peuvent être mises à jour à tout moment. L'utilisation continue indique l'acceptation des révisions.
+        </p>
+
+        <h2>11. Droit applicable</h2>
+        <p>
+          Ces Conditions suivent la loi du Royaume-Uni, les litiges étant résolus devant les tribunaux d'Angleterre et du Pays de Galles.
+        </p>
+
+        <h2>12. Informations de contact</h2>
+        <p>
+          Pour des questions sur ces Conditions générales, veuillez nous contacter :
+        </p>
+        <p>
+          <strong>E-mail :</strong> <a href="mailto:info@jengu.ai">info@jengu.ai</a>
+        </p>
+
+        <div class="last-updated">
+          <p><em>Dernière mise à jour : 2025</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .legal-content-section {
+      padding: 4rem 2rem;
+      background: var(--bg-light);
+      min-height: 60vh;
+    }
+
+    .legal-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .legal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .legal-content h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .legal-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content ul {
+      list-style: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-content a {
+      color: var(--primary-cta);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .legal-content a:hover {
+      color: var(--primary-cta-hover);
+      text-decoration: underline;
+    }
+
+    .last-updated {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .last-updated p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .legal-content {
+        padding: 2rem;
+      }
+
+      .legal-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</BaseLayout>

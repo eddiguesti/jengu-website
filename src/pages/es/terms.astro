@@ -1,0 +1,193 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Términos y Condiciones',
+  description: 'Términos y condiciones de uso de los servicios y el sitio web de Jengu Ltd.',
+  canonical: `${Astro.site}es/terms/`,
+  ogType: 'website',
+  noindex: false
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Inicio', url: Astro.site?.href || '' },
+    { name: 'Términos y Condiciones', url: `${Astro.site}es/terms/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Términos y <span class="gradient-text">Condiciones</span></h1>
+      <p>Por favor, lea cuidadosamente estos términos antes de usar nuestros servicios</p>
+    </div>
+  </section>
+
+  <section class="legal-content-section">
+    <div class="legal-container">
+      <div class="legal-content">
+        <h2>1. Introducción</h2>
+        <p>
+          Bienvenido a Jengu Ltd. Estos Términos rigen el uso de www.jengu.ai y los servicios proporcionados. El acceso al sitio web implica aceptar cumplir con estos Términos.
+        </p>
+
+        <h2>2. Información de la empresa</h2>
+        <ul>
+          <li><strong>Nombre de la empresa:</strong> Jengu Ltd</li>
+          <li><strong>Número de empresa:</strong> 14157991</li>
+          <li><strong>Jurisdicción:</strong> Reino Unido</li>
+        </ul>
+
+        <h2>3. Uso del sitio web</h2>
+        <p>El sitio está reservado únicamente para fines legales. Los usuarios aceptan no:</p>
+        <ul>
+          <li>Participar en actividades fraudulentas, ilegales o dañinas</li>
+          <li>Intentar acceso no autorizado al sistema</li>
+          <li>Utilizar herramientas automatizadas para extraer datos sin autorización</li>
+          <li>Interrumpir la seguridad, el rendimiento o la disponibilidad del sitio web</li>
+        </ul>
+
+        <h2>4. Servicios y contenido</h2>
+        <p>
+          Jengu Ltd proporciona soluciones de automatización de procesos e impulsadas por IA para empresas. La exactitud del contenido se mantiene pero no se garantiza. Los servicios pueden modificarse o interrumpirse en cualquier momento sin previo aviso.
+        </p>
+
+        <h2>5. Propiedad intelectual</h2>
+        <p>
+          Todo el contenido del sitio web pertenece a Jengu Ltd o está bajo licencia. El contenido no puede copiarse, modificarse, distribuirse ni reproducirse sin autorización escrita.
+        </p>
+
+        <h2>6. Envíos del usuario</h2>
+        <p>
+          La información de contacto enviada debe ser exacta y legal. Los datos pueden utilizarse para responder solicitudes y almacenarse de forma segura en el CRM de conformidad con la política de privacidad.
+        </p>
+
+        <h2>7. Enlaces de terceros</h2>
+        <p>
+          El sitio puede crear enlaces a sitios web de terceros. Jengu Ltd no es responsable de su contenido, seguridad o prácticas de privacidad.
+        </p>
+
+        <h2>8. Limitación de responsabilidad</h2>
+        <p>
+          Jengu Ltd rechaza toda responsabilidad por daños, errores, problemas técnicos o pérdida de datos resultantes del uso del sitio web.
+        </p>
+
+        <h2>9. Indemnización</h2>
+        <p>
+          Los usuarios aceptan proteger a Jengu Ltd de reclamos que surjan de violaciones o mal uso del sitio web.
+        </p>
+
+        <h2>10. Modificaciones de los términos</h2>
+        <p>
+          Los términos pueden actualizarse en cualquier momento. El uso continuado indica la aceptación de las revisiones.
+        </p>
+
+        <h2>11. Ley aplicable</h2>
+        <p>
+          Estos Términos se rigen por la ley del Reino Unido, siendo resueltos los litigios por los tribunales de Inglaterra y Gales.
+        </p>
+
+        <h2>12. Información de contacto</h2>
+        <p>
+          Para preguntas sobre estos Términos y Condiciones, contáctenos:
+        </p>
+        <p>
+          <strong>Correo electrónico:</strong> <a href="mailto:info@jengu.ai">info@jengu.ai</a>
+        </p>
+
+        <div class="last-updated">
+          <p><em>Última actualización: 2025</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .legal-content-section {
+      padding: 4rem 2rem;
+      background: var(--bg-light);
+      min-height: 60vh;
+    }
+
+    .legal-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .legal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .legal-content h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .legal-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content ul {
+      list-style: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-content a {
+      color: var(--primary-cta);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .legal-content a:hover {
+      color: var(--primary-cta-hover);
+      text-decoration: underline;
+    }
+
+    .last-updated {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .last-updated p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .legal-content {
+        padding: 2rem;
+      }
+
+      .legal-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</BaseLayout>

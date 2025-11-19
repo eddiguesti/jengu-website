@@ -1,0 +1,291 @@
+---
+// ROI Calculator - Mobile-Optimized iframe version
+const seo = {
+  title: 'Calculateur ROI Agent IA | Jengu',
+  description: 'Calculez combien de temps et d\'argent vous pouvez économiser avec des agents IA personnalisés pour votre entreprise touristique ou hôtelière.',
+  canonical: '/fr/calculator',
+};
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>{seo.title}</title>
+  <meta name="description" content={seo.description}>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <link rel="canonical" href={`https://jengu.ai${seo.canonical}`}>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Styled scrollbar matching website theme */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #06b6d4, #1e40af);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #0891b2, #1e3a8a);
+    }
+
+    /* Firefox scrollbar */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #06b6d4 rgba(255, 255, 255, 0.05);
+    }
+
+    /* Mobile-optimized header */
+    .calc-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 1rem 1.25rem;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .back-btn:hover,
+    .back-btn:active {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateX(-2px);
+      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .header-title {
+      flex: 1;
+    }
+
+    .header-title h1 {
+      font-size: 1.125rem;
+      font-weight: 800;
+      margin: 0;
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-title p {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin: 0.125rem 0 0 0;
+    }
+
+    /* Calculator container */
+    .calc-container {
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* iframe */
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background: #000000;
+    }
+
+    /* Loading state */
+    .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000000;
+      color: #06b6d4;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(6, 182, 212, 0.2);
+      border-top-color: #06b6d4;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 1rem;
+      font-weight: 600;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .calc-header {
+        padding: 0.875rem 1rem;
+      }
+
+      .header-title h1 {
+        font-size: 1rem;
+      }
+
+      .header-title p {
+        font-size: 0.7rem;
+      }
+
+      .back-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
+
+      .calc-container {
+        top: 68px;
+      }
+    }
+
+    /* Ensure no bounce on iOS */
+    body {
+      position: fixed;
+      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="calc-header">
+    <div class="header-content">
+      <a href="/fr" class="back-btn" aria-label="Retour à l'accueil">
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <div class="header-title">
+        <h1>Calculateur ROI</h1>
+        <p>Calculez vos économies potentielles</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calculator Container -->
+  <div class="calc-container">
+    <div class="loading" id="loading">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Chargement du calculateur...</div>
+    </div>
+    <iframe
+      id="calculator-frame"
+      src="/mobile-calculator.html"
+      title="Calculateur ROI"
+      allow="clipboard-write"
+      loading="eager"
+      style="display: none;"
+    ></iframe>
+  </div>
+
+  <script>
+    // Show calculator when loaded
+    const iframe = document.getElementById('calculator-frame');
+    const loading = document.getElementById('loading');
+
+    iframe.addEventListener('load', () => {
+      setTimeout(() => {
+        loading.style.display = 'none';
+        iframe.style.display = 'block';
+      }, 500);
+    });
+
+    // Handle load errors
+    iframe.addEventListener('error', () => {
+      loading.innerHTML = `
+        <div style="text-align: center; padding: 2rem;">
+          <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #f97316; margin-bottom: 1rem;"></i>
+          <div style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Échec du chargement du calculateur</div>
+          <div style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 1.5rem;">Veuillez rafraîchir la page</div>
+          <a href="/fr" style="display: inline-block; background: linear-gradient(135deg, #06b6d4, #0891b2); color: white; padding: 0.875rem 2rem; border-radius: 12px; text-decoration: none; font-weight: 600;">
+            Retour à l'accueil
+          </a>
+        </div>
+      `;
+    });
+
+    // Prevent iOS bounce scrolling
+    document.addEventListener('touchmove', function(e) {
+      if (e.target === document.body) {
+        e.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>

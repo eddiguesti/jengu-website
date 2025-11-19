@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Política de privacidad',
+  description: 'Política de privacidad de Jengu Ltd - Cómo recopilamos, utilizamos y protegemos sus datos personales.',
+  canonical: `${Astro.site}es/privacy/`,
+  ogType: 'website',
+  noindex: false
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Inicio', url: Astro.site?.href || '' },
+    { name: 'Política de privacidad', url: `${Astro.site}es/privacy/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Política de <span class="gradient-text">privacidad</span></h1>
+      <p>Su privacidad y la seguridad de sus datos son nuestras prioridades absolutas</p>
+    </div>
+  </section>
+
+  <section class="legal-content-section">
+    <div class="legal-container">
+      <div class="legal-content">
+        <h2>1. Introducción</h2>
+        <p>
+          JENGU LTD opera www.jengu.ai para proporcionar información sobre servicios de automatización de IA. Esta política explica nuestras prácticas de recopilación, uso, almacenamiento y protección de datos.
+        </p>
+
+        <h2>2. Recopilación de datos</h2>
+        <p>Recopilamos los siguientes tipos de información:</p>
+        <h3>Información de contacto</h3>
+        <p>
+          Nombre, correo electrónico, número de teléfono y detalles compartidos voluntariamente a través de solicitudes enviadas mediante nuestros formularios de contacto o comunicación por correo electrónico.
+        </p>
+
+        <h3>Cookies y análisis</h3>
+        <p>
+          Datos de uso no personales a través de tecnologías de seguimiento de Google, incluidas las páginas visitadas, el tiempo dedicado al sitio, el tipo de navegador y las URL de referencia.
+        </p>
+
+        <h2>3. Uso de datos</h2>
+        <p>Utilizamos sus datos para los siguientes propósitos:</p>
+        <ul>
+          <li><strong>Responder a solicitudes:</strong> Para responder a sus preguntas y proporcionar información sobre nuestros servicios</li>
+          <li><strong>Prestación de servicios:</strong> Para proporcionar cotizaciones, consultas y nuestras soluciones de automatización de IA</li>
+          <li><strong>Análisis:</strong> Para analizar el comportamiento de los usuarios y mejorar el rendimiento del sitio y la experiencia general del usuario</li>
+          <li><strong>Comunicación:</strong> Para enviar actualizaciones sobre nuestros servicios (solo si ha consentido)</li>
+        </ul>
+
+        <h2>4. Compartir datos</h2>
+        <p class="highlight">
+          <strong>NO compartimos, NO vendemos ni intercambiamos sus datos personales con terceros para fines de marketing u otros.</strong>
+        </p>
+        <p>
+          Los datos personales residen en sistemas CRM cifrados accesibles solo para personal autorizado. Los datos anónimos o agregados pueden compartirse con proveedores de servicios solo para fines de análisis.
+        </p>
+
+        <h2>5. Seguridad de datos</h2>
+        <p>
+          Implementamos medidas razonables y apropiadas para proteger sus datos personales contra acceso no autorizado, incluidas:
+        </p>
+        <ul>
+          <li>Cifrado AES-256 para datos en reposo</li>
+          <li>Cifrado TLS 1.3 para datos en tránsito</li>
+          <li>Sistemas CRM y bases de datos cifrados</li>
+          <li>Acceso del personal restringido con permisos basados en roles</li>
+          <li>Auditorías de seguridad y actualizaciones regulares</li>
+        </ul>
+
+        <h2>6. Retención de datos</h2>
+        <p>
+          La información personal se retiene solo por el tiempo necesario para los propósitos para los que fue recopilada o según lo requieran las obligaciones legales. Generalmente, retenemos:
+        </p>
+        <ul>
+          <li>Datos de solicitud de contacto: 3 años desde el último contacto</li>
+          <li>Datos del proyecto del cliente: Duración del compromiso + 7 años (requisitos fiscales del Reino Unido)</li>
+          <li>Datos de análisis: 26 meses (valor predeterminado de Google Analytics)</li>
+        </ul>
+
+        <h2>7. Sus derechos bajo la legislación británica de protección de datos</h2>
+        <p>Tiene los siguientes derechos con respecto a sus datos personales:</p>
+        <ul>
+          <li><strong>Derecho de acceso:</strong> Solicitar una copia de los datos personales que tenemos sobre usted</li>
+          <li><strong>Derecho de rectificación:</strong> Solicitar la corrección de datos inexactos</li>
+          <li><strong>Derecho al olvido:</strong> Solicitar la eliminación de sus datos personales</li>
+          <li><strong>Derecho a restringir el procesamiento:</strong> Solicitar limitaciones sobre cómo utilizamos sus datos</li>
+          <li><strong>Derecho a la portabilidad de datos:</strong> Recibir sus datos en un formato legible por máquina</li>
+          <li><strong>Derecho de oposición:</strong> Oponerse al procesamiento de sus datos</li>
+          <li><strong>Derecho a retirar el consentimiento:</strong> Retirar el consentimiento en cualquier momento</li>
+        </ul>
+        <p>
+          Para ejercer cualquiera de estos derechos, contáctenos en <a href="mailto:info@jengu.ai">info@jengu.ai</a>
+        </p>
+
+        <h2>8. Cookies y tecnologías de seguimiento</h2>
+        <p>
+          Utilizamos cookies y tecnologías de seguimiento similares para mejorar su experiencia en nuestro sitio web. Puede administrar o deshabilitar cookies a través de la configuración de su navegador, aunque esto puede limitar algunas funcionalidades del sitio.
+        </p>
+        <h3>Tipos de cookies que utilizamos:</h3>
+        <ul>
+          <li><strong>Cookies esenciales:</strong> Requeridas para la funcionalidad del sitio web</li>
+          <li><strong>Cookies de análisis:</strong> Nos ayudan a comprender cómo los visitantes utilizan nuestro sitio</li>
+          <li><strong>Cookies de preferencia:</strong> Recuerdan sus configuraciones y preferencias</li>
+        </ul>
+
+        <h2>9. Privacidad de menores de edad</h2>
+        <p>
+          Nuestros servicios están dirigidos a empresas, no a personas menores de 16 años. No recopilamos intencionadamente datos de menores de edad. Si cree que hemos recopilado información de un menor, contáctenos inmediatamente.
+        </p>
+
+        <h2>10. Transferencias internacionales de datos</h2>
+        <p>
+          Sus datos pueden ser procesados en el Reino Unido, la UE u otros países donde operan nuestros proveedores de servicios. Nos aseguramos de que existan salvaguardas apropiadas para cualquier transferencia internacional.
+        </p>
+
+        <h2>11. Actualizaciones de la política</h2>
+        <p>
+          Podemos actualizar esta política de privacidad de vez en cuando. Los cambios entran en vigor cuando se publican con fechas actualizadas. Le recomendamos que consulte esta política periódicamente.
+        </p>
+
+        <h2>12. Información de contacto</h2>
+        <p>
+          Para preguntas sobre esta política de privacidad o para ejercer sus derechos de datos, contáctenos:
+        </p>
+        <div class="contact-box">
+          <p><strong>JENGU LTD</strong></p>
+          <p>Número de empresa: 14157991</p>
+          <p>Correo electrónico: <a href="mailto:info@jengu.ai">info@jengu.ai</a></p>
+          <p>Sitio web: <a href="https://www.jengu.ai">www.jengu.ai</a></p>
+        </div>
+
+        <div class="last-updated">
+          <p><em>Última actualización: Enero 2025</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .legal-content-section {
+      padding: 4rem 2rem;
+      background: var(--bg-light);
+      min-height: 60vh;
+    }
+
+    .legal-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .legal-content {
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .legal-content h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .legal-content h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .legal-content h3 {
+      font-size: 1.4rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .legal-content p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content p.highlight {
+      background: var(--bg-elevated);
+      padding: 1rem 1.5rem;
+      border-left: 4px solid var(--primary-cta);
+      border-radius: 8px;
+    }
+
+    .legal-content ul {
+      list-style: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .legal-content li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+    }
+
+    .legal-content a {
+      color: var(--primary-cta);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .legal-content a:hover {
+      color: var(--primary-cta-hover);
+      text-decoration: underline;
+    }
+
+    .contact-box {
+      background: var(--bg-elevated);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+    }
+
+    .contact-box p {
+      margin-bottom: 0.5rem;
+    }
+
+    .last-updated {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-light);
+      text-align: center;
+    }
+
+    .last-updated p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .legal-content {
+        padding: 2rem;
+      }
+
+      .legal-content h2 {
+        font-size: 1.5rem;
+      }
+
+      .legal-content h3 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</BaseLayout>

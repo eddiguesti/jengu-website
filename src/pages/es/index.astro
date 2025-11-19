@@ -6,7 +6,7 @@ import { generateOrganizationSchema, generateWebSiteSchema } from '../../lib/seo
 const seo = generateSEO({
   title: 'Automatización con IA para Turismo y Hospitalidad',
   description: 'Transforme su negocio turístico con agentes de IA personalizados. Automatice reservas, atención al cliente y operaciones. Aumente conversiones hasta 30%, ahorre 40+ horas semanales. Calculadora ROI y consulta gratis.',
-  canonical: '/es/',
+  canonical: `${Astro.site?.href}es/`,
   ogType: 'website'
 });
 
@@ -498,7 +498,7 @@ const jsonLd = [
       <p>
         Vea cuánto tiempo y dinero podría ahorrar su negocio turístico con agentes de IA y automatización. Obtenga su cálculo de ROI personalizado en 2 minutos—sin registro requerido.
       </p>
-      <a href="#" onclick="openCalculatorModal(); return false;" class="cta-btn-large">
+      <a href="#" onclick="handleCalculatorClick(event)" class="cta-btn-large">
         <i class="fas fa-calculator"></i>
         Iniciar Calculadora
       </a>
