@@ -1,0 +1,3644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jengu - AI Agent ROI Calculator for Tourism & Hospitality 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #000000;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Brand Colors - Matching Landing Page */
+      --primary-brand: #1E40AF;
+      --secondary-brand: #06B6D4;
+      --primary-cta: #F97316;
+      --primary-cta-hover: #EA580C;
+      --secondary-cta: #10B981;
+      --accent-highlight: #FBBF24;
+
+      /* Calculator Dark Theme */
+      --spotify-green: var(--secondary-cta);
+      --spotify-green-hover: var(--secondary-brand);
+      --spotify-dark: #121212;
+      --spotify-darker: #000000;
+      --spotify-light: #181818;
+      --spotify-lighter: #282828;
+      --spotify-gray: #535353;
+      --spotify-text: #FFFFFF;
+      --spotify-text-muted: #B3B3B3;
+      --monday-purple: var(--primary-brand);
+      --monday-pink: var(--primary-cta);
+      --monday-orange: var(--accent-highlight);
+      --monday-blue: var(--secondary-brand);
+      --gradient-primary: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
+      --gradient-accent: linear-gradient(135deg, var(--primary-cta) 0%, var(--primary-cta-hover) 100%);
+      --gradient-warm: linear-gradient(135deg, var(--accent-highlight) 0%, var(--primary-cta) 100%);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 40px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Hide scrollbar but keep scroll functionality */
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* Preloader Styles - Advanced 3D Animation */
+    .preloader {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: #000000 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      z-index: 2147483647 !important;
+      transition: opacity 1s ease, visibility 1s ease;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+      perspective: 1000px;
+      box-sizing: border-box !important;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .preloader-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(30, 64, 175, 0.15) 0%, transparent 50%);
+      animation: bgPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes bgPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .preloader-content {
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      z-index: 2;
+    }
+
+    .preloader-logo {
+      font-size: 7rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      margin-bottom: 3rem;
+      position: relative;
+      display: inline-block;
+      transform-style: preserve-3d;
+    }
+
+    .preloader-logo .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateZ(-200px) rotateY(-180deg) scale(0.5);
+      animation: letter3DReveal 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      text-shadow:
+        0 0 20px rgba(16, 185, 129, 0.5),
+        0 0 40px rgba(16, 185, 129, 0.3),
+        0 0 60px rgba(16, 185, 129, 0.2);
+    }
+
+    .preloader-logo .letter:nth-child(1) { animation-delay: 0.2s; }
+    .preloader-logo .letter:nth-child(2) { animation-delay: 0.4s; }
+    .preloader-logo .letter:nth-child(3) { animation-delay: 0.6s; }
+    .preloader-logo .letter:nth-child(4) { animation-delay: 0.8s; }
+    .preloader-logo .letter:nth-child(5) { animation-delay: 1s; }
+
+    .preloader-logo .letter.j {
+      background: linear-gradient(135deg, var(--secondary-cta) 0%, var(--secondary-brand) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.8));
+    }
+
+    .preloader-logo .letter.e {
+      background: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.8));
+    }
+
+    .preloader-logo .letter.n {
+      background: linear-gradient(135deg, var(--primary-brand) 0%, var(--primary-cta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(30, 64, 175, 0.8));
+    }
+
+    .preloader-logo .letter.g {
+      background: linear-gradient(135deg, var(--primary-cta) 0%, var(--accent-highlight) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.8));
+    }
+
+    .preloader-logo .letter.u {
+      background: linear-gradient(135deg, var(--accent-highlight) 0%, var(--secondary-cta) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
+    }
+
+    @keyframes letter3DReveal {
+      0% {
+        opacity: 0;
+        transform: translateZ(-200px) rotateY(-180deg) scale(0.5);
+      }
+      60% {
+        transform: translateZ(20px) rotateY(10deg) scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: translateZ(0) rotateY(0deg) scale(1);
+      }
+    }
+
+    .preloader-tagline {
+      font-size: 1rem;
+      color: #B3B3B3;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease 0.8s forwards;
+      margin-bottom: 3rem;
+    }
+
+    .preloader-bars {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      align-items: flex-end;
+      height: 60px;
+    }
+
+    .preloader-bar {
+      width: 8px;
+      background: linear-gradient(180deg, #10B981 0%, #06B6D4 50%, #1E40AF 100%);
+      border-radius: 4px;
+      animation: barPulse 1.2s ease-in-out infinite;
+    }
+
+    .preloader-bar:nth-child(1) { animation-delay: 0s; }
+    .preloader-bar:nth-child(2) { animation-delay: 0.1s; }
+    .preloader-bar:nth-child(3) { animation-delay: 0.2s; }
+    .preloader-bar:nth-child(4) { animation-delay: 0.3s; }
+    .preloader-bar:nth-child(5) { animation-delay: 0.4s; }
+
+    @keyframes barPulse {
+      0%, 100% {
+        height: 20px;
+        opacity: 0.5;
+      }
+      50% {
+        height: 60px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .preloader-particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #10B981;
+      border-radius: 50%;
+      opacity: 0;
+      animation: particleFloat 3s ease-in-out infinite;
+    }
+
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 20%; animation-delay: 0.5s; }
+    .particle:nth-child(3) { left: 30%; animation-delay: 1s; }
+    .particle:nth-child(4) { left: 40%; animation-delay: 1.5s; }
+    .particle:nth-child(5) { left: 50%; animation-delay: 2s; }
+    .particle:nth-child(6) { left: 60%; animation-delay: 0.3s; }
+    .particle:nth-child(7) { left: 70%; animation-delay: 0.8s; }
+    .particle:nth-child(8) { left: 80%; animation-delay: 1.3s; }
+    .particle:nth-child(9) { left: 90%; animation-delay: 1.8s; }
+
+    @keyframes particleFloat {
+      0% {
+        bottom: 0;
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      75% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .preloader-logo {
+        font-size: 3.5rem;
+      }
+      .preloader-tagline {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+      }
+      .preloader-bars {
+        height: 40px;
+      }
+      .preloader-bar {
+        width: 6px;
+      }
+    }
+
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #000000 !important;
+      color: var(--spotify-text);
+      min-height: 100vh;
+      position: relative;
+      border: none !important;
+      outline: none !important;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      z-index: 2147483646;
+      opacity: 1;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    body.loaded::before {
+      opacity: 0;
+    }
+
+    body.loaded {
+      background: var(--spotify-darker) !important;
+      background-image:
+        radial-gradient(ellipse at top left, rgba(1, 164, 164, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(4, 59, 114, 0.08) 0%, transparent 50%) !important;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    body.loaded .container {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Introductory Section Styles */
+    .intro-section {
+      text-align: center;
+      margin-bottom: 4rem;
+      animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .intro-section h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    .intro-section .intro-text {
+      font-size: 1.15rem;
+      color: var(--spotify-text-muted);
+      max-width: 900px;
+      margin: 0 auto 2rem;
+      line-height: 1.8;
+    }
+
+    .intro-section .intro-highlight {
+      background: var(--spotify-light);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      animation: slideUp 0.6s ease 0.2s backwards;
+    }
+
+    .intro-section .intro-highlight h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--spotify-green);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .intro-section .intro-highlight h3 i {
+      font-size: 1.6rem;
+    }
+
+    .intro-section .intro-highlight p {
+      font-size: 1.05rem;
+      color: var(--spotify-text);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .intro-section .intro-cta {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--spotify-green);
+      margin: 2.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .intro-section .intro-cta i {
+      font-size: 1.3rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .intro-divider {
+      width: 80px;
+      height: 4px;
+      background: var(--gradient-primary);
+      margin: 3rem auto;
+      border-radius: 2px;
+      animation: slideUp 0.6s ease 0.4s backwards;
+    }
+
+    /* Intro Overlay Styles */
+    .intro-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      border-radius: 24px;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .intro-overlay.hidden {
+      animation: fadeOutScale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes fadeOutScale {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    .intro-overlay-content {
+      max-width: 700px;
+      text-align: center;
+      animation: slideUp 0.6s ease 0.2s backwards;
+    }
+
+    .intro-overlay h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro-overlay-text {
+      font-size: 1.15rem;
+      color: var(--spotify-text-muted);
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .intro-overlay-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 2px solid rgba(16, 185, 129, 0.3);
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2.5rem;
+      animation: slideUp 0.6s ease 0.4s backwards;
+    }
+
+    .intro-overlay-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--spotify-green);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .intro-overlay-box h3 i {
+      font-size: 1.5rem;
+    }
+
+    .intro-overlay-box p {
+      font-size: 1.05rem;
+      color: var(--spotify-text);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    .intro-start-btn {
+      background: var(--spotify-green);
+      color: var(--spotify-dark);
+      border: none;
+      padding: 1.25rem 4rem;
+      border-radius: 50px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+      animation: slideUp 0.6s ease 0.6s backwards;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .intro-start-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(16, 185, 129, 0.5);
+      background: #23d45f;
+    }
+
+    .intro-start-btn:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    .calc-card {
+      position: relative;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeInDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+    }
+
+    .header .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: 1.125rem;
+      color: var(--spotify-text-muted);
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.6;
+    }
+
+    .header-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(16, 185, 129, 0.1);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .stat-pill i {
+      font-size: 1.5rem;
+      color: var(--spotify-green);
+    }
+
+    .stat-pill-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .stat-pill-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--spotify-text);
+    }
+
+    .stat-pill-label {
+      font-size: 0.75rem;
+      color: var(--spotify-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .calc-card {
+      background: var(--spotify-dark);
+      border-radius: 24px;
+      padding: 0;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    }
+
+    .progress-bar-container {
+      height: 4px;
+      background: var(--spotify-lighter);
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px 24px 0 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 0%;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+
+    .steps-container {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 3rem 1rem;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .step-indicator {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--spotify-lighter);
+      border: 2px solid var(--spotify-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.125rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-indicator.active .step-number {
+      background: var(--gradient-primary);
+      border-color: transparent;
+      box-shadow: var(--shadow-glow);
+      transform: scale(1.1);
+    }
+
+    .step-indicator.completed .step-number {
+      background: var(--spotify-green);
+      border-color: transparent;
+    }
+
+    .step-indicator.completed .step-number::after {
+      content: '✓';
+      position: absolute;
+      font-size: 1.25rem;
+    }
+
+    .step-label {
+      font-size: 0.875rem;
+      color: var(--spotify-text-muted);
+      font-weight: 500;
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    .step-indicator.active .step-label {
+      color: var(--spotify-text);
+      font-weight: 600;
+    }
+
+    .step-line {
+      display: none;
+    }
+
+    .content-area {
+      padding: 2rem 3rem 3rem;
+      min-height: 500px;
+      overflow: visible;
+    }
+
+    .section {
+      display: none;
+      animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .section-header p {
+      color: var(--spotify-text-muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .property-card {
+      background: var(--spotify-light);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--spotify-green);
+      box-shadow: var(--shadow-md);
+    }
+
+    .property-card.selected {
+      border-color: var(--spotify-green);
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--spotify-text-muted);
+      line-height: 1.5;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .solution-card {
+      background: var(--spotify-light);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: visible;
+    }
+
+    .solution-card:hover {
+      border-color: var(--spotify-green);
+      transform: translateY(-2px);
+      z-index: 100;
+    }
+
+    .solution-card.selected {
+      border-color: var(--spotify-green);
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .solution-card .info-icon {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--spotify-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      cursor: help;
+      transition: all 0.2s;
+    }
+
+    .solution-card:hover .info-icon {
+      background: var(--spotify-green);
+      color: var(--spotify-darker);
+      transform: scale(1.1);
+    }
+
+    .tooltip-card {
+      position: fixed;
+      width: 320px;
+      background: var(--spotify-dark);
+      border: 2px solid var(--spotify-green);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 1000;
+      transform: scale(0.95);
+    }
+
+    .solution-card:hover .tooltip-card {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+
+    .tooltip-card::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 8px solid transparent;
+    }
+
+    .tooltip-card.tooltip-above::after {
+      top: 100%;
+      border-top-color: var(--spotify-green);
+    }
+
+    .tooltip-card.tooltip-below::after {
+      bottom: 100%;
+      border-bottom-color: var(--spotify-green);
+    }
+
+    .tooltip-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #021B23;
+    }
+
+    .tooltip-section {
+      margin-bottom: 0.75rem;
+    }
+
+    .tooltip-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .tooltip-heading {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--monday-orange);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+
+    .tooltip-text {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--spotify-text-muted);
+    }
+
+    .tooltip-stats {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .tooltip-stat {
+      flex: 1;
+      background: rgba(16, 185, 129, 0.1);
+      padding: 0.5rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .tooltip-stat-value {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--spotify-green);
+    }
+
+    .tooltip-stat-label {
+      font-size: 0.65rem;
+      color: var(--spotify-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 0.25rem;
+    }
+
+    .solution-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .solution-desc {
+      font-size: 0.75rem;
+      color: var(--spotify-text-muted);
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .solution-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      margin-top: 0.5rem;
+    }
+
+    .badge-time {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--spotify-green);
+    }
+
+    .badge-revenue {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--monday-blue);
+    }
+
+    .badge-conversion {
+      background: rgba(30, 64, 175, 0.15);
+      color: var(--monday-purple);
+    }
+
+    .sliders-container {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .slider-group {
+      background: var(--spotify-light);
+      padding: 1.75rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s;
+    }
+
+    .slider-group:hover {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .slider-label {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .slider-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--spotify-lighter);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--spotify-green);
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+      transition: all 0.2s;
+    }
+
+    .slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--spotify-green);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.5);
+    }
+
+    .slider-range {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--spotify-text-muted);
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 3rem;
+      padding-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.875rem 2rem;
+      border-radius: 500px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-primary {
+      background: var(--spotify-green);
+      color: var(--spotify-darker);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background: var(--spotify-green-hover);
+      transform: scale(1.04);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--spotify-text);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--spotify-text);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--gradient-primary);
+      border-radius: 16px;
+      animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .results-header h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      color: var(--spotify-darker);
+    }
+
+    .results-header p {
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 500;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--spotify-light);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card:nth-child(1)::before { background: var(--gradient-primary); }
+    .stat-card:nth-child(2)::before { background: var(--gradient-accent); }
+    .stat-card:nth-child(3)::before { background: var(--gradient-warm); }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--spotify-text-muted);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .stat-value {
+      font-size: 2.75rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+    }
+
+    .stat-desc {
+      font-size: 0.875rem;
+      color: var(--spotify-text-muted);
+      line-height: 1.5;
+    }
+
+    .charts-container {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .charts-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--spotify-light);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--spotify-text);
+    }
+
+    .chart-card h3 i {
+      color: var(--spotify-green);
+      font-size: 1.4rem;
+    }
+
+    .chart-primary {
+      animation-delay: 0.4s;
+    }
+
+    .chart-secondary {
+      animation-delay: 0.5s;
+    }
+
+    .chart-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #10B981 0%, #06B6D4 50%, #1E40AF 100%);
+    }
+
+    .personalized-explanation {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 182, 212, 0.08));
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 2px solid rgba(16, 185, 129, 0.25);
+      margin-bottom: 2rem;
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
+    }
+
+    .personalized-explanation h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--spotify-green);
+    }
+
+    .personalized-explanation h3 i {
+      font-size: 1.6rem;
+    }
+
+    .explanation-section {
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: rgba(24, 24, 24, 0.5);
+      border-radius: 12px;
+      border-left: 4px solid var(--spotify-green);
+    }
+
+    .explanation-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .explanation-section h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--spotify-text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .explanation-section h4 i {
+      color: var(--spotify-green);
+      font-size: 1.1rem;
+    }
+
+    .explanation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .explanation-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem;
+      background: transparent;
+      border-radius: 8px;
+      line-height: 1.6;
+      color: #FFFFFF;
+    }
+
+    .explanation-item i {
+      color: var(--spotify-green);
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .explanation-item strong {
+      color: var(--spotify-text);
+    }
+
+    .insights-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), rgba(30, 64, 175, 0.05));
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s backwards;
+    }
+
+    .insights-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .insights-card h3 i {
+      color: var(--spotify-green);
+    }
+
+    .insight-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .insight-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(16, 185, 129, 0.2);
+      transform: translateX(4px);
+    }
+
+    .insight-icon {
+      flex-shrink: 0;
+      font-size: 1.5rem;
+      color: var(--spotify-green);
+      transition: transform 0.3s ease;
+    }
+
+    .insight-item:hover .insight-icon {
+      transform: scale(1.15);
+      animation: pulse 0.6s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .insight-text {
+      flex: 1;
+      line-height: 1.6;
+      color: var(--spotify-text-muted);
+    }
+
+    .insight-text strong {
+      color: var(--spotify-text);
+      font-weight: 700;
+    }
+
+    .cta-card {
+      background: var(--gradient-primary);
+      padding: 3rem;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 3rem;
+      animation: scaleIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s backwards;
+    }
+
+    .cta-card h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--spotify-darker);
+      font-weight: 900;
+    }
+
+    .cta-card p {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 500;
+    }
+
+    .btn-cta {
+      background: var(--spotify-darker);
+      color: var(--spotify-text);
+      padding: 1rem 3rem;
+      border-radius: 500px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translate(-50%, -20px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2.5rem; }
+      .header-stats { gap: 1.5rem; }
+      .stat-pill { padding: 0.5rem 1rem; }
+      .steps-container { padding: 1.5rem 1rem 0.5rem; gap: 0.5rem; }
+      .step-number { width: 40px; height: 40px; font-size: 1rem; }
+      .step-label { font-size: 0.75rem; }
+      .content-area { padding: 1.5rem 1rem 2rem; }
+      .section-header h2 { font-size: 1.75rem; }
+      .cards-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .solutions-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .btn-container { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+
+    /* Tablet view - 2 columns for symmetry */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .solutions-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    /* Medium desktop - 3 columns */
+    @media (max-width: 1200px) and (min-width: 1025px) {
+      .solutions-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+      }
+    }
+
+    /* Custom Inquiry Form Styles */
+    .custom-inquiry-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeInDown 0.6s ease;
+    }
+
+    .custom-inquiry-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .custom-inquiry-card {
+      background: var(--spotify-light);
+      padding: 3rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 3rem;
+      animation: slideUp 0.6s ease 0.2s backwards;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--spotify-text);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--spotify-dark);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 0.875rem 1rem;
+      color: var(--spotify-text);
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--spotify-green);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+
+    .btn-submit {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .custom-inquiry-benefits {
+      animation: slideUp 0.6s ease 0.4s backwards;
+    }
+
+    .custom-inquiry-benefits h3 {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--spotify-light);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .benefit-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .benefit-icon {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      background: rgba(16, 185, 129, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--spotify-green);
+    }
+
+    .benefit-content h4 {
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: var(--spotify-text);
+    }
+
+    .benefit-content p {
+      font-size: 0.875rem;
+      color: var(--spotify-text-muted);
+      line-height: 1.5;
+    }
+
+    /* Thank You Page Styles */
+    .thank-you-card {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: scaleIn 0.6s ease;
+    }
+
+    .thank-you-icon {
+      font-size: 5rem;
+      color: var(--spotify-green);
+      margin-bottom: 2rem;
+      animation: scaleIn 0.6s ease 0.2s backwards;
+    }
+
+    .thank-you-card h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .thank-you-message {
+      font-size: 1.125rem;
+      color: var(--spotify-text-muted);
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    .confirmation-details {
+      background: var(--spotify-light);
+      padding: 2rem;
+      border-radius: 16px;
+      margin-bottom: 3rem;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: slideUp 0.6s ease 0.4s backwards;
+    }
+
+    .confirmation-details h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .confirmation-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .confirmation-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--spotify-text-muted);
+      line-height: 1.6;
+    }
+
+    .confirmation-list li i {
+      color: var(--spotify-green);
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+    }
+
+    .next-steps-cta {
+      background: var(--gradient-primary);
+      padding: 2.5rem;
+      border-radius: 16px;
+      margin-bottom: 3rem;
+      animation: slideUp 0.6s ease 0.6s backwards;
+    }
+
+    .next-steps-cta h3 {
+      font-size: 1.75rem;
+      color: var(--spotify-darker);
+      margin-bottom: 0.75rem;
+    }
+
+    .next-steps-cta p {
+      color: rgba(0, 0, 0, 0.7);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .next-steps-cta .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Mobile responsiveness for custom form */
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .benefit-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .custom-inquiry-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .form-actions .btn {
+        width: 100%;
+      }
+
+      .custom-inquiry-header h2 {
+        font-size: 2rem;
+      }
+
+      .thank-you-card h2 {
+        font-size: 2rem;
+      }
+
+      .thank-you-icon {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body class="loaded">
+  <div class="container">
+    <div class="header">
+      <h1>Discover Your <span class="gradient-text">AI Agent ROI</span></h1>
+      <p>Calculate how AI agents can transform your tourism & hospitality business with real-time intelligence, 24/7 availability, and 100+ language support</p>
+
+      <div class="header-stats">
+        <div class="stat-pill">
+          <i class="fa-solid fa-robot"></i>
+          <div class="stat-pill-text">
+            <div class="stat-pill-value">28.9% CAGR</div>
+            <div class="stat-pill-label">Market Growth</div>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <i class="fa-solid fa-chart-line"></i>
+          <div class="stat-pill-text">
+            <div class="stat-pill-value">80%+ Adoption</div>
+            <div class="stat-pill-label">Hotel Industry</div>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <i class="fa-solid fa-dollar-sign"></i>
+          <div class="stat-pill-text">
+            <div class="stat-pill-value">$198.9B</div>
+            <div class="stat-pill-label">By 2034</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <!-- Intro Overlay -->
+      <div class="intro-overlay" id="introOverlay">
+        <div class="intro-overlay-content">
+          <h2>Calculate Your Savings with Our Calculator</h2>
+          <p class="intro-overlay-text">
+            Every business is unique. We start with a <strong>process mapping session</strong> to understand your specific workflows and challenges.
+          </p>
+
+          <div class="intro-overlay-box">
+            <h3><i class="fa-solid fa-sitemap"></i> Tailored Solutions</h3>
+            <p>
+              We design custom AI automations that fit seamlessly into your operations—built specifically for your business needs.
+            </p>
+          </div>
+
+          <button class="intro-start-btn" onclick="startCalculator()">Start</button>
+        </div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+
+      <div class="steps-container">
+        <div class="step-line"></div>
+        <div class="step-indicator active" data-step="1">
+          <div class="step-number">1</div>
+          <div class="step-label">Business Type</div>
+        </div>
+        <div class="step-indicator" data-step="2">
+          <div class="step-number">2</div>
+          <div class="step-label">AI Agents</div>
+        </div>
+        <div class="step-indicator" data-step="3">
+          <div class="step-number">3</div>
+          <div class="step-label">Your Metrics</div>
+        </div>
+        <div class="step-indicator" data-step="4">
+          <div class="step-number">4</div>
+          <div class="step-label">Your ROI</div>
+        </div>
+      </div>
+
+      <div class="content-area">
+        <!-- Step 1 -->
+        <div class="section active" id="step1">
+          <div class="section-header">
+            <h2>Tell us about your business</h2>
+            <p>76% of hotel executives say AI agents are fundamentally transforming the industry</p>
+          </div>
+
+          <h3 style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 700;">Property Type</h3>
+          <div class="cards-grid">
+            <div class="property-card" data-type="hotel">
+              <span class="card-icon"><i class="fa-solid fa-hotel"></i></span>
+              <div class="card-title">Hotel</div>
+              <div class="card-desc">Traditional hotels, boutique & B&Bs</div>
+            </div>
+            <div class="property-card" data-type="resort">
+              <span class="card-icon"><i class="fa-solid fa-umbrella-beach"></i></span>
+              <div class="card-title">Resort</div>
+              <div class="card-desc">Full-service resorts & vacation properties</div>
+            </div>
+            <div class="property-card" data-type="campsite">
+              <span class="card-icon"><i class="fa-solid fa-campground"></i></span>
+              <div class="card-title">Campsite</div>
+              <div class="card-desc">Campsites, RV parks & glamping sites</div>
+            </div>
+            <div class="property-card" data-type="agency">
+              <span class="card-icon"><i class="fa-solid fa-plane-departure"></i></span>
+              <div class="card-title">Travel Agency</div>
+              <div class="card-desc">Tour operators & travel agencies</div>
+            </div>
+            <div class="property-card" data-type="other">
+              <span class="card-icon"><i class="fa-solid fa-ellipsis"></i></span>
+              <div class="card-title">Other</div>
+              <div class="card-desc">Other hospitality & tourism businesses</div>
+            </div>
+          </div>
+
+          <h3 style="font-size: 1.25rem; margin: 2.5rem 0 1rem; font-weight: 700;">Business Size</h3>
+          <div class="cards-grid">
+            <div class="property-card" data-size="small">
+              <span class="card-icon"><i class="fa-solid fa-seedling"></i></span>
+              <div class="card-title">Small</div>
+              <div class="card-desc">1-50 units or <100 bookings/month</div>
+            </div>
+            <div class="property-card" data-size="medium">
+              <span class="card-icon"><i class="fa-solid fa-chart-line"></i></span>
+              <div class="card-title">Medium</div>
+              <div class="card-desc">50-200 units or 100-500 bookings/month</div>
+            </div>
+            <div class="property-card" data-size="large">
+              <span class="card-icon"><i class="fa-solid fa-rocket"></i></span>
+              <div class="card-title">Large</div>
+              <div class="card-desc">200+ units or 500+ bookings/month</div>
+            </div>
+          </div>
+
+          <div class="btn-container">
+            <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="section" id="step2">
+          <div class="section-header">
+            <h2>Choose your automations</h2>
+            <p>Select the automations that match your needs - practical tools that save time and increase revenue</p>
+          </div>
+
+          <div class="solutions-grid" id="solutionsGrid"></div>
+
+          <div class="btn-container">
+            <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+            <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="section" id="step3">
+          <div class="section-header">
+            <h2>Your current operations</h2>
+            <p>Help us calculate your specific ROI with accurate metrics</p>
+          </div>
+
+          <div class="sliders-container" id="slidersContainer"></div>
+
+          <div class="btn-container">
+            <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+            <button class="btn btn-primary" onclick="calculateResults()">Calculate My ROI</button>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="section" id="step4">
+          <div class="results-header">
+            <h2>Your Automation ROI</h2>
+            <p>Based on real-world implementations & industry benchmarks</p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-label">Total Annual Benefit</div>
+              <div class="stat-value" id="totalBenefit">£0</div>
+              <div class="stat-desc">Combined cost savings + revenue increases</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Time Saved Weekly</div>
+              <div class="stat-value" id="timeSaved">0 hrs</div>
+              <div class="stat-desc">Staff hours freed for guest service</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">ROI Timeline</div>
+              <div class="stat-value" id="roiTimeline">0 mo</div>
+              <div class="stat-desc">Time to recoup your investment</div>
+            </div>
+          </div>
+
+          <div class="charts-container">
+            <div class="chart-card chart-primary">
+              <h3><i class="fa-solid fa-chart-waterfall"></i> Your ROI Breakdown</h3>
+              <canvas id="waterfallChart"></canvas>
+            </div>
+
+            <div class="chart-card chart-secondary">
+              <h3><i class="fa-solid fa-chart-pie"></i> Savings Composition</h3>
+              <canvas id="donutChart"></canvas>
+            </div>
+          </div>
+
+          <div class="personalized-explanation">
+            <h3><i class="fa-solid fa-user-check"></i> Why You'll Achieve These Results</h3>
+            <div id="personalizedExplanation"></div>
+          </div>
+
+          <div class="insights-card">
+            <h3><i class="fa-solid fa-lightbulb"></i> Automation Insights</h3>
+            <div id="insightsContainer"></div>
+          </div>
+
+          <div class="cta-card">
+            <h3>Ready to Automate Your Business?</h3>
+            <p>Schedule a free consultation to discuss your custom automation solutions</p>
+            <a href="https://calendly.com/jengu-meeting/30min" target="_blank" class="btn-cta">
+              Book Your Free Consultation
+            </a>
+          </div>
+
+          <div class="btn-container">
+            <button class="btn btn-secondary" onclick="resetCalculator()">Start Over</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Custom Software Inquiry Form -->
+        <div class="section" id="step5">
+          <div class="custom-inquiry-header">
+            <h2>🎯 Tell Us About Your Custom AI Software Need</h2>
+            <p>We specialize in building bespoke AI solutions that solve your unique business challenges. Share your requirements and we'll get back to you within 24 hours with a custom proposal.</p>
+          </div>
+
+          <div class="custom-inquiry-card">
+            <form id="customInquiryForm" onsubmit="submitCustomInquiry(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" name="fullName" required placeholder="John Smith">
+                </div>
+                <div class="form-group">
+                  <label for="companyName">Company/Property Name *</label>
+                  <input type="text" id="companyName" name="companyName" required placeholder="Sunshine Resort & Spa">
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" required placeholder="john@sunshineresort.com">
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" placeholder="+44 123 456 7890">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="businessChallenge">What Business Challenge Are You Trying to Solve? *</label>
+                <textarea id="businessChallenge" name="businessChallenge" required rows="4" placeholder="Example: We need a system to automatically sync bookings between our PMS, channel manager, and accounting software, with real-time inventory updates..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="currentSystems">What Systems Do You Currently Use?</label>
+                <textarea id="currentSystems" name="currentSystems" rows="3" placeholder="Example: Opera PMS, SiteMinder channel manager, Xero accounting, Mailchimp for email..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="desiredOutcome">What's Your Desired Outcome?</label>
+                <textarea id="desiredOutcome" name="desiredOutcome" rows="3" placeholder="Example: Save 10 hours per week on manual data entry, eliminate double bookings, get real-time revenue reports..."></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="timeline">Desired Implementation Timeline</label>
+                  <select id="timeline" name="timeline">
+                    <option value="">Select timeline...</option>
+                    <option value="urgent">Urgent (ASAP)</option>
+                    <option value="1-2-months">1-2 Months</option>
+                    <option value="3-6-months">3-6 Months</option>
+                    <option value="flexible">Flexible</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="budget">Estimated Budget (Optional)</label>
+                  <select id="budget" name="budget">
+                    <option value="">Select budget range...</option>
+                    <option value="under-5k">Under £5,000</option>
+                    <option value="5k-15k">£5,000 - £15,000</option>
+                    <option value="15k-30k">£15,000 - £30,000</option>
+                    <option value="30k-plus">£30,000+</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="goBackFromCustom()">
+                  <i class="fa-solid fa-arrow-left"></i> Back to Automations
+                </button>
+                <button type="submit" class="btn btn-primary btn-submit">
+                  <i class="fa-solid fa-paper-plane"></i> Submit Inquiry
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div class="custom-inquiry-benefits">
+            <h3>What Happens Next?</h3>
+            <div class="benefit-grid">
+              <div class="benefit-item">
+                <div class="benefit-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="benefit-content">
+                  <h4>24-Hour Response</h4>
+                  <p>We'll review your requirements and respond within one business day</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon"><i class="fa-solid fa-video"></i></div>
+                <div class="benefit-content">
+                  <h4>Discovery Call</h4>
+                  <p>30-minute video call to understand your needs in detail</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon"><i class="fa-solid fa-file-contract"></i></div>
+                <div class="benefit-content">
+                  <h4>Custom Proposal</h4>
+                  <p>Detailed technical proposal with timeline and pricing</p>
+                </div>
+              </div>
+              <div class="benefit-item">
+                <div class="benefit-icon"><i class="fa-solid fa-rocket"></i></div>
+                <div class="benefit-content">
+                  <h4>Fast Implementation</h4>
+                  <p>Most custom solutions deployed within 4-8 weeks</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Thank You / Confirmation -->
+        <div class="section" id="step6">
+          <div class="thank-you-card">
+            <div class="thank-you-icon">
+              <i class="fa-solid fa-check-circle"></i>
+            </div>
+            <h2>Thank You for Your Inquiry!</h2>
+            <p class="thank-you-message">We've received your custom AI software request and will review it immediately. Our team will contact you within 24 hours to discuss your project.</p>
+
+            <div class="confirmation-details">
+              <h3>What We'll Do Next:</h3>
+              <ul class="confirmation-list">
+                <li><i class="fa-solid fa-check"></i> Review your specific requirements and business challenge</li>
+                <li><i class="fa-solid fa-check"></i> Research the best AI technologies for your use case</li>
+                <li><i class="fa-solid fa-check"></i> Prepare a preliminary technical approach</li>
+                <li><i class="fa-solid fa-check"></i> Reach out via email to schedule a discovery call</li>
+              </ul>
+            </div>
+
+            <div class="next-steps-cta">
+              <h3>While You Wait...</h3>
+              <p>Schedule a free consultation to discuss your automation needs in detail</p>
+              <a href="https://calendly.com/jengu-meeting/30min" target="_blank" class="btn-cta">
+                <i class="fa-solid fa-calendar"></i> Book Free Consultation
+              </a>
+            </div>
+
+            <div class="btn-container">
+              <button class="btn btn-secondary" onclick="resetCalculator()">Start Over</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Updated with 2025 AI Agent research
+    const calculatorData = {
+      propertyType: null,
+      propertySize: null,
+      selectedSolutions: [],
+      metrics: {
+        emailsPerDay: 100,
+        staffHours: 40,
+        hourlyRate: 15,
+        rooms: 50,
+        averageRoomRate: 100,
+        occupancyRate: 70
+      }
+    };
+
+    let currentStep = 1;
+    let waterfallChart = null;
+    let donutChart = null;
+
+    // AI-powered hospitality automation solutions
+    const solutions = {
+      hotel: [
+        {
+          id: 'ai-concierge',
+          name: 'AI Concierge Chatbot',
+          type: 'conversion',
+          savings: 250,
+          desc: '24/7 multilingual assistant via WhatsApp, website, kiosk',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: '24/7 multilingual guest assistant via WhatsApp, website, or in-room kiosk handling check-in questions, FAQs, booking requests, room upgrades, and local recommendations',
+          howItHelps: 'Increases upsell revenue by 250% through intelligent, timely recommendations powered by natural language processing and machine learning',
+          realWorld: 'Properties using advanced AI messaging report 250% increase in upsell revenue through intelligent recommendations at optimal moments',
+          stats: [
+            { value: '250%', label: 'Upsell Revenue' },
+            { value: '24/7', label: 'Multilingual' }
+          ]
+        },
+        {
+          id: 'smart-checkin',
+          name: 'Smart Check-in & Check-out',
+          type: 'time',
+          savings: 78,
+          desc: 'ID verification, digital keys, contactless payment',
+          metrics: ['staffHours'],
+          whatItDoes: 'Automated ID verification, digital room keys via mobile app, and contactless payment processing - guests check in on their phone and go straight to their room',
+          howItHelps: 'Reduces front desk time by 78% through fully automated check-in/check-out process with computer vision ID verification and digital key distribution',
+          realWorld: 'Hotels report 78% reduction in front desk time through contactless check-in automation, allowing staff to focus on guest service',
+          stats: [
+            { value: '78%', label: 'Time Saved' },
+            { value: 'Contactless', label: 'Digital Keys' }
+          ]
+        },
+        {
+          id: 'custom-automation',
+          name: 'Custom Business Automation',
+          type: 'time',
+          savings: 60,
+          desc: 'Process mapping, PMS integration, workflow bots',
+          metrics: ['staffHours'],
+          whatItDoes: 'Custom automation solutions tailored to your specific business needs - we map your current processes, identify automation opportunities, and build custom integrations with your PMS, CRM, POS, accounting, and other systems',
+          howItHelps: 'Saves 60% of time on manual workflows through custom automation that connects to your existing systems (Opera, Cloudbeds, Mews) and builds specialized workflow bots for your unique business needs',
+          realWorld: 'Businesses implementing custom process-mapped automation report 60% reduction in manual workflows with seamless integration across all their existing systems',
+          stats: [
+            { value: '60%', label: 'Time Saved' },
+            { value: 'Process Map', label: 'Included' }
+          ]
+        },
+        {
+          id: 'dynamic-pricing',
+          name: 'Dynamic Pricing Automation',
+          type: 'revenue',
+          savings: 22,
+          desc: 'Real-time rates based on 80+ data points',
+          metrics: ['rooms', 'averageRoomRate', 'occupancyRate'],
+          whatItDoes: 'AI continuously analyzes 80+ data points (occupancy, demand, competitor rates, events, weather) to optimize pricing in real-time across all channels',
+          howItHelps: 'Achieves 22% RevPAR improvement through machine learning-powered price optimization that maximizes revenue while maintaining optimal occupancy',
+          realWorld: 'Marriott achieved 22% RevPAR improvement using AI revenue management analyzing 80+ data points in real-time',
+          stats: [
+            { value: '22%', label: 'RevPAR Boost' },
+            { value: '80+', label: 'Data Points' }
+          ]
+        },
+        {
+          id: 'ai-upselling',
+          name: 'Automated Upselling System',
+          type: 'conversion',
+          savings: 180,
+          desc: 'AI suggests upgrades at optimal times',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: 'Machine learning identifies best moments to offer upsells (room upgrades, spa packages, late checkout) via email, chatbot, or app notification',
+          howItHelps: 'Increases ancillary revenue by 180% through AI-timed upsell offers that reach guests when they\'re most likely to convert',
+          realWorld: 'Hotels report 180% increase in ancillary revenue through AI-powered upselling at optimal moments in the guest journey',
+          stats: [
+            { value: '180%', label: 'Ancillary Revenue' },
+            { value: 'AI-timed', label: 'Offers' }
+          ]
+        },
+        {
+          id: 'ai-dashboard',
+          name: 'AI Analytics Dashboard',
+          type: 'time',
+          savings: 65,
+          desc: 'Real-time KPIs, occupancy, revenue, guest satisfaction',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI-powered dashboard displaying real-time KPIs: occupancy rates, revenue metrics, guest satisfaction scores, booking trends, and predictive forecasting for demand and staffing needs',
+          howItHelps: 'Saves 65% of time on manual reporting while providing instant data visibility and AI-driven insights for better decision-making',
+          realWorld: 'Hotels report 65% reduction in reporting time with AI dashboards providing real-time visibility and predictive analytics for revenue optimization',
+          stats: [
+            { value: '65%', label: 'Time Saved' },
+            { value: 'Real-time', label: 'AI Insights' }
+          ]
+        },
+        {
+          id: 'omnichannel-hub',
+          name: 'Omnichannel Communication Hub',
+          type: 'time',
+          savings: 82,
+          desc: 'AI email automation, WhatsApp, Messenger, SMS, sentiment analysis',
+          metrics: ['emailsPerDay', 'staffHours'],
+          whatItDoes: 'AI-powered platform centralizing ALL guest communications (email, WhatsApp, Messenger, SMS) with automated responses, intelligent routing, and sentiment analysis that flags negative feedback immediately',
+          howItHelps: 'Handles 82% of guest communications automatically with <1 minute response time, AI sentiment analysis for proactive issue resolution, and unified inbox across all channels',
+          realWorld: 'Properties report 82% of communications handled by AI with sub-1-minute response times, sentiment analysis preventing negative reviews',
+          stats: [
+            { value: '82%', label: 'Automated' },
+            { value: '<1min', label: 'AI Response' }
+          ]
+        },
+        {
+          id: 'dynamic-pricing',
+          name: '💰 Dynamic Pricing Software',
+          type: 'revenue',
+          savings: 0,
+          desc: 'AI-powered pricing that automatically adjusts rates based on demand, seasonality & competition',
+          metrics: [],
+          whatItDoes: 'Our dynamic pricing system automatically adjusts your rates based on demand, seasonality, weather, events, and competition in real-time—maximizing revenue while maintaining high occupancy.',
+          howItHelps: 'Increase revenue by up to 40% without lifting a finger. Our AI analyzes market conditions 24/7 and optimizes pricing to ensure you're never leaving money on the table during peak demand or losing bookings during low seasons.',
+          realWorld: 'Hotels using dynamic pricing see average revenue increases of 25-40% with improved occupancy rates. The system pays for itself within the first month.',
+          stats: [
+            { value: 'Up to 40%', label: 'Revenue Increase' },
+            { value: '24/7', label: 'Automated' },
+            { value: 'Real-time', label: 'Price Updates' }
+          ],
+          isExternal: true,
+          externalLink: '/dynamic-pricing'
+        },
+        {
+          id: 'custom-ai-software',
+          name: '🎯 Custom AI Software',
+          type: 'custom',
+          savings: 0,
+          desc: 'Tell us what unique challenge you need solved - we build bespoke AI solutions',
+          metrics: [],
+          whatItDoes: 'Have a specific business challenge or unique workflow that needs automation? We build custom AI software tailored to your exact requirements - from specialized booking systems to predictive analytics dashboards.',
+          howItHelps: 'Get a bespoke AI solution designed specifically for your business needs. We analyze your processes, design the perfect system, and build custom software that integrates seamlessly with your existing tools.',
+          realWorld: 'Custom AI solutions deliver 3-5x ROI by solving unique business challenges that off-the-shelf software cannot address.',
+          stats: [
+            { value: '100%', label: 'Tailored' },
+            { value: 'Bespoke', label: 'Built for You' }
+          ],
+          isCustom: true
+        }
+      ],
+      resort: [
+        {
+          id: 'ai-concierge-resort',
+          name: 'AI Concierge Chatbot',
+          type: 'conversion',
+          savings: 250,
+          desc: '24/7 multi-venue assistant for spa, dining, activities',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: '24/7 multilingual AI chatbot handling complex multi-venue reservations (spa, dining, activities, rooms) via WhatsApp, website, or kiosk with intelligent cross-selling',
+          howItHelps: 'Increases upsell revenue by 250% across all resort amenities through AI-powered recommendations and seamless multi-venue booking',
+          realWorld: 'Resorts using conversational AI report 250% upsell increase across all amenities through intelligent, context-aware recommendations',
+          stats: [
+            { value: '250%', label: 'Upsell Boost' },
+            { value: 'Multi-venue', label: 'AI Agent' }
+          ]
+        },
+        {
+          id: 'personalized-itinerary',
+          name: 'Personalized Itinerary Builder',
+          type: 'conversion',
+          savings: 180,
+          desc: 'AI curates activities based on preferences and weather',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: 'AI analyzes guest profile, weather, and availability to create personalized daily itineraries with on-site and nearby activities, complete with booking links',
+          howItHelps: 'Increases activity bookings by 180% through AI-generated personalized itineraries that match guest interests and conditions',
+          realWorld: 'Resorts report 180% increase in activity bookings through machine learning-powered personalized itinerary recommendations',
+          stats: [
+            { value: '180%', label: 'More Bookings' },
+            { value: 'AI-curated', label: 'Personalized' }
+          ]
+        },
+        {
+          id: 'multi-venue-booking-ai',
+          name: 'Multi-Venue Booking Sync',
+          type: 'time',
+          savings: 75,
+          desc: 'AI coordinates spa, restaurant, golf, activities',
+          metrics: ['staffHours'],
+          whatItDoes: 'Central AI system manages availability across all resort venues, prevents double-bookings, resolves conflicts, and optimizes schedules automatically',
+          howItHelps: 'Reduces booking coordination time by 75% through AI-powered conflict resolution and automated scheduling across all venues',
+          realWorld: 'Resorts achieve 75% reduction in booking coordination with AI managing multi-venue availability and conflict prevention',
+          stats: [
+            { value: '75%', label: 'Time Saved' },
+            { value: 'AI Conflict', label: 'Resolution' }
+          ]
+        },
+        {
+          id: 'dynamic-pricing-resort',
+          name: 'Dynamic Pricing (All Venues)',
+          type: 'revenue',
+          savings: 22,
+          desc: 'AI pricing for rooms, spa, dining, activities',
+          metrics: ['rooms', 'averageRoomRate', 'occupancyRate'],
+          whatItDoes: 'Real-time AI price optimization across ALL revenue centers (rooms, spa, dining, activities) using 80+ data points including demand, weather, events',
+          howItHelps: 'Achieves 22% RevPAR improvement plus 15% ancillary revenue increase through machine learning pricing across all venues',
+          realWorld: 'Resorts report 22% RevPAR boost and 15% ancillary revenue growth with AI dynamic pricing across all revenue centers',
+          stats: [
+            { value: '22%', label: 'RevPAR Up' },
+            { value: 'All Venues', label: 'AI Pricing' }
+          ]
+        },
+        {
+          id: 'custom-automation-resort',
+          name: 'Custom Business Automation',
+          type: 'time',
+          savings: 60,
+          desc: 'Process mapping, multi-venue PMS integration, workflow bots',
+          metrics: ['staffHours'],
+          whatItDoes: 'Custom AI automation tailored for resorts - process mapping across multiple venues, PMS integration (Opera, Cloudbeds, Mews), CRM, POS, and accounting system connections with specialized workflow bots',
+          howItHelps: 'Saves 60% of time on manual workflows through custom multi-venue automation with API connections to all existing systems',
+          realWorld: 'Resorts implementing custom process-mapped automation report 60% reduction in cross-departmental workflows with seamless API integration',
+          stats: [
+            { value: '60%', label: 'Time Saved' },
+            { value: 'API', label: 'Integration' }
+          ]
+        },
+        {
+          id: 'ai-marketing-campaigns',
+          name: 'AI Marketing Campaigns',
+          type: 'conversion',
+          savings: 120,
+          desc: 'Automated email/SMS for offers, birthdays, re-engagement',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: 'AI triggers personalized email/SMS campaigns based on guest behavior: abandoned bookings, special offers, birthdays, post-stay re-engagement',
+          howItHelps: 'Increases conversion by 120% through AI-powered campaign timing and personalization based on guest lifecycle and behavior',
+          realWorld: 'Resorts report 120% conversion increase from AI-triggered, personalized marketing campaigns sent at optimal moments',
+          stats: [
+            { value: '120%', label: 'Conversion Up' },
+            { value: 'AI-triggered', label: 'Personalized' }
+          ]
+        },
+        {
+          id: 'ai-dashboard-resort',
+          name: 'AI Analytics Dashboard',
+          type: 'time',
+          savings: 65,
+          desc: 'Real-time multi-venue KPIs, revenue, forecasting',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI-powered dashboard with real-time KPIs across all venues: occupancy, revenue by department (rooms, spa, F&B, activities), guest satisfaction, and predictive demand forecasting',
+          howItHelps: 'Saves 65% of time on manual reporting while providing instant visibility and AI-driven insights for multi-venue revenue optimization',
+          realWorld: 'Resorts report 65% reduction in reporting time with AI dashboards providing real-time multi-venue analytics and predictive insights',
+          stats: [
+            { value: '65%', label: 'Time Saved' },
+            { value: 'Multi-venue', label: 'AI Analytics' }
+          ]
+        },
+        {
+          id: 'custom-ai-software-resort',
+          name: '🎯 Custom AI Software',
+          type: 'custom',
+          savings: 0,
+          desc: 'Tell us what unique challenge you need solved - we build bespoke AI solutions',
+          metrics: [],
+          whatItDoes: 'Have a specific business challenge or unique workflow that needs automation? We build custom AI software tailored to your exact requirements - from specialized booking systems to predictive analytics dashboards.',
+          howItHelps: 'Get a bespoke AI solution designed specifically for your business needs. We analyze your processes, design the perfect system, and build custom software that integrates seamlessly with your existing tools.',
+          realWorld: 'Custom AI solutions deliver 3-5x ROI by solving unique business challenges that off-the-shelf software cannot address.',
+          stats: [
+            { value: '100%', label: 'Tailored' },
+            { value: 'Bespoke', label: 'Built for You' }
+          ],
+          isCustom: true
+        }
+      ],
+      campsite: [
+        {
+          id: 'ai-booking-assistant',
+          name: 'AI Booking Assistant',
+          type: 'conversion',
+          savings: 28,
+          desc: '24/7 chatbot for pitch selection, policies, special requests',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: '24/7 AI chatbot guides guests through booking process, answers pitch availability questions, explains pet policies, handles special requests, and manages complex multi-night reservations',
+          howItHelps: 'Increases booking conversion by 28% especially during off-hours through conversational AI that guides guests to completion',
+          realWorld: 'Campsites report 28% increase in booking conversion with AI assistants handling after-hours inquiries and complex questions',
+          stats: [
+            { value: '28%', label: 'Conversion Up' },
+            { value: '24/7', label: 'AI Chatbot' }
+          ]
+        },
+        {
+          id: 'ai-dashboard-campsite',
+          name: 'AI Analytics Dashboard',
+          type: 'time',
+          savings: 65,
+          desc: 'Real-time occupancy, revenue, weather data, booking trends',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI-powered dashboard displaying real-time KPIs: pitch occupancy rates, revenue metrics, weather impact analysis, booking trends, and predictive forecasting for seasonal demand',
+          howItHelps: 'Saves 65% of time on manual reporting while providing instant data visibility and AI insights for weather-based pricing and occupancy optimization',
+          realWorld: 'Campsites report 65% reduction in reporting time with AI dashboards providing real-time visibility and weather-based predictive analytics',
+          stats: [
+            { value: '65%', label: 'Time Saved' },
+            { value: 'Weather', label: 'Analytics' }
+          ]
+        },
+        {
+          id: 'smart-checkin-campsite',
+          name: 'Smart Check-in Automation',
+          type: 'time',
+          savings: 78,
+          desc: 'Digital check-in with GPS, pitch maps, facility codes',
+          metrics: ['staffHours'],
+          whatItDoes: 'Mobile app check-in with AI sending personalized GPS directions, pitch-specific maps, facility access codes, and campsite information for contactless arrivals',
+          howItHelps: 'Reduces check-in processing time by 78% allowing fully contactless arrivals with automated personalized directions',
+          realWorld: 'Campsites report 78% reduction in check-in time with smart automation enabling contactless arrivals',
+          stats: [
+            { value: '78%', label: 'Time Saved' },
+            { value: 'Contactless', label: 'Digital' }
+          ]
+        },
+        {
+          id: 'dynamic-pricing-campsite',
+          name: 'Dynamic Pricing by Weather',
+          type: 'revenue',
+          savings: 18,
+          desc: 'AI adjusts pricing based on weather forecasts, events',
+          metrics: ['rooms', 'averageRoomRate', 'occupancyRate'],
+          whatItDoes: 'AI adjusts pitch pricing based on weather forecasts (raises rates for sunny weekends, adjusts for rain), local events, school holidays, and booking pace',
+          howItHelps: 'Achieves 18% revenue increase through intelligent weather-based pricing optimization that maximizes revenue in peak conditions',
+          realWorld: 'Campsites report 18% revenue increase through AI dynamic pricing based on weather patterns and demand signals',
+          stats: [
+            { value: '18%', label: 'Revenue Up' },
+            { value: 'Weather AI', label: 'Pricing' }
+          ]
+        },
+        {
+          id: 'automated-guest-comms',
+          name: 'Automated Guest Communications',
+          type: 'time',
+          savings: 70,
+          desc: 'AI email automation: weather alerts, pre-arrival, post-stay',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI-powered triggered email/SMS sequences: weather alerts and safety tips, pre-arrival information, arrival day details, pitch-specific guidelines, local recommendations, and post-stay follow-up',
+          howItHelps: 'Reduces repetitive communication by 70% through AI-personalized automated sequences with weather monitoring and pitch-specific content',
+          realWorld: 'Campsites report 70% reduction in communication tasks with AI-powered automated messaging including weather alerts',
+          stats: [
+            { value: '70%', label: 'Time Saved' },
+            { value: 'Weather', label: 'Alerts' }
+          ]
+        },
+        {
+          id: 'payment-booking-mgmt',
+          name: 'Payment & Booking Management',
+          type: 'time',
+          savings: 55,
+          desc: 'AI payment reminders, deposit tracking, API integrations',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI tracks payment schedules, sends automated reminders, updates booking systems automatically, integrates with payment gateways and accounting software via API',
+          howItHelps: 'Reduces payment management time by 55% with faster collection through AI tracking and automated reminders with API integrations',
+          realWorld: 'Campsites report 55% less time chasing payments with AI-powered tracking and API-connected payment management',
+          stats: [
+            { value: '55%', label: 'Time Saved' },
+            { value: 'API', label: 'Connected' }
+          ]
+        },
+        {
+          id: 'channel-sync-campsite',
+          name: 'Channel Sync & Distribution',
+          type: 'revenue',
+          savings: 15,
+          desc: 'AI manages Pitchup, Booking.com, Airbnb, own site',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: 'AI manages real-time availability and pricing sync across Pitchup, Booking.com, Airbnb, and own website - prevents double-bookings and optimizes distribution',
+          howItHelps: 'Achieves 15% revenue increase from better distribution and zero double-bookings through AI-powered channel management',
+          realWorld: 'Campsites report 15% revenue increase with AI channel management preventing double-bookings and optimizing distribution',
+          stats: [
+            { value: '15%', label: 'Revenue Up' },
+            { value: 'Zero', label: 'Double Books' }
+          ]
+        },
+        {
+          id: 'custom-ai-software-campsite',
+          name: '🎯 Custom AI Software',
+          type: 'custom',
+          savings: 0,
+          desc: 'Tell us what unique challenge you need solved - we build bespoke AI solutions',
+          metrics: [],
+          whatItDoes: 'Have a specific business challenge or unique workflow that needs automation? We build custom AI software tailored to your exact requirements - from specialized booking systems to predictive analytics dashboards.',
+          howItHelps: 'Get a bespoke AI solution designed specifically for your business needs. We analyze your processes, design the perfect system, and build custom software that integrates seamlessly with your existing tools.',
+          realWorld: 'Custom AI solutions deliver 3-5x ROI by solving unique business challenges that off-the-shelf software cannot address.',
+          stats: [
+            { value: '100%', label: 'Tailored' },
+            { value: 'Bespoke', label: 'Built for You' }
+          ],
+          isCustom: true
+        }
+      ],
+      agency: [
+        {
+          id: 'ai-travel-agent',
+          name: 'AI Travel Agent',
+          type: 'conversion',
+          savings: 40,
+          desc: 'Conversational AI in 15+ languages, 24/7 inquiries',
+          metrics: ['staffHours'],
+          whatItDoes: 'Conversational AI handles complex travel inquiries in 15+ languages with natural two-way conversations, multi-destination planning, group bookings, available 24/7',
+          howItHelps: 'Increases conversion by 40% with £150k month 1 revenue (HotelPlanner case) through AI handling after-hours and complex inquiries',
+          realWorld: 'HotelPlanner generated £150k in month 1 with AI travel agent, achieving 40% conversion increase through 24/7 multilingual support',
+          stats: [
+            { value: '40%', label: 'Conversion Up' },
+            { value: '15+', label: 'Languages' }
+          ]
+        },
+        {
+          id: 'smart-quote-generator',
+          name: 'Smart Quote Generator',
+          type: 'time',
+          savings: 70,
+          desc: 'AI-powered quotes with dynamic pricing, margin optimization',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI analyzes client requirements, searches inventory across suppliers, generates optimal quotes with dynamic pricing and margin optimization',
+          howItHelps: 'Achieves 70% faster quote generation with 20% better margins through AI-powered pricing and package optimization',
+          realWorld: 'Agencies report 70% faster quotes with 20% better margins using AI-powered quote generation and pricing optimization',
+          stats: [
+            { value: '70%', label: 'Faster' },
+            { value: '+20%', label: 'Margins' }
+          ]
+        },
+        {
+          id: 'automated-itinerary-builder',
+          name: 'Automated Itinerary Builder',
+          type: 'time',
+          savings: 75,
+          desc: 'AI creates multi-day itineraries with optimal routing',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI creates personalized multi-day itineraries considering preferences, logistics, travel time, and experiences with optimal routing and timing',
+          howItHelps: 'Saves 75% time on itinerary creation while producing more detailed, optimized travel plans than manual methods',
+          realWorld: 'Agencies report 75% time saved on itinerary creation with AI generating more detailed, optimized multi-day plans',
+          stats: [
+            { value: '75%', label: 'Time Saved' },
+            { value: 'AI-optimized', label: 'Routing' }
+          ]
+        },
+        {
+          id: 'client-segmentation-crm',
+          name: 'Client Segmentation & CRM',
+          type: 'conversion',
+          savings: 120,
+          desc: 'AI groups clients, API sync to CRM, personalized offers',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI automatically captures data from emails/calls, groups clients by preferences/spending/behavior, syncs to CRM via API, triggers personalized campaigns',
+          howItHelps: 'Increases repeat bookings by 120% through intelligent AI segmentation with API-connected CRM and automated campaigns',
+          realWorld: 'Agencies report 120% increase in repeat bookings through AI-powered client segmentation with CRM API integration',
+          stats: [
+            { value: '120%', label: 'Repeat Bookings' },
+            { value: 'API', label: 'Connected' }
+          ]
+        },
+        {
+          id: 'email-sms-campaigns',
+          name: 'Email & SMS Campaign Automation',
+          type: 'conversion',
+          savings: 30,
+          desc: 'AI email automation: follow-ups, abandoned quotes, reviews',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI triggers automated email/SMS sequences at optimal times: quote follow-ups (Day 3, Day 7), abandoned booking recovery, post-trip reviews, personalized content',
+          howItHelps: 'Increases quote-to-booking conversion by 30% through AI-timed automated follow-ups and personalized campaign sequences',
+          realWorld: 'Agencies report 30% conversion increase with AI-powered automated follow-up sequences sent at optimal moments',
+          stats: [
+            { value: '30%', label: 'Conversion Up' },
+            { value: 'AI-timed', label: 'Campaigns' }
+          ]
+        },
+        {
+          id: 'dynamic-package-pricing',
+          name: 'Dynamic Package Pricing',
+          type: 'revenue',
+          savings: 20,
+          desc: 'AI optimizes pricing by demand, seasonality, competitors',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI optimizes package pricing in real-time based on demand, seasonality, competitor rates, and margin targets - balances competitiveness with profitability',
+          howItHelps: 'Achieves 20% margin improvement while maintaining competitive positioning through AI-powered dynamic pricing',
+          realWorld: 'Agencies report 20% margin improvement with AI dynamic pricing maintaining competitiveness while optimizing profitability',
+          stats: [
+            { value: '20%', label: 'Margin Up' },
+            { value: 'AI Dynamic', label: 'Pricing' }
+          ]
+        },
+        {
+          id: 'ai-dashboard-agency',
+          name: 'AI Analytics Dashboard',
+          type: 'time',
+          savings: 65,
+          desc: 'Real-time KPIs: bookings, revenue, conversion, client insights',
+          metrics: ['staffHours'],
+          whatItDoes: 'AI-powered dashboard with real-time KPIs: booking pipeline, revenue by destination/client, conversion rates, quote-to-booking ratios, and predictive client lifetime value analytics',
+          howItHelps: 'Saves 65% of time on manual reporting while providing instant visibility and AI-driven insights for sales optimization and client targeting',
+          realWorld: 'Travel agencies report 65% reduction in reporting time with AI dashboards providing real-time sales analytics and predictive client insights',
+          stats: [
+            { value: '65%', label: 'Time Saved' },
+            { value: 'Predictive', label: 'Analytics' }
+          ]
+        },
+        {
+          id: 'custom-ai-software-agency',
+          name: '🎯 Custom AI Software',
+          type: 'custom',
+          savings: 0,
+          desc: 'Tell us what unique challenge you need solved - we build bespoke AI solutions',
+          metrics: [],
+          whatItDoes: 'Have a specific business challenge or unique workflow that needs automation? We build custom AI software tailored to your exact requirements - from specialized booking systems to predictive analytics dashboards.',
+          howItHelps: 'Get a bespoke AI solution designed specifically for your business needs. We analyze your processes, design the perfect system, and build custom software that integrates seamlessly with your existing tools.',
+          realWorld: 'Custom AI solutions deliver 3-5x ROI by solving unique business challenges that off-the-shelf software cannot address.',
+          stats: [
+            { value: '100%', label: 'Tailored' },
+            { value: 'Bespoke', label: 'Built for You' }
+          ],
+          isCustom: true
+        }
+      ]
+    };
+
+    const metricConfigs = {
+      emailsPerDay: { label: 'Emails received per day', min: 20, max: 500, step: 10, default: 100, format: (v) => v },
+      staffHours: { label: 'Staff hours per week on operations', min: 5, max: 200, step: 5, default: 40, format: (v) => v + ' hrs' },
+      hourlyRate: { label: 'Average staff hourly rate', min: 10, max: 50, step: 1, default: 15, format: (v) => '£' + v },
+      rooms: { label: 'Number of rooms/units/pitches', min: 5, max: 500, step: 5, default: 50, format: (v) => v + ' units' },
+      averageRoomRate: { label: 'Average room rate per night', min: 30, max: 500, step: 10, default: 100, format: (v) => '£' + v },
+      occupancyRate: { label: 'Current occupancy rate', min: 30, max: 100, step: 5, default: 70, format: (v) => v + '%' }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupPropertyCards();
+      updateProgress();
+    });
+
+    function startCalculator() {
+      console.log('startCalculator() called');
+      const overlay = document.getElementById('introOverlay');
+      console.log('Overlay element:', overlay);
+
+      if (!overlay) {
+        console.error('introOverlay element not found!');
+        return;
+      }
+
+      overlay.classList.add('hidden');
+      console.log('Added hidden class to overlay');
+
+      // Remove overlay from DOM after animation completes
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        console.log('Overlay display set to none');
+      }, 600);
+    }
+
+    function setupPropertyCards() {
+      document.querySelectorAll('.property-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const type = this.dataset.type;
+          const size = this.dataset.size;
+          if (type) {
+            document.querySelectorAll('[data-type]').forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+            calculatorData.propertyType = type;
+          }
+          if (size) {
+            document.querySelectorAll('[data-size]').forEach(c => c.classList.remove('selected'));
+            this.classList.add('selected');
+            calculatorData.propertySize = size;
+          }
+        });
+      });
+    }
+
+    function populateSolutions() {
+      const grid = document.getElementById('solutionsGrid');
+      grid.innerHTML = '';
+      const propertySolutions = solutions[calculatorData.propertyType] || [];
+
+      propertySolutions.forEach(solution => {
+        const card = document.createElement('div');
+        card.className = 'solution-card';
+        card.dataset.id = solution.id;
+
+        const badgeClass = solution.type === 'time' ? 'badge-time' :
+                           solution.type === 'revenue' ? 'badge-revenue' : 'badge-conversion';
+        const badgeLabel = solution.type === 'time' ? 'Time Saved' :
+                          solution.type === 'revenue' ? 'Revenue' : 'Conversion';
+
+        // Create tooltip HTML if detailed info exists
+        const tooltipHTML = solution.whatItDoes ? `
+          <div class="tooltip-card">
+            <div class="tooltip-title">${solution.name}</div>
+            <div class="tooltip-section">
+              <div class="tooltip-heading">What It Does</div>
+              <div class="tooltip-text">${solution.whatItDoes}</div>
+            </div>
+            <div class="tooltip-section">
+              <div class="tooltip-heading">How It Helps</div>
+              <div class="tooltip-text">${solution.howItHelps}</div>
+            </div>
+            <div class="tooltip-section">
+              <div class="tooltip-heading">Real-World Impact</div>
+              <div class="tooltip-text">${solution.realWorld}</div>
+            </div>
+            ${solution.stats ? `
+              <div class="tooltip-stats">
+                ${solution.stats.map(stat => `
+                  <div class="tooltip-stat">
+                    <div class="tooltip-stat-value">${stat.value}</div>
+                    <div class="tooltip-stat-label">${stat.label}</div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        ` : '';
+
+        card.innerHTML = `
+          ${solution.whatItDoes ? '<div class="info-icon"><i class="fa-solid fa-info"></i></div>' : ''}
+          <div class="solution-title">${solution.name}</div>
+          <div class="solution-desc">${solution.desc}</div>
+          <div class="solution-badge ${badgeClass}">${solution.savings}% ${badgeLabel}</div>
+          ${tooltipHTML}
+        `;
+
+        card.addEventListener('click', function(e) {
+          // Don't toggle if clicking on info icon or tooltip
+          if (!e.target.closest('.info-icon') && !e.target.closest('.tooltip-card')) {
+            this.classList.toggle('selected');
+            toggleSolution(solution);
+          }
+        });
+
+        // Add hover event to position tooltip dynamically
+        if (solution.whatItDoes) {
+          card.addEventListener('mouseenter', function() {
+            const tooltip = this.querySelector('.tooltip-card');
+            if (tooltip) {
+              positionTooltip(this, tooltip);
+            }
+          });
+        }
+
+        grid.appendChild(card);
+      });
+    }
+
+    function positionTooltip(card, tooltip) {
+      const cardRect = card.getBoundingClientRect();
+      const tooltipWidth = 320;
+      const tooltipHeight = 400; // Increased for safety
+      const spaceAbove = cardRect.top;
+      const spaceBelow = window.innerHeight - cardRect.bottom;
+      const gap = 15;
+
+      // Calculate horizontal center position
+      const cardCenterX = cardRect.left + (cardRect.width / 2);
+      const tooltipLeft = cardCenterX - (tooltipWidth / 2);
+
+      // Ensure tooltip doesn't go off screen horizontally
+      const minLeft = 10;
+      const maxLeft = window.innerWidth - tooltipWidth - 10;
+      const finalLeft = Math.max(minLeft, Math.min(tooltipLeft, maxLeft));
+
+      // Decide if tooltip should go above or below
+      if (spaceAbove > tooltipHeight + gap || spaceAbove > spaceBelow) {
+        // Position above the card
+        tooltip.classList.add('tooltip-above');
+        tooltip.classList.remove('tooltip-below');
+        tooltip.style.left = finalLeft + 'px';
+        tooltip.style.top = (cardRect.top - tooltipHeight - gap) + 'px';
+        tooltip.style.bottom = 'auto';
+      } else {
+        // Position below the card
+        tooltip.classList.add('tooltip-below');
+        tooltip.classList.remove('tooltip-above');
+        tooltip.style.left = finalLeft + 'px';
+        tooltip.style.top = (cardRect.bottom + gap) + 'px';
+        tooltip.style.bottom = 'auto';
+      }
+    }
+
+    function toggleSolution(solution) {
+      // If external link (like dynamic pricing), redirect to that page
+      if (solution.isExternal && solution.externalLink) {
+        window.location.href = solution.externalLink;
+        return;
+      }
+
+      // If custom software is selected, go to inquiry form immediately
+      if (solution.isCustom) {
+        currentStep = 5;
+        showStep(currentStep);
+        return;
+      }
+
+      const index = calculatorData.selectedSolutions.findIndex(s => s.id === solution.id);
+      if (index > -1) {
+        calculatorData.selectedSolutions.splice(index, 1);
+      } else {
+        calculatorData.selectedSolutions.push(solution);
+      }
+    }
+
+    function goBackFromCustom() {
+      currentStep = 2;
+      showStep(currentStep);
+    }
+
+    function submitCustomInquiry(event) {
+      event.preventDefault();
+
+      // Get form elements
+      const fullNameEl = document.getElementById('fullName');
+      const companyNameEl = document.getElementById('companyName');
+      const emailEl = document.getElementById('email');
+      const phoneEl = document.getElementById('phone');
+      const businessChallengeEl = document.getElementById('businessChallenge');
+
+      // Validate required fields
+      if (!fullNameEl || !fullNameEl.value.trim()) {
+        showValidationError('Please enter your full name');
+        fullNameEl?.focus();
+        return;
+      }
+
+      if (!companyNameEl || !companyNameEl.value.trim()) {
+        showValidationError('Please enter your company name');
+        companyNameEl?.focus();
+        return;
+      }
+
+      if (!emailEl || !emailEl.value.trim()) {
+        showValidationError('Please enter your email address');
+        emailEl?.focus();
+        return;
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailEl.value.trim())) {
+        showValidationError('Please enter a valid email address');
+        emailEl?.focus();
+        return;
+      }
+
+      if (!businessChallengeEl || !businessChallengeEl.value.trim()) {
+        showValidationError('Please describe your business challenge');
+        businessChallengeEl?.focus();
+        return;
+      }
+
+      // Sanitize and collect form data
+      const formData = {
+        fullName: sanitizeInput(fullNameEl.value),
+        companyName: sanitizeInput(companyNameEl.value),
+        email: sanitizeInput(emailEl.value),
+        phone: sanitizeInput(phoneEl?.value || ''),
+        businessChallenge: sanitizeInput(businessChallengeEl.value),
+        currentSystems: sanitizeInput(document.getElementById('currentSystems')?.value || ''),
+        desiredOutcome: sanitizeInput(document.getElementById('desiredOutcome')?.value || ''),
+        timeline: document.getElementById('timeline')?.value || '',
+        budget: document.getElementById('budget')?.value || '',
+        propertyType: calculatorData.propertyType,
+        propertySize: calculatorData.propertySize,
+        timestamp: new Date().toISOString()
+      };
+
+      // Log to console (in production, send to your backend/CRM)
+      console.log('Custom Software Inquiry:', formData);
+
+      // In production, send to your backend:
+      // fetch('/api/custom-inquiry', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData)
+      // })
+      // .then(response => response.json())
+      // .then(data => {
+      //   currentStep = 6;
+      //   showStep(currentStep);
+      // })
+      // .catch(error => {
+      //   console.error('Error submitting inquiry:', error);
+      //   showValidationError('Failed to submit inquiry. Please try again.');
+      // });
+
+      // Go to thank you page
+      currentStep = 6;
+      showStep(currentStep);
+    }
+
+    // Sanitize user input to prevent XSS
+    function sanitizeInput(input) {
+      if (typeof input !== 'string') return '';
+
+      const div = document.createElement('div');
+      div.textContent = input;
+      return div.innerHTML.trim();
+    }
+
+    function populateSliders() {
+      const container = document.getElementById('slidersContainer');
+      container.innerHTML = '';
+      const neededMetrics = new Set();
+      calculatorData.selectedSolutions.forEach(solution => {
+        solution.metrics.forEach(metric => neededMetrics.add(metric));
+      });
+      if (neededMetrics.has('staffHours')) neededMetrics.add('hourlyRate');
+
+      neededMetrics.forEach(metricKey => {
+        const config = metricConfigs[metricKey];
+        const sliderGroup = document.createElement('div');
+        sliderGroup.className = 'slider-group';
+        sliderGroup.innerHTML = `
+          <div class="slider-header">
+            <div class="slider-label">${config.label}</div>
+            <div class="slider-value" id="${metricKey}Value">${config.format(config.default)}</div>
+          </div>
+          <input type="range" class="slider" id="${metricKey}Slider"
+                 min="${config.min}" max="${config.max}" value="${config.default}" step="${config.step}">
+          <div class="slider-range">
+            <span>${config.format(config.min)}</span>
+            <span>${config.format(config.max)}</span>
+          </div>
+        `;
+        container.appendChild(sliderGroup);
+        const slider = sliderGroup.querySelector('.slider');
+        const valueDisplay = sliderGroup.querySelector('.slider-value');
+        slider.addEventListener('input', (e) => {
+          const value = parseInt(e.target.value);
+          valueDisplay.textContent = config.format(value);
+          calculatorData.metrics[metricKey] = value;
+        });
+      });
+    }
+
+    function nextStep() {
+      // Validation for step 1
+      if (currentStep === 1) {
+        if (!calculatorData.propertyType || !calculatorData.propertySize) {
+          showValidationError('Please select both property type and size');
+          return;
+        }
+        populateSolutions();
+      }
+
+      // Validation for step 2
+      if (currentStep === 2) {
+        if (calculatorData.selectedSolutions.length === 0) {
+          showValidationError('Please select at least one automation');
+          return;
+        }
+        populateSliders();
+      }
+
+      // Navigate to next step
+      if (currentStep < 4) {
+        currentStep++;
+        showStep(currentStep);
+        updateProgress();
+      }
+    }
+
+    function showValidationError(message) {
+      // Create or update validation message element
+      let errorEl = document.getElementById('validationError');
+      if (!errorEl) {
+        errorEl = document.createElement('div');
+        errorEl.id = 'validationError';
+        errorEl.style.cssText = `
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: rgba(255, 59, 48, 0.95);
+          color: white;
+          padding: 1rem 2rem;
+          border-radius: 8px;
+          font-weight: 600;
+          z-index: 10000;
+          animation: slideDown 0.3s ease;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        `;
+        document.body.appendChild(errorEl);
+      }
+
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+
+      // Auto-hide after 3 seconds
+      setTimeout(() => {
+        if (errorEl) {
+          errorEl.style.animation = 'slideUp 0.3s ease';
+          setTimeout(() => {
+            if (errorEl && errorEl.parentNode) {
+              errorEl.style.display = 'none';
+            }
+          }, 300);
+        }
+      }, 3000);
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+        updateProgress();
+      }
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step${step}`).classList.add('active');
+      document.querySelectorAll('.step-indicator').forEach((s, i) => {
+        s.classList.remove('active', 'completed');
+        if (i + 1 < step) s.classList.add('completed');
+        if (i + 1 === step) s.classList.add('active');
+      });
+    }
+
+    function updateProgress() {
+      const progress = ((currentStep - 1) / 3) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+    }
+
+    function calculateResults() {
+      const timeSolutions = calculatorData.selectedSolutions.filter(s => s.type === 'time');
+      const revenueSolutions = calculatorData.selectedSolutions.filter(s => s.type === 'revenue');
+      const conversionSolutions = calculatorData.selectedSolutions.filter(s => s.type === 'conversion');
+
+      // Conservative time savings calculation with strong diminishing returns
+      let totalTimeSavings = 0;
+      if (timeSolutions.length > 0) {
+        const sortedTimeSavings = timeSolutions.map(s => s.savings).sort((a, b) => b - a);
+        sortedTimeSavings.forEach((saving, index) => {
+          // Apply aggressive diminishing returns: 100%, 75%, 55%, 40%, 30%, etc.
+          const multiplier = index === 0 ? 1 : Math.max(0.3, 1 - (index * 0.25));
+          totalTimeSavings += saving * multiplier;
+        });
+        // Average and cap at 70% maximum time savings
+        totalTimeSavings = Math.min(totalTimeSavings / timeSolutions.length, 70);
+      }
+
+      const weeklyCost = calculatorData.metrics.staffHours * calculatorData.metrics.hourlyRate;
+      const annualCost = weeklyCost * 52;
+      const savedHours = (calculatorData.metrics.staffHours * totalTimeSavings) / 100;
+      const savedCost = (annualCost * totalTimeSavings) / 100;
+
+      // More accurate revenue estimation
+      let estimatedRevenue = annualCost * 5;
+      if (calculatorData.metrics.rooms && calculatorData.metrics.averageRoomRate) {
+        const avgOccupancy = calculatorData.metrics.occupancyRate / 100;
+        estimatedRevenue = calculatorData.metrics.rooms * calculatorData.metrics.averageRoomRate * 365 * avgOccupancy;
+      }
+
+      // Revenue increase with very conservative caps and diminishing returns
+      let totalRevenueIncrease = 0;
+      if (revenueSolutions.length > 0) {
+        const sortedRevenue = revenueSolutions.map(s => s.savings).sort((a, b) => b - a);
+        sortedRevenue.forEach((saving, index) => {
+          // Aggressive diminishing: 100%, 65%, 45%, 30%, etc.
+          const multiplier = index === 0 ? 1 : Math.max(0.3, 1 - (index * 0.35));
+          totalRevenueIncrease += saving * multiplier;
+        });
+        // Cap at 18% maximum - very conservative
+        totalRevenueIncrease = Math.min(totalRevenueIncrease / revenueSolutions.length, 18);
+      }
+
+      // Conversion increase with very conservative scaling
+      let totalConversionIncrease = 0;
+      if (conversionSolutions.length > 0) {
+        const sortedConversion = conversionSolutions.map(s => s.savings).sort((a, b) => b - a);
+        sortedConversion.forEach((saving, index) => {
+          // Very aggressive diminishing returns for conversion
+          const multiplier = index === 0 ? 1 : Math.max(0.35, 1 - (index * 0.22));
+          totalConversionIncrease += saving * multiplier;
+        });
+        // Scale down high percentages dramatically and cap at 10%
+        totalConversionIncrease = Math.min((totalConversionIncrease / conversionSolutions.length) * 0.08, 10);
+      }
+
+      const additionalRevenue = (estimatedRevenue * totalRevenueIncrease) / 100;
+      const conversionRevenue = (estimatedRevenue * totalConversionIncrease) / 100;
+      const totalBenefit = savedCost + additionalRevenue + conversionRevenue;
+
+      const setupCosts = { small: 3000, medium: 5000, large: 8000 };
+      const setupCost = setupCosts[calculatorData.propertySize] || 5000;
+      const monthsToROI = totalBenefit > 0 ? Math.ceil(setupCost / (totalBenefit / 12)) : 999;
+
+      displayResults(totalBenefit, savedHours, monthsToROI, savedCost, additionalRevenue, conversionRevenue, totalTimeSavings, totalRevenueIncrease, totalConversionIncrease);
+      nextStep();
+    }
+
+    function displayResults(totalBenefit, savedHours, monthsToROI, savedCost, additionalRevenue, conversionRevenue, avgTimeSavings, avgRevenueIncrease, avgConversionIncrease) {
+      // Animate numbers counting up
+      animateValue('totalBenefit', 0, Math.round(totalBenefit), 1500, true);
+      animateValue('timeSaved', 0, Math.round(savedHours), 1200, false, ' hrs');
+      animateValue('roiTimeline', 0, monthsToROI, 1000, false, ' mo');
+
+      // Delay insights and chart for smooth sequential animation
+      setTimeout(() => {
+        generatePersonalizedExplanation(savedCost, additionalRevenue, conversionRevenue);
+      }, 400);
+
+      setTimeout(() => {
+        generateInsights(savedCost, savedHours, avgTimeSavings, additionalRevenue, avgRevenueIncrease, conversionRevenue, avgConversionIncrease);
+      }, 500);
+
+      setTimeout(() => {
+        createCharts(savedCost, additionalRevenue, conversionRevenue);
+      }, 800);
+    }
+
+    function animateValue(elementId, start, end, duration, isCurrency = false, suffix = '') {
+      const element = document.getElementById(elementId);
+      const startTime = performance.now();
+      const difference = end - start;
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Use easeOutExpo for smooth deceleration
+        const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        const current = Math.round(start + (difference * easeOutExpo));
+
+        if (isCurrency) {
+          element.textContent = '£' + current.toLocaleString();
+        } else {
+          element.textContent = current + suffix;
+        }
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    function generatePersonalizedExplanation(savedCost, additionalRevenue, conversionRevenue) {
+      const container = document.getElementById('personalizedExplanation');
+      const propertyType = calculatorData.propertyType;
+      const propertySize = calculatorData.propertySize;
+      const selectedSolutions = calculatorData.selectedSolutions;
+
+      const propertyLabels = {
+        hotel: 'hotel',
+        resort: 'resort',
+        campsite: 'campsite',
+        agency: 'travel agency'
+      };
+
+      const sizeLabels = {
+        small: 'small',
+        medium: 'medium-sized',
+        large: 'large'
+      };
+
+      let explanationHTML = `
+        <div class="explanation-intro">
+          <p>Based on your <strong>${sizeLabels[propertySize]} ${propertyLabels[propertyType]}</strong> and the <strong>${selectedSolutions.length} automations</strong> you selected, here's why these results are achievable:</p>
+        </div>
+      `;
+
+      // Cost savings explanation
+      if (savedCost > 0) {
+        const timeSolutions = selectedSolutions.filter(s => s.type === 'time');
+        explanationHTML += `
+          <div class="explanation-section">
+            <h4><i class="fa-solid fa-coins"></i> £${Math.round(savedCost).toLocaleString()} Cost Savings</h4>
+            <div class="explanation-list">
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>You selected <strong>${timeSolutions.length} time-saving automation(s)</strong>: ${timeSolutions.map(s => s.name).join(', ')}</span>
+              </div>
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>These automations handle <strong>repetitive tasks 24/7</strong> - responding to guests, processing bookings, managing communications - tasks that currently take your staff hours each week</span>
+              </div>
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>With <strong>AI voice agents and natural language processing</strong>, your team spends less time on admin and more time delivering exceptional guest experiences</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Revenue growth explanation
+      if (additionalRevenue > 0) {
+        const revenueSolutions = selectedSolutions.filter(s => s.type === 'revenue');
+        explanationHTML += `
+          <div class="explanation-section">
+            <h4><i class="fa-solid fa-chart-line"></i> £${Math.round(additionalRevenue).toLocaleString()} Revenue Growth</h4>
+            <div class="explanation-list">
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>You selected <strong>${revenueSolutions.length} revenue optimization automation(s)</strong>: ${revenueSolutions.map(s => s.name).join(', ')}</span>
+              </div>
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>These systems use <strong>machine learning to analyze 80+ data points</strong> - competitor rates, local events, weather, booking patterns - adjusting pricing in real-time to maximize revenue</span>
+              </div>
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>For a ${sizeLabels[propertySize]} ${propertyLabels[propertyType]}, even a <strong>small percentage increase compounds</strong> significantly over a full year</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Conversion boost explanation
+      if (conversionRevenue > 0) {
+        const conversionSolutions = selectedSolutions.filter(s => s.type === 'conversion');
+        explanationHTML += `
+          <div class="explanation-section">
+            <h4><i class="fa-solid fa-bullseye"></i> £${Math.round(conversionRevenue).toLocaleString()} Conversion Boost</h4>
+            <div class="explanation-list">
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>You selected <strong>${conversionSolutions.length} conversion-boosting automation(s)</strong>: ${conversionSolutions.map(s => s.name).join(', ')}</span>
+              </div>
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>AI chatbots and booking assistants are available <strong>24/7 in 100+ languages</strong>, capturing inquiries during off-hours that would otherwise be lost</span>
+              </div>
+              <div class="explanation-item">
+                <i class="fa-solid fa-check-circle"></i>
+                <span>Personalized recommendations and <strong>instant responses (<1 minute)</strong> dramatically increase booking rates - HotelPlanner generated £150k in their first month with AI agents</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = explanationHTML;
+    }
+
+    function generateInsights(savedCost, savedHours, avgTimeSavings, additionalRevenue, avgRevenueIncrease, conversionRevenue, avgConversionIncrease) {
+      const container = document.getElementById('insightsContainer');
+      const insights = [];
+
+      if (savedHours > 0) {
+        const fte = savedHours / 40;
+        insights.push({
+          icon: 'fa-robot',
+          text: `AI agents could save your team <strong>${Math.round(savedHours)} hours per week</strong>${fte >= 1 ? `, equivalent to ${fte.toFixed(1)} FTE(s)` : ''} with 80-95% automation of routine tasks in 100+ languages.`
+        });
+      }
+
+      if (savedCost > 0) {
+        insights.push({
+          icon: 'fa-piggy-bank',
+          text: `<strong>£${Math.round(savedCost).toLocaleString()} annual labor savings</strong> from ${Math.round(avgTimeSavings)}% automation with response times reduced from minutes to <1 minute.`
+        });
+      }
+
+      if (additionalRevenue > 0) {
+        insights.push({
+          icon: 'fa-chart-line',
+          text: `AI revenue agents analyzing 80+ data points could generate <strong>£${Math.round(additionalRevenue).toLocaleString()} additional revenue</strong> (${Math.round(avgRevenueIncrease)}% increase) through intelligent pricing optimization.`
+        });
+      }
+
+      if (conversionRevenue > 0) {
+        insights.push({
+          icon: 'fa-bullseye',
+          text: `24/7 AI booking agents with personalized recommendations could capture <strong>£${Math.round(conversionRevenue).toLocaleString()} additional revenue</strong> through improved conversion rates.`
+        });
+      }
+
+      insights.push({
+        icon: 'fa-globe',
+        text: `Your AI agents work 24/7 in 100+ languages with 95% automation rate - HotelPlanner's AI agents generated £150k in their first month handling 40,000 inquiries.`
+      });
+
+      container.innerHTML = insights.map((insight, index) => `
+        <div class="insight-item" style="opacity: 0; animation: fadeInUp 0.6s ease-out ${index * 0.15}s forwards;">
+          <div class="insight-icon"><i class="fa-solid ${insight.icon}"></i></div>
+          <div class="insight-text">${insight.text}</div>
+        </div>
+      `).join('');
+    }
+
+    function createCharts(savedCost, additionalRevenue, conversionRevenue) {
+      createWaterfallChart(savedCost, additionalRevenue, conversionRevenue);
+      createDonutChart(savedCost, additionalRevenue, conversionRevenue);
+    }
+
+    function createWaterfallChart(savedCost, additionalRevenue, conversionRevenue) {
+      const canvas = document.getElementById('waterfallChart');
+      if (!canvas) {
+        console.error('Waterfall chart canvas not found');
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        console.error('Could not get canvas context');
+        return;
+      }
+
+      // Destroy existing chart
+      if (waterfallChart) {
+        try {
+          waterfallChart.destroy();
+        } catch (e) {
+          console.warn('Error destroying waterfall chart:', e);
+        }
+        waterfallChart = null;
+      }
+
+      const totalBenefit = savedCost + additionalRevenue + conversionRevenue;
+
+      // Waterfall data: Initial (0), then each component, then total
+      const data = [0, savedCost, additionalRevenue, conversionRevenue, totalBenefit];
+      const labels = ['Start', 'Cost Savings', 'Revenue Growth', 'Conversion Boost', 'Total Benefit'];
+
+      // Colors: transparent for start, green for savings, cyan for revenue, purple for conversion, green for total
+      const backgroundColors = [
+        'rgba(255, 255, 255, 0)',
+        'rgba(16, 185, 129, 0.85)',
+        'rgba(6, 182, 212, 0.85)',
+        'rgba(30, 64, 175, 0.85)',
+        'rgba(16, 185, 129, 0.95)'
+      ];
+
+      waterfallChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: backgroundColors,
+            borderColor: [
+              'rgba(255, 255, 255, 0)',
+              'rgba(16, 185, 129, 1)',
+              'rgba(6, 182, 212, 1)',
+              'rgba(30, 64, 175, 1)',
+              'rgba(16, 185, 129, 1)'
+            ],
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 2,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(24, 24, 24, 0.95)',
+              titleColor: '#FFFFFF',
+              bodyColor: '#FFFFFF',
+              borderColor: '#10B981',
+              borderWidth: 2,
+              padding: 16,
+              cornerRadius: 8,
+              titleFont: { size: 13, weight: 'bold' },
+              bodyFont: { size: 15, weight: 'bold' },
+              callbacks: {
+                label: (context) => {
+                  if (context.dataIndex === 0) return 'Starting Point';
+                  return '£' + Math.round(context.parsed.y).toLocaleString();
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: '#B3B3B3',
+                font: { size: 12, family: "'Poppins', sans-serif" },
+                callback: (value) => '£' + (value / 1000).toFixed(0) + 'k'
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.06)',
+                drawBorder: false
+              },
+              border: { display: false }
+            },
+            x: {
+              ticks: {
+                color: '#FFFFFF',
+                font: { size: 11, weight: '600', family: "'Poppins', sans-serif" }
+              },
+              grid: { display: false },
+              border: { display: false }
+            }
+          },
+          animation: {
+            duration: 2000,
+            easing: 'easeInOutCubic',
+            delay: (context) => context.dataIndex * 150
+          }
+        }
+      });
+    }
+
+    function createDonutChart(savedCost, additionalRevenue, conversionRevenue) {
+      const canvas = document.getElementById('donutChart');
+      if (!canvas) {
+        console.error('Donut chart canvas not found');
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        console.error('Could not get canvas context');
+        return;
+      }
+
+      // Destroy existing chart
+      if (donutChart) {
+        try {
+          donutChart.destroy();
+        } catch (e) {
+          console.warn('Error destroying donut chart:', e);
+        }
+        donutChart = null;
+      }
+
+      const data = [];
+      const labels = [];
+      const colors = [];
+
+      if (savedCost > 0) {
+        data.push(savedCost);
+        labels.push('Cost Savings');
+        colors.push('rgba(16, 185, 129, 0.9)');
+      }
+      if (additionalRevenue > 0) {
+        data.push(additionalRevenue);
+        labels.push('Revenue Growth');
+        colors.push('rgba(6, 182, 212, 0.9)');
+      }
+      if (conversionRevenue > 0) {
+        data.push(conversionRevenue);
+        labels.push('Conversion Boost');
+        colors.push('rgba(30, 64, 175, 0.9)');
+      }
+
+      donutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors,
+            borderColor: '#021B23',
+            borderWidth: 3,
+            hoverBorderColor: '#FFFFFF',
+            hoverBorderWidth: 4,
+            hoverOffset: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1.2,
+          cutout: '65%',
+          plugins: {
+            legend: {
+              display: true,
+              position: 'bottom',
+              labels: {
+                color: '#FFFFFF',
+                font: { size: 12, weight: '600', family: "'Poppins', sans-serif" },
+                padding: 15,
+                usePointStyle: true,
+                pointStyle: 'circle'
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(24, 24, 24, 0.95)',
+              titleColor: '#FFFFFF',
+              bodyColor: '#FFFFFF',
+              borderColor: '#10B981',
+              borderWidth: 2,
+              padding: 16,
+              cornerRadius: 8,
+              titleFont: { size: 13, weight: 'bold' },
+              bodyFont: { size: 15, weight: 'bold' },
+              callbacks: {
+                label: (context) => {
+                  const value = '£' + Math.round(context.parsed).toLocaleString();
+                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                  const percentage = ((context.parsed / total) * 100).toFixed(1);
+                  return `${context.label}: ${value} (${percentage}%)`;
+                }
+              }
+            }
+          },
+          animation: {
+            duration: 1500,
+            easing: 'easeInOutQuart',
+            animateRotate: true,
+            animateScale: true
+          }
+        }
+      });
+    }
+
+    function resetCalculator() {
+      // Destroy charts to prevent memory leaks
+      if (waterfallChart) {
+        try {
+          waterfallChart.destroy();
+        } catch (e) {
+          console.warn('Error destroying waterfall chart:', e);
+        }
+        waterfallChart = null;
+      }
+
+      if (donutChart) {
+        try {
+          donutChart.destroy();
+        } catch (e) {
+          console.warn('Error destroying donut chart:', e);
+        }
+        donutChart = null;
+      }
+
+      // Reset calculator data
+      calculatorData.propertyType = null;
+      calculatorData.propertySize = null;
+      calculatorData.selectedSolutions = [];
+      calculatorData.metrics = {
+        staffHours: 40,
+        hourlyRate: 15,
+        emailsPerDay: 100,
+        rooms: 50,
+        averageRoomRate: 100,
+        occupancyRate: 70
+      };
+
+      // Reset UI
+      currentStep = 1;
+      showStep(1);
+      updateProgress();
+
+      // Clear selections
+      document.querySelectorAll('.property-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.solution-card').forEach(c => c.classList.remove('selected'));
+
+      // Clear tooltips
+      const existingTooltips = document.querySelectorAll('.tooltip-card');
+      existingTooltips.forEach(t => t.remove());
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
