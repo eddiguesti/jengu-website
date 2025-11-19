@@ -40,7 +40,7 @@ const jsonLd = [
           </div>
           <h3>Réservez une Démo</h3>
           <p>Planifiez une consultation personnalisée de 30 minutes pour discuter de vos besoins d'automatisation</p>
-          <a href="https://calendly.com/jengu-meeting/30min" target="_blank">Réservez Maintenant →</a>
+          <a href="#" onclick="openBookingModal(); return false;">Réservez Maintenant →</a>
         </div>
 
         <div class="contact-card">
@@ -122,16 +122,16 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- Calendly CTA -->
+  <!-- Booking CTA -->
   <section class="calendly-section">
     <div class="calendly-container">
       <h2>Préférez Discuter ? <span class="gradient-text">Réservez un Appel</span></h2>
       <p>
         Planifiez une consultation vidéo de 30 minutes avec notre équipe. Nous discuterons de vos besoins spécifiques, vous montrerons des exemples concrets et vous expliquerons comment l'automatisation IA peut transformer votre entreprise.
       </p>
-      <a href="https://calendly.com/jengu-meeting/30min" target="_blank" class="calendly-btn">
+      <button onclick="openBookingModal()" class="calendly-btn">
         <i class="fas fa-video"></i> Réservez une Consultation
-      </a>
+      </button>
     </div>
   </section>
 
