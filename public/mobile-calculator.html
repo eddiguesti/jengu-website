@@ -792,6 +792,222 @@
       display: none;
     }
 
+    /* Nav Consultation CTA */
+    .nav-consultation-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+      color: white;
+      padding: 0.625rem 1.25rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+      border: 1px solid rgba(129, 140, 248, 0.3);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-consultation-cta i {
+      font-size: 0.9rem;
+    }
+
+    .nav-consultation-cta:hover {
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+      border-color: rgba(129, 140, 248, 0.5);
+    }
+
+    /* Burger menu */
+    .burger-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 26px;
+      height: 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .burger-line {
+      width: 100%;
+      height: 2.5px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .burger-menu.active .burger-line:nth-child(1) {
+      transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .burger-menu.active .burger-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .burger-menu.active .burger-line:nth-child(3) {
+      transform: translateY(-7.5px) rotate(-45deg);
+    }
+
+    /* Sidebar overlay */
+    .sidebar-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 998;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 280px;
+      max-width: 80vw;
+      height: 100vh;
+      background: #2b2e3f;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 999;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      border-top-left-radius: 16px;
+      border-bottom-left-radius: 16px;
+      overflow: hidden;
+    }
+
+    #sidebar.active {
+      transform: translateX(0);
+    }
+
+    #sidebar .sidebar-header {
+      padding: 1.25rem 1rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    #sidebar .sidebar-close {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      background: none;
+      border: none;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.15rem;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    #sidebar .sidebar-close:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+    }
+
+    #sidebar .sidebar-nav {
+      overflow-y: auto;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    #sidebar .sidebar-link {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+
+    #sidebar .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: white;
+    }
+
+    #sidebar .sidebar-link i {
+      font-size: 1.05rem;
+      opacity: 0.8;
+      justify-self: center;
+    }
+
+    #sidebar .sidebar-cta-container {
+      padding: 0.75rem 0.875rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    #sidebar .sidebar-cta {
+      width: 100%;
+      height: 38px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0 0.75rem;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    #sidebar .sidebar-cta-primary {
+      background: linear-gradient(135deg, #10b981, #059669);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+
+    #sidebar .sidebar-cta-primary:hover {
+      background: linear-gradient(135deg, #059669, #047857);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.45);
+    }
+
+    #sidebar .sidebar-cta-secondary {
+      background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.35);
+    }
+
+    #sidebar .sidebar-cta-secondary:hover {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(139, 92, 246, 0.45);
+    }
+
+    #sidebar .sidebar-cta i {
+      font-size: 0.9rem;
+    }
+
     /* Desktop Responsive Styles */
     @media (min-width: 768px) {
       .header {
@@ -946,20 +1162,93 @@
 </head>
 <body>
   <!-- Navigation -->
-  <nav>
+  <nav id="navbar">
     <div class="nav-container">
       <a href="/" class="logo">
         <img src="/images/logo.png" alt="Jengu" class="logo-img">
       </a>
-      <div class="nav-title">AI ROI Calculator</div>
+
       <div class="nav-right">
-        <a href="/" class="back-btn">
-          <i class="fas fa-arrow-left"></i>
-          <span>Back</span>
-        </a>
+        <!-- Free Consultation CTA -->
+        <button onclick="window.location.href='/contact'" class="nav-consultation-cta">
+          <i class="fas fa-calendar-check"></i>
+          <span>Free Consultation</span>
+        </button>
+
+        <!-- Burger Menu Button -->
+        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
       </div>
     </div>
   </nav>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar Menu -->
+  <aside id="sidebar">
+    <!-- Header with close button -->
+    <div class="sidebar-header">
+      <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Navigation links (scrollable) -->
+    <nav class="sidebar-nav">
+      <a href="/" class="sidebar-link">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/about" class="sidebar-link">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="/services" class="sidebar-link">
+        <i class="fas fa-cogs"></i>
+        <span>Services</span>
+      </a>
+      <a href="/dynamic-pricing" class="sidebar-link">
+        <i class="fas fa-chart-line"></i>
+        <span>Dynamic Pricing</span>
+      </a>
+      <a href="/case-studies" class="sidebar-link">
+        <i class="fas fa-briefcase"></i>
+        <span>Case Studies</span>
+      </a>
+      <a href="/blog" class="sidebar-link">
+        <i class="fas fa-newspaper"></i>
+        <span>Blog</span>
+      </a>
+      <a href="/faq" class="sidebar-link">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+      <a href="/team" class="sidebar-link">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+      </a>
+      <a href="/contact" class="sidebar-link">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+
+    <!-- CTA buttons at bottom -->
+    <div class="sidebar-cta-container">
+      <button onclick="window.location.href='/contact'" class="sidebar-cta sidebar-cta-primary">
+        <i class="fas fa-comments"></i>
+        <span>Get Consultation</span>
+      </button>
+      <a href="/calculator" class="sidebar-cta sidebar-cta-secondary">
+        <i class="fas fa-calculator"></i>
+        <span>Calculate ROI</span>
+      </a>
+    </div>
+  </aside>
 
   <div class="container">
     <!-- Step 1: Business Type -->
@@ -1360,6 +1649,57 @@
   </div>
 
   <script>
+    // Sidebar functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const burgerMenu = document.getElementById('burgerMenu');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const sidebarClose = document.getElementById('sidebarClose');
+
+      function openSidebar() {
+        if (sidebar) sidebar.classList.add('active');
+        if (sidebarOverlay) sidebarOverlay.classList.add('active');
+        if (burgerMenu) burgerMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSidebar() {
+        if (sidebar) sidebar.classList.remove('active');
+        if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+        if (burgerMenu) burgerMenu.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Event listeners for sidebar
+      if (burgerMenu) {
+        burgerMenu.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openSidebar();
+        });
+      }
+
+      if (sidebarClose) {
+        sidebarClose.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          closeSidebar();
+        });
+      }
+
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', closeSidebar);
+      }
+
+      // Close sidebar when clicking a link
+      document.querySelectorAll('.sidebar-link, .sidebar-cta').forEach(link => {
+        link.addEventListener('click', () => {
+          setTimeout(closeSidebar, 200);
+        });
+      });
+    });
+
+    // Calculator functionality
     let currentStep = 1;
     const steps = ['Business Info', 'Choose Automations', 'Monthly Volume', 'Results', 'Custom Inquiry'];
     let selectedSolutions = [];
