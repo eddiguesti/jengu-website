@@ -12,6 +12,7 @@
     "optimize-images": "node optimize-images.mjs"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^11.2.0",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.0.0",
     "astro": "^4.0.0",

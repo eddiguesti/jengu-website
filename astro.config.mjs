@@ -1,10 +1,15 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jengu.ai',
+  adapter: cloudflare({
+    mode: 'directory',
+    functionPerRoute: false
+  }),
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/preview/'),
