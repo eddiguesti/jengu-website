@@ -1733,58 +1733,117 @@
   </style>
 </head>
 <body>
-  <!-- Simple Logo Header -->
-  <div class="logo-header">
-    <a href="/" class="logo-link">
-      <img src="/images/logo.png" alt="Jengu" class="logo-img">
-    </a>
-  </div>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <img src="/images/logo.png" alt="Jengu" class="logo-img">
+      </a>
 
-  <!-- Hero Banner -->
-  <section class="hero-banner">
-    <div class="hero-content">
-      <div class="hero-badge">
-        <i class="fas fa-sparkles"></i> AI-Powered ROI Calculator
-      </div>
+      <div class="nav-right">
+        <!-- Free Consultation CTA -->
+        <button onclick="openBookingModal()" class="nav-consultation-cta">
+          <i class="fas fa-calendar-check"></i>
+          <span>Free Consultation</span>
+        </button>
 
-      <h1 class="hero-title">
-        Discover Your <span class="gradient-text">AI Agent ROI</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Calculate how AI agents can transform your tourism & hospitality business with real-time intelligence, 24/7 availability, and 100+ language support
-      </p>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-chart-line"></i>
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+          <button class="language-btn" id="languageBtn">
+            <i class="fas fa-globe"></i>
+            <span id="currentLang">EN</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="language-dropdown" id="languageDropdown">
+            <a href="/calculator" class="language-option" data-lang="en">
+              <span class="flag">🇬🇧</span>
+              <span>English</span>
+            </a>
+            <a href="/fr/calculator" class="language-option" data-lang="fr">
+              <span class="flag">🇫🇷</span>
+              <span>Français</span>
+            </a>
+            <a href="/es/calculator" class="language-option" data-lang="es">
+              <span class="flag">🇪🇸</span>
+              <span>Español</span>
+            </a>
           </div>
-          <span class="stat-value">28.9%</span>
-          <span class="stat-label">CAGR</span>
-          <span class="stat-sublabel">Market Growth</span>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-hotel"></i>
-          </div>
-          <span class="stat-value">80%+</span>
-          <span class="stat-label">Adoption</span>
-          <span class="stat-sublabel">Hotel Industry</span>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-dollar-sign"></i>
-          </div>
-          <span class="stat-value">$198.9B</span>
-          <span class="stat-label">By 2034</span>
-          <span class="stat-sublabel">Market Size</span>
-        </div>
+        <!-- Burger Menu Button -->
+        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+          <span class="burger-line"></span>
+        </button>
       </div>
     </div>
-  </section>
+  </nav>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- Sidebar Menu -->
+  <aside id="sidebar">
+    <!-- Header with close button -->
+    <div class="sidebar-header">
+      <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Navigation links (scrollable) -->
+    <nav class="sidebar-nav">
+      <a href="/" class="sidebar-link">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a href="/about" class="sidebar-link">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a href="/services" class="sidebar-link">
+        <i class="fas fa-cogs"></i>
+        <span>Services</span>
+      </a>
+      <a href="/dynamic-pricing" class="sidebar-link">
+        <i class="fas fa-chart-line"></i>
+        <span>Dynamic Pricing</span>
+      </a>
+      <a href="/case-studies" class="sidebar-link">
+        <i class="fas fa-briefcase"></i>
+        <span>Case Studies</span>
+      </a>
+      <a href="/blog" class="sidebar-link">
+        <i class="fas fa-newspaper"></i>
+        <span>Blog</span>
+      </a>
+      <a href="/faq" class="sidebar-link">
+        <i class="fas fa-question-circle"></i>
+        <span>FAQ</span>
+      </a>
+      <a href="/team" class="sidebar-link">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+      </a>
+      <a href="/contact" class="sidebar-link">
+        <i class="fas fa-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </nav>
+
+    <!-- CTA buttons at bottom -->
+    <div class="sidebar-cta-container">
+      <button onclick="openBookingModal()" class="sidebar-cta sidebar-cta-primary">
+        <i class="fas fa-comments"></i>
+        <span>Get Consultation</span>
+      </button>
+      <a href="/calculator" class="sidebar-cta sidebar-cta-secondary">
+        <i class="fas fa-calculator"></i>
+        <span>Calculate ROI</span>
+      </a>
+    </div>
+  </aside>
 
   <div class="container">
     <!-- Step 1: Business Type -->
