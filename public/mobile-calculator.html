@@ -132,14 +132,48 @@
       font-weight: 600;
     }
 
+    /* Logo Header */
+    .logo-header {
+      position: relative;
+      z-index: 10;
+      padding: 2rem 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .logo-link {
+      display: inline-block;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .logo-link:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+      filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.2));
+    }
+
+    @media (min-width: 768px) {
+      .logo-header {
+        padding: 3rem 2rem 1.5rem;
+      }
+
+      .logo-img {
+        height: 48px;
+      }
+    }
+
     /* Hero Banner - Matching Homepage Style */
     .hero-banner {
       position: relative;
       background: transparent;
-      padding: 4rem 1.5rem 3rem;
-      margin: -1rem -1rem 2.5rem -1rem;
+      padding: 2rem 1.5rem 3rem;
       overflow: hidden;
       z-index: 1;
+      margin-bottom: 2rem;
     }
 
     .hero-banner::before {
@@ -1699,123 +1733,12 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <a href="/" class="logo">
-        <img src="/images/logo.png" alt="Jengu" class="logo-img">
-      </a>
-
-      <div class="nav-right">
-        <!-- Try Calculator CTA -->
-        <button onclick="window.location.href='/calculator'" class="nav-calculator-cta">
-          <i class="fas fa-calculator"></i>
-          <span>Try Calculator</span>
-        </button>
-
-        <!-- Free Consultation CTA -->
-        <button onclick="window.location.href='/contact'" class="nav-consultation-cta">
-          <i class="fas fa-calendar-check"></i>
-          <span>Free Consultation</span>
-        </button>
-
-        <!-- Language Switcher -->
-        <div class="language-switcher">
-          <button class="language-btn" id="languageBtn">
-            <i class="fas fa-globe"></i>
-            <span id="currentLang">EN</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="language-dropdown" id="languageDropdown">
-            <a href="/calculator" class="language-option" data-lang="en">
-              <span class="flag">🇬🇧</span>
-              <span>English</span>
-            </a>
-            <a href="/fr/calculator" class="language-option" data-lang="fr">
-              <span class="flag">🇫🇷</span>
-              <span>Français</span>
-            </a>
-            <a href="/es/calculator" class="language-option" data-lang="es">
-              <span class="flag">🇪🇸</span>
-              <span>Español</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Burger Menu Button -->
-        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <!-- Sidebar Menu -->
-  <aside id="sidebar">
-    <!-- Header with close button -->
-    <div class="sidebar-header">
-      <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-
-    <!-- Navigation links (scrollable) -->
-    <nav class="sidebar-nav">
-      <a href="/" class="sidebar-link">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-      </a>
-      <a href="/about" class="sidebar-link">
-        <i class="fas fa-info-circle"></i>
-        <span>About</span>
-      </a>
-      <a href="/services" class="sidebar-link">
-        <i class="fas fa-cogs"></i>
-        <span>Services</span>
-      </a>
-      <a href="/dynamic-pricing" class="sidebar-link">
-        <i class="fas fa-chart-line"></i>
-        <span>Dynamic Pricing</span>
-      </a>
-      <a href="/case-studies" class="sidebar-link">
-        <i class="fas fa-briefcase"></i>
-        <span>Case Studies</span>
-      </a>
-      <a href="/blog" class="sidebar-link">
-        <i class="fas fa-newspaper"></i>
-        <span>Blog</span>
-      </a>
-      <a href="/faq" class="sidebar-link">
-        <i class="fas fa-question-circle"></i>
-        <span>FAQ</span>
-      </a>
-      <a href="/team" class="sidebar-link">
-        <i class="fas fa-users"></i>
-        <span>Team</span>
-      </a>
-      <a href="/contact" class="sidebar-link">
-        <i class="fas fa-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </nav>
-
-    <!-- CTA buttons at bottom -->
-    <div class="sidebar-cta-container">
-      <button onclick="window.location.href='/contact'" class="sidebar-cta sidebar-cta-primary">
-        <i class="fas fa-comments"></i>
-        <span>Get Consultation</span>
-      </button>
-      <a href="/calculator" class="sidebar-cta sidebar-cta-secondary">
-        <i class="fas fa-calculator"></i>
-        <span>Calculate ROI</span>
-      </a>
-    </div>
-  </aside>
+  <!-- Simple Logo Header -->
+  <div class="logo-header">
+    <a href="/" class="logo-link">
+      <img src="/images/logo.png" alt="Jengu" class="logo-img">
+    </a>
+  </div>
 
   <!-- Hero Banner -->
   <section class="hero-banner">
