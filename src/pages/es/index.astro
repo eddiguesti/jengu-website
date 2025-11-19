@@ -42,9 +42,9 @@ const jsonLd = [
 
         <!-- Desktop CTAs -->
         <div class="hero-cta-group desktop-only">
-          <a href="/es/contact" class="btn btn-primary btn-large btn-modern">
+          <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
             <span>Consulta Gratuita</span>
-          </a>
+          </button>
           <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
             <span>Calcule su ROI</span>
           </a>
@@ -100,9 +100,9 @@ const jsonLd = [
         </h1>
         <div class="mobile-subhead">Para Hospitalidad. Aumenta ingresos, reduce trabajo manual.</div>
         <div class="mobile-hero-actions">
-          <a href="/es/contact" class="mobile-hero-btn mobile-hero-btn-primary">
+          <button onclick="openBookingModal()" class="mobile-hero-btn mobile-hero-btn-primary">
             Consulta Gratuita
-          </a>
+          </button>
           <a href="#" onclick="handleCalculatorClick(event)" class="mobile-hero-btn mobile-hero-btn-secondary">
             Calcule su ROI
           </a>
