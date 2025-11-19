@@ -245,18 +245,13 @@ export const POST: APIRoute = async ({ request }) => {
     const GRAPH_USER = import.meta.env.GRAPH_USER;
 
     if (!TENANT_ID || !CLIENT_ID || !CLIENT_SECRET || !GRAPH_USER) {
-      console.error('Missing environment variables:', {
-        hasTenantId: !!TENANT_ID,
-        hasClientId: !!CLIENT_ID,
-        hasClientSecret: !!CLIENT_SECRET,
-        hasGraphUser: !!GRAPH_USER
-      });
+      console.error('Missing environment variables - API not configured for production use');
       return new Response(
         JSON.stringify({
-          error: 'Server configuration error',
-          details: 'Missing required environment variables. Please contact support.'
+          error: 'Booking system not configured',
+          message: 'The booking system is currently being configured. Please contact us directly at hello@jengu.ai to schedule a meeting.'
         }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -276,13 +271,58 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
+    // Validate required fields
     if (!payload || !payload.date || !payload.time || !payload.name || !payload.email) {
-      console.error('Missing fields. Payload:', payload);
       return new Response(
-        JSON.stringify({ error: 'Missing required fields', received: payload }),
+        JSON.stringify({ error: 'Missing required fields: date, time, name, and email are required' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
+
+    // Sanitize and validate inputs
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(payload.email)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid email address format' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate date format (YYYY-MM-DD)
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(payload.date)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid date format. Expected YYYY-MM-DD' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate time format (HH:MM)
+    const timeRegex = /^\d{2}:\d{2}$/;
+    if (!timeRegex.test(payload.time)) {
+      return new Response(
+        JSON.stringify({ error: 'Invalid time format. Expected HH:MM' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate date is not in the past
+    const selectedDate = new Date(`${payload.date}T${payload.time}:00`);
+    if (selectedDate < new Date()) {
+      return new Response(
+        JSON.stringify({ error: 'Cannot book meetings in the past' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Sanitize string inputs to prevent injection attacks
+    const sanitize = (str: string) => str.replace(/[<>]/g, '').trim().substring(0, 500);
+    payload.name = sanitize(payload.name);
+    payload.email = sanitize(payload.email);
+    if (payload.company) payload.company = sanitize(payload.company);
+    if (payload.phone) payload.phone = sanitize(payload.phone);
+    if (payload.contactMethod) payload.contactMethod = sanitize(payload.contactMethod);
+    if (payload.extraInfo) payload.extraInfo = sanitize(payload.extraInfo);
 
     const token = await getAccessToken();
     const eventBody = buildEvent(payload);

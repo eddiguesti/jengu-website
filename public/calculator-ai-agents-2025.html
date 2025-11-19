@@ -2716,12 +2716,22 @@
     });
 
     function startCalculator() {
+      console.log('startCalculator() called');
       const overlay = document.getElementById('introOverlay');
+      console.log('Overlay element:', overlay);
+
+      if (!overlay) {
+        console.error('introOverlay element not found!');
+        return;
+      }
+
       overlay.classList.add('hidden');
+      console.log('Added hidden class to overlay');
 
       // Remove overlay from DOM after animation completes
       setTimeout(() => {
         overlay.style.display = 'none';
+        console.log('Overlay display set to none');
       }, 600);
     }
 

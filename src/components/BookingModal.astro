@@ -1874,7 +1874,11 @@ const t = getTranslations(currentLocale);
           let errMsg = t.messages?.errorCreate || "Failed to create calendar event.";
           try {
             const err = await res.json();
-            if (err && err.error) errMsg = err.error;
+            if (err && err.message) {
+              errMsg = err.message; // User-friendly message from API
+            } else if (err && err.error) {
+              errMsg = err.error;
+            }
           } catch (_) {}
           throw new Error(errMsg);
         }

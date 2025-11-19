@@ -90,11 +90,11 @@ const jsonLd = [
                 splineViewer.addEventListener('load', function() {
                   clearInterval(checkSplineLoaded);
                   // Fade out placeholder smoothly
-                  placeholder.style.transition = 'opacity 0.6s ease-out';
+                  placeholder.style.transition = 'opacity 0.15s ease-out';
                   placeholder.style.opacity = '0';
                   setTimeout(() => {
                     placeholder.style.display = 'none';
-                  }, 600);
+                  }, 150);
                 }, { once: true });
 
                 // Also check if it's already loaded (in case event already fired)
@@ -102,11 +102,11 @@ const jsonLd = [
                   const canvas = splineViewer.shadowRoot.querySelector('canvas');
                   if (canvas) {
                     clearInterval(checkSplineLoaded);
-                    placeholder.style.transition = 'opacity 0.6s ease-out';
+                    placeholder.style.transition = 'opacity 0.15s ease-out';
                     placeholder.style.opacity = '0';
                     setTimeout(() => {
                       placeholder.style.display = 'none';
-                    }, 600);
+                    }, 150);
                   }
                 }
               }
@@ -117,11 +117,11 @@ const jsonLd = [
               clearInterval(checkSplineLoaded);
               const placeholder = document.querySelector('.spline-loading-placeholder');
               if (placeholder && placeholder.style.opacity !== '0') {
-                placeholder.style.transition = 'opacity 0.6s ease-out';
+                placeholder.style.transition = 'opacity 0.15s ease-out';
                 placeholder.style.opacity = '0';
                 setTimeout(() => {
                   placeholder.style.display = 'none';
-                }, 600);
+                }, 150);
               }
             }, 5000);
           };
