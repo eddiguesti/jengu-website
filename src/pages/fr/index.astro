@@ -986,5 +986,58 @@ const jsonLd = [
         ]
       }
     };
+
+    // Premium scroll-triggered reveal animation - Reverse Stack Mode
+    document.addEventListener('DOMContentLoaded', () => {
+      const processSteps = document.querySelectorAll('.process-step');
+      const flowConnectors = document.querySelectorAll('.flow-connector');
+
+      // Track which steps have been revealed on first load
+      const hasBeenRevealed = new Set();
+
+      // More refined intersection observer settings
+      const observerOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -15% 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Scrolling into view
+            if (!hasBeenRevealed.has(entry.target)) {
+              // First time reveal - with connectors
+              hasBeenRevealed.add(entry.target);
+
+              entry.target.classList.add('reveal');
+
+              // Show connector only on first reveal
+              const nextConnector = entry.target.nextElementSibling;
+              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                setTimeout(() => {
+                  nextConnector.classList.add('draw');
+                }, 400);
+              }
+            } else {
+              // Re-entering viewport - just show
+              entry.target.classList.add('reveal');
+            }
+          } else {
+            // Scrolling out of view - hide immediately
+            if (hasBeenRevealed.has(entry.target)) {
+              entry.target.classList.remove('reveal');
+
+              // Hide connector
+              const nextConnector = entry.target.nextElementSibling;
+              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                nextConnector.classList.remove('draw');
+              }
+            }
+          }
+        });
+      }, observerOptions);
+
+      processSteps.forEach(step => observer.observe(step));
+    });
   </script>
 </BaseLayout>
