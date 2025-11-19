@@ -48,18 +48,12 @@
 
     /* Progress indicator */
     .progress-bar {
-      position: sticky;
-      top: 0;
-      background: linear-gradient(135deg, rgba(10, 14, 26, 0.95), rgba(13, 17, 28, 0.95));
-      backdrop-filter: blur(30px);
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(139, 92, 246, 0.08));
+      backdrop-filter: blur(10px);
       padding: 1.25rem 1.5rem;
-      margin: -1.25rem -1.25rem 1.5rem -1.25rem;
-      z-index: 100;
-      border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, rgba(6, 182, 212, 0.4), rgba(139, 92, 246, 0.4)) 1;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4),
-                  0 0 0 1px rgba(6, 182, 212, 0.1),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      margin: -1.75rem -1.5rem 2rem -1.5rem;
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 20px 20px 0 0;
       position: relative;
     }
 
@@ -71,7 +65,7 @@
       right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), rgba(139, 92, 246, 0.5), transparent);
-      opacity: 0.8;
+      opacity: 0.6;
     }
 
     .progress-track {
@@ -815,8 +809,8 @@
       }
 
       .progress-bar {
-        padding: 1.5rem 2.5rem;
-        margin: -2rem -2rem 2rem -2rem;
+        padding: 1.5rem 2rem;
+        margin: -2.5rem -2rem 2.5rem -2rem;
       }
 
       nav {
@@ -968,19 +962,19 @@
   </nav>
 
   <div class="container">
-    <!-- Progress Bar -->
-    <div class="progress-bar">
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <div class="step-info">
-        <span class="step-number" id="stepNumber">Step 1 of 4</span>
-        <span class="step-title" id="stepTitle">Business Info</span>
-      </div>
-    </div>
-
     <!-- Step 1: Business Type -->
     <div class="card" id="step1">
+      <!-- Progress Bar Inside Card -->
+      <div class="progress-bar">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="step-info">
+          <span class="step-number" id="stepNumber">Step 1 of 4</span>
+          <span class="step-title" id="stepTitle">Business Info</span>
+        </div>
+      </div>
+
       <h2 class="card-title">Tell us about your business</h2>
       <p class="card-subtitle">This helps us calculate accurate savings for your specific situation</p>
 
@@ -1076,6 +1070,17 @@
 
     <!-- Step 2: Choose Automations -->
     <div class="card hidden" id="step2">
+      <!-- Progress Bar Inside Card -->
+      <div class="progress-bar">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="step-info">
+          <span class="step-number" id="stepNumber">Step 2 of 4</span>
+          <span class="step-title" id="stepTitle">Choose Automations</span>
+        </div>
+      </div>
+
       <h2 class="card-title">Choose your automations</h2>
       <p class="card-subtitle">Select the AI agents that match your needs</p>
 
@@ -1153,6 +1158,17 @@
 
     <!-- Step 3: Monthly Volume -->
     <div class="card hidden" id="step3">
+      <!-- Progress Bar Inside Card -->
+      <div class="progress-bar">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="step-info">
+          <span class="step-number" id="stepNumber">Step 3 of 4</span>
+          <span class="step-title" id="stepTitle">Monthly Volume</span>
+        </div>
+      </div>
+
       <h2 class="card-title">Your monthly numbers</h2>
       <p class="card-subtitle">Adjust the sliders to match your typical month</p>
 
@@ -1198,6 +1214,17 @@
 
     <!-- Step 4: Results -->
     <div class="card hidden" id="step4">
+      <!-- Progress Bar Inside Card -->
+      <div class="progress-bar">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="step-info">
+          <span class="step-number" id="stepNumber">Step 4 of 4</span>
+          <span class="step-title" id="stepTitle">Results</span>
+        </div>
+      </div>
+
       <h2 class="card-title">Your Potential Savings</h2>
       <p class="card-subtitle">Based on your business data</p>
 
