@@ -765,7 +765,6 @@
     }
 
     .hero-content {
-      animation: slideInLeft 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .hero-badge {
@@ -884,6 +883,7 @@
       position: relative;
       height: 100%;
       min-height: 600px;
+      background: transparent;
     }
 
     .spline-container {
@@ -894,6 +894,7 @@
       height: 120vh;
       margin-left: -32%;
       pointer-events: auto;
+      background: transparent;
     }
 
     /* Desktop/Mobile Display Control */
@@ -912,6 +913,11 @@
       border: none;
       display: block;
       z-index: 1;
+      background: transparent;
+    }
+
+    .spline-container canvas {
+      background: transparent !important;
     }
 
     /* SVG Robot Container (Mobile) */
