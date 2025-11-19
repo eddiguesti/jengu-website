@@ -50,27 +50,71 @@
     .progress-bar {
       position: sticky;
       top: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(20px);
-      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, rgba(10, 14, 26, 0.95), rgba(13, 17, 28, 0.95));
+      backdrop-filter: blur(30px);
+      padding: 1.25rem 1.5rem;
       margin: -1.25rem -1.25rem 1.5rem -1.25rem;
       z-index: 100;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 2px solid transparent;
+      border-image: linear-gradient(90deg, rgba(6, 182, 212, 0.4), rgba(139, 92, 246, 0.4)) 1;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4),
+                  0 0 0 1px rgba(6, 182, 212, 0.1),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), rgba(139, 92, 246, 0.5), transparent);
+      opacity: 0.8;
     }
 
     .progress-track {
-      height: 4px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
+      height: 8px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 20px;
       overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, #06b6d4, #8b5cf6);
-      border-radius: 10px;
+      background: linear-gradient(90deg, #06b6d4, #8b5cf6, #06b6d4);
+      background-size: 200% 100%;
+      border-radius: 20px;
       transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       width: 0%;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.6), 0 0 24px rgba(139, 92, 246, 0.4);
+      animation: shimmer 2s linear infinite;
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: progressShine 1.5s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    @keyframes progressShine {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
     }
 
     .step-info {
@@ -669,48 +713,89 @@
       max-height: 300px;
     }
 
-    /* Header with back button */
-    .header {
+    /* Navigation Bar */
+    nav {
       position: sticky;
       top: 0;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 1rem 1.25rem;
       z-index: 101;
+      padding: 1rem 0;
+      background: linear-gradient(135deg, rgba(10, 14, 26, 0.95), rgba(13, 17, 28, 0.95));
+      backdrop-filter: blur(20px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(6, 182, 212, 0.1);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .back-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.65rem 1.25rem;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1.5px solid rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      color: rgba(255, 255, 255, 0.9);
+      padding: 0.625rem 1.25rem;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.15));
+      border: 1.5px solid rgba(6, 182, 212, 0.3);
+      border-radius: 50px;
+      color: rgba(255, 255, 255, 0.95);
       text-decoration: none;
       font-weight: 600;
       font-size: 0.9rem;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
+    }
+
+    .back-btn i {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
     }
 
     .back-btn:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: #06b6d4;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(139, 92, 246, 0.25));
+      border-color: rgba(6, 182, 212, 0.5);
+      transform: translateX(-3px);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+    }
+
+    .back-btn:hover i {
       transform: translateX(-2px);
     }
 
-    .header-title {
-      flex: 1;
-      font-size: 1.125rem;
-      font-weight: 800;
+    .nav-title {
+      font-size: 1rem;
+      font-weight: 700;
       background: linear-gradient(135deg, #06b6d4, #8b5cf6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      display: none;
     }
 
     /* Desktop Responsive Styles */
@@ -730,9 +815,22 @@
       }
 
       .progress-bar {
-        top: 3.75rem;
-        padding: 1.25rem 2rem;
+        padding: 1.5rem 2.5rem;
         margin: -2rem -2rem 2rem -2rem;
+      }
+
+      nav {
+        padding: 1.25rem 0;
+      }
+
+      .nav-container {
+        padding: 0 2rem;
+      }
+
+      .nav-title {
+        display: block;
+        margin-left: auto;
+        margin-right: 1rem;
       }
 
       .card {
@@ -853,14 +951,21 @@
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <div class="header">
-    <a href="/" class="back-btn">
-      <i class="fas fa-arrow-left"></i>
-      <span>Back</span>
-    </a>
-    <div class="header-title">AI ROI Calculator</div>
-  </div>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="/" class="logo">
+        <img src="/images/logo.png" alt="Jengu" class="logo-img">
+      </a>
+      <div class="nav-title">AI ROI Calculator</div>
+      <div class="nav-right">
+        <a href="/" class="back-btn">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <div class="container">
     <!-- Progress Bar -->
