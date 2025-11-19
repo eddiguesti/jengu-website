@@ -897,6 +897,40 @@
       pointer-events: auto;
     }
 
+    /* Spline Loading Placeholder */
+    .spline-loading-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      z-index: 2;
+      transition: opacity 0.5s ease;
+    }
+
+    .spline-loading-placeholder img {
+      width: 252%;
+      height: 252%;
+      max-width: none;
+      max-height: none;
+      object-fit: contain;
+      object-position: center;
+      animation: robotFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes robotFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
     /* Desktop/Mobile Display Control */
     .desktop-only {
       display: block;
