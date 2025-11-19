@@ -287,7 +287,6 @@ export const POST: APIRoute = async ({ request }) => {
     const token = await getAccessToken();
     const eventBody = buildEvent(payload);
 
-    const GRAPH_USER = import.meta.env.GRAPH_USER;
     const graphUrl = `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
       GRAPH_USER
     )}/calendar/events`;
