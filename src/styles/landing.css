@@ -981,14 +981,14 @@
       max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
+      grid-template-columns: 0.7fr 1.3fr;
       gap: 4rem;
       align-items: flex-start;
       position: relative;
     }
 
     .promo-content h2 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-weight: 700;
       color: var(--text-primary);
       margin-bottom: 1.5rem;
@@ -996,7 +996,7 @@
     }
 
     .promo-content p {
-      font-size: 1.125rem;
+      font-size: 1rem;
       color: var(--text-secondary);
       margin-bottom: 2rem;
       line-height: 1.6;
@@ -1062,7 +1062,7 @@
     }
 
     .step-content h3 {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 700;
       margin: 0 0 0.5rem 0;
       color: var(--text-primary);
@@ -1077,7 +1077,7 @@
     .step-content p {
       margin: 0;
       color: var(--text-secondary);
-      font-size: 1.05rem;
+      font-size: 0.95rem;
       line-height: 1.6;
       opacity: 0.9;
       text-align: left;
