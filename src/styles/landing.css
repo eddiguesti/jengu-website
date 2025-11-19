@@ -1323,10 +1323,13 @@
 
     /* Mobile responsive - FULLSCREEN VIDEO HERO */
     @media (max-width: 1024px) {
-      /* Remove any body margins on mobile */
-      body {
-        margin: 0;
-        padding: 0;
+      /* Remove any body/html margins on mobile - absolute full view */
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
       }
 
       /* Hide desktop promo section on mobile */
@@ -1334,16 +1337,17 @@
         display: none;
       }
 
-      /* Mobile hero - exactly 100vh, no padding */
+      /* Mobile hero - exactly 100vh, no padding, no borders */
       .hero {
         background: var(--bg-main);
         height: 100vh;
         max-height: 100vh;
-        padding: 0;
-        margin: 0;
+        padding: 0 !important;
+        margin: 0 !important;
         display: block;
         position: relative;
         overflow: hidden;
+        border: none;
       }
 
       .hero::before,
@@ -1357,23 +1361,29 @@
         display: none;
       }
 
-      /* Video background container */
+      /* Video background container - absolute full viewport */
       .video-bg {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         overflow: hidden;
         z-index: -1;
+        margin: 0;
+        padding: 0;
+        border: none;
       }
 
-      /* Background video */
+      /* Background video - absolute fill */
       #bg-video,
       #pricing-bg-video {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         object-fit: cover;
+        margin: 0;
+        padding: 0;
+        border: none;
       }
 
       /* Gradient Overlay - Dark at bottom like Chobani */
