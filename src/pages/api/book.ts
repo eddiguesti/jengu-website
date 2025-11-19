@@ -238,6 +238,28 @@ function buildEvent(payload: any) {
  */
 export const POST: APIRoute = async ({ request }) => {
   try {
+    // Validate environment variables
+    const TENANT_ID = import.meta.env.TENANT_ID;
+    const CLIENT_ID = import.meta.env.CLIENT_ID;
+    const CLIENT_SECRET = import.meta.env.CLIENT_SECRET;
+    const GRAPH_USER = import.meta.env.GRAPH_USER;
+
+    if (!TENANT_ID || !CLIENT_ID || !CLIENT_SECRET || !GRAPH_USER) {
+      console.error('Missing environment variables:', {
+        hasTenantId: !!TENANT_ID,
+        hasClientId: !!CLIENT_ID,
+        hasClientSecret: !!CLIENT_SECRET,
+        hasGraphUser: !!GRAPH_USER
+      });
+      return new Response(
+        JSON.stringify({
+          error: 'Server configuration error',
+          details: 'Missing required environment variables. Please contact support.'
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Parse request body with better error handling
     let payload;
     const contentType = request.headers.get('content-type');
