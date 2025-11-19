@@ -230,16 +230,20 @@ window.handleCalculatorClick = handleCalculatorClick;
 window.openCalculatorModal = openCalculatorModal;
 window.closeCalculatorModal = closeCalculatorModal;
 
-// Close on overlay click (handles both modals)
+// Close on overlay click (handles all modals)
 document.addEventListener('click', function(e) {
   const calcOverlay = document.getElementById('calculatorModalOverlay');
   const featureOverlay = document.getElementById('featureModalOverlay');
+  const bookingOverlay = document.getElementById('bookingModalOverlay');
 
   if (calcOverlay && e.target === calcOverlay) {
     closeCalculatorModal();
   }
   if (featureOverlay && e.target === featureOverlay) {
     closeFeatureModal();
+  }
+  if (bookingOverlay && e.target === bookingOverlay) {
+    closeBookingModal();
   }
 });
 
@@ -256,6 +260,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     closeCalculatorModal();
     closeFeatureModal();
+    closeBookingModal();
   }
 });
 
@@ -313,3 +318,31 @@ function closeFeatureModal() {
 
 window.openFeatureModal = openFeatureModal;
 window.closeFeatureModal = closeFeatureModal;
+
+// Booking Modal Functions
+function openBookingModal() {
+  const overlay = document.getElementById('bookingModalOverlay');
+  if (overlay) {
+    overlay.style.display = 'flex';
+    requestAnimationFrame(() => {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  }
+}
+
+function closeBookingModal() {
+  const overlay = document.getElementById('bookingModalOverlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+    setTimeout(() => {
+      if (!overlay.classList.contains('active')) {
+        overlay.style.display = 'none';
+      }
+    }, 400);
+    document.body.style.overflow = 'auto';
+  }
+}
+
+window.openBookingModal = openBookingModal;
+window.closeBookingModal = closeBookingModal;
