@@ -1322,8 +1322,8 @@
     }
 
     /* Mobile responsive - FULLSCREEN VIDEO HERO */
-    /* Only apply mobile video hero on portrait mode OR phones (max-width: 768px) */
-    @media (max-width: 768px), (max-width: 1024px) and (orientation: portrait) {
+    /* Only apply mobile video hero on phones and small devices */
+    @media (max-width: 768px) {
       /* Remove any body/html margins on mobile - absolute full view */
       html, body {
         margin: 0 !important;
