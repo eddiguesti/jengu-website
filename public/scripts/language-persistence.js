@@ -62,7 +62,12 @@
     const currentLang = getCurrentLanguage();
     const savedLang = getSavedLanguage();
 
-    // Only set the lang attribute, don't save preference on page load
+    // If user explicitly navigated to a different language, save that as new preference
+    if (currentLang !== savedLang) {
+      saveLanguagePreference(currentLang);
+    }
+
+    // Set the lang attribute
     document.documentElement.setAttribute('lang', currentLang);
 
     // Add language switcher event listeners
