@@ -62,8 +62,8 @@
     const currentLang = getCurrentLanguage();
     const savedLang = getSavedLanguage();
 
-    // Save current language
-    saveLanguagePreference(currentLang);
+    // Only set the lang attribute, don't save preference on page load
+    document.documentElement.setAttribute('lang', currentLang);
 
     // Add language switcher event listeners
     const languageSwitchers = document.querySelectorAll('[data-lang-switch]');
