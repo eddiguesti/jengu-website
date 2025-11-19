@@ -2729,15 +2729,15 @@
     .cta-btn-large {
       background: linear-gradient(135deg, var(--primary-cta) 0%, #818cf8 100%);
       color: white;
-      padding: 1.5rem 4rem;
+      padding: 1rem 2.5rem;
       border-radius: 50px;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 700;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 1rem;
-      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.5);
+      gap: 0.75rem;
+      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
       transition: all 0.4s ease;
       border: none;
     }
@@ -5493,12 +5493,12 @@
 
 /* Better CTA Buttons */
 .btn-large {
-  padding: 1.1rem 2.5rem !important;
-  font-size: 1.05rem !important;
+  padding: 0.9rem 2rem !important;
+  font-size: 1rem !important;
   font-weight: 600 !important;
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
   transition: all 0.3s ease;
 }
 
@@ -5513,6 +5513,31 @@
 
 .btn-secondary:hover i {
   transform: scale(1.1);
+}
+
+/* Smaller CTAs for laptops and tablets */
+@media (max-width: 1366px) {
+  .btn-large {
+    padding: 0.8rem 1.75rem !important;
+    font-size: 0.95rem !important;
+  }
+
+  .cta-btn-large {
+    padding: 0.9rem 2.25rem;
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .btn-large {
+    padding: 0.75rem 1.5rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .cta-btn-large {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+  }
 }
 
 .hero-trust {
