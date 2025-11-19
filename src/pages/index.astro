@@ -45,7 +45,7 @@ const jsonLd = [
           <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
             <span>Get a Free Consultation</span>
           </button>
-          <a href="/calculator" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
+          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
             <span>Calculate Your ROI</span>
           </a>
         </div>
@@ -57,16 +57,18 @@ const jsonLd = [
 
 
       <!-- Desktop only: Spline 3D Robot -->
-      <div class="spline-container desktop-only" role="img" aria-label="Interactive 3D robot animation">
-        <spline-viewer
-          url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
-          loading="lazy"
-        ></spline-viewer>
+      <div class="hero-visual desktop-only">
+        <div class="spline-container" role="img" aria-label="Interactive 3D robot animation">
+          <spline-viewer
+            url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
+            loading="lazy"
+          ></spline-viewer>
+        </div>
       </div>
 
       <!-- Deferred Spline Viewer Loading -->
       <script>
-        // Load Spline viewer immediately
+        // Load Spline viewer only when browser is idle to prevent blocking
         function loadSplineViewer() {
           const script = document.createElement('script');
           script.type = 'module';
@@ -74,11 +76,10 @@ const jsonLd = [
           document.head.appendChild(script);
         }
 
-        // Load immediately on DOM ready
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', loadSplineViewer);
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadSplineViewer, { timeout: 2000 });
         } else {
-          loadSplineViewer();
+          setTimeout(loadSplineViewer, 1000);
         }
       </script>
     </div>
@@ -102,7 +103,7 @@ const jsonLd = [
           <button onclick="openBookingModal()" class="mobile-hero-btn mobile-hero-btn-primary">
             Free Consultation
           </button>
-          <a href="/calculator" class="mobile-hero-btn mobile-hero-btn-secondary">
+          <a href="#" onclick="handleCalculatorClick(event)" class="mobile-hero-btn mobile-hero-btn-secondary">
             Calculate Your ROI
           </a>
         </div>
@@ -445,7 +446,7 @@ const jsonLd = [
       <p>
         See how much time and money your tourism business could save with AI agents and automation. Get your personalized ROI calculation in 2 minutes—no signup required.
       </p>
-      <a href="/calculator" class="cta-btn-large">
+      <a href="#" onclick="handleCalculatorClick(event)" class="cta-btn-large">
         <i class="fas fa-calculator"></i>
         Launch Calculator
       </a>

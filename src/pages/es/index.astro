@@ -6,7 +6,7 @@ import { generateOrganizationSchema, generateWebSiteSchema } from '../../lib/seo
 const seo = generateSEO({
   title: 'Automatización con IA para Turismo y Hospitalidad',
   description: 'Transforme su negocio turístico con agentes de IA personalizados. Automatice reservas, atención al cliente y operaciones. Aumente conversiones hasta 30%, ahorre 40+ horas semanales. Calculadora ROI y consulta gratis.',
-  canonical: `${Astro.site?.href}es/`,
+  canonical: '/es/',
   ogType: 'website'
 });
 
@@ -45,7 +45,7 @@ const jsonLd = [
           <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
             <span>Consulta Gratuita</span>
           </button>
-          <a href="#"  class="btn btn-secondary btn-large btn-modern" id="calc-btn">
+          <a href="#" onclick="handleCalculatorClick(event)" class="btn btn-secondary btn-large btn-modern" id="calc-btn">
             <span>Calcule su ROI</span>
           </a>
         </div>
@@ -57,16 +57,18 @@ const jsonLd = [
 
 
       <!-- Desktop only: Spline 3D Robot -->
-      <div class="spline-container desktop-only" role="img" aria-label="Animación 3D de robot interactivo">
-        <spline-viewer
-          url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
-          loading="lazy"
-        ></spline-viewer>
+      <div class="hero-visual desktop-only">
+        <div class="spline-container" role="img" aria-label="Animación 3D de robot interactivo">
+          <spline-viewer
+            url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
+            loading="lazy"
+          ></spline-viewer>
+        </div>
       </div>
 
       <!-- Deferred Spline Viewer Loading -->
       <script>
-        // Load Spline viewer immediately
+        // Load Spline viewer only when browser is idle to prevent blocking
         function loadSplineViewer() {
           const script = document.createElement('script');
           script.type = 'module';
@@ -74,11 +76,10 @@ const jsonLd = [
           document.head.appendChild(script);
         }
 
-        // Load immediately on DOM ready
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', loadSplineViewer);
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadSplineViewer, { timeout: 2000 });
         } else {
-          loadSplineViewer();
+          setTimeout(loadSplineViewer, 1000);
         }
       </script>
     </div>
@@ -102,7 +103,7 @@ const jsonLd = [
           <button onclick="openBookingModal()" class="mobile-hero-btn mobile-hero-btn-primary">
             Consulta Gratuita
           </button>
-          <a href="#"  class="mobile-hero-btn mobile-hero-btn-secondary">
+          <a href="#" onclick="handleCalculatorClick(event)" class="mobile-hero-btn mobile-hero-btn-secondary">
             Calcule su ROI
           </a>
         </div>
@@ -445,7 +446,7 @@ const jsonLd = [
       <p>
         Vea cuánto tiempo y dinero podría ahorrar su negocio turístico con agentes de IA y automatización. Obtenga su cálculo de ROI personalizado en 2 minutos—sin registro requerido.
       </p>
-      <a href="#"  class="cta-btn-large">
+      <a href="#" onclick="openCalculatorModal(); return false;" class="cta-btn-large">
         <i class="fas fa-calculator"></i>
         Iniciar Calculadora
       </a>
