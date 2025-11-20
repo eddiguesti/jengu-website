@@ -3,6 +3,11 @@ import type { APIRoute } from 'astro';
 export const prerender = false; // Ensure this route is server-rendered
 
 /**
+ * Booking API - Creates Outlook calendar events and sends confirmation emails
+ * Requires environment variables: TENANT_ID, CLIENT_ID, CLIENT_SECRET, GRAPH_USER
+ */
+
+/**
  * Get access token from Azure AD using client credentials flow
  */
 async function getAccessToken(): Promise<string> {
