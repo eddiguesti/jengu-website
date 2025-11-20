@@ -62,78 +62,335 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
 
   const emailBody = `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meeting Confirmed - Jengu</title>
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
-    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-    .header { background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%); color: white; padding: 30px 20px; text-align: center; border-radius: 10px 10px 0 0; }
-    .content { background: #f9fafb; padding: 30px 20px; }
-    .card { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #6366f1; }
-    .button { display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%); color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 10px 5px; }
-    .footer { text-align: center; padding: 20px; color: #6b7280; font-size: 14px; }
-    .highlight { color: #6366f1; font-weight: 600; }
-    ul { padding-left: 20px; }
-    li { margin: 10px 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #f3f4f6;
+      padding: 20px;
+    }
+    .email-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+      padding: 40px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, rgba(255, 185, 90, 0.15), transparent 60%);
+      pointer-events: none;
+    }
+    .header h1 {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .header .emoji {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .content {
+      padding: 40px 30px;
+      background: white;
+    }
+    .greeting {
+      font-size: 18px;
+      color: #111827;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+    .intro {
+      color: #4b5563;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    .card {
+      background: #f9fafb;
+      padding: 24px;
+      margin: 24px 0;
+      border-radius: 12px;
+      border: 1px solid #e5e7eb;
+    }
+    .card h2 {
+      color: #111827;
+      font-size: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+    .card h2 .icon {
+      font-size: 24px;
+    }
+    .meeting-detail {
+      display: flex;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .meeting-detail:last-child {
+      border-bottom: none;
+    }
+    .meeting-detail strong {
+      min-width: 100px;
+      color: #6b7280;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .meeting-detail span {
+      color: #111827;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(255, 185, 90, 0.1), rgba(255, 200, 117, 0.05));
+      border-left: 4px solid #FFB95A;
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: 8px;
+    }
+    .highlight-box p {
+      color: #1f2937;
+      font-size: 15px;
+      margin: 0;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0 0;
+    }
+    li {
+      padding: 12px 0;
+      padding-left: 32px;
+      position: relative;
+      color: #4b5563;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    li strong {
+      color: #111827;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .resources-list {
+      margin-top: 16px;
+    }
+    .resources-list li::before {
+      content: '→';
+      color: #FFB95A;
+    }
+    .resources-list a {
+      color: #FFB95A;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .resources-list a:hover {
+      color: #FFC875;
+      text-decoration: underline;
+    }
+    .cta-button {
+      display: inline-block;
+      background: #FFB95A;
+      color: #050816;
+      padding: 16px 32px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      margin: 30px 0;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255, 185, 90, 0.3);
+    }
+    .cta-button:hover {
+      background: #FFC875;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 185, 90, 0.4);
+    }
+    .cta-center {
+      text-align: center;
+    }
+    .signature {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 2px solid #e5e7eb;
+      color: #4b5563;
+      font-size: 15px;
+    }
+    .signature strong {
+      color: #111827;
+      font-size: 16px;
+    }
+    .signature a {
+      color: #FFB95A;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .signature a:hover {
+      text-decoration: underline;
+    }
+    .footer {
+      background: #f9fafb;
+      text-align: center;
+      padding: 30px;
+      color: #6b7280;
+      font-size: 13px;
+      border-top: 1px solid #e5e7eb;
+    }
+    .footer p {
+      margin: 8px 0;
+    }
+    .footer-links {
+      margin-top: 16px;
+    }
+    .footer-links a {
+      color: #6b7280;
+      text-decoration: none;
+      margin: 0 12px;
+      font-size: 13px;
+    }
+    .footer-links a:hover {
+      color: #FFB95A;
+    }
+    @media only screen and (max-width: 600px) {
+      .content { padding: 30px 20px; }
+      .header { padding: 30px 20px; }
+      .header h1 { font-size: 24px; }
+      .card { padding: 20px; }
+      .cta-button { width: 100%; text-align: center; }
+      .meeting-detail { flex-direction: column; gap: 4px; }
+      .meeting-detail strong { min-width: auto; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="email-wrapper">
     <div class="header">
-      <h1>Meeting Confirmed! 🎉</h1>
+      <span class="emoji">🎉</span>
+      <h1>Meeting Confirmed!</h1>
     </div>
 
     <div class="content">
-      <p>Hi ${name},</p>
+      <p class="greeting">Hi ${name},</p>
 
-      <p>Thank you for booking a consultation with Jengu! We're excited to meet you and discuss how AI automation can transform your business.</p>
+      <p class="intro">Thank you for booking a consultation with Jengu! We're excited to connect with you and explore how AI automation can transform your business operations.</p>
 
       <div class="card">
-        <h2>📅 Meeting Details</h2>
-        <p><strong>Date:</strong> ${formattedDate}</p>
-        <p><strong>Time:</strong> ${formattedTime}</p>
-        <p><strong>Duration:</strong> 30 minutes</p>
-        <p><strong>Platform:</strong> ${contactMethod}</p>
+        <h2><span class="icon">📅</span> Your Meeting Details</h2>
+        <div class="meeting-detail">
+          <strong>Date:</strong>
+          <span>${formattedDate}</span>
+        </div>
+        <div class="meeting-detail">
+          <strong>Time:</strong>
+          <span>${formattedTime}</span>
+        </div>
+        <div class="meeting-detail">
+          <strong>Duration:</strong>
+          <span>30 minutes</span>
+        </div>
+        <div class="meeting-detail">
+          <strong>Platform:</strong>
+          <span>${contactMethod}</span>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>📧 Calendar Invite Sent</strong></p>
+        <p>You'll receive a separate calendar invitation with all meeting details. Please check your inbox and add it to your calendar.</p>
       </div>
 
       <div class="card">
-        <h2>✅ How to Prepare</h2>
-        <p>To make the most of our meeting, please:</p>
+        <h2><span class="icon">✅</span> How to Prepare</h2>
+        <p style="color: #4b5563; margin-bottom: 8px;">To make the most of our time together:</p>
         <ul>
-          <li><strong>Review your current workflows</strong> - Think about repetitive tasks that could be automated</li>
-          <li><strong>Identify pain points</strong> - What processes are slowing down your team?</li>
-          <li><strong>Set clear goals</strong> - What would success look like for your business?</li>
-          <li><strong>Prepare questions</strong> - We're here to help! Come with any questions about AI automation</li>
+          <li>
+            <strong>Review your workflows</strong>
+            Think about repetitive tasks that take up your team's time
+          </li>
+          <li>
+            <strong>Identify pain points</strong>
+            What processes are bottlenecks in your operations?
+          </li>
+          <li>
+            <strong>Define your goals</strong>
+            What would success look like for your business?
+          </li>
+          <li>
+            <strong>Prepare questions</strong>
+            Come with any questions about AI automation - we're here to help!
+          </li>
         </ul>
       </div>
 
       <div class="card">
-        <h2>🔗 Helpful Resources</h2>
-        <p>Check out these resources before our meeting:</p>
-        <ul>
-          <li><a href="https://jengu.ai/case-studies" class="highlight">View our case studies</a> to see real results</li>
-          <li><a href="https://jengu.ai/services" class="highlight">Explore our services</a> to understand what we offer</li>
-          <li><a href="https://jengu.ai/blog" class="highlight">Read our blog</a> for AI automation insights</li>
+        <h2><span class="icon">📚</span> Helpful Resources</h2>
+        <p style="color: #4b5563; margin-bottom: 8px;">Get a head start by exploring:</p>
+        <ul class="resources-list">
+          <li><a href="https://jengu.ai/case-studies">Case Studies</a> - See real results from our clients</li>
+          <li><a href="https://jengu.ai/services">Our Services</a> - Discover what we can do for you</li>
+          <li><a href="https://jengu.ai/blog">Blog & Insights</a> - Learn about AI automation trends</li>
         </ul>
       </div>
 
-      <div style="text-align: center; margin: 30px 0;">
-        <a href="https://jengu.ai" class="button">Visit Our Website</a>
+      <div class="cta-center">
+        <a href="https://jengu.ai" class="cta-button">Visit Our Website</a>
       </div>
 
-      <p><strong>Looking forward to meeting you!</strong></p>
-
-      <p>If you need to reschedule or have any questions before our meeting, please don't hesitate to reach out.</p>
-
-      <p>Best regards,<br>
-      <strong>The Jengu Team</strong><br>
-      <a href="mailto:hello@jengu.ai">hello@jengu.ai</a><br>
-      <a href="https://jengu.ai">jengu.ai</a></p>
+      <div class="signature">
+        <p><strong>Looking forward to our conversation!</strong></p>
+        <p style="margin-top: 16px;">If you need to reschedule or have any questions, just reply to this email or reach out anytime.</p>
+        <p style="margin-top: 24px;">
+          Best regards,<br>
+          <strong>The Jengu Team</strong>
+        </p>
+        <p style="margin-top: 12px;">
+          <a href="mailto:hello@jengu.ai">hello@jengu.ai</a><br>
+          <a href="https://jengu.ai">jengu.ai</a>
+        </p>
+      </div>
     </div>
 
     <div class="footer">
-      <p>This email was sent because you booked a consultation at jengu.ai</p>
-      <p>&copy; 2025 Jengu. All rights reserved.</p>
+      <p>You're receiving this email because you booked a consultation at <a href="https://jengu.ai" style="color: #FFB95A; text-decoration: none;">jengu.ai</a></p>
+      <div class="footer-links">
+        <a href="https://jengu.ai/privacy">Privacy Policy</a>
+        <a href="https://jengu.ai/terms">Terms of Service</a>
+      </div>
+      <p style="margin-top: 16px;">&copy; 2025 Jengu. All rights reserved.</p>
     </div>
   </div>
 </body>
