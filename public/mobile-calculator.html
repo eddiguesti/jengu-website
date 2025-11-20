@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AI ROI Calculator - Mobile</title>
+  <title>Free ROI Analysis - AI Automation Savings Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&family=Sulphur+Point:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -34,6 +34,14 @@
       --gradient-brand: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
     }
 
+    /* Responsive text utility classes */
+    .mobile-text { display: inline; }
+    .desktop-text { display: none; }
+
+    @media (min-width: 480px) {
+      .mobile-text { display: none; }
+      .desktop-text { display: inline; }
+    }
     body {
       font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
       background: linear-gradient(
@@ -1843,7 +1851,7 @@
       </button>
       <a href="/calculator" class="sidebar-cta sidebar-cta-secondary">
         <i class="fas fa-calculator"></i>
-        <span>Calculate ROI</span>
+        <span class="desktop-text">Free ROI Analysis</span><span class="mobile-text">ROI Analysis</span>
       </a>
     </div>
   </aside>
