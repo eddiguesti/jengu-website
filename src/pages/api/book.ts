@@ -501,19 +501,21 @@ function buildEvent(payload: any) {
  */
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    // Get environment variables - supports both local dev and Cloudflare Pages
-    const runtime = locals.runtime as any;
-    const cloudflareEnv = runtime?.env;
+    // Get environment variables following Cloudflare adapter docs
+    const runtime = locals.runtime;
+    const { env } = runtime || {};
 
-    // Try multiple ways to access environment variables
-    const TENANT_ID = cloudflareEnv?.TENANT_ID || import.meta.env.TENANT_ID;
-    const CLIENT_ID = cloudflareEnv?.CLIENT_ID || import.meta.env.CLIENT_ID;
-    const CLIENT_SECRET = cloudflareEnv?.CLIENT_SECRET || import.meta.env.CLIENT_SECRET;
-    const GRAPH_USER = cloudflareEnv?.GRAPH_USER || import.meta.env.GRAPH_USER;
+    // Access environment variables from Cloudflare runtime or fallback to import.meta.env for local dev
+    const TENANT_ID = env?.TENANT_ID || import.meta.env.TENANT_ID;
+    const CLIENT_ID = env?.CLIENT_ID || import.meta.env.CLIENT_ID;
+    const CLIENT_SECRET = env?.CLIENT_SECRET || import.meta.env.CLIENT_SECRET;
+    const GRAPH_USER = env?.GRAPH_USER || import.meta.env.GRAPH_USER;
 
     if (!TENANT_ID || !CLIENT_ID || !CLIENT_SECRET || !GRAPH_USER) {
       console.error('Missing environment variables - API not configured for production use');
-      console.error('Cloudflare env keys:', Object.keys(cloudflareEnv || {}));
+      console.error('runtime exists:', !!runtime);
+      console.error('env exists:', !!env);
+      console.error('Cloudflare env keys:', Object.keys(env || {}));
       console.error('import.meta.env keys:', Object.keys(import.meta.env || {}));
       return new Response(
         JSON.stringify({
