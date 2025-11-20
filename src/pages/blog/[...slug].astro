@@ -1,0 +1,254 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { generateArticleSchema } from '../../lib/seo/jsonld';
+
+export async function getStaticPaths() {
+  const blogEntries = await getCollection('blog', ({ data }) => {
+    return data.draft !== true && data.archived !== true;
+  });
+
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const seo = generateSEO({
+  title: `${entry.data.title} | Jengu Blog`,
+  description: entry.data.description,
+  canonical: `${Astro.site}blog/${entry.slug}/`,
+  ogType: 'article',
+  ogImage: entry.data.mainImage || entry.data.thumbnail
+});
+
+const jsonLd = [
+  generateArticleSchema({
+    headline: entry.data.title,
+    description: entry.data.description,
+    datePublished: entry.data.publishedOn.toISOString(),
+    dateModified: entry.data.updatedOn?.toISOString() || entry.data.publishedOn.toISOString(),
+    image: entry.data.mainImage || entry.data.thumbnail || '',
+    url: `${Astro.site}blog/${entry.slug}/`
+  })
+];
+
+const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <article class="blog-post-container">
+    <!-- Hero Section -->
+    <header class="blog-post-header">
+      <div class="blog-post-meta">
+        <time datetime={entry.data.publishedOn.toISOString()}>
+          {formattedDate}
+        </time>
+      </div>
+      <h1 class="blog-post-title">{entry.data.title}</h1>
+      {entry.data.subtitle && (
+        <p class="blog-post-subtitle">{entry.data.subtitle}</p>
+      )}
+    </header>
+
+    <!-- Featured Image -->
+    {entry.data.mainImage && (
+      <div class="blog-post-image">
+        <img
+          src={entry.data.mainImage}
+          alt={entry.data.altText || entry.data.title}
+          loading="eager"
+        />
+      </div>
+    )}
+
+    <!-- Content -->
+    <div class="blog-post-content prose">
+      <Content />
+    </div>
+
+    <!-- Back to Blog -->
+    <div class="blog-post-footer">
+      <a href="/blog" class="back-to-blog">
+        <i class="fas fa-arrow-left"></i>
+        Back to Blog
+      </a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .blog-post-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .blog-post-meta {
+    color: var(--secondary-brand);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .blog-post-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-family: 'Sulphur Point', sans-serif;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .blog-post-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .blog-post-image {
+    margin-bottom: 3rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  }
+
+  .blog-post-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .blog-post-content {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+  }
+
+  /* Prose styling for markdown content */
+  .prose :global(h2) {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-family: 'Sulphur Point', sans-serif;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .prose :global(a) {
+    color: var(--secondary-brand);
+    text-decoration: none;
+    border-bottom: 1px solid var(--secondary-brand);
+    transition: all 0.3s ease;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--primary-brand);
+    border-bottom-color: var(--primary-brand);
+  }
+
+  .prose :global(ul), .prose :global(ol) {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 4px solid var(--secondary-brand);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+
+  .prose :global(code) {
+    background: rgba(6, 182, 212, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--secondary-brand);
+  }
+
+  .prose :global(pre) {
+    background: #1a1d2e;
+    padding: 1.5rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 2rem 0;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+    color: #e0e0e0;
+  }
+
+  .prose :global(img) {
+    border-radius: 8px;
+    margin: 2rem 0;
+  }
+
+  .blog-post-footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .back-to-blog {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--secondary-brand);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .back-to-blog:hover {
+    gap: 0.75rem;
+    color: var(--primary-brand);
+  }
+
+  @media (max-width: 768px) {
+    .blog-post-container {
+      padding: 6rem 1.5rem 3rem;
+    }
+
+    .blog-post-content {
+      font-size: 1rem;
+    }
+  }
+</style>
