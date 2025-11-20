@@ -275,17 +275,13 @@
       background: transparent;
       z-index: 100;
       padding: 1.5rem 0;
-      box-shadow: none;
-      border-bottom: none;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: padding, box-shadow, background;
+      will-change: padding;
+      pointer-events: none;
     }
 
     nav.scrolled {
-      padding: 0.75rem 0;
-      box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
-      background: #000000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1rem 0;
     }
 
     .nav-container {
@@ -295,6 +291,40 @@
       display: flex;
       justify-content: flex-end;
       align-items: center;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 0.5rem 0.75rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                  0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      pointer-events: auto;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: visible;
+      max-width: none;
+    }
+
+    .nav-right > * {
+      flex-shrink: 0;
+    }
+
+    .burger-menu {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    nav.scrolled .nav-right {
+      background: rgba(0, 0, 0, 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
+                  0 0 0 1px rgba(255, 255, 255, 0.08) inset;
     }
 
     .logo {
@@ -377,12 +407,6 @@
       border-color: rgba(129, 140, 248, 0.6);
     }
 
-    /* Nav right section */
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
 
     /* Free Consultation CTA in navbar */
     .nav-consultation-cta {
@@ -391,33 +415,32 @@
       gap: 0.5rem;
       background: #FFB95A;
       color: #050816;
-      padding: 0.625rem 1.25rem;
+      padding: 0.5rem 1rem;
       border-radius: 50px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       font-family: 'Figtree', sans-serif;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(255, 185, 90, 0.4);
-      border: 1px solid rgba(255, 200, 117, 0.3);
+      box-shadow: 0 2px 8px rgba(255, 185, 90, 0.3);
+      border: none;
       white-space: nowrap;
       cursor: pointer;
     }
 
     .nav-consultation-cta i {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
     }
 
     .nav-consultation-cta:hover {
       background: #FFC875;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 185, 90, 0.6);
-      border-color: rgba(255, 200, 117, 0.5);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(255, 185, 90, 0.5);
     }
 
     .nav-consultation-cta:active {
       background: #E3A451;
-      transform: translateY(0px);
+      transform: scale(0.98);
     }
 
     /* Make consultation CTA more compact on mobile */
@@ -462,22 +485,28 @@
     .burger-menu {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      width: 26px;
-      height: 20px;
+      justify-content: center;
+      gap: 4px;
+      width: 28px;
+      height: 28px;
       background: none;
       border: none;
       cursor: pointer;
       padding: 0;
       z-index: 1001;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      position: relative;
     }
 
     .burger-line {
-      width: 100%;
+      width: 20px;
       height: 2.5px;
-      background: white;
+      background-color: #ffffff;
       border-radius: 2px;
       transition: all 0.3s ease;
+      display: block;
+      flex-shrink: 0;
     }
 
     .burger-menu.active .burger-line:nth-child(1) {
