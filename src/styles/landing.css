@@ -1443,10 +1443,11 @@
       /* Content Overlay - Positioned higher to avoid iPhone bottom bar */
       .mobile-hero-overlay {
         position: absolute;
-        bottom: 6rem;
+        bottom: 8rem;
         left: 0;
         right: 0;
         padding: 0 1.5rem;
+        padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
         z-index: 3;
         text-align: left;
         animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
