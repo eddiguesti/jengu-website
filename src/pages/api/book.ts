@@ -498,16 +498,20 @@ function buildEvent(payload: any) {
 /**
  * API endpoint the widget calls
  */
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    // Validate environment variables
-    const TENANT_ID = import.meta.env.TENANT_ID;
-    const CLIENT_ID = import.meta.env.CLIENT_ID;
-    const CLIENT_SECRET = import.meta.env.CLIENT_SECRET;
-    const GRAPH_USER = import.meta.env.GRAPH_USER;
+    // Get environment variables - supports both local dev and Cloudflare Pages
+    const runtime = locals.runtime as any;
+    const env = runtime?.env || import.meta.env;
+
+    const TENANT_ID = env.TENANT_ID;
+    const CLIENT_ID = env.CLIENT_ID;
+    const CLIENT_SECRET = env.CLIENT_SECRET;
+    const GRAPH_USER = env.GRAPH_USER;
 
     if (!TENANT_ID || !CLIENT_ID || !CLIENT_SECRET || !GRAPH_USER) {
       console.error('Missing environment variables - API not configured for production use');
+      console.error('Available env keys:', Object.keys(env || {}));
       return new Response(
         JSON.stringify({
           error: 'Booking system not configured',
