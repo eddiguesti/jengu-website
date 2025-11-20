@@ -5,7 +5,7 @@ export const prerender = false; // Ensure this route is server-rendered
 /**
  * Booking API - Creates Outlook calendar events and sends confirmation emails
  * Requires environment variables: TENANT_ID, CLIENT_ID, CLIENT_SECRET, GRAPH_USER
- * Updated: 2025-11-20
+ * Updated: 2025-11-20 14:00
  */
 
 /**
