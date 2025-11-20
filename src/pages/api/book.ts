@@ -10,10 +10,10 @@ export const prerender = false; // Ensure this route is server-rendered
 /**
  * Get access token from Azure AD using client credentials flow
  */
-async function getAccessToken(): Promise<string> {
-  const TENANT_ID = import.meta.env.TENANT_ID;
-  const CLIENT_ID = import.meta.env.CLIENT_ID;
-  const CLIENT_SECRET = import.meta.env.CLIENT_SECRET;
+async function getAccessToken(env: any): Promise<string> {
+  const TENANT_ID = env.TENANT_ID;
+  const CLIENT_ID = env.CLIENT_ID;
+  const CLIENT_SECRET = env.CLIENT_SECRET;
 
   const url = `https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token`;
 
@@ -42,8 +42,8 @@ async function getAccessToken(): Promise<string> {
 /**
  * Send confirmation email to the attendee
  */
-async function sendConfirmationEmail(token: string, payload: any, eventDetails: any) {
-  const GRAPH_USER = import.meta.env.GRAPH_USER;
+async function sendConfirmationEmail(token: string, payload: any, eventDetails: any, env: any) {
+  const GRAPH_USER = env.GRAPH_USER;
   const { name, email, date, time, contactMethod } = payload;
 
   // Format date nicely
@@ -590,7 +590,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (payload.contactMethod) payload.contactMethod = sanitize(payload.contactMethod);
     if (payload.extraInfo) payload.extraInfo = sanitize(payload.extraInfo);
 
-    const token = await getAccessToken();
+    const token = await getAccessToken(env);
     const eventBody = buildEvent(payload);
 
     const graphUrl = `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
@@ -619,7 +619,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // Send confirmation email to the attendee
     try {
-      await sendConfirmationEmail(token, payload, createdEvent);
+      await sendConfirmationEmail(token, payload, createdEvent, env);
       console.log('Confirmation email sent successfully');
     } catch (emailError: any) {
       console.error('Failed to send confirmation email:', emailError);
