@@ -548,9 +548,12 @@
       max-width: 80vw !important;
       height: 100vh !important;
       height: 100dvh !important; /* Use dynamic viewport height for mobile browsers */
-      background: #2b2e3f !important;
+      background: rgba(0, 0, 0, 0.95) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
       transform: translateX(100%) !important;
-      transition: transform 0.3s ease !important;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
       z-index: 999 !important;
       display: grid !important;
       grid-template-rows: auto 1fr auto !important;
@@ -559,6 +562,7 @@
       border-bottom-left-radius: 16px !important;
       overflow: hidden !important;
       padding-bottom: env(safe-area-inset-bottom, 0) !important; /* Account for device notches */
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6) !important;
     }
 
     #sidebar.active {
@@ -572,8 +576,8 @@
       display: flex !important;
       justify-content: flex-end !important;
       align-items: center !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-      background: #2b2e3f !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background: rgba(0, 0, 0, 0.3) !important;
     }
 
     #sidebar .sidebar-close {
@@ -640,8 +644,8 @@
       grid-row: 3 !important;
       padding: 0.75rem 0.875rem !important;
       padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem)) !important; /* Ensure visible above iOS home indicator */
-      border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-      background: #2b2e3f !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+      background: rgba(0, 0, 0, 0.3) !important;
       display: flex !important;
       flex-direction: column !important;
       gap: 0.5rem !important;
