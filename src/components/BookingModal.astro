@@ -2033,5 +2033,15 @@ const t = getTranslations(currentLocale);
         window.closeBookingModal();
       }
     });
+
+    // Auto-open modal if URL hash is #book-consultation
+    if (window.location.hash === '#book-consultation') {
+      // Small delay to ensure page is fully loaded
+      setTimeout(() => {
+        window.openBookingModal();
+        // Clear the hash from URL without triggering a navigation
+        history.replaceState(null, '', window.location.pathname);
+      }, 500);
+    }
   });
 </script>

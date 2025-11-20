@@ -2832,6 +2832,14 @@
 
     // Initialize
     updateProgress();
+
+    // Booking modal function - redirect to homepage with booking modal
+    function openBookingModal() {
+      window.location.href = '/#book-consultation';
+    }
+
+    // Make it globally accessible
+    window.openBookingModal = openBookingModal;
   </script>
 </body>
 </html>
