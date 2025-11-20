@@ -181,6 +181,17 @@ const posts = allContent.slice(1, 21).map(entry => ({
   />
 </BaseLayout>
 
+<style is:global>
+  /* Force navbar to be dark on blog page mobile */
+  @media (max-width: 768px) {
+    #navbar {
+      background: #000000 !important;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+  }
+</style>
+
 <style>
   /* Newspaper Masthead */
   .blog-header {
