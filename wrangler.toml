@@ -1,0 +1,13 @@
+name = "jengu-website"
+compatibility_date = "2024-01-01"
+
+[env.production]
+# Environment variables are configured in Cloudflare Pages dashboard
+# This file just ensures proper binding
+
+[env.production.vars]
+# Placeholder - actual values set in Cloudflare Pages Environment Variables
+# TENANT_ID = ""
+# CLIENT_ID = ""
+# CLIENT_SECRET = ""
+# GRAPH_USER = ""
