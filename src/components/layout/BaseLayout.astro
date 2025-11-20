@@ -73,6 +73,9 @@ const t = getTranslations(currentLocale);
   <link rel="preload" href="/images/logo.png" as="image" type="image/png">
   <link rel="preload" href="/scripts/main.js" as="script">
 
+  <!-- GSAP for navbar morph animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
   <!-- SEO -->
   <SEOHead seo={seo} />
   <Hreflang currentPath={currentPath} />
@@ -235,6 +238,182 @@ const t = getTranslations(currentLocale);
   <!-- Global JavaScript -->
   <script is:inline src="/scripts/main.js"></script>
   <script is:inline src="/scripts/language-persistence.js"></script>
+
+  <!-- Navbar Morph Animation -->
+  <script type="module">
+    let morphTimeline = null;
+    let isAnimating = false;
+
+    function morphNavbarToSidebar() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      const navRight = document.querySelector('.nav-right');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const burgerMenu = document.getElementById('burgerMenu');
+      const mainContent = document.querySelector('main') || document.querySelector('.hero');
+
+      // Create timeline
+      morphTimeline = gsap.timeline({
+        onComplete: () => {
+          isAnimating = false;
+          sidebar.classList.add('active');
+          sidebarOverlay.classList.add('active');
+          burgerMenu.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+
+      // Get positions
+      const navRect = navRight.getBoundingClientRect();
+      const sidebarWidth = 280;
+
+      // Animate navbar pill morphing to sidebar
+      morphTimeline
+        // Scale and move navbar pill to top-right corner
+        .to(navRight, {
+          duration: 0.5,
+          x: window.innerWidth - navRect.right + (sidebarWidth - navRect.width),
+          scaleX: sidebarWidth / navRect.width,
+          scaleY: window.innerHeight / navRect.height,
+          borderRadius: '16px 0 0 16px',
+          transformOrigin: 'right top',
+          ease: 'power3.inOut'
+        }, 0)
+        // Fade out navbar contents
+        .to(navRight.children, {
+          duration: 0.3,
+          opacity: 0,
+          ease: 'power2.in'
+        }, 0)
+        // Show overlay
+        .to(sidebarOverlay, {
+          duration: 0.4,
+          opacity: 1,
+          visibility: 'visible',
+          ease: 'power2.out'
+        }, 0.1)
+        // Subtle page shift
+        .to(mainContent, {
+          duration: 0.5,
+          x: -20,
+          scale: 0.98,
+          ease: 'power3.inOut'
+        }, 0)
+        // Reveal sidebar content
+        .fromTo(sidebar,
+          { opacity: 0 },
+          {
+            duration: 0.3,
+            opacity: 1,
+            ease: 'power2.out'
+          }, 0.3);
+    }
+
+    function morphSidebarToNavbar() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      const navRight = document.querySelector('.nav-right');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const burgerMenu = document.getElementById('burgerMenu');
+      const mainContent = document.querySelector('main') || document.querySelector('.hero');
+
+      // Create reverse timeline
+      const reverseTimeline = gsap.timeline({
+        onComplete: () => {
+          isAnimating = false;
+          sidebar.classList.remove('active');
+          sidebarOverlay.classList.remove('active');
+          burgerMenu.classList.remove('active');
+          document.body.style.overflow = 'auto';
+        }
+      });
+
+      reverseTimeline
+        // Hide sidebar content
+        .to(sidebar, {
+          duration: 0.2,
+          opacity: 0,
+          ease: 'power2.in'
+        }, 0)
+        // Hide overlay
+        .to(sidebarOverlay, {
+          duration: 0.3,
+          opacity: 0,
+          visibility: 'hidden',
+          ease: 'power2.in'
+        }, 0)
+        // Morph back to navbar pill
+        .to(navRight, {
+          duration: 0.5,
+          x: 0,
+          scaleX: 1,
+          scaleY: 1,
+          borderRadius: '50px',
+          transformOrigin: 'right top',
+          ease: 'power3.inOut'
+        }, 0.1)
+        // Fade in navbar contents
+        .to(navRight.children, {
+          duration: 0.3,
+          opacity: 1,
+          ease: 'power2.out'
+        }, 0.3)
+        // Reset page position
+        .to(mainContent, {
+          duration: 0.5,
+          x: 0,
+          scale: 1,
+          ease: 'power3.inOut'
+        }, 0.1);
+    }
+
+    // Override the existing sidebar functions
+    window.openSidebar = morphNavbarToSidebar;
+    window.closeSidebar = morphSidebarToNavbar;
+
+    // Wait for DOM to be ready
+    document.addEventListener('DOMContentLoaded', () => {
+      const burgerMenu = document.getElementById('burgerMenu');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+      const sidebarClose = document.getElementById('sidebarClose');
+
+      if (burgerMenu) {
+        burgerMenu.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const isActive = burgerMenu.classList.contains('active');
+          if (isActive) {
+            morphSidebarToNavbar();
+          } else {
+            morphNavbarToSidebar();
+          }
+        });
+      }
+
+      if (sidebarClose) {
+        sidebarClose.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          morphSidebarToNavbar();
+        });
+      }
+
+      if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', morphSidebarToNavbar);
+      }
+
+      // Close sidebar when clicking a link
+      document.querySelectorAll('.sidebar-link, .sidebar-cta').forEach(link => {
+        link.addEventListener('click', () => {
+          setTimeout(morphSidebarToNavbar, 200);
+        });
+      });
+    });
+  </script>
 
   <!-- Analytics - Loaded last to prevent blocking -->
   <Analytics />
