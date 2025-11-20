@@ -503,16 +503,18 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     // Get environment variables - supports both local dev and Cloudflare Pages
     const runtime = locals.runtime as any;
-    const env = runtime?.env || import.meta.env;
+    const cloudflareEnv = runtime?.env;
 
-    const TENANT_ID = env.TENANT_ID;
-    const CLIENT_ID = env.CLIENT_ID;
-    const CLIENT_SECRET = env.CLIENT_SECRET;
-    const GRAPH_USER = env.GRAPH_USER;
+    // Try multiple ways to access environment variables
+    const TENANT_ID = cloudflareEnv?.TENANT_ID || import.meta.env.TENANT_ID;
+    const CLIENT_ID = cloudflareEnv?.CLIENT_ID || import.meta.env.CLIENT_ID;
+    const CLIENT_SECRET = cloudflareEnv?.CLIENT_SECRET || import.meta.env.CLIENT_SECRET;
+    const GRAPH_USER = cloudflareEnv?.GRAPH_USER || import.meta.env.GRAPH_USER;
 
     if (!TENANT_ID || !CLIENT_ID || !CLIENT_SECRET || !GRAPH_USER) {
       console.error('Missing environment variables - API not configured for production use');
-      console.error('Available env keys:', Object.keys(env || {}));
+      console.error('Cloudflare env keys:', Object.keys(cloudflareEnv || {}));
+      console.error('import.meta.env keys:', Object.keys(import.meta.env || {}));
       return new Response(
         JSON.stringify({
           error: 'Booking system not configured',
@@ -591,7 +593,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (payload.contactMethod) payload.contactMethod = sanitize(payload.contactMethod);
     if (payload.extraInfo) payload.extraInfo = sanitize(payload.extraInfo);
 
-    const token = await getAccessToken(env);
+    // Create env object with all variables for helper functions
+    const envVars = { TENANT_ID, CLIENT_ID, CLIENT_SECRET, GRAPH_USER };
+
+    const token = await getAccessToken(envVars);
     const eventBody = buildEvent(payload);
 
     const graphUrl = `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(
@@ -620,7 +625,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // Send confirmation email to the attendee
     try {
-      await sendConfirmationEmail(token, payload, createdEvent, env);
+      await sendConfirmationEmail(token, payload, createdEvent, envVars);
       console.log('Confirmation email sent successfully');
     } catch (emailError: any) {
       console.error('Failed to send confirmation email:', emailError);
