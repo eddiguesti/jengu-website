@@ -293,7 +293,7 @@
       margin: 0 auto;
       padding: 0 2rem;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
     }
 
