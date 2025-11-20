@@ -782,6 +782,14 @@
       padding-top: 0.5rem;
     }
 
+    .slider-hint {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+      font-style: italic;
+      opacity: 0.8;
+    }
+
     input[type="range"] {
       -webkit-appearance: none;
       width: 100%;
@@ -1982,64 +1990,64 @@
         </div>
       </div>
 
-      <h2 class="card-title">Choose your automations</h2>
-      <p class="card-subtitle">Select the AI agents that match your needs</p>
+      <h2 class="card-title">What takes up most of your time?</h2>
+      <p class="card-subtitle">Select the tasks you want to automate</p>
 
       <div class="solutions-grid" id="solutionsGrid">
+        <div class="solution-card" onclick="toggleSolution(this, 'email')">
+          <div class="check-icon"><i class="fas fa-check"></i></div>
+          <h4><i class="fas fa-envelope"></i> Email Management</h4>
+          <p>AI agent handles guest emails, inquiries, and booking confirmations</p>
+          <div class="solution-badge"><i class="fas fa-clock"></i> 10-15 hrs/week saved</div>
+        </div>
+
         <div class="solution-card" onclick="toggleSolution(this, 'booking')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-calendar-check"></i> AI Booking Assistant</h4>
-          <p>24/7 chatbot for reservations, availability, and guest questions</p>
-          <div class="solution-badge"><i class="fas fa-arrow-up"></i> +28% bookings</div>
+          <h4><i class="fas fa-calendar-check"></i> Booking & Reservations</h4>
+          <p>24/7 AI assistant handles availability checks and reservations</p>
+          <div class="solution-badge"><i class="fas fa-arrow-up"></i> +20% conversion</div>
         </div>
 
         <div class="solution-card" onclick="toggleSolution(this, 'inquiry')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-comments"></i> Inquiry Response Bot</h4>
-          <p>Instant answers to customer questions via email, chat, or SMS</p>
-          <div class="solution-badge"><i class="fas fa-clock"></i> 80% faster response</div>
+          <h4><i class="fas fa-comments"></i> Customer Support</h4>
+          <p>Instant AI responses to common questions via chat, email, or SMS</p>
+          <div class="solution-badge"><i class="fas fa-bolt"></i> Instant responses</div>
         </div>
 
         <div class="solution-card" onclick="toggleSolution(this, 'review')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-star"></i> Review Management</h4>
-          <p>Automated review collection and response across platforms</p>
-          <div class="solution-badge"><i class="fas fa-star"></i> +40% reviews</div>
-        </div>
-
-        <div class="solution-card" onclick="toggleSolution(this, 'upsell')">
-          <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-chart-line"></i> Smart Upselling</h4>
-          <p>Personalized upgrade & add-on recommendations</p>
-          <div class="solution-badge"><i class="fas fa-dollar-sign"></i> +22% revenue</div>
+          <h4><i class="fas fa-star"></i> Review Collection</h4>
+          <p>Automated review requests and response management</p>
+          <div class="solution-badge"><i class="fas fa-star"></i> 3x more reviews</div>
         </div>
 
         <div class="solution-card" onclick="toggleSolution(this, 'followup')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-envelope"></i> Guest Follow-up</h4>
-          <p>Automated post-visit messages and feedback collection</p>
-          <div class="solution-badge"><i class="fas fa-heart"></i> Better retention</div>
+          <h4><i class="fas fa-paper-plane"></i> Guest Communications</h4>
+          <p>Pre-arrival, during-stay, and post-visit automated messaging</p>
+          <div class="solution-badge"><i class="fas fa-heart"></i> Better experience</div>
         </div>
 
         <div class="solution-card" onclick="toggleSolution(this, 'admin')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-robot"></i> Admin Automation</h4>
-          <p>Data entry, reporting, and routine administrative tasks</p>
-          <div class="solution-badge"><i class="fas fa-clock"></i> 15 hrs/week saved</div>
+          <h4><i class="fas fa-tasks"></i> Admin Tasks</h4>
+          <p>Data entry, reporting, calendar management, and documentation</p>
+          <div class="solution-badge"><i class="fas fa-clock"></i> 8-12 hrs/week saved</div>
         </div>
 
-        <div class="solution-card" onclick="window.location.href='/dynamic-pricing'">
-          <div class="check-icon"><i class="fas fa-external-link-alt"></i></div>
-          <h4><i class="fas fa-chart-line"></i> Dynamic Pricing Software</h4>
-          <p>AI-powered pricing that maximizes revenue based on demand & seasonality</p>
-          <div class="solution-badge"><i class="fas fa-arrow-up"></i> +40% revenue</div>
+        <div class="solution-card" onclick="toggleSolution(this, 'data')">
+          <div class="check-icon"><i class="fas fa-check"></i></div>
+          <h4><i class="fas fa-database"></i> Data & Analytics</h4>
+          <p>Automated reporting, insights, and performance tracking</p>
+          <div class="solution-badge"><i class="fas fa-chart-bar"></i> Real-time insights</div>
         </div>
 
         <div class="solution-card" onclick="toggleSolution(this, 'custom')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-code"></i> Custom AI Software</h4>
-          <p>Bespoke automation solutions for your unique business needs</p>
-          <div class="solution-badge"><i class="fas fa-star"></i> Tailored for you</div>
+          <h4><i class="fas fa-wrench"></i> Custom Workflows</h4>
+          <p>Unique processes specific to your business operations</p>
+          <div class="solution-badge"><i class="fas fa-star"></i> Tailored solution</div>
         </div>
       </div>
 
@@ -2070,36 +2078,69 @@
         </div>
       </div>
 
-      <h2 class="card-title">Your monthly numbers</h2>
-      <p class="card-subtitle">Adjust the sliders to match your typical month</p>
+      <h2 class="card-title">Tell us about your workload</h2>
+      <p class="card-subtitle">Help us calculate your potential savings</p>
 
       <div class="form-group">
         <label class="form-label">
-          Customer inquiries per month
-          <span class="value-display" id="inquiriesValue">150</span>
+          How many emails do you handle per day?
+          <span class="value-display" id="emailsValue">50</span>
         </label>
         <div class="slider-container">
-          <input type="range" id="inquiries" min="20" max="1000" value="150" step="10" oninput="updateSlider('inquiries')">
+          <input type="range" id="emails" min="10" max="300" value="50" step="10" oninput="updateSlider('emails')">
         </div>
+        <p class="slider-hint">Includes inquiries, confirmations, follow-ups, and support emails</p>
       </div>
 
       <div class="form-group">
         <label class="form-label">
-          Bookings/Reservations
-          <span class="value-display" id="bookingsValue">75</span>
+          Monthly bookings/reservations
+          <span class="value-display" id="bookingsValue">60</span>
         </label>
         <div class="slider-container">
-          <input type="range" id="bookings" min="10" max="500" value="75" step="5" oninput="updateSlider('bookings')">
+          <input type="range" id="bookings" min="10" max="500" value="60" step="5" oninput="updateSlider('bookings')">
         </div>
+        <p class="slider-hint">Total number of reservations you process each month</p>
       </div>
 
       <div class="form-group">
         <label class="form-label">
-          Hours on admin tasks
-          <span class="value-display" id="hoursValue">50</span>
+          Weekly hours on repetitive tasks
+          <span class="value-display" id="hoursValue">15</span>
         </label>
         <div class="slider-container">
-          <input type="range" id="hours" min="5" max="200" value="50" step="5" oninput="updateSlider('hours')">
+          <input type="range" id="hours" min="2" max="40" value="15" step="1" oninput="updateSlider('hours')">
+        </div>
+        <p class="slider-hint">Data entry, scheduling, reporting, follow-ups, admin work</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Average response time to inquiries</label>
+        <div class="business-size-grid">
+          <label class="business-size-card">
+            <input type="radio" name="responseTime" value="instant" checked>
+            <div class="business-size-content">
+              <i class="fas fa-bolt"></i>
+              <span>< 1 hour</span>
+              <small>Very fast</small>
+            </div>
+          </label>
+          <label class="business-size-card">
+            <input type="radio" name="responseTime" value="fast">
+            <div class="business-size-content">
+              <i class="fas fa-clock"></i>
+              <span>1-4 hours</span>
+              <small>Fast</small>
+            </div>
+          </label>
+          <label class="business-size-card">
+            <input type="radio" name="responseTime" value="slow">
+            <div class="business-size-content">
+              <i class="fas fa-hourglass-half"></i>
+              <span>4+ hours</span>
+              <small>Could be faster</small>
+            </div>
+          </label>
         </div>
       </div>
 
@@ -2415,53 +2456,69 @@
     }
 
     function calculateResults() {
-      const inquiries = parseInt(document.getElementById('inquiries').value);
+      const emails = parseInt(document.getElementById('emails').value);
       const bookings = parseInt(document.getElementById('bookings').value);
       const hours = parseInt(document.getElementById('hours').value);
 
       // Get business size for scaling
       const businessSize = document.querySelector('input[name="businessSize"]:checked').value;
-      const sizeMultipliers = { small: 0.8, medium: 1.0, large: 1.2 };
+      const sizeMultipliers = { small: 0.85, medium: 1.0, large: 1.15 };
       const sizeMultiplier = sizeMultipliers[businessSize] || 1.0;
 
-      // Calculate realistic savings components
-      // 1. Cost Savings (from time automation)
-      const hourlyRate = 25; // £25/hour
-      const timeSavedHours = Math.round((inquiries * 0.15 + bookings * 0.3 + hours * 0.5) * sizeMultiplier);
-      const monthlyCostSaved = timeSavedHours * hourlyRate;
+      // Get response time factor (slower response = more opportunity)
+      const responseTime = document.querySelector('input[name="responseTime"]:checked').value;
+      const responseMultipliers = { instant: 1.0, fast: 1.15, slow: 1.3 };
+      const responseMultiplier = responseMultipliers[responseTime] || 1.0;
+
+      // Calculate realistic time savings
+      // Email handling: ~3-5 min per email → AI handles 80% in seconds
+      const emailsPerMonth = emails * 22; // 22 working days
+      const emailTimeSaved = (emailsPerMonth * 4 / 60) * 0.8; // 4 min per email, 80% automated
+
+      // Booking process: ~10 min per booking → AI handles inquiry to confirmation
+      const bookingTimeSaved = bookings * (10 / 60) * 0.7; // 10 min per booking, 70% time saved
+
+      // Repetitive tasks: Convert weekly to monthly, assume 60% can be automated
+      const adminTimeSaved = (hours * 4.3) * 0.6; // 4.3 weeks per month, 60% automated
+
+      // Apply multipliers
+      const totalTimeSaved = Math.round((emailTimeSaved + bookingTimeSaved + adminTimeSaved) * sizeMultiplier);
+
+      // Calculate cost savings
+      const hourlyRate = 22; // £22/hour (realistic UK rate)
+      const monthlyCostSaved = Math.round(totalTimeSaved * hourlyRate);
       const annualCostSaved = monthlyCostSaved * 12;
 
-      // 2. Revenue Growth (from better conversion/upselling)
-      const avgBookingValue = 150; // £150 average booking
-      const revenueBoostPercentage = Math.min(12, selectedSolutions.length * 2.5); // Conservative max 12%
-      const monthlyBookingRevenue = bookings * avgBookingValue;
-      const monthlyRevenueGrowth = monthlyBookingRevenue * (revenueBoostPercentage / 100);
+      // Revenue impact from faster response times and better conversion
+      const avgBookingValue = 140; // £140 average booking value
+      const conversionBoost = responseMultiplier > 1.0 ? (responseMultiplier - 1) * 0.5 : 0; // Up to 15% boost for slow responders
+      const monthlyRevenueGrowth = Math.round(bookings * avgBookingValue * conversionBoost);
       const annualRevenueGrowth = monthlyRevenueGrowth * 12;
 
-      // 3. Conversion Boost (from faster responses)
-      const conversionBoostPercentage = Math.min(8, selectedSolutions.length * 1.5); // Max 8%
-      const monthlyInquiryRevenue = (inquiries * 0.4) * avgBookingValue; // 40% inquiry->booking rate
-      const monthlyConversionBoost = monthlyInquiryRevenue * (conversionBoostPercentage / 100);
-      const annualConversionBoost = monthlyConversionBoost * 12;
+      // Additional revenue from booking optimization
+      const bookingOptimization = selectedSolutions.includes('booking') ? bookings * 0.15 * avgBookingValue : 0;
+      const annualBookingBoost = Math.round(bookingOptimization * 12);
 
       // Total benefit
-      const totalAnnualBenefit = annualCostSaved + annualRevenueGrowth + annualConversionBoost;
+      const totalAnnualBenefit = annualCostSaved + annualRevenueGrowth + annualBookingBoost;
 
-      // ROI calculation
-      const aiCost = 399; // £399/month
-      const annualAICost = aiCost * 12;
+      // ROI calculation - variable pricing based on solutions
+      const baseCost = 399; // Base monthly cost
+      const solutionPremium = Math.max(0, (selectedSolutions.length - 2) * 100); // Additional cost for more agents
+      const monthlyCost = baseCost + solutionPremium;
+      const annualAICost = monthlyCost * 12;
       const netBenefit = totalAnnualBenefit - annualAICost;
       const roi = Math.round((netBenefit / annualAICost) * 100);
 
       // Update UI with animated values
-      animateValue('timeSaved', 0, timeSavedHours, 1200);
+      animateValue('timeSaved', 0, totalTimeSaved, 1200);
       animateValue('costSaved', 0, monthlyCostSaved, 1500, true);
       animateValue('roi', 0, roi, 1000, false, '%');
       animateValue('annual', 0, Math.round(totalAnnualBenefit), 1800, true);
 
       // Create charts after a short delay
       setTimeout(() => {
-        createCharts(annualCostSaved, annualRevenueGrowth, annualConversionBoost);
+        createCharts(annualCostSaved, annualRevenueGrowth + annualBookingBoost, 0);
       }, 600);
 
       nextStep();
