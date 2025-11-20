@@ -272,11 +272,11 @@
       top: 0;
       left: 0;
       right: 0;
-      background: #000000;
+      background: transparent;
       z-index: 100;
       padding: 1.5rem 0;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: none;
+      border-bottom: none;
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: padding, box-shadow, background;
     }
@@ -698,7 +698,7 @@
       );
       position: relative;
       overflow: hidden;
-      padding-top: 80px;
+      padding-top: 0;
     }
 
     /* Ensure pricing hero takes full viewport height on desktop */
