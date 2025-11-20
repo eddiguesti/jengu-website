@@ -1284,14 +1284,15 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: #10b981;
-      color: white;
+      background: #FFB95A;
+      color: #050816;
       padding: 0.625rem 1.25rem;
       border-radius: 50px;
       font-weight: 700;
       font-size: 0.9rem;
-      transition: all 0.2s ease;
-      border: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 200, 117, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 185, 90, 0.4);
       white-space: nowrap;
       cursor: pointer;
     }
@@ -1301,8 +1302,15 @@
     }
 
     .nav-consultation-cta:hover {
-      background: #059669;
-      transform: scale(1.05);
+      background: #FFC875;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 185, 90, 0.6);
+      border-color: rgba(255, 200, 117, 0.5);
+    }
+
+    .nav-consultation-cta:active {
+      background: #E3A451;
+      transform: translateY(0px);
     }
 
     /* Language Switcher */
