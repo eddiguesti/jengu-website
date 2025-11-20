@@ -90,6 +90,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
     max-width: 800px;
     margin: 0 auto;
     padding: 8rem 2rem 4rem;
+    background: #ffffff;
   }
 
   .blog-post-header {
@@ -120,7 +121,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
 
   .blog-post-subtitle {
     font-size: 1.25rem;
-    color: var(--text-secondary);
+    color: #475569;
     line-height: 1.6;
   }
 
@@ -140,7 +141,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
   .blog-post-content {
     font-size: 1.125rem;
     line-height: 1.8;
-    color: var(--text-primary);
+    color: #1e293b;
   }
 
   /* Prose styling for markdown content */
@@ -149,7 +150,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
     font-weight: 700;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
-    color: var(--text-primary);
+    color: #0f172a;
     font-family: 'Sulphur Point', sans-serif;
   }
 
@@ -158,11 +159,12 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
     font-weight: 600;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: #0f172a;
   }
 
   .prose :global(p) {
     margin-bottom: 1.5rem;
+    color: #334155;
   }
 
   .prose :global(a) {
@@ -173,13 +175,14 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
   }
 
   .prose :global(a:hover) {
-    color: var(--primary-brand);
-    border-bottom-color: var(--primary-brand);
+    color: #0891b2;
+    border-bottom-color: #0891b2;
   }
 
   .prose :global(ul), .prose :global(ol) {
     margin-bottom: 1.5rem;
     padding-left: 2rem;
+    color: #334155;
   }
 
   .prose :global(li) {
@@ -191,7 +194,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
     padding-left: 1.5rem;
     margin: 2rem 0;
     font-style: italic;
-    color: var(--text-secondary);
+    color: #475569;
   }
 
   .prose :global(code) {
@@ -224,7 +227,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
   .blog-post-footer {
     margin-top: 4rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(6, 182, 212, 0.1);
   }
 
   .back-to-blog {
@@ -239,7 +242,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
 
   .back-to-blog:hover {
     gap: 0.75rem;
-    color: var(--primary-brand);
+    color: #0891b2;
   }
 
   @media (max-width: 768px) {

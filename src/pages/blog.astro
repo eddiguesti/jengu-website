@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import CTASection from '../components/sections/CTASection.astro';
@@ -19,75 +20,72 @@ const jsonLd = [
   ])
 ];
 
-// Blog posts data - in a real app, this would come from a CMS or markdown files
-const featuredPost = {
-  title: 'The Future of AI in Hospitality: 2025 Trends',
-  excerpt: 'As we move into 2025, artificial intelligence is revolutionizing the hospitality industry. From voice-activated room controls to predictive pricing algorithms, discover the key trends shaping the future of guest experiences.',
-  date: '2025-01-15',
-  category: 'Industry Insights',
-  image: '/images/blog/featured.jpg',
-  readTime: '8 min read'
+// Get all blog posts and news from content collections
+const blogPosts = await getCollection('blog', ({ data }) => {
+  return data.draft !== true && data.archived !== true;
+});
+
+const newsArticles = await getCollection('news', ({ data }) => {
+  return data.draft !== true && data.archived !== true;
+});
+
+// Combine and sort all content by publish date (newest first)
+const allContent = [...blogPosts, ...newsArticles].sort((a, b) => {
+  return b.data.publishedOn.getTime() - a.data.publishedOn.getTime();
+});
+
+// Helper function to generate image URL
+const getImageUrl = (entry) => {
+  // If post has an image, use it
+  if (entry.data.mainImage || entry.data.thumbnail) {
+    return entry.data.mainImage || entry.data.thumbnail;
+  }
+
+  // Otherwise, generate a relevant AI image using Pollinations API (free, no API key required)
+  const title = entry.data.title;
+  const description = entry.data.description;
+  const isNews = entry.collection === 'news';
+
+  // Build a specific prompt for news vs blog content
+  let prompt;
+
+  if (isNews) {
+    // News images: More editorial, current events, breaking news style
+    prompt = `Professional news article header image: ${title}. Editorial photography style, journalistic, current events, modern newsroom aesthetic. Clean composition, sharp focus, professional journalism. ${description}. Photorealistic, high-quality news media image.`;
+  } else {
+    // Blog images: More conceptual, technology-focused, business oriented
+    prompt = `Professional business blog header image: ${title}. Modern technology concept, AI and automation themes, corporate professional setting. ${description}. Clean modern design, vibrant corporate colors, futuristic business aesthetic, photorealistic, high quality.`;
+  }
+
+  const encodedPrompt = encodeURIComponent(prompt);
+  return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1200&height=630&nologo=true&enhance=true&model=flux`;
 };
 
-const posts = [
-  {
-    title: 'How AI Chatbots Increased Booking Rates by 40%',
-    excerpt: 'A deep dive into how one luxury resort implemented AI chatbots and saw dramatic improvements in conversion rates and guest satisfaction.',
-    date: '2025-01-10',
-    category: 'Case Study',
-    image: '/images/blog/chatbot-case-study.jpg',
-    readTime: '6 min read'
-  },
-  {
-    title: 'Dynamic Pricing Strategies for Hotels in Peak Season',
-    excerpt: 'Learn how machine learning algorithms can optimize your pricing strategy to maximize revenue during high-demand periods.',
-    date: '2025-01-05',
-    category: 'Revenue Management',
-    image: '/images/blog/dynamic-pricing.jpg',
-    readTime: '7 min read'
-  },
-  {
-    title: 'Automating Guest Communications: Best Practices',
-    excerpt: 'From booking confirmations to post-stay follow-ups, discover how to automate guest communications without losing the personal touch.',
-    date: '2024-12-28',
-    category: 'Automation',
-    image: '/images/blog/guest-communications.jpg',
-    readTime: '5 min read'
-  },
-  {
-    title: 'Voice AI: The Next Frontier in Guest Services',
-    excerpt: 'Explore how voice-activated AI assistants are transforming guest experiences and reducing staff workload in hotels worldwide.',
-    date: '2024-12-20',
-    category: 'Technology',
-    image: '/images/blog/voice-ai.jpg',
-    readTime: '6 min read'
-  },
-  {
-    title: 'ROI Analysis: AI Implementation in Tour Operators',
-    excerpt: 'A comprehensive look at the return on investment when implementing AI automation solutions for tour operators and DMCs.',
-    date: '2024-12-15',
-    category: 'Business',
-    image: '/images/blog/roi-analysis.jpg',
-    readTime: '9 min read'
-  },
-  {
-    title: 'Email Automation That Converts: A Complete Guide',
-    excerpt: 'Master the art of automated email marketing for tourism businesses with proven templates and conversion optimization techniques.',
-    date: '2024-12-10',
-    category: 'Marketing',
-    image: '/images/blog/email-automation.jpg',
-    readTime: '7 min read'
-  }
-];
+// Get featured post (most recent)
+const featuredEntry = allContent[0];
+const featuredPost = {
+  title: featuredEntry.data.title,
+  excerpt: featuredEntry.data.description.substring(0, 200) + '...',
+  date: featuredEntry.data.publishedOn.toISOString().split('T')[0],
+  category: featuredEntry.collection === 'news' ? 'News' : 'Blog',
+  image: getImageUrl(featuredEntry),
+  url: featuredEntry.collection === 'blog' ? `/blog/${featuredEntry.slug}` : `/news/${featuredEntry.slug}`,
+  readTime: '5 min read'
+};
+
+// Get remaining posts (next 20 for performance)
+const posts = allContent.slice(1, 21).map(entry => ({
+  title: entry.data.title,
+  excerpt: entry.data.description.substring(0, 150) + '...',
+  date: entry.data.publishedOn.toISOString().split('T')[0],
+  category: entry.collection === 'news' ? 'News' : 'Blog',
+  image: getImageUrl(entry),
+  url: entry.collection === 'blog' ? `/blog/${entry.slug}` : `/news/${entry.slug}`,
+  readTime: '5 min read'
+}));
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <Hero
-    title="AI Insights &"
-    highlight="Industry News"
-    description="Expert perspectives on AI automation, hospitality technology, and digital transformation in tourism"
-  />
-
   <!-- Newspaper Header -->
   <section class="blog-header">
     <div class="newspaper-masthead">
@@ -113,13 +111,13 @@ const posts = [
             <span>{featuredPost.readTime}</span>
           </div>
           <p class="featured-excerpt">{featuredPost.excerpt}</p>
-          <a href="#" class="read-more-btn">
+          <a href={featuredPost.url} class="read-more-btn">
             Read Full Article <i class="fas fa-arrow-right"></i>
           </a>
         </div>
         <div class="featured-image-container">
           <div class="featured-badge">Featured Story</div>
-          <div class="featured-image"></div>
+          <div class="featured-image" style={`background-image: url('${featuredPost.image}')`}></div>
         </div>
       </div>
     </div>
@@ -135,7 +133,7 @@ const posts = [
       <div class="articles-grid">
         {posts.map((post, index) => (
           <article class="article-card" style={`animation-delay: ${index * 0.1}s`}>
-            <div class="article-image"></div>
+            <div class="article-image" style={`background-image: url('${post.image}')`}></div>
             <div class="article-content">
               <span class="article-category">{post.category}</span>
               <h3 class="article-title">{post.title}</h3>
@@ -147,7 +145,7 @@ const posts = [
                 <span class="meta-separator">•</span>
                 <span>{post.readTime}</span>
               </div>
-              <a href="#" class="article-link">
+              <a href={post.url} class="article-link">
                 Continue Reading <i class="fas fa-arrow-right"></i>
               </a>
             </div>
@@ -186,9 +184,9 @@ const posts = [
 <style>
   /* Newspaper Masthead */
   .blog-header {
-    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-    padding: 3rem 0 2rem;
-    border-bottom: 3px double var(--primary);
+    background: #ffffff;
+    padding: 8rem 0 3rem;
+    border-bottom: 1px solid rgba(6, 182, 212, 0.1);
   }
 
   .newspaper-masthead {
@@ -199,15 +197,18 @@ const posts = [
 
   .masthead-line {
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--secondary-brand), transparent);
     margin: 1rem 0;
   }
 
   .masthead-title {
-    font-family: 'Sulphur Point', serif;
+    font-family: 'Sulphur Point', sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
-    color: var(--text-dark);
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0.5rem 0;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -217,14 +218,14 @@ const posts = [
     font-family: 'Figtree', sans-serif;
     font-size: 1rem;
     font-style: italic;
-    color: var(--gray);
+    color: #64748b;
     letter-spacing: 1px;
   }
 
   /* Featured Article */
   .featured-article {
     padding: 4rem 0;
-    background: var(--bg-main);
+    background: #ffffff;
   }
 
   .featured-grid {
@@ -235,7 +236,7 @@ const posts = [
   }
 
   .featured-category {
-    background: linear-gradient(135deg, #ef4444, #dc2626);
+    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 6px;
@@ -250,7 +251,7 @@ const posts = [
   .featured-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: white;
+    color: #0f172a;
     line-height: 1.2;
     margin-bottom: 1rem;
     animation: fadeInUp 0.6s ease-out;
@@ -260,19 +261,19 @@ const posts = [
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--gray);
+    color: #64748b;
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
 
   .meta-separator {
-    color: var(--primary);
+    color: var(--secondary-brand);
   }
 
   .featured-excerpt {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: var(--gray);
+    color: #475569;
     margin-bottom: 2rem;
     animation: fadeInUp 0.6s ease-out 0.2s backwards;
   }
@@ -282,7 +283,7 @@ const posts = [
     align-items: center;
     gap: 0.5rem;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--primary), #0891b2);
+    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
     color: white;
     text-decoration: none;
     border-radius: 12px;
@@ -310,13 +311,14 @@ const posts = [
     border-radius: 20px;
     overflow: hidden;
     animation: fadeInRight 0.8s ease-out 0.3s backwards;
+    border: 1px solid rgba(6, 182, 212, 0.1);
   }
 
   .featured-badge {
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    background: rgba(239, 68, 68, 0.95);
+    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
     color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -331,8 +333,9 @@ const posts = [
   .featured-image {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(8, 145, 178, 0.3)),
-                url('/api/placeholder/800/600') center/cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: transform 0.5s ease;
   }
 
@@ -354,7 +357,7 @@ const posts = [
     top: 50%;
     width: 40%;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    background: linear-gradient(90deg, transparent, var(--secondary-brand), transparent);
   }
 
   .section-divider::before {
@@ -366,11 +369,11 @@ const posts = [
   }
 
   .divider-text {
-    background: var(--bg-light);
+    background: #ffffff;
     padding: 0 2rem;
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--text-dark);
+    color: #0f172a;
     text-transform: uppercase;
     letter-spacing: 2px;
   }
@@ -378,7 +381,7 @@ const posts = [
   /* Articles Grid */
   .articles-grid-section {
     padding: 4rem 0;
-    background: var(--bg-light);
+    background: #f8fafc;
   }
 
   .articles-grid {
@@ -392,7 +395,7 @@ const posts = [
     border-radius: 16px;
     overflow: hidden;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     animation: fadeInUp 0.6s ease-out backwards;
     border: 1px solid rgba(6, 182, 212, 0.1);
   }
@@ -405,8 +408,9 @@ const posts = [
   .article-image {
     width: 100%;
     height: 220px;
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(8, 145, 178, 0.2)),
-                url('/api/placeholder/400/300') center/cover;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     transition: transform 0.5s ease;
   }
 
@@ -420,7 +424,7 @@ const posts = [
 
   .article-category {
     background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(8, 145, 178, 0.1));
-    color: var(--primary);
+    color: var(--secondary-brand);
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     font-size: 0.7rem;
@@ -434,7 +438,7 @@ const posts = [
   .article-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--text-dark);
+    color: #0f172a;
     line-height: 1.4;
     margin-bottom: 0.75rem;
   }
@@ -442,7 +446,7 @@ const posts = [
   .article-excerpt {
     font-size: 0.95rem;
     line-height: 1.6;
-    color: var(--gray);
+    color: #475569;
     margin-bottom: 1rem;
   }
 
@@ -450,18 +454,18 @@ const posts = [
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--gray);
+    color: #64748b;
     font-size: 0.85rem;
     margin-bottom: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(6, 182, 212, 0.1);
   }
 
   .article-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    color: var(--primary);
+    color: var(--secondary-brand);
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
@@ -483,12 +487,12 @@ const posts = [
   /* Newsletter Section */
   .newsletter-section {
     padding: 4rem 0;
-    background: var(--bg-main);
+    background: #ffffff;
   }
 
   .newsletter-card {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.05), rgba(8, 145, 178, 0.05));
-    border: 2px solid rgba(6, 182, 212, 0.2);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.03), rgba(8, 145, 178, 0.05));
+    border: 2px solid rgba(6, 182, 212, 0.15);
     border-radius: 24px;
     padding: 3rem;
     text-align: center;
@@ -500,7 +504,7 @@ const posts = [
   .newsletter-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--primary), #0891b2);
+    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -516,13 +520,13 @@ const posts = [
   .newsletter-card h3 {
     font-size: 2rem;
     font-weight: 700;
-    color: white;
+    color: #0f172a;
     margin-bottom: 1rem;
   }
 
   .newsletter-card > p {
     font-size: 1.1rem;
-    color: var(--gray);
+    color: #475569;
     margin-bottom: 2rem;
     line-height: 1.6;
   }
@@ -539,25 +543,25 @@ const posts = [
     padding: 1rem 1.5rem;
     border: 2px solid rgba(6, 182, 212, 0.2);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    background: #ffffff;
+    color: #0f172a;
     font-size: 1rem;
     transition: all 0.3s ease;
   }
 
   .newsletter-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: #94a3b8;
   }
 
   .newsletter-input:focus {
     outline: none;
-    border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--secondary-brand);
+    background: #ffffff;
   }
 
   .newsletter-btn {
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--primary), #0891b2);
+    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
     color: white;
     border: none;
     border-radius: 12px;
@@ -575,7 +579,7 @@ const posts = [
   }
 
   .newsletter-note {
-    color: var(--gray);
+    color: #64748b;
     font-size: 0.85rem;
   }
 
