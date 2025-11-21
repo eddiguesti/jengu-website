@@ -110,7 +110,7 @@ const currentLocale = getLocaleFromUrl(currentPath);
         <ul class="footer-links">
           <li><a href="/blog">Blog & News</a></li>
           <li><a href="/faq">FAQ</a></li>
-          <li><a href="#" onclick="handleCalculatorClick(event)">ROI Calculator</a></li>
+          <li><a href="/calculator">ROI Calculator</a></li>
           <li><a href="/contact">Contact Us</a></li>
         </ul>
       </div>
@@ -126,22 +126,6 @@ const currentLocale = getLocaleFromUrl(currentPath);
       <p>&copy; 2025 Jengu. All rights reserved.</p>
     </div>
   </footer>
-
-  <!-- Calculator Modal (Desktop Only) -->
-  <div id="calculatorModalOverlay" class="calculator-modal-overlay">
-    <div class="calculator-modal-content">
-      <button class="calculator-modal-close" id="calculatorModalClose" aria-label="Close calculator">
-        <i class="fas fa-times"></i>
-      </button>
-      <iframe
-        id="calculatorIframe"
-        src="/calculator-ai-agents-2025.html"
-        title="ROI Calculator"
-        class="calculator-iframe"
-        frameborder="0"
-      ></iframe>
-    </div>
-  </div>
 
   <!-- Booking Modal -->
   <BookingModal />
