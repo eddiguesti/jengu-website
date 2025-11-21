@@ -1,0 +1,38 @@
+/**
+ * CSS Variables
+ * Centralized design tokens for consistent theming
+ *
+ * @author Claude Code Refactor
+ * @version 2.0.0
+ */
+
+:root {
+  /* Brand Colors */
+  --primary-brand: #1E40AF;
+  --secondary-brand: #06B6D4;
+  --primary-cta: #6366f1;
+  --primary-cta-hover: #4f46e5;
+  --success: #10B981;
+  --accent-yellow: #FBBF24;
+
+  /* Backgrounds */
+  --bg-main: #000000;
+  --bg-light: #121212;
+  --bg-card: #181818;
+  --bg-elevated: #282828;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B3B3B3;
+
+  /* Borders */
+  --border-light: #282828;
+  --border-medium: #404040;
+
+  /* Shadows */
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.7);
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
+}

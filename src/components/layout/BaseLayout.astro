@@ -3,12 +3,11 @@ import SEOHead from '../seo/SEOHead.astro';
 import JsonLd from '../seo/JsonLd.astro';
 import Hreflang from '../seo/Hreflang.astro';
 import Analytics from '../seo/Analytics.astro';
-import OptimizedImage from '../OptimizedImage.astro';
-import LanguageSwitcher from '../LanguageSwitcher.astro';
+import Navbar from './Navbar.astro';
 import BookingModal from '../BookingModal.astro';
-import { getLocaleFromUrl, getTranslations } from '../../i18n';
+import { getLocaleFromUrl } from '../../i18n';
 import type { SEOConfig } from '../../lib/seo/metadata';
-import '../../styles/landing.css';
+import '../../styles/main.css';
 
 interface Props {
   seo: SEOConfig;
@@ -18,7 +17,6 @@ interface Props {
 const { seo, jsonLd } = Astro.props;
 const currentPath = Astro.url.pathname;
 const currentLocale = getLocaleFromUrl(currentPath);
-const t = getTranslations(currentLocale);
 ---
 
 <!DOCTYPE html>
@@ -69,12 +67,12 @@ const t = getTranslations(currentLocale);
   >
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
+  <!-- GSAP for navbar morph animation - Load before other scripts -->
+  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
   <!-- Preload critical assets -->
   <link rel="preload" href="/images/logo.png" as="image" type="image/png">
   <link rel="preload" href="/scripts/main.js" as="script">
-
-  <!-- GSAP for navbar morph animation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <!-- SEO -->
   <SEOHead seo={seo} />
@@ -83,92 +81,7 @@ const t = getTranslations(currentLocale);
 </head>
 <body>
   <!-- Navigation -->
-  <nav id="navbar">
-    <div class="nav-container">
-      <div class="nav-right">
-        <!-- Free Consultation CTA -->
-        <button onclick="openBookingModal()" class="nav-consultation-cta">
-          <i class="fas fa-calendar-check"></i>
-          <span>{t.nav.freeConsultation}</span>
-        </button>
-
-        <!-- Language Switcher -->
-        <LanguageSwitcher />
-
-        <!-- Burger Menu Button -->
-        <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <!-- Sidebar Menu - Rebuilt from scratch -->
-  <aside id="sidebar">
-    <!-- Header with close button -->
-    <div class="sidebar-header">
-      <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-
-    <!-- Navigation links (scrollable) -->
-    <nav class="sidebar-nav">
-      <a href="/" class="sidebar-link">
-        <i class="fas fa-home"></i>
-        <span>{t.nav.home}</span>
-      </a>
-      <a href="/about" class="sidebar-link">
-        <i class="fas fa-info-circle"></i>
-        <span>{t.nav.about}</span>
-      </a>
-      <a href="/services" class="sidebar-link">
-        <i class="fas fa-cogs"></i>
-        <span>{t.nav.services}</span>
-      </a>
-      <a href="/dynamic-pricing" class="sidebar-link">
-        <i class="fas fa-chart-line"></i>
-        <span>{t.nav.dynamicPricing}</span>
-      </a>
-      <a href="/case-studies" class="sidebar-link">
-        <i class="fas fa-briefcase"></i>
-        <span>{t.nav.caseStudies}</span>
-      </a>
-      <a href="/blog" class="sidebar-link">
-        <i class="fas fa-newspaper"></i>
-        <span>{t.nav.blog}</span>
-      </a>
-      <a href="/faq" class="sidebar-link">
-        <i class="fas fa-question-circle"></i>
-        <span>{t.nav.faq}</span>
-      </a>
-      <a href="/team" class="sidebar-link">
-        <i class="fas fa-users"></i>
-        <span>{t.nav.team}</span>
-      </a>
-      <a href="/contact" class="sidebar-link">
-        <i class="fas fa-envelope"></i>
-        <span>{t.nav.contact}</span>
-      </a>
-    </nav>
-
-    <!-- CTA buttons at bottom -->
-    <div class="sidebar-cta-container">
-      <button onclick="openBookingModal()" class="sidebar-cta sidebar-cta-primary">
-        <i class="fas fa-comments"></i>
-        <span>{t.nav.getConsultation}</span>
-      </button>
-      <a href="#" onclick="handleCalculatorClick(event)" class="sidebar-cta sidebar-cta-secondary">
-        <i class="fas fa-calculator"></i>
-        <span>{t.nav.calculateROI}</span>
-      </a>
-    </div>
-  </aside>
+  <Navbar />
 
   <!-- Main Content -->
   <slot />
@@ -190,14 +103,12 @@ const t = getTranslations(currentLocale);
           <li><a href="/">Home</a></li>
           <li><a href="/about">About Us</a></li>
           <li><a href="/services">Services</a></li>
-          <li><a href="/team">Team</a></li>
         </ul>
       </div>
       <div class="footer-section">
         <h4>Resources</h4>
         <ul class="footer-links">
           <li><a href="/blog">Blog & News</a></li>
-          <li><a href="/case-studies">Case Studies</a></li>
           <li><a href="/faq">FAQ</a></li>
           <li><a href="#" onclick="handleCalculatorClick(event)">ROI Calculator</a></li>
           <li><a href="/contact">Contact Us</a></li>
@@ -238,182 +149,6 @@ const t = getTranslations(currentLocale);
   <!-- Global JavaScript -->
   <script is:inline src="/scripts/main.js"></script>
   <script is:inline src="/scripts/language-persistence.js"></script>
-
-  <!-- Navbar Morph Animation -->
-  <script type="module">
-    let morphTimeline = null;
-    let isAnimating = false;
-
-    function morphNavbarToSidebar() {
-      if (isAnimating) return;
-      isAnimating = true;
-
-      const navRight = document.querySelector('.nav-right');
-      const sidebar = document.getElementById('sidebar');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
-      const burgerMenu = document.getElementById('burgerMenu');
-      const mainContent = document.querySelector('main') || document.querySelector('.hero');
-
-      // Create timeline
-      morphTimeline = gsap.timeline({
-        onComplete: () => {
-          isAnimating = false;
-          sidebar.classList.add('active');
-          sidebarOverlay.classList.add('active');
-          burgerMenu.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
-      });
-
-      // Get positions
-      const navRect = navRight.getBoundingClientRect();
-      const sidebarWidth = 280;
-
-      // Animate navbar pill morphing to sidebar
-      morphTimeline
-        // Scale and move navbar pill to top-right corner
-        .to(navRight, {
-          duration: 0.5,
-          x: window.innerWidth - navRect.right + (sidebarWidth - navRect.width),
-          scaleX: sidebarWidth / navRect.width,
-          scaleY: window.innerHeight / navRect.height,
-          borderRadius: '16px 0 0 16px',
-          transformOrigin: 'right top',
-          ease: 'power3.inOut'
-        }, 0)
-        // Fade out navbar contents
-        .to(navRight.children, {
-          duration: 0.3,
-          opacity: 0,
-          ease: 'power2.in'
-        }, 0)
-        // Show overlay
-        .to(sidebarOverlay, {
-          duration: 0.4,
-          opacity: 1,
-          visibility: 'visible',
-          ease: 'power2.out'
-        }, 0.1)
-        // Subtle page shift
-        .to(mainContent, {
-          duration: 0.5,
-          x: -20,
-          scale: 0.98,
-          ease: 'power3.inOut'
-        }, 0)
-        // Reveal sidebar content
-        .fromTo(sidebar,
-          { opacity: 0 },
-          {
-            duration: 0.3,
-            opacity: 1,
-            ease: 'power2.out'
-          }, 0.3);
-    }
-
-    function morphSidebarToNavbar() {
-      if (isAnimating) return;
-      isAnimating = true;
-
-      const navRight = document.querySelector('.nav-right');
-      const sidebar = document.getElementById('sidebar');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
-      const burgerMenu = document.getElementById('burgerMenu');
-      const mainContent = document.querySelector('main') || document.querySelector('.hero');
-
-      // Create reverse timeline
-      const reverseTimeline = gsap.timeline({
-        onComplete: () => {
-          isAnimating = false;
-          sidebar.classList.remove('active');
-          sidebarOverlay.classList.remove('active');
-          burgerMenu.classList.remove('active');
-          document.body.style.overflow = 'auto';
-        }
-      });
-
-      reverseTimeline
-        // Hide sidebar content
-        .to(sidebar, {
-          duration: 0.2,
-          opacity: 0,
-          ease: 'power2.in'
-        }, 0)
-        // Hide overlay
-        .to(sidebarOverlay, {
-          duration: 0.3,
-          opacity: 0,
-          visibility: 'hidden',
-          ease: 'power2.in'
-        }, 0)
-        // Morph back to navbar pill
-        .to(navRight, {
-          duration: 0.5,
-          x: 0,
-          scaleX: 1,
-          scaleY: 1,
-          borderRadius: '50px',
-          transformOrigin: 'right top',
-          ease: 'power3.inOut'
-        }, 0.1)
-        // Fade in navbar contents
-        .to(navRight.children, {
-          duration: 0.3,
-          opacity: 1,
-          ease: 'power2.out'
-        }, 0.3)
-        // Reset page position
-        .to(mainContent, {
-          duration: 0.5,
-          x: 0,
-          scale: 1,
-          ease: 'power3.inOut'
-        }, 0.1);
-    }
-
-    // Override the existing sidebar functions
-    window.openSidebar = morphNavbarToSidebar;
-    window.closeSidebar = morphSidebarToNavbar;
-
-    // Wait for DOM to be ready
-    document.addEventListener('DOMContentLoaded', () => {
-      const burgerMenu = document.getElementById('burgerMenu');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
-      const sidebarClose = document.getElementById('sidebarClose');
-
-      if (burgerMenu) {
-        burgerMenu.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const isActive = burgerMenu.classList.contains('active');
-          if (isActive) {
-            morphSidebarToNavbar();
-          } else {
-            morphNavbarToSidebar();
-          }
-        });
-      }
-
-      if (sidebarClose) {
-        sidebarClose.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          morphSidebarToNavbar();
-        });
-      }
-
-      if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', morphSidebarToNavbar);
-      }
-
-      // Close sidebar when clicking a link
-      document.querySelectorAll('.sidebar-link, .sidebar-cta').forEach(link => {
-        link.addEventListener('click', () => {
-          setTimeout(morphSidebarToNavbar, 200);
-        });
-      });
-    });
-  </script>
 
   <!-- Analytics - Loaded last to prevent blocking -->
   <Analytics />

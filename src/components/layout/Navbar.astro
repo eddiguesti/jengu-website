@@ -1,0 +1,78 @@
+---
+/**
+ * Navbar Component
+ * Responsive navigation bar with burger menu, language switcher, and booking CTA
+ * Features GSAP animations on desktop, static dropdown on mobile
+ */
+import LanguageSwitcher from '../LanguageSwitcher.astro';
+import { getLocaleFromUrl, getTranslations } from '../../i18n';
+
+const currentPath = Astro.url.pathname;
+const currentLocale = getLocaleFromUrl(currentPath);
+const t = getTranslations(currentLocale);
+---
+
+<nav id="navbar">
+  <div class="nav-container">
+    <div class="nav-right" id="navRight">
+      <!-- Home Icon -->
+      <a href="/" class="nav-home-icon" aria-label="Home">
+        <i class="fas fa-home"></i>
+      </a>
+
+      <!-- Free Consultation CTA -->
+      <button onclick="openBookingModal()" class="nav-consultation-cta">
+        <i class="fas fa-calendar-check"></i>
+        <span>{t.nav.freeConsultation}</span>
+      </button>
+
+      <!-- Language Switcher -->
+      <LanguageSwitcher />
+
+      <!-- Burger Menu Button -->
+      <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+
+      <!-- Burger Dropdown Menu -->
+      <div class="burger-dropdown" id="burgerDropdown">
+        <div class="burger-dropdown-content">
+          <a href="/">
+            <i class="fas fa-home"></i>
+            <span>{t.nav.home}</span>
+          </a>
+          <a href="/about">
+            <i class="fas fa-info-circle"></i>
+            <span>{t.nav.about}</span>
+          </a>
+          <a href="/services">
+            <i class="fas fa-cogs"></i>
+            <span>{t.nav.services}</span>
+          </a>
+          <a href="/dynamic-pricing">
+            <i class="fas fa-chart-line"></i>
+            <span>{t.nav.dynamicPricing}</span>
+          </a>
+          <a href="/blog">
+            <i class="fas fa-newspaper"></i>
+            <span>{t.nav.blog}</span>
+          </a>
+          <a href="/faq">
+            <i class="fas fa-question-circle"></i>
+            <span>{t.nav.faq}</span>
+          </a>
+          <a href="/contact">
+            <i class="fas fa-envelope"></i>
+            <span>{t.nav.contact}</span>
+          </a>
+          <a href="#" onclick="handleCalculatorClick(event)" class="calculator-link">
+            <i class="fas fa-calculator"></i>
+            <span>ROI Calculator</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,128 @@
+/**
+ * Burger Menu & Dropdown Styles
+ * Animated hamburger menu with dropdown navigation
+ *
+ * @author Claude Code Refactor
+ * @version 2.0.0
+ */
+
+/* ============================================================================
+   BURGER MENU BUTTON
+   ============================================================================ */
+
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.burger-line {
+  width: 20px;
+  height: 2.5px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  display: block;
+  flex-shrink: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ============================================================================
+   BURGER DROPDOWN MENU
+   ============================================================================ */
+
+.burger-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  z-index: 1000;
+  padding: 1.5rem;
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+}
+
+.burger-dropdown.active {
+  pointer-events: auto;
+}
+
+.burger-dropdown-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.burger-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.burger-dropdown a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.burger-dropdown a i {
+  font-size: 1rem;
+  opacity: 0.8;
+  width: 20px;
+}
+
+/* Special styling for ROI Calculator link */
+.burger-dropdown a.calculator-link {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  color: #818cf8;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.burger-dropdown a.calculator-link:hover {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+  border-color: rgba(99, 102, 241, 0.6);
+  color: #a5b4fc;
+  transform: translateX(3px);
+}
+
+.burger-dropdown a.calculator-link i {
+  opacity: 1;
+  color: #818cf8;
+}

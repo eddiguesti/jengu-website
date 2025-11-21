@@ -43,23 +43,19 @@ export default defineConfig({
   },
   vite: {
     build: {
-      cssCodeSplit: true, // Split CSS for better caching
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            // Split vendor code for better caching
-            'vendor': ['astro']
-          }
-        }
-      }
-    },
-    // Enable compression
-    build: {
+      cssCodeSplit: true,
       minify: 'terser',
       terserOptions: {
         compress: {
-          drop_console: true, // Remove console.logs in production
+          drop_console: true,
           drop_debugger: true
+        }
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor': ['astro']
+          }
         }
       }
     }

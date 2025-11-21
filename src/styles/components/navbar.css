@@ -1,0 +1,259 @@
+/**
+ * Navbar & Navigation Styles
+ * Fixed navigation bar with glassmorphic design
+ *
+ * @author Claude Code Refactor
+ * @version 2.0.0
+ */
+
+/* ============================================================================
+   NAVBAR CONTAINER
+   ============================================================================ */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent;
+  z-index: 100;
+  padding: 1.5rem 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: padding;
+  pointer-events: none;
+}
+
+nav.scrolled {
+  padding: 1rem 0;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.nav-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 0.5rem 0.75rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  pointer-events: auto;
+  overflow: visible;
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 999;
+}
+
+.nav-right > * {
+  flex-shrink: 0;
+}
+
+.burger-menu {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+nav.scrolled .nav-right {
+  background: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+
+/* ============================================================================
+   HOME ICON
+   ============================================================================ */
+
+.nav-home-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.nav-home-icon:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.nav-home-icon:active {
+  transform: scale(0.95);
+}
+
+/* ============================================================================
+   LOGO
+   ============================================================================ */
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+/* ============================================================================
+   NAVIGATION LINKS
+   ============================================================================ */
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+.nav-links a.active {
+  color: #818cf8;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* ============================================================================
+   CTA BUTTONS
+   ============================================================================ */
+
+.nav-cta {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+  border: 1px solid rgba(129, 140, 248, 0.4);
+}
+
+.nav-cta:hover {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(99, 102, 241, 0.7);
+  border-color: rgba(129, 140, 248, 0.6);
+}
+
+/* Free Consultation CTA in navbar */
+.nav-consultation-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFB95A;
+  color: #050816;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.875rem;
+  font-family: 'Figtree', sans-serif;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 185, 90, 0.3);
+  border: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.nav-consultation-cta i {
+  font-size: 0.875rem;
+}
+
+.nav-consultation-cta:hover {
+  background: #FFC875;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 185, 90, 0.5);
+}
+
+.nav-consultation-cta:active {
+  background: #E3A451;
+  transform: scale(0.98);
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+
+@media (max-width: 480px) {
+  .nav-consultation-cta {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .nav-consultation-cta i {
+    font-size: 0.9rem;
+  }
+}
+
+/* ============================================================================
+   CALENDLY WIDGET STYLING
+   ============================================================================ */
+
+.calendly-overlay {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+
+.calendly-popup-content {
+  background: #0a0e1a !important;
+}
+
+.calendly-overlay,
+.calendly-popup-content {
+  animation: calendlyFadeIn 0.3s ease-in-out !important;
+}

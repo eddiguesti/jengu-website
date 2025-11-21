@@ -1,0 +1,67 @@
+/**
+ * Main Stylesheet - Modular Architecture
+ * Jengu AI Website
+ *
+ * This file imports all CSS modules in the correct order:
+ * 1. Base (variables, reset, typography)
+ * 2. Utilities (animations, responsive helpers)
+ * 3. Components (navbar, burger menu, buttons, modals)
+ * 4. Sections & Legacy (hero, features, stats, etc.)
+ *
+ * @author Claude Code Refactor
+ * @version 2.0.0
+ */
+
+/* ============================================================================
+   BASE LAYER - Foundation & Design Tokens
+   ============================================================================ */
+@import './base/variables.css';
+@import './base/reset.css';
+@import './base/typography.css';
+
+/* ============================================================================
+   UTILITIES LAYER - Animations & Helpers
+   ============================================================================ */
+@import './utils/animations.css';
+
+/* ============================================================================
+   COMPONENTS LAYER - Reusable UI Elements
+   ============================================================================ */
+@import './components/navbar.css';
+@import './components/burger-menu.css';
+
+/* ============================================================================
+   LEGACY LAYER - All Remaining Styles
+   ============================================================================ */
+@import './components/landing-legacy.css';
+
+/**
+ * FUTURE REFACTORING ROADMAP
+ *
+ * The landing-legacy.css file can be further broken down into:
+ *
+ * Components:
+ * - components/buttons.css - All button styles (.btn, .btn-primary, etc.)
+ * - components/modals.css - Modal overlays and dialogs
+ * - components/forms.css - Form inputs and styling
+ * - components/cards.css - Feature cards, stat cards, benefit cards
+ *
+ * Sections:
+ * - sections/hero.css - Hero section with gradients and animations
+ * - sections/features.css - Features grid and individual feature cards
+ * - sections/stats.css - Statistics section
+ * - sections/cta.css - Call-to-action sections
+ * - sections/pricing.css - Pricing tables and comparison
+ * - sections/testimonials.css - Client testimonials
+ * - sections/footer.css - Footer styling
+ *
+ * Utilities:
+ * - utils/responsive.css - Media queries and responsive helpers
+ * - utils/visibility.css - Show/hide utilities (.mobile-only, .desktop-only)
+ *
+ * This modular approach will:
+ * - Improve maintainability (find styles faster)
+ * - Enable better code splitting (load only what's needed)
+ * - Reduce duplication (DRY principle)
+ * - Support theming (override specific modules)
+ */
