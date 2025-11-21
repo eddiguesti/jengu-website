@@ -329,6 +329,30 @@
                   0 0 0 1px rgba(255, 255, 255, 0.08) inset;
     }
 
+    /* Home Icon */
+    .nav-home-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      color: white;
+      text-decoration: none;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .nav-home-icon:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      transform: scale(1.1);
+    }
+
+    .nav-home-icon:active {
+      transform: scale(0.95);
+    }
+
     .logo {
       display: flex;
       align-items: center;
