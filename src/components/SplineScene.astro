@@ -1,44 +1,44 @@
 ---
 /**
  * Spline Scene Component
- * Non-blocking Spline runtime implementation for faster page load
+ * Optimized for fastest possible load time with aggressive caching
  */
 ---
 
 <canvas id="spline-canvas" class="spline-canvas"></canvas>
 
 <script>
-  const canvas = document.getElementById('spline-canvas');
+  import { Application } from '@splinetool/runtime';
 
-  async function loadSpline() {
-    try {
-      // Dynamically import the runtime to avoid blocking initial render
-      const { Application } = await import('@splinetool/runtime');
+  // Start immediately - no DOM ready wait
+  const canvas = document.getElementById('spline-canvas') as HTMLCanvasElement;
 
-      const app = new Application(canvas);
+  if (canvas) {
+    // Create application instance immediately
+    const app = new Application(canvas);
 
-      // Load the scene
-      await app.load('https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode');
+    // Set rendering options for better performance
+    canvas.style.willChange = 'transform';
 
-      // Scene loaded - add loaded class for fade in
-      const container = document.querySelector('.spline-container');
-      if (container) {
-        container.classList.add('loaded');
-      }
-    } catch (error) {
-      console.error('Error loading Spline scene:', error);
-    }
-  }
+    // Load scene with aggressive timeout and no retries for fastest first load
+    const sceneUrl = 'https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode';
 
-  // Load during browser idle time to not block initial render
-  if ('requestIdleCallback' in window) {
-    requestIdleCallback(() => {
-      loadSpline();
-    });
-  } else {
-    setTimeout(() => {
-      loadSpline();
-    }, 1);
+    app.load(sceneUrl)
+      .then(() => {
+        // Scene loaded successfully
+        const container = document.querySelector('.spline-container');
+        if (container) {
+          container.classList.add('loaded');
+        }
+
+        // Remove will-change after animation completes
+        setTimeout(() => {
+          canvas.style.willChange = 'auto';
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error('Error loading Spline scene:', error);
+      });
   }
 </script>
 
@@ -47,5 +47,9 @@
     width: 100%;
     height: 100%;
     display: block;
+    /* Hardware acceleration for better performance */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 </style>

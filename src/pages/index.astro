@@ -18,6 +18,14 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
+  <!-- Preload Spline scene for faster loading -->
+  <link
+    slot="head"
+    rel="preload"
+    href="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
+    as="fetch"
+    crossorigin="anonymous"
+  />
   <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
