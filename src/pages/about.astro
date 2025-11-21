@@ -1,16 +1,14 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
 import SectionHeader from '../components/sections/SectionHeader.astro';
-import CTASection from '../components/sections/CTASection.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'About Jengu - AI Automation Experts for Tourism',
-  description: 'We help tourism businesses automate operations with custom AI agents. Specializing in hospitality, travel agencies, DMCs & tour operators. Based in UK & Europe, serving clients worldwide.',
+  title: 'About Jengu | The People Behind Your AI Advantage',
+  description: "We are a new company with a long history. Our team of seasoned AI and automation experts is dedicated to building practical, results-driven AI solutions for the tourism and hospitality industry.",
   canonical: `${Astro.site}about/`,
-  ogType: 'website'
+  ogType: 'article' // More appropriate for an "About Us" page
 });
 
 const jsonLd = [
@@ -20,145 +18,404 @@ const jsonLd = [
     { name: 'About', url: `${Astro.site}about/` }
   ])
 ];
+
+const teamMembers = [
+  {
+    initials: 'DS',
+    name: 'Danny Smith',
+    role: 'Director',
+    bio: 'Leads Jengu’s strategic vision, bringing extensive experience in technology innovation and business transformation for the tourism industry.',
+    linkedin: 'https://www.linkedin.com/in/dannyasmith/'
+  },
+  {
+    initials: 'EG',
+    name: 'Edward Guest',
+    role: 'Chief Innovation Officer',
+    bio: 'Drives innovation and AI strategy, specializing in developing cutting-edge automation solutions that transform business operations.',
+    linkedin: 'https://www.linkedin.com/in/edwardguest1/'
+  },
+  {
+    initials: 'CG',
+    name: 'Christopher Guest',
+    role: 'Senior Process Automation Engineer',
+    bio: 'Designs and implements complex automation workflows, helping businesses streamline operations and maximize efficiency.',
+    linkedin: 'https://www.linkedin.com/in/christopher-guest-04149551/'
+  }
+];
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <Hero
-    title="About"
-    highlight="Jengu"
-    description="We're on a mission to transform tourism and hospitality through intelligent AI automation, custom software development, and seamless API integrations."
-  />
+  <!-- New Hero -->
+  <header class="about-hero">
+    <div class="about-hero-content">
+      <h1 class="animate-on-scroll">
+        We're a new company with a <span class="gradient-text">long history.</span>
+      </h1>
+      <p class="animate-on-scroll" style="transition-delay: 0.1s;">
+        Jengu was founded in 2023, but our story began years earlier. We are a collective of seasoned AI engineers, automation experts, and hospitality insiders who saw a gap between the potential of AI and the practical needs of the tourism industry. We came together to close that gap.
+      </p>
+    </div>
+  </header>
 
-  <!-- Mission & Vision -->
-  <section class="content-section bg-light">
-    <div class="section-container">
-      <div class="mission-vision-grid">
-        <div class="mission-card">
-          <div class="mission-card-icon">
-            <i class="fas fa-bullseye"></i>
+  <!-- Our Mission & Approach -->
+  <section class="mission-approach-section">
+    <div class="section-container-wide">
+      <div class="mission-approach-grid">
+        <!-- Mission -->
+        <div class="mission-card animate-on-scroll">
+          <div class="card-icon">
+            <i class="fas fa-flag-checkered"></i>
           </div>
           <h3>Our Mission</h3>
           <p>
-            To empower tourism and hospitality businesses with cutting-edge AI agents, custom-built software, and intelligent automation that transforms operations, maximizes revenue, and creates exceptional guest experiences.
+            To build practical, results-driven AI solutions that give tourism and hospitality businesses a genuine competitive advantage. We translate complex technology into tangible results: saved time, increased revenue, and happier guests.
           </p>
         </div>
-        <div class="mission-card">
-          <div class="mission-card-icon">
-            <i class="fas fa-eye"></i>
+        <!-- Approach -->
+        <div class="approach-card animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="card-icon">
+            <i class="fas fa-cogs"></i>
           </div>
-          <h3>Our Vision</h3>
-          <p>
-            To be the leading provider of AI-powered solutions in the tourism industry, enabling every business—from boutique hotels to large resorts—to harness the power of artificial intelligence and automation.
-          </p>
+          <h3>Our Approach</h3>
+          <ol class="approach-steps">
+            <li><span>1.</span> Discover & Analyze</li>
+            <li><span>2.</span> Map & Strategize</li>
+            <li><span>3.</span> Build & Integrate</li>
+            <li><span>4.</span> Optimize & Support</li>
+          </ol>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Our Story -->
-  <section class="content-section bg-main">
+  <!-- Meet the Founders -->
+  <section class="team-section-about">
     <div class="section-container">
       <SectionHeader
-        badge="Our Story"
-        title="How Jengu Was Born"
-        description="Founded by a team of AI engineers and hospitality experts, Jengu emerged from a simple observation: tourism businesses spend countless hours on repetitive tasks that could be automated, preventing them from focusing on what truly matters—their guests."
+        badge="Our People"
+        title="Meet the Founders"
+        description="Jengu is led by a hands-on team of builders and problem-solvers. We combine deep technical expertise with a passion for creating elegant, effective solutions."
       />
-      <div class="mission-card">
-        <p style="font-size: 1.1rem; line-height: 1.9; color: var(--gray); margin-bottom: 1.5rem;">
-          After years of building AI systems for Fortune 500 companies, we saw an opportunity to bring enterprise-level automation to the tourism industry. We realized that hotels, resorts, campsites, and travel agencies were drowning in emails, struggling with outdated booking systems, and missing revenue opportunities due to manual processes.
-        </p>
-        <p style="font-size: 1.1rem; line-height: 1.9; color: var(--gray);">
-          Today, we build custom AI chatbots, phone bots, email automation systems, dynamic pricing engines, and complete API integrations that connect your entire tech stack. Every solution is tailored to your specific business needs, ensuring you get exactly what you need—nothing more, nothing less.
-        </p>
+      <div class="team-grid-about">
+        {teamMembers.map((member, index) => (
+          <div class="team-member-about animate-on-scroll" style={`transition-delay: ${index * 0.1}s;`}>
+            <div class="team-member-header">
+              <div class="team-avatar-about">{member.initials}</div>
+              <div class="team-member-info">
+                <h4 class="team-name-about">{member.name}</h4>
+                <p class="team-role-about">{member.role}</p>
+              </div>
+            </div>
+            <p class="team-bio-about">{member.bio}</p>
+            <a href={member.linkedin} class="linkedin-link" target="_blank" rel="noopener noreferrer">
+              View on LinkedIn <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        ))}
+      </div>
+      <div class="team-cta animate-on-scroll" style="transition-delay: 0.3s;">
+        <a href="/team" class="btn btn-secondary btn-modern">
+          <span>Meet the Full Team</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Our Values -->
-  <section class="content-section bg-light">
+  <section class="values-section">
     <div class="section-container">
       <SectionHeader
-        badge="Our Values"
-        title="What Drives Us"
-        description="These core principles guide everything we do at Jengu"
+        badge="Our Guiding Principles"
+        title="How We Work"
+        description="Our values aren't just words on a page; they are the principles that guide our decisions, our code, and our partnerships."
       />
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-rocket"></i>
-          </div>
-          <h4>Innovation First</h4>
-          <p>We leverage the latest AI technologies to build solutions that are years ahead of traditional software.</p>
+      <div class="values-grid-about">
+        <div class="value-card-about animate-on-scroll">
+          <div class="value-icon"><i class="fas fa-handshake"></i></div>
+          <h4>Pragmatic Partnership</h4>
+          <p>We work with you, not for you. We are technology partners focused on solving your real-world problems with practical, effective AI—not just selling you the latest trend.</p>
         </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-users"></i>
-          </div>
-          <h4>Customer-Centric</h4>
-          <p>Every solution is custom-built around your specific workflows, challenges, and business goals.</p>
+        <div class="value-card-about animate-on-scroll" style="transition-delay: 0.1s;">
+          <div class="value-icon"><i class="fas fa-code"></i></div>
+          <h4>Honest Engineering</h4>
+          <p>We build robust, high-quality systems. Our approach is rooted in transparency, from our code to our communication. We tell you what you need to hear, not just what you want to hear.</p>
         </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-shield-alt"></i>
-          </div>
-          <h4>Security & Privacy</h4>
-          <p>Bank-level encryption, GDPR compliance, and enterprise security standards in every system we build.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          <h4>Results Driven</h4>
-          <p>We measure success by your ROI—time saved, revenue increased, and costs reduced.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-handshake"></i>
-          </div>
-          <h4>Long-Term Partnership</h4>
-          <p>We provide ongoing support, training, and optimization to ensure your systems evolve with your business.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-lightbulb"></i>
-          </div>
-          <h4>Transparency</h4>
-          <p>Clear pricing, honest timelines, and straightforward communication at every step of the process.</p>
+        <div class="value-card-about animate-on-scroll" style="transition-delay: 0.2s;">
+          <div class="value-icon"><i class="fas fa-chart-line"></i></div>
+          <h4>Measurable Impact</h4>
+          <p>Our goal is to deliver a clear return on your investment. We measure our success by your success: the hours you save, the revenue you gain, and the operational headaches we eliminate.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="content-section bg-main">
+  <!-- CTA -->
+  <section class="about-cta-section">
     <div class="section-container">
-      <SectionHeader
-        badge="Impact & Growth"
-        title="Jengu by the Numbers"
-      />
-      <div class="stats-grid">
-        <div class="stat-card">
-          <span class="stat-number">500+</span>
-          <span class="stat-label">Clients Worldwide</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">£50M+</span>
-          <span class="stat-label">Saved for Clients</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">1M+</span>
-          <span class="stat-label">Hours Automated</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">98%</span>
-          <span class="stat-label">Client Satisfaction</span>
-        </div>
+      <div class="cta-card animate-on-scroll">
+        <h2>Ready to build your advantage?</h2>
+        <p>Let's talk about how our experience can become your unfair advantage in the market. Get a free, no-obligation consultation with one of our founders.</p>
+        <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
+          <span>Book a Free Consultation</span>
+        </button>
       </div>
     </div>
   </section>
 
-  <CTASection
-    title="Ready to Transform Your Business?"
-    description="Calculate your potential ROI in just 2 minutes"
-  />
+  <style>
+    :root {
+      --about-bg-light: #181818;
+      --about-bg-dark: #0A0A0A;
+      --about-border: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hero */
+    .about-hero {
+      padding: 10rem 2rem 8rem;
+      text-align: center;
+      background: var(--about-bg-dark);
+      border-bottom: 1px solid var(--about-border);
+    }
+    .about-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .about-hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+    .about-hero p {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* Mission & Approach */
+    .mission-approach-section {
+      background: var(--about-bg-light);
+      padding: 6rem 2rem;
+      border-bottom: 1px solid var(--about-border);
+    }
+    .section-container-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .mission-approach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+    }
+    .mission-card, .approach-card {
+      background: var(--about-bg-dark);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid var(--about-border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .mission-card:hover, .approach-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .card-icon {
+      font-size: 1.5rem;
+      color: var(--primary-cta);
+      margin-bottom: 1rem;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99, 102, 241, 0.1);
+      border-radius: 12px;
+    }
+    .mission-card h3, .approach-card h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    .mission-card p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    .approach-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .approach-steps li {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .approach-steps li span {
+      font-weight: 700;
+      color: var(--primary-cta);
+    }
+
+    /* Team Section */
+    .team-section-about {
+      padding: 6rem 2rem;
+      background: var(--about-bg-dark);
+      border-bottom: 1px solid var(--about-border);
+    }
+    .team-grid-about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .team-member-about {
+      background: var(--about-bg-light);
+      padding: 2rem;
+      border-radius: 16px;
+      border: 1px solid var(--about-border);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .team-member-about:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .team-member-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .team-avatar-about {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary-cta);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+    .team-name-about {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin: 0;
+    }
+    .team-role-about {
+      color: var(--text-secondary);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    .team-bio-about {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      flex-grow: 1;
+      margin-bottom: 1.5rem;
+    }
+    .linkedin-link {
+      color: var(--primary-cta);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .linkedin-link:hover {
+      color: #818cf8;
+    }
+    .team-cta {
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    /* Values Section */
+    .values-section {
+      padding: 6rem 2rem;
+      background: var(--about-bg-light);
+      border-bottom: 1px solid var(--about-border);
+    }
+    .values-grid-about {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .value-card-about {
+      background: var(--about-bg-dark);
+      padding: 2.5rem;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid var(--about-border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .value-card-about:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .value-icon {
+      font-size: 2rem;
+      color: var(--primary-cta);
+      margin-bottom: 1.5rem;
+    }
+    .value-card-about h4 {
+      font-size: 1.5rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+    .value-card-about p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+
+    /* CTA Section */
+    .about-cta-section {
+      padding: 6rem 2rem;
+      background: var(--about-bg-dark);
+    }
+    .cta-card {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      background: var(--about-bg-light);
+      padding: 4rem;
+      border-radius: 20px;
+      border: 1px solid var(--about-border);
+    }
+    .cta-card h2 {
+      font-size: 2.5rem;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+    .cta-card p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .about-hero { padding: 8rem 1.5rem 6rem; }
+      .about-hero h1 { font-size: 2.75rem; }
+      .about-hero p { font-size: 1.1rem; }
+      
+      .mission-approach-section,
+      .team-section-about,
+      .values-section,
+      .about-cta-section {
+        padding: 4rem 1.5rem;
+      }
+      .mission-approach-grid { grid-template-columns: 1fr; }
+      .team-grid-about { grid-template-columns: 1fr; }
+      .values-grid-about { grid-template-columns: 1fr; }
+
+      .cta-card { padding: 2.5rem; }
+      .cta-card h2 { font-size: 2rem; }
+    }
+
+  </style>
 </BaseLayout>

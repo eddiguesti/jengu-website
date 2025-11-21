@@ -835,7 +835,7 @@
 
         <div class="solution-card" onclick="toggleSolution(this, 'custom')">
           <div class="check-icon"><i class="fas fa-check"></i></div>
-          <h4><i class="fas fa-code"></i> Custom AI Software</h4>
+          <h4><i class="fas fa-robot"></i> Specialized Software or AI Agents</h4>
           <p>Bespoke automation solutions for your unique business needs</p>
           <div class="solution-badge"><i class="fas fa-star"></i> Tailored for you</div>
         </div>
@@ -958,7 +958,7 @@
 
     <!-- Step 5: Custom Software Inquiry Form -->
     <div class="card hidden" id="step5">
-      <h2 class="card-title">Tell Us About Your Custom AI Software Need</h2>
+      <h2 class="card-title">Tell Us About Your Specialized Software or AI Agent Needs</h2>
       <p class="card-subtitle">We specialize in building bespoke AI solutions that solve your unique business challenges. Share your requirements and we'll get back to you within 24 hours.</p>
 
       <form id="customInquiryForm" onsubmit="submitCustomInquiry(event)">
@@ -1410,21 +1410,50 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function submitCustomInquiry(event) {
+    async function submitCustomInquiry(event) {
       event.preventDefault();
 
-      // Get form data
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData);
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.innerHTML;
 
-      // Here you would normally send this to your backend
-      console.log('Custom inquiry submitted:', data);
+      try {
+        // Disable button and show loading
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-      // Show success message (you can customize this)
-      alert('Thank you! We\'ve received your custom AI software inquiry and will contact you within 24 hours.');
+        // Get form data
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData);
 
-      // Reset the calculator
-      reset();
+        // Send to API
+        const response = await fetch('/api/calculator', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Failed to send inquiry');
+        }
+
+        // Show success message
+        alert('✅ Thank you! We\'ve received your specialized software or AI agent inquiry and will contact you within 24 hours.');
+
+        // Reset the calculator
+        reset();
+
+      } catch (error) {
+        console.error('Form submission error:', error);
+        alert('❌ ' + (error.message || 'An error occurred. Please try again or email us directly at info@jengu.ai'));
+
+        // Re-enable button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }
     }
 
     function reset() {

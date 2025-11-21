@@ -137,21 +137,41 @@ const jsonLd = [
 
   <!-- Form Submission Script -->
   <script is:inline>
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
       event.preventDefault();
 
-      // Get form data
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData);
+      const submitButton = event.target.querySelector('button[type="submit"]');
+      const originalButtonText = submitButton.innerHTML;
 
-      // In production, you would send this to your backend
-      console.log('Form submitted:', data);
+      try {
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
-      // Show success message
-      alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo en 24 horas.');
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData);
 
-      // Reset form
-      event.target.reset();
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Error al enviar el mensaje');
+        }
+
+        alert('✅ ¡Gracias por tu mensaje! Nos pondremos en contacto contigo en 24 horas.');
+        event.target.reset();
+
+      } catch (error) {
+        console.error('Error al enviar el formulario:', error);
+        alert('❌ ' + (error.message || 'Ocurrió un error. Por favor intenta nuevamente o envíanos un correo a info@jengu.ai'));
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+      }
     }
   </script>
 </BaseLayout>
