@@ -13,27 +13,20 @@
  */
 
 /* ============================================================================
-   BASE LAYER - Foundation & Design Tokens
-   ============================================================================ */
-@import './base/variables.css';
-@import './base/reset.css';
-@import './base/typography.css';
-
-/* ============================================================================
-   UTILITIES LAYER - Animations & Helpers
-   ============================================================================ */
-@import './utils/animations.css';
-
-/* ============================================================================
-   COMPONENTS LAYER - Reusable UI Elements
-   ============================================================================ */
-@import './components/navbar.css';
-@import './components/burger-menu.css';
-
-/* ============================================================================
-   LEGACY LAYER - All Remaining Styles
+   ALL STYLES - Complete CSS (Includes Base, Utils, Components & Sections)
    ============================================================================ */
 @import './components/landing-legacy.css';
+
+/* Modular files are available but not imported to avoid duplicates:
+   - ./base/variables.css
+   - ./base/reset.css
+   - ./base/typography.css
+   - ./utils/animations.css
+   - ./components/navbar.css
+   - ./components/burger-menu.css
+
+   These can be enabled once landing-legacy.css is properly split.
+*/
 
 /**
  * FUTURE REFACTORING ROADMAP
