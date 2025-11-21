@@ -569,6 +569,7 @@
     }
 
     .burger-dropdown.active {
+      display: flex;
       pointer-events: auto;
     }
 
