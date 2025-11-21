@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
+import SplineScene from '../components/SplineScene.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateWebSiteSchema } from '../lib/seo/jsonld';
 
@@ -59,54 +60,10 @@ const jsonLd = [
       <!-- Desktop only: Spline 3D Robot -->
       <div class="hero-visual desktop-only">
         <div class="spline-container" role="img" aria-label="Interactive 3D robot animation">
-          <spline-viewer
-            url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
-            loading="lazy"
-          ></spline-viewer>
+          <SplineScene />
         </div>
       </div>
 
-      <!-- Deferred Spline Viewer Loading -->
-      <script>
-        // Load Spline viewer only when browser is idle to prevent blocking
-        function loadSplineViewer() {
-          const script = document.createElement('script');
-          script.type = 'module';
-          script.src = 'https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js';
-          document.head.appendChild(script);
-
-          // Show Spline when it's actually loaded
-          script.onload = () => {
-            setTimeout(() => {
-              const container = document.querySelector('.spline-container');
-              const viewer = document.querySelector('spline-viewer');
-
-              if (viewer && container) {
-                // Check if canvas is ready
-                const checkCanvas = setInterval(() => {
-                  const canvas = viewer.shadowRoot?.querySelector('canvas');
-                  if (canvas && canvas.width > 0) {
-                    clearInterval(checkCanvas);
-                    container.classList.add('loaded');
-                  }
-                }, 100);
-
-                // Fallback: show after 3 seconds regardless
-                setTimeout(() => {
-                  container.classList.add('loaded');
-                  clearInterval(checkCanvas);
-                }, 3000);
-              }
-            }, 100);
-          };
-        }
-
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadSplineViewer, { timeout: 2000 });
-        } else {
-          setTimeout(loadSplineViewer, 1000);
-        }
-      </script>
     </div>
 
     <!-- Mobile only: Fullscreen Video Hero -->
