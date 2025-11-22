@@ -21,25 +21,11 @@ const jsonLd = [
 
 const teamMembers = [
   {
-    initials: 'DS',
     name: 'Danny Smith',
-    role: 'Director',
-    bio: 'Leads Jengu’s strategic vision, bringing extensive experience in technology innovation and business transformation for the tourism industry.',
-    linkedin: 'https://www.linkedin.com/in/dannyasmith/'
-  },
-  {
-    initials: 'EG',
-    name: 'Edward Guest',
-    role: 'Chief Innovation Officer',
-    bio: 'Drives innovation and AI strategy, specializing in developing cutting-edge automation solutions that transform business operations.',
-    linkedin: 'https://www.linkedin.com/in/edwardguest1/'
-  },
-  {
-    initials: 'CG',
-    name: 'Christopher Guest',
-    role: 'Senior Process Automation Engineer',
-    bio: 'Designs and implements complex automation workflows, helping businesses streamline operations and maximize efficiency.',
-    linkedin: 'https://www.linkedin.com/in/christopher-guest-04149551/'
+    role: 'Director, Fractional COO',
+    bio: 'An expert in designing high-performance remote organizations, Danny focuses on the intersection of system design, human behavior, and operational excellence. He played a key role in scaling Oyster from 14 to 500 people, helping it reach a $1bn valuation, and brings a diverse background as a software engineer and COO for various tech companies.',
+    linkedin: 'https://www.linkedin.com/in/dannyasmith/',
+    photo: '/images/team/danny-smith.jpg'
   }
 ];
 ---
@@ -100,7 +86,11 @@ const teamMembers = [
         {teamMembers.map((member, index) => (
           <div class="team-member-about animate-on-scroll" style={`transition-delay: ${index * 0.1}s;`}>
             <div class="team-member-header">
-              <div class="team-avatar-about">{member.initials}</div>
+              {member.photo ? (
+                <img src={member.photo} alt={member.name} class="team-photo-about" />
+              ) : (
+                <div class="team-avatar-about">{member.initials}</div>
+              )}
               <div class="team-member-info">
                 <h4 class="team-name-about">{member.name}</h4>
                 <p class="team-role-about">{member.role}</p>
@@ -296,6 +286,14 @@ const teamMembers = [
       font-weight: 700;
       font-size: 1.25rem;
       flex-shrink: 0;
+    }
+    .team-photo-about {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 2px solid var(--primary-cta);
     }
     .team-name-about {
       font-size: 1.25rem;
