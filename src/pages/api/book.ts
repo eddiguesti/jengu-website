@@ -544,8 +544,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // Validate required fields
     if (!payload || !payload.date || !payload.time || !payload.name || !payload.email) {
+      const missingFields = [];
+      if (!payload?.name) missingFields.push('name');
+      if (!payload?.email) missingFields.push('email');
+      if (!payload?.date) missingFields.push('date');
+      if (!payload?.time) missingFields.push('time');
+
       return new Response(
-        JSON.stringify({ error: 'Missing required fields: date, time, name, and email are required' }),
+        JSON.stringify({
+          error: 'Missing Information',
+          message: `Please fill in the following required fields: ${missingFields.join(', ')}. All fields are necessary to complete your booking.`
+        }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -554,7 +563,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(payload.email)) {
       return new Response(
-        JSON.stringify({ error: 'Invalid email address format' }),
+        JSON.stringify({
+          error: 'Invalid Email Address',
+          message: `The email address "${payload.email}" is not valid. Please enter a valid email address (e.g., name@example.com) and try again.`
+        }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -563,7 +575,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
     if (!dateRegex.test(payload.date)) {
       return new Response(
-        JSON.stringify({ error: 'Invalid date format. Expected YYYY-MM-DD' }),
+        JSON.stringify({
+          error: 'Invalid Date Format',
+          message: 'There was a problem with the date you selected. Please refresh the page and try selecting a date from the calendar again.'
+        }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -572,7 +587,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const timeRegex = /^\d{2}:\d{2}$/;
     if (!timeRegex.test(payload.time)) {
       return new Response(
-        JSON.stringify({ error: 'Invalid time format. Expected HH:MM' }),
+        JSON.stringify({
+          error: 'Invalid Time Format',
+          message: 'There was a problem with the time you selected. Please refresh the page and try selecting a time slot again.'
+        }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -581,7 +599,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const selectedDate = new Date(`${payload.date}T${payload.time}:00`);
     if (selectedDate < new Date()) {
       return new Response(
-        JSON.stringify({ error: 'Cannot book meetings in the past' }),
+        JSON.stringify({
+          error: 'Date in the Past',
+          message: 'The selected date and time has already passed. Please choose a future date and time for your meeting.'
+        }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -616,9 +637,33 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     if (!graphRes.ok) {
       const text = await graphRes.text();
-      console.error('Graph error:', text);
+      console.error('Graph API error:', graphRes.status, text);
+
+      // Parse the error to provide better user feedback
+      let userMessage = 'We encountered an issue while creating your calendar event. Please try again in a few moments.';
+
+      try {
+        const errorData = JSON.parse(text);
+        if (errorData.error?.message) {
+          const apiError = errorData.error.message.toLowerCase();
+          if (apiError.includes('mailbox')) {
+            userMessage = 'There was a problem accessing the calendar. Please try again or contact support at hello@jengu.ai';
+          } else if (apiError.includes('attendee') || apiError.includes('email')) {
+            userMessage = 'There was an issue with the email address. Please check that you entered a valid email address and try again.';
+          } else if (apiError.includes('invalid')) {
+            userMessage = 'Some of the information provided was invalid. Please check your details and try again.';
+          }
+        }
+      } catch (e) {
+        // Keep default message if we can't parse the error
+      }
+
       return new Response(
-        JSON.stringify({ error: 'Microsoft Graph error', details: text }),
+        JSON.stringify({
+          error: 'Booking Failed',
+          message: userMessage,
+          details: graphRes.status === 401 ? 'Authentication error' : 'Calendar service error'
+        }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }

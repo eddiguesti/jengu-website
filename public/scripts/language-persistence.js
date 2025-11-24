@@ -23,11 +23,16 @@
 
   // Convert current URL to target language
   function getLocalizedUrl(targetLang) {
-    const currentPath = window.location.pathname;
+    let currentPath = window.location.pathname;
     const currentLang = getCurrentLanguage();
 
     if (currentLang === targetLang) {
       return currentPath; // No change needed
+    }
+
+    // Normalize path - remove trailing slash unless it's root
+    if (currentPath !== '/' && currentPath.endsWith('/')) {
+      currentPath = currentPath.slice(0, -1);
     }
 
     // Remove current language prefix
@@ -43,6 +48,11 @@
     // Ensure basePath starts with /
     if (!basePath.startsWith('/')) {
       basePath = '/' + basePath;
+    }
+
+    // Remove trailing slash from basePath unless it's root
+    if (basePath !== '/' && basePath.endsWith('/')) {
+      basePath = basePath.slice(0, -1);
     }
 
     // Add target language prefix
@@ -78,6 +88,13 @@
         e.preventDefault();
         const targetLang = switcher.getAttribute('data-lang-switch');
         const targetUrl = getLocalizedUrl(targetLang);
+
+        console.log('Language switch:', {
+          currentPath: window.location.pathname,
+          currentLang: currentLang,
+          targetLang: targetLang,
+          targetUrl: targetUrl
+        });
 
         // Save preference and navigate
         saveLanguagePreference(targetLang);

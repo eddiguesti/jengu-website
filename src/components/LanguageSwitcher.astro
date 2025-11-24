@@ -190,9 +190,17 @@ const esPath = '/es' + basePath;
         langDropdown.classList.remove('show');
       });
 
-      // Prevent dropdown from closing when clicking inside it
+      // Allow language switch links to work (handled by language-persistence.js)
+      // Only stop propagation on non-link clicks to keep dropdown open
       langDropdown.addEventListener('click', (e) => {
-        e.stopPropagation();
+        // If clicking a language link, close the dropdown but don't stop propagation
+        if (e.target.closest('[data-lang-switch]')) {
+          langToggle.classList.remove('active');
+          langDropdown.classList.remove('show');
+        } else {
+          // Otherwise stop propagation to keep dropdown open
+          e.stopPropagation();
+        }
       });
     }
   });

@@ -391,13 +391,19 @@ const t = getTranslations(currentLocale);
   @media (max-width: 768px) {
     .booking-modal-wrapper {
       max-width: 100%;
-      max-height: 90vh;
+      max-height: 100vh;
+      height: 100vh;
       padding: 0;
+      margin: 0;
+      border-radius: 0;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .booking-modal-overlay {
       padding: 0;
       align-items: flex-start;
+      overflow-y: auto;
     }
   }
 
@@ -425,10 +431,16 @@ const t = getTranslations(currentLocale);
     .booking-modal-close {
       width: 48px;
       height: 48px;
-      top: 16px;
-      right: 16px;
-      background: rgba(0, 0, 0, 0.9);
+      top: 12px;
+      right: 12px;
+      background: rgba(0, 0, 0, 0.95);
       backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      z-index: 10002;
+    }
+
+    .booking-modal-close:active {
+      transform: scale(0.95);
     }
   }
 
@@ -458,9 +470,11 @@ const t = getTranslations(currentLocale);
 
   @media (max-width: 768px) {
     .booking-widget {
-      border-radius: 1.5rem;
-      padding: 20px 16px;
-      margin-top: 60px;
+      border-radius: 0;
+      padding: 80px 16px 40px;
+      margin: 0;
+      min-height: 100vh;
+      border: none;
     }
   }
 
@@ -1486,73 +1500,147 @@ const t = getTranslations(currentLocale);
   /* Mobile responsive styles - bigger touch targets */
   @media (max-width: 768px) {
     .booking-modal-overlay {
-      padding: 16px;
+      padding: 0;
+    }
+
+    .booking-header {
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .booking-steps {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .step-chip {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      flex: 1;
+    }
+
+    .step-chip span {
+      width: 24px;
+      height: 24px;
+      font-size: 0.75rem;
     }
 
     /* Bigger calendar days for easier tapping */
     .calendar-day {
-      height: 52px;
-      font-size: 1rem;
-      border-radius: 14px;
+      height: 48px;
+      font-size: 0.95rem;
+      border-radius: 12px;
+      font-weight: 500;
     }
 
     .calendar-grid {
-      gap: 6px;
+      gap: 8px;
     }
 
     .calendar-weekdays {
-      gap: 6px;
-      font-size: 0.75rem;
+      gap: 8px;
+      font-size: 0.7rem;
+      margin-bottom: 8px;
     }
 
-    /* Bigger time slots */
-    .slot-btn {
-      padding: 16px 20px;
-      font-size: 1rem;
-      min-width: 120px;
-      border-radius: 16px;
-    }
-
-    .slots-scroll {
-      gap: 10px;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    }
-
-    .slots-card {
-      max-height: 260px;
+    .calendar-card {
       padding: 16px;
       gap: 12px;
     }
 
+    /* Bigger time slots */
+    .slot-btn {
+      padding: 16px 12px;
+      font-size: 0.95rem;
+      min-width: 100px;
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    .slots-scroll {
+      gap: 12px;
+      grid-template-columns: repeat(2, 1fr);
+      max-height: 320px;
+      padding: 4px;
+    }
+
+    .slots-card {
+      max-height: none;
+      padding: 16px;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
     /* Bigger contact method chips */
     .contact-method-chip {
-      padding: 14px 18px;
-      font-size: 0.95rem;
+      padding: 16px 14px;
+      font-size: 0.9rem;
       border-radius: 14px;
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .contact-method-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .contact-method-icon {
-      width: 26px;
-      height: 26px;
-      font-size: 0.75rem;
+      width: 28px;
+      height: 28px;
+      font-size: 0.8rem;
     }
 
     /* Bigger form inputs on mobile */
     .booking-input,
     .booking-textarea {
       font-size: 16px; /* Prevents iOS zoom */
-      padding: 14px;
+      padding: 16px;
+      border-radius: 12px;
     }
 
     .timezone-select {
       font-size: 16px;
-      padding: 14px;
+      padding: 16px;
+      border-radius: 12px;
+    }
+
+    .form-row {
+      gap: 12px;
     }
 
     .btn-primary {
+      padding: 18px;
+      font-size: 1.05rem;
+      min-height: 56px;
+      border-radius: 14px;
+      font-weight: 600;
+    }
+
+    .btn-secondary {
       padding: 16px;
-      font-size: 1rem;
-      min-height: 52px;
+      font-size: 0.95rem;
+      border-radius: 14px;
+    }
+
+    /* Improve summary message on mobile */
+    .summary-message {
+      font-size: 0.95rem;
+      padding: 14px;
+      border-radius: 12px;
+      line-height: 1.5;
+    }
+
+    /* Better spacing between sections */
+    .booking-form-section {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
     }
   }
 
@@ -1845,6 +1933,37 @@ const t = getTranslations(currentLocale);
       updateLabels();
     }
 
+    // Add real-time email validation
+    if (userEmailInput) {
+      userEmailInput.addEventListener('blur', function() {
+        const email = this.value.trim();
+        if (email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            this.style.borderColor = '#ef4444';
+            summaryMessage.textContent = '⚠️ Please enter a valid email address (e.g., name@example.com)';
+            summaryMessage.className = 'summary-message summary-message--error';
+          } else {
+            this.style.borderColor = '#10b981';
+            if (summaryMessage.textContent.includes('email')) {
+              summaryMessage.textContent = '';
+              summaryMessage.className = 'summary-message';
+            }
+          }
+        } else {
+          this.style.borderColor = '';
+        }
+      });
+
+      // Clear validation styling when user starts typing
+      userEmailInput.addEventListener('input', function() {
+        if (summaryMessage.textContent.includes('email')) {
+          summaryMessage.textContent = '';
+          summaryMessage.className = 'summary-message';
+        }
+      });
+    }
+
     const prevMonthBtn = document.getElementById("prevMonthBtn");
     const nextMonthBtn = document.getElementById("nextMonthBtn");
 
@@ -1887,6 +2006,14 @@ const t = getTranslations(currentLocale);
 
       if (!name || !email || !contactMethod) {
         summaryMessage.textContent = t.messages?.fillRequired || "Please add your name, email and preferred contact method to confirm.";
+        summaryMessage.className = "summary-message summary-message--error";
+        return;
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        summaryMessage.textContent = "Please enter a valid email address (e.g., name@example.com)";
         summaryMessage.className = "summary-message summary-message--error";
         return;
       }
@@ -1994,7 +2121,11 @@ const t = getTranslations(currentLocale);
       overlay.style.display = 'flex';
       requestAnimationFrame(() => {
         overlay.classList.add('active');
+        // Prevent body scroll on mobile
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.height = '100%';
       });
     }
   };
@@ -2006,7 +2137,11 @@ const t = getTranslations(currentLocale);
       setTimeout(() => {
         overlay.style.display = 'none';
       }, 300);
-      document.body.style.overflow = 'auto';
+      // Restore body scroll
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
     }
   };
 
