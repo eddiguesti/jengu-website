@@ -329,27 +329,35 @@
                   0 0 0 1px rgba(255, 255, 255, 0.08) inset;
     }
 
-    /* Home Icon */
-    .nav-home-icon {
+    /* Logo */
+    .nav-logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 36px;
-      height: 36px;
-      color: white;
+      width: 40px;
+      height: 40px;
       text-decoration: none;
       border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #6366f1;
       transition: all 0.3s ease;
-      font-size: 1rem;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
 
-    .nav-home-icon:hover {
-      color: white;
-      background: rgba(255, 255, 255, 0.1);
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .nav-logo:hover {
       transform: scale(1.1);
+      border-color: #818cf8;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
     }
 
-    .nav-home-icon:active {
+    .nav-logo:active {
       transform: scale(0.95);
     }
 

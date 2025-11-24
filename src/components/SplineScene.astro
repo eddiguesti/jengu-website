@@ -10,35 +10,53 @@
 <script>
   import { Application } from '@splinetool/runtime';
 
+  // Use global cache to persist Spline scene across page navigations
+  const SCENE_URL = 'https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode';
+  const CACHE_KEY = 'jengu_spline_instance';
+
   // Start immediately - no DOM ready wait
   const canvas = document.getElementById('spline-canvas') as HTMLCanvasElement;
 
   if (canvas) {
-    // Create application instance immediately
-    const app = new Application(canvas);
+    // Check if we have a cached instance
+    let app = (window as any)[CACHE_KEY];
 
-    // Set rendering options for better performance
-    canvas.style.willChange = 'transform';
+    if (!app) {
+      // Create new application instance
+      app = new Application(canvas);
+      // Store in global cache
+      (window as any)[CACHE_KEY] = app;
 
-    // Load scene with aggressive timeout and no retries for fastest first load
-    const sceneUrl = 'https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode';
+      // Set rendering options for better performance
+      canvas.style.willChange = 'transform';
 
-    app.load(sceneUrl)
-      .then(() => {
-        // Scene loaded successfully
-        const container = document.querySelector('.spline-container');
-        if (container) {
-          container.classList.add('loaded');
-        }
+      // Load scene for the first time
+      app.load(SCENE_URL)
+        .then(() => {
+          // Scene loaded successfully
+          const container = document.querySelector('.spline-container');
+          if (container) {
+            container.classList.add('loaded');
+          }
 
-        // Remove will-change after animation completes
-        setTimeout(() => {
-          canvas.style.willChange = 'auto';
-        }, 1000);
-      })
-      .catch((error) => {
-        console.error('Error loading Spline scene:', error);
-      });
+          // Remove will-change after animation completes
+          setTimeout(() => {
+            canvas.style.willChange = 'auto';
+          }, 1000);
+        })
+        .catch((error) => {
+          console.error('Error loading Spline scene:', error);
+        });
+    } else {
+      // Reuse existing instance - just update canvas
+      app.setCanvas(canvas);
+
+      // Immediately mark as loaded since scene is already in cache
+      const container = document.querySelector('.spline-container');
+      if (container) {
+        container.classList.add('loaded');
+      }
+    }
   }
 </script>
 
