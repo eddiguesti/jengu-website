@@ -2,8 +2,8 @@
 title: "AI Engineer Pack: 50 Credits for Leading Developer Tools — What It Means for Tourism Tech"
 subtitle: "How Developer-Focused AI Bundles Are Accelerating Innovation in Travel Technology"
 description: "Explore how AI engineer packs with credits for developer tools like Claude, GPT-4, and Gemini are revolutionizing tourism software development. Learn what this means for travel tech innovation in 2025."
-publishedOn: 2025-10-15
-updatedOn: 2025-10-15
+publishedOn: 2024-11-15
+updatedOn: 2024-11-15
 author: "Jengu Team"
 draft: false
 archived: false

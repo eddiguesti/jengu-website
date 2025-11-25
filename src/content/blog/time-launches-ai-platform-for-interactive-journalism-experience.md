@@ -2,8 +2,8 @@
 title: "TIME Launches AI Platform for Interactive Journalism — What Travel Media Can Learn"
 subtitle: "How Legacy Publishers Are Reimagining Storytelling with AI, and Why Tourism Brands Should Pay Attention"
 description: "TIME Magazine launches an AI-powered interactive journalism platform. Discover what this means for travel content, destination marketing, and how tourism brands can leverage similar AI storytelling techniques."
-publishedOn: 2025-09-28
-updatedOn: 2025-09-28
+publishedOn: 2024-10-28
+updatedOn: 2024-10-28
 author: "Jengu Team"
 draft: false
 archived: false
