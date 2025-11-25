@@ -5,6 +5,7 @@
 
 # Old news article redirects
 /news/ai-engineer-pack-50-credits-for-leading-developer-tools-83671 /blog 301
+/news/time-launches-ai-platform-for-interactive-journalism-experience /blog 301
 
 # Ensure trailing slashes are handled consistently
 # /about /about/ 301
