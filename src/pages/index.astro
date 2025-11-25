@@ -258,119 +258,95 @@ const jsonLd = [
       </div>
 
       <div class="process-mapping-visual">
-        <!-- Before State Card -->
-        <div class="comparison-card before-card">
-          <div class="card-header bad">
-            <div class="status-indicator">
-              <i class="fas fa-times-circle"></i>
-            </div>
-            <div class="header-text">
-              <span class="card-label">BEFORE</span>
-              <h4>Manual Chaos</h4>
-            </div>
-          </div>
-          <div class="pain-points">
-            <div class="pain-item">
-              <i class="fas fa-envelope"></i>
-              <span>Manual email responses</span>
-              <div class="pain-time">~2 hrs/day</div>
-            </div>
-            <div class="pain-item">
-              <i class="fas fa-file-excel"></i>
-              <span>Spreadsheet juggling</span>
-              <div class="pain-time">~1 hr/day</div>
-            </div>
-            <div class="pain-item">
-              <i class="fas fa-phone"></i>
-              <span>Repetitive phone calls</span>
-              <div class="pain-time">~3 hrs/day</div>
-            </div>
-            <div class="pain-item">
-              <i class="fas fa-redo"></i>
-              <span>Duplicate data entry</span>
-              <div class="pain-time">~1 hr/day</div>
-            </div>
-          </div>
-          <div class="card-footer bad">
-            <div class="total-time">
-              <i class="fas fa-exclamation-triangle"></i>
-              <span><strong>35+ hrs/week</strong> wasted on manual tasks</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Transformation Arrow -->
-        <div class="transform-connector">
-          <div class="connector-line"></div>
-          <div class="connector-badge">
-            <i class="fas fa-arrow-down desktop-hide"></i>
-            <i class="fas fa-arrow-right mobile-hide"></i>
-            <span>AI Transformation</span>
-          </div>
-          <div class="connector-line"></div>
-        </div>
-
-        <!-- After State Card -->
-        <div class="comparison-card after-card">
-          <div class="card-header good">
-            <div class="status-indicator">
-              <i class="fas fa-check-circle"></i>
-            </div>
-            <div class="header-text">
-              <span class="card-label">AFTER</span>
-              <h4>Streamlined Flow</h4>
-            </div>
-          </div>
-          <div class="flow-steps">
-            <div class="flow-step">
-              <div class="step-icon start">
-                <i class="fas fa-inbox"></i>
+        <div class="mapping-flow">
+          <!-- Before State -->
+          <div class="flow-state before-state">
+            <div class="state-label">Before Process Mapping</div>
+            <div class="chaotic-flow">
+              <div class="task-node chaos">
+                <i class="fas fa-envelope"></i>
+                <span>Manual Emails</span>
               </div>
-              <span>Request Arrives</span>
+              <div class="task-node chaos">
+                <i class="fas fa-file-alt"></i>
+                <span>Spreadsheets</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-phone"></i>
+                <span>Phone Calls</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-clipboard"></i>
+                <span>Manual Checks</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-redo"></i>
+                <span>Duplicate Work</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-clock"></i>
+                <span>Delays</span>
+              </div>
+              <!-- Chaotic connection lines -->
+              <svg class="chaos-lines" viewBox="0 0 300 200">
+                <path d="M 50 50 Q 150 30 250 80" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+                <path d="M 80 120 Q 150 90 220 140" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+                <path d="M 100 40 Q 120 100 180 60" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+                <path d="M 60 160 Q 180 120 240 100" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+              </svg>
             </div>
-            <div class="step-arrow">
-              <i class="fas fa-chevron-right"></i>
+            <div class="state-metrics bad">
+              <div class="metric">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>30+ hrs/week wasted</span>
+              </div>
             </div>
-            <div class="flow-step">
-              <div class="step-icon ai">
+          </div>
+
+          <!-- Arrow -->
+          <div class="transformation-arrow">
+            <i class="fas fa-arrow-right"></i>
+            <span>Process Mapping Reveals</span>
+          </div>
+
+          <!-- After State -->
+          <div class="flow-state after-state">
+            <div class="state-label">After Process Mapping</div>
+            <div class="optimized-flow">
+              <div class="task-node optimized start">
+                <i class="fas fa-flag"></i>
+                <span>Start</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="task-node optimized">
                 <i class="fas fa-robot"></i>
+                <span>AI Agent</span>
               </div>
-              <span>AI Processes</span>
-            </div>
-            <div class="step-arrow">
-              <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="flow-step">
-              <div class="step-icon auto">
-                <i class="fas fa-cogs"></i>
+              <div class="flow-arrow">→</div>
+              <div class="task-node optimized">
+                <i class="fas fa-check-circle"></i>
+                <span>Automated</span>
               </div>
-              <span>Auto-Action</span>
-            </div>
-            <div class="step-arrow">
-              <i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="flow-step">
-              <div class="step-icon done">
-                <i class="fas fa-check"></i>
+              <div class="flow-arrow">→</div>
+              <div class="task-node optimized end">
+                <i class="fas fa-trophy"></i>
+                <span>Done</span>
               </div>
-              <span>Complete</span>
             </div>
-          </div>
-          <div class="card-footer good">
-            <div class="total-time">
-              <i class="fas fa-bolt"></i>
-              <span><strong>30+ hrs/week</strong> saved with automation</span>
+            <div class="state-metrics good">
+              <div class="metric">
+                <i class="fas fa-check-circle"></i>
+                <span>5 hrs/week saved</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- CTA Section -->
         <div class="mapping-cta">
           <button onclick="openBookingModal()" class="mapping-btn primary">
-            <i class="fas fa-calendar-check"></i>
             Book a Free Consultation
           </button>
-          <p class="cta-subtext">Discover where AI can transform your operations</p>
+          <p class="cta-subtext">Discover where AI can transform your operations · No commitment required</p>
         </div>
       </div>
     </div>
