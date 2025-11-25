@@ -42,6 +42,29 @@
       .mobile-text { display: none; }
       .desktop-text { display: inline; }
     }
+
+    /* Embed Mode - Hide navigation and hero when embedded in iframe */
+    .embed-mode nav,
+    .embed-mode .burger-dropdown,
+    .embed-mode .hero-banner,
+    .embed-mode .logo-header {
+      display: none !important;
+    }
+
+    .embed-mode .container {
+      padding-top: 1rem !important;
+    }
+
+    .embed-mode body,
+    .embed-mode {
+      background: transparent !important;
+    }
+
+    .embed-mode body::before,
+    .embed-mode body::after {
+      display: none !important;
+    }
+
     body {
       font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
       background: linear-gradient(
@@ -388,13 +411,13 @@
       padding-bottom: 4rem;
     }
 
-    /* Progress indicator */
+    /* Progress indicator - Premium */
     .progress-bar {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(10, 10, 15, 0.6);
       backdrop-filter: blur(20px);
-      padding: 1.5rem;
-      margin: -1.75rem -1.5rem 2rem -1.5rem;
-      border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+      padding: 1.5rem 1.75rem;
+      margin: -2.5rem -2rem 2.5rem -2rem;
+      border-bottom: 1px solid rgba(6, 182, 212, 0.15);
       border-radius: 24px 24px 0 0;
       position: relative;
     }
@@ -469,16 +492,19 @@
       background-clip: text;
     }
 
-    /* Card */
+    /* Card - Premium Design */
     .card {
-      background: rgba(24, 24, 24, 0.6);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 2rem 1.5rem;
+      background: rgba(15, 15, 20, 0.85);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
       margin-bottom: 1.5rem;
       animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+        0 0 60px rgba(6, 182, 212, 0.05);
       position: relative;
       overflow: hidden;
     }
@@ -490,8 +516,8 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.08), transparent);
-      transition: left 0.6s ease;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.06), transparent);
+      transition: left 0.8s ease;
     }
 
     .card:hover::before {
@@ -504,9 +530,9 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.3), transparent);
-      opacity: 0.5;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), rgba(139, 92, 246, 0.3), transparent);
+      opacity: 0.8;
     }
 
     @keyframes slideUp {
@@ -521,17 +547,21 @@
     }
 
     .card-title {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
       line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 0%, rgba(255, 255, 255, 0.85) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .card-subtitle {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
     }
 
     /* Form elements */
@@ -603,11 +633,11 @@
       color-scheme: dark;
     }
 
-    /* Business Type Cards */
+    /* Business Type Cards - Premium Design */
     .business-type-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
+      gap: 1rem;
       margin-bottom: 0.5rem;
     }
 
@@ -624,22 +654,23 @@
     }
 
     .business-type-content {
-      background: rgba(40, 40, 40, 0.4);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(6, 182, 212, 0.1);
-      border-radius: 16px;
-      padding: 1.25rem 0.75rem;
+      background: linear-gradient(145deg, rgba(25, 25, 30, 0.85), rgba(15, 15, 20, 0.9));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(6, 182, 212, 0.12);
+      border-radius: 20px;
+      padding: 1.5rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.5rem;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      gap: 0.75rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       text-align: center;
       height: 100%;
       width: 100%;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
 
     .business-type-content::before {
@@ -649,23 +680,35 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: var(--gradient-brand);
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.1));
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .business-type-content::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     .business-type-content i {
-      font-size: 2rem;
+      font-size: 2.25rem;
       color: var(--text-secondary);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
       position: relative;
       z-index: 1;
     }
 
     .business-type-content span {
-      font-size: 0.9rem;
-      font-weight: 600;
+      font-size: 0.95rem;
+      font-weight: 700;
       color: rgba(255, 255, 255, 0.9);
       line-height: 1.3;
       position: relative;
@@ -673,41 +716,52 @@
     }
 
     .business-type-card:hover .business-type-content {
-      background: rgba(50, 50, 50, 0.5);
-      border-color: rgba(6, 182, 212, 0.3);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15);
+      background: linear-gradient(145deg, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.95));
+      border-color: rgba(6, 182, 212, 0.35);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 35px rgba(6, 182, 212, 0.2);
+    }
+
+    .business-type-card:hover .business-type-content::after {
+      opacity: 1;
     }
 
     .business-type-card:hover .business-type-content i {
       color: var(--secondary-brand);
-      transform: scale(1.1);
+      transform: scale(1.15);
+      filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.5));
     }
 
     .business-type-card input[type="radio"]:checked + .business-type-content {
-      background: rgba(40, 40, 40, 0.8);
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.12), rgba(15, 15, 20, 0.95));
       border-color: var(--secondary-brand);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.3);
     }
 
     .business-type-card input[type="radio"]:checked + .business-type-content::before {
-      opacity: 0.15;
+      opacity: 0.2;
+    }
+
+    .business-type-card input[type="radio"]:checked + .business-type-content::after {
+      opacity: 1;
+      background: linear-gradient(90deg, transparent, var(--secondary-brand), transparent);
     }
 
     .business-type-card input[type="radio"]:checked + .business-type-content i {
       color: var(--secondary-brand);
-      transform: scale(1.15);
+      transform: scale(1.2);
+      filter: drop-shadow(0 4px 16px rgba(6, 182, 212, 0.6));
     }
 
     .business-type-card input[type="radio"]:checked + .business-type-content span {
       color: #ffffff;
     }
 
-    /* Business Size Cards */
+    /* Business Size Cards - Premium Design */
     .business-size-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
+      gap: 1rem;
       margin-bottom: 0.5rem;
     }
 
@@ -723,118 +777,166 @@
     }
 
     .business-size-content {
-      background: rgba(40, 40, 40, 0.4);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(6, 182, 212, 0.1);
-      border-radius: 16px;
-      padding: 1rem 0.5rem;
+      background: linear-gradient(145deg, rgba(25, 25, 30, 0.85), rgba(15, 15, 20, 0.9));
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(6, 182, 212, 0.12);
+      border-radius: 18px;
+      padding: 1.25rem 0.75rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.35rem;
-      transition: all 0.2s ease;
+      gap: 0.5rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       text-align: center;
-      min-height: 100px;
+      min-height: 110px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .business-size-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .business-size-content i {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       color: var(--text-secondary);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .business-size-content span {
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: rgba(255, 255, 255, 0.95);
     }
 
     .business-size-content small {
       font-size: 0.7rem;
-      color: rgba(255, 255, 255, 0.6);
-      font-weight: 500;
+      color: rgba(6, 182, 212, 0.7);
+      font-weight: 600;
     }
 
     .business-size-card:hover .business-size-content {
-      background: rgba(50, 50, 50, 0.5);
-      border-color: rgba(6, 182, 212, 0.3);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.15);
+      background: linear-gradient(145deg, rgba(30, 30, 35, 0.9), rgba(20, 20, 25, 0.95));
+      border-color: rgba(6, 182, 212, 0.35);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.18);
+    }
+
+    .business-size-card:hover .business-size-content::before {
+      opacity: 1;
     }
 
     .business-size-card:hover .business-size-content i {
       color: var(--secondary-brand);
+      transform: scale(1.1);
+      filter: drop-shadow(0 3px 10px rgba(6, 182, 212, 0.5));
     }
 
     .business-size-card input[type="radio"]:checked + .business-size-content {
-      background: rgba(40, 40, 40, 0.8);
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.12), rgba(15, 15, 20, 0.95));
       border-color: var(--secondary-brand);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.25);
+      box-shadow: 0 10px 35px rgba(6, 182, 212, 0.3);
+    }
+
+    .business-size-card input[type="radio"]:checked + .business-size-content::before {
+      opacity: 1;
+      background: linear-gradient(90deg, transparent, var(--secondary-brand), transparent);
     }
 
     .business-size-card input[type="radio"]:checked + .business-size-content i {
       color: var(--secondary-brand);
-      transform: scale(1.15);
+      transform: scale(1.2);
+      filter: drop-shadow(0 4px 14px rgba(6, 182, 212, 0.6));
     }
 
-    /* Range slider */
+    /* Range slider - Premium Design */
     .slider-container {
-      padding-top: 0.5rem;
+      padding-top: 0.75rem;
     }
 
     .slider-hint {
       font-size: 0.85rem;
-      color: var(--text-secondary);
-      margin-top: 0.5rem;
+      color: rgba(6, 182, 212, 0.7);
+      margin-top: 0.75rem;
       font-style: italic;
-      opacity: 0.8;
+      font-weight: 500;
     }
 
     input[type="range"] {
       -webkit-appearance: none;
       width: 100%;
-      height: 8px;
-      border-radius: 10px;
-      background: rgba(255, 255, 255, 0.1);
+      height: 10px;
+      border-radius: 20px;
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.1));
       outline: none;
-      margin: 1rem 0;
+      margin: 1.25rem 0;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--gradient-brand);
+      background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 50%, #06B6D4 100%);
+      background-size: 200% 100%;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.5);
+      box-shadow:
+        0 4px 16px rgba(6, 182, 212, 0.5),
+        0 0 0 4px rgba(6, 182, 212, 0.1);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: gradientShimmer 3s ease infinite;
     }
 
     input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+      transform: scale(1.2);
+      box-shadow:
+        0 6px 24px rgba(6, 182, 212, 0.6),
+        0 0 0 6px rgba(6, 182, 212, 0.15);
     }
 
     input[type="range"]::-webkit-slider-thumb:active {
-      transform: scale(1.2);
+      transform: scale(1.25);
+      box-shadow:
+        0 8px 28px rgba(6, 182, 212, 0.7),
+        0 0 0 8px rgba(6, 182, 212, 0.2);
     }
 
     input[type="range"]::-moz-range-thumb {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: var(--gradient-brand);
+      background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 50%, #06B6D4 100%);
+      background-size: 200% 100%;
       cursor: pointer;
       border: none;
-      box-shadow: 0 4px 12px rgba(6, 182, 212, 0.5);
+      box-shadow:
+        0 4px 16px rgba(6, 182, 212, 0.5),
+        0 0 0 4px rgba(6, 182, 212, 0.1);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     input[type="range"]::-moz-range-thumb:hover {
-      transform: scale(1.15);
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.6);
+      transform: scale(1.2);
+      box-shadow:
+        0 6px 24px rgba(6, 182, 212, 0.6),
+        0 0 0 6px rgba(6, 182, 212, 0.15);
+    }
+
+    input[type="range"]::-moz-range-track {
+      background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), rgba(139, 92, 246, 0.1));
+      border-radius: 20px;
+      height: 10px;
     }
 
     /* Buttons */
@@ -867,10 +969,20 @@
     }
 
     .btn-primary {
-      background: var(--gradient-brand);
+      background: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 50%, #06B6D4 100%);
+      background-size: 200% 100%;
       color: #fff;
       font-weight: 700;
-      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+      box-shadow:
+        0 8px 24px rgba(6, 182, 212, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    @keyframes gradientShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .btn-primary::before {
@@ -880,14 +992,16 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4);
+      transform: translateY(-3px);
+      box-shadow:
+        0 12px 35px rgba(6, 182, 212, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.15) inset;
     }
 
     .btn-primary:hover::before {
@@ -916,74 +1030,1091 @@
       background: rgba(255, 255, 255, 0.08);
     }
 
-    /* Results */
+    /* Results - Premium Design */
     .results-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
     }
 
     .result-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 1.5rem 1.25rem;
+      background: linear-gradient(145deg, rgba(20, 20, 25, 0.9), rgba(15, 15, 20, 0.95));
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 20px;
+      padding: 1.75rem 1.5rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .result-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #06B6D4, #8B5CF6);
+      opacity: 0.7;
+    }
+
+    .result-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.15);
     }
 
     .result-label {
       font-size: 0.75rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 0.1em;
+      color: rgba(6, 182, 212, 0.9);
       margin-bottom: 0.75rem;
+      font-weight: 700;
     }
 
     .result-value {
-      font-size: 2rem;
+      font-size: 2.25rem;
       font-weight: 900;
-      color: #10b981;
+      background: linear-gradient(135deg, #06B6D4, #10B981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       line-height: 1.2;
+      font-family: 'Sulphur Point', sans-serif;
     }
 
     .result-unit {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: rgba(255, 255, 255, 0.5);
-      margin-top: 0.25rem;
+      margin-top: 0.35rem;
+      font-weight: 500;
     }
 
-    /* CTA Section */
-    .cta-section {
-      background: #282828;
+    /* Step 3 - Selected Solutions Summary */
+    .selected-solutions-summary {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .summary-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #10B981;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .summary-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .summary-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.75rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #10B981;
+    }
+
+    .summary-chip i {
+      font-size: 0.75rem;
+    }
+
+    /* Dynamic field icon styling */
+    .field-icon {
+      color: #06B6D4;
+      margin-right: 0.5rem;
+    }
+
+    /* Step 4 - Your Solutions Section */
+    .your-solutions-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label i {
+      color: #10B981;
+    }
+
+    .selected-solutions-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .solution-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #10B981;
+    }
+
+    .solution-chip i {
+      font-size: 0.9rem;
+    }
+
+    /* Solution Breakdown Section */
+    .solution-breakdown-section {
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.08), rgba(139, 92, 246, 0.06));
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .breakdown-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breakdown-title i {
+      color: #06B6D4;
+    }
+
+    .solution-breakdown-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1rem;
+      background: rgba(15, 15, 20, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .breakdown-item:hover {
+      background: rgba(20, 20, 25, 0.6);
+      border-color: rgba(6, 182, 212, 0.2);
+    }
+
+    .breakdown-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .breakdown-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .breakdown-icon.email { background: rgba(251, 146, 60, 0.15); color: #FB923C; }
+    .breakdown-icon.booking { background: rgba(6, 182, 212, 0.15); color: #06B6D4; }
+    .breakdown-icon.inquiry { background: rgba(139, 92, 246, 0.15); color: #8B5CF6; }
+    .breakdown-icon.review { background: rgba(250, 204, 21, 0.15); color: #FACC15; }
+    .breakdown-icon.followup { background: rgba(236, 72, 153, 0.15); color: #EC4899; }
+    .breakdown-icon.admin { background: rgba(16, 185, 129, 0.15); color: #10B981; }
+    .breakdown-icon.data { background: rgba(59, 130, 246, 0.15); color: #3B82F6; }
+
+    .breakdown-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .breakdown-item-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.15rem;
+    }
+
+    .breakdown-hours {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #10B981;
+    }
+
+    .breakdown-cost {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (min-width: 600px) {
+      .solution-breakdown-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* ============================================================
+       ADVANCED ANALYTICS SECTIONS
+       ============================================================ */
+
+    /* Financial Metrics Section */
+    .financial-metrics-section {
+      background: linear-gradient(145deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.05));
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .financial-metrics-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #6366f1, #8B5CF6, #6366f1);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .metrics-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .metrics-title i {
+      color: #8B5CF6;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.4));
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .metric-card {
+      background: rgba(15, 15, 20, 0.6);
+      border: 1px solid rgba(99, 102, 241, 0.15);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      background: rgba(20, 20, 25, 0.7);
+      transform: translateY(-4px);
+    }
+
+    .metric-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .metric-card.payback .metric-icon {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+    }
+
+    .metric-card.breakeven .metric-icon {
+      background: rgba(6, 182, 212, 0.15);
+      color: #06B6D4;
+    }
+
+    .metric-card.npv .metric-icon {
+      background: rgba(99, 102, 241, 0.15);
+      color: #6366f1;
+    }
+
+    .metric-card.confidence .metric-icon {
+      background: rgba(251, 191, 36, 0.15);
+      color: #FBB024;
+    }
+
+    .metric-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .metric-value {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Sulphur Point', sans-serif;
+    }
+
+    .metric-desc {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Scenario Analysis Section */
+    .scenario-section {
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.08), rgba(16, 185, 129, 0.05));
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scenario-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #06B6D4, #10B981, #06B6D4);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .scenario-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .scenario-title i {
+      color: #06B6D4;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.4));
+    }
+
+    .scenario-desc {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .scenario-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      .scenario-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
+    .scenario-card {
+      background: rgba(15, 15, 20, 0.6);
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
-      padding: 2rem 1.5rem;
+      padding: 1.25rem;
       text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .scenario-card.conservative {
+      border-color: rgba(251, 191, 36, 0.2);
+    }
+
+    .scenario-card.moderate {
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .scenario-card.moderate.active {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.4);
+      transform: scale(1.02);
+    }
+
+    .scenario-card.aggressive {
+      border-color: rgba(99, 102, 241, 0.2);
+    }
+
+    .scenario-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .scenario-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    .scenario-card.conservative .scenario-badge {
+      background: rgba(251, 191, 36, 0.15);
+      color: #FBB024;
+    }
+
+    .scenario-card.moderate .scenario-badge {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+    }
+
+    .scenario-card.aggressive .scenario-badge {
+      background: rgba(99, 102, 241, 0.15);
+      color: #6366f1;
+    }
+
+    .scenario-percent {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .scenario-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Sulphur Point', sans-serif;
+      margin-bottom: 0.25rem;
+    }
+
+    .scenario-label {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .scenario-recommended {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #10B981;
+      color: #000;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Projection Chart Section */
+    .projection-section {
+      background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), rgba(99, 102, 241, 0.05));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
       margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .projection-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3B82F6, #6366f1, #3B82F6);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .projection-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .projection-title i {
+      color: #3B82F6;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 8px rgba(59, 130, 246, 0.4));
+    }
+
+    .projection-chart-wrapper {
+      background: rgba(15, 15, 20, 0.4);
+      border-radius: 16px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    #projectionChart {
+      max-height: 250px;
+    }
+
+    .projection-legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.cumulative {
+      background: #10B981;
+    }
+
+    .legend-dot.costs {
+      background: #EF4444;
+    }
+
+    .legend-dot.net {
+      background: #3B82F6;
+    }
+
+    /* Benchmark Section */
+    .benchmark-section {
+      background: linear-gradient(145deg, rgba(251, 191, 36, 0.08), rgba(251, 146, 60, 0.05));
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benchmark-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #FBB024, #FB923C, #FBB024);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .benchmark-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .benchmark-title i {
+      color: #FBB024;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 8px rgba(251, 191, 36, 0.4));
+    }
+
+    .benchmark-subtitle {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .benchmark-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .benchmark-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .benchmark-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .benchmark-value {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .benchmark-bar-track {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .benchmark-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .benchmark-bar-fill.yours {
+      background: linear-gradient(90deg, #06B6D4, #10B981);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+    }
+
+    .benchmark-bar-fill.average {
+      background: rgba(251, 191, 36, 0.6);
+    }
+
+    .benchmark-bar-fill.top {
+      background: linear-gradient(90deg, #FBB024, #F59E0B);
+    }
+
+    .benchmark-note {
+      margin-top: 1.25rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .benchmark-note i {
+      color: rgba(251, 191, 36, 0.7);
+      margin-top: 2px;
+    }
+
+    .benchmark-note a {
+      color: #06B6D4;
+      text-decoration: none;
+    }
+
+    .benchmark-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* Tourism KPIs Section */
+    .kpi-section {
+      background: linear-gradient(145deg, rgba(236, 72, 153, 0.08), rgba(139, 92, 246, 0.05));
+      border: 1px solid rgba(236, 72, 153, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #EC4899, #8B5CF6, #EC4899);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .kpi-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .kpi-title i {
+      color: #EC4899;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 8px rgba(236, 72, 153, 0.4));
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .kpi-card {
+      background: rgba(15, 15, 20, 0.6);
+      border: 1px solid rgba(236, 72, 153, 0.15);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .kpi-card:hover {
+      border-color: rgba(236, 72, 153, 0.3);
+      background: rgba(20, 20, 25, 0.7);
+      transform: translateY(-4px);
+    }
+
+    .kpi-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+    }
+
+    .kpi-icon.revpar {
+      background: rgba(99, 102, 241, 0.15);
+      color: #6366f1;
+    }
+
+    .kpi-icon.satisfaction {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+    }
+
+    .kpi-icon.conversion {
+      background: rgba(251, 191, 36, 0.15);
+      color: #FBB024;
+    }
+
+    .kpi-icon.response {
+      background: rgba(6, 182, 212, 0.15);
+      color: #06B6D4;
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .kpi-name {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .kpi-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #10B981;
+      font-family: 'Sulphur Point', sans-serif;
+    }
+
+    .kpi-value.negative {
+      color: #06B6D4;
+    }
+
+    .kpi-desc {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    @keyframes gradientShimmer {
+      0%, 100% { background-position: 200% 50%; }
+      50% { background-position: 0% 50%; }
+    }
+
+    /* Insights Section - Why You're Losing Money */
+    .insights-section {
+      background: linear-gradient(145deg, rgba(239, 68, 68, 0.08), rgba(251, 146, 60, 0.05));
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      margin-top: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insights-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #EF4444, #FB923C, #EF4444);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .insights-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .insights-title i {
+      color: #FB923C;
+      font-size: 1.35rem;
+      filter: drop-shadow(0 2px 8px rgba(251, 146, 60, 0.4));
+    }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .insight-card {
+      background: rgba(15, 15, 20, 0.6);
+      border: 1px solid rgba(239, 68, 68, 0.15);
+      border-radius: 16px;
+      padding: 1.25rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: all 0.3s ease;
+    }
+
+    .insight-card:hover {
+      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(20, 20, 25, 0.7);
+      transform: translateX(4px);
+    }
+
+    .insight-icon {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .insight-icon.red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+    }
+
+    .insight-icon.orange {
+      background: rgba(251, 146, 60, 0.15);
+      color: #FB923C;
+    }
+
+    .insight-icon.yellow {
+      background: rgba(250, 204, 21, 0.15);
+      color: #FACC15;
+    }
+
+    .insight-icon.cyan {
+      background: rgba(6, 182, 212, 0.15);
+      color: #06B6D4;
+    }
+
+    .insight-icon.purple {
+      background: rgba(139, 92, 246, 0.15);
+      color: #8B5CF6;
+    }
+
+    .insight-icon.pink {
+      background: rgba(236, 72, 153, 0.15);
+      color: #EC4899;
+    }
+
+    .insight-icon.green {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+    }
+
+    .insight-icon.blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3B82F6;
+    }
+
+    .insight-content h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.35rem;
+    }
+
+    .insight-content p {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .insight-value {
+      display: inline-block;
+      font-weight: 700;
+      color: #EF4444;
+    }
+
+    .insight-solution {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #10B981;
+    }
+
+    .insight-solution i {
+      font-size: 0.7rem;
+    }
+
+    @media (min-width: 768px) {
+      .insights-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* CTA Section - Premium Design */
+    .cta-section {
+      background: linear-gradient(145deg, rgba(6, 182, 212, 0.08), rgba(139, 92, 246, 0.05));
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-top: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #06B6D4, #8B5CF6, transparent);
     }
 
     .cta-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      font-size: 3.5rem;
+      margin-bottom: 1.25rem;
       animation: bounce 2s infinite;
+      filter: drop-shadow(0 4px 12px rgba(6, 182, 212, 0.3));
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-12px); }
     }
 
     .cta-title {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.9));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .cta-text {
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 1.5rem;
-      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .cta-btn-wrapper {
+      display: flex;
+      justify-content: center;
     }
 
     /* Hidden class */
@@ -991,151 +2122,221 @@
       display: none !important;
     }
 
-    /* Info pills */
+    /* Info pills - Premium Design */
     .info-pills {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 1rem;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
     }
 
     .pill {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(20, 20, 25, 0.8), rgba(15, 15, 20, 0.9));
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      padding: 0.65rem 1.25rem;
+      border-radius: 30px;
       font-size: 0.85rem;
+      font-weight: 500;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(16, 185, 129, 0.3);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.15);
     }
 
     .pill i {
       color: #10b981;
+      filter: drop-shadow(0 2px 6px rgba(16, 185, 129, 0.4));
     }
 
-    /* Solution Cards Grid */
+    /* Solution Cards Grid - Premium Design */
     .solutions-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 0.875rem;
+      gap: 1rem;
       margin-bottom: 1.5rem;
     }
 
     .solution-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      padding: 1.125rem;
+      background: linear-gradient(145deg, rgba(25, 25, 30, 0.9), rgba(15, 15, 20, 0.95));
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-radius: 20px;
+      padding: 1.5rem;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
+      overflow: hidden;
+    }
+
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6, 182, 212, 0.35);
+      box-shadow: 0 12px 40px rgba(6, 182, 212, 0.12);
+    }
+
+    .solution-card:hover::before {
+      opacity: 1;
     }
 
     .solution-card.selected {
       border-color: #10b981;
-      background: rgba(16, 185, 129, 0.08);
+      background: linear-gradient(145deg, rgba(16, 185, 129, 0.12), rgba(15, 15, 20, 0.95));
+      box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+    }
+
+    .solution-card.selected::before {
+      background: linear-gradient(90deg, transparent, #10b981, transparent);
+      opacity: 1;
     }
 
     .solution-card h4 {
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 0.375rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      color: #fff;
+    }
+
+    .solution-card h4 i {
+      color: var(--secondary-brand);
+      font-size: 1.1rem;
+    }
+
+    .solution-card.selected h4 i {
+      color: #10b981;
     }
 
     .solution-card p {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.7);
-      line-height: 1.4;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.5;
+      padding-right: 2rem;
     }
 
     .solution-card .check-icon {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(6, 182, 212, 0.3);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: rgba(10, 10, 15, 0.5);
+    }
+
+    .solution-card:hover .check-icon {
+      border-color: rgba(6, 182, 212, 0.5);
     }
 
     .solution-card.selected .check-icon {
-      background: #10b981;
+      background: linear-gradient(135deg, #10b981, #059669);
       border-color: #10b981;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+      transform: scale(1.1);
     }
 
     .solution-card.selected .check-icon i {
       color: white;
+      font-size: 0.7rem;
     }
 
     .solution-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
-      background: rgba(16, 185, 129, 0.15);
+      gap: 0.35rem;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.15));
       color: #10b981;
       font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.25rem 0.625rem;
-      border-radius: 12px;
-      margin-top: 0.5rem;
+      font-weight: 700;
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      margin-top: 0.75rem;
+      border: 1px solid rgba(16, 185, 129, 0.2);
     }
 
-    /* Text Inputs & Textareas */
+    /* Text Inputs & Textareas - Premium Design */
     .text-input,
     .textarea-input {
       width: 100%;
-      padding: 1rem;
-      background: #282828;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      padding: 1.125rem 1.25rem;
+      background: rgba(20, 20, 25, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-radius: 16px;
       color: #fff;
       font-size: 1rem;
       font-weight: 500;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s ease;
+      font-family: 'Figtree', sans-serif;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .text-input::placeholder,
     .textarea-input::placeholder {
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .text-input:hover,
+    .textarea-input:hover {
+      border-color: rgba(6, 182, 212, 0.3);
+      box-shadow: 0 6px 16px rgba(6, 182, 212, 0.1);
     }
 
     .text-input:focus,
     .textarea-input:focus {
       outline: none;
-      border-color: #10b981;
-      background: #2a2a2a;
+      border-color: var(--secondary-brand);
+      background: rgba(25, 25, 30, 0.9);
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1), 0 6px 20px rgba(6, 182, 212, 0.15);
     }
 
     .textarea-input {
       resize: vertical;
-      min-height: 80px;
-      line-height: 1.5;
+      min-height: 100px;
+      line-height: 1.6;
     }
 
-    /* Chart Containers */
+    /* Chart Containers - Premium Design */
     .charts-container {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1.25rem;
-      margin: 1.5rem 0;
+      gap: 1.5rem;
+      margin: 2rem 0;
     }
 
     .chart-wrapper {
-      background: #282828;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1.5rem 1.25rem;
+      background: linear-gradient(145deg, rgba(20, 20, 25, 0.9), rgba(15, 15, 20, 0.95));
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .chart-wrapper::before {
@@ -1144,58 +2345,115 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 2px;
-      background: #10b981;
-      opacity: 0.5;
+      height: 3px;
+      background: linear-gradient(90deg, #06B6D4, #10b981, #06B6D4);
+      background-size: 200% 100%;
+      animation: gradientShimmer 3s ease infinite;
+    }
+
+    .chart-wrapper:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.25);
     }
 
     .chart-title {
-      font-size: 1rem;
+      font-size: 1.15rem;
       font-weight: 700;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.75rem;
       color: #fff;
     }
 
     .chart-title i {
-      color: #10b981;
-      font-size: 1.1rem;
+      color: var(--secondary-brand);
+      font-size: 1.25rem;
+      filter: drop-shadow(0 2px 8px rgba(6, 182, 212, 0.4));
     }
 
     .chart-wrapper canvas {
       max-height: 300px;
     }
 
-    /* Navigation Bar */
+    /* Navigation Bar - Matching Homepage Style */
     nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 101;
+      background: transparent;
+      z-index: 100;
       padding: 1.5rem 0;
-      background: #000000;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
     }
 
     nav.scrolled {
-      padding: 0.75rem 0;
-      background: #000000;
-      box-shadow: 0 2px 30px rgba(0, 0, 0, 0.9);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 1rem 0;
     }
 
     .nav-container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 1.25rem;
+      padding: 0 2rem;
       display: flex;
       justify-content: flex-end;
       align-items: center;
+    }
+
+    .nav-right {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 0.5rem 0.75rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+                  0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+      pointer-events: auto;
+      overflow: visible;
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 999;
+    }
+
+    nav.scrolled .nav-right {
+      background: rgba(0, 0, 0, 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
+                  0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    }
+
+    .nav-right > * {
+      flex-shrink: 0;
+    }
+
+    /* Nav Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .nav-logo:hover img {
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
     }
 
     .logo {
@@ -1212,12 +2470,6 @@
     .logo-img {
       height: 40px;
       width: auto;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
     }
 
     .back-btn {
@@ -1445,154 +2697,80 @@
       transform: translateY(-7.5px) rotate(-45deg);
     }
 
-    /* Sidebar overlay */
-    .sidebar-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(4px);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 998;
-    }
-
-    .sidebar-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Sidebar */
-    #sidebar {
-      position: fixed;
-      top: 0;
+    /* Burger Dropdown Menu */
+    .burger-dropdown {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
       right: 0;
-      bottom: 0;
-      width: 280px;
-      max-width: 80vw;
-      height: 100vh;
-      background: #000000;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 999;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
-      overflow: hidden;
-    }
-
-    #sidebar.active {
-      transform: translateX(0);
-    }
-
-    #sidebar .sidebar-header {
-      padding: 1.25rem 1rem;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    #sidebar .sidebar-close {
-      width: 30px;
-      height: 30px;
-      display: grid;
-      place-items: center;
-      background: none;
-      border: none;
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 1.15rem;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-    }
-
-    #sidebar .sidebar-close:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: white;
-    }
-
-    #sidebar .sidebar-nav {
-      overflow-y: auto;
-      padding: 1.25rem 1rem;
-      display: flex;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      z-index: 1000;
+      padding: 1.5rem;
+      display: none;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 1rem;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     }
 
-    #sidebar .sidebar-link {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.7rem 0.9rem;
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
-      font-size: 0.92rem;
-      font-weight: 500;
-      border-radius: 10px;
-      transition: all 0.2s ease;
+    .burger-dropdown.active {
+      display: flex;
+      pointer-events: auto;
     }
 
-    #sidebar .sidebar-link:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: white;
-    }
-
-    #sidebar .sidebar-link i {
-      font-size: 1.05rem;
-      opacity: 0.8;
-      justify-self: center;
-    }
-
-    #sidebar .sidebar-cta-container {
-      padding: 0.75rem 0.875rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    .burger-dropdown-content {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
 
-    #sidebar .sidebar-cta {
-      width: 100%;
-      height: 38px;
+    .burger-dropdown a {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 0.4rem;
-      padding: 0 0.75rem;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 0.85rem;
-      font-weight: 600;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: rgba(255, 255, 255, 0.9);
       text-decoration: none;
-      cursor: pointer;
+      border-radius: 8px;
       transition: all 0.2s ease;
+      font-size: 0.95rem;
     }
 
-    #sidebar .sidebar-cta-primary {
-      background: #10b981;
+    .burger-dropdown a:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
     }
 
-    #sidebar .sidebar-cta-primary:hover {
-      background: #059669;
-      transform: scale(1.02);
+    .burger-dropdown a i {
+      font-size: 1rem;
+      opacity: 0.8;
+      width: 20px;
     }
 
-    #sidebar .sidebar-cta-secondary {
-      background: #282828;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Special styling for ROI Calculator link */
+    .burger-dropdown a.calculator-link {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #818cf8;
+      font-weight: 600;
+      margin-top: 0.5rem;
     }
 
-    #sidebar .sidebar-cta-secondary:hover {
-      background: #2a2a2a;
-      transform: scale(1.02);
+    .burger-dropdown a.calculator-link:hover {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(139, 92, 246, 0.3));
+      border-color: rgba(99, 102, 241, 0.6);
+      color: #a5b4fc;
+      transform: translateX(3px);
     }
 
-    #sidebar .sidebar-cta i {
-      font-size: 0.9rem;
+    .burger-dropdown a.calculator-link i {
+      opacity: 1;
+      color: #818cf8;
     }
 
     /* Desktop Responsive Styles */
@@ -1758,10 +2936,15 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Navigation - Matching Homepage Style -->
   <nav id="navbar">
     <div class="nav-container">
-      <div class="nav-right">
+      <div class="nav-right" id="navRight">
+        <!-- Logo -->
+        <a href="/" class="nav-logo" aria-label="Home">
+          <img src="/images/team/danny-smith.jpg" alt="Jengu Logo" />
+        </a>
+
         <!-- Free Consultation CTA -->
         <button onclick="openBookingModal()" class="nav-consultation-cta">
           <i class="fas fa-calendar-check"></i>
@@ -1797,74 +2980,51 @@
           <span class="burger-line"></span>
           <span class="burger-line"></span>
         </button>
+
+        <!-- Burger Dropdown Menu -->
+        <div class="burger-dropdown" id="burgerDropdown">
+          <div class="burger-dropdown-content">
+            <a href="/">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+            <a href="/about">
+              <i class="fas fa-info-circle"></i>
+              <span>About</span>
+            </a>
+            <a href="/services">
+              <i class="fas fa-cogs"></i>
+              <span>Services</span>
+            </a>
+            <a href="/case-studies">
+              <i class="fas fa-briefcase"></i>
+              <span>Case Studies</span>
+            </a>
+            <a href="/dynamic-pricing">
+              <i class="fas fa-chart-line"></i>
+              <span>Dynamic Pricing</span>
+            </a>
+            <a href="/blog">
+              <i class="fas fa-newspaper"></i>
+              <span>Blog</span>
+            </a>
+            <a href="/faq">
+              <i class="fas fa-question-circle"></i>
+              <span>FAQ</span>
+            </a>
+            <a href="/contact">
+              <i class="fas fa-envelope"></i>
+              <span>Contact</span>
+            </a>
+            <a href="/calculator" class="calculator-link">
+              <i class="fas fa-calculator"></i>
+              <span>ROI Calculator</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
-
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-  <!-- Sidebar Menu -->
-  <aside id="sidebar">
-    <!-- Header with close button -->
-    <div class="sidebar-header">
-      <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close sidebar">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-
-    <!-- Navigation links (scrollable) -->
-    <nav class="sidebar-nav">
-      <a href="/" class="sidebar-link">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-      </a>
-      <a href="/about" class="sidebar-link">
-        <i class="fas fa-info-circle"></i>
-        <span>About</span>
-      </a>
-      <a href="/services" class="sidebar-link">
-        <i class="fas fa-cogs"></i>
-        <span>Services</span>
-      </a>
-      <a href="/dynamic-pricing" class="sidebar-link">
-        <i class="fas fa-chart-line"></i>
-        <span>Dynamic Pricing</span>
-      </a>
-      <a href="/case-studies" class="sidebar-link">
-        <i class="fas fa-briefcase"></i>
-        <span>Case Studies</span>
-      </a>
-      <a href="/blog" class="sidebar-link">
-        <i class="fas fa-newspaper"></i>
-        <span>Blog</span>
-      </a>
-      <a href="/faq" class="sidebar-link">
-        <i class="fas fa-question-circle"></i>
-        <span>FAQ</span>
-      </a>
-      <a href="/team" class="sidebar-link">
-        <i class="fas fa-users"></i>
-        <span>Team</span>
-      </a>
-      <a href="/contact" class="sidebar-link">
-        <i class="fas fa-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </nav>
-
-    <!-- CTA buttons at bottom -->
-    <div class="sidebar-cta-container">
-      <button onclick="openBookingModal()" class="sidebar-cta sidebar-cta-primary">
-        <i class="fas fa-comments"></i>
-        <span>Get Consultation</span>
-      </button>
-      <a href="/calculator" class="sidebar-cta sidebar-cta-secondary">
-        <i class="fas fa-calculator"></i>
-        <span class="desktop-text">Free ROI Analysis</span><span class="mobile-text">ROI Analysis</span>
-      </a>
-    </div>
-  </aside>
 
   <div class="container">
     <!-- Step 1: Business Type -->
@@ -2075,10 +3235,22 @@
       </div>
 
       <h2 class="card-title">Tell us about your workload</h2>
-      <p class="card-subtitle">Help us calculate your potential savings</p>
+      <p class="card-subtitle" id="step3Subtitle">Help us calculate your potential savings</p>
 
-      <div class="form-group">
+      <!-- Selected Solutions Summary -->
+      <div class="selected-solutions-summary" id="selectedSolutionsSummary">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Dynamic form fields based on selections -->
+      <div id="dynamicFormFields">
+        <!-- These will be shown/hidden based on selected solutions -->
+      </div>
+
+      <!-- Email fields - shown when email, inquiry, or booking selected -->
+      <div class="form-group dynamic-field" id="emailField">
         <label class="form-label">
+          <i class="fas fa-envelope field-icon"></i>
           How many emails do you handle per day?
           <span class="value-display" id="emailsValue">50</span>
         </label>
@@ -2088,8 +3260,10 @@
         <p class="slider-hint">Includes inquiries, confirmations, follow-ups, and support emails</p>
       </div>
 
-      <div class="form-group">
+      <!-- Booking fields - shown when booking, followup, or review selected -->
+      <div class="form-group dynamic-field" id="bookingField">
         <label class="form-label">
+          <i class="fas fa-calendar-check field-icon"></i>
           Monthly bookings/reservations
           <span class="value-display" id="bookingsValue">60</span>
         </label>
@@ -2099,8 +3273,10 @@
         <p class="slider-hint">Total number of reservations you process each month</p>
       </div>
 
-      <div class="form-group">
+      <!-- Admin hours - shown when admin or data selected -->
+      <div class="form-group dynamic-field" id="hoursField">
         <label class="form-label">
+          <i class="fas fa-tasks field-icon"></i>
           Weekly hours on repetitive tasks
           <span class="value-display" id="hoursValue">15</span>
         </label>
@@ -2110,8 +3286,35 @@
         <p class="slider-hint">Data entry, scheduling, reporting, follow-ups, admin work</p>
       </div>
 
+      <!-- Support interactions - shown when inquiry selected -->
+      <div class="form-group dynamic-field" id="supportField" style="display: none;">
+        <label class="form-label">
+          <i class="fas fa-comments field-icon"></i>
+          Daily customer support interactions
+          <span class="value-display" id="supportValue">25</span>
+        </label>
+        <div class="slider-container">
+          <input type="range" id="support" min="5" max="200" value="25" step="5" oninput="updateSlider('support')">
+        </div>
+        <p class="slider-hint">Chat messages, phone calls, WhatsApp, social media queries</p>
+      </div>
+
+      <!-- Review request opportunities - shown when review selected -->
+      <div class="form-group dynamic-field" id="reviewField" style="display: none;">
+        <label class="form-label">
+          <i class="fas fa-star field-icon"></i>
+          Current monthly reviews received
+          <span class="value-display" id="reviewsValue">5</span>
+        </label>
+        <div class="slider-container">
+          <input type="range" id="reviews" min="0" max="50" value="5" step="1" oninput="updateSlider('reviews')">
+        </div>
+        <p class="slider-hint">Reviews on Google, TripAdvisor, Booking.com, etc.</p>
+      </div>
+
+      <!-- Response time - always shown -->
       <div class="form-group">
-        <label class="form-label">Average response time to inquiries</label>
+        <label class="form-label"><i class="fas fa-clock field-icon"></i> Average response time to inquiries</label>
         <div class="business-size-grid">
           <label class="business-size-card">
             <input type="radio" name="responseTime" value="instant" checked>
@@ -2164,7 +3367,15 @@
       </div>
 
       <h2 class="card-title">Your Potential Savings</h2>
-      <p class="card-subtitle">Based on your business data</p>
+      <p class="card-subtitle" id="resultsSubtitle">Based on your business data</p>
+
+      <!-- Your Selected Solutions -->
+      <div class="your-solutions-section" id="yourSolutionsSection">
+        <h3 class="section-label"><i class="fas fa-check-circle"></i> Your Selected AI Solutions</h3>
+        <div class="selected-solutions-chips" id="selectedSolutionsChips">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
 
       <div class="results-grid">
         <div class="result-card">
@@ -2174,7 +3385,7 @@
         </div>
         <div class="result-card">
           <div class="result-label">Cost Saved</div>
-          <div class="result-value" id="costSaved">$0</div>
+          <div class="result-value" id="costSaved">£0</div>
           <div class="result-unit">per month</div>
         </div>
         <div class="result-card">
@@ -2184,8 +3395,16 @@
         </div>
         <div class="result-card">
           <div class="result-label">Annual Savings</div>
-          <div class="result-value" id="annual">$0</div>
+          <div class="result-value" id="annual">£0</div>
           <div class="result-unit">per year</div>
+        </div>
+      </div>
+
+      <!-- Solution-by-Solution Breakdown -->
+      <div class="solution-breakdown-section" id="solutionBreakdownSection">
+        <h3 class="breakdown-title"><i class="fas fa-list-ul"></i> Savings by Solution</h3>
+        <div class="solution-breakdown-grid" id="solutionBreakdownGrid">
+          <!-- Dynamically populated with each solution's savings -->
         </div>
       </div>
 
@@ -2196,8 +3415,122 @@
           <canvas id="waterfallChart"></canvas>
         </div>
         <div class="chart-wrapper">
-          <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Savings Composition</h3>
+          <h3 class="chart-title"><i class="fas fa-chart-pie"></i> Savings by Solution</h3>
           <canvas id="donutChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Advanced Financial Metrics -->
+      <div class="financial-metrics-section" id="financialMetricsSection">
+        <h3 class="metrics-title"><i class="fas fa-calculator"></i> Financial Analysis</h3>
+        <div class="metrics-grid">
+          <div class="metric-card payback">
+            <div class="metric-icon"><i class="fas fa-undo"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Payback Period</span>
+              <span class="metric-value" id="paybackPeriod">--</span>
+              <span class="metric-desc">Time to recover investment</span>
+            </div>
+          </div>
+          <div class="metric-card breakeven">
+            <div class="metric-icon"><i class="fas fa-balance-scale"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Break-Even Point</span>
+              <span class="metric-value" id="breakEvenPoint">--</span>
+              <span class="metric-desc">When savings equal costs</span>
+            </div>
+          </div>
+          <div class="metric-card npv">
+            <div class="metric-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">3-Year Net Value</span>
+              <span class="metric-value" id="threeYearNPV">--</span>
+              <span class="metric-desc">Total benefit over 3 years</span>
+            </div>
+          </div>
+          <div class="metric-card confidence">
+            <div class="metric-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Confidence Score</span>
+              <span class="metric-value" id="confidenceScore">--</span>
+              <span class="metric-desc">Based on your data quality</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenario Comparison -->
+      <div class="scenario-section" id="scenarioSection">
+        <h3 class="scenario-title"><i class="fas fa-chart-area"></i> Scenario Analysis</h3>
+        <p class="scenario-desc">See potential outcomes based on different adoption rates</p>
+        <div class="scenario-cards">
+          <div class="scenario-card conservative">
+            <div class="scenario-header">
+              <span class="scenario-badge">Conservative</span>
+              <span class="scenario-percent">70% adoption</span>
+            </div>
+            <div class="scenario-value" id="scenarioConservative">£0</div>
+            <span class="scenario-label">annual savings</span>
+          </div>
+          <div class="scenario-card moderate active">
+            <div class="scenario-header">
+              <span class="scenario-badge">Moderate</span>
+              <span class="scenario-percent">85% adoption</span>
+            </div>
+            <div class="scenario-value" id="scenarioModerate">£0</div>
+            <span class="scenario-label">annual savings</span>
+            <div class="scenario-recommended">Recommended</div>
+          </div>
+          <div class="scenario-card aggressive">
+            <div class="scenario-header">
+              <span class="scenario-badge">Aggressive</span>
+              <span class="scenario-percent">95% adoption</span>
+            </div>
+            <div class="scenario-value" id="scenarioAggressive">£0</div>
+            <span class="scenario-label">annual savings</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Projection Chart -->
+      <div class="projection-section" id="projectionSection">
+        <h3 class="projection-title"><i class="fas fa-calendar-alt"></i> 12-Month ROI Projection</h3>
+        <div class="projection-chart-wrapper">
+          <canvas id="projectionChart"></canvas>
+        </div>
+        <div class="projection-legend">
+          <span class="legend-item"><span class="legend-dot cumulative"></span> Cumulative Savings</span>
+          <span class="legend-item"><span class="legend-dot costs"></span> AI Investment</span>
+          <span class="legend-item"><span class="legend-dot net"></span> Net Benefit</span>
+        </div>
+      </div>
+
+      <!-- Industry Benchmark Comparison - Dynamic based on business type -->
+      <div class="benchmark-section" id="benchmarkSection">
+        <h3 class="benchmark-title"><i class="fas fa-trophy"></i> <span id="benchmarkTitleText">Industry Benchmarks</span></h3>
+        <p class="benchmark-subtitle" id="benchmarkSubtitle">How your potential ROI compares to industry averages</p>
+        <div class="benchmark-bars" id="benchmarkBars">
+          <!-- Benchmarks will be dynamically populated based on business type -->
+        </div>
+        <div class="benchmark-note" id="benchmarkNote">
+          <i class="fas fa-info-circle"></i>
+          <span id="benchmarkNoteText">Based on 2024 industry data showing AI-enabled businesses see significant ROI improvements</span>
+        </div>
+      </div>
+
+      <!-- Industry KPIs Impact - Dynamic based on business type -->
+      <div class="kpi-section" id="kpiSection">
+        <h3 class="kpi-title" id="kpiTitle"><i class="fas fa-chart-bar"></i> <span id="kpiTitleText">Industry KPI Impact</span></h3>
+        <div class="kpi-grid" id="kpiGrid">
+          <!-- KPIs will be dynamically populated based on business type -->
+        </div>
+      </div>
+
+      <!-- Insights Section - Why You're Losing Money -->
+      <div class="insights-section" id="insightsSection">
+        <h3 class="insights-title"><i class="fas fa-lightbulb"></i> Why Your Business Is Losing Money</h3>
+        <div class="insights-grid" id="insightsGrid">
+          <!-- Insights will be dynamically populated -->
         </div>
       </div>
 
@@ -2205,9 +3538,11 @@
         <div class="cta-icon">🚀</div>
         <h3 class="cta-title">Ready to get started?</h3>
         <p class="cta-text">Let's build your custom AI agent solution and start saving time today</p>
-        <button class="btn btn-primary" onclick="window.location.href='/contact'">
-          Get Started Now <i class="fas fa-arrow-right"></i>
-        </button>
+        <div class="cta-btn-wrapper">
+          <button class="btn btn-primary" onclick="window.location.href='/contact'">
+            Get Started Now <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
 
       <div class="btn-group" style="margin-top: 1.5rem;">
@@ -2298,6 +3633,16 @@
   </div>
 
   <script>
+    // Check for embed mode (when loaded in iframe or with ?embed=true)
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const isEmbedded = urlParams.get('embed') === 'true' || window.self !== window.top;
+      if (isEmbedded) {
+        document.documentElement.classList.add('embed-mode');
+        document.body.classList.add('embed-mode');
+      }
+    })();
+
     // Language Switcher functionality
     document.addEventListener('DOMContentLoaded', function() {
       const languageBtn = document.getElementById('languageBtn');
@@ -2322,52 +3667,47 @@
         });
       }
 
-      // Sidebar functionality
+      // Burger dropdown functionality
       const burgerMenu = document.getElementById('burgerMenu');
-      const sidebar = document.getElementById('sidebar');
-      const sidebarOverlay = document.getElementById('sidebarOverlay');
-      const sidebarClose = document.getElementById('sidebarClose');
+      const burgerDropdown = document.getElementById('burgerDropdown');
 
-      function openSidebar() {
-        if (sidebar) sidebar.classList.add('active');
-        if (sidebarOverlay) sidebarOverlay.classList.add('active');
-        if (burgerMenu) burgerMenu.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      function toggleBurgerDropdown() {
+        if (burgerMenu && burgerDropdown) {
+          burgerMenu.classList.toggle('active');
+          burgerDropdown.classList.toggle('active');
+        }
       }
 
-      function closeSidebar() {
-        if (sidebar) sidebar.classList.remove('active');
-        if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-        if (burgerMenu) burgerMenu.classList.remove('active');
-        document.body.style.overflow = 'auto';
+      function closeBurgerDropdown() {
+        if (burgerMenu && burgerDropdown) {
+          burgerMenu.classList.remove('active');
+          burgerDropdown.classList.remove('active');
+        }
       }
 
-      // Event listeners for sidebar
+      // Event listeners for burger dropdown
       if (burgerMenu) {
         burgerMenu.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          openSidebar();
+          toggleBurgerDropdown();
         });
       }
 
-      if (sidebarClose) {
-        sidebarClose.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          closeSidebar();
+      // Close dropdown when clicking a link inside it
+      if (burgerDropdown) {
+        burgerDropdown.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            setTimeout(closeBurgerDropdown, 150);
+          });
         });
       }
 
-      if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', closeSidebar);
-      }
-
-      // Close sidebar when clicking a link
-      document.querySelectorAll('.sidebar-link, .sidebar-cta').forEach(link => {
-        link.addEventListener('click', () => {
-          setTimeout(closeSidebar, 200);
-        });
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (burgerMenu && burgerDropdown && !burgerMenu.contains(e.target) && !burgerDropdown.contains(e.target)) {
+          closeBurgerDropdown();
+        }
       });
 
       // Navbar scroll behavior
@@ -2394,6 +3734,17 @@
     let isCustomPath = false;
     let waterfallChart = null;
     let donutChart = null;
+
+    // Solution info mapping
+    const solutionInfo = {
+      email: { name: 'Email Management', icon: 'fa-envelope', color: 'email' },
+      booking: { name: 'Booking & Reservations', icon: 'fa-calendar-check', color: 'booking' },
+      inquiry: { name: 'Customer Support', icon: 'fa-comments', color: 'inquiry' },
+      review: { name: 'Review Collection', icon: 'fa-star', color: 'review' },
+      followup: { name: 'Guest Communications', icon: 'fa-paper-plane', color: 'followup' },
+      admin: { name: 'Admin Tasks', icon: 'fa-tasks', color: 'admin' },
+      data: { name: 'Data & Analytics', icon: 'fa-database', color: 'data' }
+    };
 
     function updateProgress() {
       const totalSteps = isCustomPath ? 5 : 4;
@@ -2426,12 +3777,71 @@
       }
     }
 
+    // Update Step 3 UI based on selected solutions
+    function updateStep3UI() {
+      // Show selected solutions summary
+      const summaryContainer = document.getElementById('selectedSolutionsSummary');
+      if (selectedSolutions.length > 0) {
+        let chipsHTML = '<div class="summary-label"><i class="fas fa-check-circle"></i> Automations you selected:</div><div class="summary-chips">';
+        selectedSolutions.forEach(sol => {
+          const info = solutionInfo[sol];
+          if (info) {
+            chipsHTML += `<span class="summary-chip"><i class="fas ${info.icon}"></i> ${info.name}</span>`;
+          }
+        });
+        chipsHTML += '</div>';
+        summaryContainer.innerHTML = chipsHTML;
+        summaryContainer.style.display = 'block';
+      } else {
+        summaryContainer.style.display = 'none';
+      }
+
+      // Update subtitle based on selections
+      const subtitle = document.getElementById('step3Subtitle');
+      if (selectedSolutions.length > 0) {
+        subtitle.textContent = `Answer these questions about your ${selectedSolutions.length} selected automation${selectedSolutions.length > 1 ? 's' : ''}`;
+      } else {
+        subtitle.textContent = 'Help us calculate your potential savings';
+      }
+
+      // Show/hide relevant fields based on selected solutions
+      const emailField = document.getElementById('emailField');
+      const bookingField = document.getElementById('bookingField');
+      const hoursField = document.getElementById('hoursField');
+      const supportField = document.getElementById('supportField');
+      const reviewField = document.getElementById('reviewField');
+
+      // Email field: shown for email, inquiry
+      const needsEmail = selectedSolutions.some(s => ['email', 'inquiry'].includes(s));
+      emailField.style.display = needsEmail || selectedSolutions.length === 0 ? 'block' : 'none';
+
+      // Booking field: shown for booking, review, followup
+      const needsBooking = selectedSolutions.some(s => ['booking', 'review', 'followup'].includes(s));
+      bookingField.style.display = needsBooking || selectedSolutions.length === 0 ? 'block' : 'none';
+
+      // Hours field: shown for admin, data
+      const needsHours = selectedSolutions.some(s => ['admin', 'data'].includes(s));
+      hoursField.style.display = needsHours || selectedSolutions.length === 0 ? 'block' : 'none';
+
+      // Support field: shown for inquiry (customer support)
+      supportField.style.display = selectedSolutions.includes('inquiry') ? 'block' : 'none';
+
+      // Review field: shown for review
+      reviewField.style.display = selectedSolutions.includes('review') ? 'block' : 'none';
+    }
+
     function nextStep() {
       if (currentStep < 4) {
         document.getElementById('step' + currentStep).classList.add('hidden');
         currentStep++;
         document.getElementById('step' + currentStep).classList.remove('hidden');
         updateProgress();
+
+        // Update Step 3 UI when navigating to it
+        if (currentStep === 3) {
+          updateStep3UI();
+        }
+
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
@@ -2456,68 +3866,667 @@
       const bookings = parseInt(document.getElementById('bookings').value);
       const hours = parseInt(document.getElementById('hours').value);
 
+      // Get business type for industry-specific calculations
+      const businessType = document.querySelector('input[name="businessType"]:checked').value;
+      const industryMultipliers = {
+        resort: { avgBookingValue: 280, emailComplexity: 1.2, conversionPotential: 1.15 },
+        hotel: { avgBookingValue: 180, emailComplexity: 1.0, conversionPotential: 1.1 },
+        campsite: { avgBookingValue: 95, emailComplexity: 0.9, conversionPotential: 1.2 },
+        tour: { avgBookingValue: 220, emailComplexity: 1.3, conversionPotential: 1.25 },
+        airline: { avgBookingValue: 450, emailComplexity: 1.4, conversionPotential: 1.05 },
+        other: { avgBookingValue: 150, emailComplexity: 1.0, conversionPotential: 1.1 }
+      };
+      const industry = industryMultipliers[businessType] || industryMultipliers.other;
+
       // Get business size for scaling
       const businessSize = document.querySelector('input[name="businessSize"]:checked').value;
-      const sizeMultipliers = { small: 0.85, medium: 1.0, large: 1.15 };
-      const sizeMultiplier = sizeMultipliers[businessSize] || 1.0;
+      const sizeFactors = {
+        small: { multiplier: 0.85, hourlyRate: 18, staffEfficiency: 0.75 },
+        medium: { multiplier: 1.0, hourlyRate: 22, staffEfficiency: 0.65 },
+        large: { multiplier: 1.2, hourlyRate: 28, staffEfficiency: 0.55 }
+      };
+      const sizeFactor = sizeFactors[businessSize] || sizeFactors.medium;
 
-      // Get response time factor (slower response = more opportunity)
+      // Get response time factor (slower response = more opportunity AND lost revenue)
       const responseTime = document.querySelector('input[name="responseTime"]:checked').value;
-      const responseMultipliers = { instant: 1.0, fast: 1.15, slow: 1.3 };
-      const responseMultiplier = responseMultipliers[responseTime] || 1.0;
+      const responseFactors = {
+        instant: { lostBookingRate: 0.02, improvementPotential: 1.0 },
+        fast: { lostBookingRate: 0.08, improvementPotential: 1.2 },
+        slow: { lostBookingRate: 0.18, improvementPotential: 1.4 }
+      };
+      const responseFactor = responseFactors[responseTime] || responseFactors.fast;
 
-      // Calculate realistic time savings
-      // Email handling: ~3-5 min per email → AI handles 80% in seconds
+      // =============== SOLUTION-SPECIFIC SAVINGS ===============
+
+      let emailTimeSaved = 0;
+      let bookingTimeSaved = 0;
+      let supportTimeSaved = 0;
+      let reviewTimeSaved = 0;
+      let followupTimeSaved = 0;
+      let adminTimeSaved = 0;
+      let dataTimeSaved = 0;
+
+      let revenueFromBookings = 0;
+      let revenueFromConversion = 0;
+      let revenueFromReviews = 0;
+
       const emailsPerMonth = emails * 22; // 22 working days
-      const emailTimeSaved = (emailsPerMonth * 4 / 60) * 0.8; // 4 min per email, 80% automated
 
-      // Booking process: ~10 min per booking → AI handles inquiry to confirmation
-      const bookingTimeSaved = bookings * (10 / 60) * 0.7; // 10 min per booking, 70% time saved
+      // Email Management AI Agent
+      if (selectedSolutions.includes('email')) {
+        // Time: ~4 min per email handled by AI, 85% automation rate
+        emailTimeSaved = (emailsPerMonth * 4 / 60) * 0.85 * industry.emailComplexity;
+      }
 
-      // Repetitive tasks: Convert weekly to monthly, assume 60% can be automated
-      const adminTimeSaved = (hours * 4.3) * 0.6; // 4.3 weeks per month, 60% automated
+      // Booking & Reservations AI Agent
+      if (selectedSolutions.includes('booking')) {
+        // Time: ~12 min per booking process, 75% automated
+        bookingTimeSaved = bookings * (12 / 60) * 0.75;
+        // Revenue: 15-25% conversion improvement from 24/7 availability
+        const conversionLift = 0.15 * industry.conversionPotential;
+        revenueFromBookings = bookings * industry.avgBookingValue * conversionLift;
+      }
 
-      // Apply multipliers
-      const totalTimeSaved = Math.round((emailTimeSaved + bookingTimeSaved + adminTimeSaved) * sizeMultiplier);
+      // Customer Support AI Agent
+      if (selectedSolutions.includes('inquiry')) {
+        // Time: ~8 min per support interaction, 80% handled by AI
+        const supportInteractions = emailsPerMonth * 0.4; // 40% of emails are support
+        supportTimeSaved = (supportInteractions * 8 / 60) * 0.8;
+        // Revenue: Faster response reduces abandoned inquiries
+        const recoveredBookings = bookings * responseFactor.lostBookingRate * 0.7;
+        revenueFromConversion = recoveredBookings * industry.avgBookingValue;
+      }
 
-      // Calculate cost savings
-      const hourlyRate = 22; // £22/hour (realistic UK rate)
-      const monthlyCostSaved = Math.round(totalTimeSaved * hourlyRate);
+      // Review Collection AI Agent
+      if (selectedSolutions.includes('review')) {
+        // Time: ~5 min per review request/response, fully automated
+        const reviewOpportunities = bookings * 0.6; // 60% of bookings = review opportunity
+        reviewTimeSaved = (reviewOpportunities * 5 / 60);
+        // Revenue: 3x more reviews → better rankings → 8% more bookings
+        revenueFromReviews = bookings * 0.08 * industry.avgBookingValue;
+      }
+
+      // Guest Communications AI Agent
+      if (selectedSolutions.includes('followup')) {
+        // Time: ~6 min per guest communication touchpoint, 90% automated
+        const touchpoints = bookings * 4; // Pre-arrival, check-in, mid-stay, post-stay
+        followupTimeSaved = (touchpoints * 6 / 60) * 0.9;
+      }
+
+      // Admin Tasks AI Agent
+      if (selectedSolutions.includes('admin')) {
+        // Time: Direct automation of weekly admin hours, 65% reduction
+        adminTimeSaved = (hours * 4.3) * 0.65;
+      }
+
+      // Data & Analytics AI Agent
+      if (selectedSolutions.includes('data')) {
+        // Time: ~3 hours/week on reporting, 80% automated
+        dataTimeSaved = (3 * 4.3) * 0.8;
+      }
+
+      // =============== TOTAL CALCULATIONS ===============
+
+      // If no solutions selected, use baseline estimates
+      if (selectedSolutions.length === 0) {
+        emailTimeSaved = (emailsPerMonth * 4 / 60) * 0.6;
+        bookingTimeSaved = bookings * (10 / 60) * 0.5;
+        adminTimeSaved = (hours * 4.3) * 0.4;
+      }
+
+      // Total time saved with size multiplier
+      const totalTimeSaved = Math.round(
+        (emailTimeSaved + bookingTimeSaved + supportTimeSaved +
+         reviewTimeSaved + followupTimeSaved + adminTimeSaved + dataTimeSaved)
+        * sizeFactor.multiplier
+      );
+
+      // Cost savings from time
+      const monthlyCostSaved = Math.round(totalTimeSaved * sizeFactor.hourlyRate);
       const annualCostSaved = monthlyCostSaved * 12;
 
-      // Revenue impact from faster response times and better conversion
-      const avgBookingValue = 140; // £140 average booking value
-      const conversionBoost = responseMultiplier > 1.0 ? (responseMultiplier - 1) * 0.5 : 0; // Up to 15% boost for slow responders
-      const monthlyRevenueGrowth = Math.round(bookings * avgBookingValue * conversionBoost);
-      const annualRevenueGrowth = monthlyRevenueGrowth * 12;
+      // Revenue improvements with response time factor
+      const totalMonthlyRevenue = Math.round(
+        (revenueFromBookings + revenueFromConversion + revenueFromReviews)
+        * responseFactor.improvementPotential
+      );
+      const annualRevenueGain = totalMonthlyRevenue * 12;
 
-      // Additional revenue from booking optimization
-      const bookingOptimization = selectedSolutions.includes('booking') ? bookings * 0.15 * avgBookingValue : 0;
-      const annualBookingBoost = Math.round(bookingOptimization * 12);
+      // Total annual benefit
+      const totalAnnualBenefit = annualCostSaved + annualRevenueGain;
 
-      // Total benefit
-      const totalAnnualBenefit = annualCostSaved + annualRevenueGrowth + annualBookingBoost;
-
-      // ROI calculation - variable pricing based on solutions
-      const baseCost = 399; // Base monthly cost
-      const solutionPremium = Math.max(0, (selectedSolutions.length - 2) * 100); // Additional cost for more agents
-      const monthlyCost = baseCost + solutionPremium;
+      // ROI calculation with tiered pricing
+      const solutionCount = Math.max(1, selectedSolutions.length);
+      const baseCost = 299;
+      const perSolutionCost = 75;
+      const monthlyCost = baseCost + (solutionCount * perSolutionCost);
       const annualAICost = monthlyCost * 12;
       const netBenefit = totalAnnualBenefit - annualAICost;
       const roi = Math.round((netBenefit / annualAICost) * 100);
 
+      // Payback period in months
+      const monthlyBenefit = totalAnnualBenefit / 12;
+      const paybackMonths = monthlyBenefit > 0 ? Math.ceil(monthlyCost / (monthlyBenefit - monthlyCost)) : 0;
+
       // Update UI with animated values
       animateValue('timeSaved', 0, totalTimeSaved, 1200);
       animateValue('costSaved', 0, monthlyCostSaved, 1500, true);
-      animateValue('roi', 0, roi, 1000, false, '%');
+      animateValue('roi', 0, Math.max(0, roi), 1000, false, '%');
       animateValue('annual', 0, Math.round(totalAnnualBenefit), 1800, true);
 
-      // Create charts after a short delay
+      // =============== UPDATE STEP 4 UI ===============
+
+      // Create solution savings breakdown data
+      const solutionSavings = {
+        email: { hours: Math.round(emailTimeSaved * sizeFactor.multiplier), cost: Math.round(emailTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate) },
+        booking: { hours: Math.round(bookingTimeSaved * sizeFactor.multiplier), cost: Math.round(bookingTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate), revenue: Math.round(revenueFromBookings) },
+        inquiry: { hours: Math.round(supportTimeSaved * sizeFactor.multiplier), cost: Math.round(supportTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate), revenue: Math.round(revenueFromConversion) },
+        review: { hours: Math.round(reviewTimeSaved * sizeFactor.multiplier), cost: Math.round(reviewTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate), revenue: Math.round(revenueFromReviews) },
+        followup: { hours: Math.round(followupTimeSaved * sizeFactor.multiplier), cost: Math.round(followupTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate) },
+        admin: { hours: Math.round(adminTimeSaved * sizeFactor.multiplier), cost: Math.round(adminTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate) },
+        data: { hours: Math.round(dataTimeSaved * sizeFactor.multiplier), cost: Math.round(dataTimeSaved * sizeFactor.multiplier * sizeFactor.hourlyRate) }
+      };
+
+      // Populate selected solutions chips in step 4
+      const chipsContainer = document.getElementById('selectedSolutionsChips');
+      if (selectedSolutions.length > 0) {
+        let chipsHTML = '';
+        selectedSolutions.forEach(sol => {
+          const info = solutionInfo[sol];
+          if (info) {
+            chipsHTML += `<span class="solution-chip"><i class="fas ${info.icon}"></i> ${info.name}</span>`;
+          }
+        });
+        chipsContainer.innerHTML = chipsHTML;
+        document.getElementById('yourSolutionsSection').style.display = 'block';
+      } else {
+        document.getElementById('yourSolutionsSection').style.display = 'none';
+      }
+
+      // Populate solution breakdown grid
+      const breakdownGrid = document.getElementById('solutionBreakdownGrid');
+      if (selectedSolutions.length > 0) {
+        let breakdownHTML = '';
+        selectedSolutions.forEach(sol => {
+          const info = solutionInfo[sol];
+          const savings = solutionSavings[sol];
+          if (info && savings && savings.hours > 0) {
+            const totalValue = savings.cost + (savings.revenue || 0);
+            breakdownHTML += `
+              <div class="breakdown-item">
+                <div class="breakdown-item-left">
+                  <div class="breakdown-icon ${info.color}"><i class="fas ${info.icon}"></i></div>
+                  <span class="breakdown-name">${info.name}</span>
+                </div>
+                <div class="breakdown-item-right">
+                  <span class="breakdown-hours">${savings.hours} hrs/mo</span>
+                  <span class="breakdown-cost">£${totalValue.toLocaleString()}/mo saved</span>
+                </div>
+              </div>
+            `;
+          }
+        });
+        breakdownGrid.innerHTML = breakdownHTML;
+        document.getElementById('solutionBreakdownSection').style.display = breakdownHTML ? 'block' : 'none';
+      } else {
+        document.getElementById('solutionBreakdownSection').style.display = 'none';
+      }
+
+      // Update results subtitle
+      const resultsSubtitle = document.getElementById('resultsSubtitle');
+      if (selectedSolutions.length > 0) {
+        const businessNames = {
+          resort: 'resort',
+          hotel: 'hotel',
+          campsite: 'campsite',
+          tour: 'tour operator',
+          airline: 'airline',
+          other: 'business'
+        };
+        resultsSubtitle.textContent = `Based on your ${businessNames[businessType] || 'business'} with ${selectedSolutions.length} AI automation${selectedSolutions.length > 1 ? 's' : ''}`;
+      }
+
+      // Generate personalized insights based on user data
+      generateInsights({
+        businessType,
+        businessSize,
+        responseTime,
+        emails,
+        bookings,
+        hours,
+        selectedSolutions,
+        totalTimeSaved,
+        monthlyCostSaved,
+        annualCostSaved,
+        annualRevenueGain,
+        totalAnnualBenefit,
+        industry,
+        responseFactor,
+        sizeFactor,
+        solutionSavings
+      });
+
+      // Update donut chart to show solution breakdown
       setTimeout(() => {
-        createCharts(annualCostSaved, annualRevenueGrowth + annualBookingBoost, 0);
+        createCharts(annualCostSaved, annualRevenueGain, 0, solutionSavings);
       }, 600);
 
+      // =============== ADVANCED ANALYTICS ===============
+
+      // Calculate Financial Metrics
+      const monthlyNetBenefit = monthlyBenefit - monthlyCost;
+
+      // Payback Period (months)
+      let paybackPeriodText = '--';
+      if (monthlyNetBenefit > 0) {
+        const payback = Math.ceil(monthlyCost / monthlyNetBenefit);
+        if (payback <= 1) {
+          paybackPeriodText = '< 1 month';
+        } else if (payback <= 12) {
+          paybackPeriodText = `${payback} months`;
+        } else {
+          paybackPeriodText = '12+ months';
+        }
+      }
+      document.getElementById('paybackPeriod').textContent = paybackPeriodText;
+
+      // Break-even Point (which month)
+      let breakEvenText = '--';
+      if (monthlyNetBenefit > 0) {
+        const breakEvenMonth = Math.ceil(annualAICost / totalAnnualBenefit * 12);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const currentMonth = new Date().getMonth();
+        const breakEvenMonthIndex = (currentMonth + breakEvenMonth) % 12;
+        breakEvenText = `Month ${breakEvenMonth}`;
+      }
+      document.getElementById('breakEvenPoint').textContent = breakEvenText;
+
+      // 3-Year Net Present Value (10% discount rate)
+      const discountRate = 0.10;
+      let npv = -annualAICost; // Initial investment
+      for (let year = 1; year <= 3; year++) {
+        npv += (totalAnnualBenefit - annualAICost) / Math.pow(1 + discountRate, year);
+      }
+      const npvFormatted = npv >= 1000000
+        ? `£${(npv / 1000000).toFixed(1)}M`
+        : npv >= 1000
+          ? `£${Math.round(npv / 1000)}K`
+          : `£${Math.round(npv)}`;
+      document.getElementById('threeYearNPV').textContent = npvFormatted;
+
+      // Confidence Score based on data completeness
+      let confidenceBase = 70;
+      if (selectedSolutions.length >= 3) confidenceBase += 10;
+      if (emails >= 20) confidenceBase += 5;
+      if (bookings >= 50) confidenceBase += 5;
+      if (hours >= 5) confidenceBase += 5;
+      const confidenceScore = Math.min(95, confidenceBase);
+      document.getElementById('confidenceScore').textContent = `${confidenceScore}%`;
+
+      // Scenario Analysis (Conservative 70%, Moderate 85%, Aggressive 95%)
+      const scenarioConservative = Math.round(totalAnnualBenefit * 0.70);
+      const scenarioModerate = Math.round(totalAnnualBenefit * 0.85);
+      const scenarioAggressive = Math.round(totalAnnualBenefit * 0.95);
+
+      document.getElementById('scenarioConservative').textContent = `£${scenarioConservative.toLocaleString()}`;
+      document.getElementById('scenarioModerate').textContent = `£${scenarioModerate.toLocaleString()}`;
+      document.getElementById('scenarioAggressive').textContent = `£${scenarioAggressive.toLocaleString()}`;
+
+      // Generate dynamic benchmarks based on business type
+      generateIndustryBenchmarks({
+        businessType,
+        roi: Math.max(0, roi)
+      });
+
+      // Generate dynamic KPIs based on business type
+      generateIndustryKPIs({
+        businessType,
+        selectedSolutions,
+        responseTime,
+        bookings,
+        totalAnnualBenefit,
+        revenueFromBookings,
+        industry
+      });
+
+      // Create Projection Chart
+      setTimeout(() => {
+        createProjectionChart(monthlyBenefit, monthlyCost, totalAnnualBenefit);
+      }, 800);
+
       nextStep();
+    }
+
+    function generateInsights(data) {
+      const insightsGrid = document.getElementById('insightsGrid');
+      insightsGrid.innerHTML = ''; // Clear existing insights
+
+      const insights = [];
+      const ss = data.solutionSavings || {};
+
+      // ========== INSIGHTS FOR SELECTED SOLUTIONS ==========
+
+      // Email Management Insight (if selected)
+      if (data.selectedSolutions.includes('email') && ss.email && ss.email.hours > 0) {
+        const annualSaved = ss.email.cost * 12;
+        insights.push({
+          icon: 'fa-envelope',
+          iconColor: 'orange',
+          title: 'Email AI Will Transform Your Inbox',
+          description: `With ${data.emails} emails/day, your Email AI will save <span class="insight-value">${ss.email.hours} hours/month</span> (£${annualSaved.toLocaleString()}/year) by automatically handling inquiries, confirmations, and follow-ups.`,
+          solution: '85% of emails handled automatically'
+        });
+      }
+
+      // Booking Insight (if selected)
+      if (data.selectedSolutions.includes('booking') && ss.booking) {
+        const totalValue = (ss.booking.cost + (ss.booking.revenue || 0)) * 12;
+        insights.push({
+          icon: 'fa-calendar-check',
+          iconColor: 'cyan',
+          title: '24/7 Booking AI Captures More Revenue',
+          description: `Your Booking AI will handle ${data.bookings} reservations/month with <span class="insight-value">£${totalValue.toLocaleString()}/year</span> in combined time savings and increased conversions from 24/7 availability.`,
+          solution: '+20% booking conversion rate'
+        });
+      }
+
+      // Customer Support Insight (if selected)
+      if (data.selectedSolutions.includes('inquiry') && ss.inquiry) {
+        const totalValue = (ss.inquiry.cost + (ss.inquiry.revenue || 0)) * 12;
+        insights.push({
+          icon: 'fa-comments',
+          iconColor: 'purple',
+          title: 'AI Support Recovers Lost Bookings',
+          description: `Instant AI responses will recover bookings lost to slow response times, worth <span class="insight-value">£${totalValue.toLocaleString()}/year</span> in recovered revenue plus staff time saved.`,
+          solution: 'Response time: seconds, not hours'
+        });
+      }
+
+      // Review Collection Insight (if selected)
+      if (data.selectedSolutions.includes('review') && ss.review) {
+        const expectedReviews = Math.round(data.bookings * 0.6 * 3); // 3x more reviews
+        insights.push({
+          icon: 'fa-star',
+          iconColor: 'yellow',
+          title: 'Review AI Boosts Your Rankings',
+          description: `Automated review requests will generate ~<span class="insight-value">${expectedReviews} reviews/month</span> (3x more than manual), improving rankings and driving 8% more bookings.`,
+          solution: 'Automated post-stay review requests'
+        });
+      }
+
+      // Guest Communications Insight (if selected)
+      if (data.selectedSolutions.includes('followup') && ss.followup && ss.followup.hours > 0) {
+        const touchpoints = data.bookings * 4;
+        insights.push({
+          icon: 'fa-paper-plane',
+          iconColor: 'pink',
+          title: 'Automated Guest Journey Messaging',
+          description: `Your Guest AI will handle <span class="insight-value">${touchpoints} touchpoints/month</span> - pre-arrival info, check-in guidance, mid-stay check-ins, and post-stay follow-ups - all automatically.`,
+          solution: '90% of guest comms automated'
+        });
+      }
+
+      // Admin Tasks Insight (if selected)
+      if (data.selectedSolutions.includes('admin') && ss.admin && ss.admin.hours > 0) {
+        const annualSaved = ss.admin.cost * 12;
+        insights.push({
+          icon: 'fa-tasks',
+          iconColor: 'green',
+          title: 'Admin AI Eliminates Repetitive Work',
+          description: `Your Admin AI will save <span class="insight-value">${ss.admin.hours} hours/month</span> (£${annualSaved.toLocaleString()}/year) on data entry, scheduling, reporting, and documentation.`,
+          solution: '65% reduction in admin time'
+        });
+      }
+
+      // Data & Analytics Insight (if selected)
+      if (data.selectedSolutions.includes('data') && ss.data && ss.data.hours > 0) {
+        insights.push({
+          icon: 'fa-database',
+          iconColor: 'blue',
+          title: 'Automated Reporting & Insights',
+          description: `Your Analytics AI will automatically generate reports and surface insights, saving <span class="insight-value">${ss.data.hours} hours/month</span> on manual number-crunching.`,
+          solution: 'Real-time dashboards & automated reports'
+        });
+      }
+
+      // ========== INSIGHTS FOR UNSELECTED OPPORTUNITIES ==========
+
+      // Response Time Insight (always relevant if slow)
+      if (data.responseTime === 'slow' && insights.length < 4) {
+        const lostBookings = Math.round(data.bookings * 0.18);
+        const lostRevenue = Math.round(lostBookings * data.industry.avgBookingValue);
+        insights.push({
+          icon: 'fa-clock',
+          iconColor: 'red',
+          title: 'Slow Responses Are Costing You',
+          description: `With 4+ hour response times, you're currently losing ~<span class="insight-value">${lostBookings} bookings/month</span> (£${lostRevenue.toLocaleString()}) to faster competitors. Your AI solution will fix this.`,
+          solution: 'AI responds in seconds, 24/7'
+        });
+      }
+
+      // Staff Cost Insight (if significant savings)
+      if (data.monthlyCostSaved > 500 && insights.length < 4) {
+        insights.push({
+          icon: 'fa-pound-sign',
+          iconColor: 'green',
+          title: 'Reallocate Staff to High-Value Work',
+          description: `You'll save <span class="insight-value">£${data.monthlyCostSaved.toLocaleString()}/month</span> in staff time. These hours can be redirected to guest experience, upselling, and strategic work.`,
+          solution: 'AI handles the repetitive tasks'
+        });
+      }
+
+      // Limit to top 4 most relevant insights
+      const topInsights = insights.slice(0, 4);
+
+      // Render insights
+      topInsights.forEach((insight, index) => {
+        const card = document.createElement('div');
+        card.className = 'insight-card';
+        card.style.animationDelay = `${index * 0.15}s`;
+        card.innerHTML = `
+          <div class="insight-icon ${insight.iconColor}">
+            <i class="fas ${insight.icon}"></i>
+          </div>
+          <div class="insight-content">
+            <h4>${insight.title}</h4>
+            <p>${insight.description}</p>
+            <div class="insight-solution">
+              <i class="fas fa-check-circle"></i>
+              ${insight.solution}
+            </div>
+          </div>
+        `;
+        insightsGrid.appendChild(card);
+      });
+    }
+
+    // Industry-specific KPI definitions
+    const industryKPIs = {
+      resort: {
+        title: 'Resort & Hospitality KPIs',
+        icon: 'fa-umbrella-beach',
+        kpis: [
+          { id: 'revpar', name: 'RevPAR Impact', icon: 'fa-bed', iconClass: 'revpar', desc: 'Revenue per available room' },
+          { id: 'adr', name: 'ADR Increase', icon: 'fa-pound-sign', iconClass: 'satisfaction', desc: 'Average daily rate' },
+          { id: 'occupancy', name: 'Occupancy Rate', icon: 'fa-percentage', iconClass: 'conversion', desc: 'Room utilization' },
+          { id: 'guestSat', name: 'Guest Satisfaction', icon: 'fa-smile', iconClass: 'response', desc: 'NPS improvement' }
+        ]
+      },
+      hotel: {
+        title: 'Hotel Performance KPIs',
+        icon: 'fa-hotel',
+        kpis: [
+          { id: 'revpar', name: 'RevPAR Impact', icon: 'fa-bed', iconClass: 'revpar', desc: 'Revenue per available room' },
+          { id: 'directBookings', name: 'Direct Bookings', icon: 'fa-laptop', iconClass: 'satisfaction', desc: 'Vs OTA bookings' },
+          { id: 'checkIn', name: 'Check-in Time', icon: 'fa-clock', iconClass: 'conversion', desc: 'Average reduction' },
+          { id: 'repeatGuests', name: 'Repeat Guests', icon: 'fa-user-check', iconClass: 'response', desc: 'Loyalty improvement' }
+        ]
+      },
+      campsite: {
+        title: 'Campsite & Outdoor KPIs',
+        icon: 'fa-campground',
+        kpis: [
+          { id: 'siteUtilization', name: 'Site Utilization', icon: 'fa-tent', iconClass: 'revpar', desc: 'Pitch occupancy rate' },
+          { id: 'seasonExtension', name: 'Season Extension', icon: 'fa-calendar-plus', iconClass: 'satisfaction', desc: 'Shoulder season boost' },
+          { id: 'ancillary', name: 'Ancillary Revenue', icon: 'fa-shopping-cart', iconClass: 'conversion', desc: 'Add-on services' },
+          { id: 'turnaround', name: 'Turnaround Time', icon: 'fa-sync', iconClass: 'response', desc: 'Site prep efficiency' }
+        ]
+      },
+      tour: {
+        title: 'Tour Operator KPIs',
+        icon: 'fa-bus',
+        kpis: [
+          { id: 'bookingConversion', name: 'Booking Conversion', icon: 'fa-funnel-dollar', iconClass: 'revpar', desc: 'Inquiry to booking' },
+          { id: 'groupSize', name: 'Group Size', icon: 'fa-users', iconClass: 'satisfaction', desc: 'Average participants' },
+          { id: 'upsells', name: 'Upsell Rate', icon: 'fa-arrow-up', iconClass: 'conversion', desc: 'Add-on experiences' },
+          { id: 'nps', name: 'Tour NPS', icon: 'fa-star', iconClass: 'response', desc: 'Net promoter score' }
+        ]
+      },
+      airline: {
+        title: 'Airline & Aviation KPIs',
+        icon: 'fa-plane',
+        kpis: [
+          { id: 'rask', name: 'RASK Impact', icon: 'fa-chart-line', iconClass: 'revpar', desc: 'Revenue per seat km' },
+          { id: 'loadFactor', name: 'Load Factor', icon: 'fa-chair', iconClass: 'satisfaction', desc: 'Seat occupancy' },
+          { id: 'ancillaryRev', name: 'Ancillary Revenue', icon: 'fa-suitcase', iconClass: 'conversion', desc: 'Per passenger increase' },
+          { id: 'csat', name: 'CSAT Score', icon: 'fa-smile', iconClass: 'response', desc: 'Customer satisfaction' }
+        ]
+      },
+      other: {
+        title: 'Business Performance KPIs',
+        icon: 'fa-chart-bar',
+        kpis: [
+          { id: 'revenue', name: 'Revenue Impact', icon: 'fa-pound-sign', iconClass: 'revpar', desc: 'Total revenue growth' },
+          { id: 'efficiency', name: 'Efficiency Gain', icon: 'fa-rocket', iconClass: 'satisfaction', desc: 'Process optimization' },
+          { id: 'conversion', name: 'Conversion Rate', icon: 'fa-funnel-dollar', iconClass: 'conversion', desc: 'Lead to customer' },
+          { id: 'responseTime', name: 'Response Time', icon: 'fa-bolt', iconClass: 'response', desc: 'Average reduction' }
+        ]
+      }
+    };
+
+    function generateIndustryKPIs(data) {
+      const { businessType, selectedSolutions, responseTime, bookings, totalAnnualBenefit, revenueFromBookings, industry } = data;
+
+      // Get industry-specific KPI config
+      const kpiConfig = industryKPIs[businessType] || industryKPIs.other;
+
+      // Update title
+      document.getElementById('kpiTitleText').textContent = kpiConfig.title;
+      document.querySelector('#kpiTitle i').className = `fas ${kpiConfig.icon}`;
+
+      // Calculate KPI values based on business type
+      const kpiValues = calculateKPIValues(businessType, selectedSolutions, responseTime, bookings, totalAnnualBenefit, revenueFromBookings, industry);
+
+      // Generate KPI cards HTML
+      const kpiGrid = document.getElementById('kpiGrid');
+      let kpiHTML = '';
+
+      kpiConfig.kpis.forEach(kpi => {
+        const value = kpiValues[kpi.id] || { value: '+0%', isNegative: false };
+        const valueClass = value.isNegative ? 'negative' : '';
+
+        kpiHTML += `
+          <div class="kpi-card">
+            <div class="kpi-icon ${kpi.iconClass}"><i class="fas ${kpi.icon}"></i></div>
+            <div class="kpi-content">
+              <span class="kpi-name">${kpi.name}</span>
+              <span class="kpi-value ${valueClass}">${value.value}</span>
+              <span class="kpi-desc">${kpi.desc}</span>
+            </div>
+          </div>
+        `;
+      });
+
+      kpiGrid.innerHTML = kpiHTML;
+    }
+
+    function calculateKPIValues(businessType, selectedSolutions, responseTime, bookings, totalAnnualBenefit, revenueFromBookings, industry) {
+      // Base improvements from AI automation
+      let baseConversion = 5;
+      let baseSatisfaction = 5;
+      let baseEfficiency = 10;
+      let baseRevenue = 3;
+
+      // Adjust based on selected solutions
+      if (selectedSolutions.includes('booking')) {
+        baseConversion += 12;
+        baseRevenue += 8;
+      }
+      if (selectedSolutions.includes('inquiry')) {
+        baseSatisfaction += 8;
+        baseConversion += 8;
+      }
+      if (selectedSolutions.includes('followup')) {
+        baseSatisfaction += 6;
+      }
+      if (selectedSolutions.includes('review')) {
+        baseSatisfaction += 5;
+        baseRevenue += 5;
+      }
+      if (selectedSolutions.includes('email')) {
+        baseEfficiency += 15;
+      }
+      if (selectedSolutions.includes('admin')) {
+        baseEfficiency += 20;
+      }
+
+      // Adjust based on response time (slower = more room for improvement)
+      if (responseTime === 'slow') {
+        baseConversion += 5;
+        baseSatisfaction += 4;
+      }
+
+      // Response time reduction percentage
+      const responseReduction = responseTime === 'slow' ? 85 : responseTime === 'fast' ? 70 : 50;
+
+      // Industry-specific KPI calculations
+      const kpiValues = {};
+
+      switch (businessType) {
+        case 'resort':
+          kpiValues.revpar = { value: `+${Math.min(18, Math.round(baseRevenue + (revenueFromBookings / (industry.avgBookingValue * 100)) * 5))}%` };
+          kpiValues.adr = { value: `+${Math.min(12, Math.round(baseRevenue * 0.8))}%` };
+          kpiValues.occupancy = { value: `+${Math.min(15, Math.round(baseConversion * 0.6))}%` };
+          kpiValues.guestSat = { value: `+${Math.min(25, baseSatisfaction)}%` };
+          break;
+
+        case 'hotel':
+          kpiValues.revpar = { value: `+${Math.min(18, Math.round(baseRevenue + (revenueFromBookings / (industry.avgBookingValue * 100)) * 5))}%` };
+          kpiValues.directBookings = { value: `+${Math.min(35, Math.round(baseConversion * 1.2))}%` };
+          kpiValues.checkIn = { value: `-${Math.min(60, Math.round(baseEfficiency * 1.5))}%`, isNegative: true };
+          kpiValues.repeatGuests = { value: `+${Math.min(20, Math.round(baseSatisfaction * 0.8))}%` };
+          break;
+
+        case 'campsite':
+          kpiValues.siteUtilization = { value: `+${Math.min(22, Math.round(baseConversion * 0.9))}%` };
+          kpiValues.seasonExtension = { value: `+${Math.min(25, Math.round(baseRevenue * 2))} days` };
+          kpiValues.ancillary = { value: `+${Math.min(30, Math.round(baseRevenue * 1.5))}%` };
+          kpiValues.turnaround = { value: `-${Math.min(40, Math.round(baseEfficiency * 1.2))}%`, isNegative: true };
+          break;
+
+        case 'tour':
+          kpiValues.bookingConversion = { value: `+${Math.min(35, baseConversion)}%` };
+          kpiValues.groupSize = { value: `+${Math.min(20, Math.round(baseConversion * 0.7))}%` };
+          kpiValues.upsells = { value: `+${Math.min(45, Math.round(baseRevenue * 2.5))}%` };
+          kpiValues.nps = { value: `+${Math.min(30, Math.round(baseSatisfaction * 1.2))} pts` };
+          break;
+
+        case 'airline':
+          kpiValues.rask = { value: `+${Math.min(12, Math.round(baseRevenue * 0.7))}%` };
+          kpiValues.loadFactor = { value: `+${Math.min(8, Math.round(baseConversion * 0.35))}%` };
+          kpiValues.ancillaryRev = { value: `+${Math.min(25, Math.round(baseRevenue * 1.8))}%` };
+          kpiValues.csat = { value: `+${Math.min(18, Math.round(baseSatisfaction * 0.9))}%` };
+          break;
+
+        default: // 'other'
+          kpiValues.revenue = { value: `+${Math.min(20, Math.round(baseRevenue * 1.2))}%` };
+          kpiValues.efficiency = { value: `+${Math.min(40, baseEfficiency)}%` };
+          kpiValues.conversion = { value: `+${Math.min(30, baseConversion)}%` };
+          kpiValues.responseTime = { value: `-${responseReduction}%`, isNegative: true };
+          break;
+      }
+
+      return kpiValues;
     }
 
     function animateValue(elementId, start, end, duration, isCurrency = false, suffix = '') {
@@ -2545,9 +4554,104 @@
       requestAnimationFrame(update);
     }
 
-    function createCharts(savedCost, additionalRevenue, conversionRevenue) {
+    // Industry-specific benchmark data
+    const industryBenchmarks = {
+      resort: {
+        title: 'Resort Industry Benchmarks',
+        subtitle: 'How your ROI compares to AI-enabled resorts',
+        average: { value: 195, label: 'Resort Average' },
+        top: { value: 380, label: 'Top Resorts' },
+        note: 'Based on 2024 hospitality data showing resorts with AI see 19% revenue increase and 25% operational efficiency gains'
+      },
+      hotel: {
+        title: 'Hotel Industry Benchmarks',
+        subtitle: 'How your ROI compares to AI-enabled hotels',
+        average: { value: 180, label: 'Hotel Average' },
+        top: { value: 350, label: 'Top Hotels' },
+        note: 'Based on <a href="https://www.statista.com/topics/12390/artificial-intelligence-ai-use-in-hospitality/" target="_blank">Statista 2024</a> showing hotels with AI see 17% revenue increase'
+      },
+      campsite: {
+        title: 'Campsite & Outdoor Benchmarks',
+        subtitle: 'How your ROI compares to AI-enabled campsites',
+        average: { value: 165, label: 'Campsite Average' },
+        top: { value: 320, label: 'Top Campsites' },
+        note: 'Based on outdoor hospitality data showing AI-enabled campsites extend season by 15% and reduce admin by 40%'
+      },
+      tour: {
+        title: 'Tour Operator Benchmarks',
+        subtitle: 'How your ROI compares to AI-enabled tour operators',
+        average: { value: 210, label: 'Tour Op Average' },
+        top: { value: 400, label: 'Top Operators' },
+        note: 'Based on travel industry data showing AI chatbots handle 80% of inquiries and improve conversions by 35%'
+      },
+      airline: {
+        title: 'Aviation Industry Benchmarks',
+        subtitle: 'How your ROI compares to AI-enabled airlines',
+        average: { value: 150, label: 'Airline Average' },
+        top: { value: 280, label: 'Top Airlines' },
+        note: 'Based on IATA data showing AI automation reduces service costs by 25% and improves ancillary revenue by 18%'
+      },
+      other: {
+        title: 'Industry Benchmarks',
+        subtitle: 'How your ROI compares to AI-enabled businesses',
+        average: { value: 175, label: 'Industry Average' },
+        top: { value: 340, label: 'Top Performers' },
+        note: 'Based on McKinsey 2024 research showing businesses with AI see average 15-20% efficiency improvements'
+      }
+    };
+
+    function generateIndustryBenchmarks(data) {
+      const { businessType, roi } = data;
+
+      // Get industry-specific benchmark config
+      const benchmarkConfig = industryBenchmarks[businessType] || industryBenchmarks.other;
+
+      // Update titles
+      document.getElementById('benchmarkTitleText').textContent = benchmarkConfig.title;
+      document.getElementById('benchmarkSubtitle').textContent = benchmarkConfig.subtitle;
+      document.getElementById('benchmarkNoteText').innerHTML = benchmarkConfig.note;
+
+      // Calculate bar widths (top performers = 100%)
+      const maxRoi = benchmarkConfig.top.value;
+      const yourRoiWidth = Math.min(100, (roi / maxRoi) * 100);
+      const avgWidth = Math.min(100, (benchmarkConfig.average.value / maxRoi) * 100);
+
+      // Generate benchmark bars HTML
+      const benchmarkBars = document.getElementById('benchmarkBars');
+      benchmarkBars.innerHTML = `
+        <div class="benchmark-item">
+          <div class="benchmark-label">
+            <span>Your Projected ROI</span>
+            <span class="benchmark-value">${roi}%</span>
+          </div>
+          <div class="benchmark-bar-track">
+            <div class="benchmark-bar-fill yours" style="width: ${yourRoiWidth}%"></div>
+          </div>
+        </div>
+        <div class="benchmark-item">
+          <div class="benchmark-label">
+            <span>${benchmarkConfig.average.label}</span>
+            <span class="benchmark-value">${benchmarkConfig.average.value}%</span>
+          </div>
+          <div class="benchmark-bar-track">
+            <div class="benchmark-bar-fill average" style="width: ${avgWidth}%"></div>
+          </div>
+        </div>
+        <div class="benchmark-item">
+          <div class="benchmark-label">
+            <span>${benchmarkConfig.top.label}</span>
+            <span class="benchmark-value">${benchmarkConfig.top.value}%</span>
+          </div>
+          <div class="benchmark-bar-track">
+            <div class="benchmark-bar-fill top" style="width: 100%"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function createCharts(savedCost, additionalRevenue, conversionRevenue, solutionSavings) {
       createWaterfallChart(savedCost, additionalRevenue, conversionRevenue);
-      createDonutChart(savedCost, additionalRevenue, conversionRevenue);
+      createDonutChart(savedCost, additionalRevenue, conversionRevenue, solutionSavings);
     }
 
     function createWaterfallChart(savedCost, additionalRevenue, conversionRevenue) {
@@ -2663,7 +4767,7 @@
       });
     }
 
-    function createDonutChart(savedCost, additionalRevenue, conversionRevenue) {
+    function createDonutChart(savedCost, additionalRevenue, conversionRevenue, solutionSavings) {
       const canvas = document.getElementById('donutChart');
       if (!canvas) {
         console.error('Donut chart canvas not found');
@@ -2690,23 +4794,52 @@
       const labels = [];
       const colors = [];
 
-      if (savedCost > 0) {
-        data.push(savedCost);
-        labels.push('Cost Savings');
-        colors.push('rgba(16, 185, 129, 0.9)');
-      }
-      if (additionalRevenue > 0) {
-        data.push(additionalRevenue);
-        labels.push('Revenue Growth');
-        colors.push('rgba(20, 184, 166, 0.9)');
-      }
-      if (conversionRevenue > 0) {
-        data.push(conversionRevenue);
-        labels.push('Conversion Boost');
-        colors.push('rgba(59, 130, 246, 0.9)');
+      // Solution-specific colors
+      const solutionColors = {
+        email: 'rgba(251, 146, 60, 0.9)',
+        booking: 'rgba(6, 182, 212, 0.9)',
+        inquiry: 'rgba(139, 92, 246, 0.9)',
+        review: 'rgba(250, 204, 21, 0.9)',
+        followup: 'rgba(236, 72, 153, 0.9)',
+        admin: 'rgba(16, 185, 129, 0.9)',
+        data: 'rgba(59, 130, 246, 0.9)'
+      };
+
+      // If we have solution savings, show breakdown by solution
+      if (solutionSavings && selectedSolutions.length > 0) {
+        selectedSolutions.forEach(sol => {
+          const info = solutionInfo[sol];
+          const savings = solutionSavings[sol];
+          if (info && savings) {
+            const totalValue = (savings.cost || 0) + (savings.revenue || 0);
+            if (totalValue > 0) {
+              // Annualize the monthly values
+              data.push(totalValue * 12);
+              labels.push(info.name);
+              colors.push(solutionColors[sol] || 'rgba(156, 163, 175, 0.9)');
+            }
+          }
+        });
+      } else {
+        // Fallback to old behavior
+        if (savedCost > 0) {
+          data.push(savedCost);
+          labels.push('Cost Savings');
+          colors.push('rgba(16, 185, 129, 0.9)');
+        }
+        if (additionalRevenue > 0) {
+          data.push(additionalRevenue);
+          labels.push('Revenue Growth');
+          colors.push('rgba(20, 184, 166, 0.9)');
+        }
+        if (conversionRevenue > 0) {
+          data.push(conversionRevenue);
+          labels.push('Conversion Boost');
+          colors.push('rgba(59, 130, 246, 0.9)');
+        }
       }
 
-      const totalBenefit = savedCost + additionalRevenue + conversionRevenue;
+      const totalBenefit = data.reduce((sum, val) => sum + val, 0);
 
       donutChart = new Chart(ctx, {
         type: 'doughnut',
@@ -2768,6 +4901,178 @@
       });
     }
 
+    // Projection chart instance
+    let projectionChart = null;
+
+    function createProjectionChart(monthlyBenefit, monthlyCost, totalAnnualBenefit) {
+      const canvas = document.getElementById('projectionChart');
+      if (!canvas) {
+        console.error('Projection chart canvas not found');
+        return;
+      }
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        console.error('Could not get canvas context');
+        return;
+      }
+
+      // Destroy existing chart
+      if (projectionChart) {
+        try {
+          projectionChart.destroy();
+        } catch (e) {
+          console.warn('Error destroying projection chart:', e);
+        }
+        projectionChart = null;
+      }
+
+      // Generate 12-month projection data
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const currentMonth = new Date().getMonth();
+
+      // Reorder months starting from current month
+      const labels = [];
+      for (let i = 0; i < 12; i++) {
+        labels.push(months[(currentMonth + i) % 12]);
+      }
+
+      // Calculate cumulative savings (with ramp-up period in first 3 months)
+      const cumulativeSavings = [];
+      const cumulativeCosts = [];
+      const netBenefit = [];
+
+      let runningBenefit = 0;
+      let runningCost = 0;
+
+      for (let i = 0; i < 12; i++) {
+        // Ramp-up: 50% in month 1, 75% in month 2, 100% from month 3
+        const rampUpFactor = i === 0 ? 0.5 : i === 1 ? 0.75 : 1.0;
+        const monthBenefit = monthlyBenefit * rampUpFactor;
+
+        runningBenefit += monthBenefit;
+        runningCost += monthlyCost;
+
+        cumulativeSavings.push(Math.round(runningBenefit));
+        cumulativeCosts.push(Math.round(runningCost));
+        netBenefit.push(Math.round(runningBenefit - runningCost));
+      }
+
+      projectionChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Cumulative Savings',
+              data: cumulativeSavings,
+              borderColor: '#10B981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              fill: true,
+              tension: 0.4,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              pointBackgroundColor: '#10B981',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              borderWidth: 3
+            },
+            {
+              label: 'AI Investment',
+              data: cumulativeCosts,
+              borderColor: '#EF4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              fill: true,
+              tension: 0.4,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              pointBackgroundColor: '#EF4444',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              borderWidth: 3
+            },
+            {
+              label: 'Net Benefit',
+              data: netBenefit,
+              borderColor: '#3B82F6',
+              backgroundColor: 'rgba(59, 130, 246, 0.05)',
+              fill: false,
+              tension: 0.4,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              pointBackgroundColor: '#3B82F6',
+              pointBorderColor: '#fff',
+              pointBorderWidth: 2,
+              borderWidth: 3,
+              borderDash: [5, 5]
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: {
+            mode: 'index',
+            intersect: false
+          },
+          plugins: {
+            legend: {
+              display: false // Using custom legend
+            },
+            tooltip: {
+              backgroundColor: 'rgba(0, 0, 0, 0.95)',
+              titleColor: '#FFFFFF',
+              bodyColor: '#FFFFFF',
+              borderColor: 'rgba(99, 102, 241, 0.5)',
+              borderWidth: 1,
+              padding: 12,
+              cornerRadius: 8,
+              titleFont: { size: 12, weight: 'bold' },
+              bodyFont: { size: 12 },
+              callbacks: {
+                label: (context) => {
+                  return `${context.dataset.label}: £${context.parsed.y.toLocaleString()}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)',
+                drawBorder: false
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.6)',
+                font: { size: 10 }
+              }
+            },
+            y: {
+              grid: {
+                color: 'rgba(255, 255, 255, 0.05)',
+                drawBorder: false
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.6)',
+                font: { size: 10 },
+                callback: (value) => {
+                  if (value >= 1000) {
+                    return '£' + (value / 1000).toFixed(0) + 'K';
+                  }
+                  return '£' + value;
+                }
+              },
+              beginAtZero: true
+            }
+          },
+          animation: {
+            duration: 1500,
+            easing: 'easeInOutCubic'
+          }
+        }
+      });
+    }
+
     function goBackFromCustom() {
       isCustomPath = false;
       document.getElementById('step5').classList.add('hidden');
@@ -2807,6 +5112,10 @@
       if (donutChart) {
         donutChart.destroy();
         donutChart = null;
+      }
+      if (projectionChart) {
+        projectionChart.destroy();
+        projectionChart = null;
       }
 
       // Reset all solution cards
