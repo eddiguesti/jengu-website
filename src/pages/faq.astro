@@ -3,7 +3,51 @@ import BaseLayout from '../components/layout/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import CTASection from '../components/sections/CTASection.astro';
 import { generateSEO } from '../lib/seo/metadata';
-import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+import { generateOrganizationSchema, generateBreadcrumbSchema, generateFAQSchema } from '../lib/seo/jsonld';
+
+// FAQ data for schema markup
+const faqData = [
+  {
+    question: "What is an AI agent?",
+    answer: "An AI agent is an intelligent software system that can understand natural language, make decisions, and take actions autonomously. In tourism and hospitality, AI agents handle tasks like responding to guest inquiries, processing bookings, managing reservations, and automating repetitive administrative work—all without human intervention. They work 24/7, learn from interactions, and can handle multiple conversations simultaneously."
+  },
+  {
+    question: "Who do you help?",
+    answer: "We specialize in helping tourism and hospitality businesses, including hotels, resorts, and boutique accommodations, campsites and holiday parks, travel agencies and tour operators, Destination Management Companies (DMCs), Bed & Breakfasts and guesthouses, and vacation rental management companies."
+  },
+  {
+    question: "What tasks can AI agents automate?",
+    answer: "AI agents can handle customer communication (chat, email, SMS, phone), booking management, information delivery, email management, lead qualification, administrative tasks, multilingual support in 100+ languages, and automated follow-ups."
+  },
+  {
+    question: "How long does setup take?",
+    answer: "Setup timelines vary: Simple AI Chatbot takes 2-3 weeks, Email Automation System takes 3-4 weeks, Custom Software Development takes 6-12 weeks, and Complete Automation Suite takes 8-16 weeks. Most clients start seeing time savings within the first month."
+  },
+  {
+    question: "Do AI agents replace human staff?",
+    answer: "No—AI agents augment your team, not replace them. AI agents handle repetitive, time-consuming tasks while your team focuses on complex problem-solving, personalized guest experiences, relationship building, and strategic decisions requiring human empathy and judgment."
+  },
+  {
+    question: "How do you measure ROI?",
+    answer: "We track ROI across multiple dimensions: time savings (typically 40+ hours per week), response speed (from 15-20 minutes to seconds), conversion rate (typically 20-30% increase), cost reduction, revenue growth from 24/7 availability, and improved customer satisfaction scores."
+  },
+  {
+    question: "What if the AI makes a mistake?",
+    answer: "We design AI systems with multiple safety measures including confidence thresholds, human oversight for critical decisions, continuous learning from corrections, clear boundaries defined during setup, and extensive testing before launch."
+  },
+  {
+    question: "How much does it cost?",
+    answer: "Pricing varies based on your specific needs and solution complexity. Options include AI Chatbot, Email Automation, Custom Software, and Complete Automation Suite packages. Most clients see full ROI within 6-12 months."
+  },
+  {
+    question: "Can AI handle multiple languages?",
+    answer: "Yes! Our AI agents support 100+ languages with natural, fluent communication. AI automatically detects and responds in the guest's preferred language, making it particularly valuable for tourism businesses serving international travelers."
+  },
+  {
+    question: "What integrations do you support?",
+    answer: "We integrate with virtually any system including Property Management Systems (Opera, Mews, Cloudbeds), Booking Engines (Booking.com, Expedia, Airbnb), Email & Communication tools, CRM Systems, Payment Processors, and Channel Managers. Custom API integrations are also available."
+  }
+];
 
 const seo = generateSEO({
   title: 'AI Automation FAQ for Tourism Businesses',
@@ -17,7 +61,8 @@ const jsonLd = [
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
     { name: 'FAQ', url: `${Astro.site}faq/` }
-  ])
+  ]),
+  generateFAQSchema(faqData)
 ];
 ---
 

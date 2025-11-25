@@ -179,3 +179,33 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]):
     }))
   };
 }
+
+export interface ServiceSchema {
+  '@context': 'https://schema.org';
+  '@type': 'Service';
+  name: string;
+  description: string;
+  provider: {
+    '@type': 'Organization';
+    name: string;
+    url: string;
+  };
+  serviceType?: string;
+  areaServed?: string;
+}
+
+export function generateServiceSchema(services: { name: string; description: string }[]): ServiceSchema[] {
+  return services.map(service => ({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.name,
+    description: service.description,
+    provider: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL
+    },
+    serviceType: 'AI Automation',
+    areaServed: 'Worldwide'
+  }));
+}

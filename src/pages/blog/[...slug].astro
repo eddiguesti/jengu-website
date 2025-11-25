@@ -28,11 +28,13 @@ const seo = generateSEO({
 
 const jsonLd = [
   generateArticleSchema({
+    type: 'BlogPosting',
     headline: entry.data.title,
     description: entry.data.description,
-    datePublished: entry.data.publishedOn.toISOString(),
-    dateModified: entry.data.updatedOn?.toISOString() || entry.data.publishedOn.toISOString(),
+    publishedAt: entry.data.publishedOn.toISOString(),
+    updatedAt: entry.data.updatedOn?.toISOString() || entry.data.publishedOn.toISOString(),
     image: entry.data.mainImage || entry.data.thumbnail || '',
+    authorName: entry.data.author || 'Jengu Team',
     url: `${Astro.site}blog/${entry.slug}/`
   })
 ];
