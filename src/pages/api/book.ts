@@ -671,16 +671,26 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const createdEvent = await graphRes.json();
 
     // Send confirmation email to the attendee
+    let emailSent = false;
+    let emailError = null;
     try {
       await sendConfirmationEmail(token, payload, createdEvent, envVars);
-      console.log('Confirmation email sent successfully');
-    } catch (emailError: any) {
-      console.error('Failed to send confirmation email:', emailError);
+      console.log('Confirmation email sent successfully to:', payload.email);
+      emailSent = true;
+    } catch (err: any) {
+      console.error('Failed to send confirmation email:', err.message);
+      emailError = err.message;
       // Don't fail the whole request if email fails - event is already created
     }
 
     return new Response(
-      JSON.stringify({ ok: true, eventId: createdEvent.id, outlookEvent: createdEvent }),
+      JSON.stringify({
+        ok: true,
+        eventId: createdEvent.id,
+        outlookEvent: createdEvent,
+        emailSent,
+        emailError
+      }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (err: any) {

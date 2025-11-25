@@ -1,5 +1,5 @@
 ---
-// BookingModal - Beautiful calendar booking widget with Microsoft Graph integration
+// BookingModal - Clean, modern calendar booking widget
 import { getLocaleFromUrl, getTranslations } from '../i18n';
 
 const currentPath = Astro.url.pathname;
@@ -7,60 +7,45 @@ const currentLocale = getLocaleFromUrl(currentPath);
 const t = getTranslations(currentLocale);
 ---
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-<div id="bookingModalOverlay" class="booking-modal-overlay">
-  <div class="booking-modal-wrapper">
-    <button class="booking-modal-close" id="bookingModalClose" aria-label="Close booking modal">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<div id="bookingModalOverlay" class="booking-overlay">
+  <div class="booking-modal">
+    <!-- Close Button -->
+    <button class="booking-close" id="bookingModalClose" aria-label="Close">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6L6 18M6 6l12 12"/>
       </svg>
     </button>
 
-    <div class="booking-widget">
-      <div class="booking-inner">
-        <!-- LEFT: Calendar -->
-        <div>
-          <div class="booking-header">
-            <div class="booking-title-group">
-              <div class="booking-title">
-                {t.booking.title}
-              </div>
-              <div class="booking-title-pill">
-                <span class="booking-title-pill-dot"></span>
-                {t.booking.duration}
-              </div>
-              <div class="booking-subtitle">
-                {t.booking.subtitle}
-              </div>
-            </div>
-            <div class="booking-steps">
-              <div class="step-chip step-chip--active"><span>1</span>{t.booking.step1}</div>
-              <div class="step-chip"><span>2</span>{t.booking.step2}</div>
-              <div class="step-chip"><span>3</span>{t.booking.step3}</div>
-            </div>
+    <!-- Modal Header -->
+    <div class="booking-modal-header">
+      <h2 class="booking-modal-title">{t.booking.title}</h2>
+      <p class="booking-modal-subtitle">{t.booking.subtitle}</p>
+      <span class="booking-duration-badge">
+        <i class="fas fa-clock"></i>
+        {t.booking.duration}
+      </span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="booking-content">
+      <!-- Left Column: Calendar & Time -->
+      <div class="booking-left">
+        <!-- Calendar Section -->
+        <div class="booking-section">
+          <div class="section-header">
+            <span class="section-number">1</span>
+            <span class="section-title">{t.booking.step1}</span>
           </div>
 
-          <div class="calendar-card">
-            <div class="calendar-header">
-              <div class="calendar-current">
-                <span>{t.booking.availability}</span>
-                <span id="calendarMonthLabel">Month 2025</span>
-              </div>
-              <div class="calendar-nav">
-                <button type="button" id="prevMonthBtn" aria-label="Previous month">
-                  <!-- left chevron -->
-                  <svg viewBox="0 0 20 20" fill="none">
-                    <path d="M12.5 4.5L8 10l4.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-                <button type="button" id="nextMonthBtn" aria-label="Next month">
-                  <!-- right chevron -->
-                  <svg viewBox="0 0 20 20" fill="none">
-                    <path d="M7.5 4.5 12 10l-4.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </button>
-              </div>
+          <div class="calendar-container">
+            <div class="calendar-nav-row">
+              <button type="button" id="prevMonthBtn" class="cal-nav-btn" aria-label="Previous month">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <span id="calendarMonthLabel" class="calendar-month">Month 2025</span>
+              <button type="button" id="nextMonthBtn" class="cal-nav-btn" aria-label="Next month">
+                <i class="fas fa-chevron-right"></i>
+              </button>
             </div>
 
             <div class="calendar-weekdays">
@@ -72,154 +57,113 @@ const t = getTranslations(currentLocale);
               <span>{t.booking.weekdays.sat}</span>
               <span>{t.booking.weekdays.sun}</span>
             </div>
-            <div class="calendar-grid" id="calendarGrid">
-              <!-- days injected by JS -->
-            </div>
 
-            <div class="calendar-footer">
-              <div class="calendar-footer-legend">
-                <span class="legend-pill">
-                  <span class="legend-dot legend-dot--selected"></span>
-                  {t.booking.legend.selected}
-                </span>
-                <span class="legend-pill">
-                  <span class="legend-dot"></span>
-                  {t.booking.legend.available}
-                </span>
-              </div>
-              <div class="calendar-footer-date">
-                <span id="selectedDateLabel">{t.booking.noDateSelected}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Time slots under calendar -->
-          <div class="slots-card">
-            <div class="slots-header">
-              <span>{t.booking.availableSlots}</span>
-              <span class="slots-duration">
-                {t.booking.approxDuration}
-              </span>
-            </div>
-            <div class="slots-scroll" id="slotsContainer">
-              <!-- slots injected by JS -->
-            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
           </div>
         </div>
 
-        <!-- RIGHT: Summary + details form -->
-        <div class="booking-right">
-          <div class="timezone-row">
-            <div class="timezone-label">
-              {t.booking.timezone}
+        <!-- Time Slots Section -->
+        <div class="booking-section">
+          <div class="section-header">
+            <span class="section-number">2</span>
+            <span class="section-title">{t.booking.step2}</span>
+          </div>
+
+          <div class="timezone-picker">
+            <i class="fas fa-globe"></i>
+            <select id="timezoneSelect" class="timezone-select">
+              <option value="local">{t.booking.timezones.local}</option>
+              <option value="Europe/Madrid">{t.booking.timezones.madrid}</option>
+              <option value="Europe/London">{t.booking.timezones.london}</option>
+              <option value="America/New_York">{t.booking.timezones.newYork}</option>
+              <option value="America/Los_Angeles">{t.booking.timezones.losAngeles}</option>
+            </select>
+          </div>
+
+          <div class="time-slots" id="slotsContainer"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Form -->
+      <div class="booking-right">
+        <div class="booking-section">
+          <div class="section-header">
+            <span class="section-number">3</span>
+            <span class="section-title">{t.booking.step3}</span>
+          </div>
+
+          <!-- Selection Summary -->
+          <div class="selection-summary" id="selectionSummary">
+            <div class="summary-icon">
+              <i class="fas fa-calendar-check"></i>
             </div>
-            <div class="timezone-select-wrap">
-              <select class="timezone-select" id="timezoneSelect">
-                <option value="local">{t.booking.timezones.local}</option>
-                <option value="Europe/Madrid">{t.booking.timezones.madrid}</option>
-                <option value="Europe/London">{t.booking.timezones.london}</option>
-                <option value="America/New_York">{t.booking.timezones.newYork}</option>
-                <option value="America/Los_Angeles">{t.booking.timezones.losAngeles}</option>
-              </select>
+            <div class="summary-text">
+              <span class="summary-main" id="summaryMain">{t.booking.chooseDateAndTime}</span>
+              <span class="summary-sub" id="summarySecondary">{t.booking.videoMeetingDuration}</span>
             </div>
           </div>
 
-          <div class="summary-card">
-            <div class="summary-inner">
-              <!-- Your Selection Header -->
-              <div class="summary-header">
-                <div class="summary-label">
-                  <i class="fas fa-calendar-check"></i>
-                  {t.booking.yourSelection}
-                </div>
-                <div class="summary-status" id="summaryStatus">
-                  <span class="summary-status-dot"></span>
-                  {t.booking.status.tentative}
-                </div>
+          <!-- Form Fields -->
+          <div class="booking-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="userName">{t.booking.form.name} *</label>
+                <input type="text" id="userName" placeholder="John Smith" required />
               </div>
-
-              <!-- Selection Display Box -->
-              <div class="selection-display">
-                <div class="selection-icon">
-                  <i class="fas fa-clock"></i>
-                </div>
-                <div class="selection-details">
-                  <div class="summary-value" id="summaryMain">
-                    {t.booking.chooseDateAndTime}
-                  </div>
-                  <div class="summary-secondary" id="summarySecondary">
-                    {t.booking.videoMeetingDuration}
-                  </div>
-                </div>
+              <div class="form-group">
+                <label for="companyName">{t.booking.form.company}</label>
+                <input type="text" id="companyName" placeholder="Acme Inc." />
               </div>
+            </div>
 
-              <!-- Meeting Info -->
-              <div class="meeting-info">
-                <i class="fas fa-info-circle"></i>
-                <span>{t.booking.calendarInviteMessage}</span>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="userEmail">{t.booking.form.email} *</label>
+                <input type="email" id="userEmail" placeholder="john@company.com" required />
               </div>
-
-              <div class="booking-form-divider"></div>
-
-              <div class="booking-form-label booking-form-label--main">
-                <i class="fas fa-user"></i>
-                {t.booking.yourDetails}
+              <div class="form-group">
+                <label for="userPhone">{t.booking.form.phone}</label>
+                <input type="tel" id="userPhone" placeholder="+44 123 456 7890" />
               </div>
-              <div class="booking-form">
-                <div class="booking-form-row">
-                  <input type="text" id="userName" class="booking-input" placeholder={t.booking.form.name} />
-                  <input type="text" id="companyName" class="booking-input" placeholder={t.booking.form.company} />
-                </div>
-                <div class="booking-form-row">
-                  <input type="email" id="userEmail" class="booking-input" placeholder={t.booking.form.email} />
-                  <input type="tel" id="userPhone" class="booking-input" placeholder={t.booking.form.phone} />
-                </div>
-                <div class="booking-form-row">
-                  <div class="contact-method-container">
-                    <div class="booking-form-label">{t.booking.form.contactMethodLabel}</div>
-                    <div class="contact-method-group" id="contactMethodGroup">
-                      <button type="button" class="contact-method-chip" data-method="Zoom">
-                        <span class="contact-method-icon">Z</span>
-                        <span>{t.booking.contactMethods.zoom}</span>
-                      </button>
-                      <button type="button" class="contact-method-chip" data-method="Google Meet">
-                        <span class="contact-method-icon">GM</span>
-                        <span>{t.booking.contactMethods.googleMeet}</span>
-                      </button>
-                      <button type="button" class="contact-method-chip" data-method="Microsoft Teams">
-                        <span class="contact-method-icon">T</span>
-                        <span>{t.booking.contactMethods.teams}</span>
-                      </button>
-                      <button type="button" class="contact-method-chip" data-method="Phone call">
-                        <span class="contact-method-icon">P</span>
-                        <span>{t.booking.contactMethods.phone}</span>
-                      </button>
-                      <button type="button" class="contact-method-chip" data-method="Other">
-                        <span class="contact-method-icon">⋯</span>
-                        <span>{t.booking.contactMethods.other}</span>
-                      </button>
-                    </div>
-                    <input type="hidden" id="contactMethod" />
-                  </div>
-                </div>
-                <div>
-                  <div class="booking-form-label">{t.booking.form.extraInfoLabel}</div>
-                  <textarea id="extraInfo" class="booking-textarea" placeholder={t.booking.form.extraInfoPlaceholder}></textarea>
-                </div>
-              </div>
+            </div>
 
-              <div class="summary-actions">
-                <button type="button" class="btn btn-secondary" id="clearBtn">
-                  {t.booking.buttons.reset}
+            <div class="form-group">
+              <label>{t.booking.form.contactMethodLabel} *</label>
+              <div class="contact-methods" id="contactMethodGroup">
+                <button type="button" class="method-btn" data-method="Zoom">
+                  <i class="fas fa-video"></i> {t.booking.contactMethods.zoom}
                 </button>
-                <button type="button" class="btn btn-primary" id="confirmBtn" disabled>
-                  {t.booking.buttons.confirm}
+                <button type="button" class="method-btn" data-method="Google Meet">
+                  <i class="fab fa-google"></i> {t.booking.contactMethods.googleMeet}
+                </button>
+                <button type="button" class="method-btn" data-method="Microsoft Teams">
+                  <i class="fab fa-microsoft"></i> {t.booking.contactMethods.teams}
+                </button>
+                <button type="button" class="method-btn" data-method="Phone call">
+                  <i class="fas fa-phone"></i> {t.booking.contactMethods.phone}
                 </button>
               </div>
+              <input type="hidden" id="contactMethod" />
+            </div>
 
-              <div class="summary-message" id="summaryMessage"></div>
+            <div class="form-group">
+              <label for="extraInfo">{t.booking.form.extraInfoLabel}</label>
+              <textarea id="extraInfo" rows="3" placeholder={t.booking.form.extraInfoPlaceholder}></textarea>
             </div>
           </div>
+
+          <!-- Action Buttons -->
+          <div class="booking-actions">
+            <button type="button" class="btn-reset" id="clearBtn">
+              <i class="fas fa-redo"></i> {t.booking.buttons.reset}
+            </button>
+            <button type="button" class="btn-confirm" id="confirmBtn" disabled>
+              <i class="fas fa-check"></i> {t.booking.buttons.confirm}
+            </button>
+          </div>
+
+          <!-- Status Message -->
+          <div class="booking-message" id="summaryMessage"></div>
         </div>
       </div>
     </div>
@@ -232,66 +176,45 @@ const t = getTranslations(currentLocale);
 </script>
 
 <style is:global>
-  :root {
-    /* Main backgrounds - exact website colors */
-    --bg: #000000;
-    --bg-light: #121212;
-    --bg-card: #181818;
-    --bg-elevated: #282828;
+  /* ========================================
+     CLEAN BOOKING MODAL STYLES
+     ======================================== */
 
-    /* Accent gradients */
-    --accent-gradient: linear-gradient(135deg, #6366f1, #818cf8);
-    --accent-purple: linear-gradient(135deg, #8b5cf6, #7c3aed);
-    --accent: #6366f1;
-    --accent-strong: #818cf8;
-    --accent-yellow: #FBBF24;
-
-    /* Borders */
-    --border-subtle: #282828;
-    --border-medium: #333;
-
-    /* Text colors */
-    --text-main: #ffffff;
-    --text-light: #d1d5db;
-    --text-muted: #9ca3af;
-
-    /* Status colors */
-    --success: #22c55e;
-    --danger: #ef4444;
-
-    /* Border radius */
-    --radius-xl: 1.5rem;
-    --radius-lg: 1rem;
-    --radius-pill: 999px;
-
-    /* Shadows with glow */
-    --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.3);
-    --shadow-glow-strong: 0 0 60px rgba(99, 102, 241, 0.5);
-
-    /* Transitions */
-    --transition-fast: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  .booking-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  /* Keyframe Animations */
-  @keyframes pulseGlow {
-    0%, 100% {
-      box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6),
-                  0 0 40px rgba(99, 102, 241, 0.4),
-                  0 0 0 0 rgba(99, 102, 241, 0.7);
-    }
-    50% {
-      box-shadow: 0 8px 35px rgba(99, 102, 241, 0.8),
-                  0 0 60px rgba(99, 102, 241, 0.7),
-                  0 0 0 10px rgba(99, 102, 241, 0);
-    }
+  .booking-overlay.active {
+    display: flex;
+    opacity: 1;
   }
 
-  @keyframes slideInUp {
+  .booking-modal {
+    width: 100%;
+    max-width: 1100px;
+    max-height: 90vh;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16162a 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    overflow-y: auto;
+    position: relative;
+    animation: modalSlideIn 0.4s ease;
+  }
+
+  @keyframes modalSlideIn {
     from {
       opacity: 0;
-      transform: translateY(30px) scale(0.95);
+      transform: translateY(20px) scale(0.98);
     }
     to {
       opacity: 1;
@@ -299,1361 +222,594 @@ const t = getTranslations(currentLocale);
     }
   }
 
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-4px);
-    }
-  }
-
-  @keyframes scaleIn {
-    from {
-      transform: scale(0.8);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  /* Modal Overlay */
-  .booking-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0;
-    min-height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background: radial-gradient(circle at top, rgba(99, 102, 241, 0.15) 0%, #000000 50%);
-    color: var(--text-main);
-    z-index: 10000;
-    opacity: 0;
-    transition: opacity var(--transition-smooth);
-    backdrop-filter: blur(10px);
-  }
-
-  .booking-modal-overlay.active {
-    display: flex;
-    opacity: 1;
-  }
-
-  .booking-modal-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 1400px;
-    max-height: 85vh;
-    animation: slideInUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .booking-modal-wrapper::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .booking-modal-wrapper::-webkit-scrollbar-track {
-    background: rgba(40, 40, 40, 0.3);
-    border-radius: 10px;
-  }
-
-  .booking-modal-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(99, 102, 241, 0.5);
-    border-radius: 10px;
-  }
-
-  .booking-modal-wrapper::-webkit-scrollbar-thumb:hover {
-    background: rgba(99, 102, 241, 0.7);
-  }
-
-  @media (max-width: 768px) {
-    .booking-modal-wrapper {
-      max-width: 100%;
-      max-height: 100vh;
-      height: 100vh;
-      padding: 0;
-      margin: 0;
-      border-radius: 0;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .booking-modal-overlay {
-      padding: 0;
-      align-items: flex-start;
-      overflow-y: auto;
-    }
-  }
-
-  .booking-modal-close {
-    position: fixed;
+  /* Close Button */
+  .booking-close {
+    position: absolute;
     top: 20px;
     right: 20px;
-    background: var(--bg-elevated);
-    border: 2px solid var(--border-medium);
-    width: 44px;
-    height: 44px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #9ca3af;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all var(--transition-smooth);
-    color: var(--text-light);
-    font-size: 1.25rem;
-    z-index: 10001;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.2s ease;
+    z-index: 10;
   }
 
-  @media (max-width: 768px) {
-    .booking-modal-close {
-      width: 48px;
-      height: 48px;
-      top: 12px;
-      right: 12px;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(10px);
-      border: 2px solid rgba(255, 255, 255, 0.15);
-      z-index: 10002;
-    }
-
-    .booking-modal-close:active {
-      transform: scale(0.95);
-    }
+  .booking-close:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    transform: rotate(90deg);
   }
 
-  .booking-modal-close:hover {
-    background: var(--accent-gradient);
-    border-color: transparent;
-    transform: rotate(90deg) scale(1.1);
-    color: white;
-    box-shadow: var(--shadow-glow);
+  /* Modal Header */
+  .booking-modal-header {
+    padding: 32px 40px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    text-align: center;
   }
 
-  .booking-widget {
-    width: 100%;
-    max-width: 1400px;
-    background: rgba(24, 24, 24, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 2rem;
-    padding: 24px;
-    border: 1px solid rgba(99, 102, 241, 0.2);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8),
-                0 0 80px rgba(99, 102, 241, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
-    position: relative;
-    overflow: visible;
+  .booking-modal-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
   }
 
-  @media (max-width: 768px) {
-    .booking-widget {
-      border-radius: 0;
-      padding: 80px 16px 40px;
-      margin: 0;
-      min-height: 100vh;
-      border: none;
-    }
+  .booking-modal-subtitle {
+    font-size: 0.95rem;
+    color: #9ca3af;
+    margin: 0 0 16px;
   }
 
-  /* Subtle glow decoration */
-  .booking-widget::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.1), transparent 50%),
-                radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.08), transparent 50%);
-    opacity: 1;
-    pointer-events: none;
-  }
-
-  .booking-inner {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    gap: 28px;
-  }
-
-  @media (max-width: 840px) {
-    .booking-inner {
-      grid-template-columns: minmax(0, 1fr);
-    }
-  }
-
-  .booking-header {
-    display: flex;
-    justify-content: space-between;
+  .booking-duration-badge {
+    display: inline-flex;
     align-items: center;
-    margin-bottom: 18px;
-    gap: 12px;
-    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    color: #a5b4fc;
   }
 
-  .booking-title-group {
+  .booking-duration-badge i {
+    font-size: 0.9rem;
+  }
+
+  /* Main Content Layout */
+  .booking-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  @media (max-width: 900px) {
+    .booking-content {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .booking-left {
+    padding: 24px 32px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .booking-right {
+    padding: 24px 32px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 900px) {
+    .booking-left {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  /* Section Styling */
+  .booking-section {
+    margin-bottom: 24px;
+  }
+
+  .booking-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-header {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
-  .booking-title {
+  .section-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Calendar Container */
+  .calendar-container {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .calendar-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .cal-nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .cal-nav-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+  }
+
+  .calendar-month {
     font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 0.02em;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .booking-title-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.7rem;
-    padding: 4px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--border-medium);
-    background: var(--bg-elevated);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-light);
-  }
-
-  .booking-title-pill-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--accent-gradient);
-    box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
-  }
-
-  .booking-subtitle {
-    font-size: 0.86rem;
-    color: var(--text-muted);
-  }
-
-  .booking-steps {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-  }
-
-  .step-chip {
-    padding: 6px 10px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-subtle);
-    background: var(--bg-light);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-muted);
-    transition: all var(--transition-fast);
-  }
-
-  .step-chip span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 999px;
-    font-size: 0.64rem;
-    border: 1px solid var(--border-medium);
-    background: var(--bg-card);
-  }
-
-  .step-chip--active {
-    border-color: var(--accent);
-    background: var(--bg-elevated);
-    color: var(--text-main);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .step-chip--active::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.15), transparent);
-    animation: shimmer 3s infinite;
-  }
-
-  .step-chip--active span {
-    border-color: transparent;
-    background: var(--accent-gradient);
-    color: white;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
-  }
-
-  /* Left: calendar */
-  .calendar-card {
-    background: rgba(24, 24, 24, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: var(--radius-xl);
-    border: 1px solid rgba(99, 102, 241, 0.15);
-    padding: 16px 18px 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  }
-
-  .calendar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .calendar-current {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .calendar-current span:first-child {
-    font-size: 0.76rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--text-muted);
-  }
-
-  .calendar-current span:last-child {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  .calendar-nav {
-    display: inline-flex;
-    gap: 6px;
-    background: var(--bg-light);
-    padding: 3px;
-    border-radius: 999px;
-    border: 1px solid var(--border-subtle);
-  }
-
-  .calendar-nav button {
-    border: 0;
-    background: transparent;
-    color: var(--text-muted);
-    padding: 7px 9px;
-    border-radius: 999px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    transition: all var(--transition-fast);
-  }
-
-  .calendar-nav button:hover {
-    background: var(--bg-elevated);
-    color: var(--text-light);
-    transform: translateY(-1px);
-    box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
-  }
-
-  .calendar-nav button svg {
-    width: 15px;
-    height: 15px;
+    color: #fff;
   }
 
   .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    color: var(--text-muted);
     gap: 4px;
+    margin-bottom: 8px;
   }
 
   .calendar-weekdays span {
     text-align: center;
-    padding: 4px 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 8px 0;
   }
 
   .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
-    font-size: 0.85rem;
   }
 
   .calendar-day {
-    position: relative;
-    height: 42px;
-    border-radius: 12px;
+    aspect-ratio: 1;
+    border-radius: 10px;
     border: 2px solid transparent;
     background: transparent;
-    color: var(--text-light);
+    color: #d1d5db;
     cursor: pointer;
-    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all var(--transition-fast);
-    overflow: visible;
-    font-weight: 600;
     font-size: 0.9rem;
-    animation: scaleIn 0.3s ease-out backwards;
+    font-weight: 500;
+    transition: all 0.2s ease;
   }
 
-  /* Staggered animation for calendar days */
-  .calendar-day:nth-child(1) { animation-delay: 0.02s; }
-  .calendar-day:nth-child(2) { animation-delay: 0.04s; }
-  .calendar-day:nth-child(3) { animation-delay: 0.06s; }
-  .calendar-day:nth-child(4) { animation-delay: 0.08s; }
-  .calendar-day:nth-child(5) { animation-delay: 0.10s; }
-  .calendar-day:nth-child(6) { animation-delay: 0.12s; }
-  .calendar-day:nth-child(7) { animation-delay: 0.14s; }
-  .calendar-day:nth-child(8) { animation-delay: 0.03s; }
-  .calendar-day:nth-child(9) { animation-delay: 0.05s; }
-  .calendar-day:nth-child(10) { animation-delay: 0.07s; }
-  .calendar-day:nth-child(11) { animation-delay: 0.09s; }
-  .calendar-day:nth-child(12) { animation-delay: 0.11s; }
-  .calendar-day:nth-child(13) { animation-delay: 0.13s; }
-  .calendar-day:nth-child(14) { animation-delay: 0.15s; }
+  .calendar-day:hover:not(.calendar-day--empty) {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #fff;
+  }
 
   .calendar-day--empty {
+    color: #4b5563;
     cursor: default;
-    background: transparent;
-    color: var(--text-muted);
-    opacity: 0.3;
-    font-weight: 400;
   }
 
   .calendar-day--today {
     background: rgba(251, 191, 36, 0.1);
-    border-color: var(--accent-yellow);
-    color: var(--accent-yellow);
-    box-shadow: 0 0 15px rgba(251, 191, 36, 0.25);
-  }
-
-  .calendar-day span {
-    position: relative;
-    z-index: 2;
-  }
-
-  .calendar-day::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-    z-index: 0;
-  }
-
-  .calendar-day:not(.calendar-day--empty):hover {
-    transform: scale(1.05) translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5), 0 0 30px rgba(99, 102, 241, 0.3);
-    color: white;
-  }
-
-  .calendar-day:not(.calendar-day--empty):hover::before {
-    opacity: 1;
+    border-color: rgba(251, 191, 36, 0.4);
+    color: #fbbf24;
   }
 
   .calendar-day--selected {
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%) !important;
-    border: 3px solid #a5b4fc !important;
-    color: white !important;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3),
-                0 8px 30px rgba(99, 102, 241, 0.6),
-                0 0 40px rgba(99, 102, 241, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-    font-weight: 700 !important;
-    transform: scale(1.15) !important;
-    z-index: 10;
-    animation: pulseGlow 2s ease-in-out infinite !important;
-    position: relative;
-    opacity: 1 !important;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    border-color: #a5b4fc !important;
+    color: #fff !important;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
   }
 
-  .calendar-day--selected::after {
-    content: "";
-    position: absolute;
-    inset: -3px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.3));
-    filter: blur(8px);
-    z-index: -1;
-    opacity: 0.8;
-  }
-
-  .calendar-day--selected::before {
-    opacity: 0 !important;
-  }
-
-  /* Absolutely ensure selected state is visible */
-  .calendar-grid .calendar-day.calendar-day--selected {
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%) !important;
-    border: 3px solid #a5b4fc !important;
-    transform: scale(1.15) !important;
-    animation: pulseGlow 2s ease-in-out infinite !important;
-    opacity: 1 !important;
-  }
-
-  .calendar-footer {
-    margin-top: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-  }
-
-  .calendar-footer-legend {
+  /* Timezone Picker */
+  .timezone-picker {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex-wrap: wrap;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    margin-bottom: 16px;
   }
 
-  .legend-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+  .timezone-picker i {
+    color: #6b7280;
+    font-size: 0.9rem;
   }
 
-  .legend-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 999px;
-    border: 1px solid var(--border-medium);
-    background: var(--bg-light);
-  }
-
-  .legend-dot--selected {
-    background: var(--accent-gradient);
-    border-color: transparent;
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
-  }
-
-  .calendar-footer-date {
-    font-size: 0.78rem;
-    text-align: right;
-  }
-
-  .calendar-footer-date strong {
-    color: var(--text-light);
-  }
-
-  /* Right side: time slots + summary */
-
-  .booking-right {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .timezone-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.78rem;
-  }
-
-  .timezone-label {
-    color: var(--text-muted);
-  }
-
-  .timezone-select-wrap {
-    position: relative;
-    min-width: 0;
-  }
-
-  .timezone-select {
-    width: 100%;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-subtle);
-    background: var(--bg-card);
-    color: var(--text-main);
-    padding: 7px 28px 7px 12px;
-    font-size: 0.8rem;
+  .timezone-picker .timezone-select {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #d1d5db;
+    font-size: 0.9rem;
     outline: none;
-    appearance: none;
     cursor: pointer;
-    transition: all var(--transition-fast);
   }
 
-  .timezone-select:hover {
-    border-color: var(--border-medium);
-    background: var(--bg-elevated);
+  .timezone-picker .timezone-select option {
+    background: #1a1a2e;
+    color: #d1d5db;
   }
 
-  .timezone-select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-  }
-
-  .timezone-select-wrap::after {
-    content: "⌄";
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    pointer-events: none;
-  }
-
-  .slots-card {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--border-subtle);
-    padding: 14px 14px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 400px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    margin-top: 14px;
-  }
-
-  .slots-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .slots-duration {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .slots-scroll {
-    margin-top: 2px;
-    padding: 8px;
-    padding-right: 12px;
-    overflow-y: auto;
+  /* Time Slots */
+  .time-slots {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 12px;
-    max-height: 360px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 8px;
   }
 
-  /* custom scrollbar */
-  .slots-scroll::-webkit-scrollbar {
-    width: 6px;
+  .time-slots::-webkit-scrollbar {
+    width: 4px;
   }
 
-  .slots-scroll::-webkit-scrollbar-track {
-    background: var(--bg-light);
-    border-radius: 999px;
+  .time-slots::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
   }
 
-  .slots-scroll::-webkit-scrollbar-thumb {
-    background: var(--bg-elevated);
-    border-radius: 999px;
-  }
-
-  .slots-scroll::-webkit-scrollbar-thumb:hover {
-    background: var(--border-medium);
+  .time-slots::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
   }
 
   .slot-btn {
-    border-radius: 14px;
-    border: 2px solid transparent;
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    background: transparent;
-    color: var(--text-light);
+    padding: 12px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    color: #d1d5db;
+    font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    transition: all var(--transition-fast);
-    white-space: nowrap;
-    font-weight: 600;
-    min-width: 100px;
-    position: relative;
-    overflow: visible;
-    animation: scaleIn 0.3s ease-out backwards;
-  }
-
-  /* Staggered animation for time slots */
-  .slot-btn:nth-child(1) { animation-delay: 0.05s; }
-  .slot-btn:nth-child(2) { animation-delay: 0.08s; }
-  .slot-btn:nth-child(3) { animation-delay: 0.11s; }
-  .slot-btn:nth-child(4) { animation-delay: 0.14s; }
-  .slot-btn:nth-child(5) { animation-delay: 0.17s; }
-  .slot-btn:nth-child(6) { animation-delay: 0.20s; }
-  .slot-btn:nth-child(7) { animation-delay: 0.23s; }
-  .slot-btn:nth-child(8) { animation-delay: 0.26s; }
-
-  .slot-btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(139, 92, 246, 0.08));
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-    z-index: 0;
-  }
-
-  .slot-btn span {
-    position: relative;
-    z-index: 2;
+    transition: all 0.2s ease;
   }
 
   .slot-btn:hover {
-    transform: scale(1.03) translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: 0 6px 28px rgba(99, 102, 241, 0.45), 0 0 30px rgba(99, 102, 241, 0.25);
-    color: white;
-  }
-
-  .slot-btn:hover::before {
-    opacity: 1;
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #fff;
   }
 
   .slot-btn--selected {
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%) !important;
-    border: 3px solid #a5b4fc !important;
-    color: white !important;
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.3),
-                0 8px 35px rgba(99, 102, 241, 0.6),
-                0 0 45px rgba(99, 102, 241, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
-    font-weight: 700 !important;
-    transform: scale(1.15) !important;
-    z-index: 10;
-    animation: pulseGlow 2s ease-in-out infinite !important;
-    position: relative;
-    opacity: 1 !important;
-  }
-
-  .slot-btn--selected::after {
-    content: "";
-    position: absolute;
-    inset: -3px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.3));
-    filter: blur(8px);
-    z-index: -1;
-    opacity: 0.8;
-  }
-
-  .slot-btn--selected::before {
-    opacity: 0 !important;
-  }
-
-  /* Absolutely ensure selected slot is visible */
-  .slots-scroll .slot-btn.slot-btn--selected {
-    background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%) !important;
-    border: 3px solid #a5b4fc !important;
-    transform: scale(1.15) !important;
-    animation: pulseGlow 2s ease-in-out infinite !important;
-    opacity: 1 !important;
-  }
-
-  .slot-badge {
-    font-size: 0.65rem;
-    padding: 2px 7px;
-    border-radius: 999px;
-    background: rgba(34, 197, 94, 0.15);
-    border: 1px solid rgba(34, 197, 94, 0.5);
-    color: #86efac;
-  }
-
-  .summary-card {
-    flex: 1;
-    background: rgba(24, 24, 24, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: var(--radius-xl);
-    border: 1px solid rgba(99, 102, 241, 0.15);
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.03);
-    min-height: 0;
-  }
-
-  .summary-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.08), transparent 50%),
-                radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.06), transparent 50%);
-    opacity: 1;
-    pointer-events: none;
-  }
-
-  .summary-inner {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  /* Summary Header */
-  .summary-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-  }
-
-  .summary-label {
-    font-size: 0.85rem;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    border-color: #a5b4fc !important;
+    color: #fff !important;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-light);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
   }
 
-  .summary-label i {
-    color: var(--accent);
-    font-size: 1rem;
+  @media (max-width: 600px) {
+    .time-slots {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
-  /* Selection Display Box */
-  .selection-display {
+  /* Selection Summary */
+  .selection-summary {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     padding: 16px;
     background: rgba(99, 102, 241, 0.08);
     border: 1px solid rgba(99, 102, 241, 0.2);
-    border-radius: var(--radius-lg);
-    margin-bottom: 12px;
-    transition: all var(--transition-smooth);
+    border-radius: 14px;
+    margin-bottom: 20px;
   }
 
-  .selection-display:hover {
-    background: rgba(99, 102, 241, 0.12);
-    border-color: rgba(99, 102, 241, 0.3);
-  }
-
-  .selection-icon {
-    width: 44px;
-    height: 44px;
+  .summary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--accent-gradient);
-    border-radius: 12px;
-    color: white;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    color: #fff;
+    font-size: 1.2rem;
   }
 
-  .selection-details {
+  .summary-text {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
-  /* Meeting Info Banner */
-  .meeting-info {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px;
-    background: rgba(59, 130, 246, 0.08);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    border-radius: var(--radius-lg);
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 16px;
-  }
-
-  .meeting-info i {
-    color: rgba(59, 130, 246, 0.8);
-    font-size: 0.9rem;
-    margin-top: 2px;
-    flex-shrink: 0;
-  }
-
-  /* Form Divider */
-  .booking-form-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
-    margin: 8px 0 16px;
-  }
-
-  .summary-value {
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-
-  .summary-secondary {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-  }
-
-  .summary-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 9px;
-    border-radius: var(--radius-pill);
-    background: rgba(34, 197, 94, 0.15);
-    border: 1px solid rgba(34, 197, 94, 0.6);
-    font-size: 0.76rem;
-    color: #86efac;
-  }
-
-  .summary-status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: var(--success);
-    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3), 0 0 10px rgba(34, 197, 94, 0.4);
-  }
-
-  .summary-actions {
-    margin-top: 6px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    border-radius: var(--radius-pill);
-    border: 1px solid transparent;
-    padding: 7px 13px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
-    color: var(--text-main);
-    transition: all var(--transition-fast);
-  }
-
-  .btn-secondary {
-    border-color: var(--border-subtle);
-    background: var(--bg-light);
-    color: var(--text-light);
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--border-medium);
-    background: var(--bg-elevated);
-    color: white;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-
-  .btn-primary {
-    background: var(--accent-gradient);
-    border: 1px solid transparent;
-    color: white;
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4), 0 0 30px rgba(99, 102, 241, 0.2);
+  .summary-main {
+    font-size: 1rem;
     font-weight: 600;
+    color: #fff;
   }
 
-  .btn-primary:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6), 0 0 50px rgba(99, 102, 241, 0.4);
+  .summary-sub {
+    font-size: 0.85rem;
+    color: #9ca3af;
   }
 
-  .btn-primary:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    box-shadow: none;
-    transform: none;
-  }
-
-  .btn-primary:disabled:hover {
-    transform: none;
-    box-shadow: none;
-  }
-
-  .summary-message {
-    margin-top: 8px;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-  }
-
-  .summary-message--error {
-    color: #fca5a5;
-  }
-
-  .summary-message--success {
-    color: #86efac;
-  }
-
-  /* Form section */
-
+  /* Form Styles */
   .booking-form {
-    margin-top: 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 16px;
   }
 
-  .booking-form-label {
-    font-size: 0.75rem;
-    color: var(--text-muted);
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  .booking-form-label--main {
-    font-weight: 600;
-    font-size: 0.85rem;
-    margin-bottom: 12px;
-    color: var(--text-light);
+  @media (max-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 6px;
   }
 
-  .booking-form-label--main i {
-    color: var(--accent);
-    font-size: 1rem;
-  }
-
-  .booking-form-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .booking-input,
-  .booking-select {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 9px 12px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-subtle);
-    background: var(--bg-light);
-    color: var(--text-light);
+  .form-group label {
     font-size: 0.8rem;
+    font-weight: 500;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
     outline: none;
-    line-height: 1.35;
-    transition: all var(--transition-fast);
   }
 
-  .booking-textarea {
-    width: 100%;
-    padding: 9px 12px;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-subtle);
-    background: var(--bg-light);
-    color: var(--text-light);
-    font-size: 0.8rem;
-    outline: none;
-    min-height: 72px;
-    resize: vertical;
-    line-height: 1.4;
-    transition: all var(--transition-fast);
-  }
-
-  .booking-input:hover,
-  .booking-select:hover,
-  .booking-textarea:hover {
-    border-color: var(--border-medium);
-    background: var(--bg-elevated);
-  }
-
-  .booking-input:focus,
-  .booking-select:focus,
-  .booking-textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
-    background: var(--bg-elevated);
-  }
-
-  .booking-input::placeholder,
-  .booking-textarea::placeholder {
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
     color: #6b7280;
   }
 
-  .booking-select {
-    appearance: none;
-    background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%),
-      linear-gradient(135deg, #6b7280 50%, transparent 50%);
-    background-position: calc(100% - 14px) calc(50% - 3px), calc(100% - 10px) calc(100% - 3px);
-    background-size: 4px 4px, 4px 4px;
-    background-repeat: no-repeat;
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.05);
   }
 
-  .contact-method-container {
-    flex: 1;
-    min-width: 160px;
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
   }
 
-  .contact-method-group {
-    margin-top: 6px;
-    display: flex;
-    flex-wrap: wrap;
+  /* Contact Methods */
+  .contact-methods {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
-    justify-content: space-between;
   }
 
-  .contact-method-chip {
-    flex: 1 1 calc(50% - 8px);
-    max-width: calc(50% - 8px);
-    border-radius: 999px;
-    border: 1px solid var(--border-subtle);
-    background: var(--bg-light);
-    padding: 7px 12px;
-    font-size: 0.78rem;
-    display: inline-flex;
+  .method-btn {
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    color: #d1d5db;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     gap: 8px;
-    cursor: pointer;
-    justify-content: flex-start;
-    transition: all var(--transition-fast);
-    color: var(--text-light);
-    white-space: nowrap;
+    transition: all 0.2s ease;
   }
 
-  /* Last chip takes full width for symmetry */
-  .contact-method-chip:last-child {
-    flex-basis: 100%;
-    max-width: 100%;
+  .method-btn i {
+    font-size: 0.9rem;
+    opacity: 0.7;
   }
 
-  .contact-method-chip:hover {
-    border-color: var(--accent);
-    background: var(--bg-elevated);
-    transform: translateY(-1px);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
-    color: white;
+  .method-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
   }
 
-  .contact-method-chip--selected {
+  .method-btn.selected {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
     border-color: transparent;
-    background: var(--accent-gradient);
-    color: white;
-    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4), 0 0 30px rgba(99, 102, 241, 0.3);
-    font-weight: 600;
+    color: #fff;
   }
 
-  .contact-method-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 999px;
-    display: inline-flex;
+  .method-btn.selected i {
+    opacity: 1;
+  }
+
+  /* Action Buttons */
+  .booking-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .btn-reset {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-card);
-    border: 1px solid var(--border-medium);
-    font-size: 0.7rem;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-reset:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+
+  .btn-confirm {
+    flex: 2;
+    padding: 14px 24px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 0.95rem;
     font-weight: 600;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
   }
 
-  .contact-method-chip--selected .contact-method-icon {
-    background: rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.2);
+  .btn-confirm:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
   }
 
-  /* Mobile responsive styles - bigger touch targets */
+  .btn-confirm:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Status Message */
+  .booking-message {
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .booking-message.visible {
+    display: block;
+  }
+
+  .booking-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+  }
+
+  .booking-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #86efac;
+  }
+
+  .booking-message.info {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+  }
+
+  /* Mobile Responsive */
   @media (max-width: 768px) {
-    .booking-modal-overlay {
-      padding: 0;
+    .booking-modal {
+      max-height: 100vh;
+      border-radius: 0;
     }
 
-    .booking-header {
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 20px;
+    .booking-modal-header {
+      padding: 24px 20px 20px;
     }
 
-    .booking-steps {
-      width: 100%;
-      justify-content: space-between;
+    .booking-modal-title {
+      font-size: 1.5rem;
     }
 
-    .step-chip {
-      padding: 10px 14px;
-      font-size: 0.85rem;
-      flex: 1;
+    .booking-left,
+    .booking-right {
+      padding: 20px;
     }
 
-    .step-chip span {
-      width: 24px;
-      height: 24px;
-      font-size: 0.75rem;
-    }
-
-    /* Bigger calendar days for easier tapping */
-    .calendar-day {
-      height: 48px;
-      font-size: 0.95rem;
-      border-radius: 12px;
-      font-weight: 500;
-    }
-
-    .calendar-grid {
-      gap: 8px;
-    }
-
-    .calendar-weekdays {
-      gap: 8px;
-      font-size: 0.7rem;
-      margin-bottom: 8px;
-    }
-
-    .calendar-card {
+    .calendar-container {
       padding: 16px;
-      gap: 12px;
     }
 
-    /* Bigger time slots */
-    .slot-btn {
-      padding: 16px 12px;
-      font-size: 0.95rem;
-      min-width: 100px;
-      border-radius: 14px;
-      font-weight: 600;
+    .form-group input,
+    .form-group textarea {
+      font-size: 16px; /* Prevent iOS zoom */
     }
 
-    .slots-scroll {
-      gap: 12px;
-      grid-template-columns: repeat(2, 1fr);
-      max-height: 320px;
-      padding: 4px;
-    }
-
-    .slots-card {
-      max-height: none;
-      padding: 16px;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    /* Bigger contact method chips */
-    .contact-method-chip {
-      padding: 16px 14px;
-      font-size: 0.9rem;
-      border-radius: 14px;
-      flex: 1;
-      min-width: 140px;
-    }
-
-    .contact-method-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .contact-method-icon {
-      width: 28px;
-      height: 28px;
-      font-size: 0.8rem;
-    }
-
-    /* Bigger form inputs on mobile */
-    .booking-input,
-    .booking-textarea {
-      font-size: 16px; /* Prevents iOS zoom */
-      padding: 16px;
-      border-radius: 12px;
-    }
-
-    .timezone-select {
-      font-size: 16px;
-      padding: 16px;
-      border-radius: 12px;
-    }
-
-    .form-row {
-      gap: 12px;
-    }
-
-    .btn-primary {
-      padding: 18px;
-      font-size: 1.05rem;
-      min-height: 56px;
-      border-radius: 14px;
-      font-weight: 600;
-    }
-
-    .btn-secondary {
-      padding: 16px;
-      font-size: 0.95rem;
-      border-radius: 14px;
-    }
-
-    /* Improve summary message on mobile */
-    .summary-message {
-      font-size: 0.95rem;
-      padding: 14px;
-      border-radius: 12px;
-      line-height: 1.5;
-    }
-
-    /* Better spacing between sections */
-    .booking-form-section {
-      margin-bottom: 24px;
-    }
-
-    .form-label {
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
-  }
-
-  /* Tablet sizes - medium adjustments */
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .calendar-day {
-      height: 46px;
-      font-size: 0.95rem;
-    }
-
-    .slot-btn {
-      padding: 14px 18px;
-      min-width: 110px;
+    .booking-close {
+      top: 16px;
+      right: 16px;
     }
   }
 </style>
@@ -1665,12 +821,11 @@ const t = getTranslations(currentLocale);
   function initBookingModal() {
     if (bookingModalInitialized) return;
     bookingModalInitialized = true;
+
     const calendarGrid = document.getElementById("calendarGrid");
     const monthLabel = document.getElementById("calendarMonthLabel");
-    const selectedDateLabel = document.getElementById("selectedDateLabel");
     const summaryMain = document.getElementById("summaryMain");
     const summarySecondary = document.getElementById("summarySecondary");
-    const summaryStatus = document.getElementById("summaryStatus");
     const summaryMessage = document.getElementById("summaryMessage");
     const confirmBtn = document.getElementById("confirmBtn");
     const clearBtn = document.getElementById("clearBtn");
@@ -1690,15 +845,15 @@ const t = getTranslations(currentLocale);
       return;
     }
 
-    // Contact method chips logic
+    // Contact method buttons logic
     if (contactMethodGroup) {
-      const chips = contactMethodGroup.querySelectorAll('.contact-method-chip');
-      chips.forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          const method = chip.dataset.method || '';
+      const buttons = contactMethodGroup.querySelectorAll('.method-btn');
+      buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const method = btn.dataset.method || '';
           if (contactMethodHidden) contactMethodHidden.value = method;
-          chips.forEach(function (c) { c.classList.remove('contact-method-chip--selected'); });
-          chip.classList.add('contact-method-chip--selected');
+          buttons.forEach(function (b) { b.classList.remove('selected'); });
+          btn.classList.add('selected');
         });
       });
     }
@@ -1871,29 +1026,21 @@ const t = getTranslations(currentLocale);
       const hasDate = !!selectedDate;
       const hasTime = !!selectedTime;
 
-      selectedDateLabel.textContent = hasDate
-        ? (t.selectedPrefix || "Selected: ") + formatReadableDate(selectedDate)
-        : (t.noDateSelected || "No date selected");
-
       if (!hasDate && !hasTime) {
         summaryMain.textContent = t.chooseDateAndTime || "Choose a date & time";
         summarySecondary.textContent = t.calendarInviteMessage ||
           "You'll receive the calendar invite & meeting link right after confirming.";
-        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>' + (t.status?.tentative || "Tentative");
         confirmBtn.disabled = true;
-        summaryMessage.textContent = "";
-        summaryMessage.className = "summary-message";
+        hideMessage();
         return;
       }
 
       if (hasDate && !hasTime) {
         summaryMain.textContent = formatReadableDate(selectedDate);
         summarySecondary.textContent = t.messages?.awaitingTimeSelection ||
-          "Now choose a time slot on the right to complete your booking.";
-        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>' + (t.status?.awaitingTime || "Awaiting time");
+          "Now choose a time slot to complete your booking.";
         confirmBtn.disabled = true;
-        summaryMessage.textContent = "";
-        summaryMessage.className = "summary-message";
+        hideMessage();
         return;
       }
 
@@ -1901,11 +1048,19 @@ const t = getTranslations(currentLocale);
         summaryMain.textContent = formatReadableDate(selectedDate) + " • " + selectedTime;
         const timezoneLabel = timezoneSelect.options[timezoneSelect.selectedIndex].textContent;
         summarySecondary.textContent = (t.messages?.scheduledInTimezone || "Your meeting will be scheduled in ") + timezoneLabel + ".";
-        summaryStatus.innerHTML = '<span class="summary-status-dot"></span>' + (t.status?.readyToConfirm || "Ready to confirm");
         confirmBtn.disabled = false;
-        summaryMessage.textContent = "";
-        summaryMessage.className = "summary-message";
+        hideMessage();
       }
+    }
+
+    function showMessage(text, type) {
+      summaryMessage.textContent = text;
+      summaryMessage.className = "booking-message visible " + type;
+    }
+
+    function hideMessage() {
+      summaryMessage.textContent = "";
+      summaryMessage.className = "booking-message";
     }
 
     function clearSelection() {
@@ -1923,13 +1078,12 @@ const t = getTranslations(currentLocale);
       if (userPhoneInput) userPhoneInput.value = '';
       if (contactMethodHidden) contactMethodHidden.value = '';
       if (contactMethodGroup) {
-        contactMethodGroup.querySelectorAll('.contact-method-chip--selected').forEach(function (chip) {
-          chip.classList.remove('contact-method-chip--selected');
+        contactMethodGroup.querySelectorAll('.method-btn.selected').forEach(function (btn) {
+          btn.classList.remove('selected');
         });
       }
       if (extraInfoInput) extraInfoInput.value = '';
-      summaryMessage.textContent = '';
-      summaryMessage.className = 'summary-message';
+      hideMessage();
       updateLabels();
     }
 
@@ -1940,15 +1094,11 @@ const t = getTranslations(currentLocale);
         if (email) {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(email)) {
-            this.style.borderColor = '#ef4444';
-            summaryMessage.textContent = '⚠️ Please enter a valid email address (e.g., name@example.com)';
-            summaryMessage.className = 'summary-message summary-message--error';
+            this.style.borderColor = 'rgba(239, 68, 68, 0.5)';
+            showMessage('Please enter a valid email address (e.g., name@example.com)', 'error');
           } else {
-            this.style.borderColor = '#10b981';
-            if (summaryMessage.textContent.includes('email')) {
-              summaryMessage.textContent = '';
-              summaryMessage.className = 'summary-message';
-            }
+            this.style.borderColor = 'rgba(34, 197, 94, 0.5)';
+            hideMessage();
           }
         } else {
           this.style.borderColor = '';
@@ -1957,10 +1107,7 @@ const t = getTranslations(currentLocale);
 
       // Clear validation styling when user starts typing
       userEmailInput.addEventListener('input', function() {
-        if (summaryMessage.textContent.includes('email')) {
-          summaryMessage.textContent = '';
-          summaryMessage.className = 'summary-message';
-        }
+        hideMessage();
       });
     }
 
@@ -1992,8 +1139,7 @@ const t = getTranslations(currentLocale);
     if (confirmBtn) {
       confirmBtn.addEventListener("click", async function () {
       if (!selectedDate || !selectedTime) {
-        summaryMessage.textContent = t.messages?.selectBoth || "Please choose both a date and a time slot.";
-        summaryMessage.className = "summary-message summary-message--error";
+        showMessage(t.messages?.selectBoth || "Please choose both a date and a time slot.", 'error');
         return;
       }
 
@@ -2005,16 +1151,14 @@ const t = getTranslations(currentLocale);
       const extraInfo = extraInfoInput.value.trim();
 
       if (!name || !email || !contactMethod) {
-        summaryMessage.textContent = t.messages?.fillRequired || "Please add your name, email and preferred contact method to confirm.";
-        summaryMessage.className = "summary-message summary-message--error";
+        showMessage(t.messages?.fillRequired || "Please add your name, email and preferred contact method to confirm.", 'error');
         return;
       }
 
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        summaryMessage.textContent = "Please enter a valid email address (e.g., name@example.com)";
-        summaryMessage.className = "summary-message summary-message--error";
+        showMessage("Please enter a valid email address (e.g., name@example.com)", 'error');
         return;
       }
 
@@ -2032,8 +1176,7 @@ const t = getTranslations(currentLocale);
         extraInfo
       };
 
-      summaryMessage.textContent = t.messages?.creating || "Creating your calendar event…";
-      summaryMessage.className = "summary-message";
+      showMessage(t.messages?.creating || "Creating your calendar event…", 'info');
 
       try {
         const fetchOptions = {
@@ -2049,7 +1192,7 @@ const t = getTranslations(currentLocale);
           try {
             const err = await res.json();
             if (err && err.message) {
-              errMsg = err.message; // User-friendly message from API
+              errMsg = err.message;
             } else if (err && err.error) {
               errMsg = err.error;
             }
@@ -2059,19 +1202,25 @@ const t = getTranslations(currentLocale);
 
         const data = await res.json();
 
-        summaryMessage.textContent =
-          (t.messages?.confirmationPrefix || "Booking confirmed for ") +
+        let successMsg = (t.messages?.confirmationPrefix || "Booking confirmed for ") +
           formatReadableDate(selectedDate) +
           (t.messages?.confirmationAt || " at ") +
           selectedTime +
           (t.messages?.confirmationVia || " via ") +
-          contactMethod +
-          (t.messages?.confirmationEmail || ". We'll email ") +
-          email +
-          (t.messages?.confirmationDetails || " with the details.");
-        summaryMessage.className = "summary-message summary-message--success";
+          contactMethod + ". ";
 
-        // Clear form and close modal after 3 seconds
+        // Add email status to message
+        if (data.emailSent) {
+          successMsg += "A confirmation email has been sent to " + email + ".";
+        } else {
+          successMsg += "Calendar event created. Please check " + email + " for the calendar invite.";
+          if (data.emailError) {
+            console.warn('Email send failed:', data.emailError);
+          }
+        }
+        showMessage(successMsg, 'success');
+
+        // Clear form and close modal after delay
         setTimeout(() => {
           clearSelection();
           setTimeout(() => {
@@ -2080,9 +1229,7 @@ const t = getTranslations(currentLocale);
         }, 2000);
       } catch (err) {
         console.error(err);
-        summaryMessage.textContent = t.messages?.errorSave ||
-          "We couldn't save this to the calendar. Please try again or contact support.";
-        summaryMessage.className = "summary-message summary-message--error";
+        showMessage(t.messages?.errorSave || "We couldn't save this to the calendar. Please try again or contact support.", 'error');
       }
       });
     }
