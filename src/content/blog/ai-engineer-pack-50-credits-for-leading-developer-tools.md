@@ -5,6 +5,8 @@ description: "Explore how AI engineer packs with credits for developer tools lik
 publishedOn: 2024-11-15
 updatedOn: 2024-11-15
 author: "Jengu Team"
+mainImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
+altText: "Developer workspace with code on screen representing AI development tools"
 draft: false
 archived: false
 ---

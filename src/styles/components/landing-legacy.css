@@ -2149,15 +2149,26 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+    .mapping-cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
     .mapping-btn {
-      padding: 1rem 2.5rem;
+      padding: 1rem 2rem;
       border-radius: 12px;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 600;
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none !important;
     }
 
     .mapping-btn.primary {
@@ -2169,6 +2180,21 @@
     .mapping-btn.primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
+    }
+
+    a.mapping-btn.secondary,
+    .mapping-btn.secondary {
+      background: rgba(6, 182, 212, 0.1);
+      border: 2px solid rgba(6, 182, 212, 0.4) !important;
+      color: var(--secondary-brand);
+      text-decoration: none !important;
+    }
+
+    a.mapping-btn.secondary:hover,
+    .mapping-btn.secondary:hover {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: var(--secondary-brand) !important;
+      transform: translateY(-2px);
     }
 
     .cta-subtext {
@@ -2866,6 +2892,38 @@
 
     .roi-preview.animate .roi-fill {
       width: var(--width);
+    }
+
+    .roi-cta {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .roi-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, var(--primary-cta), #818cf8);
+      color: white !important;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none !important;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .roi-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(99, 102, 241, 0.5);
+    }
+
+    .roi-cta-btn i {
+      font-size: 1rem;
     }
 
     /* CTA Calculator Section */

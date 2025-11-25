@@ -5,6 +5,8 @@ description: "TIME Magazine launches an AI-powered interactive journalism platfo
 publishedOn: 2024-10-28
 updatedOn: 2024-10-28
 author: "Jengu Team"
+mainImage: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80"
+altText: "Digital journalism and media innovation with newspapers and screens"
 draft: false
 archived: false
 ---
