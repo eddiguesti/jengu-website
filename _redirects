@@ -3,6 +3,9 @@
 # Redirect old paths to new paths (add your redirects here)
 # Example: /old-page /new-page 301
 
+# Old news article redirects
+/news/ai-engineer-pack-50-credits-for-leading-developer-tools-83671 /blog 301
+
 # Ensure trailing slashes are handled consistently
 # /about /about/ 301
 # /services /services/ 301
