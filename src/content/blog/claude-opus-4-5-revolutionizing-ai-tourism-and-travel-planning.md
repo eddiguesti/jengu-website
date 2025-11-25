@@ -18,6 +18,8 @@ Imagine having a travel companion who speaks 100+ languages, never sleeps, remem
 
 Anthropic just dropped what they're calling "the best model in the world for coding, agents, and computer use," and for those of us in the tourism and hospitality industry, this isn't just tech news—it's a game-changer that's about to make AI travel planning smarter, faster, and more personal than ever before.
 
+![AI technology interface representing the future of travel planning](https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80)
+
 ## What Makes Opus 4.5 the Ultimate Travel Guide?
 
 Think of previous AI models as enthusiastic interns—helpful, but sometimes they'd miss the nuances. Claude Opus 4.5? It's more like a seasoned travel director who's visited every destination, understands every culture, and knows exactly when you need a quiet boutique hotel versus a buzzing city hostel.
@@ -32,6 +34,8 @@ Here's where it gets exciting for travel businesses:
 
 But raw numbers only tell part of the story. What really sets Opus 4.5 apart is its ability to *think* like a travel expert.
 
+![Travel planning with maps and technology](https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80)
+
 ## Real-World Applications: From Booking to Bon Voyage
 
 ### 1. Intelligent Itinerary Planning
@@ -39,6 +43,8 @@ But raw numbers only tell part of the story. What really sets Opus 4.5 apart is 
 Gone are the days of generic, cookie-cutter travel plans. Opus 4.5 can analyze a traveler's preferences, past trips, social media interests, and even their calendar—then craft a personalized itinerary that feels hand-curated.
 
 **Example:** A family of four mentions they want to visit Italy but have a child with gluten intolerance and a teenager obsessed with ancient history. Opus 4.5 doesn't just find gluten-free restaurants in Rome—it maps out a journey that weaves together Pompeii, cooking classes featuring naturally gluten-free Italian dishes, and hidden archaeological gems that'll make the teenager actually put down their phone.
+
+![Beautiful Italian coastline - the Amalfi Coast](https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=800&q=80)
 
 ### 2. 24/7 Hospitality Automation
 
@@ -61,6 +67,8 @@ Anthropic specifically highlighted Opus 4.5's ability to find creative solutions
 - Rebooking disrupted itineraries across multiple airlines and hotels
 - Finding the perfect room allocation for large group bookings
 - Navigating complex loyalty program redemptions
+
+![Luxury hotel lobby representing modern hospitality](https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80)
 
 ## The Efficiency Revolution
 
@@ -89,6 +97,8 @@ At Jengu, we've already integrated Opus 4.5 into our AI tourism solutions. Our c
 - **Response times** dropping from minutes to seconds
 
 Want to see what's possible? Check out how we've helped [tourism businesses transform their operations](/case-studies) with intelligent automation.
+
+![Happy travelers exploring a new destination](https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80)
 
 ## The Future of Travel Just Got Smarter
 

@@ -22,6 +22,8 @@ But here's the thing nobody's talking about: **this isn't a war at all. It's a t
 
 And the travel businesses that understand this? They're leaving everyone else in the departure lounge.
 
+![Human and technology working together in travel planning](https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=800&q=80)
+
 ## The Great Travel Agent Debate of 2025
 
 Let's address the elephant in the airport terminal: AI isn't replacing human travel agents. It's doing something far more interesting.
@@ -55,6 +57,8 @@ It's 3 AM. Your human agent is—rightfully—asleep. That potential booking? Go
 AI never sleeps. It handles routine inquiries 24/7/365, captures leads at any hour, and only wakes the human experts when it encounters something genuinely complex.
 
 One boutique hotel we work with captured **34% more booking inquiries** simply by having AI handle after-hours conversations. Those weren't conversations their human team could have handled anyway—they were conversations that previously just... evaporated.
+
+![24/7 customer service and support technology](https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&q=80)
 
 ### 3. The Memory Elephant
 
@@ -100,6 +104,8 @@ That sentence represents something AI can support but never replace: genuine hum
 
 For complex trips, luxury experiences, and once-in-a-lifetime celebrations, this trust is worth its weight in business class upgrades.
 
+![Luxury travel experience with personal service](https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80)
+
 ## The Hybrid Reality: How Leading Travel Businesses Actually Work
 
 The savviest travel businesses in 2025 aren't choosing between AI and humans. They're orchestrating both like a world-class symphony.
@@ -138,6 +144,8 @@ The savviest travel businesses in 2025 aren't choosing between AI and humans. Th
 
 This isn't AI vs. Human. It's AI *and* Human, each doing what they do best.
 
+![Business workflow and process optimization](https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80)
+
 ## The Numbers That Matter
 
 When we help travel businesses implement this hybrid approach, the results speak for themselves:
@@ -173,6 +181,8 @@ The results after six months:
 - **Client satisfaction scores:** Highest in company history
 
 The AI didn't replace anyone. It *freed* the humans to be more human.
+
+![Happy team celebrating business success](https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80)
 
 ## The Real Question to Ask
 

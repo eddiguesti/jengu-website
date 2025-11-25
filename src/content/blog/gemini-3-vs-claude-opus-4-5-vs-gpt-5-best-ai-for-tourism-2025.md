@@ -22,6 +22,8 @@ Welcome to the ultimate showdown of 2025's most powerful AI models—analyzed th
 
 Let's board this flight.
 
+![Airport departure board representing the journey of choosing AI for travel](https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80)
+
 ## Meet the Contenders: 2025's AI Power Players
 
 ### Claude Opus 4.5 (Anthropic)
@@ -59,6 +61,8 @@ Let's board this flight.
 - **Vision capabilities:** Advanced image understanding and generation
 
 **What This Means for Tourism:** GPT-5.1 Codex Max is your go-to for content marketing, brand storytelling, and any task where creative quality matters more than raw data processing.
+
+![Digital analytics dashboard for tourism business intelligence](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80)
 
 ## The Tourism-Specific Comparison Table
 
@@ -101,6 +105,8 @@ Let's cut through the marketing speak and see how these models actually perform 
 
 **Verdict:** **Claude Opus 4.5** for luxury/high-touch planning. **Gemini 3** for data-intensive, real-time needs.
 
+![Cherry blossoms in Japan - perfect honeymoon destination](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80)
+
 ### Use Case 2: Hospitality Chatbots and Concierge Services
 
 **The Scenario:** A resort chain needs 24/7 AI concierge that handles everything from spa bookings to noise complaints—in 50+ languages, with guests who range from delighted to furious.
@@ -112,6 +118,8 @@ Let's cut through the marketing speak and see how these models actually perform 
 **GPT-5.1 Codex Max:** Natural, warm conversation style. Occasionally veers into over-promising territory ("I'll make sure this never happens again").
 
 **Verdict:** **Claude Opus 4.5** for premium hospitality where tone matters. **Gemini 3** for high-volume, speed-critical deployments.
+
+![Hotel concierge desk representing AI-powered guest services](https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80)
 
 ### Use Case 3: Travel Customer Support at Scale
 
@@ -148,6 +156,8 @@ Let's cut through the marketing speak and see how these models actually perform 
 **GPT-5.1 Codex Max:** This is its home turf. Campaign concepts, hashtag strategies, influencer briefs—all at a quality level that rivals human creative agencies.
 
 **Verdict:** **GPT-5.1 Codex Max** for creative marketing. No contest.
+
+![Travel content creation and destination marketing](https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80)
 
 ## Strategic Recommendations: Which AI for Your Tourism Business?
 
@@ -203,6 +213,8 @@ Instead of choosing one AI and accepting its limitations, they're building syste
 - Routine FAQ → Most cost-efficient model available
 
 This "best tool for the job" approach means getting the strengths of each model without the compromises.
+
+![Team collaboration on technology solutions](https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80)
 
 ## Real Results: AI Tourism in Action
 
