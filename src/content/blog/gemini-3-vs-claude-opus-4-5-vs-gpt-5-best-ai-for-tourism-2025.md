@@ -4,9 +4,9 @@ subtitle: "A Deep-Dive Comparison of AI Models for Tourism, Hospitality, and Tra
 description: "Compare Gemini 3, Claude Opus 4.5, and GPT-5.1 Codex Max for tourism AI applications. Expert analysis of benchmarks, travel use cases, and which model fits your hospitality business in 2025."
 publishedOn: 2025-11-26
 updatedOn: 2025-11-26
-mainImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80"
-thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&q=80"
-altText: "Futuristic digital globe with connected nodes representing AI models powering global tourism and travel technology infrastructure"
+mainImage: "/images/blog/best-ai-for-tourism-2025.jpg"
+thumbnail: "/images/blog/best-ai-for-tourism-2025.webp"
+altText: "Three friendly AI robots representing Gemini 3, Claude Opus 4.5, and GPT-5.1 Codex Max in front of world landmarks including the Eiffel Tower - Best AI for Tourism 2025"
 author: "Jengu Team"
 draft: false
 archived: false
