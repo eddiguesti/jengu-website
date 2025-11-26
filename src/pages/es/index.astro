@@ -737,38 +737,6 @@ const jsonLd = [
     }
   </style>
 
-  <!-- Feature Modal System -->
-  <div id="featureModalOverlay" class="feature-modal-overlay">
-    <div class="feature-modal">
-      <button class="feature-modal-close" onclick="closeFeatureModal()">
-        <i class="fas fa-times"></i>
-      </button>
-
-      <div class="feature-modal-header">
-        <div class="feature-modal-icon" id="modalIcon">
-          <i class="fas fa-robot"></i>
-        </div>
-        <h2 class="feature-modal-title" id="modalTitle">Feature Title</h2>
-        <p class="feature-modal-subtitle" id="modalSubtitle">Feature subtitle</p>
-      </div>
-
-      <div class="feature-modal-content">
-        <div class="feature-modal-section">
-          <h4>Key Benefits</h4>
-          <div class="feature-benefits-list" id="modalBenefits">
-          </div>
-        </div>
-
-        <div class="feature-modal-section">
-          <h4>Performance Metrics</h4>
-          <div class="feature-stats-grid" id="modalStats">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Feature Data for Modal -->
   <script is:inline>
     // Homepage FAQ Toggle Function
     function toggleHomeFAQ(button) {
@@ -802,206 +770,9 @@ const jsonLd = [
       }
     }
 
-    // Feature modal data
-    window.featureData = {
-      email: {
-        icon: 'fa-robot',
-        title: 'Bots de IA para Email y Comunicación',
-        subtitle: 'Agentes de IA personalizados para email, chat y comunicación por voz',
-        benefits: [
-          {
-            icon: '⚡',
-            title: 'Agentes de IA Multicanal',
-            desc: 'Construimos bots personalizados que gestionan emails, chat en vivo, WhatsApp y llamadas telefónicas con respuestas instantáneas 24/7.'
-          },
-          {
-            icon: '🎯',
-            title: 'Enrutamiento y Priorización Inteligente',
-            desc: 'Los agentes de IA categorizan y enrutan mensajes, escalando solicitudes urgentes a su equipo mientras manejan consultas rutinarias.'
-          },
-          {
-            icon: '🌍',
-            title: 'Voz y Texto Multiidioma',
-            desc: 'Entrenados personalizadamente en su negocio con soporte para más de 40 idiomas en todos los canales de comunicación.'
-          },
-          {
-            icon: '📊',
-            title: 'Aprendizaje Continuo',
-            desc: 'Sus agentes de IA mejoran con el tiempo, aprendiendo de las interacciones y adaptándose a las necesidades de su negocio.'
-          }
-        ],
-        stats: [
-          { value: '90%', label: 'Respuestas Más Rápidas' },
-          { value: '40hrs', label: 'Ahorradas Semanalmente' },
-          { value: '£35k', label: 'Ahorro Anual' }
-        ]
-      },
-      pricing: {
-        icon: 'fa-chart-line',
-        title: 'Soluciones de Software Personalizadas',
-        subtitle: 'Aplicaciones diseñadas a propósito y adaptadas a las necesidades específicas de su negocio',
-        benefits: [
-          {
-            icon: '📈',
-            title: 'Construido para Su Flujo de Trabajo',
-            desc: 'Desarrollamos herramientas personalizadas como motores de precios dinámicos, gestores de inventario y paneles de informes diseñados específicamente para cómo trabaja.'
-          },
-          {
-            icon: '🎯',
-            title: 'Integración Sin Problemas',
-            desc: 'El software personalizado se conecta directamente a sus sistemas existentes vía API, asegurando flujo de datos y automatización sin problemas.'
-          },
-          {
-            icon: '⚖️',
-            title: 'Inteligencia Automatizada',
-            desc: 'Toma de decisiones impulsada por IA integrada en sus herramientas - desde optimización de precios hasta pronóstico de demanda y asignación de recursos.'
-          },
-          {
-            icon: '💰',
-            title: 'Escalable y Mantenible',
-            desc: 'Arquitectura de software profesional que crece con su negocio, con soporte continuo y actualizaciones incluidas.'
-          }
-        ],
-        stats: [
-          { value: '100%', label: 'Personalizado' },
-          { value: '2-6sem', label: 'Desarrollo' },
-          { value: '£68k', label: 'Ganancia Anual Prom.' }
-        ]
-      },
-      booking: {
-        icon: 'fa-calendar-check',
-        title: 'Chatbots y Bots Telefónicos con IA',
-        subtitle: 'Agentes de IA personalizados por voz y texto para comunicación completa con huéspedes',
-        benefits: [
-          {
-            icon: '💬',
-            title: 'Agentes de IA por Voz y Texto',
-            desc: 'Construimos chatbots personalizados para su sitio web y bots telefónicos que manejan llamadas 24/7 - ambos suenan naturales y manejan conversaciones complejas.'
-          },
-          {
-            icon: '🎁',
-            title: 'Entrenados en Su Negocio',
-            desc: 'Los agentes de IA aprenden sus habitaciones, políticas, precios y servicios para proporcionar recomendaciones personalizadas precisas y reservas.'
-          },
-          {
-            icon: '🔄',
-            title: 'Implementación Multiplataforma',
-            desc: 'Implemente en chat de sitio web, WhatsApp, SMS, líneas telefónicas y redes sociales - todo conectado a sus sistemas.'
-          },
-          {
-            icon: '📱',
-            title: 'Integración de Reservas y Pagos',
-            desc: 'Los bots pueden verificar disponibilidad, procesar reservas, tomar pagos y enviar confirmaciones a través de conexiones API directas.'
-          }
-        ],
-        stats: [
-          { value: '35%', label: 'Más Conversiones' },
-          { value: '24/7', label: 'Disponibilidad' },
-          { value: '£32k', label: 'Ingresos Extra' }
-        ]
-      },
-      integration: {
-        icon: 'fa-network-wired',
-        title: 'Automatización Impulsada por API',
-        subtitle: 'Automatice toda su pila tecnológica con conexiones API e integraciones inteligentes',
-        benefits: [
-          {
-            icon: '🔌',
-            title: 'Conecte Cualquier Sistema',
-            desc: 'Construimos integraciones API entre su PMS, CRM, motores de reservas, procesadores de pago y cualquier otro software - incluso sistemas legados personalizados.'
-          },
-          {
-            icon: '⚡',
-            title: 'Automatización de Email y Flujos de Trabajo',
-            desc: 'Automatice secuencias de email entre sistemas, active acciones basadas en eventos y cree flujos de trabajo inteligentes que abarquen múltiples plataformas.'
-          },
-          {
-            icon: '🔄',
-            title: 'Sincronización de Datos en Tiempo Real',
-            desc: 'Las conexiones API bidireccionales mantienen todos los sistemas actualizados instantáneamente con webhooks y sincronización programada - eliminando la entrada manual de datos.'
-          },
-          {
-            icon: '🛡️',
-            title: 'Soluciones de Integración Personalizadas',
-            desc: 'Si no hay API, podemos construir herramientas de scraping, bots RPA o middleware personalizado para conectar cualquier sistema.'
-          }
-        ],
-        stats: [
-          { value: '50+', label: 'Integraciones API' },
-          { value: '2-4hrs', label: 'Tiempo de Configuración' },
-          { value: '99.9%', label: 'Disponibilidad' }
-        ]
-      },
-      security: {
-        icon: 'fa-shield-alt',
-        title: 'Seguridad Empresarial',
-        subtitle: 'Protección de nivel bancario para sus datos y huéspedes',
-        benefits: [
-          {
-            icon: '🔒',
-            title: 'Encriptación de Grado Militar',
-            desc: 'Encriptación AES-256 para datos en reposo y TLS 1.3 para datos en tránsito protege toda la información de huéspedes.'
-          },
-          {
-            icon: '✅',
-            title: 'Cumplimiento Total GDPR',
-            desc: 'Controles de privacidad de datos integrados, gestión de consentimiento y flujos de trabajo de derecho al olvido.'
-          },
-          {
-            icon: '🏛️',
-            title: 'Certificado SOC 2 Type II',
-            desc: 'Auditorías anuales de terceros verifican nuestros controles de seguridad y prácticas de manejo de datos.'
-          },
-          {
-            icon: '🌐',
-            title: 'Centros de Datos Globales',
-            desc: 'Datos almacenados en regiones UE/Reino Unido/EE.UU. con respaldos automáticos y recuperación ante desastres.'
-          }
-        ],
-        stats: [
-          { value: '99.9%', label: 'SLA de Disponibilidad' },
-          { value: '24/7', label: 'Monitoreo' },
-          { value: '< 4hrs', label: 'Respuesta de Soporte' }
-        ]
-      },
-      support: {
-        icon: 'fa-graduation-cap',
-        title: 'Capacitación e Implementación',
-        subtitle: 'Capacitamos a su equipo para dominar los sistemas que construimos',
-        benefits: [
-          {
-            icon: '🎓',
-            title: 'Programa de Capacitación Integral',
-            desc: 'Capacitación práctica completa para su equipo en todos los sistemas personalizados, agentes de IA e integraciones que construimos para usted.'
-          },
-          {
-            icon: '📚',
-            title: 'Documentación Personalizada',
-            desc: 'Guías detalladas y tutoriales en video adaptados a su implementación específica, facilitando que los nuevos miembros del equipo se pongan al día.'
-          },
-          {
-            icon: '🔧',
-            title: 'Soporte Continuo',
-            desc: 'Soporte por email y video durante horas de negocio para ayudar a solucionar problemas y responder preguntas a medida que surgen.'
-          },
-          {
-            icon: '📈',
-            title: 'Revisiones de Rendimiento',
-            desc: 'Revisiones periódicas para optimizar el rendimiento del sistema, recopilar retroalimentación e implementar mejoras basadas en su uso.'
-          }
-        ],
-        stats: [
-          { value: '100%', label: 'Equipo Capacitado' },
-          { value: '2-3 días', label: 'Implementación' },
-          { value: 'Continuo', label: 'Soporte' }
-        ]
-      }
-    };
-
     // Premium scroll-triggered reveal animation - Reverse Stack Mode
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-step');
-      const flowConnectors = document.querySelectorAll('.flow-connector');
 
       // Track which steps have been revealed on first load
       const hasBeenRevealed = new Set();
@@ -1048,7 +819,15 @@ const jsonLd = [
         });
       }, observerOptions);
 
-      processSteps.forEach(step => observer.observe(step));
+      processSteps.forEach(step => {
+        observer.observe(step);
+        // Immediately check if element is already in viewport
+        const rect = step.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          hasBeenRevealed.add(step);
+          step.classList.add('reveal');
+        }
+      });
 
       // Animate-on-scroll observer for stat cards, feature cards, trust badges, etc.
       const animateElements = document.querySelectorAll('.animate-on-scroll');
@@ -1064,7 +843,14 @@ const jsonLd = [
         rootMargin: '0px 0px -50px 0px'
       });
 
-      animateElements.forEach(el => animateObserver.observe(el));
+      animateElements.forEach(el => {
+        animateObserver.observe(el);
+        // Immediately check if element is already in viewport (above the fold)
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
+        }
+      });
     });
   </script>
 </BaseLayout>

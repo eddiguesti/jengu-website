@@ -737,38 +737,6 @@ const jsonLd = [
     }
   </style>
 
-  <!-- Feature Modal System -->
-  <div id="featureModalOverlay" class="feature-modal-overlay">
-    <div class="feature-modal">
-      <button class="feature-modal-close" onclick="closeFeatureModal()">
-        <i class="fas fa-times"></i>
-      </button>
-
-      <div class="feature-modal-header">
-        <div class="feature-modal-icon" id="modalIcon">
-          <i class="fas fa-robot"></i>
-        </div>
-        <h2 class="feature-modal-title" id="modalTitle">Feature Title</h2>
-        <p class="feature-modal-subtitle" id="modalSubtitle">Feature subtitle</p>
-      </div>
-
-      <div class="feature-modal-content">
-        <div class="feature-modal-section">
-          <h4>Key Benefits</h4>
-          <div class="feature-benefits-list" id="modalBenefits">
-          </div>
-        </div>
-
-        <div class="feature-modal-section">
-          <h4>Performance Metrics</h4>
-          <div class="feature-stats-grid" id="modalStats">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Feature Data for Modal -->
   <script is:inline>
     // Homepage FAQ Toggle Function
     function toggleHomeFAQ(button) {
@@ -802,206 +770,9 @@ const jsonLd = [
       }
     }
 
-    // Feature modal data
-    window.featureData = {
-      email: {
-        icon: 'fa-robot',
-        title: 'Robots IA Email et Communication',
-        subtitle: 'Agents IA sur mesure pour email, chat et communication vocale',
-        benefits: [
-          {
-            icon: '⚡',
-            title: 'Agents IA Multi-Canaux',
-            desc: 'Nous créons des robots personnalisés qui gèrent les emails, le chat en direct, WhatsApp et les appels téléphoniques avec des réponses instantanées 24h/24 et 7j/7.'
-          },
-          {
-            icon: '🎯',
-            title: 'Routage et Priorisation Intelligents',
-            desc: 'Les agents IA catégorisent et acheminent les messages, transmettant les demandes urgentes à votre équipe tout en traitant les demandes de routine.'
-          },
-          {
-            icon: '🌍',
-            title: 'Voix et Texte Multilingues',
-            desc: 'Formés sur mesure pour votre entreprise avec support pour plus de 40 langues sur tous les canaux de communication.'
-          },
-          {
-            icon: '📊',
-            title: 'Apprentissage Continu',
-            desc: 'Vos agents IA s\'améliorent avec le temps, apprenant des interactions et s\'adaptant aux besoins de votre entreprise.'
-          }
-        ],
-        stats: [
-          { value: '90%', label: 'Réponses Plus Rapides' },
-          { value: '40h', label: 'Économisées par Semaine' },
-          { value: '35k £', label: 'Économies Annuelles' }
-        ]
-      },
-      pricing: {
-        icon: 'fa-chart-line',
-        title: 'Solutions Logicielles Sur Mesure',
-        subtitle: 'Applications conçues spécifiquement pour vos besoins d\'entreprise',
-        benefits: [
-          {
-            icon: '📈',
-            title: 'Conçu pour Votre Flux de Travail',
-            desc: 'Nous développons des outils personnalisés comme des moteurs de tarification dynamique, des gestionnaires d\'inventaire et des tableaux de bord de reporting conçus spécifiquement pour votre façon de travailler.'
-          },
-          {
-            icon: '🎯',
-            title: 'Intégration Transparente',
-            desc: 'Les logiciels personnalisés se connectent directement à vos systèmes existants via API, garantissant un flux de données fluide et une automatisation.'
-          },
-          {
-            icon: '⚖️',
-            title: 'Intelligence Automatisée',
-            desc: 'Prise de décision alimentée par l\'IA intégrée dans vos outils - de l\'optimisation des prix à la prévision de la demande et à l\'allocation des ressources.'
-          },
-          {
-            icon: '💰',
-            title: 'Évolutif et Maintenable',
-            desc: 'Architecture logicielle professionnelle qui évolue avec votre entreprise, avec support continu et mises à jour inclus.'
-          }
-        ],
-        stats: [
-          { value: '100%', label: 'Sur Mesure' },
-          { value: '2-6 sem', label: 'Développement' },
-          { value: '68k £', label: 'Gain Annuel Moyen' }
-        ]
-      },
-      booking: {
-        icon: 'fa-calendar-check',
-        title: 'Chatbots IA et Robots Téléphoniques',
-        subtitle: 'Agents IA vocaux et textuels sur mesure pour une communication client complète',
-        benefits: [
-          {
-            icon: '💬',
-            title: 'Agents IA Vocaux et Textuels',
-            desc: 'Nous créons des chatbots personnalisés pour votre site web et des robots téléphoniques qui gèrent les appels 24h/24 et 7j/7 - tous deux sonnent naturels et gèrent des conversations complexes.'
-          },
-          {
-            icon: '🎁',
-            title: 'Formés sur Votre Entreprise',
-            desc: 'Les agents IA apprennent vos chambres, politiques, tarifs et services pour fournir des recommandations personnalisées et des réservations précises.'
-          },
-          {
-            icon: '🔄',
-            title: 'Déploiement Multi-Plateformes',
-            desc: 'Déployez sur le chat du site web, WhatsApp, SMS, lignes téléphoniques et réseaux sociaux - tous connectés à vos systèmes.'
-          },
-          {
-            icon: '📱',
-            title: 'Intégration Réservation et Paiement',
-            desc: 'Les robots peuvent vérifier les disponibilités, traiter les réservations, prendre les paiements et envoyer des confirmations via des connexions API directes.'
-          }
-        ],
-        stats: [
-          { value: '35%', label: 'Plus de Conversions' },
-          { value: '24/7', label: 'Disponibilité' },
-          { value: '32k £', label: 'Revenus Supplémentaires' }
-        ]
-      },
-      integration: {
-        icon: 'fa-network-wired',
-        title: 'Automatisation Propulsée par API',
-        subtitle: 'Automatisez toute votre pile technologique avec des connexions API et des intégrations intelligentes',
-        benefits: [
-          {
-            icon: '🔌',
-            title: 'Connectez N\'importe Quel Système',
-            desc: 'Nous créons des intégrations API entre votre PMS, CRM, moteurs de réservation, processeurs de paiement et tout autre logiciel - même les systèmes legacy personnalisés.'
-          },
-          {
-            icon: '⚡',
-            title: 'Automatisation Email et Flux de Travail',
-            desc: 'Automatisez les séquences d\'emails entre les systèmes, déclenchez des actions basées sur des événements et créez des flux de travail intelligents qui s\'étendent sur plusieurs plateformes.'
-          },
-          {
-            icon: '🔄',
-            title: 'Synchronisation de Données en Temps Réel',
-            desc: 'Les connexions API bidirectionnelles maintiennent tous les systèmes à jour instantanément avec des webhooks et une synchronisation planifiée - éliminant la saisie manuelle de données.'
-          },
-          {
-            icon: '🛡️',
-            title: 'Solutions d\'Intégration Personnalisées',
-            desc: 'S\'il n\'y a pas d\'API, nous pouvons créer des outils de scraping, des robots RPA ou des middleware personnalisés pour connecter n\'importe quels systèmes ensemble.'
-          }
-        ],
-        stats: [
-          { value: '50+', label: 'Intégrations API' },
-          { value: '2-4h', label: 'Temps d\'Installation' },
-          { value: '99,9%', label: 'Disponibilité' }
-        ]
-      },
-      security: {
-        icon: 'fa-shield-alt',
-        title: 'Sécurité de Niveau Entreprise',
-        subtitle: 'Protection de niveau bancaire pour vos données et vos clients',
-        benefits: [
-          {
-            icon: '🔒',
-            title: 'Chiffrement de Niveau Militaire',
-            desc: 'Chiffrement AES-256 pour les données au repos et TLS 1.3 pour les données en transit protège toutes les informations clients.'
-          },
-          {
-            icon: '✅',
-            title: 'Conformité RGPD Complète',
-            desc: 'Contrôles de confidentialité des données intégrés, gestion du consentement et flux de travail de droit à l\'effacement.'
-          },
-          {
-            icon: '🏛️',
-            title: 'Certifié SOC 2 Type II',
-            desc: 'Les audits annuels par des tiers vérifient nos contrôles de sécurité et nos pratiques de traitement des données.'
-          },
-          {
-            icon: '🌐',
-            title: 'Centres de Données Mondiaux',
-            desc: 'Données stockées dans les régions UE/Royaume-Uni/États-Unis avec sauvegardes automatiques et reprise après sinistre.'
-          }
-        ],
-        stats: [
-          { value: '99,9%', label: 'SLA Disponibilité' },
-          { value: '24/7', label: 'Surveillance' },
-          { value: '< 4h', label: 'Réponse Support' }
-        ]
-      },
-      support: {
-        icon: 'fa-graduation-cap',
-        title: 'Formation et Intégration',
-        subtitle: 'Nous formons votre équipe à maîtriser les systèmes que nous créons',
-        benefits: [
-          {
-            icon: '🎓',
-            title: 'Programme de Formation Complet',
-            desc: 'Formation pratique complète pour votre équipe sur tous les systèmes personnalisés, agents IA et intégrations que nous créons pour vous.'
-          },
-          {
-            icon: '📚',
-            title: 'Documentation Personnalisée',
-            desc: 'Guides détaillés et tutoriels vidéo adaptés à votre implémentation spécifique, facilitant la mise à niveau des nouveaux membres de l\'équipe.'
-          },
-          {
-            icon: '🔧',
-            title: 'Support Continu',
-            desc: 'Support par email et vidéo pendant les heures de bureau pour aider à résoudre les problèmes et répondre aux questions au fur et à mesure qu\'elles se présentent.'
-          },
-          {
-            icon: '📈',
-            title: 'Évaluations de Performance',
-            desc: 'Points réguliers pour optimiser les performances du système, recueillir des commentaires et mettre en œuvre des améliorations basées sur votre utilisation.'
-          }
-        ],
-        stats: [
-          { value: '100%', label: 'Équipe Formée' },
-          { value: '2-3 jours', label: 'Intégration' },
-          { value: 'Continu', label: 'Support' }
-        ]
-      }
-    };
-
     // Premium scroll-triggered reveal animation - Reverse Stack Mode
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-step');
-      const flowConnectors = document.querySelectorAll('.flow-connector');
 
       // Track which steps have been revealed on first load
       const hasBeenRevealed = new Set();
@@ -1048,7 +819,15 @@ const jsonLd = [
         });
       }, observerOptions);
 
-      processSteps.forEach(step => observer.observe(step));
+      processSteps.forEach(step => {
+        observer.observe(step);
+        // Immediately check if element is already in viewport
+        const rect = step.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          hasBeenRevealed.add(step);
+          step.classList.add('reveal');
+        }
+      });
 
       // Animate-on-scroll observer for stat cards, feature cards, trust badges, etc.
       const animateElements = document.querySelectorAll('.animate-on-scroll');
@@ -1064,7 +843,14 @@ const jsonLd = [
         rootMargin: '0px 0px -50px 0px'
       });
 
-      animateElements.forEach(el => animateObserver.observe(el));
+      animateElements.forEach(el => {
+        animateObserver.observe(el);
+        // Immediately check if element is already in viewport (above the fold)
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add('visible');
+        }
+      });
     });
   </script>
 </BaseLayout>
