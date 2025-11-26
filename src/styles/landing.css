@@ -1939,11 +1939,11 @@
 
     /* Process Mapping Visual */
     .process-mapping-visual {
-      background: rgba(11, 15, 25, 0.6);
+      background: rgba(11, 15, 25, 0.85);
       border-radius: 20px;
       padding: 2.5rem;
       border: 1px solid rgba(6, 182, 212, 0.2);
-      backdrop-filter: blur(10px);
+      /* Removed backdrop-filter for performance - using solid bg instead */
     }
 
     .mapping-flow {
@@ -2034,24 +2034,30 @@
       background: rgba(239, 68, 68, 0.1);
       border: 1px solid rgba(239, 68, 68, 0.3);
       color: #fca5a5;
-      animation: shake 3s ease-in-out infinite;
+      animation: shake 4s ease-in-out infinite;
+      will-change: transform;
     }
 
     .task-node.chaos:nth-child(1) { animation-delay: 0s; }
-    .task-node.chaos:nth-child(2) { animation-delay: 0.3s; }
-    .task-node.chaos:nth-child(3) { animation-delay: 0.6s; }
-    .task-node.chaos:nth-child(4) { animation-delay: 0.9s; }
-    .task-node.chaos:nth-child(5) { animation-delay: 1.2s; }
-    .task-node.chaos:nth-child(6) { animation-delay: 1.5s; }
+    .task-node.chaos:nth-child(2) { animation-delay: 0.5s; }
+    .task-node.chaos:nth-child(3) { animation-delay: 1s; }
+    .task-node.chaos:nth-child(4) { animation-delay: 1.5s; }
+    .task-node.chaos:nth-child(5) { animation-delay: 2s; }
+    .task-node.chaos:nth-child(6) { animation-delay: 2.5s; }
 
+    /* Optimized shake animation - fewer keyframes, GPU accelerated */
     @keyframes shake {
-      0%, 100% { transform: translate(0, 0); }
-      10% { transform: translate(-2px, -2px); }
-      20% { transform: translate(2px, 2px); }
-      30% { transform: translate(-2px, 2px); }
-      40% { transform: translate(2px, -2px); }
-      50% { transform: translate(-1px, 1px); }
-      60% { transform: translate(1px, -1px); }
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      25% { transform: translate3d(-2px, -1px, 0); }
+      50% { transform: translate3d(2px, 1px, 0); }
+      75% { transform: translate3d(-1px, 2px, 0); }
+    }
+
+    /* Respect user preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .task-node.chaos {
+        animation: none;
+      }
     }
 
     .optimized-flow {
@@ -6682,7 +6688,7 @@
   position: relative;
   z-index: 1;
   transition: transform 0.3s ease;
-  backdrop-filter: blur(10px);
+  /* Removed backdrop-filter for performance */
 }
 
 .task-node i {
@@ -6693,24 +6699,30 @@
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   color: #fca5a5;
-  animation: shake 3s ease-in-out infinite;
+  animation: shake 4s ease-in-out infinite;
+  will-change: transform;
 }
 
 .task-node.chaos:nth-child(1) { animation-delay: 0s; }
-.task-node.chaos:nth-child(2) { animation-delay: 0.3s; }
-.task-node.chaos:nth-child(3) { animation-delay: 0.6s; }
-.task-node.chaos:nth-child(4) { animation-delay: 0.9s; }
-.task-node.chaos:nth-child(5) { animation-delay: 1.2s; }
-.task-node.chaos:nth-child(6) { animation-delay: 1.5s; }
+.task-node.chaos:nth-child(2) { animation-delay: 0.5s; }
+.task-node.chaos:nth-child(3) { animation-delay: 1s; }
+.task-node.chaos:nth-child(4) { animation-delay: 1.5s; }
+.task-node.chaos:nth-child(5) { animation-delay: 2s; }
+.task-node.chaos:nth-child(6) { animation-delay: 2.5s; }
 
+/* Optimized shake - uses translate3d for GPU acceleration, fewer keyframes */
 @keyframes shake {
-  0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-2px, -2px); }
-  20% { transform: translate(2px, 2px); }
-  30% { transform: translate(-2px, 2px); }
-  40% { transform: translate(2px, -2px); }
-  50% { transform: translate(-1px, 1px); }
-  60% { transform: translate(1px, -1px); }
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-2px, -1px, 0); }
+  50% { transform: translate3d(2px, 1px, 0); }
+  75% { transform: translate3d(-1px, 2px, 0); }
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .task-node.chaos {
+    animation: none;
+  }
 }
 
 .optimized-flow {
