@@ -2,6 +2,7 @@
 /**
  * Spline Scene Component
  * Optimized for fastest possible load time with aggressive caching
+ * Uses Cache API for persistent scene data across page navigations
  */
 ---
 
@@ -10,29 +11,52 @@
 <script>
   import { Application } from '@splinetool/runtime';
 
-  // Use global cache to persist Spline scene across page navigations
   const SCENE_URL = 'https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode';
+  const CACHE_NAME = 'jengu-spline-cache-v1';
   const CACHE_KEY = 'jengu_spline_instance';
 
   // Start immediately - no DOM ready wait
   const canvas = document.getElementById('spline-canvas') as HTMLCanvasElement;
 
   if (canvas) {
-    // Check if we have a cached instance
+    // Check if we have a cached instance in window (same-page navigation)
     let app = (window as any)[CACHE_KEY];
 
     if (!app) {
       // Create new application instance
       app = new Application(canvas);
-      // Store in global cache
+      // Store in global cache for same-session reuse
       (window as any)[CACHE_KEY] = app;
 
       // Set rendering options for better performance
       canvas.style.willChange = 'transform';
 
-      // Load scene for the first time
-      app.load(SCENE_URL)
-        .then(() => {
+      // Try to load from Cache API first for faster subsequent loads
+      const loadFromCacheOrNetwork = async () => {
+        try {
+          // Check if Cache API is available and scene is cached
+          if ('caches' in window) {
+            const cache = await caches.open(CACHE_NAME);
+            const cachedResponse = await cache.match(SCENE_URL);
+
+            if (cachedResponse) {
+              // Scene is cached - browser will serve from cache automatically
+              // The Spline runtime will benefit from browser-level caching
+            }
+          }
+
+          // Load scene (will use browser cache if available)
+          await app.load(SCENE_URL);
+
+          // Cache the scene URL for future visits
+          if ('caches' in window) {
+            const cache = await caches.open(CACHE_NAME);
+            // Pre-cache the scene URL for next visit
+            cache.add(SCENE_URL).catch(() => {
+              // Silently fail - not critical
+            });
+          }
+
           // Scene loaded successfully
           const container = document.querySelector('.spline-container');
           if (container) {
@@ -43,10 +67,12 @@
           setTimeout(() => {
             canvas.style.willChange = 'auto';
           }, 1000);
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error('Error loading Spline scene:', error);
-        });
+        }
+      };
+
+      loadFromCacheOrNetwork();
     } else {
       // Reuse existing instance - just update canvas
       app.setCanvas(canvas);

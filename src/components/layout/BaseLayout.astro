@@ -38,6 +38,9 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <link rel="preconnect" href="https://prod.spline.design" crossorigin>
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
+  <!-- Prefetch Spline scene for faster loading on language switch -->
+  <link rel="prefetch" href="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode" as="fetch" crossorigin>
+
   <!-- Fonts: Optimized loading with font-display swap -->
   <link
     href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap"
