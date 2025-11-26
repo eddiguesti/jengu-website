@@ -7590,4 +7590,46 @@
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
   }
+
+  /* CRITICAL: Force single column grid on mobile - final override */
+  .features-grid-new {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+    padding: 0 1rem !important;
+  }
+
+  /* Disable heavy animations on mobile for performance */
+  .task-node.chaos {
+    animation: none !important;
+  }
+
+  .chaos-lines {
+    display: none !important;
+  }
+
+  /* Simplify process mapping visual on mobile */
+  .process-mapping-visual {
+    transform: none !important;
+  }
+
+  .mapping-flow {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .flow-state {
+    width: 100%;
+  }
+
+  .transformation-arrow {
+    transform: rotate(90deg);
+    margin: 1rem 0;
+  }
+
+  /* Reduce backdrop-filter on mobile (expensive) */
+  .task-node {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
