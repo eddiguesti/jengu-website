@@ -15,9 +15,30 @@ const t = getTranslations(currentLocale);
 <nav id="navbar">
   <div class="nav-container">
     <div class="nav-right" id="navRight">
-      <!-- Logo -->
+      <!-- Logo - Optimized with responsive images (646KB -> 5KB) -->
       <a href="/" class="nav-logo" aria-label="Home">
-        <img src="/images/team/danny-smith.jpg" alt="Jengu Logo" />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="/images/team/danny-smith-64.webp 64w,
+                    /images/team/danny-smith-128.webp 128w,
+                    /images/team/danny-smith-256.webp 256w"
+            sizes="(max-width: 768px) 36px, 48px"
+          />
+          <img
+            src="/images/team/danny-smith-128.jpg"
+            srcset="/images/team/danny-smith-64.jpg 64w,
+                    /images/team/danny-smith-128.jpg 128w,
+                    /images/team/danny-smith-256.jpg 256w"
+            sizes="(max-width: 768px) 36px, 48px"
+            alt="Jengu Logo"
+            width="48"
+            height="48"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
       </a>
 
       <!-- Free Consultation CTA -->

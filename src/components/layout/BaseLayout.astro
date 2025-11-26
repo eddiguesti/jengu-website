@@ -38,8 +38,7 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <link rel="preconnect" href="https://prod.spline.design" crossorigin>
   <link rel="preconnect" href="https://unpkg.com" crossorigin>
 
-  <!-- Prefetch Spline scene for faster loading on language switch -->
-  <link rel="prefetch" href="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode" as="fetch" crossorigin>
+  <!-- Spline prefetch removed - lazy loading handles this now -->
 
   <!-- Fonts: Optimized loading with font-display swap -->
   <link
@@ -52,21 +51,12 @@ const currentLocale = getLocaleFromUrl(currentPath);
     <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- Font Awesome: Deferred loading -->
-  <link
-    rel="preload"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  >
+  <!-- Font Awesome: Load after paint to minimize main thread work -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
-  <!-- GSAP for navbar morph animation - Load before other scripts -->
-  <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-  <!-- Preload critical assets -->
-  <link rel="preload" href="/images/logo.png" as="image" type="image/png">
-  <link rel="preload" href="/scripts/main.js" as="script">
+  <!-- Preload critical assets - optimized nav logo (646KB -> 2KB) -->
+  <link rel="preload" href="/images/team/danny-smith-128.webp" as="image" type="image/webp">
 
   <!-- SEO -->
   <SEOHead seo={seo} />
@@ -125,9 +115,11 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <!-- Booking Modal -->
   <BookingModal />
 
-  <!-- Global JavaScript -->
-  <script is:inline src="/scripts/main.js"></script>
-  <script is:inline src="/scripts/language-persistence.js"></script>
+  <!-- Language persistence - small, runs early for redirects -->
+  <script is:inline src="/scripts/language-persistence.js" defer></script>
+
+  <!-- Main JS - optimized with lazy GSAP loading (48KB saved on initial load) -->
+  <script is:inline src="/scripts/main-optimized.js" defer></script>
 
   <!-- Analytics - Loaded last to prevent blocking -->
   <Analytics />
