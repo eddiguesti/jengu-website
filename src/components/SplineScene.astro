@@ -1,89 +1,71 @@
 ---
 /**
  * Spline Scene Component
- * Optimized for fastest possible load time with aggressive caching
- * Uses Cache API for persistent scene data across page navigations
+ * PERFORMANCE OPTIMIZED: Lazy loads after page is interactive
+ * Only loads when user has scrolled or after 3 seconds idle
  */
 ---
 
 <canvas id="spline-canvas" class="spline-canvas"></canvas>
 
-<script>
-  import { Application } from '@splinetool/runtime';
+<script is:inline>
+  // Lazy load Spline to prevent blocking main thread (6+ seconds!)
+  (function() {
+    const SCENE_URL = 'https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode';
+    const canvas = document.getElementById('spline-canvas');
+    if (!canvas) return;
 
-  const SCENE_URL = 'https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode';
-  const CACHE_NAME = 'jengu-spline-cache-v1';
-  const CACHE_KEY = 'jengu_spline_instance';
+    let splineLoaded = false;
 
-  // Start immediately - no DOM ready wait
-  const canvas = document.getElementById('spline-canvas') as HTMLCanvasElement;
+    async function loadSpline() {
+      if (splineLoaded) return;
+      splineLoaded = true;
 
-  if (canvas) {
-    // Check if we have a cached instance in window (same-page navigation)
-    let app = (window as any)[CACHE_KEY];
+      try {
+        // Dynamically import the heavy Spline runtime
+        const { Application } = await import('https://unpkg.com/@splinetool/runtime@1.9.28/build/runtime.js');
 
-    if (!app) {
-      // Create new application instance
-      app = new Application(canvas);
-      // Store in global cache for same-session reuse
-      (window as any)[CACHE_KEY] = app;
+        const app = new Application(canvas);
+        await app.load(SCENE_URL);
 
-      // Set rendering options for better performance
-      canvas.style.willChange = 'transform';
-
-      // Try to load from Cache API first for faster subsequent loads
-      const loadFromCacheOrNetwork = async () => {
-        try {
-          // Check if Cache API is available and scene is cached
-          if ('caches' in window) {
-            const cache = await caches.open(CACHE_NAME);
-            const cachedResponse = await cache.match(SCENE_URL);
-
-            if (cachedResponse) {
-              // Scene is cached - browser will serve from cache automatically
-              // The Spline runtime will benefit from browser-level caching
-            }
-          }
-
-          // Load scene (will use browser cache if available)
-          await app.load(SCENE_URL);
-
-          // Cache the scene URL for future visits
-          if ('caches' in window) {
-            const cache = await caches.open(CACHE_NAME);
-            // Pre-cache the scene URL for next visit
-            cache.add(SCENE_URL).catch(() => {
-              // Silently fail - not critical
-            });
-          }
-
-          // Scene loaded successfully
-          const container = document.querySelector('.spline-container');
-          if (container) {
-            container.classList.add('loaded');
-          }
-
-          // Remove will-change after animation completes
-          setTimeout(() => {
-            canvas.style.willChange = 'auto';
-          }, 1000);
-        } catch (error) {
-          console.error('Error loading Spline scene:', error);
+        // Mark as loaded
+        const container = document.querySelector('.spline-container');
+        if (container) {
+          container.classList.add('loaded');
         }
-      };
-
-      loadFromCacheOrNetwork();
-    } else {
-      // Reuse existing instance - just update canvas
-      app.setCanvas(canvas);
-
-      // Immediately mark as loaded since scene is already in cache
-      const container = document.querySelector('.spline-container');
-      if (container) {
-        container.classList.add('loaded');
+      } catch (error) {
+        // Silent fail - 3D is non-critical
       }
     }
-  }
+
+    // Strategy: Load after page is interactive OR user scrolls
+    // This prevents blocking LCP and main thread work
+
+    // Option 1: Load after 3 seconds (page should be interactive by then)
+    const idleTimeout = setTimeout(loadSpline, 3000);
+
+    // Option 2: Load immediately if user scrolls (shows engagement)
+    const scrollHandler = () => {
+      clearTimeout(idleTimeout);
+      window.removeEventListener('scroll', scrollHandler);
+      // Use requestIdleCallback if available for smoother loading
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadSpline);
+      } else {
+        setTimeout(loadSpline, 100);
+      }
+    };
+    window.addEventListener('scroll', scrollHandler, { once: true, passive: true });
+
+    // Option 3: Load when browser is idle (best for performance)
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        clearTimeout(idleTimeout);
+        window.removeEventListener('scroll', scrollHandler);
+        loadSpline();
+      }, { timeout: 5000 });
+    }
+  })();
 </script>
 
 <style>
