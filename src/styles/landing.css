@@ -6346,6 +6346,13 @@
     font-size: 1.3rem;
   }
 
+  /* Stack icon and title vertically on mobile */
+  .feature-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
   .feature-header h3 {
     font-size: 1.25rem; /* Slightly larger for mobile readability */
   }
@@ -6625,11 +6632,11 @@
 
 /* Process Mapping Visual Premium */
 .process-mapping-visual {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(11, 15, 25, 0.9);
   border-radius: 24px;
   padding: 2.5rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
+  /* Removed backdrop-filter for performance */
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
@@ -6849,36 +6856,78 @@
 /* Mobile responsive - Process Mapping Visual */
 @media (max-width: 768px) {
   .process-mapping-visual {
-    padding: 1.5rem;
+    padding: 1rem !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .mapping-flow {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
   }
 
   .flow-state {
-    padding: 1.25rem;
+    padding: 1rem !important;
+    width: 100% !important;
+  }
+
+  .chaotic-flow {
+    min-height: auto !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* DISABLE all animations on mobile */
+  .task-node.chaos {
+    animation: none !important;
+    transform: none !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  .task-node.chaos i {
+    font-size: 0.9rem !important;
+  }
+
+  .chaos-lines {
+    display: none !important;
   }
 
   .task-node {
-    padding: 0.75rem 1rem;
-    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   .task-node i {
-    font-size: 1rem;
+    font-size: 0.9rem !important;
   }
 
   .flow-arrow {
-    font-size: 1.2rem;
+    font-size: 1rem !important;
   }
 
   .transformation-arrow {
-    margin: 1rem 0;
+    display: flex !important;
+    transform: rotate(90deg) !important;
+    margin: 0.5rem auto !important;
   }
 
   .transformation-arrow i {
-    font-size: 1.5rem;
+    font-size: 1.25rem !important;
+    animation: none !important;
   }
 
   .transformation-arrow span {
-    font-size: 0.75rem;
+    display: none !important;
+  }
+
+  .optimized-flow {
+    gap: 0.25rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
   }
 }
 
