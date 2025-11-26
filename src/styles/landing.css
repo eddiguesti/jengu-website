@@ -6027,12 +6027,21 @@
 /* New Feature Cards Grid */
 .features-grid-new {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0;
   width: 100%;
+}
+
+/* Force single column on mobile */
+@media (max-width: 768px) {
+  .features-grid-new {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem;
+    padding: 0 1rem;
+  }
 }
 
 /* Desktop: ensure cards are centered and properly aligned */
