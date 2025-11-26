@@ -780,13 +780,21 @@ const t = getTranslations(currentLocale);
 
   /* Mobile Responsive */
   @media (max-width: 768px) {
+    .booking-overlay {
+      padding: 0;
+      align-items: flex-start;
+    }
+
     .booking-modal {
       max-height: 100vh;
+      min-height: 100vh;
       border-radius: 0;
+      margin-top: 0;
+      padding-top: env(safe-area-inset-top, 20px);
     }
 
     .booking-modal-header {
-      padding: 24px 20px 20px;
+      padding: 60px 20px 20px; /* Extra top padding for close button */
     }
 
     .booking-modal-title {
@@ -808,8 +816,18 @@ const t = getTranslations(currentLocale);
     }
 
     .booking-close {
-      top: 16px;
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 10px) + 10px);
       right: 16px;
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 10001;
+    }
+
+    .booking-close:hover {
+      background: rgba(239, 68, 68, 0.8);
     }
   }
 </style>
