@@ -214,10 +214,13 @@ function exposeGlobals() {
 /**
  * Initialize scroll animations using IntersectionObserver
  * Runs in idle time, processes elements in chunks
+ * OPTIMIZED: Disconnects observer when all elements revealed
  */
 async function initScrollAnimationsDeferred() {
   const elements = $$('.animate-on-scroll');
   if (!elements.length) return;
+
+  let remainingCount = 0;
 
   const observer = new IntersectionObserver((entries) => {
     // Batch DOM writes in RAF for smoothness
@@ -227,6 +230,12 @@ async function initScrollAnimationsDeferred() {
           entry.target.classList.remove('animate-hidden');
           entry.target.classList.add('visible');
           observer.unobserve(entry.target);
+          remainingCount--;
+
+          // Disconnect observer when all elements revealed - saves ongoing work
+          if (remainingCount <= 0) {
+            observer.disconnect();
+          }
         }
       });
     });
@@ -242,8 +251,10 @@ async function initScrollAnimationsDeferred() {
       const rect = el.getBoundingClientRect();
       if (rect.top >= window.innerHeight) {
         el.classList.add('animate-hidden');
+        remainingCount++;
+        observer.observe(el);
       }
-      observer.observe(el);
+      // Elements already in viewport don't need observation
     },
     10
   );
@@ -398,35 +409,33 @@ function initMobileHeroParallax() {
 // ============================================================================
 
 let gsapLoaded = false;
-let gsapLoading = false;
+let gsapLoadPromise = null;
 
 /**
  * Load GSAP dynamically only when needed
+ * OPTIMIZED: Removed setInterval polling, uses Promise chain instead
  */
 function loadGSAP() {
-  if (gsapLoaded || gsapLoading) {
-    return gsapLoaded ? Promise.resolve() : new Promise(r => {
-      const check = setInterval(() => {
-        if (gsapLoaded) { clearInterval(check); r(); }
-      }, 50);
-    });
-  }
+  if (gsapLoaded) return Promise.resolve();
 
-  gsapLoading = true;
-  return new Promise((resolve) => {
+  // Return existing promise if already loading (no polling needed)
+  if (gsapLoadPromise) return gsapLoadPromise;
+
+  gsapLoadPromise = new Promise((resolve) => {
     const script = document.createElement('script');
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
     script.onload = () => {
       gsapLoaded = true;
-      gsapLoading = false;
       resolve();
     };
     script.onerror = () => {
-      gsapLoading = false;
+      gsapLoadPromise = null; // Allow retry
       resolve(); // Continue without GSAP
     };
     document.head.appendChild(script);
   });
+
+  return gsapLoadPromise;
 }
 
 /**
