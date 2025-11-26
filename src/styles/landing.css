@@ -7599,32 +7599,51 @@
     padding: 0 1rem !important;
   }
 
-  /* Disable heavy animations on mobile for performance */
-  .task-node.chaos {
-    animation: none !important;
+  /* Hide the entire chaotic "Before" section on mobile for performance */
+  .before-state {
+    display: none !important;
   }
 
-  .chaos-lines {
+  /* Hide transformation arrow on mobile */
+  .transformation-arrow {
     display: none !important;
   }
 
   /* Simplify process mapping visual on mobile */
   .process-mapping-visual {
     transform: none !important;
+    padding: 1rem !important;
   }
 
   .mapping-flow {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .flow-state {
     width: 100%;
   }
 
-  .transformation-arrow {
-    transform: rotate(90deg);
-    margin: 1rem 0;
+  /* Make "After" state take full focus on mobile */
+  .after-state {
+    padding: 1.5rem !important;
+  }
+
+  .after-state .state-label {
+    font-size: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .optimized-flow {
+    gap: 0.5rem !important;
+  }
+
+  .optimized-flow .task-node {
+    padding: 0.75rem !important;
+  }
+
+  .optimized-flow .flow-arrow {
+    font-size: 1rem !important;
   }
 
   /* Reduce backdrop-filter on mobile (expensive) */
