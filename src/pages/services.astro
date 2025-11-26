@@ -120,8 +120,8 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Premium Animated Hero - Desktop Optimized -->
-  <section class="services-hero">
+  <!-- Desktop Hero - Premium Animated -->
+  <section class="services-hero desktop-only">
     <div class="hero-bg-effects">
       <div class="gradient-orb orb-1"></div>
       <div class="gradient-orb orb-2"></div>
@@ -207,6 +207,84 @@ const jsonLd = [
     <div class="scroll-indicator">
       <div class="scroll-line"></div>
       <span>Scroll to explore</span>
+    </div>
+  </section>
+
+  <!-- Mobile Hero - Video Background (like homepage) -->
+  <section class="services-mobile-hero mobile-only">
+    <div class="services-video-bg">
+      <video autoplay muted playsinline loop id="services-bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
+        <source src="/videos/mobile-hero.mp4" type="video/mp4">
+      </video>
+      <script is:inline>
+        const servicesBgVideo = document.getElementById('services-bg-video');
+        if (servicesBgVideo) {
+          servicesBgVideo.addEventListener('loadedmetadata', function() {
+            servicesBgVideo.currentTime = 7;
+          });
+        }
+      </script>
+
+      <!-- Gradient overlay -->
+      <div class="services-hero-gradient"></div>
+
+      <!-- Content overlay -->
+      <div class="services-hero-overlay">
+        <h1 class="services-hero-headline">
+          AI Solutions<br/>for Tourism
+        </h1>
+        <p class="services-hero-subhead">Chatbots, voice AI, custom software & integrations built for your business</p>
+        <div class="services-hero-actions">
+          <button onclick="openBookingModal()" class="services-hero-btn services-hero-btn-primary">
+            Free Consultation
+          </button>
+          <a href="#calculator" class="services-hero-btn services-hero-btn-secondary">
+            Calculate ROI
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Service Icons Grid - Below video on mobile -->
+    <div class="services-icons-section">
+      <div class="services-icons-grid">
+        <div class="service-icon-card">
+          <div class="service-icon-bubble cyan">
+            <i class="fas fa-robot"></i>
+          </div>
+          <span>Chatbots</span>
+        </div>
+        <div class="service-icon-card">
+          <div class="service-icon-bubble purple">
+            <i class="fas fa-phone-volume"></i>
+          </div>
+          <span>Voice AI</span>
+        </div>
+        <div class="service-icon-card">
+          <div class="service-icon-bubble pink">
+            <i class="fas fa-code"></i>
+          </div>
+          <span>Software</span>
+        </div>
+        <div class="service-icon-card">
+          <div class="service-icon-bubble orange">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <span>APIs</span>
+        </div>
+        <div class="service-icon-card">
+          <div class="service-icon-bubble green">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <span>Email AI</span>
+        </div>
+        <div class="service-icon-card">
+          <div class="service-icon-bubble blue">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <span>Analytics</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1310,6 +1388,278 @@ const jsonLd = [
     }
   }
 
+  /* ==================== DESKTOP/MOBILE VISIBILITY UTILITIES ==================== */
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none !important;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none !important;
+    }
+
+    .mobile-only {
+      display: block !important;
+    }
+  }
+
+  /* ==================== MOBILE VIDEO HERO (Services Page) ==================== */
+  .services-mobile-hero {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .services-mobile-hero {
+      display: block !important;
+      position: relative;
+      width: 100%;
+      background: #000;
+    }
+
+    /* Video Background Container */
+    .services-video-bg {
+      position: relative;
+      width: 100%;
+      height: 85vh;
+      min-height: 500px;
+      max-height: 700px;
+      overflow: hidden;
+    }
+
+    .services-video-bg video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+
+    /* Gradient Overlay */
+    .services-hero-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70%;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.95) 0%,
+        rgba(0, 0, 0, 0.7) 40%,
+        rgba(0, 0, 0, 0.3) 70%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Content Overlay */
+    .services-hero-overlay {
+      position: absolute;
+      bottom: 4rem;
+      left: 0;
+      right: 0;
+      padding: 0 1.5rem;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .services-hero-headline {
+      font-size: 2.5rem;
+      line-height: 1.1;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+      letter-spacing: -0.02em;
+    }
+
+    .services-hero-subhead {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 1.5rem;
+      max-width: 320px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* CTA Buttons */
+    .services-hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+
+    .services-hero-btn {
+      padding: 0.875rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .services-hero-btn-primary {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+      border: none;
+    }
+
+    .services-hero-btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .services-hero-btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .services-hero-btn-secondary:active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Service Icons Section */
+    .services-icons-section {
+      background: linear-gradient(180deg, #000 0%, #0a0e1a 100%);
+      padding: 2rem 1rem 1.5rem;
+    }
+
+    .services-icons-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .service-icon-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .service-icon-bubble {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .service-icon-bubble i {
+      font-size: 1.25rem;
+    }
+
+    .service-icon-card span {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 0.02em;
+    }
+
+    /* Icon Colors */
+    .service-icon-bubble.cyan {
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+    .service-icon-bubble.cyan i { color: #06B6D4; }
+
+    .service-icon-bubble.purple {
+      background: rgba(139, 92, 246, 0.15);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+    .service-icon-bubble.purple i { color: #8B5CF6; }
+
+    .service-icon-bubble.pink {
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.3);
+    }
+    .service-icon-bubble.pink i { color: #EC4899; }
+
+    .service-icon-bubble.orange {
+      background: rgba(251, 146, 60, 0.15);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+    .service-icon-bubble.orange i { color: #FB923C; }
+
+    .service-icon-bubble.green {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .service-icon-bubble.green i { color: #10B981; }
+
+    .service-icon-bubble.blue {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .service-icon-bubble.blue i { color: #3B82F6; }
+  }
+
+  /* Small mobile adjustments */
+  @media (max-width: 375px) {
+    .services-video-bg {
+      height: 80vh;
+      min-height: 450px;
+    }
+
+    .services-hero-headline {
+      font-size: 2.25rem;
+    }
+
+    .services-hero-subhead {
+      font-size: 0.9rem;
+    }
+
+    .services-hero-actions {
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+
+    .services-hero-btn {
+      width: 100%;
+      max-width: 260px;
+    }
+
+    .services-icons-grid {
+      gap: 0.75rem;
+    }
+
+    .service-icon-bubble {
+      width: 46px;
+      height: 46px;
+    }
+
+    .service-icon-bubble i {
+      font-size: 1.1rem;
+    }
+
+    .service-icon-card span {
+      font-size: 0.65rem;
+    }
+  }
+
   /* ==========================================================================
      MOBILE STYLES - CRO OPTIMIZED (max-width: 768px)
 
@@ -1323,124 +1673,17 @@ const jsonLd = [
      ========================================================================== */
   @media (max-width: 768px) {
 
-    /* ========== HERO SECTION - Above the Fold ========== */
-    .services-hero {
-      padding: 5.5rem 1.25rem 2.5rem; /* Tighter top, visible content faster */
-      min-height: auto;
-      display: flex;
-      align-items: flex-start; /* Start from top, not center */
-      justify-content: center;
-    }
-
-    .hero-bg-effects {
-      opacity: 0.4;
-    }
-
-    .gradient-orb {
-      animation: none !important;
-      opacity: 0.25;
-    }
-
-    .hero-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 0;
-      width: 100%;
-    }
-
-    .hero-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      width: 100%;
-      padding: 0;
-    }
-
-    /* Badge - Social proof indicator */
-    .hero-badge {
-      font-size: 0.7rem;
-      padding: 0.4rem 0.875rem;
-      margin-bottom: 1rem;
-      letter-spacing: 0.02em;
-    }
-
-    .hero-badge i {
-      font-size: 0.65rem;
-    }
-
-    /* Main headline - Clear value prop */
-    .hero-title {
-      font-size: 1.625rem; /* Optimal mobile headline size */
-      line-height: 1.15;
-      text-align: center;
-      margin-bottom: 0.875rem;
-      letter-spacing: -0.02em;
-    }
-
-    .gradient-text-animated {
-      font-size: inherit;
-      display: block;
-      margin-top: 0.25rem;
-    }
-
-    /* Supporting copy - Benefits focused */
-    .hero-description {
-      font-size: 0.9rem;
-      line-height: 1.55;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.75);
-      max-width: 320px; /* Optimal line length for mobile */
-    }
-
-    /* CTA Group - Primary action prominent */
-    .hero-cta-group {
-      flex-direction: column;
-      gap: 0.625rem;
-      width: 100%;
-      max-width: 280px; /* Prevent overly wide buttons */
-    }
-
-    .btn-primary-glow {
-      width: 100%;
-      justify-content: center;
-      padding: 0.9rem 1.25rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      min-height: 48px; /* Thumb-friendly */
-      border-radius: 10px;
-    }
-
-    .btn-secondary-outline {
-      width: 100%;
-      justify-content: center;
-      padding: 0.75rem 1rem;
-      font-size: 0.8rem;
-      min-height: 44px;
-      border-radius: 8px;
-      border-width: 1px;
-      opacity: 0.9;
-    }
-
-    .hero-visual,
-    .scroll-indicator {
-      display: none;
-    }
-
-    /* ========== SERVICES SECTION ========== */
+    /* ========== SERVICES SECTION - Below Video Hero ========== */
     .services-premium-section {
-      padding: 2.5rem 1rem;
+      padding: 2rem 1rem;
     }
 
     .process-premium-section {
-      padding: 2.5rem 1rem 2rem;
+      padding: 2rem 1rem 1.5rem;
     }
 
     .calculator-section {
-      padding: 2.5rem 1rem;
+      padding: 2rem 1rem;
     }
 
     /* Section Headers - Consistent rhythm */
