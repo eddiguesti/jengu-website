@@ -1359,14 +1359,14 @@
         z-index: 2;
       }
 
-      /* Content Overlay - Positioned higher to avoid iPhone bottom bar */
+      /* Content Overlay - Positioned lower but above iPhone bottom bar */
       .mobile-hero-overlay {
         position: absolute;
-        bottom: 8rem;
+        bottom: 5rem;
         left: 0;
         right: 0;
         padding: 0 1.5rem;
-        padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+        padding-bottom: max(2rem, env(safe-area-inset-bottom, 2rem));
         z-index: 3;
         text-align: left;
         animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
