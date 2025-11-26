@@ -118,8 +118,8 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <!-- Language persistence - small, runs early for redirects -->
   <script is:inline src="/scripts/language-persistence.js" defer></script>
 
-  <!-- Main JS - optimized with lazy GSAP loading (48KB saved on initial load) -->
-  <script is:inline src="/scripts/main-optimized.js" defer></script>
+  <!-- Main JS v2 - Scheduler-based with task yielding (TBT target: <500ms) -->
+  <script is:inline src="/scripts/main-v2-optimized.js" defer></script>
 
   <!-- Analytics - Loaded last to prevent blocking -->
   <Analytics />

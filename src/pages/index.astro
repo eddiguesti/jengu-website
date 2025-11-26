@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
-import SplineScene from '../components/SplineScene.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateWebSiteSchema } from '../lib/seo/jsonld';
 
@@ -18,14 +17,7 @@ const jsonLd = [
 ---
 
 <BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Preload Spline scene for faster loading -->
-  <link
-    slot="head"
-    rel="preload"
-    href="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
-    as="fetch"
-    crossorigin="anonymous"
-  />
+  <!-- Spline preload removed - lazy loading for better performance -->
   <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
@@ -68,10 +60,54 @@ const jsonLd = [
       <!-- Desktop only: Spline 3D Robot -->
       <div class="hero-visual desktop-only">
         <div class="spline-container" role="img" aria-label="Interactive 3D robot animation">
-          <SplineScene />
+          <spline-viewer
+            url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
+            loading="lazy"
+          ></spline-viewer>
         </div>
       </div>
 
+      <!-- Deferred Spline Viewer Loading - prevents 6+ second JS blocking -->
+      <script>
+        // Load Spline viewer only when browser is idle to prevent blocking
+        function loadSplineViewer() {
+          const script = document.createElement('script');
+          script.type = 'module';
+          script.src = 'https://unpkg.com/@splinetool/viewer@1.9.28/build/spline-viewer.js';
+          document.head.appendChild(script);
+
+          // Show Spline when it's actually loaded
+          script.onload = () => {
+            setTimeout(() => {
+              const container = document.querySelector('.spline-container');
+              const viewer = document.querySelector('spline-viewer');
+
+              if (viewer && container) {
+                // Check if canvas is ready
+                const checkCanvas = setInterval(() => {
+                  const canvas = viewer.shadowRoot?.querySelector('canvas');
+                  if (canvas && canvas.width > 0) {
+                    clearInterval(checkCanvas);
+                    container.classList.add('loaded');
+                  }
+                }, 100);
+
+                // Fallback: show after 3 seconds regardless
+                setTimeout(() => {
+                  container.classList.add('loaded');
+                  clearInterval(checkCanvas);
+                }, 3000);
+              }
+            }, 100);
+          };
+        }
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadSplineViewer, { timeout: 2000 });
+        } else {
+          setTimeout(loadSplineViewer, 1000);
+        }
+      </script>
     </div>
 
     <!-- Mobile only: Fullscreen Video Hero -->
@@ -867,118 +903,97 @@ const jsonLd = [
   </style>
 
   <script is:inline>
-    // Homepage FAQ Toggle Function
+    // Homepage FAQ Toggle Function - Instant response, no main thread blocking
     function toggleHomeFAQ(button) {
       const faqItem = button.parentElement;
       const answer = faqItem.querySelector('.faq-answer-home');
       const icon = button.querySelector('i');
       const isActive = faqItem.classList.contains('active');
 
-      // Close all other FAQs
-      document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== faqItem && item.classList.contains('active')) {
-          item.classList.remove('active');
-          const otherAnswer = item.querySelector('.faq-answer-home');
-          const otherIcon = item.querySelector('i');
-          if (otherAnswer) otherAnswer.style.maxHeight = '0';
-          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+      // Batch DOM writes in requestAnimationFrame for smoothness
+      requestAnimationFrame(() => {
+        // Close all other FAQs
+        document.querySelectorAll('.faq-item.active').forEach(item => {
+          if (item !== faqItem) {
+            item.classList.remove('active');
+            const otherAnswer = item.querySelector('.faq-answer-home');
+            const otherIcon = item.querySelector('i');
+            if (otherAnswer) otherAnswer.style.maxHeight = '0';
+            if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+          }
+        });
+
+        // Toggle current FAQ
+        if (isActive) {
+          faqItem.classList.remove('active');
+          answer.style.maxHeight = '0';
+          icon.style.transform = 'rotate(0deg)';
+        } else {
+          faqItem.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          icon.style.transform = 'rotate(180deg)';
         }
       });
-
-      // Toggle current FAQ
-      if (isActive) {
-        // Close this FAQ
-        faqItem.classList.remove('active');
-        answer.style.maxHeight = '0';
-        icon.style.transform = 'rotate(0deg)';
-      } else {
-        // Open this FAQ - answer pops out underneath
-        faqItem.classList.add('active');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-        icon.style.transform = 'rotate(180deg)';
-      }
     }
 
-    // Premium scroll-triggered reveal animation
-    // CSS shows elements by default. JS hides elements BELOW the fold, then animates them in.
-    document.addEventListener('DOMContentLoaded', () => {
+    // Deferred scroll animation initialization - runs during idle time
+    // This prevents blocking the main thread during page load
+    function initScrollRevealAnimations() {
       const processSteps = document.querySelectorAll('.process-flow .process-step');
-      const hasBeenRevealed = new Set();
+      if (!processSteps.length) return;
 
-      // Hide elements that are BELOW the viewport (they'll animate in when scrolled)
-      processSteps.forEach(step => {
-        const rect = step.getBoundingClientRect();
-        // If element is below the viewport, hide it for animation
-        if (rect.top >= window.innerHeight) {
-          step.classList.add('animate-hidden');
-        } else {
-          // Already visible - mark as revealed
-          hasBeenRevealed.add(step);
-        }
+      const hasBeenRevealed = new Set();
+      const vh = window.innerHeight;
+
+      // Hide elements below viewport (batch in RAF)
+      requestAnimationFrame(() => {
+        processSteps.forEach(step => {
+          const rect = step.getBoundingClientRect();
+          if (rect.top >= vh) {
+            step.classList.add('animate-hidden');
+          } else {
+            hasBeenRevealed.add(step);
+          }
+        });
       });
 
-      const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -15% 0px'
-      };
-
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (!hasBeenRevealed.has(entry.target)) {
-              hasBeenRevealed.add(entry.target);
-              // Remove hidden class and add reveal
-              entry.target.classList.remove('animate-hidden');
-              entry.target.classList.add('reveal');
+        // Batch all DOM writes in RAF
+        requestAnimationFrame(() => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              if (!hasBeenRevealed.has(entry.target)) {
+                hasBeenRevealed.add(entry.target);
+                entry.target.classList.remove('animate-hidden');
+                entry.target.classList.add('reveal');
 
-              // Show connector
-              const nextConnector = entry.target.nextElementSibling;
-              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                setTimeout(() => {
-                  nextConnector.classList.add('draw');
-                }, 400);
+                const nextConnector = entry.target.nextElementSibling;
+                if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+                  setTimeout(() => nextConnector.classList.add('draw'), 400);
+                }
+              } else {
+                entry.target.classList.add('reveal');
               }
-            } else {
-              entry.target.classList.add('reveal');
-            }
-          } else {
-            if (hasBeenRevealed.has(entry.target)) {
+            } else if (hasBeenRevealed.has(entry.target)) {
               entry.target.classList.remove('reveal');
               const nextConnector = entry.target.nextElementSibling;
               if (nextConnector && nextConnector.classList.contains('flow-connector')) {
                 nextConnector.classList.remove('draw');
               }
             }
-          }
+          });
         });
-      }, observerOptions);
+      }, { threshold: 0.2, rootMargin: '0px 0px -15% 0px' });
 
       processSteps.forEach(step => observer.observe(step));
+    }
 
-      // Animate-on-scroll observer for stat cards, feature cards, etc.
-      const animateElements = document.querySelectorAll('.animate-on-scroll');
-
-      // Hide elements that are BELOW the viewport
-      animateElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top >= window.innerHeight) {
-          el.classList.add('animate-hidden');
-        }
-      });
-
-      const animateObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove('animate-hidden');
-            entry.target.classList.add('visible');
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-
-      animateElements.forEach(el => animateObserver.observe(el));
-    });
+    // Schedule initialization during idle time to prevent blocking
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initScrollRevealAnimations, { timeout: 2000 });
+    } else {
+      // Fallback: run after first paint
+      requestAnimationFrame(() => setTimeout(initScrollRevealAnimations, 0));
+    }
   </script>
 </BaseLayout>
