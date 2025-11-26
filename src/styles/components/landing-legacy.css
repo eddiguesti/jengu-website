@@ -35,6 +35,12 @@
       --gradient-brand: linear-gradient(135deg, var(--secondary-brand) 0%, var(--primary-brand) 100%);
     }
 
+    /* Utility to skip transitions for above-the-fold content */
+    .no-transition {
+      transition: none !important;
+      animation: none !important;
+    }
+
     /* Responsive text utility classes */
     .mobile-text { display: inline; }
     .desktop-text { display: none; }

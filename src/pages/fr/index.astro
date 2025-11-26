@@ -825,7 +825,15 @@ const jsonLd = [
         const rect = step.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
           hasBeenRevealed.add(step);
+          // Add no-transition class to skip animation for above-the-fold content
+          step.classList.add('no-transition');
           step.classList.add('reveal');
+          // Remove no-transition after a frame so future animations work
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              step.classList.remove('no-transition');
+            });
+          });
         }
       });
 
@@ -848,7 +856,15 @@ const jsonLd = [
         // Immediately check if element is already in viewport (above the fold)
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // Add no-transition class to skip animation for above-the-fold content
+          el.classList.add('no-transition');
           el.classList.add('visible');
+          // Remove no-transition after a frame so future animations work
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              el.classList.remove('no-transition');
+            });
+          });
         }
       });
     });
