@@ -7652,6 +7652,17 @@
     -webkit-backdrop-filter: none;
   }
 
+  /* Fix feature card header - make icon and title stack vertically */
+  .feature-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+  }
+
+  .feature-header h3 {
+    font-size: 1.2rem !important;
+  }
+
   /* Fix section header layout on mobile */
   .features .section-header {
     display: flex !important;
