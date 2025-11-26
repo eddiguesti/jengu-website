@@ -76,7 +76,7 @@ const jsonLd = [
 
     <!-- Mobile only: Fullscreen Video Hero -->
     <div class="mobile-only video-bg">
-      <video autoplay muted playsinline loop id="bg-video">
+      <video autoplay muted playsinline loop id="bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
         <source src="/videos/mobile-hero.mp4" type="video/mp4">
       </video>
 
@@ -111,6 +111,8 @@ const jsonLd = [
             muted
             loop
             playsinline
+            preload="metadata"
+            loading="lazy"
           >
             <source src="/videos/finalpromo.mp4" type="video/mp4">
             Your browser does not support the video tag.

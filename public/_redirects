@@ -92,15 +92,6 @@
 /espanol /es 301
 
 # ============================================
-# Trailing slash normalization
+# Note: Trailing slash redirects removed as they conflict
+# with Astro's directory build format (which adds trailing slashes)
 # ============================================
-/about/ /about 301
-/services/ /services 301
-/blog/ /blog 301
-/contact/ /contact 301
-/calculator/ /calculator 301
-/faq/ /faq 301
-/team/ /team 301
-/case-studies/ /case-studies 301
-/privacy/ /privacy 301
-/terms/ /terms 301

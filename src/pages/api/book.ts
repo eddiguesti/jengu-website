@@ -67,333 +67,243 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meeting Confirmed - Jengu</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #1f2937;
-      background: #f3f4f6;
-      padding: 20px;
-    }
-    .email-wrapper {
-      max-width: 600px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
-    .header {
-      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-      padding: 40px 30px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at top right, rgba(255, 185, 90, 0.15), transparent 60%);
-      pointer-events: none;
-    }
-    .header h1 {
-      color: white;
-      font-size: 28px;
-      font-weight: 700;
-      margin: 0;
-      position: relative;
-      z-index: 1;
-    }
-    .header .emoji {
-      font-size: 48px;
-      display: block;
-      margin-bottom: 10px;
-    }
-    .content {
-      padding: 40px 30px;
-      background: white;
-    }
-    .greeting {
-      font-size: 18px;
-      color: #111827;
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-    .intro {
-      color: #4b5563;
-      margin-bottom: 30px;
-      font-size: 16px;
-    }
-    .card {
-      background: #f9fafb;
-      padding: 24px;
-      margin: 24px 0;
-      border-radius: 12px;
-      border: 1px solid #e5e7eb;
-    }
-    .card h2 {
-      color: #111827;
-      font-size: 20px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-    }
-    .card h2 .icon {
-      font-size: 24px;
-    }
-    .meeting-detail {
-      display: flex;
-      padding: 12px 0;
-      border-bottom: 1px solid #e5e7eb;
-    }
-    .meeting-detail:last-child {
-      border-bottom: none;
-    }
-    .meeting-detail strong {
-      min-width: 100px;
-      color: #6b7280;
-      font-weight: 500;
-      font-size: 14px;
-    }
-    .meeting-detail span {
-      color: #111827;
-      font-weight: 600;
-      font-size: 15px;
-    }
-    .highlight-box {
-      background: linear-gradient(135deg, rgba(255, 185, 90, 0.1), rgba(255, 200, 117, 0.05));
-      border-left: 4px solid #FFB95A;
-      padding: 20px;
-      margin: 24px 0;
-      border-radius: 8px;
-    }
-    .highlight-box p {
-      color: #1f2937;
-      font-size: 15px;
-      margin: 0;
-    }
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 16px 0 0 0;
-    }
-    li {
-      padding: 12px 0;
-      padding-left: 32px;
-      position: relative;
-      color: #4b5563;
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: #10b981;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    li strong {
-      color: #111827;
-      display: block;
-      margin-bottom: 4px;
-    }
-    .resources-list {
-      margin-top: 16px;
-    }
-    .resources-list li::before {
-      content: '→';
-      color: #FFB95A;
-    }
-    .resources-list a {
-      color: #FFB95A;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-    .resources-list a:hover {
-      color: #FFC875;
-      text-decoration: underline;
-    }
-    .cta-button {
-      display: inline-block;
-      background: #FFB95A;
-      color: #050816;
-      padding: 16px 32px;
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 16px;
-      margin: 30px 0;
-      transition: all 0.3s;
-      box-shadow: 0 4px 15px rgba(255, 185, 90, 0.3);
-    }
-    .cta-button:hover {
-      background: #FFC875;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(255, 185, 90, 0.4);
-    }
-    .cta-center {
-      text-align: center;
-    }
-    .signature {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 2px solid #e5e7eb;
-      color: #4b5563;
-      font-size: 15px;
-    }
-    .signature strong {
-      color: #111827;
-      font-size: 16px;
-    }
-    .signature a {
-      color: #FFB95A;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .signature a:hover {
-      text-decoration: underline;
-    }
-    .footer {
-      background: #f9fafb;
-      text-align: center;
-      padding: 30px;
-      color: #6b7280;
-      font-size: 13px;
-      border-top: 1px solid #e5e7eb;
-    }
-    .footer p {
-      margin: 8px 0;
-    }
-    .footer-links {
-      margin-top: 16px;
-    }
-    .footer-links a {
-      color: #6b7280;
-      text-decoration: none;
-      margin: 0 12px;
-      font-size: 13px;
-    }
-    .footer-links a:hover {
-      color: #FFB95A;
-    }
-    @media only screen and (max-width: 600px) {
-      .content { padding: 30px 20px; }
-      .header { padding: 30px 20px; }
-      .header h1 { font-size: 24px; }
-      .card { padding: 20px; }
-      .cta-button { width: 100%; text-align: center; }
-      .meeting-detail { flex-direction: column; gap: 4px; }
-      .meeting-detail strong { min-width: auto; }
-    }
-  </style>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Your Consultation is Confirmed - Jengu AI</title>
 </head>
-<body>
-  <div class="email-wrapper">
-    <div class="header">
-      <span class="emoji">🎉</span>
-      <h1>Meeting Confirmed!</h1>
-    </div>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
 
-    <div class="content">
-      <p class="greeting">Hi ${name},</p>
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+    <tr>
+      <td align="center" style="padding: 0;">
 
-      <p class="intro">Thank you for booking a consultation with Jengu! We're excited to connect with you and explore how AI automation can transform your business operations.</p>
+        <!-- Main Container -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 640px;">
 
-      <div class="card">
-        <h2><span class="icon">📅</span> Your Meeting Details</h2>
-        <div class="meeting-detail">
-          <strong>Date:</strong>
-          <span>${formattedDate}</span>
-        </div>
-        <div class="meeting-detail">
-          <strong>Time:</strong>
-          <span>${formattedTime}</span>
-        </div>
-        <div class="meeting-detail">
-          <strong>Duration:</strong>
-          <span>30 minutes</span>
-        </div>
-        <div class="meeting-detail">
-          <strong>Platform:</strong>
-          <span>${contactMethod}</span>
-        </div>
-      </div>
+          <!-- Top Accent Bar -->
+          <tr>
+            <td style="height: 4px; background: linear-gradient(90deg, #f59e0b 0%, #eab308 50%, #f59e0b 100%);"></td>
+          </tr>
 
-      <div class="highlight-box">
-        <p><strong>📧 Calendar Invite Sent</strong></p>
-        <p>You'll receive a separate calendar invitation with all meeting details. Please check your inbox and add it to your calendar.</p>
-      </div>
+          <!-- Header with Logo -->
+          <tr>
+            <td style="padding: 48px 48px 32px; text-align: center; background-color: #ffffff;">
+              <img src="https://www.jengu.ai/images/logo.png" alt="Jengu" width="100" style="display: block; margin: 0 auto; height: auto;">
+            </td>
+          </tr>
 
-      <div class="card">
-        <h2><span class="icon">✅</span> How to Prepare</h2>
-        <p style="color: #4b5563; margin-bottom: 8px;">To make the most of our time together:</p>
-        <ul>
-          <li>
-            <strong>Review your workflows</strong>
-            Think about repetitive tasks that take up your team's time
-          </li>
-          <li>
-            <strong>Identify pain points</strong>
-            What processes are bottlenecks in your operations?
-          </li>
-          <li>
-            <strong>Define your goals</strong>
-            What would success look like for your business?
-          </li>
-          <li>
-            <strong>Prepare questions</strong>
-            Come with any questions about AI automation - we're here to help!
-          </li>
-        </ul>
-      </div>
+          <!-- Main Content Area -->
+          <tr>
+            <td style="padding: 0 48px;">
 
-      <div class="card">
-        <h2><span class="icon">📚</span> Helpful Resources</h2>
-        <p style="color: #4b5563; margin-bottom: 8px;">Get a head start by exploring:</p>
-        <ul class="resources-list">
-          <li><a href="https://jengu.ai/case-studies">Case Studies</a> - See real results from our clients</li>
-          <li><a href="https://jengu.ai/services">Our Services</a> - Discover what we can do for you</li>
-          <li><a href="https://jengu.ai/blog">Blog & Insights</a> - Learn about AI automation trends</li>
-        </ul>
-      </div>
+              <!-- Success Badge -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td align="center" style="padding-bottom: 24px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                      <tr>
+                        <td style="background-color: #ecfdf5; border-radius: 100px; padding: 10px 24px;">
+                          <span style="color: #059669; font-size: 14px; font-weight: 600; letter-spacing: 0.5px;">&#10004; Booking Confirmed</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
 
-      <div class="cta-center">
-        <a href="https://jengu.ai" class="cta-button">Visit Our Website</a>
-      </div>
+              <!-- Heading -->
+              <h1 style="margin: 0 0 12px; font-size: 32px; font-weight: 700; color: #111827; text-align: center; line-height: 1.2;">You're all set, ${name}!</h1>
+              <p style="margin: 0 0 40px; font-size: 16px; color: #6b7280; text-align: center; line-height: 1.6;">Your AI consultation has been scheduled. We're looking forward to exploring how automation can transform your business.</p>
 
-      <div class="signature">
-        <p><strong>Looking forward to our conversation!</strong></p>
-        <p style="margin-top: 16px;">If you need to reschedule or have any questions, just reply to this email or reach out anytime.</p>
-        <p style="margin-top: 24px;">
-          Best regards,<br>
-          <strong>The Jengu Team</strong>
-        </p>
-        <p style="margin-top: 12px;">
-          <a href="mailto:hello@jengu.ai">hello@jengu.ai</a><br>
-          <a href="https://jengu.ai">jengu.ai</a>
-        </p>
-      </div>
-    </div>
+              <!-- Meeting Details Card -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fafafa; border-radius: 16px; margin-bottom: 32px;">
+                <tr>
+                  <td style="padding: 32px;">
 
-    <div class="footer">
-      <p>You're receiving this email because you booked a consultation at <a href="https://jengu.ai" style="color: #FFB95A; text-decoration: none;">jengu.ai</a></p>
-      <div class="footer-links">
-        <a href="https://jengu.ai/privacy">Privacy Policy</a>
-        <a href="https://jengu.ai/terms">Terms of Service</a>
-      </div>
-      <p style="margin-top: 16px;">&copy; 2025 Jengu. All rights reserved.</p>
-    </div>
-  </div>
+                    <!-- Date & Time - Large Display -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 24px;">
+                      <tr>
+                        <td style="text-align: center; padding-bottom: 20px; border-bottom: 1px solid #e5e7eb;">
+                          <p style="margin: 0 0 4px; font-size: 13px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Your Meeting</p>
+                          <p style="margin: 0 0 4px; font-size: 24px; color: #111827; font-weight: 700;">${formattedDate}</p>
+                          <p style="margin: 0; font-size: 20px; color: #f59e0b; font-weight: 600;">${formattedTime}</p>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Details Grid -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <tr>
+                        <td width="50%" style="padding: 12px 0;">
+                          <p style="margin: 0 0 4px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Duration</p>
+                          <p style="margin: 0; font-size: 15px; color: #374151; font-weight: 600;">30 minutes</p>
+                        </td>
+                        <td width="50%" style="padding: 12px 0;">
+                          <p style="margin: 0 0 4px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Platform</p>
+                          <p style="margin: 0; font-size: 15px; color: #374151; font-weight: 600;">${contactMethod}</p>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Calendar Notice -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 40px;">
+                <tr>
+                  <td style="background-color: #fffbeb; border-radius: 12px; padding: 20px 24px; border-left: 4px solid #f59e0b;">
+                    <p style="margin: 0 0 4px; font-size: 15px; color: #92400e; font-weight: 600;">&#128197; Calendar invite sent</p>
+                    <p style="margin: 0; font-size: 14px; color: #a16207; line-height: 1.5;">Check your inbox for a calendar invitation with the meeting link.</p>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- What We'll Cover -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom: 40px;">
+                <tr>
+                  <td>
+                    <h2 style="margin: 0 0 20px; font-size: 18px; font-weight: 700; color: #111827;">What We'll Cover</h2>
+
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <tr>
+                        <td style="padding: 14px 0; border-bottom: 1px solid #f3f4f6;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td style="width: 36px; vertical-align: top;">
+                                <span style="display: inline-block; width: 24px; height: 24px; background-color: #fef3c7; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px;">1</span>
+                              </td>
+                              <td>
+                                <p style="margin: 0 0 2px; font-size: 15px; color: #111827; font-weight: 600;">Understand your challenges</p>
+                                <p style="margin: 0; font-size: 14px; color: #6b7280; line-height: 1.5;">We'll dive into your current workflows and pain points</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 14px 0; border-bottom: 1px solid #f3f4f6;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td style="width: 36px; vertical-align: top;">
+                                <span style="display: inline-block; width: 24px; height: 24px; background-color: #fef3c7; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px;">2</span>
+                              </td>
+                              <td>
+                                <p style="margin: 0 0 2px; font-size: 15px; color: #111827; font-weight: 600;">Identify automation opportunities</p>
+                                <p style="margin: 0; font-size: 14px; color: #6b7280; line-height: 1.5;">Discover which processes can benefit most from AI</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 14px 0;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                              <td style="width: 36px; vertical-align: top;">
+                                <span style="display: inline-block; width: 24px; height: 24px; background-color: #fef3c7; border-radius: 50%; text-align: center; line-height: 24px; font-size: 12px;">3</span>
+                              </td>
+                              <td>
+                                <p style="margin: 0 0 2px; font-size: 15px; color: #111827; font-weight: 600;">Map out next steps</p>
+                                <p style="margin: 0; font-size: 14px; color: #6b7280; line-height: 1.5;">Get a clear roadmap with expected ROI and timeline</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Prepare Section -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f9fafb; border-radius: 16px; margin-bottom: 48px;">
+                <tr>
+                  <td style="padding: 28px 32px;">
+                    <h3 style="margin: 0 0 16px; font-size: 16px; font-weight: 700; color: #111827;">Prepare for your call</h3>
+
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                      <tr>
+                        <td style="padding: 10px 0;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width: 70%;">
+                                <a href="https://www.jengu.ai/case-studies" style="color: #111827; font-size: 14px; font-weight: 600; text-decoration: none;">View Case Studies</a>
+                                <p style="margin: 2px 0 0; font-size: 13px; color: #6b7280;">See real results from businesses like yours</p>
+                              </td>
+                              <td style="width: 30%; text-align: right;">
+                                <a href="https://www.jengu.ai/case-studies" style="color: #f59e0b; font-size: 20px; text-decoration: none; font-weight: 300;">&#8594;</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 0; border-top: 1px solid #e5e7eb;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width: 70%;">
+                                <a href="https://www.jengu.ai/calculator" style="color: #111827; font-size: 14px; font-weight: 600; text-decoration: none;">Try the ROI Calculator</a>
+                                <p style="margin: 2px 0 0; font-size: 13px; color: #6b7280;">Estimate your potential savings</p>
+                              </td>
+                              <td style="width: 30%; text-align: right;">
+                                <a href="https://www.jengu.ai/calculator" style="color: #f59e0b; font-size: 20px; text-decoration: none; font-weight: 300;">&#8594;</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding: 10px 0; border-top: 1px solid #e5e7eb;">
+                          <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                              <td style="width: 70%;">
+                                <a href="https://www.jengu.ai/blog" style="color: #111827; font-size: 14px; font-weight: 600; text-decoration: none;">Read Our Blog</a>
+                                <p style="margin: 2px 0 0; font-size: 13px; color: #6b7280;">Latest insights on AI automation</p>
+                              </td>
+                              <td style="width: 30%; text-align: right;">
+                                <a href="https://www.jengu.ai/blog" style="color: #f59e0b; font-size: 20px; text-decoration: none; font-weight: 300;">&#8594;</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding: 40px 48px; background-color: #111827; text-align: center;">
+              <p style="margin: 0 0 8px; font-size: 15px; color: #ffffff; font-weight: 600;">Questions before we meet?</p>
+              <p style="margin: 0 0 16px; font-size: 14px; color: #9ca3af;">Just reply to this email or reach out directly</p>
+              <a href="mailto:hello@jengu.ai" style="display: inline-block; background-color: #f59e0b; color: #111827; font-size: 14px; font-weight: 700; text-decoration: none; padding: 12px 28px; border-radius: 8px;">hello@jengu.ai</a>
+            </td>
+          </tr>
+
+          <!-- Legal -->
+          <tr>
+            <td style="padding: 24px 48px; background-color: #111827; border-top: 1px solid #1f2937; text-align: center;">
+              <p style="margin: 0 0 8px; font-size: 12px; color: #6b7280;">
+                <a href="https://www.jengu.ai/privacy" style="color: #9ca3af; text-decoration: none;">Privacy</a>
+                <span style="color: #374151;">&nbsp;&nbsp;&#183;&nbsp;&nbsp;</span>
+                <a href="https://www.jengu.ai/terms" style="color: #9ca3af; text-decoration: none;">Terms</a>
+                <span style="color: #374151;">&nbsp;&nbsp;&#183;&nbsp;&nbsp;</span>
+                <a href="https://www.jengu.ai" style="color: #9ca3af; text-decoration: none;">jengu.ai</a>
+              </p>
+              <p style="margin: 0; font-size: 11px; color: #4b5563;">&copy; 2025 Jengu AI</p>
+            </td>
+          </tr>
+
+        </table>
+
+      </td>
+    </tr>
+  </table>
+
 </body>
 </html>
   `.trim();
