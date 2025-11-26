@@ -303,7 +303,53 @@ const jsonLd = [
         </div>
       </div>
 
-      <div class="process-mapping-visual">
+      <!-- Mobile: Simple comparison cards (fast loading) -->
+      <div class="process-mapping-visual-mobile mobile-only">
+        <div class="mobile-comparison">
+          <div class="comparison-card before">
+            <div class="comparison-header">
+              <i class="fas fa-times-circle"></i>
+              <span>Before</span>
+            </div>
+            <div class="comparison-stat">30+ hrs/week wasted</div>
+            <ul class="comparison-list">
+              <li>Manual emails & calls</li>
+              <li>Duplicate data entry</li>
+              <li>Scattered spreadsheets</li>
+            </ul>
+          </div>
+          <div class="comparison-arrow">
+            <i class="fas fa-arrow-down"></i>
+          </div>
+          <div class="comparison-card after">
+            <div class="comparison-header">
+              <i class="fas fa-check-circle"></i>
+              <span>After</span>
+            </div>
+            <div class="comparison-stat">40+ hrs/week saved</div>
+            <ul class="comparison-list">
+              <li>AI handles inquiries 24/7</li>
+              <li>Automated workflows</li>
+              <li>Real-time sync</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mapping-cta">
+          <div class="mapping-cta-buttons">
+            <button onclick="openBookingModal()" class="mapping-btn primary">
+              Book a Free Consultation
+            </button>
+            <a href="/calculator" class="mapping-btn secondary">
+              <i class="fas fa-calculator"></i>
+              Calculate My Savings
+            </a>
+          </div>
+          <p class="cta-subtext">Discover where AI can transform your operations</p>
+        </div>
+      </div>
+
+      <!-- Desktop: Full animated visualization -->
+      <div class="process-mapping-visual desktop-only">
         <div class="mapping-flow">
           <!-- Before State -->
           <div class="flow-state before-state">
