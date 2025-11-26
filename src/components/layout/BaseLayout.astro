@@ -51,8 +51,9 @@ const currentLocale = getLocaleFromUrl(currentPath);
     <link href="https://fonts.googleapis.com/css2?family=Sulphur+Point:wght@700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
   </noscript>
 
-  <!-- Font Awesome: Load after paint to minimize main thread work -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <!-- Font Awesome: Load only essential icons subset via deferred loading -->
+  <!-- Using fontawesome-free which is ~300KB for all.min.css - loading deferred -->
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
   <!-- Preload critical assets - optimized nav logo (646KB -> 2KB) -->

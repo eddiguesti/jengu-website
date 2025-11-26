@@ -152,14 +152,13 @@ const jsonLd = [
       <div class="promo-video">
         <div class="video-wrapper">
           <video
-            autoplay
+            id="promoVideo"
             muted
             loop
             playsinline
-            preload="metadata"
-            loading="lazy"
+            preload="none"
+            data-src="/videos/finalpromo.mp4"
           >
-            <source src="/videos/finalpromo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -994,6 +993,43 @@ const jsonLd = [
     } else {
       // Fallback: run after first paint
       requestAnimationFrame(() => setTimeout(initScrollRevealAnimations, 0));
+    }
+
+    // Lazy load promo video - only loads when section is visible
+    // This prevents ~500KB+ background download on page load
+    function initLazyPromoVideo() {
+      const video = document.getElementById('promoVideo');
+      if (!video) return;
+
+      const videoSrc = video.dataset.src;
+      if (!videoSrc) return;
+
+      let videoLoaded = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !videoLoaded) {
+            videoLoaded = true;
+            // Create source element and load video
+            const source = document.createElement('source');
+            source.src = videoSrc;
+            source.type = 'video/mp4';
+            video.appendChild(source);
+            video.load();
+            video.play().catch(() => {}); // Silent fail on autoplay block
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '100px' });
+
+      observer.observe(video.closest('.promo-video-section') || video);
+    }
+
+    // Initialize lazy video during idle time
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initLazyPromoVideo, { timeout: 3000 });
+    } else {
+      requestAnimationFrame(() => setTimeout(initLazyPromoVideo, 100));
     }
   </script>
 </BaseLayout>

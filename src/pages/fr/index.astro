@@ -142,12 +142,13 @@ const jsonLd = [
       <div class="promo-video">
         <div class="video-wrapper">
           <video
-            autoplay
+            id="promoVideo"
             muted
             loop
             playsinline
+            preload="none"
+            data-src="/videos/finalpromo.mp4"
           >
-            <source src="/videos/finalpromo.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
         </div>
@@ -842,6 +843,28 @@ const jsonLd = [
       });
 
       animateElements.forEach(el => animateObserver.observe(el));
+
+      // Lazy load promo video - only loads when section is visible
+      // This prevents ~500KB+ background download on page load
+      const promoVideo = document.getElementById('promoVideo');
+      if (promoVideo && promoVideo.dataset.src) {
+        let videoLoaded = false;
+        const videoObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !videoLoaded) {
+              videoLoaded = true;
+              const source = document.createElement('source');
+              source.src = promoVideo.dataset.src;
+              source.type = 'video/mp4';
+              promoVideo.appendChild(source);
+              promoVideo.load();
+              promoVideo.play().catch(() => {});
+              videoObserver.disconnect();
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '100px' });
+        videoObserver.observe(promoVideo.closest('.promo-video-section') || promoVideo);
+      }
     });
   </script>
 </BaseLayout>

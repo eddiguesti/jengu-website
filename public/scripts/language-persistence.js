@@ -80,45 +80,39 @@
     // Set the lang attribute
     document.documentElement.setAttribute('lang', currentLang);
 
-    // Add language switcher event listeners
-    const languageSwitchers = document.querySelectorAll('[data-lang-switch]');
+    // Use event delegation for all link handling (single listener instead of per-link)
+    // This reduces memory and prevents "keeps loading" feeling from many listener attachments
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (!link) return;
 
-    languageSwitchers.forEach(switcher => {
-      switcher.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      // Handle language switcher clicks
+      const langSwitch = link.getAttribute('data-lang-switch');
+      if (langSwitch) {
         e.preventDefault();
-        const targetLang = switcher.getAttribute('data-lang-switch');
-        const targetUrl = getLocalizedUrl(targetLang);
-
-        console.log('Language switch:', {
-          currentPath: window.location.pathname,
-          currentLang: currentLang,
-          targetLang: targetLang,
-          targetUrl: targetUrl
-        });
-
-        // Save preference and navigate
-        saveLanguagePreference(targetLang);
+        const targetUrl = getLocalizedUrl(langSwitch);
+        saveLanguagePreference(langSwitch);
         window.location.href = targetUrl;
-      });
-    });
+        return;
+      }
 
-    // Intercept all internal navigation links
-    document.querySelectorAll('a[href^="/"]').forEach(link => {
-      link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
+      // Handle internal navigation links
+      if (!href.startsWith('/')) return;
 
-        // Skip if it's a hash link, already has language prefix, or is an API route
-        if (href.startsWith('#') || href.startsWith('/fr/') || href.startsWith('/es/') || href.startsWith('/api/')) {
-          return;
-        }
+      // Skip if it's a hash link, already has language prefix, or is an API route
+      if (href.startsWith('#') || href.startsWith('/fr/') || href.startsWith('/es/') || href.startsWith('/api/')) {
+        return;
+      }
 
-        // If we're in a non-English language mode, convert the link
-        if (currentLang !== 'en' && !href.startsWith('/' + currentLang)) {
-          e.preventDefault();
-          const localizedHref = href === '/' ? '/' + currentLang : '/' + currentLang + href;
-          window.location.href = localizedHref;
-        }
-      });
+      // If we're in a non-English language mode, convert the link
+      if (currentLang !== 'en' && !href.startsWith('/' + currentLang)) {
+        e.preventDefault();
+        const localizedHref = href === '/' ? '/' + currentLang : '/' + currentLang + href;
+        window.location.href = localizedHref;
+      }
     });
   }
 
