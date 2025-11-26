@@ -899,14 +899,24 @@ const jsonLd = [
       }
     }
 
-    // Premium scroll-triggered reveal animation - Reverse Stack Mode
+    // Premium scroll-triggered reveal animation
+    // CSS shows elements by default. JS hides elements BELOW the fold, then animates them in.
     document.addEventListener('DOMContentLoaded', () => {
-      const processSteps = document.querySelectorAll('.process-step');
-
-      // Track which steps have been revealed on first load
+      const processSteps = document.querySelectorAll('.process-flow .process-step');
       const hasBeenRevealed = new Set();
 
-      // More refined intersection observer settings
+      // Hide elements that are BELOW the viewport (they'll animate in when scrolled)
+      processSteps.forEach(step => {
+        const rect = step.getBoundingClientRect();
+        // If element is below the viewport, hide it for animation
+        if (rect.top >= window.innerHeight) {
+          step.classList.add('animate-hidden');
+        } else {
+          // Already visible - mark as revealed
+          hasBeenRevealed.add(step);
+        }
+      });
+
       const observerOptions = {
         threshold: 0.2,
         rootMargin: '0px 0px -15% 0px'
@@ -915,14 +925,13 @@ const jsonLd = [
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Scrolling into view
             if (!hasBeenRevealed.has(entry.target)) {
-              // First time reveal - with connectors
               hasBeenRevealed.add(entry.target);
-
+              // Remove hidden class and add reveal
+              entry.target.classList.remove('animate-hidden');
               entry.target.classList.add('reveal');
 
-              // Show connector only on first reveal
+              // Show connector
               const nextConnector = entry.target.nextElementSibling;
               if (nextConnector && nextConnector.classList.contains('flow-connector')) {
                 setTimeout(() => {
@@ -930,15 +939,11 @@ const jsonLd = [
                 }, 400);
               }
             } else {
-              // Re-entering viewport - just show
               entry.target.classList.add('reveal');
             }
           } else {
-            // Scrolling out of view - hide immediately
             if (hasBeenRevealed.has(entry.target)) {
               entry.target.classList.remove('reveal');
-
-              // Hide connector
               const nextConnector = entry.target.nextElementSibling;
               if (nextConnector && nextConnector.classList.contains('flow-connector')) {
                 nextConnector.classList.remove('draw');
@@ -948,30 +953,23 @@ const jsonLd = [
         });
       }, observerOptions);
 
-      processSteps.forEach(step => {
-        observer.observe(step);
-        // Immediately check if element is already in viewport
-        const rect = step.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          hasBeenRevealed.add(step);
-          // Add no-transition class to skip animation for above-the-fold content
-          step.classList.add('no-transition');
-          step.classList.add('reveal');
-          // Remove no-transition after a frame so future animations work
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              step.classList.remove('no-transition');
-            });
-          });
+      processSteps.forEach(step => observer.observe(step));
+
+      // Animate-on-scroll observer for stat cards, feature cards, etc.
+      const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+      // Hide elements that are BELOW the viewport
+      animateElements.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top >= window.innerHeight) {
+          el.classList.add('animate-hidden');
         }
       });
-
-      // Animate-on-scroll observer for stat cards, feature cards, trust badges, etc.
-      const animateElements = document.querySelectorAll('.animate-on-scroll');
 
       const animateObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
+            entry.target.classList.remove('animate-hidden');
             entry.target.classList.add('visible');
           }
         });
@@ -980,22 +978,7 @@ const jsonLd = [
         rootMargin: '0px 0px -50px 0px'
       });
 
-      animateElements.forEach(el => {
-        animateObserver.observe(el);
-        // Immediately check if element is already in viewport (above the fold)
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // Add no-transition class to skip animation for above-the-fold content
-          el.classList.add('no-transition');
-          el.classList.add('visible');
-          // Remove no-transition after a frame so future animations work
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-              el.classList.remove('no-transition');
-            });
-          });
-        }
-      });
+      animateElements.forEach(el => animateObserver.observe(el));
     });
   </script>
 </BaseLayout>

@@ -260,9 +260,16 @@
     }
 
     .animate-on-scroll {
+      /* Start visible - JS will hide elements below the fold */
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* JS adds this class to elements below the fold that need to animate in */
+    .animate-on-scroll.animate-hidden {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: opacity, transform;
     }
 
@@ -1006,10 +1013,17 @@
       display: flex;
       align-items: center;
       gap: 2rem;
+      /* Start visible - JS will hide elements below the fold */
+      opacity: 1;
+      transform: translateY(0);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.6s ease;
+    }
+
+    /* JS adds this class to elements below the fold that need to animate in */
+    .process-step.animate-hidden {
       opacity: 0;
       transform: translateY(30px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      transition: all 0.6s ease;
     }
 
     .process-step.reveal {
