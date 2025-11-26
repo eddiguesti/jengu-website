@@ -1049,6 +1049,22 @@ const jsonLd = [
       }, observerOptions);
 
       processSteps.forEach(step => observer.observe(step));
+
+      // Animate-on-scroll observer for stat cards, feature cards, trust badges, etc.
+      const animateElements = document.querySelectorAll('.animate-on-scroll');
+
+      const animateObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      animateElements.forEach(el => animateObserver.observe(el));
     });
   </script>
 </BaseLayout>
