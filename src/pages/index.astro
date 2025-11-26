@@ -79,6 +79,15 @@ const jsonLd = [
       <video autoplay muted playsinline loop id="bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
         <source src="/videos/mobile-hero.mp4" type="video/mp4">
       </video>
+      <script is:inline>
+        // Start video at 7 seconds for instant visual impact
+        const bgVideo = document.getElementById('bg-video');
+        if (bgVideo) {
+          bgVideo.addEventListener('loadedmetadata', function() {
+            bgVideo.currentTime = 7;
+          });
+        }
+      </script>
 
       <!-- Gradient overlay -->
       <div class="mobile-hero-gradient"></div>
