@@ -22,7 +22,7 @@ const jsonLd = [
       <div class="hero-content">
         <span class="hero-badge">
           <i class="fas fa-sparkles"></i>
-          Automatización con IA para Turismo y Hospitalidad
+          <span class="jengu-brand">JENGU</span> — Automatización con IA para Turismo y Hospitalidad
         </span>
 
         <!-- Desktop headline -->
@@ -141,28 +141,85 @@ const jsonLd = [
       </script>
     </div>
 
-    <!-- Mobile only: Fullscreen Video Hero -->
+    <!-- Mobile & Tablet: Fullscreen Video Hero -->
     <div class="mobile-only video-bg">
-      <video autoplay muted playsinline loop id="bg-video">
-        <source src="/videos/mobile-hero.mp4" type="video/mp4">
+      <video autoplay muted playsinline loop id="bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
+        <source id="video-source" type="video/mp4">
       </video>
+      <script is:inline>
+        // Select video based on viewport width
+        const bgVideo = document.getElementById('bg-video');
+        const videoSource = document.getElementById('video-source');
+        if (bgVideo && videoSource) {
+          const isMobile = window.innerWidth < 768;
+          videoSource.src = isMobile ? '/videos/mobile-hero.mp4' : '/videos/tablet-hero.mp4';
+          bgVideo.load();
+
+          // Start at 7 seconds only for mobile
+          if (isMobile) {
+            bgVideo.addEventListener('loadedmetadata', function() {
+              bgVideo.currentTime = 7;
+            });
+          }
+        }
+      </script>
 
       <!-- Gradient overlay -->
       <div class="mobile-hero-gradient"></div>
 
       <!-- Content overlay -->
       <div class="mobile-hero-overlay">
-        <h1 class="mobile-hero-headline">
+        <!-- Tablet-only badge -->
+        <span class="tablet-hero-badge">
+          <i class="fas fa-sparkles"></i>
+          <span class="jengu-brand">JENGU</span> — Automatización con IA para Turismo y Hospitalidad
+        </span>
+
+        <!-- Mobile headline -->
+        <h1 class="mobile-hero-headline mobile-headline-only">
           IA que gestiona<br/>tus operaciones
         </h1>
-        <div class="mobile-subhead">Para Hospitalidad. Aumenta ingresos, reduce trabajo manual.</div>
+
+        <!-- Tablet headline - matches desktop -->
+        <h1 class="tablet-hero-headline">
+          Agentes IA inteligentes para Hospitalidad.<br/><span class="gradient-text">Mejores operaciones, mayores ingresos.</span>
+        </h1>
+
+        <!-- Mobile subhead -->
+        <div class="mobile-subhead mobile-subhead-only">Para Hospitalidad. Aumenta ingresos, reduce trabajo manual.</div>
+
+        <!-- Tablet-only description - matches desktop -->
+        <p class="tablet-hero-description">
+          Tu sistema de automatización unificado para tareas, comunicaciones y experiencia del huésped.
+        </p>
+
         <div class="mobile-hero-actions">
           <button onclick="openBookingModal()" class="mobile-hero-btn mobile-hero-btn-primary">
-            Consulta Gratuita
+            <span class="mobile-btn-text">Consulta</span>
+            <span class="tablet-btn-text">Consulta Gratuita</span>
           </button>
           <a href="/es/calculator" class="mobile-hero-btn mobile-hero-btn-secondary">
-            Calcule su ROI
+            <span class="mobile-btn-text">Calcule ROI</span>
+            <span class="tablet-btn-text">Calcule su ROI</span>
           </a>
+        </div>
+
+        <!-- Tablet-only trust indicators -->
+        <div class="tablet-hero-trust">
+          <div class="tablet-trust-stats">
+            <div class="tablet-stat">
+              <span class="tablet-stat-number">30%</span>
+              <span class="tablet-stat-label">Más Reservas</span>
+            </div>
+            <div class="tablet-stat">
+              <span class="tablet-stat-number">40+</span>
+              <span class="tablet-stat-label">Horas Ahorradas/Sem</span>
+            </div>
+            <div class="tablet-stat">
+              <span class="tablet-stat-number">24/7</span>
+              <span class="tablet-stat-label">Disponibilidad</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -211,11 +268,11 @@ const jsonLd = [
 
           <div class="process-step">
             <div class="step-icon">
-              <i class="fas fa-cogs"></i>
+              <i class="fas fa-project-diagram"></i>
             </div>
             <div class="step-content">
-              <h3>2. Diseñar</h3>
-              <p>Agentes de IA personalizados construidos para sus flujos de trabajo específicos</p>
+              <h3>2. Mapear</h3>
+              <p>Mapee sus flujos de trabajo para descubrir ineficiencias ocultas (si es necesario)</p>
             </div>
           </div>
 
@@ -230,11 +287,11 @@ const jsonLd = [
 
           <div class="process-step">
             <div class="step-icon">
-              <i class="fas fa-plug"></i>
+              <i class="fas fa-rocket"></i>
             </div>
             <div class="step-content">
               <h3>3. Implementar</h3>
-              <p>Integración perfecta con sus sistemas existentes</p>
+              <p>Agentes IA personalizados integrados perfectamente con sus sistemas</p>
             </div>
           </div>
 
@@ -279,6 +336,199 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- Process Mapping Section -->
+  <section class="process-mapping-section">
+    <div class="process-mapping-container">
+      <div class="process-mapping-content">
+        <span class="section-badge">
+          <i class="fas fa-project-diagram"></i>
+          La Base de la Automatización
+        </span>
+        <h2>Mapeo de Procesos: Vea Lo Que Se Está Perdiendo</h2>
+        <p class="section-intro">
+          Antes de automatizar, mapeamos sus procesos. La mayoría de las empresas descubren ineficiencias que no sabían que tenían—trabajo duplicado, cuellos de botella y tiempo perdido que cuestan miles cada mes.
+        </p>
+
+        <div class="mapping-benefits">
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>Descubra Ineficiencias Ocultas</h4>
+              <p>Vea exactamente dónde se desperdicia tiempo y dinero en sus operaciones</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>Identifique Ganancias Rápidas</h4>
+              <p>Encuentre oportunidades de automatización que generen ROI en semanas, no meses</p>
+            </div>
+          </div>
+
+          <div class="benefit-item">
+            <div class="benefit-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <div class="benefit-text">
+              <h4>Priorice Lo Que Importa</h4>
+              <p>Enfóquese en las automatizaciones que tendrán el mayor impacto en sus resultados</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile: Simple comparison cards (fast loading) -->
+      <div class="process-mapping-visual-mobile mobile-only">
+        <div class="mobile-comparison">
+          <div class="comparison-card before">
+            <div class="comparison-header">
+              <i class="fas fa-times-circle"></i>
+              <span>Antes</span>
+            </div>
+            <div class="comparison-stat">30+ h/sem perdidas</div>
+            <ul class="comparison-list">
+              <li>Emails y llamadas manuales</li>
+              <li>Entrada de datos duplicada</li>
+              <li>Hojas de cálculo dispersas</li>
+            </ul>
+          </div>
+          <div class="comparison-arrow">
+            <i class="fas fa-arrow-down"></i>
+          </div>
+          <div class="comparison-card after">
+            <div class="comparison-header">
+              <i class="fas fa-check-circle"></i>
+              <span>Después</span>
+            </div>
+            <div class="comparison-stat">40+ h/sem ahorradas</div>
+            <ul class="comparison-list">
+              <li>La IA maneja consultas 24/7</li>
+              <li>Flujos de trabajo automatizados</li>
+              <li>Sincronización en tiempo real</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mapping-cta">
+          <div class="mapping-cta-buttons">
+            <button onclick="openBookingModal()" class="mapping-btn primary">
+              Reservar Consulta Gratuita
+            </button>
+            <a href="/es/calculator" class="mapping-btn secondary">
+              <i class="fas fa-calculator"></i>
+              Calcular Mis Ahorros
+            </a>
+          </div>
+          <p class="cta-subtext">Descubra dónde la IA puede transformar sus operaciones</p>
+        </div>
+      </div>
+
+      <!-- Desktop: Full animated visualization -->
+      <div class="process-mapping-visual desktop-only">
+        <div class="mapping-flow">
+          <!-- Before State -->
+          <div class="flow-state before-state">
+            <div class="state-label">Antes del Mapeo</div>
+            <div class="chaotic-flow">
+              <div class="task-node chaos">
+                <i class="fas fa-envelope"></i>
+                <span>Emails Manuales</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-file-alt"></i>
+                <span>Hojas Cálculo</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-phone"></i>
+                <span>Llam. Telefónicas</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-clipboard"></i>
+                <span>Verif. Manuales</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-redo"></i>
+                <span>Trabajo Duplicado</span>
+              </div>
+              <div class="task-node chaos">
+                <i class="fas fa-clock"></i>
+                <span>Retrasos</span>
+              </div>
+              <!-- Chaotic connection lines -->
+              <svg class="chaos-lines" viewBox="0 0 300 200">
+                <path d="M 50 50 Q 150 30 250 80" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+                <path d="M 80 120 Q 150 90 220 140" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+                <path d="M 100 40 Q 120 100 180 60" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+                <path d="M 60 160 Q 180 120 240 100" stroke="rgba(239, 68, 68, 0.3)" stroke-width="2" fill="none" />
+              </svg>
+            </div>
+            <div class="state-metrics bad">
+              <div class="metric">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>30+ h/sem perdidas</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Arrow -->
+          <div class="transformation-arrow">
+            <i class="fas fa-arrow-right"></i>
+            <span>El Mapeo Revela</span>
+          </div>
+
+          <!-- After State -->
+          <div class="flow-state after-state">
+            <div class="state-label">Después del Mapeo</div>
+            <div class="optimized-flow">
+              <div class="task-node optimized start">
+                <i class="fas fa-flag"></i>
+                <span>Inicio</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="task-node optimized">
+                <i class="fas fa-robot"></i>
+                <span>Agente IA</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="task-node optimized">
+                <i class="fas fa-check-circle"></i>
+                <span>Automatizado</span>
+              </div>
+              <div class="flow-arrow">→</div>
+              <div class="task-node optimized end">
+                <i class="fas fa-trophy"></i>
+                <span>Completado</span>
+              </div>
+            </div>
+            <div class="state-metrics good">
+              <div class="metric">
+                <i class="fas fa-check-circle"></i>
+                <span>5 h/sem ahorradas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mapping-cta">
+          <div class="mapping-cta-buttons">
+            <button onclick="openBookingModal()" class="mapping-btn primary">
+              Reservar Consulta Gratuita
+            </button>
+            <a href="/es/calculator" class="mapping-btn secondary">
+              <i class="fas fa-calculator"></i>
+              Calcular Mis Ahorros
+            </a>
+          </div>
+          <p class="cta-subtext">Descubra dónde la IA puede transformar sus operaciones · Sin compromiso</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Features Section -->
   <section class="features">
     <div class="section-header">
@@ -293,58 +543,39 @@ const jsonLd = [
       <div class="feature-card-new animate-on-scroll">
         <div class="feature-header">
           <div class="feature-icon-new">
-            <i class="fas fa-robot"></i>
+            <i class="fas fa-comments"></i>
           </div>
-          <h3>Automatización de Email y Chat con IA</h3>
+          <h3>Comunicación con Clientes IA</h3>
         </div>
-        <p>Automatice emails de clientes, chat en vivo y consultas con IA que responde en segundos—no en horas.</p>
+        <p>Maneje automáticamente emails, WhatsApp y chat en vivo. Su IA responde instantáneamente en 40+ idiomas.</p>
         <ul class="feature-benefits">
           <li><i class="fas fa-check"></i> Respuestas instantáneas 24/7</li>
-          <li><i class="fas fa-check"></i> Gestiona 80% de consultas</li>
+          <li><i class="fas fa-check"></i> 80% consultas automatizadas</li>
           <li><i class="fas fa-check"></i> Soporte multiidioma</li>
         </ul>
-        <button class="feature-learn-more" onclick="openFeatureModal('email')">
-          Más Información
+        <a href="/es/case-studies" class="feature-learn-more">
+          Ver Resultados
           <i class="fas fa-arrow-right"></i>
-        </button>
+        </a>
       </div>
 
       <div class="feature-card-new animate-on-scroll">
         <div class="feature-header">
           <div class="feature-icon-new">
-            <i class="fas fa-calendar-check"></i>
+            <i class="fas fa-phone-volume"></i>
           </div>
-          <h3>Agentes de IA para Reservas</h3>
+          <h3>Bots Vocales y de Reservas IA</h3>
         </div>
-        <p>Chatbots y agentes de voz que gestionan reservas, cancelaciones y soporte día y noche.</p>
+        <p>Bots telefónicos y chatbots que toman reservas, responden preguntas y procesan pagos mientras duerme.</p>
         <ul class="feature-benefits">
-          <li><i class="fas fa-check"></i> Reserve mientras duerme</li>
-          <li><i class="fas fa-check"></i> Soporte telefónico y web</li>
+          <li><i class="fas fa-check"></i> Atención telefónica 24/7</li>
+          <li><i class="fas fa-check"></i> Integración reserva directa</li>
           <li><i class="fas fa-check"></i> Procesamiento de pagos</li>
         </ul>
-        <button class="feature-learn-more" onclick="openFeatureModal('booking')">
-          Más Información
+        <a href="/es/case-studies" class="feature-learn-more">
+          Ver Casos de Estudio
           <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
-
-      <div class="feature-card-new animate-on-scroll">
-        <div class="feature-header">
-          <div class="feature-icon-new">
-            <i class="fas fa-network-wired"></i>
-          </div>
-          <h3>Integraciones de Sistemas</h3>
-        </div>
-        <p>Conecte su sistema de reservas, CRM, email y herramientas—no más entrada manual ni copiar y pegar.</p>
-        <ul class="feature-benefits">
-          <li><i class="fas fa-check"></i> Conexiones API</li>
-          <li><i class="fas fa-check"></i> Flujos de trabajo automatizados</li>
-          <li><i class="fas fa-check"></i> Sincronización en tiempo real</li>
-        </ul>
-        <button class="feature-learn-more" onclick="openFeatureModal('integration')">
-          Más Información
-          <i class="fas fa-arrow-right"></i>
-        </button>
+        </a>
       </div>
 
       <div class="feature-card-new animate-on-scroll">
@@ -352,54 +583,73 @@ const jsonLd = [
           <div class="feature-icon-new">
             <i class="fas fa-chart-line"></i>
           </div>
-          <h3>Software Personalizado</h3>
+          <h3>Motor de Precios Dinámicos</h3>
         </div>
-        <p>Motores de precios, sistemas de reservas y herramientas de flujo de trabajo diseñados específicamente para sus necesidades.</p>
+        <p>Maximice ingresos con precios IA que ajustan tarifas basándose en demanda, temporadas y competencia.</p>
         <ul class="feature-benefits">
-          <li><i class="fas fa-check"></i> Precios dinámicos</li>
-          <li><i class="fas fa-check"></i> Paneles personalizados</li>
-          <li><i class="fas fa-check"></i> Informes y análisis</li>
+          <li><i class="fas fa-check"></i> Optimización tarifas tiempo real</li>
+          <li><i class="fas fa-check"></i> Monitoreo competencia</li>
+          <li><i class="fas fa-check"></i> Dashboards de ingresos</li>
         </ul>
-        <button class="feature-learn-more" onclick="openFeatureModal('pricing')">
-          Más Información
+        <a href="/es/dynamic-pricing" class="feature-learn-more">
+          Ver Precios Dinámicos
           <i class="fas fa-arrow-right"></i>
-        </button>
+        </a>
       </div>
 
       <div class="feature-card-new animate-on-scroll">
         <div class="feature-header">
           <div class="feature-icon-new">
-            <i class="fas fa-shield-alt"></i>
+            <i class="fas fa-plug"></i>
           </div>
-          <h3>Seguridad Empresarial</h3>
+          <h3>Integraciones de Sistemas</h3>
         </div>
-        <p>Encriptación de nivel bancario, cumplimiento GDPR y SLA de disponibilidad del 99.9%—sus datos siempre protegidos.</p>
+        <p>Conecte su PMS, motor de reservas, CRM y sistemas de pago. Elimine la entrada manual para siempre.</p>
         <ul class="feature-benefits">
-          <li><i class="fas fa-check"></i> Encriptación SSL</li>
-          <li><i class="fas fa-check"></i> Cumplimiento GDPR</li>
-          <li><i class="fas fa-check"></i> Disponibilidad 99.9%</li>
+          <li><i class="fas fa-check"></i> PMS y channel managers</li>
+          <li><i class="fas fa-check"></i> Flujos trabajo automatizados</li>
+          <li><i class="fas fa-check"></i> Sincronización tiempo real</li>
         </ul>
-        <button class="feature-learn-more" onclick="openFeatureModal('security')">
-          Más Información
+        <a href="/es/services" class="feature-learn-more">
+          Ver Servicios
           <i class="fas fa-arrow-right"></i>
-        </button>
+        </a>
       </div>
 
       <div class="feature-card-new animate-on-scroll">
         <div class="feature-header">
           <div class="feature-icon-new">
-            <i class="fas fa-graduation-cap"></i>
+            <i class="fas fa-calculator"></i>
           </div>
-          <h3>Capacitación y Soporte</h3>
+          <h3>Calculadora ROI</h3>
         </div>
-        <p>Incorporación completa, capacitación y soporte continuo para asegurar el éxito de su equipo.</p>
+        <p>Vea exactamente cuánto tiempo y dinero podría ahorrar. Obtenga un ROI de automatización personalizado en 2 minutos.</p>
         <ul class="feature-benefits">
-          <li><i class="fas fa-check"></i> Capacitación completa incluida</li>
-          <li><i class="fas fa-check"></i> Soporte dedicado</li>
-          <li><i class="fas fa-check"></i> Actualizaciones regulares</li>
+          <li><i class="fas fa-check"></i> Análisis instantáneo gratis</li>
+          <li><i class="fas fa-check"></i> Sin registro requerido</li>
+          <li><i class="fas fa-check"></i> Resultados personalizados</li>
         </ul>
-        <button class="feature-learn-more" onclick="openFeatureModal('support')">
-          Más Información
+        <a href="/es/calculator" class="feature-learn-more">
+          Calcular Ahorros
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="feature-card-new animate-on-scroll">
+        <div class="feature-header">
+          <div class="feature-icon-new">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Consulta Gratuita</h3>
+        </div>
+        <p>Hable con nuestro equipo sobre sus necesidades de automatización. Obtenga asesoría experta y hoja de ruta personalizada—sin compromiso.</p>
+        <ul class="feature-benefits">
+          <li><i class="fas fa-check"></i> Llamada estratégica 30 min</li>
+          <li><i class="fas fa-check"></i> Recomendaciones personalizadas</li>
+          <li><i class="fas fa-check"></i> Sin compromiso</li>
+        </ul>
+        <button class="feature-learn-more" onclick="openBookingModal()">
+          Reservar Llamada Gratis
           <i class="fas fa-arrow-right"></i>
         </button>
       </div>
@@ -490,6 +740,10 @@ const jsonLd = [
               <span style="font-weight: 900; color: var(--primary-cta); font-size: 1.5rem;">£195,000</span>
             </div>
           </div>
+          <a href="/es/calculator" class="roi-cta-btn">
+            <i class="fas fa-calculator"></i>
+            Calcular Mi ROI
+          </a>
         </div>
       </div>
     </div>
