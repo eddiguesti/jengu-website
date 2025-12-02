@@ -5754,7 +5754,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     height: 100dvh;
     overflow: hidden;
@@ -5771,7 +5771,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     height: 100dvh;
     object-fit: cover;
@@ -7114,6 +7114,34 @@
   .task-node {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
+  }
+
+  /* Disable all backdrop-filter on mobile for better performance */
+  .nav-right,
+  .feature-card-new,
+  .stat-card,
+  .benefit-item,
+  .modal-content,
+  .dropdown-menu {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Disable heavy gradient animations on mobile */
+  .hero::before,
+  .hero::after {
+    animation: none !important;
+  }
+
+  /* Reduce motion for better battery life */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 
   .feature-card-new > p {

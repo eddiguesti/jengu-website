@@ -166,27 +166,55 @@ const jsonLd = [
           });
         }
 
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(loadSplineViewer, { timeout: 2000 });
-        } else {
-          setTimeout(loadSplineViewer, 1000);
+        // Only load Spline on desktop (saves ~500KB on mobile)
+        if (window.innerWidth > 1024) {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadSplineViewer, { timeout: 2000 });
+          } else {
+            setTimeout(loadSplineViewer, 1000);
+          }
         }
       </script>
     </div>
 
     <!-- Mobile & Tablet: Fullscreen Video Hero -->
     <div class="mobile-only video-bg">
-      <video autoplay muted playsinline loop id="bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
+      <video muted playsinline loop id="bg-video" preload="none" poster="/images/mobile-hero-poster.jpg">
         <source id="video-source" type="video/mp4">
       </video>
       <script is:inline>
-        // Select video based on viewport width
+        // Smart video loading based on network conditions
         const bgVideo = document.getElementById('bg-video');
         const videoSource = document.getElementById('video-source');
         if (bgVideo && videoSource) {
           const isMobile = window.innerWidth < 768;
+
+          // Check network conditions
+          let shouldAutoplay = true;
+          let shouldPreload = 'metadata';
+
+          if ('connection' in navigator) {
+            const conn = navigator.connection;
+            const effectiveType = conn.effectiveType;
+            const saveData = conn.saveData;
+
+            // Don't autoplay on slow connections or data saver mode
+            if (saveData || effectiveType === '2g' || effectiveType === 'slow-2g') {
+              shouldAutoplay = false;
+              shouldPreload = 'none';
+            } else if (effectiveType === '3g') {
+              shouldPreload = 'metadata';
+            }
+          }
+
+          // Set video source and preload
           videoSource.src = isMobile ? '/videos/mobile-hero.mp4' : '/videos/tablet-hero.mp4';
-          bgVideo.load();
+          bgVideo.preload = shouldPreload;
+
+          if (shouldAutoplay) {
+            bgVideo.autoplay = true;
+            bgVideo.load();
+          }
 
           // Start at 7 seconds only for mobile
           if (isMobile) {
