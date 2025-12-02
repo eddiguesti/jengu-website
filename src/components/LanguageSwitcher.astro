@@ -139,17 +139,27 @@ const esPath = '/es' + basePath;
     line-height: 1;
   }
 
-  @media (max-width: 768px) {
+  /* Tablet & below - consistent with navbar breakpoint */
+  @media (max-width: 1023px) {
     .lang-toggle {
-      padding: 0.35rem 0.6rem;
-      font-size: 0.85rem;
-      gap: 0.3rem;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.875rem;
+      gap: 0.35rem;
       border: none;
       background: rgba(255, 255, 255, 0.05);
     }
 
     .lang-toggle:hover {
       background: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 767px) {
+    .lang-toggle {
+      padding: 0.35rem 0.6rem;
+      font-size: 0.85rem;
+      gap: 0.3rem;
     }
 
     .lang-flag {
@@ -168,6 +178,22 @@ const esPath = '/es' + basePath;
     .lang-option {
       padding: 0.75rem 0.875rem;
       font-size: 0.9rem;
+    }
+  }
+
+  /* Small mobile */
+  @media (max-width: 479px) {
+    .lang-toggle {
+      padding: 0.3rem 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .lang-flag {
+      font-size: 0.9rem;
+    }
+
+    .current-lang {
+      font-size: 0.75rem;
     }
   }
 </style>

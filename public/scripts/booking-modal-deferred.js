@@ -358,12 +358,19 @@ function initBookingModal() {
 
       showMessage(t.messages?.creating || "Creating your calendar event…", 'info');
 
+      // AbortController with 30s timeout to prevent hanging requests
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+
       try {
         const res = await fetch("/api/book", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
+          signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         if (!res.ok) {
           let errMsg = t.messages?.errorCreate || "Failed to create calendar event.";
@@ -398,8 +405,14 @@ function initBookingModal() {
           }, 1500);
         }, 2000);
       } catch (err) {
+        clearTimeout(timeoutId);
         console.error(err);
-        showMessage(t.messages?.errorSave || "We couldn't save this to the calendar. Please try again or contact support.", 'error');
+        // Handle timeout/abort specifically
+        if (err.name === 'AbortError') {
+          showMessage("Request timed out. Please check your connection and try again.", 'error');
+        } else {
+          showMessage(t.messages?.errorSave || "We couldn't save this to the calendar. Please try again or contact support.", 'error');
+        }
       }
     });
   }

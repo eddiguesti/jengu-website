@@ -100,9 +100,19 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
   </article>
 </BaseLayout>
 
+<!-- Deferred font loading - prevents blocking the load event -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
+  rel="stylesheet"
+  media="print"
+  onload="this.media='all';this.onload=null"
+/>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</noscript>
+
 <style>
-  /* Import fonts for authentic newspaper feel */
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
+  /* Fonts loaded via deferred link tag above */
 
   .newspaper-article {
     max-width: 900px;

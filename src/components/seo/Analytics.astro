@@ -60,17 +60,24 @@ const GTM_ID = import.meta.env.PUBLIC_GTM_ID || '';
       console.log('Google Analytics loaded asynchronously');
     }
 
-    // Use requestIdleCallback for best performance
-    // This waits until browser is idle before loading analytics
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(() => {
-        loadGoogleAnalytics();
-      }, { timeout: 2000 });
+    // OPTIMIZED: Load analytics ONLY after the load event completes
+    // This ensures analytics NEVER delays the page "load" indicator
+    function scheduleAnalytics() {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          loadGoogleAnalytics();
+        }, { timeout: 5000 }); // Increased timeout - analytics is truly non-critical
+      } else {
+        // Fallback for browsers without requestIdleCallback (Safari)
+        setTimeout(loadGoogleAnalytics, 2000);
+      }
+    }
+
+    // Wait for load event to complete first
+    if (document.readyState === 'complete') {
+      scheduleAnalytics();
     } else {
-      // Fallback for browsers without requestIdleCallback (Safari)
-      setTimeout(() => {
-        loadGoogleAnalytics();
-      }, 1500);
+      window.addEventListener('load', scheduleAnalytics, { once: true });
     }
   </script>
 )}

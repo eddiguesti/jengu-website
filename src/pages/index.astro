@@ -23,7 +23,7 @@ const jsonLd = [
       <div class="hero-content">
         <span class="hero-badge">
           <i class="fas fa-sparkles"></i>
-          AI Automation for Tourism & Hospitality
+          <span class="jengu-brand">JENGU</span> — AI Automation for Tourism & Hospitality
         </span>
 
         <!-- Desktop headline -->
@@ -174,18 +174,26 @@ const jsonLd = [
       </script>
     </div>
 
-    <!-- Mobile only: Fullscreen Video Hero -->
+    <!-- Mobile & Tablet: Fullscreen Video Hero -->
     <div class="mobile-only video-bg">
       <video autoplay muted playsinline loop id="bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
-        <source src="/videos/mobile-hero.mp4" type="video/mp4">
+        <source id="video-source" type="video/mp4">
       </video>
       <script is:inline>
-        // Start video at 7 seconds for instant visual impact
+        // Select video based on viewport width
         const bgVideo = document.getElementById('bg-video');
-        if (bgVideo) {
-          bgVideo.addEventListener('loadedmetadata', function() {
-            bgVideo.currentTime = 7;
-          });
+        const videoSource = document.getElementById('video-source');
+        if (bgVideo && videoSource) {
+          const isMobile = window.innerWidth < 768;
+          videoSource.src = isMobile ? '/videos/mobile-hero.mp4' : '/videos/tablet-hero.mp4';
+          bgVideo.load();
+
+          // Start at 7 seconds only for mobile
+          if (isMobile) {
+            bgVideo.addEventListener('loadedmetadata', function() {
+              bgVideo.currentTime = 7;
+            });
+          }
         }
       </script>
 
@@ -194,17 +202,57 @@ const jsonLd = [
 
       <!-- Content overlay -->
       <div class="mobile-hero-overlay">
-        <h1 class="mobile-hero-headline">
+        <!-- Tablet-only badge -->
+        <span class="tablet-hero-badge">
+          <i class="fas fa-sparkles"></i>
+          <span class="jengu-brand">JENGU</span> — AI Automation for Tourism & Hospitality
+        </span>
+
+        <!-- Mobile headline -->
+        <h1 class="mobile-hero-headline mobile-headline-only">
           AI that runs<br/>your operations
         </h1>
-        <div class="mobile-subhead">Built for Hospitality. Designed to increase revenue and reduce manual work.</div>
+
+        <!-- Tablet headline - matches desktop -->
+        <h1 class="tablet-hero-headline">
+          Smart AI agents for Hospitality.<br/><span class="gradient-text">Better operations, higher revenue.</span>
+        </h1>
+
+        <!-- Mobile subhead -->
+        <div class="mobile-subhead mobile-subhead-only">Built for Hospitality. Designed to increase revenue and reduce manual work.</div>
+
+        <!-- Tablet-only description - matches desktop -->
+        <p class="tablet-hero-description">
+          Your unified automation system for tasks, communications, and guest experience.
+        </p>
+
         <div class="mobile-hero-actions">
           <button onclick="openBookingModal()" class="mobile-hero-btn mobile-hero-btn-primary">
-            Free Consultation
+            <span class="mobile-btn-text">Free Consultation</span>
+            <span class="tablet-btn-text">Get a Free Consultation</span>
           </button>
           <a href="/calculator" class="mobile-hero-btn mobile-hero-btn-secondary">
-            Free ROI Analysis
+            <span class="mobile-btn-text">ROI Analysis</span>
+            <span class="tablet-btn-text">Free ROI Analysis</span>
           </a>
+        </div>
+
+        <!-- Tablet-only trust indicators -->
+        <div class="tablet-hero-trust">
+          <div class="tablet-trust-stats">
+            <div class="tablet-stat">
+              <span class="tablet-stat-number">30%</span>
+              <span class="tablet-stat-label">More Bookings</span>
+            </div>
+            <div class="tablet-stat">
+              <span class="tablet-stat-number">40+</span>
+              <span class="tablet-stat-label">Hours Saved/Week</span>
+            </div>
+            <div class="tablet-stat">
+              <span class="tablet-stat-number">24/7</span>
+              <span class="tablet-stat-label">Availability</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

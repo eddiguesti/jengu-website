@@ -126,3 +126,64 @@
   opacity: 1;
   color: #818cf8;
 }
+
+/* ============================================================================
+   RESPONSIVE - Consistent breakpoints
+   ============================================================================ */
+
+/* Tablet & Mobile (under 1024px) */
+@media (max-width: 1023px) {
+  .burger-dropdown {
+    min-width: 280px;
+    padding: 1.25rem;
+  }
+
+  .burger-dropdown a {
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile (under 768px) */
+@media (max-width: 767px) {
+  .burger-dropdown {
+    border-radius: 16px;
+    margin: 0 0.5rem;
+    min-width: auto;
+    padding: 1rem;
+  }
+
+  .burger-dropdown a {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small Mobile (under 480px) */
+@media (max-width: 479px) {
+  .burger-menu {
+    width: 24px;
+    height: 24px;
+  }
+
+  .burger-line {
+    width: 18px;
+    height: 2px;
+  }
+
+  .burger-dropdown {
+    padding: 0.875rem;
+    border-radius: 14px;
+  }
+
+  .burger-dropdown a {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+    gap: 0.6rem;
+  }
+
+  .burger-dropdown a i {
+    font-size: 0.9rem;
+    width: 18px;
+  }
+}
