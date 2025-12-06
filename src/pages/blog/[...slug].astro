@@ -111,6 +111,40 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </noscript>
 
+<style is:global>
+  /* Override dark theme for blog article pages */
+  body {
+    background: #fffef9 !important;
+  }
+
+  /* Make navbar work on light background */
+  #navbar {
+    background: rgba(255, 254, 249, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  #navbar .nav-link,
+  #navbar .navbar-brand,
+  #navbar a {
+    color: #1a1a1a !important;
+  }
+
+  #navbar .nav-link:hover {
+    color: #06b6d4 !important;
+  }
+
+  /* Hide the booking button border issue */
+  #navbar .btn-primary {
+    color: white !important;
+  }
+
+  /* Footer styling for light theme */
+  footer {
+    background: #1a1a1a !important;
+  }
+</style>
+
 <style>
   /* Fonts loaded via deferred link tag above */
 
