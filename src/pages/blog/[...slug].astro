@@ -54,24 +54,90 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
 
   /* Make navbar work on light background */
   .nav-right {
-    background: rgba(255, 254, 249, 0.95) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 254, 249, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.12) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
   }
 
-  .nav-right a,
-  .nav-right button,
-  .burger-menu .burger-line {
+  /* Dark text for navbar elements */
+  .nav-right a:not(.nav-consultation-cta),
+  .nav-right button:not(.nav-consultation-cta) {
     color: #1a1a1a !important;
   }
 
-  .burger-menu .burger-line {
-    background: #1a1a1a !important;
+  /* Burger menu lines - dark on light background */
+  .burger-line {
+    background-color: #1a1a1a !important;
   }
 
-  /* Keep consultation button visible */
+  /* Language switcher styling for light theme */
+  .language-switcher .lang-toggle {
+    color: #1a1a1a !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+    background: rgba(0, 0, 0, 0.03) !important;
+  }
+
+  .language-switcher .lang-toggle:hover {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .language-switcher .lang-dropdown {
+    background: rgba(255, 254, 249, 0.98) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .language-switcher .lang-option {
+    color: #1a1a1a !important;
+    border-color: rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .language-switcher .lang-option:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .language-switcher .lang-option.active {
+    background: rgba(6, 182, 212, 0.1) !important;
+    color: #0891b2 !important;
+  }
+
+  /* Keep consultation button styled */
   .nav-consultation-cta {
     background: #FFB95A !important;
     color: #050816 !important;
+  }
+
+  .nav-consultation-cta:hover {
+    background: #FFC875 !important;
+  }
+
+  /* Keep burger dropdown dark (overlay style) */
+  .burger-dropdown {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .burger-dropdown a,
+  .burger-dropdown a span {
+    color: white !important;
+    opacity: 1 !important;
+  }
+
+  .burger-dropdown a i {
+    color: rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+  }
+
+  .burger-dropdown a:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .burger-dropdown a:hover,
+  .burger-dropdown a:hover span,
+  .burger-dropdown a:hover i {
+    color: white !important;
   }
 
   /* Footer styling for light theme */
@@ -283,8 +349,8 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
     column-gap: 2.5rem;
   }
 
-  /* Drop cap for first paragraph */
-  .prose :global(p:first-of-type::first-letter) {
+  /* Drop cap for first paragraph only - not in lists or other elements */
+  .prose :global(> p:first-of-type::first-letter) {
     font-family: 'Playfair Display', Georgia, serif;
     float: left;
     font-size: 4.5rem;
@@ -293,6 +359,16 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
     padding-top: 0.05em;
     color: #1a1a1a;
     font-weight: 900;
+  }
+
+  /* Ensure list items don't get drop caps */
+  .prose :global(li p::first-letter),
+  .prose :global(blockquote p::first-letter) {
+    float: none;
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+    font-weight: inherit;
   }
 
   /* Hide H1 since we show title in header */
@@ -545,7 +621,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
       hyphens: none;
     }
 
-    .prose :global(p:first-of-type::first-letter) {
+    .prose :global(> p:first-of-type::first-letter) {
       font-size: 3.25rem;
     }
 

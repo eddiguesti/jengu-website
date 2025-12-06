@@ -4,9 +4,9 @@ subtitle: "How Hotels Are Saving 40+ Hours Weekly and Boosting Bookings by 25%"
 description: "Discover real AI success stories from hotels and resorts. Learn how hospitality businesses achieve 40+ hours saved weekly, 25% booking increases, and measurable ROI with AI implementation."
 publishedOn: 2025-12-06
 updatedOn: 2025-12-06
-mainImage: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1200&q=80"
-thumbnail: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80"
-altText: "Luxury resort pool representing successful hospitality business transformation with AI"
+mainImage: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=80"
+thumbnail: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&q=80"
+altText: "Luxurious beachfront resort representing successful AI transformation and ROI in hospitality"
 author: "Jengu Team"
 draft: false
 archived: false

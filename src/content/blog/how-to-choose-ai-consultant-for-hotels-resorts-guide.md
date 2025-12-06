@@ -4,9 +4,9 @@ subtitle: "Expert Framework for Evaluating and Selecting Your AI Partner"
 description: "Learn how to choose the right AI consultant for your hotel or resort. Expert evaluation criteria, red flags to avoid, and a step-by-step selection framework for hospitality AI partners."
 publishedOn: 2025-12-06
 updatedOn: 2025-12-06
-mainImage: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=80"
-thumbnail: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80"
-altText: "Luxury hotel lobby representing the hospitality industry embracing AI technology"
+mainImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80"
+thumbnail: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&q=80"
+altText: "Professional business team discussing strategy representing AI consulting partnership"
 author: "Jengu Team"
 draft: false
 archived: false

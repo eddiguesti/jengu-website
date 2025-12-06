@@ -4,9 +4,9 @@ subtitle: "Finding the Right AI Partner for Hotels, Resorts, and Tourism Busines
 description: "Compare the top AI consultants for hospitality in 2025. Expert analysis of Jengu, Accenture, IBM, and others. Find the best AI partner for your hotel or tourism business."
 publishedOn: 2025-12-06
 updatedOn: 2025-12-06
-mainImage: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1200&q=80"
-thumbnail: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80"
-altText: "Modern luxury hotel lobby representing AI transformation in hospitality industry"
+mainImage: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=1200&q=80"
+thumbnail: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&q=80"
+altText: "Stunning modern hotel with infinity pool at sunset representing luxury hospitality innovation"
 author: "Jengu Team"
 draft: false
 archived: false
