@@ -46,7 +46,56 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
 });
 ---
 
+<style is:global>
+  /* Override dark theme for blog article pages */
+  body {
+    background: #fffef9 !important;
+  }
+
+  /* Make navbar work on light background */
+  .nav-right {
+    background: rgba(255, 254, 249, 0.95) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .nav-right a,
+  .nav-right button,
+  .burger-menu .burger-line {
+    color: #1a1a1a !important;
+  }
+
+  .burger-menu .burger-line {
+    background: #1a1a1a !important;
+  }
+
+  /* Keep consultation button visible */
+  .nav-consultation-cta {
+    background: #FFB95A !important;
+    color: #050816 !important;
+  }
+
+  /* Footer styling for light theme */
+  footer {
+    background: #1a1a1a !important;
+    color: white !important;
+  }
+
+  footer a {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  footer h4 {
+    color: white !important;
+  }
+</style>
+
 <BaseLayout seo={seo} jsonLd={jsonLd}>
+  <link
+    slot="head"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+
   <article class="newspaper-article">
     <!-- Newspaper Masthead -->
     <div class="newspaper-masthead">
@@ -100,54 +149,7 @@ const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
   </article>
 </BaseLayout>
 
-<!-- Deferred font loading - prevents blocking the load event -->
-<link
-  href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
-  rel="stylesheet"
-  media="print"
-  onload="this.media='all';this.onload=null"
-/>
-<noscript>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-</noscript>
-
-<style is:global>
-  /* Override dark theme for blog article pages */
-  body {
-    background: #fffef9 !important;
-  }
-
-  /* Make navbar work on light background */
-  #navbar {
-    background: rgba(255, 254, 249, 0.95) !important;
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  }
-
-  #navbar .nav-link,
-  #navbar .navbar-brand,
-  #navbar a {
-    color: #1a1a1a !important;
-  }
-
-  #navbar .nav-link:hover {
-    color: #06b6d4 !important;
-  }
-
-  /* Hide the booking button border issue */
-  #navbar .btn-primary {
-    color: white !important;
-  }
-
-  /* Footer styling for light theme */
-  footer {
-    background: #1a1a1a !important;
-  }
-</style>
-
 <style>
-  /* Fonts loaded via deferred link tag above */
-
   .newspaper-article {
     max-width: 900px;
     margin: 0 auto;
