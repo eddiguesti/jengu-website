@@ -498,3 +498,13 @@ if ('requestIdleCallback' in window) {
 } else {
   setTimeout(setupModalCloseHandlers, 100);
 }
+
+// Auto-initialize if on standalone booking page (not modal)
+if (window.isBookingPage) {
+  // Initialize immediately since we're on the booking page
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initBookingModal);
+  } else {
+    initBookingModal();
+  }
+}
