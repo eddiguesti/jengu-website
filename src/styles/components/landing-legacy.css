@@ -496,7 +496,41 @@
       transform: scale(0.98);
     }
 
-    /* Make consultation CTA more compact on mobile */
+    /* Demo CTA - Dynamic Pricing */
+    .nav-demo-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #06B6D4, #1E40AF);
+      color: #FFFFFF;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.875rem;
+      font-family: 'Figtree', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+      border: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .nav-demo-cta i {
+      font-size: 0.875rem;
+    }
+
+    .nav-demo-cta:hover {
+      background: linear-gradient(135deg, #22D3EE, #3B82F6);
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(6, 182, 212, 0.5);
+    }
+
+    .nav-demo-cta:active {
+      transform: scale(0.98);
+    }
+
+    /* Make CTAs more compact on mobile */
     @media (max-width: 480px) {
       .nav-consultation-cta {
         padding: 8px 12px;
@@ -505,6 +539,22 @@
 
       .nav-consultation-cta i {
         font-size: 0.9rem;
+      }
+
+      .nav-demo-cta {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+
+      .nav-demo-cta i {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Hide demo CTA text on very small screens */
+    @media (max-width: 380px) {
+      .nav-demo-cta span {
+        display: none;
       }
     }
 
