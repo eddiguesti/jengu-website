@@ -1,0 +1,706 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+import { getTranslations } from '../../i18n';
+
+const t = getTranslations('fr');
+
+const seo = generateSEO({
+  title: 'Réserver une Consultation Gratuite | Jengu AI',
+  description: 'Planifiez une consultation gratuite de 30 minutes avec nos experts en automatisation IA. Découvrez comment Jengu peut transformer les opérations de votre hôtel.',
+  canonical: '/fr/book',
+  ogType: 'website'
+});
+---
+
+<BaseLayout seo={seo}>
+  <section class="booking-page">
+    <div class="booking-page-container">
+      <!-- Page Header -->
+      <div class="booking-page-header">
+        <a href="/fr" class="back-link">
+          <i class="fas fa-arrow-left"></i>
+          Retour à l'Accueil
+        </a>
+        <h1 class="booking-page-title">{t.booking.title}</h1>
+        <p class="booking-page-subtitle">{t.booking.subtitle}</p>
+        <span class="booking-duration-badge">
+          <i class="fas fa-clock"></i>
+          {t.booking.duration}
+        </span>
+      </div>
+
+      <!-- Main Content -->
+      <div class="booking-page-content">
+        <!-- Left Column: Calendar & Time -->
+        <div class="booking-left">
+          <!-- Calendar Section -->
+          <div class="booking-section">
+            <div class="section-header">
+              <span class="section-number">1</span>
+              <span class="section-title">{t.booking.step1}</span>
+            </div>
+
+            <div class="calendar-container">
+              <div class="calendar-nav-row">
+                <button type="button" id="prevMonthBtn" class="cal-nav-btn" aria-label="Mois précédent">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <span id="calendarMonthLabel" class="calendar-month">Mois 2025</span>
+                <button type="button" id="nextMonthBtn" class="cal-nav-btn" aria-label="Mois suivant">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+
+              <div class="calendar-weekdays">
+                <span>{t.booking.weekdays.mon}</span>
+                <span>{t.booking.weekdays.tue}</span>
+                <span>{t.booking.weekdays.wed}</span>
+                <span>{t.booking.weekdays.thu}</span>
+                <span>{t.booking.weekdays.fri}</span>
+                <span>{t.booking.weekdays.sat}</span>
+                <span>{t.booking.weekdays.sun}</span>
+              </div>
+
+              <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+          </div>
+
+          <!-- Time Slots Section -->
+          <div class="booking-section">
+            <div class="section-header">
+              <span class="section-number">2</span>
+              <span class="section-title">{t.booking.step2}</span>
+            </div>
+
+            <div class="timezone-picker">
+              <i class="fas fa-globe"></i>
+              <select id="timezoneSelect" class="timezone-select">
+                <option value="local">{t.booking.timezones.local}</option>
+                <option value="Europe/Madrid">{t.booking.timezones.madrid}</option>
+                <option value="Europe/London">{t.booking.timezones.london}</option>
+                <option value="America/New_York">{t.booking.timezones.newYork}</option>
+                <option value="America/Los_Angeles">{t.booking.timezones.losAngeles}</option>
+              </select>
+            </div>
+
+            <div class="time-slots" id="slotsContainer"></div>
+          </div>
+        </div>
+
+        <!-- Right Column: Form -->
+        <div class="booking-right">
+          <div class="booking-section">
+            <div class="section-header">
+              <span class="section-number">3</span>
+              <span class="section-title">{t.booking.step3}</span>
+            </div>
+
+            <!-- Selection Summary -->
+            <div class="selection-summary" id="selectionSummary">
+              <div class="summary-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="summary-text">
+                <span class="summary-main" id="summaryMain">{t.booking.chooseDateAndTime}</span>
+                <span class="summary-sub" id="summarySecondary">{t.booking.videoMeetingDuration}</span>
+              </div>
+            </div>
+
+            <!-- Form Fields -->
+            <div class="booking-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="userName">{t.booking.form.name} *</label>
+                  <input type="text" id="userName" placeholder="Jean Dupont" required />
+                </div>
+                <div class="form-group">
+                  <label for="companyName">{t.booking.form.company}</label>
+                  <input type="text" id="companyName" placeholder="Mon Entreprise SARL" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="userEmail">{t.booking.form.email} *</label>
+                  <input type="email" id="userEmail" placeholder="jean@entreprise.fr" required />
+                </div>
+                <div class="form-group">
+                  <label for="userPhone">{t.booking.form.phone}</label>
+                  <input type="tel" id="userPhone" placeholder="+33 6 12 34 56 78" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>{t.booking.form.contactMethodLabel} *</label>
+                <div class="contact-methods" id="contactMethodGroup">
+                  <button type="button" class="method-btn" data-method="Zoom">
+                    <i class="fas fa-video"></i> {t.booking.contactMethods.zoom}
+                  </button>
+                  <button type="button" class="method-btn" data-method="Google Meet">
+                    <i class="fab fa-google"></i> {t.booking.contactMethods.googleMeet}
+                  </button>
+                  <button type="button" class="method-btn" data-method="Microsoft Teams">
+                    <i class="fab fa-microsoft"></i> {t.booking.contactMethods.teams}
+                  </button>
+                  <button type="button" class="method-btn" data-method="Phone call">
+                    <i class="fas fa-phone"></i> {t.booking.contactMethods.phone}
+                  </button>
+                </div>
+                <input type="hidden" id="contactMethod" />
+              </div>
+
+              <div class="form-group">
+                <label for="extraInfo">{t.booking.form.extraInfoLabel}</label>
+                <textarea id="extraInfo" rows="3" placeholder={t.booking.form.extraInfoPlaceholder}></textarea>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="booking-actions">
+              <button type="button" class="btn-reset" id="clearBtn">
+                <i class="fas fa-redo"></i> {t.booking.buttons.reset}
+              </button>
+              <button type="button" class="btn-confirm" id="confirmBtn" disabled>
+                <i class="fas fa-check"></i> {t.booking.buttons.confirm}
+              </button>
+            </div>
+
+            <!-- Status Message -->
+            <div class="booking-message" id="summaryMessage"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Translations available globally for the booking page -->
+  <script is:inline define:vars={{ translations: t.booking }}>
+    window.bookingTranslations = translations;
+  </script>
+
+  <!-- Booking logic - loaded deferred -->
+  <script is:inline src="/scripts/booking-modal-deferred.js" defer></script>
+
+  <!-- Initialize booking page (not modal) -->
+  <script is:inline>
+    window.isBookingPage = true;
+  </script>
+</BaseLayout>
+
+<style>
+  .booking-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .booking-page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .booking-page-header {
+    text-align: center;
+    padding: 2rem 0 3rem;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #a5b4fc;
+  }
+
+  .booking-page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .booking-page-subtitle {
+    font-size: 1.1rem;
+    color: #9ca3af;
+    margin: 0 0 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .booking-duration-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    color: #a5b4fc;
+  }
+
+  .booking-page-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: linear-gradient(180deg, #1a1a2e 0%, #16162a 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    overflow: hidden;
+  }
+
+  .booking-left {
+    padding: 32px;
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .booking-right {
+    padding: 32px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  .booking-section {
+    margin-bottom: 28px;
+  }
+
+  .booking-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  .section-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .calendar-container {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .calendar-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .cal-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: #9ca3af;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .cal-nav-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+  }
+
+  .calendar-month {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .calendar-weekdays span {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 10px 0;
+  }
+
+  .timezone-picker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    margin-bottom: 18px;
+  }
+
+  .timezone-picker i {
+    color: #6b7280;
+    font-size: 1rem;
+  }
+
+  .timezone-picker .timezone-select {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #d1d5db;
+    font-size: 0.95rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .timezone-picker .timezone-select option {
+    background: #1a1a2e;
+    color: #d1d5db;
+  }
+
+  .time-slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  .time-slots::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .time-slots::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 4px;
+  }
+
+  .time-slots::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.3);
+    border-radius: 4px;
+  }
+
+  .selection-summary {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 18px;
+    background: rgba(99, 102, 241, 0.08);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+
+  .summary-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.3rem;
+  }
+
+  .summary-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-main {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .summary-sub {
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #6b7280;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: rgba(99, 102, 241, 0.5);
+    background: rgba(99, 102, 241, 0.05);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  .contact-methods {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .method-btn {
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+    color: #d1d5db;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+  }
+
+  .method-btn i {
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+
+  .method-btn:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+
+  .method-btn.selected {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-color: transparent;
+    color: #fff;
+  }
+
+  .method-btn.selected i {
+    opacity: 1;
+  }
+
+  .booking-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+  }
+
+  .btn-reset {
+    flex: 1;
+    padding: 16px 22px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent;
+    color: #9ca3af;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-reset:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+  }
+
+  .btn-confirm {
+    flex: 2;
+    padding: 16px 26px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn-confirm:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+  }
+
+  .btn-confirm:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .booking-message {
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .booking-message.visible {
+    display: block;
+  }
+
+  .booking-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+  }
+
+  .booking-message.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #86efac;
+  }
+
+  .booking-message.info {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+  }
+
+  @media (max-width: 1024px) {
+    .booking-page-content {
+      grid-template-columns: 1fr;
+    }
+
+    .booking-left {
+      border-right: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .booking-page {
+      padding: 1rem 1rem 3rem;
+    }
+
+    .booking-page-header {
+      padding: 1rem 0 2rem;
+    }
+
+    .booking-page-title {
+      font-size: 1.75rem;
+    }
+
+    .booking-page-subtitle {
+      font-size: 1rem;
+    }
+
+    .booking-page-content {
+      border-radius: 20px;
+    }
+
+    .booking-left,
+    .booking-right {
+      padding: 24px 20px;
+    }
+
+    .calendar-container {
+      padding: 18px;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+
+    .time-slots {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      font-size: 16px;
+    }
+
+    .booking-actions {
+      flex-direction: column;
+    }
+
+    .btn-reset,
+    .btn-confirm {
+      flex: none;
+      width: 100%;
+    }
+  }
+</style>
