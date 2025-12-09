@@ -17,7 +17,7 @@ export interface SEOConfig {
 
 const SITE_NAME = 'Jengu';
 const SITE_URL = 'https://jengu.ai';
-const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.jpg`;
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/logo.png`;
 
 export function generateSEO(config: SEOConfig): SEOConfig {
   const title = `${config.title} | ${SITE_NAME}`;

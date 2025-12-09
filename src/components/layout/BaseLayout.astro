@@ -63,6 +63,9 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <SEOHead seo={seo} />
   <Hreflang currentPath={currentPath} />
   {jsonLd && <JsonLd schema={jsonLd} />}
+
+  <!-- RSS Feed Discovery -->
+  <link rel="alternate" type="application/rss+xml" title="Jengu Blog RSS Feed" href="/rss.xml" />
 </head>
 <body>
   <!-- Navigation -->

@@ -23,7 +23,11 @@ const seo = generateSEO({
   description: entry.data.description,
   canonical: `${Astro.site}blog/${entry.slug}/`,
   ogType: 'article',
-  ogImage: entry.data.mainImage || entry.data.thumbnail
+  ogImage: entry.data.mainImage || entry.data.thumbnail,
+  publishedTime: entry.data.publishedOn.toISOString(),
+  modifiedTime: entry.data.updatedOn?.toISOString() || entry.data.publishedOn.toISOString(),
+  author: entry.data.author || 'Jengu Team',
+  section: 'Technology'
 });
 
 const jsonLd = [

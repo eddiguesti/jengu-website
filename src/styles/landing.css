@@ -176,6 +176,177 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* ============================================
+       PREMIUM CINEMATIC INTRO ANIMATIONS
+       Luxury dissolve-in effect - expensive feel
+       ============================================ */
+
+    /* Smooth cinematic text dissolve */
+    @keyframes cinematicDissolve {
+      0% {
+        opacity: 0;
+        transform: translateY(60px);
+        filter: blur(20px);
+      }
+      30% {
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    /* Badge entrance - subtle and elegant */
+    @keyframes badgeDissolve {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        filter: blur(15px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Headline - dramatic reveal */
+    @keyframes headlineReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(80px);
+        filter: blur(25px);
+        letter-spacing: 0.1em;
+      }
+      50% {
+        filter: blur(8px);
+        letter-spacing: 0.02em;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+        letter-spacing: normal;
+      }
+    }
+
+    /* Button glow entrance */
+    @keyframes buttonReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.85);
+        filter: blur(15px);
+      }
+      60% {
+        transform: translateY(-5px) scale(1.03);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Spline 3D scene - cinematic reveal from blur */
+    @keyframes splineCinematic {
+      0% {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.85);
+        filter: blur(30px);
+      }
+      40% {
+        filter: blur(15px);
+      }
+      70% {
+        filter: blur(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Gentle floating after reveal */
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(-50%); }
+      50% { transform: translateY(calc(-50% - 10px)); }
+    }
+
+    /* ============================================
+       SUPER OBVIOUS TEST ANIMATIONS - SLIDE FROM LEFT
+       ============================================ */
+
+    @keyframes testSlideLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-300px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes testSlideRight {
+      0% {
+        opacity: 0;
+        transform: translateY(-50%) translateX(300px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+      }
+    }
+
+    @keyframes testPopIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      70% {
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* NO MEDIA QUERY - applies everywhere for testing */
+    .hero-badge {
+      opacity: 0 !important;
+      animation: testSlideLeft 0.8s ease-out 0.1s forwards !important;
+    }
+
+    .hero-home h1 {
+      opacity: 0 !important;
+      animation: testSlideLeft 0.8s ease-out 0.3s forwards !important;
+    }
+
+    .hero-description {
+      opacity: 0 !important;
+      animation: testSlideLeft 0.8s ease-out 0.5s forwards !important;
+    }
+
+    .hero-cta-group {
+      opacity: 0 !important;
+      animation: testPopIn 0.6s ease-out 0.7s forwards !important;
+    }
+
+    .hero-trust {
+      opacity: 0 !important;
+      animation: testSlideLeft 0.8s ease-out 0.9s forwards !important;
+    }
+
+    .hero-visual .spline-container {
+      opacity: 0 !important;
+      animation: testSlideRight 1s ease-out 0.2s forwards !important;
+    }
+
     @keyframes morphToCircle {
       0% {
         opacity: 0;
@@ -834,12 +1005,7 @@
       margin-left: -32%;
       pointer-events: auto;
       background: transparent;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .spline-container.loaded {
-      opacity: 1;
+      /* Desktop intro animation defined in Premium Cinematic Intro section */
     }
 
     /* Desktop/Mobile Display Control */
