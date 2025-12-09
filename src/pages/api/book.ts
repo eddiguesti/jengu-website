@@ -87,7 +87,7 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
           <!-- Header with Logo -->
           <tr>
             <td style="padding: 48px 48px 32px; text-align: center; background-color: #ffffff;">
-              <img src="https://www.jengu.ai/images/nobackground.png" alt="Jengu" width="100" style="display: block; margin: 0 auto; height: auto;">
+              <img src="https://www.jengu.ai/images/logo.png" alt="Jengu" width="100" style="display: block; margin: 0 auto; height: auto;">
             </td>
           </tr>
 
