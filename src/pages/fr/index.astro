@@ -20,13 +20,13 @@ const jsonLd = [
   <section class="hero hero-home">
     <div class="hero-container">
       <div class="hero-content">
-        <span class="hero-badge">
+        <span class="hero-badge hero-animate">
           <i class="fas fa-sparkles"></i>
           <span class="jengu-brand">JENGU</span> — Automatisation IA pour le Tourisme et l'Hôtellerie
         </span>
 
         <!-- Desktop headline -->
-        <h1 class="desktop-only">
+        <h1 class="desktop-only hero-animate" data-delay="1">
           Agents IA intelligents pour l'Hôtellerie. <span class="gradient-text">Meilleures opérations, revenus plus élevés.</span>
         </h1>
 
@@ -36,12 +36,12 @@ const jsonLd = [
         </h1>
 
         <!-- Desktop description -->
-        <p class="hero-description desktop-only">
+        <p class="hero-description desktop-only hero-animate" data-delay="2">
           Votre système d'automatisation unifié pour les tâches, communications et expérience client.
         </p>
 
         <!-- Desktop CTAs -->
-        <div class="hero-cta-group desktop-only">
+        <div class="hero-cta-group desktop-only hero-animate" data-delay="3">
           <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
             <span>Consultation Gratuite</span>
           </button>
@@ -49,15 +49,15 @@ const jsonLd = [
             <span>Calculez Votre ROI</span>
           </a>
         </div>
-        <p class="hero-trust desktop-only">
+        <p class="hero-trust desktop-only hero-animate" data-delay="4">
           <i class="fas fa-check-circle"></i>
-          Sans carte bancaire • Sans engagement • Consultation gratuite
+          Approuvé par les Leaders du Secteur • Intégration Fluide • Support Dédié
         </p>
       </div>
 
 
       <!-- Desktop only: Spline 3D Robot -->
-      <div class="hero-visual desktop-only">
+      <div class="hero-visual desktop-only hero-animate" data-delay="5">
         <div class="spline-container" role="img" aria-label="Animation 3D de robot interactif">
           <spline-viewer
             url="https://prod.spline.design/H0BsfAOW2BCmCUyJ/scene.splinecode"
@@ -223,6 +223,104 @@ const jsonLd = [
         </div>
       </div>
     </div>
+
+    <!-- Hero Intro Animation - Desktop Only -->
+    <style>
+      /* Desktop: Premium cinematic reveal with blur dissolve */
+      @media (min-width: 1025px) {
+        .hero-animate {
+          opacity: 0;
+          transform: translateY(30px) scale(0.98);
+          filter: blur(8px);
+          transition:
+            opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-animate.visible {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+
+        /* Badge - subtle float up */
+        .hero-badge.hero-animate {
+          transform: translateY(20px) scale(0.95);
+        }
+        .hero-badge.hero-animate.visible {
+          transform: translateY(0) scale(1);
+        }
+
+        /* Headline - dramatic reveal */
+        .hero-content h1.hero-animate {
+          transform: translateY(40px) scale(0.97);
+          filter: blur(12px);
+        }
+        .hero-content h1.hero-animate.visible {
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+
+        /* Buttons - pop effect */
+        .hero-cta-group.hero-animate {
+          transform: translateY(25px) scale(0.92);
+          filter: blur(6px);
+        }
+        .hero-cta-group.hero-animate.visible {
+          transform: translateY(0) scale(1);
+          filter: blur(0);
+        }
+
+        /* Spline visual - cinematic slide + scale */
+        .hero-visual.hero-animate {
+          opacity: 0;
+          transform: translateX(80px) scale(0.9);
+          filter: blur(15px);
+          transition:
+            opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hero-visual.hero-animate.visible {
+          opacity: 1;
+          transform: translateX(0) scale(1);
+          filter: blur(0);
+        }
+      }
+
+      /* Mobile: Always visible */
+      @media (max-width: 1024px) {
+        .hero-animate {
+          opacity: 1 !important;
+          transform: none !important;
+          filter: none !important;
+        }
+      }
+    </style>
+    <script is:inline>
+      (function() {
+        function initHeroAnimation() {
+          if (window.innerWidth < 1025) return;
+
+          var elements = document.querySelectorAll('.hero-animate');
+          if (!elements.length) return;
+
+          // Premium staggered reveal
+          elements.forEach(function(el, index) {
+            var delay = parseInt(el.dataset.delay || index, 10) * 180;
+            setTimeout(function() {
+              el.classList.add('visible');
+            }, delay + 200);
+          });
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initHeroAnimation);
+        } else {
+          initHeroAnimation();
+        }
+      })();
+    </script>
   </section>
 
   <!-- Promo Video Section - GitHub Style -->
