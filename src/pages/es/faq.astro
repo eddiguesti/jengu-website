@@ -3,7 +3,51 @@ import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { generateSEO } from '../../lib/seo/metadata';
-import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+import { generateOrganizationSchema, generateBreadcrumbSchema, generateFAQSchema } from '../../lib/seo/jsonld';
+
+// FAQ data for schema markup (Spanish)
+const faqData = [
+  {
+    question: "¿Qué es un agente de IA?",
+    answer: "Un agente de IA es un sistema de software inteligente que puede entender el lenguaje natural, tomar decisiones y ejecutar acciones de forma autónoma. En el sector turístico y hotelero, los agentes de IA se encargan de tareas como responder a consultas de huéspedes, procesar reservas, gestionar reservaciones y automatizar trabajos administrativos repetitivos, sin intervención humana."
+  },
+  {
+    question: "¿A quién ayudamos?",
+    answer: "Nos especializamos en ayudar a empresas de turismo y hotelería, incluyendo hoteles, resorts, campings, agencias de viajes, operadores turísticos, DMCs, Bed & Breakfasts y empresas de gestión de alquileres vacacionales."
+  },
+  {
+    question: "¿Qué tareas pueden automatizar los agentes de IA?",
+    answer: "Los agentes de IA pueden gestionar comunicación con clientes (chat, email, SMS, teléfono), gestión de reservas, entrega de información, gestión de correos electrónicos, calificación de clientes potenciales, tareas administrativas, soporte multilingüe en 100+ idiomas y seguimiento automático."
+  },
+  {
+    question: "¿Cuánto tiempo tarda la configuración?",
+    answer: "Los plazos varían: Chatbot de IA simple tarda 2-3 semanas, Sistema de automatización de correos 3-4 semanas, Desarrollo de software personalizado 6-12 semanas, y Suite de automatización completa 8-16 semanas. La mayoría de los clientes comienzan a ver ahorros de tiempo dentro del primer mes."
+  },
+  {
+    question: "¿Los agentes de IA reemplazan el personal humano?",
+    answer: "No, los agentes de IA complementan tu equipo, no lo reemplazan. Los agentes de IA se encargan de tareas repetitivas mientras tu equipo se enfoca en resolución de problemas complejos, experiencias personalizadas y decisiones que requieren empatía humana."
+  },
+  {
+    question: "¿Cómo medimos el ROI?",
+    answer: "Realizamos seguimiento del ROI en múltiples dimensiones: ahorro de tiempo (típicamente 40+ horas por semana), velocidad de respuesta (de 15-20 minutos a segundos), tasa de conversión (típicamente 20-30% de aumento), reducción de costos, crecimiento de ingresos y satisfacción del cliente."
+  },
+  {
+    question: "¿Qué pasa si la IA comete un error?",
+    answer: "Diseñamos sistemas de IA con múltiples medidas de seguridad incluyendo umbrales de confianza, supervisión humana para decisiones críticas, aprendizaje continuo, límites claros y pruebas exhaustivas antes del lanzamiento."
+  },
+  {
+    question: "¿Cuánto cuesta?",
+    answer: "Los precios varían según tus necesidades específicas y la complejidad de la solución. La mayoría de los clientes ven ROI completo en 6-12 meses. Reserva una consulta gratuita para obtener una cotización personalizada."
+  },
+  {
+    question: "¿Puede la IA manejar múltiples idiomas?",
+    answer: "¡Sí! Nuestros agentes de IA soportan 100+ idiomas con comunicación natural y fluida. La IA detecta automáticamente y responde en el idioma preferido del huésped."
+  },
+  {
+    question: "¿Qué integraciones soportan?",
+    answer: "Nos integramos con prácticamente cualquier sistema incluyendo Sistemas de Gestión de Propiedades (Opera, Mews, Cloudbeds), Motores de Reservas (Booking.com, Expedia, Airbnb), herramientas de Email y Comunicación, Sistemas CRM, Procesadores de Pago y Channel Managers."
+  }
+];
 
 const seo = generateSEO({
   title: 'FAQ de Automatización con IA para Empresas de Turismo',
@@ -17,7 +61,8 @@ const jsonLd = [
   generateBreadcrumbSchema([
     { name: 'Inicio', url: Astro.site?.href || '' },
     { name: 'FAQ', url: `${Astro.site}es/faq/` }
-  ])
+  ]),
+  generateFAQSchema(faqData)
 ];
 ---
 

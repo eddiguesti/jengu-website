@@ -16,22 +16,49 @@ export interface OrganizationSchema {
   };
 }
 
-export function generateOrganizationSchema(): OrganizationSchema {
+export function generateOrganizationSchema(): OrganizationSchema & Record<string, unknown> {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: SITE_NAME,
+    legalName: 'Jengu AI Ltd',
     url: SITE_URL,
-    logo: `${SITE_URL}/images/logo.png`,
-    description: 'AI automation solutions for tourism and hospitality. Custom chatbots, phone bots, and API integrations.',
+    logo: `${SITE_URL}/images/logo.webp`,
+    description: 'AI automation for tourism and hospitality. Smart AI agents for hotels, resorts, and travel businesses delivering 30% more bookings, 40+ hours saved weekly, and 24/7 guest response.',
+    foundingDate: '2024',
+    slogan: 'AI Automation for Tourism & Hospitality',
+    knowsAbout: [
+      'AI Automation',
+      'Hotel Technology',
+      'Hospitality AI',
+      'Chatbots for Hotels',
+      'Dynamic Pricing',
+      'Guest Communication',
+      'Property Management Systems',
+      'Tourism Technology',
+      'WhatsApp Business for Hotels',
+      'Voice Bots'
+    ],
     sameAs: [
       'https://www.linkedin.com/company/jengu',
       'https://twitter.com/jenguai'
     ],
     contactPoint: {
       '@type': 'ContactPoint',
-      contactType: 'Customer Support',
-      email: 'info@jengu.ai'
+      contactType: 'Sales',
+      email: 'hello@jengu.ai',
+      availableLanguage: ['English', 'Spanish', 'French']
+    },
+    areaServed: ['GB', 'ES', 'FR', 'EU', 'US'],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'AI Solutions for Hospitality',
+      itemListElement: [
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Guest Communication' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI Voice & Booking Bots' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Dynamic Pricing Engine' } },
+        { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'PMS Integrations' } }
+      ]
     }
   };
 }

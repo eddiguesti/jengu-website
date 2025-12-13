@@ -3,7 +3,51 @@ import BaseLayout from '../../components/layout/BaseLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
 import CTASection from '../../components/sections/CTASection.astro';
 import { generateSEO } from '../../lib/seo/metadata';
-import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
+import { generateOrganizationSchema, generateBreadcrumbSchema, generateFAQSchema } from '../../lib/seo/jsonld';
+
+// FAQ data for schema markup (French)
+const faqData = [
+  {
+    question: "Qu'est-ce qu'un agent IA?",
+    answer: "Un agent IA est un système logiciel intelligent capable de comprendre le langage naturel, de prendre des décisions et d'agir de manière autonome. Dans le tourisme et l'hôtellerie, les agents IA gèrent des tâches comme répondre aux demandes des clients, traiter les réservations et automatiser les travaux administratifs répétitifs, le tout sans intervention humaine."
+  },
+  {
+    question: "Qui aidez-vous?",
+    answer: "Nous nous spécialisons dans l'aide aux entreprises du tourisme et de l'hôtellerie, notamment les hôtels, stations balnéaires, campings, agences de voyage, tour-opérateurs, DMC, chambres d'hôtes et sociétés de gestion de locations de vacances."
+  },
+  {
+    question: "Quelles tâches les agents IA peuvent-ils automatiser?",
+    answer: "Les agents IA peuvent gérer la communication client (chat, email, SMS, téléphone), la gestion des réservations, la livraison d'informations, la gestion des emails, la qualification des prospects, les tâches administratives, le support multilingue dans plus de 100 langues et le suivi automatisé."
+  },
+  {
+    question: "Combien de temps prend la configuration?",
+    answer: "Les délais varient: Chatbot IA simple prend 2-3 semaines, Système d'automatisation email 3-4 semaines, Développement logiciel personnalisé 6-12 semaines, et Suite d'automatisation complète 8-16 semaines. La plupart des clients commencent à voir des économies de temps dès le premier mois."
+  },
+  {
+    question: "Les agents IA remplacent-ils le personnel humain?",
+    answer: "Non, les agents IA complètent votre équipe, ils ne la remplacent pas. Les agents IA gèrent les tâches répétitives tandis que votre équipe se concentre sur la résolution de problèmes complexes, les expériences personnalisées et les décisions nécessitant de l'empathie humaine."
+  },
+  {
+    question: "Comment mesurez-vous le ROI?",
+    answer: "Nous suivons le ROI sur plusieurs dimensions: économies de temps (typiquement 40+ heures par semaine), vitesse de réponse (de 15-20 minutes à quelques secondes), taux de conversion (typiquement 20-30% d'augmentation), réduction des coûts, croissance des revenus et satisfaction client."
+  },
+  {
+    question: "Que se passe-t-il si l'IA fait une erreur?",
+    answer: "Nous concevons des systèmes IA avec plusieurs mesures de sécurité incluant des seuils de confiance, une supervision humaine pour les décisions critiques, un apprentissage continu, des limites claires et des tests approfondis avant le lancement."
+  },
+  {
+    question: "Combien ça coûte?",
+    answer: "Les prix varient selon vos besoins spécifiques et la complexité de la solution. La plupart des clients voient un ROI complet en 6-12 mois. Réservez une consultation gratuite pour obtenir un devis personnalisé."
+  },
+  {
+    question: "L'IA peut-elle gérer plusieurs langues?",
+    answer: "Oui! Nos agents IA supportent plus de 100 langues avec une communication naturelle et fluide. L'IA détecte automatiquement et répond dans la langue préférée du client."
+  },
+  {
+    question: "Quelles intégrations supportez-vous?",
+    answer: "Nous nous intégrons avec pratiquement tous les systèmes incluant les PMS (Opera, Mews, Cloudbeds), les moteurs de réservation (Booking.com, Expedia, Airbnb), les outils de communication, les CRM, les processeurs de paiement et les channel managers."
+  }
+];
 
 const seo = generateSEO({
   title: 'FAQ sur l\'automatisation par IA pour les entreprises du tourisme',
@@ -17,7 +61,8 @@ const jsonLd = [
   generateBreadcrumbSchema([
     { name: 'Accueil', url: Astro.site?.href || '' },
     { name: 'FAQ', url: `${Astro.site}fr/faq/` }
-  ])
+  ]),
+  generateFAQSchema(faqData)
 ];
 ---
 
