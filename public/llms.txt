@@ -1,0 +1,119 @@
+# Jengu.ai
+
+> AI Automation for Tourism & Hospitality. Smart AI agents that deliver better operations and higher revenue for hotels, resorts, campsites, and travel businesses.
+
+## About Jengu
+
+Jengu.ai builds custom AI automation solutions specifically for the tourism and hospitality industry. We help hotels, resorts, boutique accommodations, campsites, holiday parks, tour operators, and travel agencies automate guest communications, bookings, and operations.
+
+**What We Do:**
+- AI Guest Communication (email, WhatsApp, live chat in 40+ languages)
+- AI Voice & Booking Bots (phone answering, reservation processing, payments)
+- Dynamic Pricing Engine (real-time rate optimization)
+- PMS & System Integrations (booking engines, CRM, payment systems)
+
+**Key Results:**
+- Up to 30% more bookings with 24/7 AI response
+- 40+ hours saved weekly on routine inquiries
+- Response time reduced from hours to seconds
+- 300-500% ROI within first year
+
+## Main Pages
+
+- [Homepage](https://jengu.ai/): AI automation for tourism and hospitality
+- [Services](https://jengu.ai/services): Our AI automation services and solutions
+- [Dynamic Pricing](https://jengu.ai/dynamic-pricing): AI-powered dynamic pricing for accommodations
+- [ROI Calculator](https://jengu.ai/calculator): Calculate your potential savings with AI automation
+- [Case Studies](https://jengu.ai/case-studies): Success stories and client results
+- [About](https://jengu.ai/about): About Jengu.ai and our mission
+- [Team](https://jengu.ai/team): Meet our team
+- [Blog](https://jengu.ai/blog): AI automation insights and guides
+- [FAQ](https://jengu.ai/faq): Frequently asked questions
+- [Contact](https://jengu.ai/contact): Get in touch
+- [Book Consultation](https://jengu.ai/book): Schedule a free consultation
+
+## Blog Posts
+
+### Hotel & Hospitality AI
+
+- [WhatsApp Chatbots for Hotels: The Complete 2025 Guide](https://jengu.ai/blog/whatsapp-chatbots-for-hotels)
+- [AI Email Automation for Hotels: Cut Response Time from Hours to Seconds](https://jengu.ai/blog/ai-email-automation-for-hotels)
+- [Hotel PMS Integration: How to Connect Your Tech Stack](https://jengu.ai/blog/hotel-pms-integration)
+- [Best AI Consultants for Hospitality Industry in 2025](https://jengu.ai/blog/best-ai-consultants-hospitality)
+- [How to Choose an AI Consultant for Hotels and Resorts](https://jengu.ai/blog/how-to-choose-ai-consultant-hotels)
+- [AI Transformation in Hospitality: Real Success Stories and ROI](https://jengu.ai/blog/ai-transformation-hospitality)
+- [Using AI to Streamline Customer Service Operations in 2025](https://jengu.ai/blog/ai-customer-service-operations)
+
+### AI Travel & Tourism
+
+- [Claude Opus 4.5: The AI Travel Companion That's Changing Everything](https://jengu.ai/blog/claude-opus-ai-travel-companion)
+- [AI Travel Agents vs Human Travel Agents: The Real Story](https://jengu.ai/blog/ai-vs-human-travel-agents)
+- [Gemini 3 vs Claude Opus 4.5 vs GPT-5.1: Best AI Travel Companion 2025](https://jengu.ai/blog/gemini-vs-claude-vs-gpt-travel)
+- [TIME Launches AI Platform for Interactive Journalism](https://jengu.ai/blog/time-ai-platform-journalism)
+
+### Business Process Automation
+
+- [Top Tools for Business Process Mapping and Automation in 2025](https://jengu.ai/blog/business-process-mapping-tools)
+- [The Ultimate Guide to Workflow Automation for Small Businesses](https://jengu.ai/blog/workflow-automation-small-businesses)
+- [The Role of Process Mapping in AI Workflow Optimization](https://jengu.ai/blog/process-mapping-ai-workflow)
+- [Process Mapping: The Key to Workflow Optimization](https://jengu.ai/blog/process-mapping-workflow-optimization)
+- [How to Identify Key Areas for AI Automation in Your Business](https://jengu.ai/blog/identify-ai-automation-areas)
+- [How to Identify Processes for Automation in Your Business](https://jengu.ai/blog/identify-processes-automation)
+- [How AI Process Mapping Improves Efficiency in Manufacturing](https://jengu.ai/blog/ai-process-mapping-manufacturing)
+- [Top Workflow Automation Tools for 2024](https://jengu.ai/blog/workflow-automation-tools-2024)
+- [AI Tools Revolutionizing Business Process Automation](https://jengu.ai/blog/ai-tools-business-process-automation)
+- [5 Ways AI Automation is Saving Businesses Time and Money](https://jengu.ai/blog/ai-automation-saving-time-money)
+- [Best Practices for Implementing AI Automation](https://jengu.ai/blog/best-practices-ai-automation)
+- [Streamlining Customer Service with AI Automation](https://jengu.ai/blog/streamlining-customer-service-ai)
+- [Revolutionizing Sales: How AI is Transforming the Sales Process](https://jengu.ai/blog/ai-transforming-sales)
+- [How AI Agents Simplify Internal Processes for Companies in 2025](https://jengu.ai/blog/ai-agents-internal-processes)
+
+### AI for Business
+
+- [How AI Can Help Your Business Save Time and Money in 2025](https://jengu.ai/blog/ai-save-time-money-2025)
+- [The Future of AI in Business: Trends to Watch in 2025](https://jengu.ai/blog/future-ai-business-2025)
+- [AI for Small Businesses: Affordable Tools and Strategies in 2025](https://jengu.ai/blog/ai-small-businesses-2025)
+- [How to Use AI in Your Business: A Practical Guide for 2025](https://jengu.ai/blog/how-to-use-ai-business-2025)
+- [AI-Powered Solutions: How to Stay Ahead in 2025](https://jengu.ai/blog/ai-powered-solutions-2025)
+- [How to Use AI for Workflow Optimization in Finance](https://jengu.ai/blog/ai-workflow-optimization-finance)
+- [The Future of Workflow Optimization with AI](https://jengu.ai/blog/future-workflow-optimization-ai)
+- [The Role of AI in Improving Business Efficiency in 2025](https://jengu.ai/blog/ai-business-efficiency-2025)
+- [Streamline Operations: How AI Can Improve Efficiency](https://jengu.ai/blog/ai-improve-efficiency)
+- [Top AI Tools to Transform Your Business in 2025](https://jengu.ai/blog/top-ai-tools-2025)
+- [AI Engineer Pack: 50 Credits for Leading Developer Tools](https://jengu.ai/blog/ai-engineer-pack-developer-tools)
+
+### AI in Banking & Privacy
+
+- [Balancing AI Innovation and Customer Privacy in Banking: A 2025 Guide](https://jengu.ai/blog/ai-privacy-banking-2025)
+- [Top AI Tools for Ensuring Privacy Compliance in Banking](https://jengu.ai/blog/ai-privacy-compliance-banking)
+- [How Banks Can Leverage AI Without Compromising User Privacy](https://jengu.ai/blog/banks-ai-user-privacy)
+- [Building Customer Trust Through Transparent AI Practices in Banking](https://jengu.ai/blog/customer-trust-ai-banking)
+- [How AI Enhances Data Security and Privacy in Modern Banking](https://jengu.ai/blog/ai-data-security-banking)
+- [The Ethical Implications of AI in Banking: Privacy Concerns](https://jengu.ai/blog/ethical-ai-banking-privacy)
+- [Mitigating Privacy Risks in AI-Enabled Financial Services](https://jengu.ai/blog/privacy-risks-ai-financial-services)
+- [Regulatory Compliance in AI-Powered Banking: Privacy Laws 2025](https://jengu.ai/blog/regulatory-compliance-ai-banking)
+- [The Future of Privacy-First AI Solutions in Banking](https://jengu.ai/blog/privacy-first-ai-banking)
+- [AI-Driven Personalization vs. Customer Privacy in Banking](https://jengu.ai/blog/ai-personalization-privacy-banking)
+
+### Dynamic Pricing & E-Commerce
+
+- [AI-Driven Dynamic Pricing: Transforming E-Commerce](https://jengu.ai/blog/ai-dynamic-pricing-ecommerce)
+
+### UK & London Focus
+
+- [How Jengu.ai is Transforming Automation and Process Mapping in the UK](https://jengu.ai/blog/jengu-automation-uk)
+- [How Jengu.ai is Helping Companies Embrace Digital Transformation](https://jengu.ai/blog/jengu-digital-transformation)
+- [How to Automate Business Workflows with AI in London](https://jengu.ai/blog/automate-workflows-ai-london)
+- [Top Benefits of Process Mapping for Automation in London](https://jengu.ai/blog/process-mapping-automation-london)
+- [AI Process Automation: Save Time and Costs for UK Companies](https://jengu.ai/blog/ai-process-automation-uk)
+
+## Contact
+
+- **Website:** https://jengu.ai
+- **Email:** hello@jengu.ai
+- **Book a Call:** https://jengu.ai/book
+- **Demo:** https://demo.jengu.ai
+
+## Languages
+
+Available in English, Spanish (jengu.ai/es), and French (jengu.ai/fr)
