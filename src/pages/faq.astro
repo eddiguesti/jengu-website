@@ -46,6 +46,26 @@ const faqData = [
   {
     question: "What integrations do you support?",
     answer: "We integrate with virtually any system including Property Management Systems (Opera, Mews, Cloudbeds), Booking Engines (Booking.com, Expedia, Airbnb), Email & Communication tools, CRM Systems, Payment Processors, and Channel Managers. Custom API integrations are also available."
+  },
+  {
+    question: "Is AI automation secure for guest data?",
+    answer: "Yes, security is our top priority. We implement enterprise-grade encryption (AES-256), GDPR compliance, secure API connections, role-based access controls, and regular security audits. All guest data is processed according to international privacy standards, and we never share or sell customer information."
+  },
+  {
+    question: "What's the ROI of hotel chatbots?",
+    answer: "Hotel chatbots typically deliver ROI within 3-6 months. Expected returns include: 40+ hours saved weekly on repetitive inquiries, 60% faster response times, 20-30% increase in direct bookings, 40% reduction in front desk call volume, and improved guest satisfaction scores. Use our ROI Calculator for a personalized estimate."
+  },
+  {
+    question: "How much does AI cost for a hotel?",
+    answer: "AI costs for hotels vary by solution: AI Chatbots start from $500-1,500/month, Email Automation from $300-800/month, and comprehensive automation suites from $2,000-5,000/month. Most hotels achieve full ROI within 6-12 months through staff time savings and increased bookings. Implementation costs are typically $5,000-25,000 depending on complexity."
+  },
+  {
+    question: "Can AI chatbots handle hotel bookings?",
+    answer: "Yes, AI chatbots can handle the complete booking process including checking availability, displaying rates, capturing guest details, processing reservations, sending confirmations, and managing modifications or cancellations. They integrate with your PMS and booking engine for real-time accuracy."
+  },
+  {
+    question: "What is the best AI for hotels in 2025?",
+    answer: "The best AI for hotels in 2025 depends on your needs. For guest communication, WhatsApp chatbots with multilingual support lead the market. For operations, AI email automation and PMS integration deliver the highest ROI. Jengu specializes in hospitality-specific AI that combines chatbots, email automation, and system integrations tailored to hotels."
   }
 ];
 
@@ -294,6 +314,120 @@ const jsonLd = [
             </ul>
             <p>
               If you use a system not listed here, we can build custom API integrations to connect everything seamlessly.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 11 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>Is AI automation secure for guest data?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Yes, security is our top priority. We implement:
+            </p>
+            <ul>
+              <li><strong>Enterprise-grade encryption:</strong> AES-256 for all data at rest and in transit</li>
+              <li><strong>GDPR compliance:</strong> Full adherence to international privacy regulations</li>
+              <li><strong>Secure API connections:</strong> OAuth 2.0 and encrypted endpoints</li>
+              <li><strong>Role-based access:</strong> Granular permission controls for your team</li>
+              <li><strong>Regular audits:</strong> Ongoing security assessments and penetration testing</li>
+            </ul>
+            <p>
+              All guest data is processed according to international privacy standards, and we never share or sell customer information.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 12 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>What's the ROI of hotel chatbots?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Hotel chatbots typically deliver ROI within 3-6 months. Expected returns include:
+            </p>
+            <ul>
+              <li><strong>40+ hours saved weekly</strong> on repetitive inquiries</li>
+              <li><strong>60% faster response times</strong> (from minutes to seconds)</li>
+              <li><strong>20-30% increase</strong> in direct bookings</li>
+              <li><strong>40% reduction</strong> in front desk call volume</li>
+              <li><strong>Improved guest satisfaction</strong> scores and reviews</li>
+            </ul>
+            <p>
+              Use our <a href="/calculator" style="color: var(--primary-cta); text-decoration: underline;">ROI Calculator</a> for a personalized estimate based on your property size.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 13 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>How much does AI cost for a hotel?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              AI costs for hotels vary by solution complexity:
+            </p>
+            <ul>
+              <li><strong>AI Chatbots:</strong> $500-1,500/month (includes WhatsApp, web chat, multilingual)</li>
+              <li><strong>Email Automation:</strong> $300-800/month (smart inbox, auto-responses)</li>
+              <li><strong>Comprehensive Suites:</strong> $2,000-5,000/month (full automation package)</li>
+              <li><strong>Implementation:</strong> $5,000-25,000 one-time (depending on integrations)</li>
+            </ul>
+            <p>
+              Most hotels achieve full ROI within 6-12 months through staff time savings and increased direct bookings. Book a <a href="/contact" style="color: var(--primary-cta); text-decoration: underline;">free consultation</a> for custom pricing.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 14 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>Can AI chatbots handle hotel bookings?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              Yes, AI chatbots can handle the complete booking journey:
+            </p>
+            <ul>
+              <li><strong>Availability checks:</strong> Real-time room availability from your PMS</li>
+              <li><strong>Rate display:</strong> Show pricing, packages, and promotions</li>
+              <li><strong>Guest capture:</strong> Collect names, dates, preferences, special requests</li>
+              <li><strong>Reservation creation:</strong> Process bookings directly in your system</li>
+              <li><strong>Confirmations:</strong> Send instant booking confirmations</li>
+              <li><strong>Modifications:</strong> Handle changes and cancellations</li>
+            </ul>
+            <p>
+              Chatbots integrate with your PMS and booking engine for real-time accuracy and seamless guest experience.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ Item 15 -->
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFAQ(this)">
+            <span>What is the best AI for hotels in 2025?</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>
+              The best AI for hotels in 2025 depends on your specific needs:
+            </p>
+            <ul>
+              <li><strong>Guest Communication:</strong> WhatsApp chatbots with multilingual support lead the market</li>
+              <li><strong>Email Management:</strong> AI email automation delivers highest ROI for busy properties</li>
+              <li><strong>Operations:</strong> PMS integration and dynamic pricing optimize revenue</li>
+              <li><strong>Full Automation:</strong> Comprehensive suites combine all capabilities</li>
+            </ul>
+            <p>
+              Jengu specializes in hospitality-specific AI that combines chatbots, email automation, and system integrations—all tailored specifically for hotels and tourism businesses.
             </p>
           </div>
         </div>

@@ -14,6 +14,8 @@ archived: false
 
 # Claude Opus 4.5: The AI Travel Companion That's Changing Everything
 
+**TL;DR:** Claude Opus 4.5 is Anthropic's most powerful AI model and a game-changer for tourism. Hotels and travel businesses using it achieve 76% faster processing, 100+ language support, and instant personalized itineraries. Jengu integrates Claude Opus 4.5 for hospitality automation with 40+ hours saved weekly.
+
 Imagine having a travel companion who speaks 100+ languages, never sleeps, remembers every detail of your preferences, and can plan a perfect two-week European adventure in under 30 seconds. No, we're not describing a superhuman travel agent from the future—we're talking about what's possible *right now* with Claude Opus 4.5.
 
 Anthropic just dropped what they're calling "the best model in the world for coding, agents, and computer use," and for those of us in the tourism and hospitality industry, this isn't just tech news—it's a game-changer that's about to make AI travel planning smarter, faster, and more personal than ever before.

@@ -112,6 +112,20 @@ export const GET: APIRoute = async () => {
       changefreq: 'daily'
     },
     {
+      url: `${SITE_URL}/dynamic-pricing`,
+      lastmod: today,
+      priority: '0.8',
+      changefreq: 'monthly',
+      alternates: getAlternates('/dynamic-pricing')
+    },
+    {
+      url: `${SITE_URL}/calculator`,
+      lastmod: today,
+      priority: '0.8',
+      changefreq: 'monthly',
+      alternates: getAlternates('/calculator')
+    },
+    {
       url: `${SITE_URL}/terms`,
       lastmod: '2025-01-01',
       priority: '0.3',

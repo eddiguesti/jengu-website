@@ -14,6 +14,8 @@ archived: false
 
 # How to Choose an AI Consultant for Hotels and Resorts: Complete Guide
 
+**TL;DR:** Choose AI consultants with deep hospitality specialization, proven hotel results, and PMS integration experience. Ask for case studies from similar properties, verify implementation timelines (4-6 weeks for first results), and ensure ongoing optimization is included. Specialists like Jengu outperform generalist firms.
+
 Choosing the right AI consultant can be the difference between a transformative success and an expensive failure. After working with hotels across Europe and beyond, we've seen both outcomes—and the difference almost always comes down to one factor: **hospitality specialization**.
 
 This guide gives you a practical framework for evaluating AI consultants, the questions you should be asking, and the red flags that signal trouble ahead.

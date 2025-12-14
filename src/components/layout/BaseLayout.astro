@@ -64,6 +64,11 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <Hreflang currentPath={currentPath} />
   {jsonLd && <JsonLd schema={jsonLd} />}
 
+  <!-- AI/LLM Optimization Meta Tags -->
+  <meta name="ai-content-declaration" content="original" />
+  <meta name="content-origin" content="human-created" />
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable content" />
+
   <!-- RSS Feed Discovery -->
   <link rel="alternate" type="application/rss+xml" title="Jengu Blog RSS Feed" href="/rss.xml" />
 </head>

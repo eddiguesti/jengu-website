@@ -14,6 +14,8 @@ archived: false
 
 # AI Transformation in Hospitality: Real Success Stories and ROI
 
+**TL;DR:** Hotels implementing AI achieve 40+ hours saved weekly, 25% higher booking conversions, and ROI within 6-12 months. Real results: European resorts cut response times from 18 hours to 45 seconds. UK hotel chains saved £420K annually. Success requires hospitality-specialized partners like Jengu.
+
 The best way to understand what AI can do for your hotel? Look at what it's already doing for others.
 
 These aren't hypothetical projections or vendor promises. These are real results from real properties that made the investment in AI—and saw it pay off.
@@ -237,6 +239,28 @@ AI systems need ongoing optimization. Budget for continuous improvement.
 - Regular improvement cycles
 - New capability additions
 - Strategic roadmap updates
+
+## Frequently Asked Questions About AI in Hospitality
+
+### How long does it take to see ROI from hotel AI?
+
+Most hotels see positive ROI within 6-12 months. Quick wins (chatbots, email automation) often pay for themselves in 3-6 months through staff time savings and improved conversion rates.
+
+### What's the minimum hotel size for AI to make sense?
+
+AI solutions are viable for hotels of all sizes. Boutique properties (under 50 rooms) typically invest $15K-40K with 6-10 month payback. Larger properties see faster ROI due to higher inquiry volumes.
+
+### Will AI replace hotel staff?
+
+No—AI handles repetitive tasks so staff can focus on meaningful guest interactions. Successful implementations redirect staff time from "what's the Wi-Fi password?" to personalized service that creates memorable experiences.
+
+### What if our staff aren't tech-savvy?
+
+Modern hospitality AI is designed for ease of use. Most systems require minimal training, and good implementation partners like Jengu include comprehensive staff training as part of the rollout.
+
+### How do we choose which AI solutions to implement first?
+
+Start with your highest-volume, most repetitive tasks—typically guest communication (chatbots, email). These deliver fastest ROI and prove the concept before expanding to more complex use cases.
 
 ## The Bottom Line
 
