@@ -1,16 +1,31 @@
 ---
 import BaseLayout from '../components/layout/BaseLayout.astro';
 import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema, generateSoftwareApplicationSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
   title: 'Dynamic Pricing Software for Campsites | Maximize Revenue with AI',
   description: 'Smart dynamic pricing system for campsites and RV parks. Increase revenue by up to 40% with AI-powered pricing that adapts to demand, seasonality, and competition.',
-  canonical: '/dynamic-pricing',
+  canonical: `${Astro.site}dynamic-pricing/`,
   ogType: 'website'
 });
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'Dynamic Pricing', url: `${Astro.site}dynamic-pricing/` }
+  ]),
+  generateSoftwareApplicationSchema({
+    name: 'Jengu Dynamic Pricing Engine',
+    description: 'AI-powered dynamic pricing software for campsites and RV parks. Automatically adjusts rates based on demand, seasonality, weather, and competition. Increase revenue by up to 40%.',
+    category: 'BusinessApplication',
+    isFree: false
+  })
+];
 ---
 
-<BaseLayout seo={seo}>
+<BaseLayout seo={seo} jsonLd={jsonLd}>
   <!-- Hero Section -->
   <section class="hero hero-pricing">
     <!-- Desktop Hero -->

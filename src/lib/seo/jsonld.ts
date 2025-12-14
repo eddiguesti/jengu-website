@@ -236,3 +236,49 @@ export function generateServiceSchema(services: { name: string; description: str
     areaServed: 'Worldwide'
   }));
 }
+
+export interface SoftwareApplicationSchema {
+  '@context': 'https://schema.org';
+  '@type': 'SoftwareApplication' | 'WebApplication';
+  name: string;
+  description?: string;
+  applicationCategory: string;
+  operatingSystem: string;
+  offers?: {
+    '@type': 'Offer';
+    price: string;
+    priceCurrency: string;
+  };
+  provider?: {
+    '@type': 'Organization';
+    name: string;
+    url: string;
+  };
+}
+
+export function generateSoftwareApplicationSchema(data: {
+  name: string;
+  description?: string;
+  category?: string;
+  isFree?: boolean;
+  url?: string;
+}): SoftwareApplicationSchema {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: data.name,
+    description: data.description,
+    applicationCategory: data.category || 'BusinessApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: data.isFree !== false ? '0' : 'Contact for pricing',
+      priceCurrency: 'USD'
+    },
+    provider: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      url: SITE_URL
+    }
+  };
+}
