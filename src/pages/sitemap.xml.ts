@@ -88,8 +88,8 @@ export const GET: APIRoute = async () => {
       url: `${SITE_URL}/calculator/ai-agents-roi`,
       lastmod: today,
       priority: '0.9',
-      changefreq: 'monthly',
-      alternates: getAlternates('/calculator/ai-agents-roi')
+      changefreq: 'monthly'
+      // No alternates - English only page
     },
     {
       url: `${SITE_URL}/case-studies`,

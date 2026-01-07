@@ -12,7 +12,23 @@ export default defineConfig({
   }),
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/preview/'),
+      filter: (page) => {
+        // Exclude preview, private booking pages, and calculator-temp
+        if (page.includes('/preview/')) return false;
+        if (page.includes('/book/edward-guest')) return false;
+        if (page.includes('/book/chris-wood')) return false;
+        if (page.includes('/calculator-temp')) return false;
+        return true;
+      },
+      // Only include hreflang for pages with translations
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en',
+          fr: 'fr',
+          es: 'es'
+        }
+      },
       serialize(item) {
         // Customize priority and changefreq based on page type
         if (item.url.includes('/blog/')) {
