@@ -1,33 +1,22 @@
 # Robots.txt for Jengu.ai
 # https://jengu.ai
-# AI Automation for Tourism & Hospitality
 
-# Allow all crawlers
+# Default rules for all crawlers
 User-agent: *
 Allow: /
-
-# Disallow admin/preview paths
 Disallow: /preview/
 Disallow: /_astro/
 Disallow: /api/
-
-# Sitemap & LLMs.txt
-Sitemap: https://jengu.ai/sitemap.xml
-# LLMs.txt: https://jengu.ai/llms.txt (AI-readable content map)
-
-# Crawl delay for politeness
 Crawl-delay: 1
 
-# ===========================================
+# Sitemap location
+Sitemap: https://jengu.ai/sitemap.xml
+
 # Standard Search Engine Crawlers
-# ===========================================
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
 Allow: /
 
 User-agent: DuckDuckBot
@@ -39,11 +28,7 @@ Allow: /
 User-agent: YandexBot
 Allow: /
 
-# ===========================================
 # AI & LLM Crawlers (Generative Engine Optimization)
-# ===========================================
-
-# OpenAI
 User-agent: GPTBot
 Allow: /
 
@@ -53,7 +38,6 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-# Anthropic (Claude)
 User-agent: ClaudeBot
 Allow: /
 
@@ -63,48 +47,38 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
-# Google AI
 User-agent: Google-Extended
 Allow: /
 
-# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
-# Microsoft/Bing AI
 User-agent: Copilot
 Allow: /
 
-# Cohere
 User-agent: cohere-ai
 Allow: /
 
-# Meta
 User-agent: Meta-ExternalAgent
 Allow: /
 
 User-agent: FacebookBot
 Allow: /
 
-# Amazon
 User-agent: Amazonbot
 Allow: /
 
-# Apple
 User-agent: Applebot
 Allow: /
 
 User-agent: Applebot-Extended
 Allow: /
 
-# ByteDance
 User-agent: Bytespider
 Allow: /
 
-# Common Crawl (used for AI training)
 User-agent: CCBot
 Allow: /
 
-# You.com
 User-agent: YouBot
 Allow: /

@@ -109,7 +109,8 @@ export const GET: APIRoute = async () => {
       url: `${SITE_URL}/blog`,
       lastmod: today,
       priority: '0.9',
-      changefreq: 'daily'
+      changefreq: 'daily',
+      alternates: getAlternates('/blog')
     },
     {
       url: `${SITE_URL}/dynamic-pricing`,
@@ -129,13 +130,22 @@ export const GET: APIRoute = async () => {
       url: `${SITE_URL}/terms`,
       lastmod: '2025-01-01',
       priority: '0.3',
-      changefreq: 'yearly'
+      changefreq: 'yearly',
+      alternates: getAlternates('/terms')
     },
     {
       url: `${SITE_URL}/privacy`,
       lastmod: '2025-01-01',
       priority: '0.3',
-      changefreq: 'yearly'
+      changefreq: 'yearly',
+      alternates: getAlternates('/privacy')
+    },
+    {
+      url: `${SITE_URL}/book`,
+      lastmod: today,
+      priority: '0.7',
+      changefreq: 'monthly',
+      alternates: getAlternates('/book')
     }
   ];
 
