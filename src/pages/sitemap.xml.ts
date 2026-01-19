@@ -47,107 +47,62 @@ export const GET: APIRoute = async () => {
     new Date(b.data.publishedOn).getTime() - new Date(a.data.publishedOn).getTime()
   );
 
-  // Static pages with multilingual support
-  const staticPages: SitemapEntry[] = [
-    {
-      url: `${SITE_URL}/`,
-      lastmod: today,
-      priority: '1.0',
-      changefreq: 'weekly',
-      alternates: getAlternates('/')
-    },
-    {
-      url: `${SITE_URL}/services`,
-      lastmod: today,
-      priority: '0.9',
-      changefreq: 'monthly',
-      alternates: getAlternates('/services')
-    },
-    {
-      url: `${SITE_URL}/about`,
-      lastmod: today,
-      priority: '0.8',
-      changefreq: 'monthly',
-      alternates: getAlternates('/about')
-    },
-    {
-      url: `${SITE_URL}/team`,
-      lastmod: today,
-      priority: '0.7',
-      changefreq: 'monthly',
-      alternates: getAlternates('/team')
-    },
-    {
-      url: `${SITE_URL}/contact`,
-      lastmod: today,
-      priority: '0.8',
-      changefreq: 'monthly',
-      alternates: getAlternates('/contact')
-    },
-    {
-      url: `${SITE_URL}/calculator/ai-agents-roi`,
-      lastmod: today,
-      priority: '0.9',
-      changefreq: 'monthly'
-      // No alternates - English only page
-    },
-    {
-      url: `${SITE_URL}/case-studies`,
-      lastmod: today,
-      priority: '0.9',
-      changefreq: 'weekly',
-      alternates: getAlternates('/case-studies')
-    },
-    {
-      url: `${SITE_URL}/faq`,
-      lastmod: today,
-      priority: '0.7',
-      changefreq: 'monthly',
-      alternates: getAlternates('/faq')
-    },
-    {
-      url: `${SITE_URL}/blog`,
-      lastmod: today,
-      priority: '0.9',
-      changefreq: 'daily',
-      alternates: getAlternates('/blog')
-    },
-    {
-      url: `${SITE_URL}/dynamic-pricing`,
-      lastmod: today,
-      priority: '0.8',
-      changefreq: 'monthly',
-      alternates: getAlternates('/dynamic-pricing')
-    },
-    {
-      url: `${SITE_URL}/calculator`,
-      lastmod: today,
-      priority: '0.8',
-      changefreq: 'monthly',
-      alternates: getAlternates('/calculator')
-    },
-    {
-      url: `${SITE_URL}/terms`,
-      lastmod: '2025-01-01',
-      priority: '0.3',
-      changefreq: 'yearly',
-      alternates: getAlternates('/terms')
-    },
-    {
-      url: `${SITE_URL}/privacy`,
-      lastmod: '2025-01-01',
-      priority: '0.3',
-      changefreq: 'yearly',
-      alternates: getAlternates('/privacy')
-    },
-    {
-      url: `${SITE_URL}/book`,
-      lastmod: today,
-      priority: '0.7',
-      changefreq: 'monthly',
-      alternates: getAlternates('/book')
-    }
+  // Multilingual pages configuration
+  const multilingualPages = [
+    { path: '/', priority: '1.0', changefreq: 'weekly', lastmod: today },
+    { path: '/services', priority: '0.9', changefreq: 'monthly', lastmod: today },
+    { path: '/about', priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { path: '/team', priority: '0.7', changefreq: 'monthly', lastmod: today },
+    { path: '/contact', priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { path: '/case-studies', priority: '0.9', changefreq: 'weekly', lastmod: today },
+    { path: '/faq', priority: '0.7', changefreq: 'monthly', lastmod: today },
+    { path: '/blog', priority: '0.9', changefreq: 'daily', lastmod: today },
+    { path: '/dynamic-pricing', priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { path: '/calculator', priority: '0.8', changefreq: 'monthly', lastmod: today },
+    { path: '/terms', priority: '0.3', changefreq: 'yearly', lastmod: '2025-01-01' },
+    { path: '/privacy', priority: '0.3', changefreq: 'yearly', lastmod: '2025-01-01' },
+    { path: '/book', priority: '0.7', changefreq: 'monthly', lastmod: today }
   ];
+
+  // Generate entries for all languages (EN, FR, ES)
+  const staticPages: SitemapEntry[] = [];
+
+  for (const page of multilingualPages) {
+    // English version (canonical)
+    staticPages.push({
+      url: `${SITE_URL}${page.path}`,
+      lastmod: page.lastmod,
+      priority: page.priority,
+      changefreq: page.changefreq,
+      alternates: getAlternates(page.path)
+    });
+
+    // French version
+    staticPages.push({
+      url: `${SITE_URL}/fr${page.path}`,
+      lastmod: page.lastmod,
+      priority: page.priority,
+      changefreq: page.changefreq,
+      alternates: getAlternates(page.path)
+    });
+
+    // Spanish version
+    staticPages.push({
+      url: `${SITE_URL}/es${page.path}`,
+      lastmod: page.lastmod,
+      priority: page.priority,
+      changefreq: page.changefreq,
+      alternates: getAlternates(page.path)
+    });
+  }
+
+  // English-only pages (no translations)
+  staticPages.push({
+    url: `${SITE_URL}/calculator/ai-agents-roi`,
+    lastmod: today,
+    priority: '0.9',
+    changefreq: 'monthly'
+  });
 
   // Generate blog post entries with actual publish dates
   const blogEntries: SitemapEntry[] = sortedBlogs.map(post => {

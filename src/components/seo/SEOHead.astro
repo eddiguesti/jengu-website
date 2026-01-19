@@ -1,6 +1,7 @@
 ---
 import type { SEOConfig } from '../../lib/seo/metadata';
 import { getRobotsContent } from '../../lib/seo/metadata';
+import { getLocaleFromUrl } from '../../i18n';
 
 interface Props {
   seo: SEOConfig;
@@ -8,6 +9,19 @@ interface Props {
 
 const { seo } = Astro.props;
 const canonicalURL = seo.canonical || new URL(Astro.url.pathname, Astro.site).href;
+
+// Get locale from URL for language meta tags
+const currentPath = Astro.url.pathname;
+const locale = getLocaleFromUrl(currentPath);
+
+// Map locale to og:locale format and language name
+const localeMap: Record<string, { ogLocale: string; languageName: string }> = {
+  en: { ogLocale: 'en_GB', languageName: 'English' },
+  fr: { ogLocale: 'fr_FR', languageName: 'French' },
+  es: { ogLocale: 'es_ES', languageName: 'Spanish' }
+};
+
+const { ogLocale, languageName } = localeMap[locale] || localeMap.en;
 ---
 
 <!-- Primary Meta Tags -->
@@ -24,6 +38,7 @@ const canonicalURL = seo.canonical || new URL(Astro.url.pathname, Astro.site).hr
 <meta property="og:description" content={seo.ogDescription} />
 <meta property="og:image" content={seo.ogImage} />
 <meta property="og:site_name" content="Jengu" />
+<meta property="og:locale" content={ogLocale} />
 
 {seo.publishedTime && <meta property="article:published_time" content={seo.publishedTime} />}
 {seo.modifiedTime && <meta property="article:modified_time" content={seo.modifiedTime} />}
@@ -39,7 +54,7 @@ const canonicalURL = seo.canonical || new URL(Astro.url.pathname, Astro.site).hr
 <meta name="twitter:site" content="@jenguai" />
 
 <!-- Additional SEO -->
-<meta name="language" content="English" />
+<meta name="language" content={languageName} />
 <meta name="revisit-after" content="7 days" />
 <meta name="author" content="Jengu" />
 

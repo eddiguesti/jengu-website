@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout.astro';
+import { generateSEO } from '../../lib/seo/metadata';
+
+const seo = generateSEO({
+  title: 'Página No Encontrada',
+  description: 'La página que buscas no se encuentra. Vuelve a la página de inicio de Jengu para explorar nuestras soluciones de automatización con IA para turismo y hostelería.',
+  noindex: true
+});
+---
+
+<BaseLayout seo={seo}>
+  <section class="error-page">
+    <div class="error-container">
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Página No Encontrada</h2>
+      <p class="error-message">
+        La página que buscas no existe o ha sido movida.
+      </p>
+      <div class="error-actions">
+        <a href="/es/" class="btn-primary">
+          <i class="fas fa-home"></i>
+          Volver al Inicio
+        </a>
+        <a href="/es/contact" class="btn-secondary">
+          <i class="fas fa-envelope"></i>
+          Contáctanos
+        </a>
+      </div>
+      <div class="error-links">
+        <p>O prueba una de estas páginas:</p>
+        <ul>
+          <li><a href="/es/services">Nuestros Servicios</a></li>
+          <li><a href="/es/blog">Blog & Noticias</a></li>
+          <li><a href="/es/calculator">Calculadora ROI</a></li>
+          <li><a href="/es/faq">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .error-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .error-container {
+    max-width: 600px;
+  }
+
+  .error-code {
+    font-size: clamp(6rem, 20vw, 12rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #06b6d4, #FFB95A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .error-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .error-message {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .error-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: #FFB95A;
+    color: #050816;
+  }
+
+  .btn-primary:hover {
+    background: #FFC875;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .error-links {
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .error-links p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .error-links ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .error-links a {
+    color: #06b6d4;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .error-links a:hover {
+    color: #FFB95A;
+  }
+
+  @media (max-width: 480px) {
+    .error-actions {
+      flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .error-links ul {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

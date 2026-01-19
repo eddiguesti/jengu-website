@@ -80,12 +80,8 @@ export function generateWebSiteSchema(): WebSiteSchema {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE_NAME,
-    url: SITE_URL,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${SITE_URL}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string'
-    }
+    url: SITE_URL
+    // Note: SearchAction removed - no search page currently exists
   };
 }
 
@@ -127,6 +123,9 @@ export function generateArticleSchema(data: {
   authorUrl?: string;
   url: string;
 }): ArticleSchema {
+  // Default author URL to team page if not provided
+  const authorUrl = data.authorUrl || `${SITE_URL}/team`;
+
   return {
     '@context': 'https://schema.org',
     '@type': data.type || 'BlogPosting',
@@ -138,7 +137,7 @@ export function generateArticleSchema(data: {
     author: {
       '@type': 'Person',
       name: data.authorName,
-      url: data.authorUrl
+      url: authorUrl
     },
     publisher: {
       '@type': 'Organization',
