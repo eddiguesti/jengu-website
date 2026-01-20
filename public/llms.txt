@@ -37,6 +37,12 @@ Jengu.ai builds custom AI automation solutions specifically for the tourism and 
 
 ### Hotel & Hospitality AI
 
+- [Voice AI for Hotels: Transforming Guest Service in 2026](https://jengu.ai/blog/voice-ai-hotels-transforming-guest-service-2026/)
+- [AI Concierge for Hotels: Personalized Guest Experience Guide](https://jengu.ai/blog/ai-concierge-hotels-personalized-guest-experience-guide/)
+- [Predictive Guest Analytics: How AI Anticipates Hotel Guest Needs](https://jengu.ai/blog/predictive-guest-analytics-hotels-ai-personalization/)
+- [AI Revenue Management for Hotels: Dynamic Pricing 2026](https://jengu.ai/blog/ai-revenue-management-hotels-dynamic-pricing-2026/)
+- [Sustainable Tourism with AI: Eco-Friendly Hotel Operations](https://jengu.ai/blog/sustainable-tourism-ai-eco-friendly-hotel-operations/)
+- [Omnichannel AI Communication: Unified Guest Messaging](https://jengu.ai/blog/omnichannel-ai-communication-hotels-unified-messaging/)
 - [WhatsApp Chatbot for Hotels: Complete Guide 2025](https://jengu.ai/blog/whatsapp-chatbot-hotels-complete-guide-2025/)
 - [AI Email Automation for Hotels: Response Time Guide](https://jengu.ai/blog/ai-email-automation-hotels-response-time-guide/)
 - [Hotel PMS Integration: Connect Your Tech Stack Guide](https://jengu.ai/blog/hotel-pms-integration-connect-tech-stack-guide/)
