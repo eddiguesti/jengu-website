@@ -2,18 +2,20 @@
 /**
  * Daily Blog Post Generator for Jengu
  *
- * Uses Claude API to generate SEO-optimized blog posts about AI in hospitality
+ * Uses Grok (x.ai) API to generate SEO-optimized blog posts about AI in hospitality
  * Run manually: node scripts/generate-daily-blog.mjs
  * Or via GitHub Actions on schedule
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOG_DIR = path.join(__dirname, '..', 'src', 'content', 'blog');
+
+const XAI_API_URL = 'https://api.x.ai/v1/chat/completions';
+const XAI_MODEL = 'grok-4-latest';
 
 // SEO Keywords and Topics for Hotels, Campsites, and Hospitality AI
 const SEO_TOPICS = [
@@ -73,41 +75,68 @@ const SEO_TOPICS = [
 ];
 
 /**
+ * Call the Grok (x.ai) API
+ */
+async function callGrok(messages, maxTokens = 4000) {
+  const response = await fetch(XAI_API_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.XAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: XAI_MODEL,
+      messages,
+      max_tokens: maxTokens,
+      temperature: 0.7,
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Grok API error (${response.status}): ${error}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0].message.content;
+}
+
+/**
  * Get a random topic that hasn't been used recently
  */
 async function selectTopic() {
-  // Read existing blog posts to avoid duplicates
   const files = await fs.readdir(BLOG_DIR);
   const existingSlugs = files
     .filter(f => f.endsWith('.md') && !f.startsWith('_'))
     .map(f => f.replace('.md', '').toLowerCase());
 
-  // Filter out topics that might already have posts
   const availableTopics = SEO_TOPICS.filter(t => {
     const potentialSlug = t.keyword.toLowerCase().replace(/\s+/g, '-');
     return !existingSlugs.some(s => s.includes(potentialSlug) || potentialSlug.includes(s.split('-').slice(0, 3).join('-')));
   });
 
   if (availableTopics.length === 0) {
-    // If all topics used, pick random one
     return SEO_TOPICS[Math.floor(Math.random() * SEO_TOPICS.length)];
   }
 
-  // Pick a random available topic
   return availableTopics[Math.floor(Math.random() * availableTopics.length)];
 }
 
 /**
- * Generate a blog post using Claude API
+ * Generate a blog post using Grok API
  */
 async function generateBlogPost(topic) {
-  const client = new Anthropic();
-
   const today = new Date().toISOString().split('T')[0];
 
-  const prompt = `You are an expert content writer for Jengu, an AI automation company specializing in the hospitality industry (hotels, campsites, resorts, vacation rentals).
-
-Write a comprehensive, SEO-optimized blog post about: "${topic.topic}"
+  // Generate the article content
+  const content = await callGrok([
+    {
+      role: 'system',
+      content: 'You are an expert SEO content writer for Jengu (jengu.ai), an AI automation company specializing in the hospitality industry (hotels, campsites, resorts, vacation rentals). Write high-quality, SEO-optimized blog posts that provide real value to hospitality professionals.'
+    },
+    {
+      role: 'user',
+      content: `Write a comprehensive, SEO-optimized blog post about: "${topic.topic}"
 
 Target keyword: "${topic.keyword}"
 
@@ -130,40 +159,38 @@ Format the output as valid Markdown (not HTML). Use:
 - - for bullet points
 - > for important quotes or callouts
 
-Do NOT include any frontmatter - just the article content starting with the first heading.
+Do NOT include any frontmatter - just the article content starting with the first heading.`
+    }
+  ]);
 
-Remember: This is for Jengu (jengu.ai) - an AI automation company that helps hospitality businesses automate guest communication, bookings, and operations.`;
-
-  const response = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 4000,
-    messages: [{ role: 'user', content: prompt }]
-  });
-
-  const content = response.content[0].text;
-
-  // Generate title from topic
-  const titlePrompt = `Generate a compelling, SEO-friendly blog title for an article about: "${topic.topic}"
+  // Generate title
+  const title = (await callGrok([
+    {
+      role: 'system',
+      content: 'You generate concise, SEO-friendly blog titles. Return ONLY the title text, nothing else. No quotes.'
+    },
+    {
+      role: 'user',
+      content: `Generate a compelling, SEO-friendly blog title for an article about: "${topic.topic}"
 Target keyword: "${topic.keyword}"
 
 Requirements:
 - 50-60 characters ideal
 - Include the main keyword naturally
 - Make it compelling and clickable
-- Don't use clickbait
+- Don't use clickbait`
+    }
+  ], 100)).trim().replace(/^["']|["']$/g, '');
 
-Return ONLY the title, nothing else.`;
-
-  const titleResponse = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 100,
-    messages: [{ role: 'user', content: titlePrompt }]
-  });
-
-  const title = titleResponse.content[0].text.trim().replace(/^["']|["']$/g, '');
-
-  // Generate description
-  const descPrompt = `Write a meta description for a blog post titled: "${title}"
+  // Generate meta description
+  const description = (await callGrok([
+    {
+      role: 'system',
+      content: 'You write SEO meta descriptions. Return ONLY the description text, nothing else. No quotes.'
+    },
+    {
+      role: 'user',
+      content: `Write a meta description for a blog post titled: "${title}"
 About: ${topic.topic}
 Target keyword: ${topic.keyword}
 
@@ -171,17 +198,9 @@ Requirements:
 - 150-160 characters exactly
 - Include the target keyword
 - Compelling and informative
-- Encourage clicks from search results
-
-Return ONLY the description, nothing else.`;
-
-  const descResponse = await client.messages.create({
-    model: 'claude-sonnet-4-20250514',
-    max_tokens: 100,
-    messages: [{ role: 'user', content: descPrompt }]
-  });
-
-  const description = descResponse.content[0].text.trim().replace(/^["']|["']$/g, '');
+- Encourage clicks from search results`
+    }
+  ], 100)).trim().replace(/^["']|["']$/g, '');
 
   return {
     title,
@@ -196,7 +215,6 @@ Return ONLY the description, nothing else.`;
  * Create the markdown file
  */
 async function saveBlogPost(post) {
-  // Generate slug from title
   const slug = post.title
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
@@ -208,16 +226,13 @@ async function saveBlogPost(post) {
   const filename = `${slug}.md`;
   const filepath = path.join(BLOG_DIR, filename);
 
-  // Check if file already exists
   try {
     await fs.access(filepath);
-    // File exists, add date suffix
     const newFilename = `${slug}-${Date.now()}.md`;
     const newFilepath = path.join(BLOG_DIR, newFilename);
     await writePost(newFilepath, post);
     return newFilename;
   } catch {
-    // File doesn't exist, create it
     await writePost(filepath, post);
     return filename;
   }
@@ -246,42 +261,31 @@ archived: false
  * Main execution
  */
 async function main() {
-  console.log('🚀 Jengu Daily Blog Generator');
-  console.log('============================\n');
+  console.log('🚀 Jengu Daily Blog Generator (Grok)');
+  console.log('=====================================\n');
 
-  // Check for API key
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error('❌ Error: ANTHROPIC_API_KEY environment variable not set');
-    console.log('\nSet it with: export ANTHROPIC_API_KEY=your-key-here');
+  if (!process.env.XAI_API_KEY) {
+    console.error('❌ Error: XAI_API_KEY environment variable not set');
+    console.log('\nSet it with: export XAI_API_KEY=your-key-here');
     process.exit(1);
   }
 
   try {
-    // Select topic
     console.log('📋 Selecting topic...');
     const topic = await selectTopic();
     console.log(`   Selected: "${topic.keyword}"`);
     console.log(`   Topic: ${topic.topic}\n`);
 
-    // Generate post
-    console.log('✍️  Generating blog post with Claude...');
+    console.log('✍️  Generating blog post with Grok...');
     const post = await generateBlogPost(topic);
     console.log(`   Title: ${post.title}`);
     console.log(`   Description: ${post.description.substring(0, 50)}...\n`);
 
-    // Save post
     console.log('💾 Saving blog post...');
     const filename = await saveBlogPost(post);
     console.log(`   Saved: src/content/blog/${filename}\n`);
 
     console.log('✅ Blog post generated successfully!');
-    console.log(`\nNext steps:`);
-    console.log(`1. Review the post: src/content/blog/${filename}`);
-    console.log(`2. Add images if desired`);
-    console.log(`3. Run 'npm run dev' to preview`);
-    console.log(`4. Commit and push to deploy`);
-
-    // Return filename for GitHub Actions
     return filename;
 
   } catch (error) {
