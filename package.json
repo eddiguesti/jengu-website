@@ -9,9 +9,11 @@
     "preview": "astro preview",
     "check": "astro check",
     "cf:optimize": "node cloudflare-api-setup.mjs",
-    "optimize-images": "node optimize-images.mjs"
+    "optimize-images": "node optimize-images.mjs",
+    "generate-blog": "node scripts/generate-daily-blog.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
     "@astrojs/cloudflare": "^11.2.0",
     "@astrojs/partytown": "^2.1.4",
     "@astrojs/sitemap": "^3.0.0",
