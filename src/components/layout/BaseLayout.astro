@@ -24,7 +24,7 @@ const currentLocale = getLocaleFromUrl(currentPath);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon.png">
   <meta name="generator" content={Astro.generator} />
 
   <!-- Performance: DNS Prefetch & Preconnect for external resources -->
@@ -56,8 +56,8 @@ const currentLocale = getLocaleFromUrl(currentPath);
   <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" crossorigin="anonymous">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
-  <!-- Preload critical assets - optimized nav logo (646KB -> 2KB) -->
-  <link rel="preload" href="/images/team/danny-smith-128.webp" as="image" type="image/webp">
+  <!-- Preload critical assets - Jengu logo -->
+  <link rel="preload" href="/images/team/jengu-logo-128.webp" as="image" type="image/webp">
 
   <!-- SEO -->
   <SEOHead seo={seo} />

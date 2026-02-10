@@ -41,6 +41,136 @@ async function getAccessToken(env: any): Promise<string> {
 }
 
 /**
+ * Send notification email to admin when a new booking is made
+ */
+async function sendAdminNotification(token: string, payload: any, env: any) {
+  const GRAPH_USER = env.GRAPH_USER;
+  const { name, email, company, phone, date, time, contactMethod, extraInfo } = payload;
+
+  // Format date nicely
+  const dateObj = new Date(`${date}T${time}:00`);
+  const formattedDate = dateObj.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  const formattedTime = dateObj.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit'
+  });
+
+  const emailBody = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New Booking - ${name}</title>
+</head>
+<body style="margin: 0; padding: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f5f5f5;">
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <tr>
+      <td style="height: 4px; background: linear-gradient(90deg, #f59e0b 0%, #eab308 50%, #f59e0b 100%);"></td>
+    </tr>
+    <tr>
+      <td style="padding: 32px;">
+        <h1 style="margin: 0 0 8px; font-size: 24px; color: #111827;">🗓️ New Booking Received</h1>
+        <p style="margin: 0 0 24px; font-size: 14px; color: #6b7280;">Someone just booked a consultation call</p>
+
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f9fafb; border-radius: 8px; margin-bottom: 24px;">
+          <tr>
+            <td style="padding: 20px;">
+              <p style="margin: 0 0 4px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Date & Time</p>
+              <p style="margin: 0 0 16px; font-size: 18px; color: #111827; font-weight: 600;">${formattedDate} at ${formattedTime}</p>
+
+              <p style="margin: 0 0 4px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Platform</p>
+              <p style="margin: 0; font-size: 16px; color: #111827; font-weight: 500;">${contactMethod}</p>
+            </td>
+          </tr>
+        </table>
+
+        <h2 style="margin: 0 0 16px; font-size: 16px; color: #111827; font-weight: 600;">Contact Details</h2>
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+              <span style="color: #6b7280; font-size: 14px;">Name:</span>
+              <span style="color: #111827; font-size: 14px; font-weight: 500; float: right;">${name}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+              <span style="color: #6b7280; font-size: 14px;">Email:</span>
+              <span style="color: #111827; font-size: 14px; font-weight: 500; float: right;"><a href="mailto:${email}" style="color: #f59e0b; text-decoration: none;">${email}</a></span>
+            </td>
+          </tr>
+          ${company ? `<tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+              <span style="color: #6b7280; font-size: 14px;">Company:</span>
+              <span style="color: #111827; font-size: 14px; font-weight: 500; float: right;">${company}</span>
+            </td>
+          </tr>` : ''}
+          ${phone ? `<tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #e5e7eb;">
+              <span style="color: #6b7280; font-size: 14px;">Phone:</span>
+              <span style="color: #111827; font-size: 14px; font-weight: 500; float: right;">${phone}</span>
+            </td>
+          </tr>` : ''}
+        </table>
+
+        ${extraInfo ? `
+        <div style="margin-top: 24px; padding: 16px; background-color: #fffbeb; border-radius: 8px; border-left: 4px solid #f59e0b;">
+          <p style="margin: 0 0 8px; font-size: 12px; color: #92400e; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Additional Notes</p>
+          <p style="margin: 0; font-size: 14px; color: #78350f; line-height: 1.5;">${extraInfo}</p>
+        </div>
+        ` : ''}
+
+        <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #e5e7eb; text-align: center;">
+          <p style="margin: 0; font-size: 12px; color: #9ca3af;">This booking has been added to your Outlook calendar.</p>
+        </div>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+
+  const emailMessage = {
+    message: {
+      subject: `🗓️ New Booking: ${name} - ${formattedDate} at ${formattedTime}`,
+      body: {
+        contentType: 'HTML',
+        content: emailBody
+      },
+      toRecipients: [
+        {
+          emailAddress: {
+            address: GRAPH_USER,
+            name: 'Jengu Team'
+          }
+        }
+      ]
+    },
+    saveToSentItems: false
+  };
+
+  const graphUrl = `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(GRAPH_USER)}/sendMail`;
+
+  const res = await fetch(graphUrl, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(emailMessage)
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Admin notification email failed: ${res.status} ${text}`);
+  }
+}
+
+/**
  * Send confirmation email to the attendee
  */
 async function sendConfirmationEmail(token: string, payload: any, eventDetails: any, env: any) {
@@ -580,6 +710,19 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const createdEvent = await graphRes.json();
 
+    // Send admin notification email
+    let adminNotificationSent = false;
+    let adminNotificationError = null;
+    try {
+      await sendAdminNotification(token, payload, envVars);
+      console.log('Admin notification email sent successfully to:', GRAPH_USER);
+      adminNotificationSent = true;
+    } catch (err: any) {
+      console.error('Failed to send admin notification email:', err.message);
+      adminNotificationError = err.message;
+      // Don't fail the whole request if admin notification fails
+    }
+
     // Send confirmation email to the attendee
     let emailSent = false;
     let emailError = null;
@@ -599,7 +742,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
         eventId: createdEvent.id,
         outlookEvent: createdEvent,
         emailSent,
-        emailError
+        emailError,
+        adminNotificationSent,
+        adminNotificationError
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
