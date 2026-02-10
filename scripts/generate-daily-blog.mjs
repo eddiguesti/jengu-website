@@ -13,9 +13,12 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BLOG_DIR = path.join(__dirname, '..', 'src', 'content', 'blog');
+const IMAGE_DIR = path.join(__dirname, '..', 'public', 'images', 'blog');
 
 const XAI_API_URL = 'https://api.x.ai/v1/chat/completions';
+const XAI_IMAGE_URL = 'https://api.x.ai/v1/images/generations';
 const XAI_MODEL = 'grok-4-latest';
+const XAI_IMAGE_MODEL = 'grok-imagine-image';
 
 // SEO Keywords and Topics for Hotels, Campsites, and Hospitality AI
 const SEO_TOPICS = [
@@ -123,6 +126,75 @@ async function callGrok(messages, maxTokens = 4000) {
 }
 
 /**
+ * Generate a blog image using Grok Imagine API
+ */
+async function generateImage(title, keyword, slug) {
+  const prompt = `Professional photorealistic blog header image for a hospitality technology article about "${keyword}". Show a beautiful, luxurious hotel lobby, resort pool area, or modern campsite reception with subtle futuristic AI technology elements blended naturally into the environment - like holographic displays, smart tablets, or ambient lighting. Ultra-clean editorial photography style. Warm golden hour lighting. Photorealistic, high-end commercial photography look. ABSOLUTELY NO TEXT, NO WORDS, NO LETTERS, NO NUMBERS, NO WATERMARKS, NO LOGOS, NO TYPOGRAPHY of any kind anywhere in the image. Pure visual only.`;
+
+  console.log('🎨 Generating blog image with Grok Imagine...');
+
+  const response = await fetch(XAI_IMAGE_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${process.env.XAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      model: XAI_IMAGE_MODEL,
+      prompt,
+      n: 1,
+      aspect_ratio: '16:9',
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    console.warn(`⚠️  Image generation failed (${response.status}): ${error}`);
+    console.warn('   Continuing without image...');
+    return { mainImage: '', thumbnail: '' };
+  }
+
+  const data = await response.json();
+  const imageUrl = data.data?.[0]?.url;
+
+  if (!imageUrl) {
+    console.warn('⚠️  No image URL returned, continuing without image...');
+    return { mainImage: '', thumbnail: '' };
+  }
+
+  // Download and save the image
+  const imageResponse = await fetch(imageUrl);
+  if (!imageResponse.ok) {
+    console.warn('⚠️  Failed to download image, continuing without image...');
+    return { mainImage: '', thumbnail: '' };
+  }
+
+  const imageBuffer = Buffer.from(await imageResponse.arrayBuffer());
+  const imageFilename = `${slug}.webp`;
+  const imagePath = path.join(IMAGE_DIR, imageFilename);
+
+  // Ensure directory exists
+  await fs.mkdir(IMAGE_DIR, { recursive: true });
+
+  // Try to optimize with sharp if available, otherwise save as-is
+  try {
+    const sharp = (await import('sharp')).default;
+    await sharp(imageBuffer)
+      .resize(1200, 675, { fit: 'cover' })
+      .webp({ quality: 85 })
+      .toFile(imagePath);
+  } catch {
+    // sharp not available, save raw image
+    await fs.writeFile(imagePath, imageBuffer);
+  }
+
+  const publicPath = `/images/blog/${imageFilename}`;
+  console.log(`   Saved: public${publicPath}`);
+
+  return { mainImage: publicPath, thumbnail: publicPath };
+}
+
+/**
  * Get a random topic that hasn't been used recently
  */
 async function selectTopic() {
@@ -180,6 +252,11 @@ Format the output as valid Markdown (not HTML). Use:
 - - for bullet points
 - > for important quotes or callouts
 
+IMPORTANT - Include 2-3 relevant stock images throughout the article using Unsplash. Use this exact format:
+![descriptive alt text](https://images.unsplash.com/photo-PHOTO_ID?w=800&auto=format&fit=crop)
+
+Use real Unsplash photo IDs for images related to hotels, hospitality, technology, resorts, or travel. Place images between sections to break up the text and make the article visually engaging.
+
 Do NOT include any frontmatter - just the article content starting with the first heading.`
     }
   ]);
@@ -223,12 +300,26 @@ Requirements:
     }
   ], 100)).trim().replace(/^["']|["']$/g, '');
 
+  // Generate slug early so we can use it for image filename
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .substring(0, 60)
+    .replace(/-$/, '');
+
+  // Generate blog image
+  const { mainImage, thumbnail } = await generateImage(title, topic.keyword, slug);
+
   return {
     title,
     description,
     content,
     keyword: topic.keyword,
-    publishedOn: today
+    publishedOn: today,
+    mainImage,
+    thumbnail,
   };
 }
 
@@ -265,8 +356,8 @@ title: "${post.title}"
 subtitle: "Expert insights on ${post.keyword} for hospitality businesses"
 description: "${post.description}"
 publishedOn: ${post.publishedOn}
-mainImage: ""
-thumbnail: ""
+mainImage: "${post.mainImage}"
+thumbnail: "${post.thumbnail}"
 altText: "${post.title}"
 draft: false
 archived: false
