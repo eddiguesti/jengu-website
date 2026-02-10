@@ -72,6 +72,27 @@ const SEO_TOPICS = [
   { keyword: "loyalty program AI", topic: "Building smarter hotel loyalty programs with AI personalization" },
   { keyword: "AI translation hospitality", topic: "Breaking language barriers: AI translation tools for international guests" },
   { keyword: "occupancy prediction AI", topic: "AI occupancy prediction: better forecasting for hotels and campsites" },
+
+  // High-Volume Keywords from Content Plan (with search volume data)
+  { keyword: "benefits of process automation", topic: "The key benefits of process automation for hotels and hospitality businesses" },  // KD:12 Vol:480
+  { keyword: "role of ai in hotel marketing", topic: "The role of AI in hotel marketing: driving bookings and guest engagement" },  // KD:9 Vol:360
+  { keyword: "travel chatbot setup guide", topic: "How to set up a travel chatbot: complete step-by-step guide for hospitality" },  // KD:18 Vol:360
+  { keyword: "what is ai-driven recommendations", topic: "AI-driven recommendations in hospitality: how they work and why they matter" },  // KD:23 Vol:340
+  { keyword: "role of automation in customer service", topic: "The role of automation in customer service for hotels and travel businesses" },  // KD:23 Vol:330
+  { keyword: "role of ai in sustainability hotels", topic: "How AI is driving sustainability in hotels and eco-friendly hospitality" },  // KD:26 Vol:330
+  { keyword: "benefits of ai in tourism", topic: "Top benefits of AI in tourism: transforming the travel industry" },  // KD:18 Vol:270
+  { keyword: "role of ai in guest retention", topic: "The role of AI in guest retention: keeping hotel guests coming back" },  // KD:18 Vol:270
+  { keyword: "why invest in ai-powered security", topic: "Why hotels should invest in AI-powered security systems" },  // KD:20 Vol:260
+  { keyword: "role of ai in hotel distribution", topic: "The role of AI in hotel distribution: optimizing channel management" },  // KD:12 Vol:240
+  { keyword: "benefits of ai for travel agencies", topic: "How travel agencies benefit from AI automation and smart tools" },  // KD:12 Vol:230
+  { keyword: "role of ai in hotel security", topic: "AI in hotel security: protecting guests and properties with smart technology" },  // KD:7 Vol:220
+  { keyword: "automation best practices", topic: "Automation best practices for hospitality: what every hotel should know" },  // KD:9 Vol:220
+  { keyword: "role of chatbots in hospitality", topic: "The growing role of chatbots in hospitality and guest communication" },  // KD:6 Vol:210
+  { keyword: "how to leverage ai for upselling", topic: "How to leverage AI for upselling in hotels: proven strategies and examples" },  // KD:10 Vol:210
+  { keyword: "role of ai in bookings", topic: "The role of AI in bookings: smarter reservation systems for hospitality" },  // KD:21 Vol:210
+  { keyword: "why ai-driven customer service", topic: "Why AI-driven customer service is the future for hotels and resorts" },  // KD:9 Vol:190
+  { keyword: "role of chatbots in tourism", topic: "Role of chatbots in tourism: boosting engagement worldwide" },  // Explainer
+  { keyword: "enhance guest experience AI", topic: "How to enhance guest experience with AI for hotels and resorts" },  // How To
 ];
 
 /**
