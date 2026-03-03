@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import partytown from '@astrojs/partytown';
 import cloudflare from '@astrojs/cloudflare';
 
@@ -11,40 +10,6 @@ export default defineConfig({
     functionPerRoute: false
   }),
   integrations: [
-    sitemap({
-      filter: (page) => {
-        // Exclude preview, private booking pages, and calculator-temp
-        if (page.includes('/preview/')) return false;
-        if (page.includes('/book/edward-guest')) return false;
-        if (page.includes('/book/chris-wood')) return false;
-        if (page.includes('/calculator-temp')) return false;
-        return true;
-      },
-      // Only include hreflang for pages with translations
-      i18n: {
-        defaultLocale: 'en',
-        locales: {
-          en: 'en',
-          fr: 'fr',
-          es: 'es'
-        }
-      },
-      serialize(item) {
-        // Customize priority and changefreq based on page type
-        if (item.url.includes('/blog/')) {
-          item.changefreq = 'weekly';
-          item.priority = 0.7;
-        }
-        if (item.url.includes('/case-studies/')) {
-          item.changefreq = 'monthly';
-          item.priority = 0.8;
-        }
-        if (item.url.endsWith('/')) {
-          item.priority = 0.9;
-        }
-        return item;
-      }
-    }),
     partytown({
       config: {
         forward: ['dataLayer.push'],
