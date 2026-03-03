@@ -104,6 +104,13 @@ export const GET: APIRoute = async () => {
     changefreq: 'monthly'
   });
 
+  staticPages.push({
+    url: `${SITE_URL}/survey`,
+    lastmod: today,
+    priority: '0.7',
+    changefreq: 'monthly'
+  });
+
   // Generate blog post entries with actual publish dates
   const blogEntries: SitemapEntry[] = sortedBlogs.map(post => {
     const lastmod = post.data.updatedOn

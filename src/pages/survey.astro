@@ -1,0 +1,575 @@
+---
+import BaseLayout from '../components/layout/BaseLayout.astro';
+import { generateSEO } from '../lib/seo/metadata';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
+
+const seo = generateSEO({
+  title: 'Travel Fair Client Survey',
+  description: 'Tell us your company priorities for AI automation in tourism and hospitality. We use this short survey to prepare tailored recommendations and next steps.',
+  canonical: `${Astro.site}survey/`,
+  ogType: 'website'
+});
+
+const jsonLd = [
+  generateOrganizationSchema(),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: Astro.site?.href || '' },
+    { name: 'Survey', url: `${Astro.site}survey/` }
+  ])
+];
+---
+
+<BaseLayout seo={seo} jsonLd={jsonLd}>
+  <section class="contact-section survey-section">
+    <div class="contact-container survey-container">
+      <div class="contact-info survey-intro">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-clipboard-list"></i>
+          </div>
+          <h1>Travel Fair Strategy Survey</h1>
+          <p>
+            Share your priorities in 4 to 6 minutes. We use your answers to prepare a tailored strategy session for your team.
+          </p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3>What you get</h3>
+          <p>Shortlist of high-impact AI opportunities for your current setup.</p>
+          <p>A practical roadmap you can review with decision-makers.</p>
+          <p>Recommended agenda for a second meeting focused on execution.</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <h3>Fast follow-up</h3>
+          <p>
+            We will contact you within 48 hours after the event with relevant ideas based on your responses.
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper survey-form-wrapper">
+        <h2>SPIN Discovery Survey</h2>
+        <p class="survey-lead">Broad but strategic. Fields marked with * are required.</p>
+
+        <form id="fairSurveyForm" onsubmit="submitSurvey(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Your Name *</label>
+              <input type="text" id="contactName" name="contactName" required />
+            </div>
+            <div class="form-group">
+              <label for="role">Job Title</label>
+              <input type="text" id="role" name="role" placeholder="CEO, Operations Manager, Revenue Lead..." />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="company">Company Name *</label>
+              <input type="text" id="company" name="company" required />
+            </div>
+            <div class="form-group">
+              <label for="country">Primary Country / Region</label>
+              <input type="text" id="country" name="country" placeholder="United States, UK, Europe..." />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Work Email *</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone / WhatsApp</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="businessModel">Business Type *</label>
+              <select id="businessModel" name="businessModel" required>
+                <option value="">Select one</option>
+                <option value="hotel">Hotel</option>
+                <option value="hotel-group">Hotel Group</option>
+                <option value="resort">Resort</option>
+                <option value="vacation-rentals">Vacation Rentals</option>
+                <option value="travel-agency">Travel Agency</option>
+                <option value="tour-operator">Tour Operator</option>
+                <option value="destination-management">Destination Management Company</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="companySize">Company Size *</label>
+              <select id="companySize" name="companySize" required>
+                <option value="">Select one</option>
+                <option value="1-10">1-10 employees</option>
+                <option value="11-50">11-50 employees</option>
+                <option value="51-200">51-200 employees</option>
+                <option value="201-500">201-500 employees</option>
+                <option value="500-plus">500+ employees</option>
+              </select>
+            </div>
+          </div>
+
+          <h3 class="spin-title">Situation</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="monthlyBookingVolume">Monthly Booking / Lead Volume *</label>
+              <select id="monthlyBookingVolume" name="monthlyBookingVolume" required>
+                <option value="">Select one</option>
+                <option value="under-500">Under 500</option>
+                <option value="500-2000">500-2,000</option>
+                <option value="2000-10000">2,000-10,000</option>
+                <option value="10000-plus">10,000+</option>
+                <option value="unknown">Not sure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="stakeholderCount">People involved in this decision *</label>
+              <select id="stakeholderCount" name="stakeholderCount" required>
+                <option value="">Select one</option>
+                <option value="1-2">1-2 people</option>
+                <option value="3-5">3-5 people</option>
+                <option value="6-10">6-10 people</option>
+                <option value="10-plus">10+ people</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="currentResponseTime">Current Average Response Time *</label>
+              <select id="currentResponseTime" name="currentResponseTime" required>
+                <option value="">Select one</option>
+                <option value="under-5-min">Under 5 minutes</option>
+                <option value="5-30-min">5-30 minutes</option>
+                <option value="30-min-2-hours">30 minutes to 2 hours</option>
+                <option value="2-24-hours">2-24 hours</option>
+                <option value="over-24-hours">Over 24 hours</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="decisionOwner">Primary decision owner / sponsor</label>
+              <input type="text" id="decisionOwner" name="decisionOwner" placeholder="Role is enough (GM, COO, Head of Revenue...)" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="channelPreference">Preferred follow-up channel *</label>
+              <select id="channelPreference" name="channelPreference" required>
+                <option value="">Select one</option>
+                <option value="video-call">Video call</option>
+                <option value="in-person">In-person</option>
+                <option value="email-summary-first">Email summary first</option>
+                <option value="whatsapp-first">WhatsApp first</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="alignmentRisk">How aligned is your buying team today? *</label>
+              <select id="alignmentRisk" name="alignmentRisk" required>
+                <option value="">Select one</option>
+                <option value="highly-aligned">Highly aligned</option>
+                <option value="mostly-aligned">Mostly aligned</option>
+                <option value="mixed-priorities">Mixed priorities</option>
+                <option value="not-aligned-yet">Not aligned yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="currentSetup">Current setup in one sentence *</label>
+            <textarea id="currentSetup" name="currentSetup" required placeholder="How your team currently handles enquiries, bookings, pricing, and guest communication."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Top Challenges Right Now * (Select up to 3)</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="slow-reply-times" /> Slow guest response times</label>
+              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="low-direct-bookings" /> Low direct bookings</label>
+              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="high-manual-work" /> Too much manual admin work</label>
+              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="fragmented-systems" /> Systems do not talk to each other</label>
+              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="pricing-uncertainty" /> Pricing and forecasting challenges</label>
+              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="staff-shortage" /> Staffing constraints</label>
+            </div>
+          </div>
+
+          <h3 class="spin-title">Problem</h3>
+          <div class="form-group">
+            <label for="problemDetail">Where do you lose the most time or revenue today? *</label>
+            <textarea id="problemDetail" name="problemDetail" required placeholder="Describe the biggest bottlenecks your team wants to fix first."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Solutions You Want To Explore * (Select all that apply)</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-item"><input type="checkbox" name="priorities" value="ai-chatbot" /> AI chatbot for website/WhatsApp</label>
+              <label class="checkbox-item"><input type="checkbox" name="priorities" value="voice-bot" /> AI phone/voice bot</label>
+              <label class="checkbox-item"><input type="checkbox" name="priorities" value="dynamic-pricing" /> Dynamic pricing and demand forecasting</label>
+              <label class="checkbox-item"><input type="checkbox" name="priorities" value="crm-automation" /> CRM and email automation</label>
+              <label class="checkbox-item"><input type="checkbox" name="priorities" value="pms-integration" /> PMS / channel manager integrations</label>
+              <label class="checkbox-item"><input type="checkbox" name="priorities" value="custom-software" /> Custom AI software development</label>
+            </div>
+          </div>
+
+          <h3 class="spin-title">Implication</h3>
+          <div class="form-group">
+            <label for="implicationDetail">What happens if this is not solved in the next 6-12 months? *</label>
+            <textarea id="implicationDetail" name="implicationDetail" required placeholder="Example: lost direct bookings, slower growth, higher staffing cost, weaker guest experience."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="currentTools">Current Systems / Tools</label>
+            <input type="text" id="currentTools" name="currentTools" placeholder="PMS, CRM, booking engine, channel manager, call center tools..." />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="timeline">Implementation Timeline *</label>
+              <select id="timeline" name="timeline" required>
+                <option value="">Select one</option>
+                <option value="immediate">Immediate (0-1 month)</option>
+                <option value="short-term">Short term (1-3 months)</option>
+                <option value="mid-term">Mid term (3-6 months)</option>
+                <option value="long-term">Long term (6+ months)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="budgetRange">Budget Range *</label>
+              <select id="budgetRange" name="budgetRange" required>
+                <option value="">Select one</option>
+                <option value="under-5k">Under $5,000</option>
+                <option value="5k-15k">$5,000-$15,000</option>
+                <option value="15k-50k">$15,000-$50,000</option>
+                <option value="50k-plus">$50,000+</option>
+                <option value="not-sure">Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="goals">What outcomes matter most to you? *</label>
+            <textarea id="goals" name="goals" required placeholder="Example: increase direct bookings by 20%, reduce response time to under 2 minutes, automate repetitive tasks..."></textarea>
+          </div>
+
+          <h3 class="spin-title">Need-Payoff</h3>
+          <div class="form-group">
+            <label for="successDefinition">If a solution worked, what would success look like in 90 days? *</label>
+            <textarea id="successDefinition" name="successDefinition" required placeholder="Define the business result you want your team to see quickly."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="decisionCriteria">What must be true for your team to say yes in a second meeting? *</label>
+            <textarea id="decisionCriteria" name="decisionCriteria" required placeholder="Example: clear ROI logic, integration feasibility, implementation effort, ownership model."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Preferred Follow-up *</label>
+            <div class="choice-row">
+              <label class="choice-item"><input type="radio" name="preferredFollowup" value="email" required /> Email</label>
+              <label class="choice-item"><input type="radio" name="preferredFollowup" value="phone" required /> Phone Call</label>
+              <label class="choice-item"><input type="radio" name="preferredFollowup" value="whatsapp" required /> WhatsApp</label>
+              <label class="choice-item"><input type="radio" name="preferredFollowup" value="meeting" required /> Booked Meeting</label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="secondMeetingIntent">If we send a tailored 1-page plan within 48h, will you join a 25-minute strategy session? *</label>
+              <select id="secondMeetingIntent" name="secondMeetingIntent" required>
+                <option value="">Select one</option>
+                <option value="yes-this-week">Yes, this week</option>
+                <option value="yes-next-2-weeks">Yes, in the next 2 weeks</option>
+                <option value="maybe-send-options">Maybe, send options</option>
+                <option value="not-now">Not now</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="meetingParticipants">Who should join that second meeting?</label>
+              <input type="text" id="meetingParticipants" name="meetingParticipants" placeholder="Ops lead, revenue manager, owner, tech lead..." />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="meetingTimeframe">Best window for that session *</label>
+              <select id="meetingTimeframe" name="meetingTimeframe" required>
+                <option value="">Select one</option>
+                <option value="this-week">This week</option>
+                <option value="next-week">Next week</option>
+                <option value="next-2-weeks">Within 2 weeks</option>
+                <option value="this-month">This month</option>
+                <option value="not-sure-yet">Not sure yet</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="meetingGoal">Main objective for the second meeting *</label>
+              <select id="meetingGoal" name="meetingGoal" required>
+                <option value="">Select one</option>
+                <option value="roadmap">Review custom roadmap</option>
+                <option value="roi-model">Validate ROI assumptions</option>
+                <option value="integration-plan">Assess integrations and feasibility</option>
+                <option value="pilot-scope">Define pilot scope</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group compact">
+            <label class="checkbox-item consent-item">
+              <input type="checkbox" id="consent" name="consent" required />
+              I agree to be contacted by Jengu about this survey response. *
+            </label>
+          </div>
+
+          <button type="submit" class="submit-btn" id="surveySubmitBtn">
+            <i class="fas fa-paper-plane"></i> Submit Survey
+          </button>
+        </form>
+
+        <div id="surveyStatus" class="survey-status" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline>
+    async function submitSurvey(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const submitButton = document.getElementById('surveySubmitBtn');
+      const status = document.getElementById('surveyStatus');
+      const originalButtonText = submitButton.innerHTML;
+
+      status.className = 'survey-status';
+      status.textContent = '';
+
+      const painPoints = Array.from(form.querySelectorAll('input[name="painPoints"]:checked')).map((item) => item.value);
+      const priorities = Array.from(form.querySelectorAll('input[name="priorities"]:checked')).map((item) => item.value);
+
+      if (painPoints.length === 0 || painPoints.length > 3) {
+        status.classList.add('error', 'visible');
+        status.textContent = 'Please choose 1 to 3 current challenges.';
+        return;
+      }
+
+      if (priorities.length === 0) {
+        status.classList.add('error', 'visible');
+        status.textContent = 'Please select at least one solution to explore.';
+        return;
+      }
+
+      const selectedFollowup = form.querySelector('input[name="preferredFollowup"]:checked');
+      const payload = {
+        contactName: form.contactName.value,
+        role: form.role.value,
+        company: form.company.value,
+        country: form.country.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        businessModel: form.businessModel.value,
+        companySize: form.companySize.value,
+        monthlyBookingVolume: form.monthlyBookingVolume.value,
+        stakeholderCount: form.stakeholderCount.value,
+        currentResponseTime: form.currentResponseTime.value,
+        decisionOwner: form.decisionOwner.value,
+        channelPreference: form.channelPreference.value,
+        alignmentRisk: form.alignmentRisk.value,
+        currentSetup: form.currentSetup.value,
+        painPoints,
+        problemDetail: form.problemDetail.value,
+        priorities,
+        implicationDetail: form.implicationDetail.value,
+        currentTools: form.currentTools.value,
+        timeline: form.timeline.value,
+        budgetRange: form.budgetRange.value,
+        goals: form.goals.value,
+        successDefinition: form.successDefinition.value,
+        decisionCriteria: form.decisionCriteria.value,
+        preferredFollowup: selectedFollowup ? selectedFollowup.value : '',
+        secondMeetingIntent: form.secondMeetingIntent.value,
+        meetingParticipants: form.meetingParticipants.value,
+        meetingTimeframe: form.meetingTimeframe.value,
+        meetingGoal: form.meetingGoal.value,
+        consent: form.consent.checked
+      };
+
+      try {
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        const response = await fetch('/api/survey', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Survey submission failed');
+        }
+
+        form.reset();
+        status.classList.add('success', 'visible');
+        status.textContent = result.message || 'Thanks for sharing your priorities. We will follow up soon.';
+      } catch (error) {
+        status.classList.add('error', 'visible');
+        status.textContent = error.message || 'Something went wrong. Please try again.';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonText;
+      }
+    }
+  </script>
+
+  <style>
+    @media (min-width: 769px) {
+      .survey-section {
+        padding-top: 100px !important;
+        margin-top: 0 !important;
+      }
+    }
+
+    .survey-container {
+      align-items: start;
+    }
+
+    .survey-intro h1 {
+      font-size: 2rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .survey-intro .contact-card p + p {
+      margin-top: 0.5rem;
+    }
+
+    .survey-form-wrapper {
+      position: relative;
+    }
+
+    .survey-lead {
+      color: var(--text-secondary);
+      margin-bottom: 1.75rem;
+    }
+
+    .spin-title {
+      font-size: 1.05rem;
+      margin: 0.75rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem 1rem;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: 10px;
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      line-height: 1.4;
+      cursor: pointer;
+    }
+
+    .checkbox-item input {
+      width: 18px;
+      height: 18px;
+      margin-top: 0.1rem;
+      accent-color: var(--primary-cta);
+      flex: 0 0 auto;
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .choice-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .choice-item input {
+      accent-color: var(--primary-cta);
+    }
+
+    .form-group.compact {
+      margin-bottom: 1.4rem;
+    }
+
+    .consent-item {
+      padding: 0.8rem 1rem;
+    }
+
+    .survey-status {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .survey-status.visible {
+      display: block;
+    }
+
+    .survey-status.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #d1fae5;
+    }
+
+    .survey-status.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      color: #fecaca;
+    }
+
+    @media (max-width: 1024px) {
+      .checkbox-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .survey-intro h1 {
+        font-size: 1.6rem;
+      }
+
+      .choice-row {
+        flex-direction: column;
+      }
+
+      .choice-item {
+        width: 100%;
+      }
+    }
+  </style>
+</BaseLayout>
