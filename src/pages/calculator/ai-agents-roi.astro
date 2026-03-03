@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../components/layout/BaseLayout.astro';
 import { generateSEO } from '../../lib/seo/metadata';
-import { generateOrganizationSchema, generateBreadcrumbSchema, generateSoftwareApplicationSchema } from '../../lib/seo/jsonld';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
 const seo = generateSEO({
   title: 'AI ROI Calculator - Calculate Your Automation Savings',
@@ -15,13 +15,7 @@ const jsonLd = [
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
     { name: 'ROI Calculator', url: `${Astro.site}calculator/ai-agents-roi/` }
-  ]),
-  generateSoftwareApplicationSchema({
-    name: 'Jengu AI ROI Calculator',
-    description: 'Free calculator to estimate ROI, time savings, and cost reduction from AI automation for hotels and tourism businesses. Get results in 2 minutes.',
-    category: 'BusinessApplication',
-    isFree: true
-  })
+  ])
 ];
 ---
 
@@ -94,7 +88,7 @@ const jsonLd = [
 
     .calculator-page-iframe {
       width: 100%;
-      height: 920px;
+      height: 800px;
       border: none;
       display: block;
     }
@@ -124,7 +118,7 @@ const jsonLd = [
       }
 
       .calculator-page-iframe {
-        height: 700px;
+        height: 600px;
       }
     }
   </style>
