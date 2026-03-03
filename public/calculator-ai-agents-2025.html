@@ -103,6 +103,18 @@
     .proof-pill { display: flex; align-items: center; gap: .35rem; font-size: .75rem; color: var(--text-muted); }
     .proof-pill i { color: var(--green); }
 
+    /* ── CURRENCY PICKER ───────────────────────── */
+    .currency-bar { display: flex; justify-content: center; align-items: center; gap: .5rem; margin-top: .75rem; }
+    .currency-bar label { font-size: .72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .07em; }
+    .currency-select {
+      background: var(--bg-card); border: 1px solid var(--border-hi);
+      color: var(--text); font-family: inherit; font-size: .78rem; font-weight: 600;
+      padding: .3rem .65rem; border-radius: 6px; cursor: pointer;
+      transition: border-color .2s;
+    }
+    .currency-select:focus { outline: none; border-color: var(--cyan); }
+    .currency-select:hover { border-color: var(--cyan); }
+
     /* ── STEPPER ────────────────────────────────── */
     .stepper { display: flex; align-items: flex-start; margin-bottom: 1.75rem; padding: 0 .5rem; }
     .step-item { display: flex; flex-direction: column; align-items: center; gap: .3rem; flex: 1; user-select: none; }
@@ -526,6 +538,16 @@
       <div class="proof-pill"><i class="fas fa-check-circle"></i> Conservative estimates</div>
       <div class="proof-pill"><i class="fas fa-check-circle"></i> Free · No email needed</div>
     </div>
+    <div class="currency-bar">
+      <label for="currency-sel"><i class="fas fa-coins"></i> Currency:</label>
+      <select id="currency-sel" class="currency-select" onchange="setCurrency(this.value)">
+        <option value="USD" selected>🇺🇸 USD ($)</option>
+        <option value="GBP">🇬🇧 GBP (£)</option>
+        <option value="EUR">🇪🇺 EUR (€)</option>
+        <option value="AUD">🇦🇺 AUD (A$)</option>
+        <option value="CAD">🇨🇦 CAD (C$)</option>
+      </select>
+    </div>
   </div>
 
   <!-- Stepper -->
@@ -707,12 +729,12 @@
         <div class="live-ticker" id="live-ticker">
           <div>
             <div class="ticker-label">Estimated annual ROI with selected agents</div>
-            <div class="ticker-val" id="ticker-val">£0</div>
+            <div class="ticker-val" id="ticker-val">$0</div>
           </div>
           <div class="ticker-breakdown">
-            <div class="ticker-item">Cost savings: <strong id="t-cost">£0</strong></div>
-            <div class="ticker-item">Revenue gains: <strong id="t-rev">£0</strong></div>
-            <div class="ticker-item">Setup from: <strong id="t-setup">£0</strong></div>
+            <div class="ticker-item">Cost savings: <strong id="t-cost">$0</strong></div>
+            <div class="ticker-item">Revenue gains: <strong id="t-rev">$0</strong></div>
+            <div class="ticker-item">Setup from: <strong id="t-setup">$0</strong></div>
           </div>
           <div class="ticker-disclaimer">*Based on industry defaults for your profile. Refine in step 3.</div>
         </div>
@@ -748,7 +770,7 @@
           <div class="mgroup" id="mg-adr">
             <div class="m-top"><div class="m-name">Average Daily Rate (ADR)</div><div class="m-val" id="val-adr">£120</div></div>
             <input type="range" id="sl-adr" min="30" max="600" step="5" value="120" oninput="upd('adr',this.value)">
-            <div class="m-range"><span>£30</span><span>£600</span></div>
+            <div class="m-range"><span id="adr-range-min">$38</span><span id="adr-range-max">$762</span></div>
             <div class="m-bench"><i class="fas fa-industry"></i> UK avg 2024: £105 (regional) · £180+ (London)</div>
           </div>
           <div class="mgroup" id="mg-occupancy">
@@ -766,7 +788,7 @@
           <div class="mgroup" id="mg-rate">
             <div class="m-top"><div class="m-name">Average Staff Hourly Rate</div><div class="m-val" id="val-rate">£14</div></div>
             <input type="range" id="sl-rate" min="10" max="40" step="1" value="14" oninput="upd('rate',this.value)">
-            <div class="m-range"><span>£10</span><span>£40</span></div>
+            <div class="m-range"><span id="rate-range-min">$13</span><span id="rate-range-max">$51</span></div>
             <div class="m-bench"><i class="fas fa-industry"></i> UK hospitality avg: £11–£18/hr</div>
           </div>
           <!-- Conditional -->
@@ -855,8 +877,8 @@
       <div class="res-sec">
         <div class="res-sec-title"><i class="fas fa-chart-area"></i> Value Breakdown &amp; 5-Year Projection</div>
         <div class="charts-row">
-          <div class="chart-box"><div class="chart-lbl">Annual Value by Category (£)</div><canvas id="chart-bar" class="chart-canvas"></canvas></div>
-          <div class="chart-box"><div class="chart-lbl">5-Year Cumulative ROI (£)</div><canvas id="chart-line" class="chart-canvas"></canvas></div>
+          <div class="chart-box"><div class="chart-lbl" id="chart-lbl-bar">Annual Value by Category (GBP)</div><canvas id="chart-bar" class="chart-canvas"></canvas></div>
+          <div class="chart-box"><div class="chart-lbl" id="chart-lbl-line">5-Year Cumulative ROI (GBP)</div><canvas id="chart-line" class="chart-canvas"></canvas></div>
         </div>
       </div>
 
@@ -896,6 +918,18 @@
 </div><!-- #app -->
 
 <script>
+/* ═══════════════════════════════════════════════════════
+   CURRENCY — rates relative to GBP (all internal values in GBP)
+════════════════════════════════════════════════════════ */
+const CURRENCIES = {
+  USD: { sym:'$',   rate:1.27, locale:'en-US', name:'USD ($)' },
+  GBP: { sym:'£',   rate:1.00, locale:'en-GB', name:'GBP (£)' },
+  EUR: { sym:'€',   rate:1.18, locale:'de-DE', name:'EUR (€)' },
+  AUD: { sym:'A$',  rate:2.01, locale:'en-AU', name:'AUD (A$)' },
+  CAD: { sym:'C$',  rate:1.74, locale:'en-CA', name:'CAD (C$)' },
+};
+let CURR = CURRENCIES.USD;
+
 /* ═══════════════════════════════════════════════════════
    SOLUTIONS DATABASE — 14 agents, each with:
    - setup/monthly costs by size
@@ -981,7 +1015,7 @@ const DB = {
       const saved  = m.otabooks*avgVal*0.25*(m.otarate/100)*12;
       return { costSavings:saved, revenueGain:0, timeSaved:2,
         metric:`${Math.round(m.otabooks*0.25)} direct bookings gained/month`,
-        highlight:`£${fmt(saved/12)}/month in commission saved` };
+        highlight:`${fmtP(saved/12)}/month in commission saved` };
     }
   },
   pricing: {
@@ -993,7 +1027,7 @@ const DB = {
       const rev = m.rooms*m.adr*(m.occupancy/100)*365*0.08; // 8% conservative
       return { costSavings:0, revenueGain:rev, timeSaved:3,
         metric:'8% RevPAR improvement (industry: 12–22%)',
-        highlight:`£${fmt(rev/12)}/month additional revenue` };
+        highlight:`${fmtP(rev/12)}/month additional revenue` };
     }
   },
   upselling: {
@@ -1033,7 +1067,7 @@ const DB = {
       const cost = m.staff*m.rate*40*52*0.14; // 14% labour waste reduction
       return { costSavings:cost, revenueGain:0, timeSaved:0,
         metric:'14% reduction in labour waste',
-        highlight:`£${fmt(cost)}/year saved on staffing` };
+        highlight:`${fmtP(cost)}/year saved on staffing` };
     }
   },
   housekeeping: {
@@ -1059,7 +1093,7 @@ const DB = {
       const rev  = m.rooms*m.adr*(m.occupancy/100)*365*0.003;
       return { costSavings:cost, revenueGain:rev, timeSaved:2,
         metric:'30% fewer emergency repairs',
-        highlight:`£${fmt(cost)}/year in avoided repairs` };
+        highlight:`${fmtP(cost)}/year in avoided repairs` };
     }
   },
   energy: {
@@ -1071,7 +1105,7 @@ const DB = {
       const cost = m.rooms*1400*0.18; // UK avg £1,400/room/year energy
       return { costSavings:cost, revenueGain:0, timeSaved:1,
         metric:'18% energy cost reduction',
-        highlight:`£${fmt(cost)}/year · improved ESG credentials` };
+        highlight:`${fmtP(cost)}/year · improved ESG credentials` };
     }
   },
   procurement: {
@@ -1193,25 +1227,39 @@ const S = {
 function fmt(n) {
   const abs = Math.abs(n);
   if (abs >= 1000000) return (n/1000000).toFixed(1)+'M';
-  return Math.round(n).toLocaleString('en-GB');
+  return Math.round(n).toLocaleString(CURR.locale);
 }
-function fmtP(n) { return '£'+fmt(n); }
+function fmtP(n) { return CURR.sym + fmt(n * CURR.rate); }
+
+/* animC: animate a GBP value counter with current currency */
+function animC(el, gbpVal, dur=1100) {
+  const target = gbpVal * CURR.rate;
+  const sym = CURR.sym;
+  const t0 = performance.now();
+  function step(now) {
+    const p = Math.min((now-t0)/dur, 1);
+    const ease = 1-Math.pow(1-p, 3);
+    el.textContent = sym+Math.round(target*ease).toLocaleString(CURR.locale);
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
 
 function animCount(el, target, pre='', suf='', dur=1100) {
   const t0 = performance.now();
   function step(now) {
     const p = Math.min((now-t0)/dur, 1);
     const ease = 1-Math.pow(1-p, 3);
-    el.textContent = pre+Math.round(target*ease).toLocaleString('en-GB')+suf;
+    el.textContent = pre+Math.round(target*ease).toLocaleString(CURR.locale)+suf;
     if(p<1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
 
 function fmtDisp(key,v) {
-  if(['adr','rate'].includes(key)) return '£'+v;
+  if(['adr','rate'].includes(key)) return CURR.sym + Math.round(v * CURR.rate).toLocaleString(CURR.locale);
   if(['occupancy','otarate'].includes(key)) return v+'%';
-  if(key==='otabooks') return Number(v).toLocaleString('en-GB');
+  if(key==='otabooks') return Number(v).toLocaleString(CURR.locale);
   return v;
 }
 
@@ -1339,6 +1387,40 @@ function updateSynergy() {
 }
 
 // ─── Live ROI Ticker ───
+/* ═══════════════════════════════════════════════════════
+   CURRENCY SWITCHER
+════════════════════════════════════════════════════════ */
+function setCurrency(code) {
+  CURR = CURRENCIES[code] || CURRENCIES.USD;
+
+  // Update slider range labels for monetary sliders
+  const r = CURR.rate, s = CURR.sym;
+  const el = id => document.getElementById(id);
+  if(el('adr-range-min'))  el('adr-range-min').textContent  = s + Math.round(30  * r);
+  if(el('adr-range-max'))  el('adr-range-max').textContent  = s + Math.round(600 * r);
+  if(el('rate-range-min')) el('rate-range-min').textContent = s + Math.round(10  * r);
+  if(el('rate-range-max')) el('rate-range-max').textContent = s + Math.round(40  * r);
+
+  // Update chart labels
+  if(el('chart-lbl-bar'))  el('chart-lbl-bar').textContent  = `Annual Value by Category (${code})`;
+  if(el('chart-lbl-line')) el('chart-lbl-line').textContent = `5-Year Cumulative ROI (${code})`;
+
+  // Refresh live slider value displays
+  ['adr','rate'].forEach(k => {
+    const vl = el('val-'+k);
+    if(vl && S.m[k]) vl.textContent = fmtDisp(k, S.m[k]);
+  });
+
+  // Refresh ticker if visible
+  updateTicker();
+
+  // If results are showing, re-render them
+  if(document.getElementById('section-4')?.classList.contains('active') && S._lastResult) {
+    renderResults(S._lastResult);
+    renderBenchmarks();
+  }
+}
+
 function updateTicker() {
   if(S.sel.size === 0){
     document.getElementById('live-ticker').classList.remove('show'); return;
@@ -1454,10 +1536,9 @@ function calculate() {
   const payback    = totNet>0 ? Math.ceil(totSetup/(totNet/12)) : 99;
 
   goStep(4);
-  setTimeout(()=>renderResults({
-    totNet,payback,totTime,totCost,totRev,annualCost,
-    totSetup,rows,synergyBonus
-  }), 80);
+  const resultData = {totNet,payback,totTime,totCost,totRev,annualCost,totSetup,rows,synergyBonus};
+  S._lastResult = resultData;
+  setTimeout(()=>renderResults(resultData), 80);
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -1467,7 +1548,7 @@ function renderResults(d) {
   const {totNet,payback,totTime,totCost,totRev,annualCost,totSetup,rows,synergyBonus} = d;
 
   // Hero + range
-  animCount(document.getElementById('hero-val'), totNet, '£');
+  animC(document.getElementById('hero-val'), totNet);
   document.getElementById('payback-txt').textContent = payback<99 ? payback+' months' : '12+ months';
 
   const consVal = Math.round(totNet*0.70);
@@ -1478,13 +1559,13 @@ function renderResults(d) {
   // Cost of delay
   const monthly = Math.round(totNet/12);
   const weekly  = Math.round(totNet/52);
-  animCount(document.getElementById('delay-monthly'), monthly, '£');
-  animCount(document.getElementById('delay-weekly'),  weekly,  '£');
+  animC(document.getElementById('delay-monthly'), monthly);
+  animC(document.getElementById('delay-weekly'),  weekly);
 
   // Stats
   document.getElementById('stat-time').textContent = totTime+' hrs';
-  animCount(document.getElementById('stat-cost'), totCost, '£');
-  animCount(document.getElementById('stat-rev'),  totRev,  '£');
+  animC(document.getElementById('stat-cost'), totCost);
+  animC(document.getElementById('stat-rev'),  totRev);
 
   // Breakdown table
   const tbody=document.getElementById('bd-body');
@@ -1538,8 +1619,8 @@ function renderCharts(d) {
     },
     options:{
       responsive:true,maintainAspectRatio:true,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' £'+Math.abs(ctx.raw).toLocaleString('en-GB')}}},
-      scales:{x:{ticks:tc,grid:{color:gc}},y:{ticks:{...tc,callback:v=>'£'+Math.abs(v/1000).toFixed(0)+'k'},grid:{color:gc}}}
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+CURR.sym+Math.abs(Math.round(ctx.raw*CURR.rate)).toLocaleString(CURR.locale)}}},
+      scales:{x:{ticks:tc,grid:{color:gc}},y:{ticks:{...tc,callback:v=>CURR.sym+Math.abs(Math.round(v*CURR.rate/1000))+'k'},grid:{color:gc}}}
     }
   });
 
@@ -1561,8 +1642,8 @@ function renderCharts(d) {
     },
     options:{
       responsive:true,maintainAspectRatio:true,
-      plugins:{legend:{labels:{color:'#8B949E',font:{family:'Inter',size:10}}},tooltip:{callbacks:{label:ctx=>' £'+ctx.raw.toLocaleString('en-GB')}}},
-      scales:{x:{ticks:tc,grid:{color:gc}},y:{ticks:{...tc,callback:v=>'£'+(v/1000).toFixed(0)+'k'},grid:{color:gc}}}
+      plugins:{legend:{labels:{color:'#8B949E',font:{family:'Inter',size:10}}},tooltip:{callbacks:{label:ctx=>' '+CURR.sym+Math.round(ctx.raw*CURR.rate).toLocaleString(CURR.locale)}}},
+      scales:{x:{ticks:tc,grid:{color:gc}},y:{ticks:{...tc,callback:v=>CURR.sym+Math.round(v*CURR.rate/1000)+'k'},grid:{color:gc}}}
     }
   });
 }
@@ -1580,8 +1661,8 @@ function renderBenchmarks() {
   const sRatio = m.rooms>0 ? m.staff/m.rooms : 0;
   const bmarks = [
     {lbl:'Occupancy Rate',        yours:m.occupancy+'%',  ind:'UK avg 2024–25: 76–78%',         pct:(m.occupancy/78)*100, thresh:76},
-    {lbl:'RevPAR',                yours:'£'+Math.round(revpar), ind:'UK regional 2025: £79 avg', pct:(revpar/90)*100,      thresh:80},
-    {lbl:'ADR',                   yours:'£'+m.adr,        ind:'Regional: £105 · London: £180+',  pct:(m.adr/130)*100,      thresh:80},
+    {lbl:'RevPAR',                yours:CURR.sym+Math.round(revpar*CURR.rate), ind:'UK regional 2025: £79 avg', pct:(revpar/90)*100,      thresh:80},
+    {lbl:'ADR',                   yours:CURR.sym+Math.round(m.adr*CURR.rate), ind:'Regional: £105 · London: £180+',  pct:(m.adr/130)*100,      thresh:80},
     {lbl:'Staff per Room',        yours:sRatio.toFixed(2),ind:'Industry range: 0.3–0.7',         pct:sRatio<=0.7?(sRatio/0.5)*100:Math.max(20,100-(sRatio-0.7)*100), thresh:60}
   ];
   document.getElementById('bmark-grid').innerHTML=bmarks.map(b=>{
@@ -1701,6 +1782,8 @@ function renderInsights(d, rows) {
    INIT
 ════════════════════════════════════════════════════════ */
 window.addEventListener('load', ()=>{
+  // Apply default currency (USD) labels on load
+  setCurrency('USD');
   setTimeout(()=>{
     document.getElementById('preloader').classList.add('done');
     document.getElementById('app').classList.add('visible');
