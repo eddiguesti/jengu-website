@@ -23,16 +23,9 @@ interface SurveyPayload {
   priorities: string[];
   implicationDetail: string;
   currentTools?: string;
-  timeline: string;
-  budgetRange: string;
   goals: string;
   successDefinition: string;
   decisionCriteria: string;
-  preferredFollowup: string;
-  secondMeetingIntent: string;
-  meetingParticipants?: string;
-  meetingTimeframe: string;
-  meetingGoal: string;
   consent: boolean;
 }
 
@@ -113,37 +106,27 @@ async function sendSurveyEmail(token: string, payload: SurveyPayload, env: Recor
       <p style="margin:0 0 6px;"><strong>Current Response Time:</strong> ${payload.currentResponseTime}</p>
       <p style="margin:0 0 6px;"><strong>Decision Owner:</strong> ${payload.decisionOwner || 'Not provided'}</p>
       <p style="margin:0 0 6px;"><strong>Preferred Channel:</strong> ${payload.channelPreference}</p>
-      <p style="margin:0 0 6px;"><strong>Buying Team Alignment:</strong> ${payload.alignmentRisk}</p>
-      <p style="margin:0 0 6px;"><strong>Current Setup:</strong> ${payload.currentSetup}</p>
-      <p style="margin:0 0 6px;"><strong>Timeline:</strong> ${payload.timeline}</p>
-      <p style="margin:0 0 18px;"><strong>Budget Range:</strong> ${payload.budgetRange}</p>
+      <p style="margin:0 0 6px;"><strong>Team Alignment:</strong> ${payload.alignmentRisk}</p>
+      <p style="margin:0 0 18px;"><strong>Current Setup:</strong> ${payload.currentSetup}</p>
 
-      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">SPIN - Problem</h2>
+      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Key Challenges</h2>
       <p style="margin:0 0 10px;"><strong>Primary problem detail:</strong> ${payload.problemDetail}</p>
       <h3 style="margin:0 0 10px;font-size:15px;color:#fff;">Challenges (up to 3)</h3>
       <ul style="margin:0 0 18px 18px;padding:0;">${formatList(payload.painPoints)}</ul>
 
-      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">SPIN - Implication</h2>
+      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Primary Challenges</h2>
       <p style="margin:0 0 18px;"><strong>Impact if unresolved:</strong> ${payload.implicationDetail}</p>
 
-      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Priorities</h2>
+      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Areas of Interest</h2>
       <ul style="margin:0 0 18px 18px;padding:0;">${formatList(payload.priorities)}</ul>
 
-      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">SPIN - Need-Payoff</h2>
-      <p style="margin:0 0 10px;"><strong>90-day success definition:</strong> ${payload.successDefinition}</p>
-      <p style="margin:0 0 18px;"><strong>Second-meeting decision criteria:</strong> ${payload.decisionCriteria}</p>
+      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Success Vision</h2>
+      <p style="margin:0 0 10px;"><strong>What meaningful improvement would look like:</strong> ${payload.successDefinition}</p>
+      <p style="margin:0 0 18px;"><strong>Additional context:</strong> ${payload.decisionCriteria}</p>
 
-      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Systems, Goals and Next Meeting</h2>
+      <h2 style="margin:0 0 12px;font-size:18px;color:#fff;">Systems & Goals</h2>
       <p style="margin:0 0 6px;"><strong>Current tools:</strong> ${payload.currentTools || 'Not provided'}</p>
-      <p style="margin:0 0 6px;"><strong>Preferred follow-up:</strong> ${payload.preferredFollowup}</p>
-      <p style="margin:0 0 6px;"><strong>Second meeting intent:</strong> ${payload.secondMeetingIntent}</p>
-      <p style="margin:0 0 6px;"><strong>Best session window:</strong> ${payload.meetingTimeframe}</p>
-      <p style="margin:0 0 6px;"><strong>Second meeting goal:</strong> ${payload.meetingGoal}</p>
-      <p style="margin:0 0 18px;"><strong>Who should join:</strong> ${payload.meetingParticipants || 'Not provided'}</p>
-
-      <div style="padding:14px;border-radius:10px;background:#1f2937;border-left:3px solid #38bdf8;">
-        <p style="margin:0;font-size:14px;line-height:1.6;"><strong>Key outcomes requested:</strong><br/>${payload.goals.replace(/\n/g, '<br/>')}</p>
-      </div>
+      <p style="margin:0 0 18px;"><strong>Key outcomes:</strong> ${payload.goals.replace(/\n/g, '<br/>')}</p>
     </div>
   </div>
 </body>
@@ -194,6 +177,92 @@ async function sendSurveyEmail(token: string, payload: SurveyPayload, env: Recor
   }
 }
 
+async function sendConfirmationEmail(token: string, payload: SurveyPayload, env: Record<string, string>): Promise<void> {
+  const graphUser = env.GRAPH_USER;
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You for Your Survey Response</title>
+</head>
+<body style="margin:0;padding:0;background:#0b0b0f;font-family:Segoe UI,Arial,sans-serif;color:#e5e7eb;">
+  <div style="max-width:700px;margin:24px auto;border:1px solid #27272a;border-radius:16px;overflow:hidden;background:#111827;">
+    <div style="padding:24px 28px;background:linear-gradient(135deg,#0ea5e9,#6366f1);">
+      <h1 style="margin:0;color:#fff;font-size:24px;">Thank You for Your Response</h1>
+      <p style="margin:8px 0 0;color:#eef2ff;font-size:14px;">We've received your survey submission</p>
+    </div>
+
+    <div style="padding:24px 28px;">
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">Hi ${payload.contactName},</p>
+      
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">Thank you for taking the time to complete our AI in Travel & Hospitality survey. Your insights are valuable and help us understand the real challenges and opportunities in the industry.</p>
+
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">We've recorded your responses, including:</p>
+      
+      <div style="margin:0 0 16px;padding:16px;border-left:3px solid #38bdf8;background:#1f2937;border-radius:8px;">
+        <p style="margin:0 0 8px;"><strong>Organization:</strong> ${payload.company}</p>
+        <p style="margin:0 0 8px;"><strong>Primary Interest:</strong> ${payload.priorities[0] ? payload.priorities[0].replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()) : 'AI & Automation'}</p>
+        <p style="margin:0;"><strong>Key Challenge:</strong> ${payload.currentSetup.substring(0, 120)}${payload.currentSetup.length > 120 ? '...' : ''}</p>
+      </div>
+
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.6;">If you have any additional information to share or follow-up questions, feel free to reply to this email.</p>
+
+      <p style="margin:0 0 24px;font-size:15px;line-height:1.6;">Best regards,</p>
+
+      <div style="padding-top:16px;border-top:1px solid #27272a;">
+        <p style="margin:0 0 4px;font-size:14px;font-weight:600;color:#fff;">Jengu</p>
+        <p style="margin:0 0 2px;font-size:13px;color:#9ca3af;">AI for Travel & Hospitality</p>
+        <p style="margin:0 0 8px;font-size:13px;color:#9ca3af;">
+          <a href="https://jengu.ai" style="color:#93c5fd;text-decoration:none;">jengu.ai</a> | 
+          <a href="https://jengu.ai/contact" style="color:#93c5fd;text-decoration:none;">Contact us</a>
+        </p>
+        <p style="margin:0;font-size:12px;color:#6b7280;">© 2026 Jengu. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  const message = {
+    message: {
+      subject: `Thank you for completing the survey - ${payload.company}`,
+      body: {
+        contentType: 'HTML',
+        content: htmlContent
+      },
+      toRecipients: [
+        {
+          emailAddress: {
+            address: payload.email,
+            name: payload.contactName
+          }
+        }
+      ]
+    },
+    saveToSentItems: true
+  };
+
+  const graphUrl = `https://graph.microsoft.com/v1.0/users/${encodeURIComponent(graphUser)}/sendMail`;
+
+  const response = await fetch(graphUrl, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(message)
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`Confirmation email send failed: ${response.status} ${text}`);
+  }
+}
+
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const runtime = locals.runtime as { env?: Record<string, string> } | undefined;
@@ -227,16 +296,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       priorities: sanitizeList(body.priorities),
       implicationDetail: sanitizeText(body.implicationDetail, 1200),
       currentTools: sanitizeText(body.currentTools, 400),
-      timeline: sanitizeText(body.timeline, 100),
-      budgetRange: sanitizeText(body.budgetRange, 100),
       goals: sanitizeText(body.goals, 1500),
       successDefinition: sanitizeText(body.successDefinition, 1200),
       decisionCriteria: sanitizeText(body.decisionCriteria, 1200),
-      preferredFollowup: sanitizeText(body.preferredFollowup, 80),
-      secondMeetingIntent: sanitizeText(body.secondMeetingIntent, 100),
-      meetingParticipants: sanitizeText(body.meetingParticipants, 250),
-      meetingTimeframe: sanitizeText(body.meetingTimeframe, 100),
-      meetingGoal: sanitizeText(body.meetingGoal, 100),
       consent: Boolean(body.consent)
     };
 
@@ -254,15 +316,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       payload.currentSetup,
       payload.problemDetail,
       payload.implicationDetail,
-      payload.timeline,
-      payload.budgetRange,
       payload.goals,
       payload.successDefinition,
-      payload.decisionCriteria,
-      payload.preferredFollowup,
-      payload.secondMeetingIntent,
-      payload.meetingTimeframe,
-      payload.meetingGoal
+      payload.decisionCriteria
     ];
 
     if (required.some((item) => !item)) {
@@ -274,7 +330,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     if (!payload.consent) {
       return new Response(
-        JSON.stringify({ error: 'Please provide consent so we can follow up.' }),
+        JSON.stringify({ error: 'Please confirm you want to share this survey response.' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -316,13 +372,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
     try {
       const token = await getAccessToken(envVars);
       await sendSurveyEmail(token, payload, envVars);
+      await sendConfirmationEmail(token, payload, envVars);
     } catch (emailError) {
       console.error('Survey email delivery failed:', emailError);
       // Keep the UX smooth at events even if mail delivery is temporarily misconfigured.
       return new Response(
         JSON.stringify({
           success: true,
-          message: 'Thank you. We received your survey and will contact you within 48 hours.'
+          message: 'Thank you for completing the survey. Your response has been recorded.'
         }),
         { status: 200, headers: { 'Content-Type': 'application/json' } }
       );
@@ -331,7 +388,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(
       JSON.stringify({
         success: true,
-        message: 'Thank you. We received your survey and will contact you within 48 hours.'
+        message: 'Thank you for completing the survey. Your response has been recorded.'
       }),
       { status: 200, headers: { 'Content-Type': 'application/json' } }
     );
