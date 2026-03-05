@@ -191,44 +191,6 @@ nav.scrolled .nav-right {
   border-color: rgba(129, 140, 248, 0.6);
 }
 
-/* Email Demo CTA in navbar */
-.nav-email-demo-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  background: linear-gradient(135deg, #0ea5e9, #6366f1);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.875rem;
-  font-family: 'Figtree', sans-serif;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 12px rgba(14, 165, 233, 0.4);
-  white-space: nowrap;
-}
-
-.nav-email-demo-cta i {
-  font-size: 0.8rem;
-}
-
-.nav-email-demo-cta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.6);
-  color: white;
-}
-
-.nav-email-demo-cta:active {
-  transform: scale(0.97);
-}
-
-@media (max-width: 479px) {
-  .nav-email-demo-cta span {
-    display: none;
-  }
-}
-
 /* Free Consultation CTA in navbar */
 .nav-consultation-cta {
   display: inline-flex;
