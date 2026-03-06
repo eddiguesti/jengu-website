@@ -1198,6 +1198,7 @@
     .stat-card:nth-child(1)::before { background: var(--gradient-primary); }
     .stat-card:nth-child(2)::before { background: var(--gradient-accent); }
     .stat-card:nth-child(3)::before { background: var(--gradient-warm); }
+    .stat-card:nth-child(4)::before { background: linear-gradient(135deg, var(--secondary-cta) 0%, var(--accent-highlight) 100%); }
 
     .stat-label {
       font-size: 0.875rem;
@@ -1276,6 +1277,29 @@
       right: 0;
       height: 4px;
       background: linear-gradient(90deg, #10B981 0%, #06B6D4 50%, #1E40AF 100%);
+    }
+
+    .chart-projection {
+      margin-bottom: 2rem;
+      animation-delay: 0.6s;
+    }
+
+    .chart-projection-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .chart-projection-header h3 {
+      margin-bottom: 0.35rem;
+    }
+
+    .chart-subtitle {
+      font-size: 0.875rem;
+      color: var(--spotify-text-muted);
+      margin: 0;
+      line-height: 1.5;
     }
 
     .personalized-explanation {
@@ -1993,6 +2017,16 @@
             </div>
           </div>
 
+          <div class="chart-card chart-projection">
+            <div class="chart-projection-header">
+              <div>
+                <h3><i class="fa-solid fa-chart-line"></i> 12-Month ROI Projection</h3>
+                <p class="chart-subtitle">See exactly when your cumulative savings cross your investment — that's your breakeven</p>
+              </div>
+            </div>
+            <canvas id="projectionChart"></canvas>
+          </div>
+
           <div class="personalized-explanation">
             <h3><i class="fa-solid fa-user-check"></i> Why You'll Achieve These Results</h3>
             <div id="personalizedExplanation"></div>
@@ -2186,6 +2220,8 @@
     let currentStep = 1;
     let waterfallChart = null;
     let donutChart = null;
+    let projectionChart = null;
+    let lastSetupCost = 0;
 
     // AI-powered hospitality automation solutions
     const solutions = {
@@ -2195,6 +2231,7 @@
           name: 'AI Concierge Chatbot',
           type: 'conversion',
           savings: 250,
+          revenueContributionPct: 4, // upsell/ancillary ~4% of total room revenue
           desc: '24/7 multilingual assistant via WhatsApp, website, kiosk',
           metrics: ['rooms', 'occupancyRate'],
           whatItDoes: '24/7 multilingual guest assistant via WhatsApp, website, or in-room kiosk handling check-in questions, FAQs, booking requests, room upgrades, and local recommendations',
@@ -2255,6 +2292,7 @@
           name: 'Automated Upselling System',
           type: 'conversion',
           savings: 180,
+          revenueContributionPct: 5, // room upgrades + spa packages ~5% of revenue
           desc: 'AI suggests upgrades at optimal times',
           metrics: ['rooms', 'occupancyRate'],
           whatItDoes: 'Machine learning identifies best moments to offer upsells (room upgrades, spa packages, late checkout) via email, chatbot, or app notification',
@@ -2296,7 +2334,38 @@
           ]
         },
         {
-          id: 'dynamic-pricing',
+          id: 'direct-booking-engine',
+          name: 'Direct Booking Engine',
+          type: 'revenue',
+          savings: 10,
+          desc: 'AI chat + smart funnel moves guests from OTA to direct — cutting 15-25% commission costs',
+          metrics: ['rooms', 'averageRoomRate', 'occupancyRate'],
+          whatItDoes: 'AI-powered website chatbot and booking funnel that converts OTA lookers into direct bookers — personalized offers, rate-match guarantees, and frictionless checkout optimised for conversion',
+          howItHelps: 'Hotels typically pay 15-25% OTA commission on 60%+ of bookings. Shifting 25-30% of those to direct saves substantial commission and improves net revenue by ~10% without lifting occupancy',
+          realWorld: 'Properties using AI direct booking tools report 20-35% improvement in direct booking rate and up to 25% reduction in OTA commission costs within 6 months',
+          stats: [
+            { value: '15-25%', label: 'OTA Saved' },
+            { value: '+30%', label: 'Direct Rate' }
+          ]
+        },
+        {
+          id: 'ai-review-management',
+          name: 'AI Review & Reputation Manager',
+          type: 'conversion',
+          savings: 35,
+          revenueContributionPct: 3,
+          desc: 'Auto-respond to reviews, monitor reputation, flag unhappy guests before checkout',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: 'AI monitors reviews across TripAdvisor, Google, Booking.com and Expedia — auto-responding within minutes. Sentiment analysis flags unhappy guests before checkout so staff can resolve issues and prevent negative reviews',
+          howItHelps: 'Cornell research shows every 0.1 star improvement in review score correlates with an 11% RevPAR increase. AI review management typically improves scores by 0.3-0.5 stars within 6 months, driving more bookings at higher rates',
+          realWorld: 'Hotels using AI reputation management improve review scores by 0.3-0.5 stars and see 8-15% more direct bookings as trust signals improve across OTA listings',
+          stats: [
+            { value: '+0.4★', label: 'Review Score' },
+            { value: '11%', label: 'RevPAR/0.1★' }
+          ]
+        },
+        {
+          id: 'dynamic-pricing-external',
           name: '💰 Dynamic Pricing Software',
           type: 'revenue',
           savings: 0,
@@ -2336,6 +2405,7 @@
           name: 'AI Concierge Chatbot',
           type: 'conversion',
           savings: 250,
+          revenueContributionPct: 5, // resorts have richer upsell mix — spa, dining, activities
           desc: '24/7 multi-venue assistant for spa, dining, activities',
           metrics: ['rooms', 'occupancyRate'],
           whatItDoes: '24/7 multilingual AI chatbot handling complex multi-venue reservations (spa, dining, activities, rooms) via WhatsApp, website, or kiosk with intelligent cross-selling',
@@ -2351,6 +2421,7 @@
           name: 'Personalized Itinerary Builder',
           type: 'conversion',
           savings: 180,
+          revenueContributionPct: 5, // activity revenue ~6-8% of resort total
           desc: 'AI curates activities based on preferences and weather',
           metrics: ['rooms', 'occupancyRate'],
           whatItDoes: 'AI analyzes guest profile, weather, and availability to create personalized daily itineraries with on-site and nearby activities, complete with booking links',
@@ -2437,6 +2508,37 @@
           ]
         },
         {
+          id: 'direct-booking-engine-resort',
+          name: 'Direct Booking Engine',
+          type: 'revenue',
+          savings: 10,
+          desc: 'AI chat + smart funnel moves guests from OTA to direct — cutting 15-25% commission costs',
+          metrics: ['rooms', 'averageRoomRate', 'occupancyRate'],
+          whatItDoes: 'AI-powered website chatbot and booking funnel that converts OTA lookers into direct bookers — personalized packages, rate-match guarantees, and multi-venue upsells built into the booking flow',
+          howItHelps: 'Resorts paying 15-25% OTA commission on 60%+ of bookings can shift 25-30% to direct — saving substantial commission and adding package revenue that OTAs cannot offer',
+          realWorld: 'Resort properties using AI direct booking tools report 20-35% improvement in direct booking rate and significant reduction in OTA dependency within 6 months',
+          stats: [
+            { value: '15-25%', label: 'OTA Saved' },
+            { value: '+30%', label: 'Direct Rate' }
+          ]
+        },
+        {
+          id: 'ai-review-management-resort',
+          name: 'AI Review & Reputation Manager',
+          type: 'conversion',
+          savings: 35,
+          revenueContributionPct: 3,
+          desc: 'Auto-respond to reviews across TripAdvisor, Google, Booking.com — flag issues before checkout',
+          metrics: ['rooms', 'occupancyRate'],
+          whatItDoes: 'AI monitors and responds to reviews across all platforms within minutes. Sentiment analysis identifies dissatisfied guests during their stay so staff can resolve issues proactively, preventing negative reviews and driving repeat visits',
+          howItHelps: 'Every 0.1 star improvement on TripAdvisor correlates with 11% RevPAR growth (Cornell). Resorts with AI reputation management typically improve review scores by 0.3-0.5 stars within 6 months',
+          realWorld: 'Resorts using AI review management see 0.3-0.5 star score improvements and 8-15% more bookings from improved OTA ranking and traveler trust signals',
+          stats: [
+            { value: '+0.4★', label: 'Review Score' },
+            { value: '11%', label: 'RevPAR/0.1★' }
+          ]
+        },
+        {
           id: 'custom-ai-software-resort',
           name: '🎯 Custom AI Software',
           type: 'custom',
@@ -2459,6 +2561,7 @@
           name: 'AI Booking Assistant',
           type: 'conversion',
           savings: 28,
+          revenueContributionPct: 3, // 28% more conversions on ~10% of lost enquiries
           desc: '24/7 chatbot for pitch selection, policies, special requests',
           metrics: ['rooms', 'occupancyRate'],
           whatItDoes: '24/7 AI chatbot guides guests through booking process, answers pitch availability questions, explains pet policies, handles special requests, and manages complex multi-night reservations',
@@ -2582,6 +2685,7 @@
           name: 'AI Travel Agent',
           type: 'conversion',
           savings: 40,
+          revenueContributionPct: 5, // capturing after-hours & multilingual leads
           desc: 'Conversational AI in 15+ languages, 24/7 inquiries',
           metrics: ['staffHours'],
           whatItDoes: 'Conversational AI handles complex travel inquiries in 15+ languages with natural two-way conversations, multi-destination planning, group bookings, available 24/7',
@@ -2627,6 +2731,7 @@
           name: 'Client Segmentation & CRM',
           type: 'conversion',
           savings: 120,
+          revenueContributionPct: 6, // repeat bookings are ~30% of agency revenue; 120% more repeat = ~6%
           desc: 'AI groups clients, API sync to CRM, personalized offers',
           metrics: ['staffHours'],
           whatItDoes: 'AI automatically captures data from emails/calls, groups clients by preferences/spending/behavior, syncs to CRM via API, triggers personalized campaigns',
@@ -2642,6 +2747,7 @@
           name: 'Email & SMS Campaign Automation',
           type: 'conversion',
           savings: 30,
+          revenueContributionPct: 3, // 30% lift on abandoned quotes/follow-ups
           desc: 'AI email automation: follow-ups, abandoned quotes, reviews',
           metrics: ['staffHours'],
           whatItDoes: 'AI triggers automated email/SMS sequences at optimal times: quote follow-ups (Day 3, Day 7), abandoned booking recovery, post-trip reviews, personalized content',
@@ -3112,17 +3218,19 @@
       const revenueSolutions = calculatorData.selectedSolutions.filter(s => s.type === 'revenue');
       const conversionSolutions = calculatorData.selectedSolutions.filter(s => s.type === 'conversion');
 
-      // Conservative time savings calculation with strong diminishing returns
+      // Compound diminishing returns: each automation takes from the remaining automatable pool.
+      // This correctly reflects that adding more automation still helps, but overlaps grow.
       let totalTimeSavings = 0;
       if (timeSolutions.length > 0) {
         const sortedTimeSavings = timeSolutions.map(s => s.savings).sort((a, b) => b - a);
-        sortedTimeSavings.forEach((saving, index) => {
-          // Apply aggressive diminishing returns: 100%, 75%, 55%, 40%, 30%, etc.
-          const multiplier = index === 0 ? 1 : Math.max(0.3, 1 - (index * 0.25));
-          totalTimeSavings += saving * multiplier;
+        let remaining = 100;
+        sortedTimeSavings.forEach(saving => {
+          const contribution = (saving / 100) * remaining;
+          totalTimeSavings += contribution;
+          remaining -= contribution;
         });
-        // Average and cap at 70% maximum time savings
-        totalTimeSavings = Math.min(totalTimeSavings / timeSolutions.length, 70);
+        // Cap at 70% - AI handles routine tasks; complex situations still need humans
+        totalTimeSavings = Math.min(totalTimeSavings, 70);
       }
 
       const weeklyCost = calculatorData.metrics.staffHours * calculatorData.metrics.hourlyRate;
@@ -3130,56 +3238,69 @@
       const savedHours = (calculatorData.metrics.staffHours * totalTimeSavings) / 100;
       const savedCost = (annualCost * totalTimeSavings) / 100;
 
-      // More accurate revenue estimation
-      let estimatedRevenue = annualCost * 5;
+      // Revenue estimation: use room data when available, otherwise derive from labour cost.
+      // Industry benchmark: labour is ~30% of hotel revenue (CBRE Hotels, 2025).
+      let estimatedRevenue = annualCost / 0.30;
       if (calculatorData.metrics.rooms && calculatorData.metrics.averageRoomRate) {
         const avgOccupancy = calculatorData.metrics.occupancyRate / 100;
         estimatedRevenue = calculatorData.metrics.rooms * calculatorData.metrics.averageRoomRate * 365 * avgOccupancy;
       }
 
-      // Revenue increase with very conservative caps and diminishing returns
+      // Revenue increase: diminishing returns when stacking multiple solutions
       let totalRevenueIncrease = 0;
       if (revenueSolutions.length > 0) {
         const sortedRevenue = revenueSolutions.map(s => s.savings).sort((a, b) => b - a);
         sortedRevenue.forEach((saving, index) => {
-          // Aggressive diminishing: 100%, 65%, 45%, 30%, etc.
           const multiplier = index === 0 ? 1 : Math.max(0.3, 1 - (index * 0.35));
           totalRevenueIncrease += saving * multiplier;
         });
-        // Cap at 18% maximum - very conservative
-        totalRevenueIncrease = Math.min(totalRevenueIncrease / revenueSolutions.length, 18);
+        // Cap at 20% - aggressive but achievable with multiple revenue tools
+        totalRevenueIncrease = Math.min(totalRevenueIncrease / revenueSolutions.length, 20);
       }
 
-      // Conversion increase with very conservative scaling
-      let totalConversionIncrease = 0;
+      // Conversion revenue: each solution has a revenueContributionPct — the realistic slice of
+      // total revenue it can influence (e.g. upsell = ~4-6% of revenue). Diminishing returns apply
+      // because the same guests can only be upsold so many times.
+      let conversionRevenue = 0;
       if (conversionSolutions.length > 0) {
-        const sortedConversion = conversionSolutions.map(s => s.savings).sort((a, b) => b - a);
-        sortedConversion.forEach((saving, index) => {
-          // Very aggressive diminishing returns for conversion
-          const multiplier = index === 0 ? 1 : Math.max(0.35, 1 - (index * 0.22));
-          totalConversionIncrease += saving * multiplier;
+        const sortedConversion = [...conversionSolutions].sort(
+          (a, b) => (b.revenueContributionPct || 3) - (a.revenueContributionPct || 3)
+        );
+        sortedConversion.forEach((solution, index) => {
+          const pct = solution.revenueContributionPct || 3;
+          const multiplier = index === 0 ? 1 : Math.max(0.4, 1 - (index * 0.25));
+          conversionRevenue += estimatedRevenue * (pct / 100) * multiplier;
         });
-        // Scale down high percentages dramatically and cap at 10%
-        totalConversionIncrease = Math.min((totalConversionIncrease / conversionSolutions.length) * 0.08, 10);
+        // Cap at 15% of revenue — conservative ceiling for combined conversion uplift
+        conversionRevenue = Math.min(conversionRevenue, estimatedRevenue * 0.15);
       }
 
       const additionalRevenue = (estimatedRevenue * totalRevenueIncrease) / 100;
-      const conversionRevenue = (estimatedRevenue * totalConversionIncrease) / 100;
       const totalBenefit = savedCost + additionalRevenue + conversionRevenue;
 
-      const setupCosts = { small: 3000, medium: 5000, large: 8000 };
-      const setupCost = setupCosts[calculatorData.propertySize] || 5000;
-      const monthsToROI = totalBenefit > 0 ? Math.ceil(setupCost / (totalBenefit / 12)) : 999;
+      // Setup cost scales with property size AND number of solutions selected
+      const baseCosts = { small: 2500, medium: 4000, large: 7000 };
+      const perSolutionCosts = { small: 400, medium: 700, large: 1200 };
+      const solutionCount = calculatorData.selectedSolutions.filter(s => s.type !== 'custom').length;
+      const baseCost = baseCosts[calculatorData.propertySize] || 4000;
+      const perSolution = perSolutionCosts[calculatorData.propertySize] || 700;
+      const setupCost = baseCost + perSolution * Math.max(0, solutionCount - 1);
 
-      displayResults(totalBenefit, savedHours, monthsToROI, savedCost, additionalRevenue, conversionRevenue, totalTimeSavings, totalRevenueIncrease, totalConversionIncrease);
+      const monthsToROI = totalBenefit > 0 ? Math.ceil(setupCost / (totalBenefit / 12)) : 999;
+      lastSetupCost = setupCost;
+
+      displayResults(totalBenefit, savedHours, monthsToROI, savedCost, additionalRevenue, conversionRevenue, totalTimeSavings, totalRevenueIncrease, estimatedRevenue);
       nextStep();
     }
 
-    function displayResults(totalBenefit, savedHours, monthsToROI, savedCost, additionalRevenue, conversionRevenue, avgTimeSavings, avgRevenueIncrease, avgConversionIncrease) {
+    function displayResults(totalBenefit, savedHours, monthsToROI, savedCost, additionalRevenue, conversionRevenue, avgTimeSavings, avgRevenueIncrease, estimatedRevenue) {
       // Animate numbers counting up
       animateValue('totalBenefit', 0, Math.round(totalBenefit), 1500, true);
       animateValue('timeSaved', 0, Math.round(savedHours), 1200, false, ' hrs');
       animateValue('roiTimeline', 0, monthsToROI, 1000, false, ' mo');
+
+      // Inject RevPAR improvement card for room-based properties
+      injectRevPARCard(estimatedRevenue, avgRevenueIncrease);
 
       // Delay insights and chart for smooth sequential animation
       setTimeout(() => {
@@ -3187,12 +3308,39 @@
       }, 400);
 
       setTimeout(() => {
-        generateInsights(savedCost, savedHours, avgTimeSavings, additionalRevenue, avgRevenueIncrease, conversionRevenue, avgConversionIncrease);
+        generateInsights(savedCost, savedHours, avgTimeSavings, additionalRevenue, avgRevenueIncrease, conversionRevenue, estimatedRevenue);
       }, 500);
 
       setTimeout(() => {
         createCharts(savedCost, additionalRevenue, conversionRevenue);
       }, 800);
+    }
+
+    function injectRevPARCard(estimatedRevenue, revenueIncreasePct) {
+      // Only show for room-based property types with room data
+      const hasRoomData = calculatorData.metrics.rooms && calculatorData.metrics.averageRoomRate;
+      if (!hasRoomData || !['hotel', 'resort', 'campsite'].includes(calculatorData.propertyType)) return;
+
+      const currentRevPAR = calculatorData.metrics.averageRoomRate * (calculatorData.metrics.occupancyRate / 100);
+      const projectedRevPAR = currentRevPAR * (1 + revenueIncreasePct / 100);
+      const revPARGain = projectedRevPAR - currentRevPAR;
+
+      // Only inject once
+      if (document.getElementById('revparCard')) return;
+
+      const statsGrid = document.querySelector('.stats-grid');
+      if (!statsGrid) return;
+
+      const card = document.createElement('div');
+      card.className = 'stat-card';
+      card.id = 'revparCard';
+      card.style.cssText = 'animation-delay: 0.4s;';
+      card.innerHTML = `
+        <div class="stat-label">RevPAR Improvement</div>
+        <div class="stat-value" style="font-size: 1.75rem;">+£${revPARGain.toFixed(2)}</div>
+        <div class="stat-desc">From £${currentRevPAR.toFixed(0)} → £${projectedRevPAR.toFixed(0)} per available room/night</div>
+      `;
+      statsGrid.appendChild(card);
     }
 
     function animateValue(elementId, start, end, duration, isCurrency = false, suffix = '') {
@@ -3322,7 +3470,7 @@
       container.innerHTML = explanationHTML;
     }
 
-    function generateInsights(savedCost, savedHours, avgTimeSavings, additionalRevenue, avgRevenueIncrease, conversionRevenue, avgConversionIncrease) {
+    function generateInsights(savedCost, savedHours, avgTimeSavings, additionalRevenue, avgRevenueIncrease, conversionRevenue, estimatedRevenue) {
       const container = document.getElementById('insightsContainer');
       const insights = [];
 
@@ -3337,27 +3485,48 @@
       if (savedCost > 0) {
         insights.push({
           icon: 'fa-piggy-bank',
-          text: `<strong>£${Math.round(savedCost).toLocaleString()} annual labor savings</strong> from ${Math.round(avgTimeSavings)}% automation with response times reduced from minutes to <1 minute.`
+          text: `<strong>£${Math.round(savedCost).toLocaleString()} annual labour savings</strong> from ${Math.round(avgTimeSavings)}% automation of repetitive tasks, with guest response times cut from minutes to under 1 minute.`
         });
       }
 
       if (additionalRevenue > 0) {
         insights.push({
           icon: 'fa-chart-line',
-          text: `AI revenue agents analyzing 80+ data points could generate <strong>£${Math.round(additionalRevenue).toLocaleString()} additional revenue</strong> (${Math.round(avgRevenueIncrease)}% increase) through intelligent pricing optimization.`
+          text: `AI revenue tools analysing 80+ data points could generate <strong>£${Math.round(additionalRevenue).toLocaleString()} additional revenue</strong> (${Math.round(avgRevenueIncrease)}% increase) through intelligent pricing and demand optimisation.`
+        });
+      }
+
+      // RevPAR-specific insight for room-based properties
+      const hasRoomData = calculatorData.metrics.rooms && calculatorData.metrics.averageRoomRate;
+      if (hasRoomData && ['hotel', 'resort', 'campsite'].includes(calculatorData.propertyType) && avgRevenueIncrease > 0) {
+        const currentRevPAR = calculatorData.metrics.averageRoomRate * (calculatorData.metrics.occupancyRate / 100);
+        const projectedRevPAR = currentRevPAR * (1 + avgRevenueIncrease / 100);
+        insights.push({
+          icon: 'fa-bed',
+          text: `Your RevPAR (Revenue Per Available Room) could improve from <strong>£${currentRevPAR.toFixed(0)}</strong> to <strong>£${projectedRevPAR.toFixed(0)}</strong> per night — a ${Math.round(avgRevenueIncrease)}% uplift. Industry data shows AI pricing tools typically deliver 7–22% RevPAR gains (Marriott, 2024).`
         });
       }
 
       if (conversionRevenue > 0) {
         insights.push({
           icon: 'fa-bullseye',
-          text: `24/7 AI booking agents with personalized recommendations could capture <strong>£${Math.round(conversionRevenue).toLocaleString()} additional revenue</strong> through improved conversion rates.`
+          text: `24/7 AI booking agents with personalised recommendations could capture <strong>£${Math.round(conversionRevenue).toLocaleString()} additional revenue</strong> through upselling, conversion uplift, and improved guest satisfaction.`
+        });
+      }
+
+      // OTA commission savings insight if Direct Booking solution is selected
+      const hasDirectBooking = calculatorData.selectedSolutions.some(s => s.id && s.id.includes('direct-booking'));
+      if (hasDirectBooking && hasRoomData) {
+        const otaCommissionSaving = estimatedRevenue * 0.60 * 0.18 * 0.25; // 60% OTA × 18% commission × 25% moved direct
+        insights.push({
+          icon: 'fa-handshake',
+          text: `Moving 25% of OTA bookings to direct (industry avg. 18% OTA commission on ~60% of bookings) could save an estimated <strong>£${Math.round(otaCommissionSaving).toLocaleString()}/year</strong> in commission fees alone.`
         });
       }
 
       insights.push({
         icon: 'fa-globe',
-        text: `Your AI agents work 24/7 in 100+ languages with 95% automation rate - HotelPlanner's AI agents generated £150k in their first month handling 40,000 inquiries.`
+        text: `Your AI agents work 24/7 in 100+ languages — HotelPlanner generated £150k in their first month with AI agents handling 40,000 inquiries.`
       });
 
       container.innerHTML = insights.map((insight, index) => `
@@ -3371,60 +3540,102 @@
     function createCharts(savedCost, additionalRevenue, conversionRevenue) {
       createWaterfallChart(savedCost, additionalRevenue, conversionRevenue);
       createDonutChart(savedCost, additionalRevenue, conversionRevenue);
+      const totalBenefit = savedCost + additionalRevenue + conversionRevenue;
+      createProjectionChart(totalBenefit, lastSetupCost);
     }
 
     function createWaterfallChart(savedCost, additionalRevenue, conversionRevenue) {
       const canvas = document.getElementById('waterfallChart');
-      if (!canvas) {
-        console.error('Waterfall chart canvas not found');
-        return;
-      }
-
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        console.error('Could not get canvas context');
-        return;
-      }
+      if (!ctx) return;
 
-      // Destroy existing chart
       if (waterfallChart) {
-        try {
-          waterfallChart.destroy();
-        } catch (e) {
-          console.warn('Error destroying waterfall chart:', e);
-        }
+        try { waterfallChart.destroy(); } catch (e) {}
         waterfallChart = null;
       }
 
-      const totalBenefit = savedCost + additionalRevenue + conversionRevenue;
+      // Build components — only include non-zero values
+      const components = [];
+      if (savedCost > 0)       components.push({ label: ['Labour', 'Savings'],     value: savedCost,         bg: 'rgba(16, 185, 129, 0.85)', border: '#10B981' });
+      if (additionalRevenue > 0) components.push({ label: ['Revenue', 'Growth'],   value: additionalRevenue, bg: 'rgba(6, 182, 212, 0.85)',  border: '#06B6D4' });
+      if (conversionRevenue > 0) components.push({ label: ['Conversion', 'Lift'],  value: conversionRevenue, bg: 'rgba(249, 115, 22, 0.85)', border: '#F97316' });
 
-      // Waterfall data: Initial (0), then each component, then total
-      const data = [0, savedCost, additionalRevenue, conversionRevenue, totalBenefit];
-      const labels = ['Start', 'Cost Savings', 'Revenue Growth', 'Conversion Boost', 'Total Benefit'];
+      // Build floating bar pairs [start, end] — the staircase effect
+      let running = 0;
+      const floatData    = [];
+      const bgColors     = [];
+      const borderColors = [];
+      const labelList    = [];
 
-      // Colors: transparent for start, green for savings, cyan for revenue, purple for conversion, green for total
-      const backgroundColors = [
-        'rgba(255, 255, 255, 0)',
-        'rgba(16, 185, 129, 0.85)',
-        'rgba(6, 182, 212, 0.85)',
-        'rgba(30, 64, 175, 0.85)',
-        'rgba(16, 185, 129, 0.95)'
-      ];
+      components.forEach(c => {
+        floatData.push([running, running + c.value]);
+        bgColors.push(c.bg);
+        borderColors.push(c.border);
+        labelList.push(c.label);
+        running += c.value;
+      });
+
+      // Final total bar anchored at 0 for emphasis
+      floatData.push([0, running]);
+      bgColors.push('rgba(16, 185, 129, 0.95)');
+      borderColors.push('#10B981');
+      labelList.push(['Total', 'Benefit']);
+
+      // Plugin 1: value labels above each bar
+      const valueLabelPlugin = {
+        id: 'waterfallLabels',
+        afterDatasetsDraw(chart) {
+          const { ctx: c, data } = chart;
+          const meta = chart.getDatasetMeta(0);
+          c.save();
+          c.font = 'bold 12px Inter, sans-serif';
+          c.textAlign = 'center';
+          c.textBaseline = 'bottom';
+          meta.data.forEach((bar, i) => {
+            const d = data.datasets[0].data[i];
+            const val = Array.isArray(d) ? d[1] : d;
+            c.fillStyle = '#FFFFFF';
+            c.fillText('£' + Math.round(val).toLocaleString(), bar.x, bar.y - 5);
+          });
+          c.restore();
+        }
+      };
+
+      // Plugin 2: dashed connector lines between bars (shows the staircase progression)
+      const connectorPlugin = {
+        id: 'waterfallConnectors',
+        afterDatasetsDraw(chart) {
+          const { ctx: c, data, scales } = chart;
+          const meta = chart.getDatasetMeta(0);
+          const ds = data.datasets[0].data;
+          c.save();
+          c.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+          c.lineWidth = 1;
+          c.setLineDash([5, 4]);
+          // Connect top of each component bar to start of next (skip the final total bar)
+          for (let i = 0; i < meta.data.length - 2; i++) {
+            const topY  = scales.y.getPixelForValue(Array.isArray(ds[i]) ? ds[i][1] : ds[i]);
+            const bar1  = meta.data[i];
+            const bar2  = meta.data[i + 1];
+            c.beginPath();
+            c.moveTo(bar1.x + bar1.width / 2, topY);
+            c.lineTo(bar2.x - bar2.width / 2, topY);
+            c.stroke();
+          }
+          c.restore();
+        }
+      };
 
       waterfallChart = new Chart(ctx, {
         type: 'bar',
+        plugins: [valueLabelPlugin, connectorPlugin],
         data: {
-          labels: labels,
+          labels: labelList,
           datasets: [{
-            data: data,
-            backgroundColor: backgroundColors,
-            borderColor: [
-              'rgba(255, 255, 255, 0)',
-              'rgba(16, 185, 129, 1)',
-              'rgba(6, 182, 212, 1)',
-              'rgba(30, 64, 175, 1)',
-              'rgba(16, 185, 129, 1)'
-            ],
+            data: floatData,
+            backgroundColor: bgColors,
+            borderColor: borderColors,
             borderWidth: 2,
             borderRadius: 8,
             borderSkipped: false
@@ -3433,23 +3644,26 @@
         options: {
           responsive: true,
           maintainAspectRatio: true,
-          aspectRatio: 2,
+          aspectRatio: 1.9,
+          layout: { padding: { top: 28 } },
           plugins: {
             legend: { display: false },
             tooltip: {
-              backgroundColor: 'rgba(24, 24, 24, 0.95)',
+              backgroundColor: 'rgba(18, 18, 18, 0.97)',
               titleColor: '#FFFFFF',
-              bodyColor: '#FFFFFF',
+              bodyColor: '#B3B3B3',
               borderColor: '#10B981',
-              borderWidth: 2,
-              padding: 16,
+              borderWidth: 1,
+              padding: 14,
               cornerRadius: 8,
               titleFont: { size: 13, weight: 'bold' },
-              bodyFont: { size: 15, weight: 'bold' },
+              bodyFont: { size: 14, weight: '600' },
               callbacks: {
+                title: (items) => (Array.isArray(items[0].label) ? items[0].label.join(' ') : items[0].label),
                 label: (context) => {
-                  if (context.dataIndex === 0) return 'Starting Point';
-                  return '£' + Math.round(context.parsed.y).toLocaleString();
+                  const d = context.raw;
+                  const contribution = Array.isArray(d) ? d[1] - d[0] : d[1];
+                  return ' £' + Math.round(contribution).toLocaleString();
                 }
               }
             }
@@ -3459,28 +3673,22 @@
               beginAtZero: true,
               ticks: {
                 color: '#B3B3B3',
-                font: { size: 12, family: "'Poppins', sans-serif" },
-                callback: (value) => '£' + (value / 1000).toFixed(0) + 'k'
+                font: { size: 11, family: "'Inter', sans-serif" },
+                callback: (v) => '£' + (v / 1000).toFixed(0) + 'k'
               },
-              grid: {
-                color: 'rgba(255, 255, 255, 0.06)',
-                drawBorder: false
-              },
+              grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
               border: { display: false }
             },
             x: {
-              ticks: {
-                color: '#FFFFFF',
-                font: { size: 11, weight: '600', family: "'Poppins', sans-serif" }
-              },
+              ticks: { color: '#FFFFFF', font: { size: 11, weight: '600', family: "'Inter', sans-serif" } },
               grid: { display: false },
               border: { display: false }
             }
           },
           animation: {
-            duration: 2000,
-            easing: 'easeInOutCubic',
-            delay: (context) => context.dataIndex * 150
+            duration: 1800,
+            easing: 'easeOutQuart',
+            delay: (ctx) => ctx.dataIndex * 120
           }
         }
       });
@@ -3488,104 +3696,243 @@
 
     function createDonutChart(savedCost, additionalRevenue, conversionRevenue) {
       const canvas = document.getElementById('donutChart');
-      if (!canvas) {
-        console.error('Donut chart canvas not found');
-        return;
-      }
-
+      if (!canvas) return;
       const ctx = canvas.getContext('2d');
-      if (!ctx) {
-        console.error('Could not get canvas context');
-        return;
-      }
+      if (!ctx) return;
 
-      // Destroy existing chart
       if (donutChart) {
-        try {
-          donutChart.destroy();
-        } catch (e) {
-          console.warn('Error destroying donut chart:', e);
-        }
+        try { donutChart.destroy(); } catch (e) {}
         donutChart = null;
       }
 
-      const data = [];
-      const labels = [];
-      const colors = [];
+      const total = savedCost + additionalRevenue + conversionRevenue;
+      const segments = [];
+      if (savedCost > 0)         segments.push({ label: 'Labour Savings',  value: savedCost,         color: 'rgba(16, 185, 129, 0.9)' });
+      if (additionalRevenue > 0) segments.push({ label: 'Revenue Growth',  value: additionalRevenue, color: 'rgba(6, 182, 212, 0.9)'  });
+      if (conversionRevenue > 0) segments.push({ label: 'Conversion Lift', value: conversionRevenue, color: 'rgba(249, 115, 22, 0.9)'  });
 
-      if (savedCost > 0) {
-        data.push(savedCost);
-        labels.push('Cost Savings');
-        colors.push('rgba(16, 185, 129, 0.9)');
-      }
-      if (additionalRevenue > 0) {
-        data.push(additionalRevenue);
-        labels.push('Revenue Growth');
-        colors.push('rgba(6, 182, 212, 0.9)');
-      }
-      if (conversionRevenue > 0) {
-        data.push(conversionRevenue);
-        labels.push('Conversion Boost');
-        colors.push('rgba(30, 64, 175, 0.9)');
-      }
+      // Plugin: draw total benefit as center text
+      const centerTextPlugin = {
+        id: 'donutCenter',
+        beforeDraw(chart) {
+          const { ctx: c, chartArea } = chart;
+          if (!chartArea) return;
+          const cx = (chartArea.left + chartArea.right) / 2;
+          const cy = (chartArea.top + chartArea.bottom) / 2;
+          c.save();
+          // Value
+          c.font = 'bold 21px Inter, sans-serif';
+          c.fillStyle = '#FFFFFF';
+          c.textAlign = 'center';
+          c.textBaseline = 'middle';
+          c.fillText('£' + (total >= 1000 ? (total / 1000).toFixed(1) + 'k' : Math.round(total)), cx, cy - 11);
+          // Label
+          c.font = '11px Inter, sans-serif';
+          c.fillStyle = '#B3B3B3';
+          c.fillText('per year', cx, cy + 12);
+          c.restore();
+        }
+      };
 
       donutChart = new Chart(ctx, {
         type: 'doughnut',
+        plugins: [centerTextPlugin],
         data: {
-          labels: labels,
+          labels: segments.map(s => s.label),
           datasets: [{
-            data: data,
-            backgroundColor: colors,
-            borderColor: '#021B23',
+            data: segments.map(s => s.value),
+            backgroundColor: segments.map(s => s.color),
+            borderColor: '#181818',
             borderWidth: 3,
             hoverBorderColor: '#FFFFFF',
-            hoverBorderWidth: 4,
-            hoverOffset: 8
+            hoverBorderWidth: 3,
+            hoverOffset: 10
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: true,
-          aspectRatio: 1.2,
-          cutout: '65%',
+          aspectRatio: 1.15,
+          cutout: '68%',
           plugins: {
             legend: {
               display: true,
               position: 'bottom',
               labels: {
                 color: '#FFFFFF',
-                font: { size: 12, weight: '600', family: "'Poppins', sans-serif" },
-                padding: 15,
+                font: { size: 12, weight: '600', family: "'Inter', sans-serif" },
+                padding: 16,
                 usePointStyle: true,
                 pointStyle: 'circle'
               }
             },
             tooltip: {
-              backgroundColor: 'rgba(24, 24, 24, 0.95)',
+              backgroundColor: 'rgba(18, 18, 18, 0.97)',
               titleColor: '#FFFFFF',
-              bodyColor: '#FFFFFF',
+              bodyColor: '#B3B3B3',
               borderColor: '#10B981',
-              borderWidth: 2,
-              padding: 16,
+              borderWidth: 1,
+              padding: 14,
               cornerRadius: 8,
-              titleFont: { size: 13, weight: 'bold' },
-              bodyFont: { size: 15, weight: 'bold' },
               callbacks: {
                 label: (context) => {
-                  const value = '£' + Math.round(context.parsed).toLocaleString();
-                  const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                  const percentage = ((context.parsed / total) * 100).toFixed(1);
-                  return `${context.label}: ${value} (${percentage}%)`;
+                  const pct = ((context.parsed / total) * 100).toFixed(1);
+                  return ` £${Math.round(context.parsed).toLocaleString()}  (${pct}%)`;
                 }
               }
             }
           },
-          animation: {
-            duration: 1500,
-            easing: 'easeInOutQuart',
-            animateRotate: true,
-            animateScale: true
-          }
+          animation: { duration: 1600, easing: 'easeInOutQuart', animateRotate: true, animateScale: true }
+        }
+      });
+    }
+
+    function createProjectionChart(totalBenefit, setupCost) {
+      const canvas = document.getElementById('projectionChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      if (projectionChart) {
+        try { projectionChart.destroy(); } catch (e) {}
+        projectionChart = null;
+      }
+
+      const monthlyBenefit = totalBenefit / 12;
+      const labels = ['Now', 'Mo 1', 'Mo 2', 'Mo 3', 'Mo 4', 'Mo 5', 'Mo 6', 'Mo 7', 'Mo 8', 'Mo 9', 'Mo 10', 'Mo 11', 'Mo 12'];
+      const cumulative   = labels.map((_, i) => Math.round(monthlyBenefit * i));
+      const investLine   = labels.map(() => Math.round(setupCost));
+
+      // Find the first month where cumulative savings pass the investment
+      const breakevenIdx = cumulative.findIndex(v => v >= setupCost);
+
+      // Plugin: vertical breakeven line + label
+      const breakevenPlugin = {
+        id: 'breakevenMarker',
+        afterDraw(chart) {
+          if (breakevenIdx < 1) return;
+          const { ctx: c, chartArea, scales } = chart;
+          const x = scales.x.getPixelForIndex(breakevenIdx);
+          c.save();
+          // Vertical dashed line
+          c.beginPath();
+          c.setLineDash([6, 4]);
+          c.strokeStyle = 'rgba(251, 191, 36, 0.75)';
+          c.lineWidth = 1.5;
+          c.moveTo(x, chartArea.top);
+          c.lineTo(x, chartArea.bottom);
+          c.stroke();
+          // Badge label
+          const labelText = '✓ Breakeven';
+          c.font = 'bold 11px Inter, sans-serif';
+          const textW = c.measureText(labelText).width;
+          const bx = Math.min(x - textW / 2 - 8, chartArea.right - textW - 20);
+          c.fillStyle = 'rgba(251, 191, 36, 0.15)';
+          c.strokeStyle = 'rgba(251, 191, 36, 0.6)';
+          c.lineWidth = 1;
+          c.setLineDash([]);
+          c.beginPath();
+          c.roundRect(bx, chartArea.top + 6, textW + 16, 22, 4);
+          c.fill();
+          c.stroke();
+          c.fillStyle = '#FBBF24';
+          c.textAlign = 'left';
+          c.textBaseline = 'top';
+          c.fillText(labelText, bx + 8, chartArea.top + 10);
+          c.restore();
+        }
+      };
+
+      projectionChart = new Chart(ctx, {
+        type: 'line',
+        plugins: [breakevenPlugin],
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Cumulative Benefit',
+              data: cumulative,
+              borderColor: '#10B981',
+              backgroundColor: function(context) {
+                const chart = context.chart;
+                const { ctx: c, chartArea } = chart;
+                if (!chartArea) return 'rgba(16, 185, 129, 0.12)';
+                const gradient = c.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                gradient.addColorStop(0, 'rgba(16, 185, 129, 0.28)');
+                gradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+                return gradient;
+              },
+              fill: true,
+              tension: 0.4,
+              borderWidth: 3,
+              pointBackgroundColor: '#10B981',
+              pointBorderColor: '#181818',
+              pointBorderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 7
+            },
+            {
+              label: 'Your Investment',
+              data: investLine,
+              borderColor: 'rgba(249, 115, 22, 0.75)',
+              borderDash: [8, 5],
+              borderWidth: 2,
+              fill: false,
+              tension: 0,
+              pointRadius: 0,
+              pointHoverRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 2.6,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              align: 'end',
+              labels: {
+                color: '#B3B3B3',
+                font: { size: 12, weight: '600', family: "'Inter', sans-serif" },
+                padding: 20,
+                usePointStyle: true,
+                pointStyle: 'circle'
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(18, 18, 18, 0.97)',
+              titleColor: '#FFFFFF',
+              bodyColor: '#B3B3B3',
+              borderColor: '#10B981',
+              borderWidth: 1,
+              padding: 14,
+              cornerRadius: 8,
+              callbacks: {
+                label: (context) => ` ${context.dataset.label}: £${Math.round(context.parsed.y).toLocaleString()}`
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: '#B3B3B3',
+                font: { size: 11, family: "'Inter', sans-serif" },
+                callback: (v) => '£' + (v >= 1000 ? (v / 1000).toFixed(0) + 'k' : Math.round(v))
+              },
+              grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false },
+              border: { display: false }
+            },
+            x: {
+              ticks: { color: '#B3B3B3', font: { size: 10, family: "'Inter', sans-serif" } },
+              grid: { display: false },
+              border: { display: false }
+            }
+          },
+          animation: { duration: 2000, easing: 'easeInOutCubic' }
         }
       });
     }
@@ -3622,6 +3969,15 @@
         averageRoomRate: 100,
         occupancyRate: 70
       };
+
+      if (projectionChart) {
+        try { projectionChart.destroy(); } catch (e) {}
+        projectionChart = null;
+      }
+
+      // Remove injected RevPAR card so it doesn't duplicate on next run
+      const revparCard = document.getElementById('revparCard');
+      if (revparCard) revparCard.remove();
 
       // Reset UI
       currentStep = 1;
