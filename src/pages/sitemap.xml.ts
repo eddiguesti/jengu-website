@@ -13,17 +13,22 @@ interface SitemapEntry {
 }
 
 function generateSitemapEntry(entry: SitemapEntry): string {
-  const alternatesXml = entry.alternates?.map(alt =>
-    `    <xhtml:link rel="alternate" hreflang="${alt.lang}" href="${alt.url}" />`
-  ).join('\n') || '';
+  const lines = [`    <loc>${entry.url}</loc>`];
 
-  return `  <url>
-    <loc>${entry.url}</loc>
-${alternatesXml}${entry.alternates ? '\n    <xhtml:link rel="alternate" hreflang="x-default" href="' + entry.url + '" />' : ''}
-    ${entry.lastmod ? `<lastmod>${entry.lastmod}</lastmod>` : ''}
-    ${entry.changefreq ? `<changefreq>${entry.changefreq}</changefreq>` : ''}
-    ${entry.priority ? `<priority>${entry.priority}</priority>` : ''}
-  </url>`;
+  if (entry.alternates) {
+    for (const alt of entry.alternates) {
+      lines.push(`    <xhtml:link rel="alternate" hreflang="${alt.lang}" href="${alt.url}" />`);
+    }
+    // x-default always points to the English canonical (first alternate)
+    const canonicalUrl = entry.alternates[0]?.url ?? entry.url;
+    lines.push(`    <xhtml:link rel="alternate" hreflang="x-default" href="${canonicalUrl}" />`);
+  }
+
+  if (entry.lastmod) lines.push(`    <lastmod>${entry.lastmod}</lastmod>`);
+  if (entry.changefreq) lines.push(`    <changefreq>${entry.changefreq}</changefreq>`);
+  if (entry.priority) lines.push(`    <priority>${entry.priority}</priority>`);
+
+  return `  <url>\n${lines.join('\n')}\n  </url>`;
 }
 
 function getAlternates(path: string): { lang: string; url: string }[] {
