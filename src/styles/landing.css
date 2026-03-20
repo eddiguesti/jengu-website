@@ -1249,15 +1249,19 @@
     }
 
     @keyframes lineFlow {
-      0%, 100% {
+      0% {
         transform: translateY(-100%);
         opacity: 0;
       }
-      50% {
+      20% {
+        opacity: 1;
+      }
+      80% {
         opacity: 1;
       }
       100% {
         transform: translateY(200%);
+        opacity: 0;
       }
     }
 
@@ -1306,7 +1310,7 @@
 
     @keyframes particleFloat {
       0% {
-        top: -10px;
+        top: 0;
         opacity: 0;
         transform: scale(0);
       }
@@ -1319,7 +1323,7 @@
         transform: scale(1);
       }
       100% {
-        top: 110px;
+        top: 100%;
         opacity: 0;
         transform: scale(0);
       }
@@ -3395,6 +3399,22 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       text-align: center;
       color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-credit {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .footer-credit a {
+      color: rgba(255, 255, 255, 0.5);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-credit a:hover {
+      color: var(--primary-cta);
     }
 
     /* Responsive */

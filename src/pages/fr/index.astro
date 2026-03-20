@@ -1155,52 +1155,33 @@ const jsonLd = [
       }
     }
 
-    // Premium scroll-triggered reveal animation
-    // CSS shows elements by default. JS hides elements BELOW the fold, then animates them in.
+    // Scroll-triggered reveal for process steps (one-way — stays visible once revealed)
     document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-flow .process-step');
-      const hasBeenRevealed = new Set();
 
-      // Hide elements that are BELOW the viewport (they'll animate in when scrolled)
+      // Hide elements below the viewport so they can animate in on scroll
       processSteps.forEach(step => {
         const rect = step.getBoundingClientRect();
         if (rect.top >= window.innerHeight) {
           step.classList.add('animate-hidden');
-        } else {
-          hasBeenRevealed.add(step);
         }
       });
-
-      const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -15% 0px'
-      };
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            if (!hasBeenRevealed.has(entry.target)) {
-              hasBeenRevealed.add(entry.target);
-              entry.target.classList.remove('animate-hidden');
-              entry.target.classList.add('reveal');
-              const nextConnector = entry.target.nextElementSibling;
-              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                setTimeout(() => nextConnector.classList.add('draw'), 400);
-              }
-            } else {
-              entry.target.classList.add('reveal');
+            entry.target.classList.remove('animate-hidden');
+            entry.target.classList.add('reveal');
+
+            const nextConnector = entry.target.nextElementSibling;
+            if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+              setTimeout(() => nextConnector.classList.add('draw'), 400);
             }
-          } else {
-            if (hasBeenRevealed.has(entry.target)) {
-              entry.target.classList.remove('reveal');
-              const nextConnector = entry.target.nextElementSibling;
-              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                nextConnector.classList.remove('draw');
-              }
-            }
+
+            observer.unobserve(entry.target);
           }
         });
-      }, observerOptions);
+      }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
 
       processSteps.forEach(step => observer.observe(step));
 

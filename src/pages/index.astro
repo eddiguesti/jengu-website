@@ -1219,65 +1219,37 @@ const jsonLd = [
       });
     }
 
-    // Deferred scroll animation initialization - runs during idle time
-    // This prevents blocking the main thread during page load
-    function initScrollRevealAnimations() {
+    // Scroll-triggered reveal for process steps (one-way — stays visible once revealed)
+    document.addEventListener('DOMContentLoaded', () => {
       const processSteps = document.querySelectorAll('.process-flow .process-step');
       if (!processSteps.length) return;
 
-      const hasBeenRevealed = new Set();
-      const vh = window.innerHeight;
-
-      // Hide elements below viewport (batch in RAF)
-      requestAnimationFrame(() => {
-        processSteps.forEach(step => {
-          const rect = step.getBoundingClientRect();
-          if (rect.top >= vh) {
-            step.classList.add('animate-hidden');
-          } else {
-            hasBeenRevealed.add(step);
-          }
-        });
+      // Hide elements below the viewport so they can animate in on scroll
+      processSteps.forEach(step => {
+        const rect = step.getBoundingClientRect();
+        if (rect.top >= window.innerHeight) {
+          step.classList.add('animate-hidden');
+        }
       });
 
       const observer = new IntersectionObserver((entries) => {
-        // Batch all DOM writes in RAF
-        requestAnimationFrame(() => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              if (!hasBeenRevealed.has(entry.target)) {
-                hasBeenRevealed.add(entry.target);
-                entry.target.classList.remove('animate-hidden');
-                entry.target.classList.add('reveal');
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.remove('animate-hidden');
+            entry.target.classList.add('reveal');
 
-                const nextConnector = entry.target.nextElementSibling;
-                if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                  setTimeout(() => nextConnector.classList.add('draw'), 400);
-                }
-              } else {
-                entry.target.classList.add('reveal');
-              }
-            } else if (hasBeenRevealed.has(entry.target)) {
-              entry.target.classList.remove('reveal');
-              const nextConnector = entry.target.nextElementSibling;
-              if (nextConnector && nextConnector.classList.contains('flow-connector')) {
-                nextConnector.classList.remove('draw');
-              }
+            const nextConnector = entry.target.nextElementSibling;
+            if (nextConnector && nextConnector.classList.contains('flow-connector')) {
+              setTimeout(() => nextConnector.classList.add('draw'), 400);
             }
-          });
+
+            observer.unobserve(entry.target);
+          }
         });
-      }, { threshold: 0.2, rootMargin: '0px 0px -15% 0px' });
+      }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
 
       processSteps.forEach(step => observer.observe(step));
-    }
-
-    // Schedule initialization during idle time to prevent blocking
-    if ('requestIdleCallback' in window) {
-      requestIdleCallback(initScrollRevealAnimations, { timeout: 2000 });
-    } else {
-      // Fallback: run after first paint
-      requestAnimationFrame(() => setTimeout(initScrollRevealAnimations, 0));
-    }
+    });
 
     // Lazy load promo video - only loads when section is visible
     // This prevents ~500KB+ background download on page load

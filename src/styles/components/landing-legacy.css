@@ -1149,15 +1149,19 @@
     }
 
     @keyframes lineFlow {
-      0%, 100% {
+      0% {
         transform: translateY(-100%);
         opacity: 0;
       }
-      50% {
+      20% {
+        opacity: 1;
+      }
+      80% {
         opacity: 1;
       }
       100% {
         transform: translateY(200%);
+        opacity: 0;
       }
     }
 
@@ -1206,7 +1210,7 @@
 
     @keyframes particleFloat {
       0% {
-        top: -10px;
+        top: 0;
         opacity: 0;
         transform: scale(0);
       }
@@ -1219,7 +1223,7 @@
         transform: scale(1);
       }
       100% {
-        top: 110px;
+        top: 100%;
         opacity: 0;
         transform: scale(0);
       }
