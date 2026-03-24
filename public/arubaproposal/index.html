@@ -106,6 +106,29 @@
   .quote-box p{font-size:0.95rem;color:var(--td);line-height:1.6;font-style:italic;}
   .quote-box .attr{font-size:0.75rem;color:var(--a2);font-style:normal;margin-top:0.5rem;font-weight:600;}
 
+  /* Tables */
+  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.9rem;margin-top:1.5rem;}
+  .price-table thead th{
+    text-align:left;padding:0.8rem 1.2rem;font-size:0.6rem;font-weight:600;
+    letter-spacing:2px;text-transform:uppercase;color:var(--td);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .price-table thead th:last-child{text-align:right;}
+  .price-table tbody td{
+    padding:0.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);
+    color:var(--t);font-weight:400;vertical-align:top;
+  }
+  .price-table tbody td:last-child{text-align:right;font-weight:600;white-space:nowrap;}
+  .price-table tbody td .td-sub{font-size:0.75rem;color:var(--td);font-weight:400;margin-top:0.2rem;}
+  .price-table tfoot td{
+    padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.1);
+    font-weight:700;color:var(--t);
+  }
+  .price-table tfoot td:last-child{
+    text-align:right;font-size:1.3rem;font-weight:900;
+    background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
   nav{
     position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:100;
     display:flex;align-items:center;gap:1.5rem;
@@ -126,6 +149,8 @@
     .flow-a{transform:rotate(90deg);font-size:0.8rem;}
     .stat-grid{grid-template-columns:repeat(2,1fr);}
     nav{padding:0.5rem 1rem;gap:1rem;}
+    .price-table{font-size:0.8rem;}
+    .price-table thead th, .price-table tbody td, .price-table tfoot td{padding:0.6rem 0.8rem;}
   }
 </style>
 </head>
@@ -155,7 +180,23 @@
   <div class="s-in">
     <div class="tag">Proposal for Bryan Vieira</div>
     <h1>Aruba Ocean<br><span class="g1">Villas</span></h1>
-    <p class="sub">A tailored growth plan built around what we discussed — GEO visibility, automated outreach, a website that matches the experience you deliver, and AI that works while you sleep.</p>
+    <p class="sub">Two projects to get you moving — a website that converts like the villas deserve, and an outreach system that puts you in front of every luxury travel agent in America.</p>
+
+    <div class="stat-grid" style="margin-top:2.5rem;">
+      <div class="stat">
+        <div class="val good">$7,000</div>
+        <div class="label">Website Redesign</div>
+      </div>
+      <div class="stat">
+        <div class="val good">$10,000</div>
+        <div class="label">Email Outreach Bot</div>
+      </div>
+      <div class="stat">
+        <div class="val" style="color:var(--a2);">$17,000</div>
+        <div class="label">Total Investment</div>
+      </div>
+    </div>
+
     <div style="margin-top:2rem;">
       <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
       <span style="color:var(--td);margin:0 0.8rem;">+</span>
@@ -165,255 +206,353 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 2 — THE OPPORTUNITY          -->
+<!-- 2 — WHY THESE TWO           -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s2">
   <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
   <div class="s-in">
-    <div class="tag">01 — The Opportunity</div>
-    <h2>The Villas Sell<br><span class="g2">Themselves</span></h2>
-    <p class="sub">Fodor's Finest. Forbes. Travel + Leisure. Guests who discover you are blown away. The problem isn't the product — it's discovery.</p>
-
-    <div class="stat-grid">
-      <div class="stat"><div class="val bad">13<span style="font-size:0.8rem;font-weight:500;color:var(--td);">/100</span></div><div class="label">LLM Visibility Score</div></div>
-      <div class="stat"><div class="val bad">2%</div><div class="label">AI Share of Voice</div></div>
-      <div class="stat"><div class="val warn">26</div><div class="label">Domain Rating (Ahrefs)</div></div>
-      <div class="stat"><div class="val warn">4.4</div><div class="label">Google Rating (was 4.6)</div></div>
-    </div>
-
-    <div class="quote-box">
-      <p>"When Aruba Ocean Villas is mentioned in Facebook groups, everybody's surprised. They're like, oh wait, I didn't know about this. I've been here 20 years, never saw these before."</p>
-      <div class="attr">— Bryan Vieira, during our call</div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════ -->
-<!-- 3 — GEO / SOCIAL BOT        -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s3">
-  <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-150px;right:-150px;"></div>
-  <div class="s-in">
-    <div class="tag">02 — Social Authority Bot</div>
-    <h2>Get AI to<br><span class="g1">Recommend You</span></h2>
-    <p class="sub">When someone asks ChatGPT "where should I stay in Aruba?" — the answer is pulled from Reddit, Quora, and travel forums. If you're not in those conversations, you don't exist to AI.</p>
-
-    <div class="flow">
-      <div class="flow-s">Scan Reddit, Quora, travel forums</div>
-      <div class="flow-a">&#8594;</div>
-      <div class="flow-s">AI writes authentic replies</div>
-      <div class="flow-a">&#8594;</div>
-      <div class="flow-s">Post from multiple user accounts</div>
-      <div class="flow-a">&#8594;</div>
-      <div class="flow-s">Monthly report</div>
-    </div>
+    <div class="tag">01 — Why Start Here</div>
+    <h2>Fix the Funnel,<br><span class="g2">Then Fill It</span></h2>
+    <p class="sub">You told us the villas sell themselves — once people find you. These two projects solve both sides: a website that actually converts your traffic, and a system that puts you in front of thousands of travel agents who've never heard of you.</p>
 
     <div class="grid3">
       <div class="card">
-        <h3>Not Robotic</h3>
-        <p>Every reply reads like a real traveller sharing a recommendation. Multiple accounts, varied writing styles, natural language. Never sounds like a brand.</p>
+        <h3>The Website Problem</h3>
+        <p>January 2025 — record traffic, but sales dipped. You're getting visitors, but the Squarespace site isn't converting them. Even a 1% lift on your existing traffic is tens of thousands in revenue.</p>
       </div>
       <div class="card">
-        <h3>Fully Hands-Off</h3>
-        <p>We handle everything. You get a monthly report of what was posted, on which platforms, and the engagement. No accounts to manage, no posts to write.</p>
+        <h3>The Outreach Problem</h3>
+        <p>Only 2-3% of bookings come from travel agents. 90% of your guests are from the US. There are thousands of luxury travel agents in New York, Texas, Miami, California who've never heard of you.</p>
       </div>
       <div class="card">
-        <h3>Bury the Negative</h3>
-        <p>That old Reddit review about bugs and A/C? More positive, authentic mentions push it down. AI finds and cites the good conversations first.</p>
-      </div>
-    </div>
-
-    <div class="bullets" style="margin-top:1.5rem;">
-      <div class="bullet"><div class="dot" style="background:var(--a1);"></div><div><strong>Target keywords:</strong> Aruba, honeymoon, Caribbean luxury, boutique villas, adults-only — expanding to broader Caribbean if volume allows</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>3-4 posts per day</strong> across Reddit, Quora, TripAdvisor forums, FlyerTalk, Lonely Planet</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div><strong>Minimum 6 months</strong> — GEO authority builds over time, like SEO but for AI recommendations</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════ -->
-<!-- 4 — COLD EMAIL OUTREACH     -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s4">
-  <div class="orb" style="width:500px;height:500px;background:var(--a5);bottom:-100px;left:-100px;"></div>
-  <div class="s-in">
-    <div class="tag">03 — Cold Email Outreach</div>
-    <h2>Travel Agents<br><span class="g2">Working for You</span></h2>
-    <p class="sub">Only 2-3% of your bookings come from travel agents. That's a massive untapped channel. When a guest hears about you from their travel agent, it sounds like a friend's recommendation — not an ad.</p>
-
-    <div class="flow">
-      <div class="flow-s">Scrape luxury travel agent contacts</div>
-      <div class="flow-a">&#8594;</div>
-      <div class="flow-s">Verify &amp; filter by niche</div>
-      <div class="flow-a">&#8594;</div>
-      <div class="flow-s">AI personalise each email</div>
-      <div class="flow-a">&#8594;</div>
-      <div class="flow-s">Multi-step follow-ups</div>
-    </div>
-
-    <div class="grid3">
-      <div class="card">
-        <h3>Targeted Lists</h3>
-        <p>Luxury travel agents in New York, Texas, Massachusetts, Miami, California — your top 5 markets where 90% of guests come from.</p>
-      </div>
-      <div class="card">
-        <h3>Word-of-Mouth Feel</h3>
-        <p>Each email references the agent's speciality. Not a blast to 10,000 inboxes — a personal introduction that builds a relationship.</p>
-      </div>
-      <div class="card">
-        <h3>Separate Domains</h3>
-        <p>We set up 10-20 sending domains so your main brand domain is never at risk. 10-20 emails per domain, fully compliant.</p>
+        <h3>The Word-of-Mouth Effect</h3>
+        <p>You said it yourself — when people hear about Ocean View from someone else, it's more authoritative. Travel agents are that someone else, at scale.</p>
       </div>
     </div>
 
     <div class="quote-box">
-      <p>"If they hear it from somebody else, it sounds more authoritative. It's kind of like a friend of a friend told you about this place. It becomes more towards word of mouth versus direct."</p>
+      <p>"If they hear it from somebody else, it sounds more authoritative. It's kind of like a friend of a friend told you about this place."</p>
       <div class="attr">— Bryan Vieira</div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — WEBSITE REDESIGN        -->
+<!-- 3 — WEBSITE: WHAT'S INCLUDED -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s5">
+<section class="s" id="s3">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;right:-200px;"></div>
   <div class="s-in">
-    <div class="tag">04 — Website Redesign</div>
+    <div class="tag">02 — Website Redesign</div>
     <h2>A Website That<br><span class="g3">Matches the Experience</span></h2>
-    <p class="sub">Your villas are Fodor's Finest. Your website was built in 2 days on Squarespace. Even a 1% conversion improvement on your existing traffic is a serious amount of revenue over a year.</p>
+    <p class="sub">Your villas are Fodor's Finest. Your website was built in 2 days. This redesign closes that gap — built for conversion, speed, and the luxury your guests expect.</p>
 
     <div class="bullets">
-      <div class="bullet"><div class="dot"></div><div><strong>Hero messaging in 3 seconds</strong> — visitors know exactly what this place is: adults-only, ocean-view, luxury, Aruba</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>"Book Your Escape" CTA</strong> prominent over the video — not buried in navigation</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Fodor's, Forbes, Travel + Leisure badges above the fold</strong> — social proof before they scroll</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Larger fonts (12pt+)</strong> — designed for your older demographic, not a designer's portfolio</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Video done right</strong> — WebM codec, 90% compression, no quality loss. Your mom's video stays, but it loads fast</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Custom-coded, you own it</strong> — no Squarespace bloat, no monthly platform fees, no agency lock-in. If we part ways, the website is yours</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Easy CMS</strong> — when amenities change, when a bungalow gets renovated, you update it yourself. Fill in a form, hit publish. No rebuilding sections.</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Mobile-perfect</strong> — tablet and phone layouts designed separately, not squeezed from desktop</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Custom-coded from scratch</strong> — no Squarespace, no Webflow, no monthly platform fees. Fast loading, built so Google and AI can read and recommend you</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Hero messaging in 3 seconds</strong> — visitors immediately know: adults-only, ocean-view, luxury, Aruba. "Book Your Escape" button front and centre</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Fodor's, Forbes, Travel + Leisure badges at the top</strong> — your best credentials, visible before they scroll. Not buried at the bottom</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Video done right</strong> — compressed up to 90% with zero quality loss using modern formats. Your mom's video stays, but the site loads in under 2 seconds</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Designed for your audience</strong> — larger fonts (12pt minimum), clear navigation, readable on every device. Your guests skew older — we design for them, not for a portfolio</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Mobile and tablet layouts built separately</strong> — not a squeezed-down desktop. Navigation that works, buttons that don't break, content that breathes</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>Easy editing system</strong> — add a new villa, update amenities, change pricing, publish a blog. Fill in a form, hit publish. No code, no rebuilding sections, no calling us</div></div>
+      <div class="bullet"><div class="dot"></div><div><strong>You own the website</strong> — the code, the design, everything. No lock-in. After what happened with CloudBets, you'll never be handcuffed by a vendor again</div></div>
     </div>
 
     <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid rgba(0,206,201,0.15);border-radius:14px;">
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;">Design direction: <strong style="color:var(--t);">bold but classy</strong>. Vibrant colour palette inspired by the interiors. Fashion-house animations. Something that <strong style="color:var(--t);">jumps out at you</strong> — but keeps the luxury feel. Romero Britto energy, not Romero Britto chaos.</p>
+      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;">Design direction: <strong style="color:var(--t);">bold but classy</strong>. Vibrant colour palette that reflects your interiors. Fashion-house animations that feel premium. Something that <strong style="color:var(--t);">jumps out</strong> — Romero Britto energy, not Romero Britto chaos. We'll work with the new photography from your May shoot.</p>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 6 — EMAIL AI ASSISTANT      -->
+<!-- 4 — WEBSITE: COST BREAKDOWN -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s4">
+  <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-150px;left:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">02 — Website Investment</div>
+    <h2>Website<br><span class="g1">Breakdown</span></h2>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Deliverable</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Discovery &amp; Design</strong>
+            <div class="td-sub">Layout sketches, design concepts, colours, and fonts. Review with you and your mom before we build anything. 2 rounds of revisions included.</div>
+          </td>
+          <td>$1,500</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Custom Development</strong>
+            <div class="td-sub">Hand-coded for speed and quality. Cinematic scroll animations, smooth transitions, premium feel. Video compression so it loads fast. Built to look perfect on desktop, tablet, and mobile.</div>
+          </td>
+          <td>$2,500</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Editing System Setup</strong>
+            <div class="td-sub">A simple system so you can update villas, amenities, pricing, and blog posts yourself. Just fill in a form and hit publish. Includes a training session so you're comfortable using it.</div>
+          </td>
+          <td>$1,000</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Search &amp; AI Optimisation</strong>
+            <div class="td-sub">Everything needed so Google ranks you higher and AI tools like ChatGPT can read your site and recommend you. Structured content, proper page titles, FAQ sections that answer what travellers are searching for.</div>
+          </td>
+          <td>$800</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Domain Transfer &amp; Launch</strong>
+            <div class="td-sub">We handle connecting your domain (arubaoceanvillas.com) to the new site through GoDaddy. Smooth switch from Squarespace with no downtime. We'll sort the access with Jack's account.</div>
+          </td>
+          <td>$400</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Performance &amp; Testing</strong>
+            <div class="td-sub">Making sure the site loads fast on every browser and device. Target: under 2 seconds to load. Tested on Chrome, Safari, Firefox, iPhone, Android, tablet.</div>
+          </td>
+          <td>$800</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>$7,000</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.3rem;">Timeline</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--t);">4-6 weeks</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">From kick-off to launch</div>
+      </div>
+      <div style="flex:1;min-width:200px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.3rem;">Revisions</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--t);">2 rounds</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">Included in design phase</div>
+      </div>
+      <div style="flex:1;min-width:200px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.3rem;">Ongoing Cost</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--a3);">$0/mo</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">No platform fees. You own it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 5 — EMAIL BOT: WHAT'S INCLUDED -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s5">
+  <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">03 — Email Outreach Bot</div>
+    <h2>Travel Agents<br><span class="g2">at Scale</span></h2>
+    <p class="sub">A fully automated system that finds luxury travel agents across America, personalises every email, and follows up until they respond. You don't touch a thing.</p>
+
+    <div class="flow">
+      <div class="flow-s">Identify target segments</div>
+      <div class="flow-a">&#8594;</div>
+      <div class="flow-s">Scrape &amp; verify contacts</div>
+      <div class="flow-a">&#8594;</div>
+      <div class="flow-s">AI personalise each email</div>
+      <div class="flow-a">&#8594;</div>
+      <div class="flow-s">Automated follow-ups</div>
+      <div class="flow-a">&#8594;</div>
+      <div class="flow-s">Report &amp; optimise</div>
+    </div>
+
+    <div class="bullets" style="margin-top:2rem;">
+      <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Contact scraping engine</strong> — scrapes travel agency websites, LinkedIn, directories. Extracts names, emails, specialities. Verifies every email address before sending</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div><strong>Focused on your top markets</strong> — New York (your biggest), Texas, Massachusetts, Miami, California. Luxury segment only — honeymoon specialists, high-end travel planners, concierge services</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>AI personalisation</strong> — each email references the agent's speciality, recent work, or niche. "I noticed you specialise in Caribbean honeymoons..." — not a generic blast</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a1);"></div><div><strong>Automatic follow-ups</strong> — introduction email, follow-up 3 days later, a value email featuring your Forbes or Fodor's press, then a final nudge. 4 emails per contact, spaced out naturally</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Your brand stays protected</strong> — we use separate email domains for sending, not arubaoceanvillas.com. If anything gets flagged, your main domain is untouched</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Reply detection</strong> — when an agent responds, the system flags it and routes to you. You handle the relationship from there</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div><strong>The bot is yours</strong> — we build it, you own it. If you want to use it for other outreach later — event planners, influencers, wedding coordinators, press — you can</div></div>
+    </div>
+
+    <div class="quote-box">
+      <p>"The idea was to create a list of travel agents, focus on those segments of the market, and have them kind of propel the word about Aruba Ocean Villas for us. If they hear it from somebody else, it sounds more authoritative."</p>
+      <div class="attr">— Bryan Vieira</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — EMAIL BOT: COST BREAKDOWN -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s6">
-  <div class="orb" style="width:500px;height:500px;background:var(--a4);top:10%;left:-150px;"></div>
+  <div class="orb" style="width:500px;height:500px;background:var(--a4);bottom:-150px;left:-100px;"></div>
   <div class="s-in">
-    <div class="tag">05 — Email AI Assistant</div>
-    <h2>Speed to Lead<br><span class="g2">Is Everything</span></h2>
-    <p class="sub">If you don't respond within 5 minutes, conversion drops off a cliff. Your staff sometimes take a week. That's bookings walking out the door.</p>
+    <div class="tag">03 — Outreach Bot Investment</div>
+    <h2>Outreach Bot<br><span class="g2">Breakdown</span></h2>
 
-    <div class="grid3">
-      <div class="card">
-        <h3>Draft Assistant</h3>
-        <p>Reads incoming emails, drafts a response in your voice (trained on your last 100 messages). Staff review, tweak if needed, hit send. Cuts response time from hours to minutes.</p>
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Deliverable</th>
+          <th>Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Contact Scraping Engine</strong>
+            <div class="td-sub">Custom-built scraper targeting travel agency websites, directories, and professional networks. Extracts names, emails, phone numbers, specialities. Handles multiple site structures — different agencies, different layouts.</div>
+          </td>
+          <td>$3,000</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Email Verification &amp; Data Cleaning</strong>
+            <div class="td-sub">Every scraped email is verified before it enters the system. Removes bad addresses, duplicates, and dead emails. Organises the contacts into groups — honeymoon specialists, luxury agents, concierge services, etc.</div>
+          </td>
+          <td>$1,000</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>AI Personalisation Engine</strong>
+            <div class="td-sub">AI-powered email writer that crafts a unique, personalised email for each contact. References the agent's speciality, recent work, and location. Written in a warm, luxury tone — not salesy. We test different versions to see what gets the best response.</div>
+          </td>
+          <td>$2,500</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Sending Infrastructure</strong>
+            <div class="td-sub">We buy 10-20 separate email domains (not your main one) so your brand is never at risk. These need 2-3 weeks to "warm up" before sending — this is how you avoid spam filters. When someone replies, it gets routed straight to you.</div>
+          </td>
+          <td>$2,000</td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Sequence Builder &amp; Dashboard</strong>
+            <div class="td-sub">4-step email sequences — introduction, follow-up, value email, final nudge. Plus a simple dashboard where you can see how many were sent, opened, and replied to. Full visibility into what's happening.</div>
+          </td>
+          <td>$1,500</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>$10,000</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.3rem;">Build Time</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--t);">3-4 weeks</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">+ 2-3 weeks domain warm-up</div>
       </div>
-      <div class="card">
-        <h3>Auto-Responder</h3>
-        <p>Basic questions answered instantly — availability, pricing, transfer info, restaurant hours. Clearly labelled as AI with a "speak to a human" option. You choose which questions the bot handles.</p>
+      <div style="flex:1;min-width:200px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.3rem;">First Emails Sent</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--t);">Week 5-6</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">After warm-up completes</div>
       </div>
-      <div class="card">
-        <h3>Your Voice, Not AI Voice</h3>
-        <p>Trained on how your team actually writes. Soft tone, brand words, nuances of your place. Personalised to you — not a generic chatbot response.</p>
+      <div style="flex:1;min-width:200px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.3rem;">Ownership</div>
+        <div style="font-size:1.2rem;font-weight:800;color:var(--a3);">Yours</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">Code, data, infrastructure</div>
       </div>
     </div>
 
-    <div class="bullets" style="margin-top:1.5rem;">
-      <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Connects to <strong>Gmail</strong> — no switching platforms, works as an add-on</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Separate versions: one for <strong>info@</strong> (guest queries) and one for individual staff</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Bot escalates to human when it can't answer — with context pre-loaded so staff don't start from scratch</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a1);"></div><div>Read-only PMS access — checks calendar for availability, <strong>never modifies reservations</strong></div></div>
+    <div style="margin-top:1.5rem;padding:1rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a5);">
+      <p style="font-size:0.85rem;color:var(--td);line-height:1.6;"><strong style="color:var(--t);">Small ongoing costs (not included):</strong> The AI that writes the emails costs roughly $50-100/month depending on how many you send, and the sending domains cost about $10-15 each per year. These go directly to the providers — we don't add anything on top.</p>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 7 — BLOG AUTOMATION         -->
+<!-- 7 — PAYMENT & TIMELINE      -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s7">
-  <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-100px;right:-100px;"></div>
+  <div class="orb" style="width:500px;height:500px;background:var(--a1);top:10%;left:-150px;"></div>
   <div class="s-in">
-    <div class="tag">06 — Blog &amp; Content</div>
-    <h2>Content That<br><span class="g1">AI Can Read</span></h2>
-    <p class="sub">Your blog section is empty. LLMs need structured content on your website to understand what you offer. Blogs answer the questions that AI is being asked.</p>
+    <div class="tag">04 — Payment &amp; Timeline</div>
+    <h2>How It<br><span class="g1">Works</span></h2>
 
-    <div class="bullets">
-      <div class="bullet"><div class="dot"></div><div><strong>Question-answer format</strong> — "What's the best adults-only resort in Aruba?", "Is Aruba safe for couples?" — the exact things people ask ChatGPT</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Written in your voice</strong> — trained on your brand, your Instagram, your existing content. Not generic travel blog spam</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>5 posts per week</strong> — consistent output without you lifting a finger</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Feeds your newsletter</strong> — you mentioned wanting blogs to feed into email newsletters. This plugs straight into that</div></div>
-      <div class="bullet"><div class="dot"></div><div><strong>Integrated with the CMS</strong> — if we build the website, blogs publish automatically through the same system</div></div>
+    <div class="tl" style="margin-top:2.5rem;">
+      <div class="tl-i">
+        <div class="wk">Week 1</div>
+        <h4>30% deposit to kick off both projects</h4>
+        <p>$5,100 upfront. We begin website discovery/design and start building the scraping engine in parallel. Kick-off call with you to align on design direction, target agent segments, and brand voice.</p>
+      </div>
+      <div class="tl-i">
+        <div class="wk">Week 2-3</div>
+        <h4>Design review + scraper built</h4>
+        <p>Website wireframes and design concepts ready for you and your mom to review. Contact scraping engine complete — first batch of travel agent data extracted and verified. Sending domains purchased and warming up.</p>
+      </div>
+      <div class="tl-i">
+        <div class="wk">Week 3-5</div>
+        <h4>Website development + email sequences written</h4>
+        <p>Website coded, CMS built, content loaded. AI personalisation engine trained on your brand voice. Email sequences drafted and ready for your approval before anything sends.</p>
+      </div>
+      <div class="tl-i">
+        <div class="wk">Week 5-6</div>
+        <h4>Launch both — remaining 70% on delivery</h4>
+        <p>$11,900 on completion and approval. Website goes live with DNS migration. First outreach emails start sending. Dashboard access handed over. Training session for CMS.</p>
+      </div>
     </div>
 
-    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a5);">
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;"><strong style="color:var(--t);">Important:</strong> Blogs help LLMs understand your offerings, but authority still comes from backlinks. We recommend continuing with your UK SEO company for link building — aim for +5 domain rating incremental improvements. Our blogs complement that work.</p>
+    <div style="margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+      <div style="flex:1;min-width:220px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.5rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;">To Start</div>
+        <div style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$5,100</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.3rem;">30% of $17,000</div>
+      </div>
+      <div style="flex:1;min-width:220px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.5rem;text-align:center;">
+        <div style="font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;">On Delivery</div>
+        <div style="font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">$11,900</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.3rem;">Remaining 70%</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 8 — WHY US + NEXT STEPS     -->
+<!-- 8 — NEXT STEPS              -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s8">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">07 — Why Jengu</div>
-    <h2>One Team,<br><span class="g3">Everything Built</span></h2>
+    <div class="tag">05 — What's Next</div>
+    <h2>Ready When<br><span class="g3">You Are</span></h2>
 
     <div class="grid3">
       <div class="card">
         <h3>You Own Everything</h3>
-        <p>No lock-in. The website, the bots, the code — it's yours. After what happened with CloudBets, you should never be handcuffed by a vendor again.</p>
+        <p>The website code, the outreach bot, the scraped data, the sending infrastructure. It's all yours. No subscriptions, no lock-in, no vendor dependency.</p>
       </div>
       <div class="card">
-        <h3>Bespoke, Not Off-the-Shelf</h3>
-        <p>Someone quoted you $10K for a generic ChatGPT bot that didn't fit. Every hotel is different. We build specifically for Ocean View Villas — your voice, your rules, your nuances.</p>
+        <h3>Both Projects in Parallel</h3>
+        <p>We build the website and the outreach bot at the same time. By week 6, both are live — your new site is converting traffic while travel agents are discovering you.</p>
       </div>
       <div class="card">
-        <h3>We Get Hospitality</h3>
-        <p>We work with hotels and campsites across Europe. We understand the balance between automation and the human touch that a $75K vacation demands.</p>
+        <h3>Phase 2 When You're Ready</h3>
+        <p>Social Authority Bot (Reddit/Quora), Email AI Assistant for your staff, blog automation, WhatsApp chatbot — all available as separate projects down the line.</p>
       </div>
     </div>
 
-    <!-- Timeline -->
-    <div style="margin-top:3rem;">
-      <div style="font-size:0.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--a3);margin-bottom:1.5rem;">What Happens Next</div>
-      <div class="tl">
-        <div class="tl-i">
-          <div class="wk">Step 1</div>
-          <h4>Pick what matters most</h4>
-          <p>You don't have to do everything at once. Choose the service that moves the needle first — most clients start with the Social Authority Bot or the website.</p>
-        </div>
-        <div class="tl-i">
-          <div class="wk">Step 2</div>
-          <h4>We send detailed pricing</h4>
-          <p>Separate quotes for each service. No bundled pressure. You pick what fits your budget and priorities.</p>
-        </div>
-        <div class="tl-i">
-          <div class="wk">Step 3</div>
-          <h4>Kick-off call with the team</h4>
-          <p>We'll involve Danny (our technical lead) for the AI components. Short call to nail down specifics — target keywords, brand voice, CMS requirements.</p>
-        </div>
-        <div class="tl-i">
-          <div class="wk">Step 4</div>
-          <h4>Build, launch, report</h4>
-          <p>Monthly reports on everything. Posts made, rankings, engagement, email response times. You see exactly what you're getting.</p>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(0,206,201,0.15);border-radius:14px;text-align:center;">
-      <p style="font-size:1.1rem;color:var(--t);font-weight:600;margin-bottom:0.5rem;">Ready to talk specifics?</p>
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;">Reply to the email this came with, or reach out directly.</p>
-      <div style="margin-top:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+    <div style="margin-top:2.5rem;padding:2rem;background:var(--card);border:1px solid rgba(0,206,201,0.15);border-radius:14px;text-align:center;">
+      <p style="font-size:1.2rem;color:var(--t);font-weight:700;margin-bottom:0.3rem;">$17,000 total</p>
+      <p style="font-size:0.95rem;color:var(--td);line-height:1.6;">Website redesign + email outreach bot. Both built, delivered, and owned by you.</p>
+      <p style="font-size:0.85rem;color:var(--td);margin-top:1rem;">Reply to this email or reach out directly to get started.</p>
+      <div style="margin-top:1.5rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
         <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:0.95rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
         <a href="https://www.hexcore.digital" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:0.95rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">hexcore.digital</a>
       </div>
