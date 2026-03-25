@@ -238,6 +238,24 @@
   .learn-more .arrow{transition:transform 0.3s;font-style:normal;}
   .learn-more:hover .arrow{transform:translateX(4px);}
 
+  /* ── Detail modal overlay ── */
+  .detail-overlay{
+    position:fixed;inset:0;z-index:10000;display:none;
+    background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);
+  }
+  .detail-overlay.open{display:block;}
+  .detail-overlay-close{
+    position:fixed;top:1.5rem;right:1.5rem;z-index:10001;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);
+    color:var(--t);font-size:0.8rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+    padding:0.6rem 1.2rem;border-radius:8px;cursor:pointer;transition:all 0.3s;
+    backdrop-filter:blur(10px);
+  }
+  .detail-overlay-close:hover{background:rgba(255,255,255,0.2);}
+  .detail-overlay iframe{
+    width:100%;height:100%;border:none;
+  }
+
   /* ════════════════════════════════════════ */
   /* DEMO HERO — WESS Website Concept        */
   /* ════════════════════════════════════════ */
@@ -447,6 +465,12 @@
 </head>
 <body>
 
+<!-- Detail overlay -->
+<div class="detail-overlay" id="detail-overlay">
+  <button class="detail-overlay-close" onclick="closeDetail()">Close</button>
+  <iframe id="detail-frame"></iframe>
+</div>
+
 <canvas id="p"></canvas>
 
 <nav>
@@ -498,7 +522,7 @@
   <div class="s-in">
     <div class="tag">From Our Conversation</div>
     <h2>What We<br><span class="g2">Took Away</span></h2>
-    <p class="sub">This is our understanding from the call. Some of it might not be exactly right, and that is fine. It is the starting point, not the finished picture. If we have got something wrong, tell us and we will adjust.</p>
+    <p class="sub">This is a large and complex project covering multiple properties, systems, and departments. Below is our understanding from the conversation. It forms the starting point for everything that follows, and further clarification on a number of areas will be essential as we move forward.</p>
 
     <div class="grid2" style="margin-top:2rem;">
       <div class="card">
@@ -528,7 +552,7 @@
     </div>
 
     <div style="margin-top:2rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a4);">
-      <p style="font-size:0.95rem;color:var(--td);line-height:1.7;">This proposal is based on what we heard. The discovery call will confirm, correct and fill in the detail. We would rather get it roughly right and refine it together than pretend we know more than we do.</p>
+      <p style="font-size:0.95rem;color:var(--td);line-height:1.7;">This proposal is based on our present understanding. We aim to confirm, correct, and fill in additional details in further discussions.</p>
     </div>
   </div>
 </section>
@@ -540,19 +564,21 @@
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-150px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">Step Zero</div>
-    <h2>A Quick Call.<br><span class="g1">A Clear Picture.</span></h2>
-    <p class="sub">Before we build anything, we need a short video call with the right people. Walk us through how bookings, rates and tour operator communications are going to work when you open. Show us the systems you are putting in place, and we will map the rest. Done remotely.</p>
+    <div class="tag">Discovery</div>
+    <h2>What We<br><span class="g1">Need to Know</span></h2>
+    <p class="sub">To scope and deliver this properly, we will need detailed information across a number of areas. Interviews with key staff members may be necessary to understand how each department is going to operate.</p>
 
     <div class="bullets" style="margin-top:2rem;">
-      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>How will tour operators reach you and where should that go next?</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Where will the rate live? Excel, Opera, something else?</div></div>
-      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Which systems need to talk to each other from the start?</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>How tour operators will communicate with you and how bookings, rates, and contracts will flow through the business</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Where the source of truth for pricing will live, whether that is Opera, a spreadsheet, or something else entirely</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Which systems need to be connected and what the data flows between departments should look like</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Purchasing workflows, supplier relationships, and how stock control will work across outlets</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div>Marriott compliance requirements and where they intersect with the WESS branded properties</div></div>
     </div>
 
-    <p style="margin-top:2rem;font-size:0.95rem;color:var(--td);line-height:1.7;">Once we know where the source of truth will be, we plug everything into it. Someone updates a rate at 9am, by 9:01 it is everywhere. That is what this call gives us, and the perfect time to get it right is before you open.</p>
+    <p style="margin-top:2rem;font-size:0.95rem;color:var(--td);line-height:1.7;">Once we have this picture, every system we build feeds from one source of truth. Someone updates a rate at 9am, by 9:01 it is everywhere.</p>
 
-    <p style="margin-top:1.5rem;font-size:0.88rem;color:var(--td);line-height:1.6;"><strong style="color:var(--t);">On site would be useful down the line</strong> to go deeper into how each department works. But it is not a blocker. We can start from a video call.</p>
+    <p style="margin-top:1.5rem;font-size:0.88rem;color:var(--td);line-height:1.6;">This can begin remotely, and if we move forward together, an on site visit to Mauritius would make sense to go deeper into the operation firsthand.</p>
   </div>
 </section>
 
@@ -562,9 +588,9 @@
 <section class="s" id="s2">
   <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
   <div class="s-in">
-    <div class="tag">Being Honest About Scope</div>
-    <h2>What We Can<br><span class="g2">Sort Out</span></h2>
-    <p class="sub">With everything opening in November, the timing is ideal. Some of these we can have ready before the doors open. Others need the discovery first. Here is the split.</p>
+    <div class="tag">Scope</div>
+    <h2>What We<br><span class="g2">Can Do</span></h2>
+    <p class="sub">With everything opening in November, the timing is ideal. Here is what we can deliver and how we would phase it.</p>
 
     <!-- CAN DO NOW -->
     <div style="margin-top:2.5rem;padding:2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;">
@@ -592,8 +618,8 @@
 
     <!-- CANNOT DO WITHOUT DISCOVERY -->
     <div style="margin-top:2rem;padding:2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;">
-      <div class="emph emph-core" style="margin-bottom:1rem;">We cannot do these properly without the discovery</div>
-      <p style="font-size:0.9rem;color:var(--td);margin-bottom:1.2rem;">These connect into the core of how your business runs. The way data flows between your departments, your rate structures, your approval chains, that is all specific to WESS. We are not going to guess at it.</p>
+      <div class="emph emph-core" style="margin-bottom:1rem;">Functions that will require additional discovery</div>
+      <p style="font-size:0.9rem;color:var(--td);margin-bottom:1.2rem;">These integrate into the core of your operation. To deliver them properly we will need to understand the specific data flows, rate structures, and approval chains across WESS.</p>
       <div class="grid2" style="margin-top:0;">
         <div class="card" style="border-color:rgba(108,92,231,0.15);">
           <h3>Opera to Sage Integration</h3>
@@ -659,7 +685,7 @@
       </div>
     </div>
 
-    <a href="detail-email-agent.html" class="learn-more">Full breakdown of the Email Agent <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-email-agent.html');return false;" class="learn-more">Full breakdown of the Email Agent <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -700,7 +726,7 @@
       <div class="attr">— Peter Edler</div>
     </div>
 
-    <a href="detail-opera-sage.html" class="learn-more">Full breakdown of Opera → Sage <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-opera-sage.html');return false;" class="learn-more">Full breakdown of Opera to Sage <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -740,7 +766,7 @@
       </div>
     </div>
 
-    <a href="detail-channel-manager.html" class="learn-more">Full breakdown of the Channel Manager <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-channel-manager.html');return false;" class="learn-more">Full breakdown of the Channel Manager <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -752,7 +778,7 @@
   <div class="s-in">
     <div class="emph emph-hot">Urgent Gap</div>
     <div class="tag">04. Purchasing &amp; Inventory</div>
-    <h2>Purchasing<br><span class="g2">Sorted From Day One</span></h2>
+    <h2>Purchasing<br><span class="g2">Optimised From Day One</span></h2>
     <p class="sub">Material Control is being phased out and Oracle has not launched the replacement. Rather than starting with a system that is already on its way out, or relying on a Thailand based server with no 24/7 support, you can open with something modern and properly maintained.</p>
 
     <div class="grid2">
@@ -771,7 +797,7 @@
       <div class="attr">— Peter Edler</div>
     </div>
 
-    <a href="detail-purchasing.html" class="learn-more">Full breakdown of Purchasing &amp; Inventory <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-purchasing.html');return false;" class="learn-more">Full breakdown of Purchasing and Inventory <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -805,7 +831,7 @@
       <div class="attr">— Peter Edler</div>
     </div>
 
-    <a href="detail-website.html" class="learn-more">Full breakdown of the Website <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-website.html');return false;" class="learn-more">Full breakdown of the Website <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -902,7 +928,7 @@
       <div class="attr">— Peter Edler</div>
     </div>
 
-    <a href="detail-dynamic-pricing.html" class="learn-more">Full breakdown of Dynamic Pricing <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-dynamic-pricing.html');return false;" class="learn-more">Full breakdown of Dynamic Pricing <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -936,7 +962,7 @@
       <div class="attr">— Peter Edler</div>
     </div>
 
-    <a href="detail-dashboard.html" class="learn-more">Full breakdown of the Dashboard <span class="arrow">→</span></a>
+    <a href="#" onclick="openDetail('detail-dashboard.html');return false;" class="learn-more">Full breakdown of the Dashboard <span class="arrow">→</span></a>
   </div>
 </section>
 
@@ -1310,7 +1336,24 @@ ds.forEach(d=>d.addEventListener('click',e=>{e.preventDefault();document.querySe
 
 // Keyboard
 let cs=0;
-addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();cs=Math.min(cs+1,ss.length-1);ss[cs].scrollIntoView({behavior:'smooth'});}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cs=Math.max(cs-1,0);ss[cs].scrollIntoView({behavior:'smooth'});}});
+addEventListener('keydown',e=>{if(document.getElementById('detail-overlay').classList.contains('open')){if(e.key==='Escape')closeDetail();return;}if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();cs=Math.min(cs+1,ss.length-1);ss[cs].scrollIntoView({behavior:'smooth'});}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cs=Math.max(cs-1,0);ss[cs].scrollIntoView({behavior:'smooth'});}});
+
+// Detail overlay
+function openDetail(url){
+  const overlay=document.getElementById('detail-overlay');
+  const frame=document.getElementById('detail-frame');
+  frame.src=url;
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeDetail(){
+  const overlay=document.getElementById('detail-overlay');
+  const frame=document.getElementById('detail-frame');
+  overlay.classList.remove('open');
+  frame.src='';
+  document.body.style.overflow='';
+}
+document.getElementById('detail-overlay').addEventListener('click',e=>{if(e.target===e.currentTarget)closeDetail();});
 </script>
 </body>
 </html>
