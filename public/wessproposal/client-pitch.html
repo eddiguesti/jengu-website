@@ -205,6 +205,28 @@
   }
   .example-block p{font-size:0.92rem;color:var(--td);line-height:1.6;}
 
+  /* ── Pricing table ── */
+  .price-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:1.5rem;font-size:0.85rem;}
+  .price-table th{
+    text-align:left;padding:0.8rem 1rem;font-size:0.6rem;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;color:var(--td);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .price-table th:last-child{color:var(--a3);}
+  .price-table td{padding:0.7rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--td);vertical-align:top;}
+  .price-table td:first-child{color:var(--t);font-weight:600;}
+  .price-table td:last-child{color:var(--a3);font-weight:700;}
+  .price-table tr:hover td{background:rgba(255,255,255,0.02);}
+  .price-table .section-row td{
+    padding-top:1.5rem;font-size:0.6rem;font-weight:700;letter-spacing:2px;
+    text-transform:uppercase;color:var(--a1);border-bottom:none;
+  }
+  .price-note{font-size:0.8rem;color:var(--td);line-height:1.6;margin-top:0.6rem;}
+  @media(max-width:768px){
+    .price-table{font-size:0.75rem;}
+    .price-table th,.price-table td{padding:0.5rem 0.5rem;}
+  }
+
   /* ── Learn More link ── */
   .learn-more{
     display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.5rem;
@@ -447,6 +469,7 @@
     <a href="#s-infra"></a>
     <a href="#s-support"></a>
     <a href="#s-partner"></a>
+    <a href="#s-pricing"></a>
     <a href="#s-cta"></a>
   </div>
 </nav>
@@ -561,8 +584,8 @@
           <p>Room service, spa bookings, restaurant reservations, local experiences. All from the guest's phone. This sits on top of your operation, it does not depend on back office workflows.</p>
         </div>
         <div class="card" style="border-color:rgba(0,206,201,0.15);">
-          <h3>WhatsApp, QR Ordering, Digital Key</h3>
-          <p>Guest facing tools that work on their own. Pre arrival messaging, scan to order menus, mobile room keys. Each one is standalone and can be deployed quickly.</p>
+          <h3>WhatsApp and QR Ordering</h3>
+          <p>Guest facing tools that work on their own. Pre arrival messaging, scan to order menus. Each one is standalone and can be deployed quickly.</p>
         </div>
       </div>
     </div>
@@ -934,10 +957,6 @@
         <p>A modern guest app: room service ordering, spa bookings, restaurant reservations, local experiences, all from the guest's phone. No hardware to install, works across all properties.</p>
       </div>
       <div class="card">
-        <h3>Smart Room &amp; Digital Key</h3>
-        <p>The card system for the doors "was not linked to an app, you could not open the doors with an app." We can integrate mobile key, smart room controls, and guest preferences, all connected to Opera guest profiles.</p>
-      </div>
-      <div class="card">
         <h3>Villa Management Platform</h3>
         <p>The villa business is growing faster than the hotel side. It needs its own tooling. Owner reporting, maintenance scheduling, availability management, and a guest portal. Different beast to hotel ops, needs purpose-built software.</p>
       </div>
@@ -996,7 +1015,6 @@
           <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Guest App</strong>, room service, spa, dining, experiences</div></div>
           <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>WhatsApp Messaging</strong>, pre-arrival, in-stay, post-stay</div></div>
           <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>F&amp;B QR Ordering</strong>, scan, order, hits Symphony POS</div></div>
-          <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Digital Key and Smart Room</strong>, mobile access, controls</div></div>
           <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Staff Training Platform</strong>, SOPs, onboarding, video guides</div></div>
         </div>
       </div>
@@ -1138,6 +1156,194 @@
         <h3>We Work in the Real World</h3>
         <p>Tour operators who only use email. Marriott brand standards. A team that is coming on board fresh and needs to learn good practice from the start. We build for the situation you are actually walking into.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- PRICING                     -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s-pricing">
+  <div class="orb" style="width:600px;height:600px;background:var(--a5);top:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
+  <div class="s-in">
+    <div class="tag">Investment</div>
+    <h2>What This<br><span class="g4">Typically Costs</span></h2>
+    <p class="sub">We have researched what agencies and SaaS vendors typically charge for each of these services. Our prices are listed alongside so you can see where we sit. All figures in GBP.</p>
+
+    <table class="price-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Typical Market Range (Setup)</th>
+          <th>Typical Monthly</th>
+          <th>Our Price (Setup)</th>
+          <th>Our Monthly</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-row"><td colspan="5">Ready Before November</td></tr>
+        <tr>
+          <td>Tour Operator Email Agent</td>
+          <td>25k to 65k</td>
+          <td>1.5k to 4k</td>
+          <td>18k</td>
+          <td>1.2k</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Custom built. No off the shelf product does this. The cost covers Opera integration, email classification AI, rate version tracking, and ongoing LLM usage. Most agencies charge 25k minimum because the Opera API work alone is 8k to 15k.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Website</td>
+          <td>15k to 45k</td>
+          <td>500 to 2k</td>
+          <td>10k</td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Multi-property site on Webflow. Hotels, villas, beach properties. Connected to your booking engine. Monthly covers Webflow hosting and minor content updates. Photography and copywriting quoted separately if needed.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Guest App / Digital Concierge</td>
+          <td>10k to 25k</td>
+          <td>300 to 1.5k per property</td>
+          <td>8k</td>
+          <td>250 per property</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Existing platform (DUVE, Criton or similar), configured and branded for WESS. Room service, spa, restaurant, experiences. The setup cost covers configuration, Opera integration, content loading, and multi-property rollout. Comparable SaaS platforms charge 300 to 800 per property per month.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>WhatsApp Guest Messaging</td>
+          <td>5k to 15k</td>
+          <td>300 to 1.3k per property</td>
+          <td>4k</td>
+          <td>250 per property</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Platform like HiJiffy or Bookboost configured for your properties. Pre-arrival, in-stay, post-stay messaging triggered from Opera reservations. WhatsApp API costs (roughly 0.04 to 0.11 EUR per conversation) are on top, typically 100 to 500 per month depending on volume.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>QR Code F&amp;B Ordering</td>
+          <td>3k to 12k</td>
+          <td>150 to 600 per outlet</td>
+          <td>2.5k</td>
+          <td>120 per outlet</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Platform like Sunday or Cheqout connected to Symphony POS. Each outlet needs its own menu, pricing, and POS mapping. The main cost driver is the Symphony integration, making sure orders land in the right revenue centre with correct items and tax.</p>
+          </td>
+        </tr>
+
+        <tr class="section-row"><td colspan="5">After the Discovery</td></tr>
+        <tr>
+          <td>Opera to Sage Integration</td>
+          <td>15k to 35k</td>
+          <td>800 to 2k</td>
+          <td>12k</td>
+          <td>650</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Custom connector. The cost depends heavily on which Sage version you run and whether Opera is cloud or on-premise. Chart of accounts mapping, night audit posting, rate reconciliation. Monthly covers hosting, monitoring, and handling failures. OctopusBI charges 500 to 1k per month for a similar but less tailored service.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Channel Manager Setup</td>
+          <td>3k to 10k</td>
+          <td>500 to 1.5k support</td>
+          <td>2.5k</td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">We configure an existing channel manager (SiteMinder, D-Edge or similar) and connect it to Opera. Rate mapping, room type mapping, restriction handling, testing. The channel manager itself is a separate SaaS cost, typically 200 to 800 per property per month paid directly to the vendor.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Purchasing and Inventory</td>
+          <td>15k to 40k</td>
+          <td>500 to 2k per property</td>
+          <td>12k</td>
+          <td>400 per property</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Existing platform (Procure Wizard, MarketMan or similar) configured for your outlets. Purchase orders, supplier management, stock levels, approval workflows. The setup covers data migration, supplier catalogue loading, and multi-outlet configuration. Comparable products charge 400 to 800 per property per month.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Central Dashboard</td>
+          <td>8k to 30k</td>
+          <td>500 to 2k</td>
+          <td>6k</td>
+          <td>400</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">The cost depends on how many data sources need connecting (Opera, Sage, POS, channel manager) and whether we build in Notion, Power BI, or a custom web app. Notion is cheapest and fastest. A custom web app gives the most flexibility but costs more to maintain. Comparable hospitality BI products (OctopusBI, HotelIQ) charge 300 to 1k per property per month.</p>
+          </td>
+        </tr>
+        <tr>
+          <td>Dynamic Pricing</td>
+          <td>5k to 15k</td>
+          <td>500 to 2.5k per property</td>
+          <td>4k</td>
+          <td>400 per property</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Existing product (RoomPriceGenie from 300/mo, Atomize from 500/mo, or Duetto/IDeaS for enterprise at 1.5k to 4k/mo). We handle selection, configuration, Opera integration, rate strategy setup, and staff training. Our monthly covers ongoing support and optimisation. The RMS SaaS fee is separate, paid to the vendor.</p>
+          </td>
+        </tr>
+
+        <tr class="section-row"><td colspan="5">Add-ons</td></tr>
+        <tr>
+          <td>Staff Training / SOP Platform</td>
+          <td>5k to 15k</td>
+          <td>3 to 10 per user per month</td>
+          <td>4k</td>
+          <td>SaaS direct (3 to 6 per user)</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Platform like Typsy or innform configured for your departments. Setup covers platform configuration, template creation, and initial SOP structure. Content creation (writing procedures, filming videos) is quoted separately. Hospitality LMS platforms charge 3 to 10 per user per month.</p>
+          </td>
+        </tr>
+
+        <tr class="section-row"><td colspan="5">Starting Point</td></tr>
+        <tr>
+          <td>Process Discovery</td>
+          <td>8k to 25k</td>
+          <td>One-off</td>
+          <td>5k</td>
+          <td>One-off</td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <p class="price-note">Remote video calls with key people from each department. We map how bookings, rates, purchasing and finance are going to work. Delivered as process maps and a prioritised roadmap. Most consultancies charge 800 to 1,500 per day for a senior hospitality tech consultant. We are pricing this to get started, not to make a margin on discovery.</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
+      <p style="font-size:0.95rem;color:var(--t);font-weight:600;margin-bottom:0.5rem;">These are not final prices.</p>
+      <p style="font-size:0.88rem;color:var(--td);line-height:1.6;">The exact scope and cost for each item depends on what comes out of the discovery. We have priced these based on what we know from the conversation. Some will come in lower, some may need adjusting once we understand the detail. Nothing is committed until we have scoped it together.</p>
+    </div>
+
+    <div style="margin-top:1.5rem;padding:1.5rem 2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;">
+      <p style="font-size:0.95rem;color:var(--t);font-weight:600;margin-bottom:0.5rem;">You do not have to take everything.</p>
+      <p style="font-size:0.88rem;color:var(--td);line-height:1.6;">Every item on this list is independent. Start with the discovery and the email agent if that is what makes sense. Add the website. Add the integrations later. There is no minimum package and no pressure to commit to the full programme.</p>
     </div>
   </div>
 </section>
