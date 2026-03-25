@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Central Operations Dashboard — WESS × Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--bg:#0a0a0f;--card:#12121a;--a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;--t:#ededf4;--td:#a0a0b8;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;padding:0;}
+  .back{position:fixed;top:2rem;left:2rem;z-index:100;color:var(--a3);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(10,10,15,0.8);backdrop-filter:blur(10px);border:1px solid rgba(0,206,201,0.2);border-radius:8px;transition:all 0.3s;}
+  .back:hover{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.4);}
+  .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:6rem 3rem 3rem;position:relative;overflow:hidden;}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+  .hero-in{max-width:900px;width:100%;position:relative;z-index:1;}
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1rem;}
+  h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+  h3{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g4{background:linear-gradient(135deg,var(--a5),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.1rem;color:var(--td);max-width:650px;line-height:1.7;}
+  .content{max-width:900px;margin:0 auto;padding:2rem 3rem 6rem;}
+  .section{margin-bottom:4rem;}
+  .section-title{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a1);margin-bottom:1.5rem;}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.8rem;margin-bottom:1.2rem;}
+  .card h3{color:var(--t);}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+  .flow{display:flex;align-items:center;gap:0.7rem;margin:1.5rem 0;flex-wrap:wrap;}
+  .flow-s{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1.2rem;font-size:0.85rem;font-weight:600;}
+  .flow-a{color:var(--a1);font-size:1.1rem;}
+  .bullet{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;font-size:0.95rem;line-height:1.5;color:var(--t);}
+  .bullet .dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);}
+  .quote-block{margin-top:2rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a1);}
+  .quote-block p{font-size:0.95rem;color:var(--td);line-height:1.6;}
+  .quote-block .attr{font-size:0.75rem;color:var(--a2);margin-top:0.6rem;font-weight:600;}
+  .highlight-box{padding:1.5rem 2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;margin:1.5rem 0;}
+  .highlight-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .needs-map{padding:1.5rem 2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;margin:1.5rem 0;}
+  .needs-map h4{font-size:0.9rem;color:var(--a2);margin-bottom:0.5rem;}
+  .needs-map p{font-size:0.85rem;color:var(--td);line-height:1.5;}
+  .vision-box{padding:1.5rem 2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;margin:1.5rem 0;}
+  .vision-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  @media(max-width:768px){.hero{padding:5rem 1.5rem 2rem;}.content{padding:2rem 1.5rem 4rem;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+</style>
+</head>
+<body>
+
+<a href="client-pitch.html" class="back">← Back to Proposal</a>
+
+<div class="hero">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);bottom:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);top:-100px;right:-100px;"></div>
+  <div class="hero-in">
+    <div class="tag">07 — Deep Dive</div>
+    <h1>Central Operations<br><span class="g1">Dashboard</span></h1>
+    <p class="sub">One unified view of the entire WESS group. Live occupancy, revenue by channel, rate parity status, outstanding communications, purchasing alerts — all in one place. The product that makes a centralised head office possible.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- PETER'S VISION -->
+  <div class="section">
+    <div class="section-title">Peter's Vision</div>
+    <h2>Centralised Head Office. <span class="g1">One View.</span></h2>
+
+    <div class="vision-box">
+      <p><strong style="color:var(--a2);">The goal:</strong> Peter is building a centralised head office to manage the growing WESS portfolio. His whole objective is one unified view of the business — not logging into five different systems, not waiting for property managers to email reports, not piecing together the picture from fragmented data. One screen, every number that matters, updated in real time.</p>
+    </div>
+
+    <div class="card">
+      <h3>From Fragmentation to Clarity</h3>
+      <p>Today, understanding the state of the business requires checking Opera for occupancy, Sage for financials, email for TO communications, Material Control for purchasing, and spreadsheets for everything else. The dashboard consolidates all of this into a single, live view — pulling data from every system into one interface.</p>
+    </div>
+  </div>
+
+  <!-- WHAT IT SHOWS -->
+  <div class="section">
+    <div class="section-title">What It Shows</div>
+    <h2>Everything That <span class="g3">Matters</span></h2>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>Live Occupancy</h3>
+        <p>Real-time occupancy across all WESS properties. Today's occupancy, this week's forecast, next month's projection. Colour-coded by performance against target. At a glance, you know which properties need attention.</p>
+      </div>
+      <div class="card">
+        <h3>Bookings by Channel</h3>
+        <p>How many bookings came through Booking.com vs Expedia vs direct vs tour operators this week? This month? This quarter? See channel mix shifting in real time and spot trends early.</p>
+      </div>
+      <div class="card">
+        <h3>Rate Parity Status</h3>
+        <p>Are your rates the same across all channels right now? The dashboard shows parity status at a glance — green for matched, red for violations. Click through to see which channel is off and by how much.</p>
+      </div>
+      <div class="card">
+        <h3>TO Communications</h3>
+        <p>Outstanding tour operator emails awaiting response. How many are in queue? How long has the oldest been waiting? Which need human review? The email agent's status at a glance.</p>
+      </div>
+      <div class="card">
+        <h3>Purchasing Status</h3>
+        <p>Open purchase orders, pending approvals, delivery exceptions, and stock alerts across all properties. The head office sees every outlet's purchasing activity without logging into the purchasing system.</p>
+      </div>
+      <div class="card">
+        <h3>Revenue by Outlet</h3>
+        <p>How is each restaurant, bar, spa, and rooms division performing? Daily revenue by outlet, compared to budget and last year. F&B performance at a glance across the entire portfolio.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MORNING BRIEFING -->
+  <div class="section">
+    <div class="section-title">Morning Briefing Automation</div>
+    <h2>9am. <span class="g4">Your Day, Automated.</span></h2>
+
+    <div class="card">
+      <h3>Peter's Notion, but for the Whole Group</h3>
+      <p>Peter already has a Notion setup that tells him his day at 9 o'clock in the morning. We build a proper version of this for the entire WESS operation. At 9am, the dashboard compiles an automated morning briefing: yesterday's occupancy and revenue across all properties, today's arrivals and VIP guests, outstanding items requiring attention, purchasing approvals waiting, and TO emails that need human review. Delivered to Notion, email, or the dashboard itself — Peter's choice.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-s">Data collected overnight</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Briefing compiled at 9am</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Delivered to Notion / email</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Action items highlighted</div>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Yesterday's performance</strong> — Occupancy, revenue, and ADR for each property. How did yesterday compare to forecast? To last year?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Today's operations</strong> — Arrivals, departures, VIPs, special requests. Which properties are at capacity? Which have last-minute availability?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Action items</strong> — Purchase orders awaiting approval. Tour operator emails needing human review. Rate parity violations. Anything that needs Peter's attention, surfaced automatically.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Week ahead</strong> — Occupancy forecast for the next 7 days. Upcoming group arrivals. Scheduled maintenance. Anything that affects operations.</div></div>
+  </div>
+
+  <!-- BUILT IN NOTION OR STANDALONE -->
+  <div class="section">
+    <div class="section-title">Platform Options</div>
+    <h2>Notion or <span class="g1">Standalone</span></h2>
+
+    <div class="grid2">
+      <div class="card" style="border-color:rgba(108,92,231,0.2);">
+        <h3>Option A: Built into Notion</h3>
+        <p>Peter already lives in Notion. We can build the dashboard and morning briefing directly within his existing Notion workspace — using Notion databases, automated pages, and API integrations. The advantage: zero new tools to learn. The data flows into where Peter already works.</p>
+      </div>
+      <div class="card" style="border-color:rgba(0,206,201,0.2);">
+        <h3>Option B: Standalone Web App</h3>
+        <p>A purpose-built dashboard application accessible from any browser. More visual flexibility — live charts, interactive maps, drill-down analytics. Shareable with the wider team without needing Notion access. Can still push the morning briefing to Notion.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong style="color:var(--a3);">Our recommendation:</strong> Start with Notion integration for the morning briefing (fast to deliver, Peter already uses it) and build the standalone dashboard in parallel. Peter gets immediate value from the briefing while the full dashboard takes shape. Both can coexist — Notion for Peter's daily workflow, standalone for the operations team and GMs.</p>
+    </div>
+  </div>
+
+  <!-- WHAT WE NEED -->
+  <div class="section">
+    <div class="section-title">What We Need from the Process Map</div>
+    <h2>To Build the <span class="g3">Right Dashboard</span></h2>
+
+    <div class="needs-map">
+      <h4>Process Map Required</h4>
+      <p>A dashboard is only as good as the data it shows and the decisions it enables. We need to understand what Peter and the team actually need to see to run the business effectively.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>What KPIs matter?</strong> — Occupancy, ADR, RevPAR, GOP — which metrics does Peter look at first? What does the board report require? What do the GMs need?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>What data sources exist?</strong> — Opera, Sage, Symphony POS, the purchasing system, the channel manager — which systems hold the data? How is it currently accessed?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>What decisions are made from this data?</strong> — Understanding what actions follow from the numbers helps us prioritise what's on the dashboard vs. what's a drill-down report.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Who else needs access?</strong> — Is this Peter-only? Does each GM need a property-specific view? Does the finance team need their own slice? The access model determines the architecture.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Peter's current Notion setup</strong> — What does the existing Notion morning briefing look like? What does he like about it? What's missing? We build on what works.</div></div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <p><strong style="color:var(--t);">"9 o'clock in the morning, my Notion is telling me PETER today..."</strong> — Imagine that, but for every property, every department, every number that matters. Built into Notion or as a standalone web app.</p>
+    <div class="attr">— Peter Edler</div>
+  </div>
+
+</div>
+
+</body>
+</html>

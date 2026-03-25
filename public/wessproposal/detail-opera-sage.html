@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opera to Sage Integration — WESS × Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--bg:#0a0a0f;--card:#12121a;--a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;--t:#ededf4;--td:#a0a0b8;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;padding:0;}
+  .back{position:fixed;top:2rem;left:2rem;z-index:100;color:var(--a3);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(10,10,15,0.8);backdrop-filter:blur(10px);border:1px solid rgba(0,206,201,0.2);border-radius:8px;transition:all 0.3s;}
+  .back:hover{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.4);}
+  .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:6rem 3rem 3rem;position:relative;overflow:hidden;}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+  .hero-in{max-width:900px;width:100%;position:relative;z-index:1;}
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1rem;}
+  h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+  h3{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g4{background:linear-gradient(135deg,var(--a5),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.1rem;color:var(--td);max-width:650px;line-height:1.7;}
+  .content{max-width:900px;margin:0 auto;padding:2rem 3rem 6rem;}
+  .section{margin-bottom:4rem;}
+  .section-title{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a1);margin-bottom:1.5rem;}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.8rem;margin-bottom:1.2rem;}
+  .card h3{color:var(--t);}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+  .flow{display:flex;align-items:center;gap:0.7rem;margin:1.5rem 0;flex-wrap:wrap;}
+  .flow-s{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1.2rem;font-size:0.85rem;font-weight:600;}
+  .flow-a{color:var(--a1);font-size:1.1rem;}
+  .bullet{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;font-size:0.95rem;line-height:1.5;color:var(--t);}
+  .bullet .dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);}
+  .quote-block{margin-top:2rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a1);}
+  .quote-block p{font-size:0.95rem;color:var(--td);line-height:1.6;}
+  .quote-block .attr{font-size:0.75rem;color:var(--a2);margin-top:0.6rem;font-weight:600;}
+  .highlight-box{padding:1.5rem 2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;margin:1.5rem 0;}
+  .highlight-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .needs-map{padding:1.5rem 2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;margin:1.5rem 0;}
+  .needs-map h4{font-size:0.9rem;color:var(--a2);margin-bottom:0.5rem;}
+  .needs-map p{font-size:0.85rem;color:var(--td);line-height:1.5;}
+  .problem-box{padding:1.5rem 2rem;background:rgba(253,121,168,0.05);border:1px solid rgba(253,121,168,0.15);border-radius:14px;margin:1.5rem 0;}
+  .problem-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  @media(max-width:768px){.hero{padding:5rem 1.5rem 2rem;}.content{padding:2rem 1.5rem 4rem;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+</style>
+</head>
+<body>
+
+<a href="client-pitch.html" class="back">← Back to Proposal</a>
+
+<div class="hero">
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);bottom:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);top:-100px;right:-100px;"></div>
+  <div class="hero-in">
+    <div class="tag">02 — Deep Dive</div>
+    <h1>Opera to Sage<br><span class="g3">Integration</span></h1>
+    <p class="sub">The connector that eliminates manual data entry between your property management system and your accounting software. Bookings flow from Opera to Sage automatically — no printing, no retyping, no errors.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- THE PROBLEM TODAY -->
+  <div class="section">
+    <div class="section-title">The Problem Today</div>
+    <h2>Where the <span class="g2">Errors Start</span></h2>
+
+    <div class="problem-box">
+      <p><strong style="color:var(--a4);">The current workflow:</strong> A booking arrives by email. Someone prints it out. Someone else types it into Sage by hand. Every manual step is an opportunity for errors — wrong room category, wrong date, wrong rate, wrong guest name. These compound through month-end, and the finance team spends days reconciling.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-s" style="border-color:rgba(253,121,168,0.3);">Booking email arrives</div>
+      <div class="flow-a" style="color:var(--a4);">→</div>
+      <div class="flow-s" style="border-color:rgba(253,121,168,0.3);">Printed out</div>
+      <div class="flow-a" style="color:var(--a4);">→</div>
+      <div class="flow-s" style="border-color:rgba(253,121,168,0.3);">Typed into Sage manually</div>
+      <div class="flow-a" style="color:var(--a4);">→</div>
+      <div class="flow-s" style="border-color:rgba(253,121,168,0.3);">Errors accumulate</div>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Industry data shows multi-property groups spend <strong>$15,000-30,000/month</strong> in unnecessary labour on manual PMS-to-accounting reconciliation</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Manual entry error rates in hospitality accounting typically run at <strong>2-5%</strong> of all transactions — each error takes 15-30 minutes to resolve</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Month-end close for multi-property groups without automation averages <strong>5-7 working days</strong> — with automation, it drops to 1-2 days</div></div>
+  </div>
+
+  <!-- HOW THE CONNECTOR WORKS -->
+  <div class="section">
+    <div class="section-title">How the Connector Works</div>
+    <h2>The Automated <span class="g3">Pipeline</span></h2>
+
+    <div class="flow">
+      <div class="flow-s">Booking confirmed in Opera</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Connector reads booking data</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Maps to Sage chart of accounts</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Creates invoice automatically</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Reconciliation runs</div>
+    </div>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <h3>Data Extraction</h3>
+        <p>The connector monitors Opera for confirmed bookings and extracts the complete data set: guest details, room type, rate code, dates, supplements, meal plans, and any special billing instructions.</p>
+      </div>
+      <div class="card">
+        <h3>Account Mapping</h3>
+        <p>Each Opera data field maps to the correct Sage account code. Room revenue goes to the right category. Meal plans split correctly. Taxes calculate automatically. The mapping is configured once during setup and maintained centrally.</p>
+      </div>
+      <div class="card">
+        <h3>Invoice Generation</h3>
+        <p>Sage invoices are created automatically with all the correct line items, dates, and amounts. No human touches the data between Opera and Sage. The invoice is ready for review — not for retyping.</p>
+      </div>
+      <div class="card">
+        <h3>Continuous Reconciliation</h3>
+        <p>The connector doesn't just create invoices — it continuously reconciles. If a rate changes in Opera after the invoice was created, the system flags it. If a booking is modified or cancelled, Sage updates automatically.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT GETS AUTOMATED -->
+  <div class="section">
+    <div class="section-title">What Gets Automated</div>
+    <h2>End to End, <span class="g1">Hands-Free</span></h2>
+
+    <div class="bullet"><div class="dot"></div><div><strong>Invoice Creation</strong> — Every confirmed booking generates a corresponding Sage invoice with correct account codes, amounts, and dates. No manual entry.</div></div>
+    <div class="bullet"><div class="dot"></div><div><strong>Rate Reconciliation</strong> — The connector cross-checks the rate the tour operator invoiced against the rate in Opera. Mismatches are flagged before they hit the finance department.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Payment Matching</strong> — When payments arrive, the system matches them against outstanding invoices. Partial payments, overpayments, and short-pays are all tracked and flagged.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Night Audit Posting</strong> — End-of-day postings from Opera flow into Sage automatically. Room revenue, F&B charges, sundries — everything posts to the correct account without manual intervention.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Multi-Property Consolidation</strong> — Data from all WESS properties flows into a single Sage instance, giving the head office a consolidated financial view without waiting for individual property reports.</div></div>
+  </div>
+
+  <!-- ERROR PREVENTION -->
+  <div class="section">
+    <div class="section-title">Error Prevention</div>
+    <h2>Catches Problems <span class="g4">Before Finance</span></h2>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Category Mismatch Detection</h3>
+        <p>If a booking comes in as "Superior Sea View" but the rate code maps to "Standard Garden" — the connector flags it. These mismatches are the ones that cause the most painful reconciliation issues at month-end.</p>
+      </div>
+      <div class="card">
+        <h3>Date Validation</h3>
+        <p>Check-in and check-out dates in the booking are validated against the invoice period. Catches the common error where a booking spans two billing periods but is invoiced to only one.</p>
+      </div>
+      <div class="card">
+        <h3>Rate Discrepancy Alerts</h3>
+        <p>When the tour operator's price doesn't match Opera's contracted rate for that operator, the system raises an alert immediately — not at month-end. Resolution happens in real time.</p>
+      </div>
+      <div class="card">
+        <h3>Duplicate Prevention</h3>
+        <p>The connector tracks every transaction by unique ID. If the same booking is processed twice (a common manual entry error), the system catches it before a duplicate invoice is created in Sage.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT WE NEED -->
+  <div class="section">
+    <div class="section-title">What We Need from the Process Map</div>
+    <h2>This Needs Your <span class="g1">Accounting Workflow</span></h2>
+
+    <div class="needs-map">
+      <h4>Process Map Required</h4>
+      <p>This is one of the components we cannot build without understanding the specific accounting workflow at WESS. The process mapping phase is essential here — we need to see exactly how data moves from Opera to Sage today before we can automate it.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Which Sage version?</strong> — Sage 50, Sage 200, Sage X3? The connector architecture depends on the specific version and its API capabilities.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Chart of accounts structure</strong> — How is the chart of accounts organised? By property, by department, by revenue type? The mapping layer needs to match your existing structure.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Night audit process</strong> — What happens at end-of-day? What reports are generated? What data gets posted where? This determines the nightly sync logic.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Multi-property handling</strong> — How are the different WESS properties represented in Sage? Separate companies? Departments within one company? Cost centres?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Current pain points</strong> — Where specifically do errors happen most? Which reconciliation tasks take the longest? This helps us prioritise what to automate first.</div></div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <p><strong style="color:var(--t);">"The booking is coming in by mail. Then I print it out, and I put it in... like we had it in my whole hotel group, and then we put it by hand in again."</strong> — This is the step we eliminate entirely.</p>
+    <div class="attr">— Peter Edler</div>
+  </div>
+
+</div>
+
+</body>
+</html>

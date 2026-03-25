@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jengu × Hyvec Group</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#08080c;--cyan:#06B6D4;--indigo:#6366f1;--w:#fff;--g300:#d1d5db;--g400:#9ca3af;--g500:#6b7280;--g600:#4b5563;--grad:linear-gradient(135deg,#22d3ee,#818cf8)}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--g300);overflow:hidden;height:100vh;-webkit-font-smoothing:antialiased}
+    .orb{position:fixed;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:0}
+    .o1{width:800px;height:800px;background:rgba(6,182,212,.07);top:-300px;right:-250px}
+    .o2{width:500px;height:500px;background:rgba(99,102,241,.06);bottom:-200px;left:-150px}
+
+    .slides{position:relative;width:100vw;height:100vh;z-index:2}
+    .s{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:100px 80px;opacity:0;transition:opacity .6s ease,transform .6s ease;pointer-events:none;transform:translateY(8px)}
+    .s.on{opacity:1;transform:translateY(0);pointer-events:all;z-index:1}
+
+    h1{font-size:clamp(2.8rem,5vw,4.5rem);font-weight:800;line-height:1.05;color:var(--w);letter-spacing:-.04em;text-align:center;max-width:800px}
+    h2{font-size:clamp(2rem,3.5vw,3rem);font-weight:700;line-height:1.08;color:var(--w);letter-spacing:-.035em;text-align:center;max-width:720px}
+    .g{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .sub{font-size:clamp(.95rem,1.2vw,1.1rem);color:var(--g400);text-align:center;max-width:520px;line-height:1.75;margin-top:20px}
+    .pill{font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--g500);margin-bottom:24px}
+
+    .grid{display:grid;gap:16px;margin-top:40px;width:100%;max-width:900px}
+    .g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+    .c{border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:28px 24px;background:#0f1018;transition:border-color .3s ease}
+    .c:hover{border-color:rgba(255,255,255,.16)}
+    .c h3{font-size:1rem;font-weight:600;color:var(--w);margin-bottom:8px}
+    .c p{font-size:.85rem;color:var(--g500);line-height:1.6}
+    .c-i{font-size:1.6rem;margin-bottom:14px;display:block}
+
+    .stats{display:flex;margin-top:48px;justify-content:center}
+    .st{text-align:center;padding:0 40px;position:relative}
+    .st:not(:last-child)::after{content:'';position:absolute;right:0;top:15%;bottom:15%;width:1px;background:rgba(255,255,255,.05)}
+    .st-v{font-size:3rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;letter-spacing:-.03em}
+    .st-l{font-size:.68rem;color:var(--g500);margin-top:8px;text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+
+    .wfs{display:flex;flex-direction:column;gap:12px;width:100%;max-width:860px;margin-top:40px}
+    .wf{display:grid;grid-template-columns:1fr 44px 1fr;align-items:center;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px 24px;background:#0f1018}
+    .wf h4{font-size:.88rem;font-weight:600;line-height:1.4}
+    .wf-l h4{color:var(--g400)}.wf-r h4{color:var(--w)}
+    .wf p{font-size:.78rem;color:var(--g500);line-height:1.45;margin-top:3px}
+    .wf-tag{font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-bottom:4px}
+    .wf-l .wf-tag{color:var(--g600)}.wf-r .wf-tag{color:var(--cyan)}
+    .wf-m{display:flex;justify-content:center}
+    .wf-a{width:30px;height:30px;border-radius:50%;background:rgba(6,182,212,.12);border:1px solid rgba(6,182,212,.3);display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:.8rem}
+
+    /* questions */
+    .bigq{max-width:760px;text-align:center}
+    .bigq-text{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:700;color:var(--w);line-height:1.2;letter-spacing:-.04em}
+    .bigq-hint{font-size:.75rem;color:rgba(255,255,255,.18);margin-top:28px;font-style:italic;letter-spacing:.02em}
+
+    .proc{display:flex;align-items:center;margin-top:48px;width:100%;max-width:880px;justify-content:center}
+    .pn{display:flex;flex-direction:column;align-items:center;gap:12px;flex:1;max-width:180px}
+    .pi{width:60px;height:60px;border-radius:16px;background:#0f1018;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+    .pl{font-size:.82rem;font-weight:600;color:var(--w);text-align:center}
+    .pd{font-size:.72rem;color:var(--g500);text-align:center;line-height:1.4}
+    .pa{color:rgba(255,255,255,.25);font-size:1.1rem;margin:0 10px;margin-bottom:36px}
+
+    .cta{display:inline-flex;align-items:center;gap:8px;padding:16px 34px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--indigo));color:white;font-size:1rem;font-weight:600;text-decoration:none;margin-top:36px;border:none;cursor:pointer;font-family:inherit;box-shadow:0 0 40px rgba(6,182,212,.12);transition:all .3s ease}
+    .cta:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(6,182,212,.2)}
+
+    .top{position:fixed;top:0;left:0;right:0;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;z-index:100;background:linear-gradient(to bottom,rgba(8,8,12,.95),transparent)}
+    .logo{font-size:.95rem;font-weight:700;color:var(--w);display:flex;align-items:center;gap:9px}
+    .lm{width:28px;height:28px;border-radius:7px;background:linear-gradient(135deg,var(--cyan),var(--indigo));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.72rem;color:white}
+    .cnt{font-size:.68rem;color:var(--g600);font-variant-numeric:tabular-nums}
+    .bot{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;gap:6px;z-index:100;background:linear-gradient(to top,rgba(8,8,12,.95),transparent)}
+    .dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.08);cursor:pointer;border:none;padding:0;transition:all .3s ease}
+    .dot.on{background:var(--cyan);width:24px;border-radius:3px;box-shadow:0 0 8px rgba(6,182,212,.3)}
+
+    .s.on .fu{animation:fu .5s ease forwards}
+    .fu{opacity:0;transform:translateY(14px)}
+    .d1{animation-delay:.06s!important}.d2{animation-delay:.12s!important}.d3{animation-delay:.22s!important}.d4{animation-delay:.34s!important}
+    @keyframes fu{to{opacity:1;transform:translateY(0)}}
+
+    @media(max-width:768px){.s{padding:70px 24px}.g3,.g2{grid-template-columns:1fr}.proc{flex-direction:column}.pa{transform:rotate(90deg);margin:4px 0}.wf{grid-template-columns:1fr;gap:10px}.wf-m{transform:rotate(90deg)}.st{padding:0 18px}.stats{flex-wrap:wrap;gap:20px}}
+  </style>
+</head>
+<body>
+<div class="orb o1"></div><div class="orb o2"></div>
+<div class="top"><div class="logo"><div class="lm">J</div>jengu.ai</div><div class="cnt" id="cnt">01 / 12</div></div>
+<div class="bot" id="dots"></div>
+<div class="slides">
+
+<!-- 0: TITLE -->
+<div class="s">
+  <div class="pill fu">Jengu × Hyvec Group</div>
+  <h1 class="fu d1">Intelligent Automation for<br><span class="g">Mauritius Hospitality</span></h1>
+  <p class="sub fu d2">How AI can reduce manual work, speed up guest response, and help your team focus on what matters.</p>
+  <div class="fu d3" style="display:flex;gap:36px;margin-top:44px;opacity:.3">
+    <span style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--g400)">Prepared for Peter Edler</span>
+    <span style="color:var(--g600)">·</span>
+    <span style="font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--g400)">March 2026</span>
+  </div>
+</div>
+
+<!-- 1: WHO WE ARE -->
+<div class="s">
+  <div class="pill fu">Who We Are</div>
+  <h2 class="fu d1">AI Built Exclusively for<br><span class="g">Tourism & Hospitality</span></h2>
+  <p class="sub fu d2">We map your operations first, then build custom AI that fits your workflows.</p>
+  <div class="stats fu d3">
+    <div class="st"><div class="st-v">30%+</div><div class="st-l">Revenue Increase</div></div>
+    <div class="st"><div class="st-v">40h</div><div class="st-l">Saved Per Week</div></div>
+    <div class="st"><div class="st-v">80%</div><div class="st-l">Enquiries Automated</div></div>
+    <div class="st"><div class="st-v">100+</div><div class="st-l">Languages</div></div>
+  </div>
+</div>
+
+<!-- 2: QUESTION — OPERATIONS -->
+<div class="s">
+  <div class="pill fu">Question 1</div>
+  <div class="bigq fu d1">
+    <div class="bigq-text">How does the operation<br>run today?</div>
+  </div>
+</div>
+
+<!-- 3: QUESTION — STAFF -->
+<div class="s">
+  <div class="pill fu">Question 2</div>
+  <div class="bigq fu d1">
+    <div class="bigq-text">What's your biggest<br>challenge with the team?</div>
+  </div>
+</div>
+
+<!-- 4: QUESTION — EXPANSION -->
+<div class="s">
+  <div class="pill fu">Question 3</div>
+  <div class="bigq fu d1">
+    <div class="bigq-text">What does the expansion<br>change for you?</div>
+  </div>
+</div>
+
+<!-- 5: CHALLENGES -->
+<div class="s">
+  <div class="pill fu">What We Typically See</div>
+  <h2 class="fu d1">Common Challenges in<br><span class="g">Mauritius Hospitality</span></h2>
+  <div class="grid g3 fu d2">
+    <div class="c"><div class="c-i">📋</div><h3>Manual Data Entry</h3><p>Opera data pulled into Excel. Reporting, forecasting, rate management — all by hand.</p></div>
+    <div class="c"><div class="c-i">👥</div><h3>Staff Shortages</h3><p>Trained workers hard to find, harder to keep. Long onboarding, high turnover.</p></div>
+    <div class="c"><div class="c-i">📧</div><h3>Slow Guest Response</h3><p>Enquiries pile up. Slow replies lose bookings. Evenings and weekends are blind spots.</p></div>
+    <div class="c"><div class="c-i">💰</div><h3>Static Pricing</h3><p>Rates based on gut feel, not live demand, competitor moves, or seasonal patterns.</p></div>
+    <div class="c"><div class="c-i">🔌</div><h3>Disconnected Systems</h3><p>PMS, booking engine, channel manager — nothing talks to each other properly.</p></div>
+    <div class="c"><div class="c-i">🏗️</div><h3>Scaling Pain</h3><p>Every manual process today becomes three when new properties open.</p></div>
+  </div>
+</div>
+
+<!-- 6: HOW IT WORKS -->
+<div class="s">
+  <div class="pill fu">How It Works</div>
+  <h2 class="fu d1">We Build <span class="g">Around</span> What<br>You Already Have</h2>
+  <p class="sub fu d2">Opera stays. Your booking engine stays. Jengu adds an AI layer on top.</p>
+  <div class="wfs fu d3">
+    <div class="wf">
+      <div class="wf-l"><div class="wf-tag">Today</div><h4>Guest emails handled manually</h4><p>Read, categorise, type response. Hours of repetitive work.</p></div>
+      <div class="wf-m"><div class="wf-a">→</div></div>
+      <div class="wf-r"><div class="wf-tag">With Jengu</div><h4>AI reads, drafts, routes instantly</h4><p>Staff reviews and approves. 24/7, every language.</p></div>
+    </div>
+    <div class="wf">
+      <div class="wf-l"><div class="wf-tag">Today</div><h4>Opera data pulled into Excel</h4><p>Manual formatting. Reports are days old.</p></div>
+      <div class="wf-m"><div class="wf-a">→</div></div>
+      <div class="wf-r"><div class="wf-tag">With Jengu</div><h4>Live dashboards from Opera</h4><p>Real-time occupancy, revenue, performance. No spreadsheets.</p></div>
+    </div>
+    <div class="wf">
+      <div class="wf-l"><div class="wf-tag">Today</div><h4>Rates set monthly on gut feel</h4><p>No competitor data, no demand signals.</p></div>
+      <div class="wf-m"><div class="wf-a">→</div></div>
+      <div class="wf-r"><div class="wf-tag">With Jengu</div><h4>ML-powered dynamic pricing</h4><p>Rates adjust to demand, competitors, weather. You approve.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- 7: SOLUTIONS -->
+<div class="s">
+  <div class="pill fu">What We Can Build</div>
+  <h2 class="fu d1">Solutions for<br><span class="g">Hyvec Group</span></h2>
+  <div class="grid g2 fu d2">
+    <div class="c"><div class="c-i">🤖</div><h3>AI Guest Communication</h3><p>Email triage, response drafting, WhatsApp support. Multilingual, 24/7. Staff stays in control.</p></div>
+    <div class="c"><div class="c-i">💹</div><h3>Dynamic Pricing</h3><p>ML model adjusting rates on demand, weather, competitors, booking pace.</p></div>
+    <div class="c"><div class="c-i">📊</div><h3>Opera Reporting</h3><p>Live dashboards from your PMS. No more Excel. Real-time management reports.</p></div>
+    <div class="c"><div class="c-i">📞</div><h3>Voice AI</h3><p>Answers calls in English, French, German. Handles FAQs, transfers when needed.</p></div>
+    <div class="c"><div class="c-i">🗺️</div><h3>AI Itinerary Builder</h3><p>Guests describe their trip — AI generates personalised Mauritius itineraries.</p></div>
+    <div class="c"><div class="c-i">🔗</div><h3>System Integration</h3><p>Connect Opera, booking engine, channel manager into one data flow.</p></div>
+  </div>
+</div>
+
+<!-- 8: CASE STUDY -->
+<div class="s">
+  <div class="pill fu">Proven Results</div>
+  <h2 class="fu d1">Case Study:<br><span class="g">Campasuns</span></h2>
+  <p class="sub fu d2">8 hospitality properties in the South of France. Same challenges — manual work, static pricing, slow guest response.</p>
+  <div class="stats fu d3">
+    <div class="st"><div class="st-v">35%</div><div class="st-l">Less Admin Work</div></div>
+    <div class="st"><div class="st-v">20%</div><div class="st-l">Revenue Increase</div></div>
+    <div class="st"><div class="st-v">25%</div><div class="st-l">Satisfaction Up</div></div>
+    <div class="st"><div class="st-v">40h+</div><div class="st-l">Saved Per Week</div></div>
+  </div>
+  <p class="sub fu d4" style="margin-top:32px;font-size:.88rem">"Jengu built something that didn't exist in our industry."</p>
+</div>
+
+<!-- 9: APPROACH -->
+<div class="s">
+  <div class="pill fu">Our Approach</div>
+  <h2 class="fu d1">Process First,<br><span class="g">Technology Second</span></h2>
+  <p class="sub fu d2">We understand how your teams work before suggesting any technology.</p>
+  <div class="proc fu d3">
+    <div class="pn"><div class="pi">🔍</div><div class="pl">Discovery</div><div class="pd">Map workflows and touchpoints</div></div>
+    <div class="pa">→</div>
+    <div class="pn"><div class="pi">🎯</div><div class="pl">Design</div><div class="pd">Custom solutions for your ops</div></div>
+    <div class="pa">→</div>
+    <div class="pn"><div class="pi">⚡</div><div class="pl">Build</div><div class="pd">Your team in the loop</div></div>
+    <div class="pa">→</div>
+    <div class="pn"><div class="pi">🚀</div><div class="pl">Deploy</div><div class="pd">Training and ongoing support</div></div>
+  </div>
+</div>
+
+<!-- 10: QUESTION — PRIORITIES -->
+<div class="s">
+  <div class="pill fu">Question 4</div>
+  <div class="bigq fu d1">
+    <div class="bigq-text">What would<br>better look like?</div>
+  </div>
+</div>
+
+<!-- 11: CTA -->
+<div class="s">
+  <div class="pill fu">Next Step</div>
+  <h1 class="fu d1">Let's Map Your<br><span class="g">Operations</span></h1>
+  <p class="sub fu d2">A structured discovery session to identify the highest-impact opportunities for Hyvec Group.</p>
+  <a class="cta fu d3" href="https://jengu.ai" target="_blank">Book Discovery Session →</a>
+  <div class="fu d4" style="display:flex;gap:40px;margin-top:36px">
+    <div style="text-align:center"><div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.12em;color:var(--g600);margin-bottom:3px">Website</div><div style="font-size:.9rem;color:var(--w);font-weight:500">jengu.ai</div></div>
+    <div style="text-align:center"><div style="font-size:.55rem;text-transform:uppercase;letter-spacing:.12em;color:var(--g600);margin-bottom:3px">Email</div><div style="font-size:.9rem;color:var(--w);font-weight:500">hello@jengu.ai</div></div>
+  </div>
+</div>
+
+</div>
+<script>
+const sl=document.querySelectorAll('.s'),tot=sl.length;let cur=0,lk=false;
+const dc=document.getElementById('dots');
+for(let i=0;i<tot;i++){const d=document.createElement('button');d.className='dot'+(i===0?' on':'');d.onclick=()=>go(i);dc.appendChild(d)}
+function upd(){sl.forEach((s,i)=>{s.classList.toggle('on',i===cur)});dc.querySelectorAll('.dot').forEach((d,i)=>{d.classList.toggle('on',i===cur)});document.getElementById('cnt').textContent=String(cur+1).padStart(2,'0')+' / '+String(tot).padStart(2,'0')}
+function go(i){if(lk||i===cur)return;lk=true;cur=Math.max(0,Math.min(tot-1,i));upd();setTimeout(()=>{lk=false},500)}
+function next(){if(cur<tot-1)go(cur+1)}function prev(){if(cur>0)go(cur-1)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){e.preventDefault();next()}else if(e.key==='ArrowLeft'||e.key==='Backspace'){e.preventDefault();prev()}});
+let wx=0;document.addEventListener('touchstart',e=>{wx=e.touches[0].clientX});document.addEventListener('touchend',e=>{const d=wx-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?next():prev()}});
+let wl=false;document.addEventListener('wheel',e=>{if(wl)return;if(Math.abs(e.deltaY)>20){wl=true;e.deltaY>0?next():prev();setTimeout(()=>{wl=false},800)}});
+upd();
+</script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour Operator Email Agent — WESS × Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--bg:#0a0a0f;--card:#12121a;--a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;--t:#ededf4;--td:#a0a0b8;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;padding:0;}
+  .back{position:fixed;top:2rem;left:2rem;z-index:100;color:var(--a3);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(10,10,15,0.8);backdrop-filter:blur(10px);border:1px solid rgba(0,206,201,0.2);border-radius:8px;transition:all 0.3s;}
+  .back:hover{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.4);}
+  .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:6rem 3rem 3rem;position:relative;overflow:hidden;}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+  .hero-in{max-width:900px;width:100%;position:relative;z-index:1;}
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1rem;}
+  h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+  h3{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g4{background:linear-gradient(135deg,var(--a5),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.1rem;color:var(--td);max-width:650px;line-height:1.7;}
+  .content{max-width:900px;margin:0 auto;padding:2rem 3rem 6rem;}
+  .section{margin-bottom:4rem;}
+  .section-title{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a1);margin-bottom:1.5rem;}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.8rem;margin-bottom:1.2rem;}
+  .card h3{color:var(--t);}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+  .flow{display:flex;align-items:center;gap:0.7rem;margin:1.5rem 0;flex-wrap:wrap;}
+  .flow-s{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1.2rem;font-size:0.85rem;font-weight:600;}
+  .flow-a{color:var(--a1);font-size:1.1rem;}
+  .bullet{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;font-size:0.95rem;line-height:1.5;color:var(--t);}
+  .bullet .dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);}
+  .quote-block{margin-top:2rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a1);}
+  .quote-block p{font-size:0.95rem;color:var(--td);line-height:1.6;}
+  .quote-block .attr{font-size:0.75rem;color:var(--a2);margin-top:0.6rem;font-weight:600;}
+  .highlight-box{padding:1.5rem 2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;margin:1.5rem 0;}
+  .highlight-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .needs-map{padding:1.5rem 2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;margin:1.5rem 0;}
+  .needs-map h4{font-size:0.9rem;color:var(--a2);margin-bottom:0.5rem;}
+  .needs-map p{font-size:0.85rem;color:var(--td);line-height:1.5;}
+  @media(max-width:768px){.hero{padding:5rem 1.5rem 2rem;}.content{padding:2rem 1.5rem 4rem;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+</style>
+</head>
+<body>
+
+<a href="client-pitch.html" class="back">← Back to Proposal</a>
+
+<div class="hero">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);bottom:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);top:-100px;left:-100px;"></div>
+  <div class="hero-in">
+    <div class="tag">01 — Deep Dive</div>
+    <h1>Tour Operator<br><span class="g1">Email Agent</span></h1>
+    <p class="sub">An AI-powered system that monitors your hotel inbox 24/7, reads tour operator emails, understands intent, pulls the correct data, and drafts responses automatically. Your team reviews and sends — or the system sends autonomously once trust is established.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <div class="section-title">How It Works</div>
+    <h2>Step by Step</h2>
+    <p style="color:var(--td);margin-bottom:1.5rem;line-height:1.6;">Every email that arrives in the tour operator inbox is processed through a structured pipeline. The agent doesn't guess — it classifies, retrieves, and drafts with full traceability.</p>
+
+    <div class="flow">
+      <div class="flow-s">Email arrives in inbox</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">AI classifies intent</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Pulls correct data</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Drafts response</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Sends or queues for review</div>
+    </div>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <h3>Intent Classification</h3>
+        <p>The AI reads the incoming email and classifies it into one of several categories: booking request, rate query, contract update, availability check, special offer request, or general enquiry. Each category triggers a different processing path.</p>
+      </div>
+      <div class="card">
+        <h3>Data Retrieval</h3>
+        <p>Based on the classified intent, the agent pulls the relevant data — rates from Opera, availability from the channel manager, contract terms from the rate sheet database. It never makes up numbers. Every figure comes from a verified source.</p>
+      </div>
+      <div class="card">
+        <h3>Response Drafting</h3>
+        <p>The agent composes a professional response using the correct data, matching the tone and format your team already uses. Attachments (rate sheets, contracts, confirmations) are generated and attached automatically.</p>
+      </div>
+      <div class="card">
+        <h3>Human-in-the-Loop</h3>
+        <p>Initially, every draft is queued for your team to review before sending. Over time, as confidence builds, routine responses (availability confirmations, standard rate replies) can be set to auto-send. Complex negotiations always stay in the review queue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT IT HANDLES -->
+  <div class="section">
+    <div class="section-title">What It Handles</div>
+    <h2>Every TO Communication, <span class="g3">Covered</span></h2>
+
+    <div class="bullet"><div class="dot"></div><div><strong>Rate Requests</strong> — Tour operator asks for current rates for a specific period. The agent pulls the correct seasonal rate from Opera and responds with the formatted rate sheet.</div></div>
+    <div class="bullet"><div class="dot"></div><div><strong>Booking Confirmations</strong> — Reservation request comes in. The agent checks availability, confirms the booking in Opera, and sends the confirmation back to the TO with all relevant details.</div></div>
+    <div class="bullet"><div class="dot"></div><div><strong>Contract Negotiations</strong> — When a TO proposes rate amendments or new terms, the agent flags it for human review with full context: current contract terms, proposed changes, historical rates with that operator.</div></div>
+    <div class="bullet"><div class="dot"></div><div><strong>Special Offer Distribution</strong> — When you create a new promotion or early bird offer, the agent sends it to your entire TO list — personalised per operator, with the correct rates for their market segment.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Availability Queries</strong> — "Do you have 3 Superior rooms 15-22 December?" The agent checks Opera in real time and responds within minutes, not hours.</div></div>
+  </div>
+
+  <!-- VERSION TRACKING -->
+  <div class="section">
+    <div class="section-title">Version Tracking & Audit Trail</div>
+    <h2>Who Has <span class="g4">What Rates</span></h2>
+    <p style="color:var(--td);margin-bottom:1.5rem;line-height:1.6;">One of the biggest operational headaches: knowing which tour operator is working off which version of your rates. The email agent solves this completely.</p>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Rate Version Registry</h3>
+        <p>Every time a rate sheet is sent to a tour operator, the system logs it: which version, when it was sent, who opened it. You always know exactly which operator has which prices.</p>
+      </div>
+      <div class="card">
+        <h3>Outdated Rate Alerts</h3>
+        <p>When you update rates, the system flags every tour operator still working off the old version. It can automatically send update notifications, or queue them for your team to review first.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong style="color:var(--a3);">Why this matters:</strong> Right now, if you update your rates in November for the upcoming high season, there's no easy way to know which of your 50+ tour operators received the new rates and which are still quoting the old ones. The agent tracks every version, every send, every acknowledgement.</p>
+    </div>
+  </div>
+
+  <!-- DISCREPANCY DETECTION -->
+  <div class="section">
+    <div class="section-title">Discrepancy Detection</div>
+    <h2>Catch Mismatches <span class="g2">Before They Cost You</span></h2>
+
+    <div class="flow">
+      <div class="flow-s">TO sends booking at price X</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Agent checks Opera rate</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Mismatch detected</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Alert raised before guest arrives</div>
+    </div>
+
+    <div class="card">
+      <h3>The "Ping Pong" Problem, Solved</h3>
+      <p>A tour operator books a room at a rate that doesn't match what's in Opera. Today, this gets discovered at check-in, or worse — during month-end reconciliation. The email agent cross-checks every incoming booking against the contracted rate and flags discrepancies immediately. The resolution happens in email, not at the front desk.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Catches wrong room category pricing (e.g., TO charged Standard rate for a Superior room)</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Detects outdated seasonal rates being applied (e.g., low season price used during high season dates)</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div>Flags supplement discrepancies (meal plans, transfers, special requests billed incorrectly)</div></div>
+  </div>
+
+  <!-- HOW IT LEARNS -->
+  <div class="section">
+    <div class="section-title">How It Learns</div>
+    <h2>Gets Smarter <span class="g1">Over Time</span></h2>
+
+    <div class="card">
+      <h3>Starts with Templates</h3>
+      <p>We begin by loading your existing email templates, rate sheet formats, and standard responses. The agent uses these as its baseline — so from day one, responses match your team's style and language.</p>
+    </div>
+    <div class="card">
+      <h3>Learns from Edits</h3>
+      <p>Every time your team modifies a draft before sending, the agent learns from that correction. If Sarah always adds a specific line for German tour operators, or if Peter prefers a different closing for long-standing partners — the agent picks up these patterns.</p>
+    </div>
+    <div class="card">
+      <h3>Continuous Improvement</h3>
+      <p>Over weeks and months, the queue shrinks. Routine responses that consistently pass review without edits get promoted to auto-send. Complex cases stay in the queue. The system gets faster without getting reckless.</p>
+    </div>
+  </div>
+
+  <!-- WHAT WE NEED -->
+  <div class="section">
+    <div class="section-title">What We Need from the Process Map</div>
+    <h2>To Build This Right</h2>
+
+    <div class="needs-map">
+      <h4>Process Map Required</h4>
+      <p>To build the email agent accurately, we need to understand the exact email flow during the process mapping phase. This isn't something we can assume — it needs to come from your team.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Which mailboxes?</strong> — How many inboxes handle TO communications? Is it per property, per person, or centralised?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Who handles what?</strong> — Which team members handle which types of email? Are there specialists for specific markets or operators?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>What systems provide the data?</strong> — Where do current rates live? Opera? Excel? A combination? Which is the source of truth?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>What's the approval flow?</strong> — Which responses need manager approval? Which can the team send directly? What are the escalation rules?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>What templates exist?</strong> — Current email templates, rate sheet formats, contract templates — these become the agent's starting knowledge.</div></div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <p><strong style="color:var(--t);">"When I saw your mail system, that out of the mail system he's grabbing... another planet."</strong></p>
+    <div class="attr">— Peter Edler</div>
+  </div>
+
+</div>
+
+</body>
+</html>

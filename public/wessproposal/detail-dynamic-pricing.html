@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Pricing — WESS × Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--bg:#0a0a0f;--card:#12121a;--a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;--t:#ededf4;--td:#a0a0b8;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;padding:0;}
+  .back{position:fixed;top:2rem;left:2rem;z-index:100;color:var(--a3);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(10,10,15,0.8);backdrop-filter:blur(10px);border:1px solid rgba(0,206,201,0.2);border-radius:8px;transition:all 0.3s;}
+  .back:hover{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.4);}
+  .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:6rem 3rem 3rem;position:relative;overflow:hidden;}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+  .hero-in{max-width:900px;width:100%;position:relative;z-index:1;}
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1rem;}
+  h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+  h3{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g4{background:linear-gradient(135deg,var(--a5),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.1rem;color:var(--td);max-width:650px;line-height:1.7;}
+  .content{max-width:900px;margin:0 auto;padding:2rem 3rem 6rem;}
+  .section{margin-bottom:4rem;}
+  .section-title{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a1);margin-bottom:1.5rem;}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.8rem;margin-bottom:1.2rem;}
+  .card h3{color:var(--t);}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+  .flow{display:flex;align-items:center;gap:0.7rem;margin:1.5rem 0;flex-wrap:wrap;}
+  .flow-s{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1.2rem;font-size:0.85rem;font-weight:600;}
+  .flow-a{color:var(--a1);font-size:1.1rem;}
+  .bullet{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;font-size:0.95rem;line-height:1.5;color:var(--t);}
+  .bullet .dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);}
+  .quote-block{margin-top:2rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a1);}
+  .quote-block p{font-size:0.95rem;color:var(--td);line-height:1.6;}
+  .quote-block .attr{font-size:0.75rem;color:var(--a2);margin-top:0.6rem;font-weight:600;}
+  .highlight-box{padding:1.5rem 2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;margin:1.5rem 0;}
+  .highlight-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .context-box{padding:1.5rem 2rem;background:rgba(253,203,110,0.05);border:1px solid rgba(253,203,110,0.15);border-radius:14px;margin:1.5rem 0;}
+  .context-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .needs-map{padding:1.5rem 2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;margin:1.5rem 0;}
+  .needs-map h4{font-size:0.9rem;color:var(--a2);margin-bottom:0.5rem;}
+  .needs-map p{font-size:0.85rem;color:var(--td);line-height:1.5;}
+  @media(max-width:768px){.hero{padding:5rem 1.5rem 2rem;}.content{padding:2rem 1.5rem 4rem;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+</style>
+</head>
+<body>
+
+<a href="client-pitch.html" class="back">← Back to Proposal</a>
+
+<div class="hero">
+  <div class="orb" style="width:600px;height:600px;background:var(--a5);bottom:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);top:-100px;left:-100px;"></div>
+  <div class="hero-in">
+    <div class="tag">06 — Deep Dive</div>
+    <h1>Dynamic<br><span class="g4">Pricing</span></h1>
+    <p class="sub">Smart, automated rate adjustments for OTA and direct bookings — based on occupancy, demand signals, and competitor rates. Not for tour operator contracts. Positioned as forward-looking infrastructure that becomes more valuable as direct booking share grows.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- WHERE IT APPLIES -->
+  <div class="section">
+    <div class="section-title">Where It Applies</div>
+    <h2>Not Everything. <span class="g4">The Right Things.</span></h2>
+
+    <div class="context-box">
+      <p><strong style="color:var(--a5);">Important context:</strong> The majority of WESS business comes from tour operator contracts with fixed seasonal rates — low season, mid season, high season. Dynamic pricing does NOT apply to these contracts. Those rates are agreed annually and don't change based on daily demand. Dynamic pricing applies to the OTA and direct booking channels, where rates CAN flex in real time.</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card" style="border-color:rgba(253,203,110,0.2);">
+        <h3 style="color:var(--a5);">Dynamic Pricing Applies</h3>
+        <p>Booking.com, Expedia, direct website bookings, walk-in rates, last-minute availability. These channels benefit from real-time rate adjustments based on demand.</p>
+      </div>
+      <div class="card" style="border-color:rgba(162,155,254,0.2);">
+        <h3 style="color:var(--a2);">Fixed Seasonal Rates</h3>
+        <p>Tour operator contracts, group bookings, allotment blocks. These stay at the agreed seasonal rates. The system manages them centrally but doesn't dynamically adjust them.</p>
+      </div>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Today, the OTA/direct share may be relatively small. But it's growing. And as it grows, the revenue impact of dynamic pricing compounds.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Even with a small OTA share, dynamic pricing can capture significant incremental revenue during high-demand periods when the hotel would have sold the room anyway — just at a lower price.</div></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <div class="section-title">How It Works</div>
+    <h2>The Pricing <span class="g3">Engine</span></h2>
+
+    <div class="flow">
+      <div class="flow-s">Monitor occupancy</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Check competitor rates</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Analyse demand signals</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Calculate optimal rate</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Push to OTAs & website</div>
+    </div>
+
+    <div class="grid2" style="margin-top:1.5rem;">
+      <div class="card">
+        <h3>Occupancy-Based Adjustments</h3>
+        <p>As a property fills up, rates increase automatically. At 50% occupancy, the rate might be at the base level. At 80%, it rises. At 95%, it's at a premium. The curve is configurable — you control how aggressive the pricing gets.</p>
+      </div>
+      <div class="card">
+        <h3>Competitor Rate Monitoring</h3>
+        <p>The engine monitors competitor hotel rates on OTAs in real time. If competitor properties are selling out and raising rates, your rates can adjust accordingly. If the market is soft, the engine can hold or lower rates to maintain competitiveness.</p>
+      </div>
+      <div class="card">
+        <h3>Demand Signal Analysis</h3>
+        <p>Beyond occupancy and competitors, the engine looks at search volume for your area, flight booking trends to Mauritius, local events, public holidays in source markets, and historical booking patterns. More signals mean better pricing decisions.</p>
+      </div>
+      <div class="card">
+        <h3>Rate Guardrails</h3>
+        <p>You set the floor and ceiling. The engine never prices below your minimum or above your maximum. Weekend rates, holiday rates, and blackout dates are all configurable. Peter (or the revenue manager) stays in control — the engine executes the strategy, it doesn't replace it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEASONAL CONTRACT MANAGEMENT -->
+  <div class="section">
+    <div class="section-title">Seasonal Contract Management</div>
+    <h2>TO Contracts, <span class="g1">Managed Centrally</span></h2>
+
+    <div class="card">
+      <h3>One Place for All Rate Tiers</h3>
+      <p>While dynamic pricing handles the OTA/direct channels, the same system manages the fixed seasonal rates for tour operator contracts. Low season, mid season, high season — all defined centrally, assigned per tour operator, and distributed through the channel manager and email agent. One system, two pricing models, zero confusion.</p>
+    </div>
+
+    <div class="bullet"><div class="dot"></div><div><strong>Season definitions</strong> — Define exactly which dates fall into low, mid, and high season. The system applies the correct rate automatically based on stay dates.</div></div>
+    <div class="bullet"><div class="dot"></div><div><strong>Contract-specific rates</strong> — Each TO can have their own contracted rates per season. The system tracks which operator has which rate and ensures the correct price is quoted every time.</div></div>
+    <div class="bullet"><div class="dot"></div><div><strong>Year-on-year comparison</strong> — Compare contracted rates across years. See at a glance whether you're giving TUI a better or worse rate than last year, and by how much.</div></div>
+  </div>
+
+  <!-- FUTURE VALUE -->
+  <div class="section">
+    <div class="section-title">Future Value</div>
+    <h2>Infrastructure That <span class="g4">Grows with You</span></h2>
+
+    <div class="highlight-box">
+      <p><strong style="color:var(--a3);">The strategic position:</strong> Dynamic pricing is forward-looking infrastructure. Today, the majority of WESS revenue comes from TO contracts with fixed rates. But the direct booking channel is growing — and every percentage point shift from TO to direct represents both higher margins (no commission) and more pricing flexibility. The dynamic pricing engine is ready when the market catches up.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Year 1:</strong> Dynamic pricing on OTA/direct channels. Even a small share benefits from demand-based pricing. Foundation is laid.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Year 2-3:</strong> As the website and direct booking engine drive more direct traffic, the dynamic engine has more inventory to optimise. Revenue impact grows proportionally.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Long term:</strong> Revenue intelligence layer on top — demand forecasting, market segment analysis, pickup pace tracking. The data accumulated by the pricing engine becomes an asset for strategic pricing decisions across all channels, including TO negotiations.</div></div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <p><strong style="color:var(--t);">"Dynamic pricing will be the next step."</strong> — We position this as the infrastructure that's ready when the market catches up. And it is coming.</p>
+    <div class="attr">— Peter Edler</div>
+  </div>
+
+</div>
+
+</body>
+</html>

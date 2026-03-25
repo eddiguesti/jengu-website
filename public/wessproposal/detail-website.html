@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website & Direct Booking Engine — WESS × Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--bg:#0a0a0f;--card:#12121a;--a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;--t:#ededf4;--td:#a0a0b8;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;padding:0;}
+  .back{position:fixed;top:2rem;left:2rem;z-index:100;color:var(--a3);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:1px;display:flex;align-items:center;gap:0.4rem;padding:0.5rem 1rem;background:rgba(10,10,15,0.8);backdrop-filter:blur(10px);border:1px solid rgba(0,206,201,0.2);border-radius:8px;transition:all 0.3s;}
+  .back:hover{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.4);}
+  .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;padding:6rem 3rem 3rem;position:relative;overflow:hidden;}
+  .hero .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+  .hero-in{max-width:900px;width:100%;position:relative;z-index:1;}
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.05;margin-bottom:1rem;}
+  h2{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+  h3{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g4{background:linear-gradient(135deg,var(--a5),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.1rem;color:var(--td);max-width:650px;line-height:1.7;}
+  .content{max-width:900px;margin:0 auto;padding:2rem 3rem 6rem;}
+  .section{margin-bottom:4rem;}
+  .section-title{font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--a1);margin-bottom:1.5rem;}
+  .card{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.8rem;margin-bottom:1.2rem;}
+  .card h3{color:var(--t);}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.2rem;}
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+  .flow{display:flex;align-items:center;gap:0.7rem;margin:1.5rem 0;flex-wrap:wrap;}
+  .flow-s{background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:0.8rem 1.2rem;font-size:0.85rem;font-weight:600;}
+  .flow-a{color:var(--a1);font-size:1.1rem;}
+  .bullet{display:flex;align-items:flex-start;gap:0.8rem;margin-bottom:1rem;font-size:0.95rem;line-height:1.5;color:var(--t);}
+  .bullet .dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);}
+  .quote-block{margin-top:2rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a1);}
+  .quote-block p{font-size:0.95rem;color:var(--td);line-height:1.6;}
+  .quote-block .attr{font-size:0.75rem;color:var(--a2);margin-top:0.6rem;font-weight:600;}
+  .highlight-box{padding:1.5rem 2rem;background:rgba(0,206,201,0.05);border:1px solid rgba(0,206,201,0.15);border-radius:14px;margin:1.5rem 0;}
+  .highlight-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .needs-map{padding:1.5rem 2rem;background:rgba(108,92,231,0.05);border:1px solid rgba(108,92,231,0.15);border-radius:14px;margin:1.5rem 0;}
+  .needs-map h4{font-size:0.9rem;color:var(--a2);margin-bottom:0.5rem;}
+  .needs-map p{font-size:0.85rem;color:var(--td);line-height:1.5;}
+  .revenue-box{padding:1.5rem 2rem;background:rgba(253,203,110,0.05);border:1px solid rgba(253,203,110,0.15);border-radius:14px;margin:1.5rem 0;}
+  .revenue-box p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  @media(max-width:768px){.hero{padding:5rem 1.5rem 2rem;}.content{padding:2rem 1.5rem 4rem;}.flow{flex-direction:column;}.flow-a{transform:rotate(90deg);}}
+</style>
+</head>
+<body>
+
+<a href="client-pitch.html" class="back">← Back to Proposal</a>
+
+<div class="hero">
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);bottom:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);top:-100px;right:-100px;"></div>
+  <div class="hero-in">
+    <div class="tag">05 — Deep Dive</div>
+    <h1>Website & Direct<br><span class="g3">Booking Engine</span></h1>
+    <p class="sub">A premium digital front door for the entire WESS portfolio — hotels, villas, and beach properties. Guests can browse, book, and pay online. Your team manages content without developers. Connected to the channel manager so rates and availability are always live.</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- WHY THIS MATTERS -->
+  <div class="section">
+    <div class="section-title">Why This Matters</div>
+    <h2>Guests Call Because <span class="g2">the Website Can't Convert</span></h2>
+
+    <div class="revenue-box">
+      <p><strong style="color:var(--a5);">The revenue leak:</strong> When a guest visits the WESS website and can't complete a booking, one of two things happens: they call the hotel (costing staff time), or they leave and book through an OTA (costing you commission). A direct booking engine eliminates both problems — the guest books on your site, at your rate, with zero commission to a third party.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>OTA commissions typically run at <strong>15-25%</strong> of the booking value. Every booking you shift from Booking.com to your own website is pure margin recovery.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Hotels with effective direct booking engines typically convert <strong>3-5%</strong> of website visitors. Without a booking engine, the conversion rate is effectively <strong>zero</strong> — every interested visitor becomes a phone call or an OTA booking.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>The three local companies quoting for the website won't integrate with your channel manager or Opera. We will — because we're building both systems.</div></div>
+  </div>
+
+  <!-- WHAT WE BUILD -->
+  <div class="section">
+    <div class="section-title">What We Build</div>
+    <h2>The Full WESS <span class="g3">Portfolio Online</span></h2>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>Hotels</h3>
+        <p>Each hotel property gets its own section with room types, gallery, amenities, dining options, and location details. All connected to the booking engine for instant reservations.</p>
+      </div>
+      <div class="card">
+        <h3>Villas</h3>
+        <p>Individual villa listings with detailed floor plans, photo galleries, capacity information, and pricing. The villa business is growing faster than hotels — it deserves a proper digital presence.</p>
+      </div>
+      <div class="card">
+        <h3>Beach Properties</h3>
+        <p>Beach-facing properties showcased with immersive imagery and the booking tools to convert browsers into guests. Each property's unique character comes through in the design.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong style="color:var(--a3);">You've already seen a taste of what this looks like.</strong> The "Where Paradise Feels Like Home" concept hero in the main proposal is a working demo of the design direction. Premium typography, cinematic imagery, the WESS brand elevated to match the quality of the properties themselves.</p>
+    </div>
+  </div>
+
+  <!-- DIRECT BOOKING ENGINE -->
+  <div class="section">
+    <div class="section-title">Direct Booking Engine</div>
+    <h2>Book and Pay <span class="g1">Online</span></h2>
+
+    <div class="flow">
+      <div class="flow-s">Guest selects dates</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Live availability shown</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Rate displayed</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Guest books & pays</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Confirmation sent</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>Hotel Booking Flow</h3>
+        <p>Select property, choose dates, see available room types with live rates, add supplements (meal plans, transfers, experiences), enter details, pay securely. Confirmation email sent instantly. Booking appears in Opera within minutes.</p>
+      </div>
+      <div class="card">
+        <h3>Villa Booking Flow</h3>
+        <p>Villa availability calendar shows open dates at a glance. Guests can book directly for available periods or submit an enquiry for custom dates. Villa-specific details — bedrooms, staff, pool, proximity to beach — all clearly presented.</p>
+      </div>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Secure payments</strong> — PCI-compliant payment processing. Credit card, bank transfer, or deposit options configurable per property and per booking type.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Multi-currency</strong> — Guests see prices in their local currency. EUR, GBP, USD, ZAR — configured per market. Exchange rates update automatically.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Best price guarantee</strong> — Show a "book direct for the best rate" message, backed by the channel manager ensuring the direct rate is always equal or better than OTA rates.</div></div>
+  </div>
+
+  <!-- CHANNEL MANAGER INTEGRATION -->
+  <div class="section">
+    <div class="section-title">Channel Manager Integration</div>
+    <h2>Rates and Availability <span class="g4">Always Live</span></h2>
+
+    <div class="card">
+      <h3>Seamless Connection</h3>
+      <p>Because we build both the website and the channel manager, the integration is native — not a bolted-on afterthought. When a rate changes in Opera, the website updates. When a booking comes in through the website, availability adjusts across all channels instantly. This is why having one team build both systems matters.</p>
+    </div>
+
+    <div class="bullet"><div class="dot"></div><div>No stale rates — the price a guest sees on the website is always the current price in Opera</div></div>
+    <div class="bullet"><div class="dot"></div><div>No overbooking — when a room is booked on the website, it's immediately unavailable on Booking.com, Expedia, and every other channel</div></div>
+    <div class="bullet"><div class="dot"></div><div>Promotions sync automatically — create a flash sale in Opera, and it appears on the website within minutes</div></div>
+  </div>
+
+  <!-- BUILT ON WEBFLOW -->
+  <div class="section">
+    <div class="section-title">Built on Webflow</div>
+    <h2>Your Team <span class="g1">Manages Content</span></h2>
+
+    <div class="grid2">
+      <div class="card">
+        <h3>No Developer Dependency</h3>
+        <p>Webflow is a visual web platform that lets your marketing team update images, text, offers, and pages without touching code. New villa listing? Add it in 20 minutes. Seasonal promotion banner? Change it yourself. No waiting for a developer, no agency invoice.</p>
+      </div>
+      <div class="card">
+        <h3>Premium Design Freedom</h3>
+        <p>Webflow isn't a template builder — it's a design tool. We create a bespoke design that matches the WESS brand, then hand you the keys to update content within that design. The structure stays premium; the content stays fresh.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE VILLA OPPORTUNITY -->
+  <div class="section">
+    <div class="section-title">The Villa Opportunity</div>
+    <h2>Growing Faster <span class="g4">Than Hotels</span></h2>
+
+    <div class="card">
+      <h3>A Business That Deserves Its Own Digital Presence</h3>
+      <p>The villa business is growing faster than the hotel side. Villa guests have different booking behaviour — longer research, higher value, more enquiry-based. They need detailed property pages with floor plans, photo tours, and availability calendars. The current digital presence doesn't serve this market at all. The new website changes that — giving villas the prominence they deserve and the booking tools to convert interest into revenue.</p>
+    </div>
+
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Individual villa pages with full photo galleries, amenity lists, and floor plans</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Availability calendar showing open dates at a glance — reducing enquiry volume for already-booked periods</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div>Enquiry flow for custom requests — multi-villa bookings, events, extended stays — that routes to the right team member</div></div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <p><strong style="color:var(--t);">"At the end of the day, they still call you. Then I don't need a web page, call me direct."</strong> — That's the problem. Guests call because the website can't complete a booking. We fix that.</p>
+    <div class="attr">— Peter Edler</div>
+  </div>
+
+</div>
+
+</body>
+</html>
