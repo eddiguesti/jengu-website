@@ -209,7 +209,9 @@
   .price-card{
     background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
     padding:2rem;position:relative;overflow:hidden;
+    opacity:0;transform:translateY(25px);transition:all 0.5s;
   }
+  .price-card.v{opacity:1;transform:translateY(0);}
   .price-card:hover{border-color:rgba(108,92,231,0.2);}
   .price-card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
   .price-card-title{font-size:1.05rem;font-weight:700;color:var(--t);text-align:left;}
@@ -609,7 +611,7 @@
         </div>
         <div class="card" style="border-color:rgba(0,206,201,0.15);">
           <h3>Guest App and Digital Concierge</h3>
-          <p>Room service, spa bookings, restaurant reservations, local experiences. All from the guest's phone. This sits on top of your operation, it does not depend on back office workflows.</p>
+          <p>Custom built. Room service, spa bookings, restaurant reservations, local experiences. All from the guest's phone. This sits on top of your operation, it does not depend on back office workflows.</p>
         </div>
         <div class="card" style="border-color:rgba(0,206,201,0.15);">
           <h3>WhatsApp and QR Ordering</h3>
@@ -982,7 +984,7 @@
     <div class="grid3">
       <div class="card">
         <h3>Guest App &amp; Digital Concierge</h3>
-        <p>We are building a state of the art concierge app that connects to your hotel systems and outside services. Guests can order room service, book the spa, arrange transfers, build itineraries, and explore local experiences, all from their phone. Works across all properties.</p>
+        <p>A custom built concierge app that connects to your hotel systems and outside services. Guests can order room service, book the spa, arrange transfers, build itineraries, and explore local experiences, all from their phone. Works across all properties.</p>
       </div>
       <div class="card">
         <h3>WhatsApp Guest Messaging</h3>
@@ -1193,7 +1195,7 @@
         <div class="price-card-head">
           <div class="price-card-title">Process Discovery</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;5,000</div>
+            <div class="price-card-setup">&pound;7,000</div>
             <div class="price-card-monthly">one-off</div>
           </div>
         </div>
@@ -1208,7 +1210,7 @@
         <div class="price-card-head">
           <div class="price-card-title">Tour Operator Email Agent</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;18,000</div>
+            <div class="price-card-setup">&pound;22,000</div>
             <div class="price-card-monthly">&pound;900 /month</div>
           </div>
         </div>
@@ -1220,7 +1222,7 @@
         <div class="price-card-head">
           <div class="price-card-title">Website</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;10,000</div>
+            <div class="price-card-setup">&pound;15,000</div>
             <div class="price-card-monthly">&pound;100 /month</div>
           </div>
         </div>
@@ -1232,11 +1234,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Guest App / Concierge</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;8,000</div>
+            <div class="price-card-setup">&pound;12,000</div>
             <div class="price-card-monthly">&pound;150 /property</div>
           </div>
         </div>
-        <div class="price-card-desc">We are building a state of the art concierge app that connects to your hotel systems and outside services. Room service, spa, restaurants, transfers, itineraries, local experiences, all from the guest's phone. Branded for WESS.</div>
+        <div class="price-card-desc">Custom built concierge app that connects to your hotel systems and outside services. Room service, spa, restaurants, transfers, itineraries, local experiences, all from the guest's phone. Branded for WESS.</div>
         <div class="price-card-typical">Typical agency cost: &pound;10,000 to &pound;25,000 setup</div>
       </div>
 
@@ -1244,11 +1246,11 @@
         <div class="price-card-head">
           <div class="price-card-title">WhatsApp Guest Messaging</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;4,000</div>
+            <div class="price-card-setup">&pound;5,000</div>
             <div class="price-card-monthly">&pound;150 /property</div>
           </div>
         </div>
-        <div class="price-card-desc">Built in house. Pre-arrival messaging, in-stay requests, post-stay feedback, all automated and triggered from Opera reservations. Fully custom to how WESS communicates with guests.</div>
+        <div class="price-card-desc">Custom built. Pre-arrival messaging, in-stay requests, post-stay feedback, all automated and triggered from Opera reservations. Fully custom to how WESS communicates with guests.</div>
         <div class="price-card-typical">Typical agency cost: &pound;5,000 to &pound;15,000 setup</div>
       </div>
 
@@ -1256,11 +1258,11 @@
         <div class="price-card-head">
           <div class="price-card-title">QR Code F&amp;B Ordering</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;2,500</div>
+            <div class="price-card-setup">&pound;3,500</div>
             <div class="price-card-monthly">&pound;80 /outlet</div>
           </div>
         </div>
-        <div class="price-card-desc">Digital menus with QR ordering connected to your POS. Guests scan, browse, order. No printed menus. Each outlet gets its own menu, pricing, and POS mapping.</div>
+        <div class="price-card-desc">Custom digital menus with QR ordering connected to Symphony POS. Guests scan, browse, order. No printed menus. Each outlet gets its own menu, pricing, and POS mapping.</div>
         <div class="price-card-typical">Typical agency cost: &pound;3,000 to &pound;12,000 setup</div>
       </div>
     </div>
@@ -1271,11 +1273,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Opera to Sage Integration</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;12,000</div>
+            <div class="price-card-setup">&pound;15,000</div>
             <div class="price-card-monthly">&pound;500 /month</div>
           </div>
         </div>
-        <div class="price-card-desc">Custom connector between your PMS and accounting software. Bookings flow automatically into Sage with correct account codes, tax, and department mapping. Rate reconciliation runs continuously.</div>
+        <div class="price-card-desc">Custom built connector between your PMS and accounting software. Bookings flow automatically into Sage with correct account codes, tax, and department mapping. Rate reconciliation runs continuously.</div>
         <div class="price-card-typical">Typical agency cost: &pound;15,000 to &pound;35,000 setup</div>
       </div>
 
@@ -1283,11 +1285,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Channel Manager</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;2,500</div>
+            <div class="price-card-setup">&pound;3,000</div>
             <div class="price-card-monthly">&pound;250 /month</div>
           </div>
         </div>
-        <div class="price-card-desc">We configure and connect the channel manager to Opera. Rate mapping, room type mapping, restriction handling, and testing across all OTA channels. Ongoing support for rate updates and troubleshooting.</div>
+        <div class="price-card-desc">We configure and connect the channel manager to Opera. Rate mapping, room type mapping, restriction handling, and testing across all OTA channels. Ongoing support for rate updates and troubleshooting. Channel manager platform fees are separate and vary by vendor.</div>
         <div class="price-card-typical">Typical agency cost: &pound;3,000 to &pound;10,000 setup</div>
       </div>
 
@@ -1295,11 +1297,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Purchasing and Inventory</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;12,000</div>
+            <div class="price-card-setup">&pound;15,000</div>
             <div class="price-card-monthly">&pound;250 /property</div>
           </div>
         </div>
-        <div class="price-card-desc">Cloud based purchasing and stock control across all outlets. Purchase orders, supplier management, approval workflows, goods receiving, and stock alerts. Centrally managed from the head office.</div>
+        <div class="price-card-desc">Custom built cloud based purchasing and stock control across all outlets. Purchase orders, supplier management, approval workflows, goods receiving, and stock alerts. Centrally managed from the head office.</div>
         <div class="price-card-typical">Typical agency cost: &pound;15,000 to &pound;40,000 setup</div>
       </div>
 
@@ -1307,11 +1309,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Central Dashboard</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;6,000</div>
+            <div class="price-card-setup">&pound;8,000</div>
             <div class="price-card-monthly">&pound;300 /month</div>
           </div>
         </div>
-        <div class="price-card-desc">One view of the whole group. Live occupancy, bookings by channel, rate parity, revenue by outlet, purchasing status. Morning briefing automation. Data pulled from every connected system.</div>
+        <div class="price-card-desc">Custom built operations dashboard. Live occupancy, bookings by channel, rate parity, revenue by outlet, purchasing status. Morning briefing automation. Data pulled from every connected system.</div>
         <div class="price-card-typical">Typical agency cost: &pound;8,000 to &pound;30,000 setup</div>
       </div>
 
@@ -1319,11 +1321,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Dynamic Pricing</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;4,000</div>
+            <div class="price-card-setup">&pound;5,000</div>
             <div class="price-card-monthly">&pound;250 /property</div>
           </div>
         </div>
-        <div class="price-card-desc">Automated rate adjustments for OTA and direct channels based on occupancy, competitor rates, and demand signals. We handle setup, Opera integration, rate strategy, and ongoing optimisation.</div>
+        <div class="price-card-desc">Automated rate adjustments for OTA and direct channels based on occupancy, competitor rates, and demand signals. Custom built pricing engine with Opera integration, rate strategy configuration, and ongoing optimisation.</div>
         <div class="price-card-typical">Typical agency cost: &pound;5,000 to &pound;15,000 setup</div>
       </div>
 
@@ -1331,11 +1333,11 @@
         <div class="price-card-head">
           <div class="price-card-title">Staff Training and SOPs</div>
           <div class="price-card-prices">
-            <div class="price-card-setup">&pound;4,000</div>
+            <div class="price-card-setup">&pound;5,000</div>
             <div class="price-card-monthly">included</div>
           </div>
         </div>
-        <div class="price-card-desc">Digital SOP platform configured for your departments. Standardised procedures, onboarding checklists, and video guides accessible from any device. Updated centrally across all properties.</div>
+        <div class="price-card-desc">Custom SOP platform built for your departments. Standardised procedures, onboarding checklists, and video guides accessible from any device. Updated centrally across all properties.</div>
         <div class="price-card-typical">Typical agency cost: &pound;5,000 to &pound;15,000 setup</div>
       </div>
     </div>
@@ -1346,14 +1348,14 @@
       <div class="grid2" style="margin-top:0;">
         <div style="text-align:center;padding:1.5rem;">
           <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;">Total setup (one-off)</div>
-          <div style="font-size:3rem;font-weight:900;color:var(--a3);">88,000</div>
+          <div style="font-size:3rem;font-weight:900;color:var(--a3);">115,500</div>
         </div>
         <div style="text-align:center;padding:1.5rem;">
           <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;">Total monthly</div>
           <div style="font-size:3rem;font-weight:900;color:var(--a2);">~6,000</div>
         </div>
       </div>
-      <p style="font-size:0.85rem;color:var(--td);margin-top:1.5rem;text-align:center;line-height:1.6;">Based on 4 properties and 6 F&amp;B outlets. Most groups start with 3 or 4 items and add the rest over time. Third party platform fees are on top and vary by vendor.</p>
+      <p style="font-size:0.85rem;color:var(--td);margin-top:1.5rem;text-align:center;line-height:1.6;">Based on 4 properties and 6 F&amp;B outlets. Most groups start with 3 or 4 items and add the rest over time. Third party platform fees (channel manager vendor, dynamic pricing vendor) are separate and vary by provider.</p>
     </div>
 
     <div style="margin-top:1.5rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
@@ -1392,7 +1394,7 @@ rz();cp();dp();addEventListener('resize',()=>{rz();cp();});
 
 // Scroll animations
 const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('v');
-const bs=en.target.querySelectorAll('.bullet,.flow-s,.flow-a,.card,.tl-i,.price');
+const bs=en.target.querySelectorAll('.bullet,.flow-s,.flow-a,.card,.tl-i,.price,.price-card');
 bs.forEach((b,i)=>setTimeout(()=>b.classList.add('v'),i*120));}});},{threshold:.15});
 document.querySelectorAll('.s-in').forEach(e=>io.observe(e));
 
