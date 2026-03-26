@@ -100,11 +100,25 @@
   .flow-s.v{opacity:1;transform:translateY(0);}
   .flow-a{display:none;}
   @media(max-width:768px){
+    .s{padding:3rem 1.5rem;}
+    h1{font-size:2.2rem;}
+    h2{font-size:1.6rem;}
+    .sub{font-size:1rem;}
     .flow{grid-template-columns:1fr;gap:0;}
     .flow-s{border-radius:0 !important;border-left:1px solid rgba(255,255,255,0.06) !important;}
     .flow-s:first-child{border-radius:10px 10px 0 0 !important;}
     .flow-s:last-child{border-radius:0 0 10px 10px !important;}
     .flow-s+.flow-s{border-left:1px solid rgba(255,255,255,0.06) !important;border-top:none;}
+    .grid2{grid-template-columns:1fr;}
+    .grid3{grid-template-columns:1fr;}
+    .pain-stats{grid-template-columns:repeat(2,1fr);}
+    .partner-grid{grid-template-columns:1fr !important;}
+    .pricing{grid-template-columns:1fr;}
+    .stats{flex-direction:column;gap:1.5rem;}
+    .stat .n{font-size:2.4rem;}
+    nav{padding:0.8rem 1rem;}
+    nav .logo{font-size:1rem;}
+    .dots a{width:7px;height:7px;}
   }
 
   /* ── 3-col grid ── */
@@ -1105,7 +1119,7 @@
     <h2>A Partner,<br><span class="g1">Not a Vendor</span></h2>
     <p class="sub">We are not here to deliver software and disappear. You are building something long term. So are we.</p>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;">
+    <div class="partner-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem;">
       <div class="card">
         <h3>We Integrate Your Systems</h3>
         <p>Opera, Sage, email, the channel manager. Since these are all being set up at the same time, we can wire them together properly from the start. No retrofitting, no workarounds.</p>
@@ -1296,11 +1310,11 @@
       <div class="grid2" style="margin-top:0;">
         <div style="text-align:center;padding:1.5rem;">
           <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;">Total setup (one-off)</div>
-          <div style="font-size:3rem;font-weight:900;color:var(--a3);">&euro;109,500</div>
+          <div style="font-size:clamp(1.8rem,5vw,3rem);font-weight:900;color:var(--a3);">&euro;109,500</div>
         </div>
         <div style="text-align:center;padding:1.5rem;">
           <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;">Total monthly</div>
-          <div style="font-size:3rem;font-weight:900;color:var(--a2);">~&euro;6,000</div>
+          <div style="font-size:clamp(1.8rem,5vw,3rem);font-weight:900;color:var(--a2);">~&euro;6,000</div>
         </div>
       </div>
       <p style="font-size:0.85rem;color:var(--td);margin-top:1.5rem;text-align:center;line-height:1.6;">Based on 4 properties and 6 F&amp;B outlets. Third party platform fees (channel manager vendor, dynamic pricing vendor) are separate and vary by provider.</p>
