@@ -205,27 +205,31 @@
   }
   .example-block p{font-size:0.92rem;color:var(--td);line-height:1.6;text-align:justify;}
 
-  /* ── Pricing table ── */
-  .price-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:1.5rem;font-size:0.85rem;}
-  .price-table th{
-    text-align:left;padding:0.8rem 1rem;font-size:0.6rem;font-weight:700;
-    letter-spacing:2px;text-transform:uppercase;color:var(--td);
-    border-bottom:1px solid rgba(255,255,255,0.08);
+  /* ── Pricing cards ── */
+  .price-card{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
+    padding:2rem;position:relative;overflow:hidden;
+    opacity:0;transform:translateY(25px);transition:all 0.5s;
   }
-  .price-table th:last-child{color:var(--a3);}
-  .price-table td{padding:0.7rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--td);vertical-align:top;}
-  .price-table td:first-child{color:var(--t);font-weight:600;}
-  .price-table td:last-child{color:var(--a3);font-weight:700;}
-  .price-table tr:hover td{background:rgba(255,255,255,0.02);}
-  .price-table .section-row td{
-    padding-top:1.5rem;font-size:0.6rem;font-weight:700;letter-spacing:2px;
-    text-transform:uppercase;color:var(--a1);border-bottom:none;
+  .price-card.v{opacity:1;transform:translateY(0);}
+  .price-card:hover{border-color:rgba(108,92,231,0.2);}
+  .price-card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;}
+  .price-card-title{font-size:1.05rem;font-weight:700;color:var(--t);text-align:left;}
+  .price-card-prices{text-align:right;flex-shrink:0;margin-left:1.5rem;}
+  .price-card-setup{font-size:1.4rem;font-weight:900;color:var(--a3);line-height:1;}
+  .price-card-monthly{font-size:0.7rem;color:var(--a2);margin-top:0.3rem;font-weight:600;}
+  .price-card-desc{font-size:0.85rem;color:var(--td);line-height:1.6;text-align:justify;}
+  .price-card-typical{
+    display:inline-block;margin-top:1rem;padding:0.3rem 0.8rem;
+    background:rgba(253,121,168,0.08);border:1px solid rgba(253,121,168,0.15);border-radius:6px;
+    font-size:0.7rem;color:var(--a4);font-weight:600;
   }
-  .price-note{font-size:0.8rem;color:var(--td);line-height:1.6;margin-top:0.6rem;text-align:justify;}
-  @media(max-width:768px){
-    .price-table{font-size:0.75rem;}
-    .price-table th,.price-table td{padding:0.5rem 0.5rem;}
+  .price-section-label{
+    font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+    color:var(--a1);margin-top:2.5rem;margin-bottom:1rem;padding-bottom:0.5rem;
+    border-bottom:1px solid rgba(108,92,231,0.15);text-align:left;
   }
+  .price-section-label:first-of-type{margin-top:0;}
 
   /* ── Learn More link ── */
   .learn-more{
@@ -1185,59 +1189,157 @@
     <h2>What This<br><span class="g4">Typically Costs</span></h2>
     <p class="sub">We have researched what agencies and SaaS vendors typically charge for each of these services. Our prices are listed alongside so you can see where we sit. All figures in GBP.</p>
 
-    <!-- OUR FEES -->
-    <h3 style="font-size:1rem;color:var(--t);margin-top:0.5rem;margin-bottom:0.3rem;">What you pay us</h3>
-    <p style="font-size:0.85rem;color:var(--td);margin-bottom:1rem;">Setup, configuration, integration, and ongoing support.</p>
+    <div class="price-section-label">Starting Point</div>
+    <div class="grid2" style="margin-top:0;">
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Process Discovery</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;5,000</div>
+            <div class="price-card-monthly">one-off</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Interviews with key staff across each department. We map how bookings, rates, purchasing, and finance will work. Delivered as process maps and a prioritised roadmap.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;8,000 to &pound;25,000</div>
+      </div>
+    </div>
 
-    <table class="price-table">
-      <thead>
-        <tr><th>Service</th><th>Setup</th><th>Our Monthly</th></tr>
-      </thead>
-      <tbody>
-        <tr class="section-row"><td colspan="3">Ready Before November</td></tr>
-        <tr><td>Tour Operator Email Agent</td><td>18,000</td><td>900</td></tr>
-        <tr><td colspan="3"><p class="price-note">Custom built. No off the shelf product does this. Covers Opera integration, email classification AI, rate version tracking, and ongoing LLM usage.</p></td></tr>
+    <div class="price-section-label">Ready Before November</div>
+    <div class="grid2" style="margin-top:0;gap:1.2rem;">
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Tour Operator Email Agent</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;18,000</div>
+            <div class="price-card-monthly">&pound;900 /month</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Custom built AI that monitors your inbox, classifies tour operator emails, pulls the correct rate from Opera, and drafts responses automatically. Rate version tracking and discrepancy detection included.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;25,000 to &pound;65,000 setup</div>
+      </div>
 
-        <tr><td>Website</td><td>10,000</td><td>100</td></tr>
-        <tr><td colspan="3"><p class="price-note">Custom coded multi-property site in React. Hotels, villas, beach properties. Cinematic scroll animations, fast performance, premium luxury feel. Connected to your booking engine. Headless CMS so your team can manage content. Monthly covers hosting and updates.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Website</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;10,000</div>
+            <div class="price-card-monthly">&pound;100 /month</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Custom coded multi-property site in React. Hotels, villas, beach properties. Cinematic animations, premium luxury feel, fast performance. Headless CMS so your team can update content. Connected to your booking engine.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;15,000 to &pound;45,000 setup</div>
+      </div>
 
-        <tr><td>Guest App / Concierge</td><td>8,000</td><td>150 per property</td></tr>
-        <tr><td colspan="3"><p class="price-note">We are currently building a state of the art concierge app that connects directly to hotel systems (Opera, POS, spa) as well as outside services. Guests can book restaurants, arrange transfers, build itineraries, explore local experiences, order room service, and message reception, all from their phone. Branded for WESS and rolled out across all properties.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Guest App / Concierge</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;8,000</div>
+            <div class="price-card-monthly">&pound;150 /property</div>
+          </div>
+        </div>
+        <div class="price-card-desc">We are building a state of the art concierge app that connects to your hotel systems and outside services. Room service, spa, restaurants, transfers, itineraries, local experiences, all from the guest's phone. Branded for WESS.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;10,000 to &pound;25,000 setup</div>
+      </div>
 
-        <tr><td>WhatsApp Guest Messaging</td><td>4,000</td><td>150 per property</td></tr>
-        <tr><td colspan="3"><p class="price-note">We build this in house using the WhatsApp Business API. Pre-arrival messaging, in-stay requests, post-stay feedback, all automated and triggered from Opera reservations. No third party platform needed, no extra vendor fees. Fully custom to how WESS wants to communicate with guests.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">WhatsApp Guest Messaging</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;4,000</div>
+            <div class="price-card-monthly">&pound;150 /property</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Built in house. Pre-arrival messaging, in-stay requests, post-stay feedback, all automated and triggered from Opera reservations. Fully custom to how WESS communicates with guests.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;5,000 to &pound;15,000 setup</div>
+      </div>
 
-        <tr><td>QR Code F&amp;B Ordering</td><td>2,500</td><td>80 per outlet</td></tr>
-        <tr><td colspan="3"><p class="price-note">Platform like Sunday connected to Symphony POS. Sunday charges $49 to $299 per location per month depending on plan, paid to them. Our fee covers POS integration and menu mapping per outlet.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">QR Code F&amp;B Ordering</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;2,500</div>
+            <div class="price-card-monthly">&pound;80 /outlet</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Digital menus with QR ordering connected to your POS. Guests scan, browse, order. No printed menus. Each outlet gets its own menu, pricing, and POS mapping.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;3,000 to &pound;12,000 setup</div>
+      </div>
+    </div>
 
-        <tr class="section-row"><td colspan="3">After the Discovery</td></tr>
-        <tr><td>Opera to Sage Integration</td><td>12,000</td><td>500</td></tr>
-        <tr><td colspan="3"><p class="price-note">Custom connector. Cost depends on Sage version and whether Opera is cloud or on-premise. Monthly covers hosting, monitoring, and failure handling.</p></td></tr>
+    <div class="price-section-label">After the Discovery</div>
+    <div class="grid2" style="margin-top:0;gap:1.2rem;">
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Opera to Sage Integration</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;12,000</div>
+            <div class="price-card-monthly">&pound;500 /month</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Custom connector between your PMS and accounting software. Bookings flow automatically into Sage with correct account codes, tax, and department mapping. Rate reconciliation runs continuously.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;15,000 to &pound;35,000 setup</div>
+      </div>
 
-        <tr><td>Channel Manager Setup</td><td>2,500</td><td>250</td></tr>
-        <tr><td colspan="3"><p class="price-note">We configure SiteMinder or similar and connect it to Opera. SiteMinder charges roughly EUR 100 to 180 per property per month, paid to them. Our fee covers rate mapping, testing, and ongoing support.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Channel Manager</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;2,500</div>
+            <div class="price-card-monthly">&pound;250 /month</div>
+          </div>
+        </div>
+        <div class="price-card-desc">We configure and connect the channel manager to Opera. Rate mapping, room type mapping, restriction handling, and testing across all OTA channels. Ongoing support for rate updates and troubleshooting.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;3,000 to &pound;10,000 setup</div>
+      </div>
 
-        <tr><td>Purchasing and Inventory</td><td>12,000</td><td>250 per property</td></tr>
-        <tr><td colspan="3"><p class="price-note">Existing platform (MarketMan or similar) configured for your outlets. MarketMan starts at $199 per location per month, paid to them. Our fee covers data migration, supplier setup, and multi-outlet configuration.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Purchasing and Inventory</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;12,000</div>
+            <div class="price-card-monthly">&pound;250 /property</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Cloud based purchasing and stock control across all outlets. Purchase orders, supplier management, approval workflows, goods receiving, and stock alerts. Centrally managed from the head office.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;15,000 to &pound;40,000 setup</div>
+      </div>
 
-        <tr><td>Central Dashboard</td><td>6,000</td><td>300</td></tr>
-        <tr><td colspan="3"><p class="price-note">Depends on data sources and whether we use Notion, Power BI, or a custom web app. Power BI is about GBP 8 to 12 per user per month if we go that route.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Central Dashboard</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;6,000</div>
+            <div class="price-card-monthly">&pound;300 /month</div>
+          </div>
+        </div>
+        <div class="price-card-desc">One view of the whole group. Live occupancy, bookings by channel, rate parity, revenue by outlet, purchasing status. Morning briefing automation. Data pulled from every connected system.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;8,000 to &pound;30,000 setup</div>
+      </div>
 
-        <tr><td>Dynamic Pricing</td><td>4,000</td><td>250 per property</td></tr>
-        <tr><td colspan="3"><p class="price-note">We handle vendor selection, Opera integration, rate strategy, and training. RoomPriceGenie starts at EUR 198 per property per month. Atomize starts at EUR 299. Paid to them. Our fee covers setup and ongoing optimisation.</p></td></tr>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Dynamic Pricing</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;4,000</div>
+            <div class="price-card-monthly">&pound;250 /property</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Automated rate adjustments for OTA and direct channels based on occupancy, competitor rates, and demand signals. We handle setup, Opera integration, rate strategy, and ongoing optimisation.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;5,000 to &pound;15,000 setup</div>
+      </div>
 
-        <tr class="section-row"><td colspan="3">Add-ons</td></tr>
-        <tr><td>Staff Training / SOP Platform</td><td>4,000</td><td>Vendor direct</td></tr>
-        <tr><td colspan="3"><p class="price-note">innform starts at GBP 1 per user per month. Typsy is EUR 12.50 per user per month. Our fee covers platform setup, template creation, and initial SOP structure.</p></td></tr>
-
-        <tr class="section-row"><td colspan="3">Starting Point</td></tr>
-        <tr><td>Process Discovery</td><td>5,000</td><td>One-off</td></tr>
-        <tr><td colspan="3"><p class="price-note">Remote video calls with each department. Delivered as process maps and a prioritised roadmap. Priced to get started, not to make a margin on discovery.</p></td></tr>
-      </tbody>
-    </table>
-
-    <div style="margin-top:2.5rem;padding:1.5rem 2rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;">Some of these services use third party platforms (guest app, WhatsApp, channel manager, dynamic pricing, etc). Those vendors charge their own monthly fees on top, paid directly to them. We will walk through the options and costs for each one during the discovery so there are no surprises.</p>
+      <div class="price-card">
+        <div class="price-card-head">
+          <div class="price-card-title">Staff Training and SOPs</div>
+          <div class="price-card-prices">
+            <div class="price-card-setup">&pound;4,000</div>
+            <div class="price-card-monthly">included</div>
+          </div>
+        </div>
+        <div class="price-card-desc">Digital SOP platform configured for your departments. Standardised procedures, onboarding checklists, and video guides accessible from any device. Updated centrally across all properties.</div>
+        <div class="price-card-typical">Typical agency cost: &pound;5,000 to &pound;15,000 setup</div>
+      </div>
     </div>
 
     <!-- TOTAL SUMMARY -->
