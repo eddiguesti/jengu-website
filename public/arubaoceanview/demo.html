@@ -613,7 +613,7 @@
       width: 100vw; margin-left: calc(-50vw + 50%);
       overflow: hidden;
       display: flex; align-items: center; justify-content: center;
-      height: 460px;
+      height: 620px;
       perspective: 1400px;
       perspective-origin: 50% 45%;
       position: relative;
@@ -638,12 +638,12 @@
     }
     .carousel-3d {
       position: relative;
-      width: 280px; height: 380px;
+      width: 400px; height: 520px;
       transform-style: preserve-3d;
       will-change: transform;
     }
     .carousel-3d-card {
-      position: absolute; width: 280px; height: 380px;
+      position: absolute; width: 400px; height: 520px;
       left: 0; top: 0;
       border-radius: 14px; overflow: hidden;
       box-shadow: 0 12px 35px rgba(0,0,0,0.12);
@@ -1358,9 +1358,9 @@
       .footer-top { grid-template-columns: 1fr; }
       .footer-cta { align-items: flex-start; }
       .footer-cta h3 { text-align: left; }
-      .carousel-3d-viewport { height: 280px; }
-      .carousel-3d-card { width: 170px; height: 230px; }
-      .carousel-3d { width: 170px; height: 230px; }
+      .carousel-3d-viewport { height: 380px; }
+      .carousel-3d-card { width: 250px; height: 330px; }
+      .carousel-3d { width: 250px; height: 330px; }
       .carousel-3d-viewport::before,
       .carousel-3d-viewport::after { width: 60px; }
       .culinary-parallax { height: 60vh; min-height: 350px; }
@@ -1369,9 +1369,9 @@
       .container { padding: 0 1.2rem; }
       .rooms-showcase { padding: 4.5rem 1.2rem 2rem; }
       .rooms-showcase-tabs { top: 1rem; left: 1.2rem; }
-      .carousel-3d-viewport { height: 260px; }
-      .carousel-3d-card { width: 160px; height: 220px; }
-      .carousel-3d { width: 160px; height: 220px; }
+      .carousel-3d-viewport { height: 340px; }
+      .carousel-3d-card { width: 220px; height: 290px; }
+      .carousel-3d { width: 220px; height: 290px; }
       .carousel-3d-viewport::before,
       .carousel-3d-viewport::after { width: 30px; }
     }
@@ -2349,7 +2349,7 @@
       const cards = carousel.querySelectorAll('.carousel-3d-card');
       const numCards = cards.length;
       const theta = 360 / numCards;
-      const radius = 1000;
+      const radius = 1200;
 
       // Concave cylinder — cards pushed inward (negative translateZ)
       cards.forEach((card, i) => {
