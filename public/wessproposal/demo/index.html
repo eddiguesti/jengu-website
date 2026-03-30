@@ -87,90 +87,171 @@
     /* ===== NAVBAR ===== */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 0 2rem; height: 70px;
+      padding: 0 clamp(1.5rem, 4vw, 5rem); height: 80px;
       display: flex; align-items: center; justify-content: space-between;
       background: transparent;
-      border-bottom: 1px solid transparent;
-      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+      transition: background 0.5s ease, backdrop-filter 0.5s ease;
     }
     .navbar.scrolled {
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(107,99,71,0.08);
-      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      background: rgba(10,10,8,0.85);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
     }
-    .nav-left { display: flex; align-items: center; gap: 1.2rem; }
-    .nav-left a, .nav-left span {
-      font-size: 0.78rem; letter-spacing: 0.04em; color: #fff;
-      font-weight: 400; transition: opacity 0.3s, color 0.4s ease;
+    .nav-left { display: flex; align-items: center; gap: 0.6rem; }
+    .nav-burger {
+      display: flex; flex-direction: column; gap: 6px;
+      cursor: pointer; padding: 8px; position: relative; z-index: 1001;
+      transition: gap 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      background: none; border: none;
     }
-    .nav-left a:hover { opacity: 0.6; }
-    .nav-left .sep { color: rgba(255,255,255,0.4); font-weight: 300; transition: color 0.4s ease; }
-    .navbar.scrolled .nav-left a,
-    .navbar.scrolled .nav-left span { color: var(--color-primary); }
-    .navbar.scrolled .nav-left .sep { color: rgba(61,52,38,0.25); }
+    .nav-burger span {
+      display: block; height: 1.5px; background: #fff;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-origin: center;
+    }
+    .nav-burger span:nth-child(1) { width: 24px; }
+    .nav-burger span:nth-child(2) { width: 18px; }
+    .nav-burger span:nth-child(3) { width: 24px; }
+    .nav-burger.active { gap: 0; }
+    .nav-burger.active span:nth-child(1) { transform: rotate(45deg) translate(1px, 1px); width: 24px; }
+    .nav-burger.active span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-burger.active span:nth-child(3) { transform: rotate(-45deg) translate(1px, -1px); width: 24px; }
+    .nav-label {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(255,255,255,0.7);
+      transition: opacity 0.4s;
+    }
+    .nav-burger.active + .nav-label { opacity: 0; }
+
     .nav-center {
       position: absolute; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
     }
     .nav-logo-icon {
-      width: 32px; height: 28px;
+      width: 36px; height: 32px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90' fill='%23ffffff'%3E%3Cpath d='M50 5L30 30L10 15L18 55H82L90 15L70 30Z'/%3E%3Cpath d='M15 60H85V65C85 70 80 75 75 75H25C20 75 15 70 15 65Z'/%3E%3Cpath d='M35 75V85H40V75Z'/%3E%3Cpath d='M60 75V85H65V75Z'/%3E%3C/svg%3E") center/contain no-repeat;
-      transition: background 0.4s ease;
-    }
-    .navbar.scrolled .nav-logo-icon {
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90' fill='%233D3426'%3E%3Cpath d='M50 5L30 30L10 15L18 55H82L90 15L70 30Z'/%3E%3Cpath d='M15 60H85V65C85 70 80 75 75 75H25C20 75 15 70 15 65Z'/%3E%3Cpath d='M35 75V85H40V75Z'/%3E%3Cpath d='M60 75V85H65V75Z'/%3E%3C/svg%3E") center/contain no-repeat;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .nav-logo-text {
       font-family: var(--font-serif);
-      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.2em;
-      text-transform: uppercase; color: #fff; transition: color 0.4s ease;
+      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.25em;
+      text-transform: uppercase; color: #fff;
     }
-    .navbar.scrolled .nav-logo-text { color: var(--color-primary); }
-    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
     .lang-btn {
       display: flex; align-items: center; gap: 0.35rem;
-      padding: 0.35rem 0.8rem; font-size: 0.72rem; letter-spacing: 0.03em;
-      border: 1px solid rgba(255,255,255,0.3); border-radius: 18px;
-      color: #fff; transition: all 0.3s;
+      padding: 0.4rem 0.9rem; font-size: 0.68rem; letter-spacing: 0.04em;
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
+      color: rgba(255,255,255,0.7); transition: all 0.3s;
+      font-family: var(--font-sans); background: none;
     }
-    .navbar.scrolled .lang-btn { border-color: rgba(107,99,71,0.15); color: var(--color-primary); }
-    .lang-btn:hover { border-color: rgba(255,255,255,0.6); }
-    .navbar.scrolled .lang-btn:hover { border-color: rgba(107,99,71,0.3); }
+    .lang-btn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
     .lang-btn .globe { font-size: 0.8rem; }
     .lang-btn .arrow { font-size: 0.55rem; }
     .btn-book {
-      padding: 0.45rem 1.2rem; font-size: 0.72rem; letter-spacing: 0.06em;
-      background: rgba(255,255,255,0.2); color: #fff; border-radius: 4px;
-      font-weight: 500; transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.5rem 1.4rem; font-size: 0.68rem; letter-spacing: 0.1em;
+      background: rgba(255,255,255,0.15); color: #fff; border-radius: 4px;
+      font-weight: 500; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      border: 1px solid rgba(255,255,255,0.25);
+      font-family: var(--font-sans); text-transform: uppercase;
     }
-    .navbar.scrolled .btn-book { background: var(--color-primary); color: var(--color-cream); border-color: var(--color-primary); }
-    .btn-book:hover { background: rgba(255,255,255,0.35); }
-    .navbar.scrolled .btn-book:hover { background: var(--color-secondary); border-color: var(--color-secondary); }
+    .btn-book:hover { background: #fff; color: #1a1510; border-color: #fff; }
 
-    /* Hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
-    .hamburger span { width: 22px; height: 1.5px; background: #fff; transition: all 0.3s ease; }
-    .navbar.scrolled .hamburger span { background: var(--color-primary); }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
-    .mobile-menu {
-      position: fixed; inset: 0; background: rgba(250,247,242,0.98);
-      backdrop-filter: blur(20px);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 2rem; z-index: 999;
-      opacity: 0; visibility: hidden; transition: all 0.4s ease;
+    /* ===== MEGA MENU ===== */
+    .mega-menu {
+      position: fixed; inset: 0; z-index: 999;
+      background: #0d0d0a;
+      display: flex;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
     }
-    .mobile-menu.active { opacity: 1; visibility: visible; }
-    .mobile-menu a {
+    .mega-menu.active { opacity: 1; visibility: visible; }
+    .mega-left {
+      flex: 0 0 45%; display: flex; flex-direction: column;
+      justify-content: center; padding: 6rem clamp(2rem, 5vw, 6rem);
+      position: relative;
+    }
+    .mega-left::after {
+      content: ''; position: absolute; right: 0; top: 10%; bottom: 10%;
+      width: 1px; background: linear-gradient(to bottom, transparent, rgba(181,160,124,0.2), transparent);
+    }
+    .mega-nav { display: flex; flex-direction: column; gap: 0; }
+    .mega-nav-item {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 1.4rem 0; cursor: pointer; position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      opacity: 0; transform: translateX(-40px);
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mega-menu.active .mega-nav-item { opacity: 1; transform: translateX(0); }
+    .mega-nav-item:nth-child(1) { transition-delay: 0.15s; }
+    .mega-nav-item:nth-child(2) { transition-delay: 0.22s; }
+    .mega-nav-item:nth-child(3) { transition-delay: 0.29s; }
+    .mega-nav-item:nth-child(4) { transition-delay: 0.36s; }
+    .mega-nav-item:nth-child(5) { transition-delay: 0.43s; }
+    .mega-nav-item:nth-child(6) { transition-delay: 0.50s; }
+    .mega-nav-num {
+      font-family: var(--font-sans);
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em;
+      color: rgba(181,160,124,0.4); min-width: 2rem;
+      transition: color 0.4s;
+    }
+    .mega-nav-label {
       font-family: var(--font-serif);
-      font-size: 2rem; font-weight: 400; color: var(--color-primary);
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300;
+      color: rgba(255,255,255,0.5); letter-spacing: 0.02em;
+      transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .mobile-menu.active a { opacity: 1; transform: translateY(0); }
+    .mega-nav-arrow {
+      font-size: 1.2rem; color: rgba(181,160,124,0);
+      margin-left: auto; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateX(-10px);
+    }
+    .mega-nav-item:hover .mega-nav-num { color: var(--color-accent); }
+    .mega-nav-item:hover .mega-nav-label { color: #fff; transform: translateX(8px); }
+    .mega-nav-item:hover .mega-nav-arrow { color: var(--color-accent); transform: translateX(0); }
+    .mega-nav-item.active-item .mega-nav-label { color: #fff; }
+    .mega-nav-item.active-item .mega-nav-num { color: var(--color-accent); }
+    .mega-right {
+      flex: 1; position: relative; overflow: hidden;
+    }
+    .mega-image {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: scale(1.08);
+    }
+    .mega-image.active { opacity: 1; transform: scale(1); }
+    .mega-image img { width: 100%; height: 100%; object-fit: cover; }
+    .mega-image-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(13,13,10,0.4) 0%, transparent 60%);
+    }
+    .mega-image-caption {
+      position: absolute; bottom: 3rem; left: 3rem; right: 3rem;
+      opacity: 0; transform: translateY(15px);
+      transition: opacity 0.6s 0.2s ease, transform 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mega-image.active .mega-image-caption { opacity: 1; transform: translateY(0); }
+    .mega-image-caption h3 {
+      font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400;
+      color: #fff; margin-bottom: 0.4rem;
+    }
+    .mega-image-caption p {
+      font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6;
+      max-width: 400px; font-weight: 300;
+    }
+    .mega-bottom {
+      position: absolute; bottom: 3rem; left: clamp(2rem, 5vw, 6rem);
+      display: flex; gap: 3rem; align-items: center;
+      opacity: 0; transform: translateY(15px);
+      transition: opacity 0.6s 0.5s ease, transform 0.6s 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mega-menu.active .mega-bottom { opacity: 1; transform: translateY(0); }
+    .mega-contact-item {
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .mega-contact-item a { color: rgba(255,255,255,0.5); transition: color 0.3s; text-decoration: none; }
+    .mega-contact-item a:hover { color: var(--color-accent); }
 
     /* ===== HERO ===== */
     .hero {
@@ -264,8 +345,8 @@
     }
     .hero-line-inner {
       display: block;
-      transform: translateY(110%);
-      filter: blur(8px);
+      transform: translateY(115%);
+      filter: blur(14px);
       opacity: 0;
     }
     .hero-line-bold {
@@ -275,36 +356,53 @@
       color: #fff; line-height: 0.88; letter-spacing: -0.035em;
     }
     .hero-line-italic {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      font-weight: 300; font-style: normal;
+      font-family: var(--font-serif);
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 300; font-style: italic;
       color: var(--color-accent);
-      line-height: 1.1; letter-spacing: -0.01em;
-      margin-top: 0.2em;
+      line-height: 1.15; letter-spacing: 0.02em;
+      margin-top: 0.15em;
     }
 
-    /* Clip-mask reveal with blur-to-sharp and slight horizontal drift */
+    /* Clip-mask reveal with blur-to-sharp and horizontal drift */
     .hero.revealed .hero-line:nth-child(1) .hero-line-inner {
-      animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 2.9s;
+      animation: textReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 2.8s;
     }
     .hero.revealed .hero-line:nth-child(2) .hero-line-inner {
-      animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: textReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       animation-delay: 3.1s;
     }
     .hero.revealed .hero-line:nth-child(3) .hero-line-inner {
-      animation: textRevealItalic 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 3.4s;
+      animation: textRevealItalic 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 3.5s;
     }
     @keyframes textReveal {
-      0%   { transform: translateY(110%) translateX(-15px); filter: blur(8px); opacity: 0; }
-      30%  { opacity: 1; }
+      0%   { transform: translateY(115%) translateX(-25px); filter: blur(14px); opacity: 0; }
+      20%  { opacity: 0.6; }
+      50%  { filter: blur(2px); }
       100% { transform: translateY(0) translateX(0); filter: blur(0); opacity: 1; }
     }
     @keyframes textRevealItalic {
-      0%   { transform: translateY(100%) translateX(-20px); filter: blur(10px); opacity: 0; }
-      25%  { opacity: 1; }
-      100% { transform: translateY(0) translateX(0); filter: blur(0); opacity: 1; }
+      0%   { transform: translateY(100%) translateX(-35px) scale(0.95); filter: blur(16px); opacity: 0; }
+      15%  { opacity: 0.5; }
+      50%  { filter: blur(3px); }
+      100% { transform: translateY(0) translateX(0) scale(1); filter: blur(0); opacity: 1; }
+    }
+
+    /* Gold accent line under headline */
+    .hero-accent-line {
+      width: 0; height: 1px; margin-top: 2rem;
+      background: linear-gradient(90deg, var(--color-accent), transparent);
+      opacity: 0;
+    }
+    .hero.revealed .hero-accent-line {
+      animation: accentGrow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation-delay: 4s;
+    }
+    @keyframes accentGrow {
+      from { width: 0; opacity: 0; }
+      to { width: 120px; opacity: 0.6; }
     }
 
     /* Bottom bar — staggered reveals */
@@ -314,20 +412,20 @@
     .hero-btns { opacity: 0; }
 
     .hero.revealed .hero-bottom {
-      animation: fadeUp 0.8s ease forwards;
-      animation-delay: 3.6s;
+      animation: fadeUp 0.9s ease forwards;
+      animation-delay: 4.2s;
     }
     .hero.revealed .hero-family {
-      animation: fadeUp 0.7s ease forwards;
-      animation-delay: 3.8s;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 4.5s;
     }
     .hero.revealed .hero-legacy {
-      animation: fadeUp 0.7s ease forwards;
-      animation-delay: 3.95s;
+      animation: fadeUp 0.8s ease forwards;
+      animation-delay: 4.7s;
     }
     .hero.revealed .hero-btns {
-      animation: btnReveal 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      animation-delay: 4.1s;
+      animation: btnReveal 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      animation-delay: 4.9s;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(15px); }
@@ -342,7 +440,7 @@
     .hero-scroll-indicator { opacity: 0; }
     .hero.revealed .hero-scroll-indicator {
       animation: fadeUp 0.6s ease forwards;
-      animation-delay: 4.4s;
+      animation-delay: 5.2s;
     }
 
     /* --- Hero bottom bar --- */
@@ -356,13 +454,15 @@
     }
     .hero-family {
       font-family: var(--font-serif); font-style: italic;
-      font-size: 0.88rem; color: rgba(255,255,255,0.85);
-      margin-bottom: 0.3rem; font-weight: 300;
+      font-size: 1.05rem; color: rgba(255,255,255,0.8);
+      margin-bottom: 0.4rem; font-weight: 300; line-height: 1.7;
+      max-width: 360px; margin-left: auto;
     }
     .hero-legacy {
       font-family: var(--font-serif); font-style: italic;
-      font-size: 0.78rem; color: rgba(255,255,255,0.6);
-      font-weight: 300; margin-bottom: 1.5rem;
+      font-size: 0.92rem; color: var(--color-accent);
+      font-weight: 400; margin-bottom: 2rem; line-height: 1.7;
+      max-width: 360px; margin-left: auto;
     }
     .hero-btns {
       display: flex; gap: 0.8rem; justify-content: flex-end;
@@ -1205,10 +1305,16 @@
       .hero-family, .hero-legacy { display: none; }
       .hero-scroll-indicator { display: none; }
       .btn-book-hero, .btn-explore-hero { padding: 0.75rem 1.4rem; font-size: 0.65rem; }
-      .navbar { padding: 0 1rem; }
-      .nav-left, .nav-right .lang-btn { display: none; }
-      .hamburger { display: flex; }
-      .nav-center { position: relative; left: auto; transform: none; }
+      .navbar { padding: 0 1rem; height: 65px; }
+      .nav-label { display: none; }
+      .lang-btn { display: none !important; }
+      .mega-menu { flex-direction: column; }
+      .mega-left { flex: none; padding: 6rem 2rem 2rem; }
+      .mega-left::after { display: none; }
+      .mega-right { flex: 1; min-height: 200px; }
+      .mega-nav-label { font-size: 1.6rem; }
+      .mega-image-caption { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
+      .mega-bottom { display: none; }
       .rooms-showcase-content { grid-template-columns: 1fr; }
       .wellness-layout { grid-template-columns: 1fr; }
       .offers-grid { grid-template-columns: 1fr; }
@@ -1249,32 +1355,111 @@
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-left">
-      <a href="#">Menu</a>
-      <span class="sep">|</span>
-      <a href="#">Call</a>
-      <a href="#">Enquire</a>
+      <button class="nav-burger" id="navBurger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="nav-label">Menu</span>
     </div>
     <div class="nav-center">
       <div class="nav-logo-icon"></div>
-      <span class="nav-logo-text">Wess</span>
+      <span class="nav-logo-text">WESS</span>
     </div>
     <div class="nav-right">
       <button class="lang-btn"><span class="globe">&#127760;</span> English <span class="arrow">&#9662;</span></button>
       <button class="btn-book">Book</button>
     </div>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
   </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#rooms" class="mobile-nav-link">Stay</a>
-    <a href="#culinary" class="mobile-nav-link">Enjoy</a>
-    <a href="#nature" class="mobile-nav-link">Experience</a>
-    <a href="#location" class="mobile-nav-link">Discover</a>
-    <a href="#cta" class="mobile-nav-link">Enquire</a>
-    <a href="#" class="mobile-nav-link">Book Now</a>
+  <!-- MEGA MENU -->
+  <div class="mega-menu" id="megaMenu">
+    <div class="mega-left">
+      <nav class="mega-nav">
+        <div class="mega-nav-item active-item" data-img="0">
+          <span class="mega-nav-num">01</span>
+          <span class="mega-nav-label">Villas</span>
+          <span class="mega-nav-arrow">&rarr;</span>
+        </div>
+        <div class="mega-nav-item" data-img="1">
+          <span class="mega-nav-num">02</span>
+          <span class="mega-nav-label">Hotels</span>
+          <span class="mega-nav-arrow">&rarr;</span>
+        </div>
+        <div class="mega-nav-item" data-img="2">
+          <span class="mega-nav-num">03</span>
+          <span class="mega-nav-label">Beach Residences</span>
+          <span class="mega-nav-arrow">&rarr;</span>
+        </div>
+        <div class="mega-nav-item" data-img="3">
+          <span class="mega-nav-num">04</span>
+          <span class="mega-nav-label">Dining</span>
+          <span class="mega-nav-arrow">&rarr;</span>
+        </div>
+        <div class="mega-nav-item" data-img="4">
+          <span class="mega-nav-num">05</span>
+          <span class="mega-nav-label">Wellness</span>
+          <span class="mega-nav-arrow">&rarr;</span>
+        </div>
+        <div class="mega-nav-item" data-img="5">
+          <span class="mega-nav-num">06</span>
+          <span class="mega-nav-label">Experiences</span>
+          <span class="mega-nav-arrow">&rarr;</span>
+        </div>
+      </nav>
+      <div class="mega-bottom">
+        <div class="mega-contact-item"><a href="tel:+23012345678">+230 123 456 78</a></div>
+        <div class="mega-contact-item"><a href="mailto:stay@wess.mu">stay@wess.mu</a></div>
+      </div>
+    </div>
+    <div class="mega-right">
+      <div class="mega-image active" data-idx="0">
+        <img src="Legend-Hill-Villa-Blackstone-by-night.webp" alt="WESS Villas">
+        <div class="mega-image-overlay"></div>
+        <div class="mega-image-caption">
+          <h3>Private Villas</h3>
+          <p>Secluded hillside retreats with panoramic ocean views, private pools, and dedicated butler service.</p>
+        </div>
+      </div>
+      <div class="mega-image" data-idx="1">
+        <img src="../xr-mruxm-strmruxrpo-206312_Wide-Hor.jpeg" alt="WESS Hotels">
+        <div class="mega-image-overlay"></div>
+        <div class="mega-image-caption">
+          <h3>Boutique Hotels</h3>
+          <p>Intimate luxury hotels where every detail has been considered, from sunrise to starlight.</p>
+        </div>
+      </div>
+      <div class="mega-image" data-idx="2">
+        <img src="../xr-mruxm-strmruxrgr-142284_Classic-Hor.jpeg" alt="WESS Beach Residences">
+        <div class="mega-image-overlay"></div>
+        <div class="mega-image-caption">
+          <h3>Beach Residences</h3>
+          <p>Step from your terrace onto white sand. The ocean is not a view here &mdash; it is your garden.</p>
+        </div>
+      </div>
+      <div class="mega-image" data-idx="3">
+        <img src="Legend-Hill-Villa-Blackstone-by-night.webp" alt="WESS Dining">
+        <div class="mega-image-overlay"></div>
+        <div class="mega-image-caption">
+          <h3>Culinary Journeys</h3>
+          <p>From ocean-to-table seafood to Mauritian-Creole fusion, every meal tells a story.</p>
+        </div>
+      </div>
+      <div class="mega-image" data-idx="4">
+        <img src="../xr-mruxm-strmruxrpo-206312_Wide-Hor.jpeg" alt="WESS Wellness">
+        <div class="mega-image-overlay"></div>
+        <div class="mega-image-caption">
+          <h3>Wellness &amp; Spa</h3>
+          <p>Ancient healing traditions meet modern therapies in spaces designed for stillness.</p>
+        </div>
+      </div>
+      <div class="mega-image" data-idx="5">
+        <img src="../xr-mruxm-strmruxrgr-142284_Classic-Hor.jpeg" alt="WESS Experiences">
+        <div class="mega-image-overlay"></div>
+        <div class="mega-image-caption">
+          <h3>Island Experiences</h3>
+          <p>Reef diving, Le Morne trails, private catamaran sunsets &mdash; curated by those who know the island best.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- HERO -->
@@ -1297,8 +1482,9 @@
         <h1 class="hero-headline">
           <span class="hero-line"><span class="hero-line-inner hero-line-bold">Where</span></span>
           <span class="hero-line"><span class="hero-line-inner hero-line-bold">Paradise</span></span>
-          <span class="hero-line"><span class="hero-line-inner hero-line-italic">Feels Like Home</span></span>
+          <span class="hero-line"><span class="hero-line-inner hero-line-italic">Begins at Your Door</span></span>
         </h1>
+        <div class="hero-accent-line"></div>
       </div>
 
       <div class="hero-bottom">
@@ -1306,8 +1492,8 @@
           <div class="hero-scroll-line"></div>
         </div>
         <div class="hero-bottom-right">
-          <p class="hero-family">A private retreat on the Indian Ocean.</p>
-          <p class="hero-legacy">Where barefoot luxury begins.</p>
+          <p class="hero-family">Three oceanfront estates on the southern coast of Mauritius.</p>
+          <p class="hero-legacy">Villas, hotels, and residences &mdash; each with a character of its own.</p>
           <div class="hero-btns">
             <a href="#cta" class="btn-book-hero">Book Your Stay <span class="arrow">&rarr;</span></a>
             <a href="#rooms" class="btn-explore-hero">Explore Properties</a>
@@ -1912,21 +2098,28 @@
       lastScrollY = scrollY;
     }
 
-    // ===== MOBILE MENU =====
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    // ===== MEGA MENU =====
+    const burger = document.getElementById('navBurger');
+    const megaMenu = document.getElementById('megaMenu');
+    const megaItems = document.querySelectorAll('.mega-nav-item');
+    const megaImages = document.querySelectorAll('.mega-image');
+
+    burger.addEventListener('click', () => {
+      const isOpen = megaMenu.classList.contains('active');
+      burger.classList.toggle('active');
+      megaMenu.classList.toggle('active');
+      document.body.style.overflow = isOpen ? '' : 'hidden';
     });
-    function closeMobile() {
-      hamburger.classList.remove('active');
-      mobileMenu.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', closeMobile);
+
+    megaItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const idx = item.dataset.img;
+        megaItems.forEach(i => i.classList.remove('active-item'));
+        item.classList.add('active-item');
+        megaImages.forEach(img => {
+          img.classList.toggle('active', img.dataset.idx === idx);
+        });
+      });
     });
 
 
