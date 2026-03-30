@@ -282,28 +282,112 @@
     .btn-book:hover { background: rgba(255,255,255,0.35); }
     .navbar.scrolled .btn-book:hover { background: var(--color-secondary); border-color: var(--color-secondary); }
 
-    /* Hamburger */
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
-    .hamburger span { width: 22px; height: 1.5px; background: #fff; transition: all 0.3s ease; }
+    /* Hamburger — always visible */
+    .hamburger {
+      display: flex; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001;
+      padding: 8px; position: relative;
+    }
+    .hamburger span {
+      width: 26px; height: 1.5px; background: #fff;
+      transition: all 0.4s cubic-bezier(0.77,0,0.18,1);
+      transform-origin: center;
+    }
     .navbar.scrolled .hamburger span { background: var(--color-primary); }
-    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
-    .mobile-menu {
-      position: fixed; inset: 0; background: rgba(250,247,242,0.98);
-      backdrop-filter: blur(20px);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 2rem; z-index: 999;
-      opacity: 0; visibility: hidden; transition: all 0.4s ease;
+    .hamburger.active span { background: var(--color-primary) !important; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5.5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5.5px); }
+
+    /* Fullscreen Menu Overlay */
+    .menu-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(250,247,242,0.97);
+      backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.5s cubic-bezier(0.77,0,0.18,1), visibility 0.5s;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
     }
-    .mobile-menu.active { opacity: 1; visibility: visible; }
-    .mobile-menu a {
+    .menu-overlay.active { opacity: 1; visibility: visible; }
+
+    /* Left side — nav links */
+    .menu-nav {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 4rem 5rem;
+      gap: 0;
+    }
+    .menu-nav-link {
       font-family: var(--font-display);
-      font-size: 1.8rem; font-weight: 500; color: var(--color-primary); letter-spacing: -0.01em;
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: var(--color-primary);
+      padding: 0.3rem 0;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.77,0,0.18,1), color 0.3s;
+      cursor: pointer; position: relative;
+      display: inline-block; width: fit-content;
     }
-    .mobile-menu.active a { opacity: 1; transform: translateY(0); }
+    .menu-overlay.active .menu-nav-link {
+      opacity: 1; transform: translateY(0);
+    }
+    .menu-nav-link:hover { color: var(--color-secondary); }
+    .menu-nav-link .link-num {
+      font-family: var(--font-body);
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em;
+      color: rgba(61,52,38,0.35);
+      position: absolute; left: -2rem; top: 50%; transform: translateY(-50%);
+    }
+
+    /* Right side — villa preview image */
+    .menu-preview {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .menu-preview-img {
+      position: absolute; inset: 2rem;
+      border-radius: 16px; overflow: hidden;
+      opacity: 0; transform: scale(1.05);
+      transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.77,0,0.18,1);
+    }
+    .menu-preview-img.active {
+      opacity: 1; transform: scale(1);
+    }
+    .menu-preview-img img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+
+    /* Bottom info in menu */
+    .menu-bottom {
+      position: absolute; bottom: 2.5rem; left: 5rem; right: 5rem;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
+    }
+    .menu-overlay.active .menu-bottom {
+      opacity: 1; transform: translateY(0);
+    }
+    .menu-bottom-left {
+      font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(61,52,38,0.5);
+      line-height: 1.6;
+    }
+    .menu-bottom-right {
+      display: flex; gap: 1.5rem;
+    }
+    .menu-bottom-right a {
+      font-size: 0.72rem; letter-spacing: 0.04em; color: var(--color-primary);
+      font-weight: 500; transition: opacity 0.3s;
+    }
+    .menu-bottom-right a:hover { opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .menu-overlay { grid-template-columns: 1fr; }
+      .menu-preview { display: none; }
+      .menu-nav { padding: 6rem 2rem 4rem; }
+      .menu-nav-link { font-size: 2rem; }
+      .menu-nav-link .link-num { left: -1.5rem; }
+      .menu-bottom { left: 2rem; right: 2rem; }
+    }
 
     /* ===== HERO ===== */
     .hero {
@@ -1361,8 +1445,7 @@
       .hero-scroll-indicator { display: none; }
       .btn-book-hero, .btn-explore-hero { padding: 0.75rem 1.4rem; font-size: 0.65rem; }
       .navbar { padding: 0 1rem; }
-      .nav-left, .nav-right .lang-btn { display: none; }
-      .hamburger { display: flex; }
+      .nav-right .lang-btn { display: none; }
       .nav-center { position: relative; left: auto; transform: none; }
       .rooms-showcase-content { grid-template-columns: 1fr; }
       .wellness-layout { grid-template-columns: 1fr; }
@@ -1406,10 +1489,9 @@
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-left">
-      <a href="#">Menu</a>
-      <span class="sep">|</span>
-      <a href="#">Call</a>
-      <a href="#">Enquire</a>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
     </div>
     <div class="nav-center">
       <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/9362924d-c3ec-4f9f-8d55-f27b95b2bd7a/AOV+Logo+%28new%29.png" alt="AOV" style="width:32px;height:auto;">
@@ -1419,19 +1501,49 @@
       <button class="lang-btn"><span class="globe">&#127760;</span> English <span class="arrow">&#9662;</span></button>
       <button class="btn-book">Book</button>
     </div>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
-    </div>
   </nav>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#rooms" class="mobile-nav-link">Villas</a>
-    <a href="#culinary" class="mobile-nav-link">Dining</a>
-    <a href="#nature" class="mobile-nav-link">Explore</a>
-    <a href="#offers" class="mobile-nav-link">Experience</a>
-    <a href="#cta" class="mobile-nav-link">Contact</a>
-    <a href="#" class="mobile-nav-link">Book Now</a>
+  <!-- FULLSCREEN MENU OVERLAY -->
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-nav">
+      <a href="#rooms" class="menu-nav-link" data-preview="0"><span class="link-num">01</span>Villas</a>
+      <a href="#culinary" class="menu-nav-link" data-preview="1"><span class="link-num">02</span>Dining</a>
+      <a href="#wellness" class="menu-nav-link" data-preview="2"><span class="link-num">03</span>Wellness</a>
+      <a href="#nature" class="menu-nav-link" data-preview="3"><span class="link-num">04</span>Explore Aruba</a>
+      <a href="#offers" class="menu-nav-link" data-preview="4"><span class="link-num">05</span>Experience</a>
+      <a href="#cta" class="menu-nav-link" data-preview="5"><span class="link-num">06</span>Contact</a>
+    </div>
+    <div class="menu-preview">
+      <div class="menu-preview-img active" data-idx="0">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/0f7d6b63-152f-4036-81bb-7e4b1ab73987/1+Aruba+Ocean+Villas++%2816+of+29%29.jpg" alt="Villas">
+      </div>
+      <div class="menu-preview-img" data-idx="1">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/b595e240-6846-4255-85c5-cefd5760360d/_DSC0517.jpg" alt="Dining">
+      </div>
+      <div class="menu-preview-img" data-idx="2">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/f67115c2-82c6-47db-8b01-6fbe3fbf60d6/BNB09987.jpg" alt="Wellness">
+      </div>
+      <div class="menu-preview-img" data-idx="3">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/22e2ce74-35f3-45de-afd1-c11969abf949/DJI_20240804172918_0019_D.jpg" alt="Explore">
+      </div>
+      <div class="menu-preview-img" data-idx="4">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/1613072563939-02DSTJKL7LTXHL5KW4B4/OceanFeb132020-5-2.jpg" alt="Experience">
+      </div>
+      <div class="menu-preview-img" data-idx="5">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/aa970bfe-0ca5-4af2-ba22-5b83c47f7945/_DSC9609.jpg" alt="Contact">
+      </div>
+    </div>
+    <div class="menu-bottom">
+      <div class="menu-bottom-left">
+        Aruba Ocean Villas<br>
+        Savaneta, Aruba
+      </div>
+      <div class="menu-bottom-right">
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="mailto:info@arubaoceanvillas.com">Email</a>
+      </div>
+    </div>
   </div>
 
   <!-- HERO -->
@@ -2118,21 +2230,48 @@
       lastScrollY = scrollY;
     }
 
-    // ===== MOBILE MENU =====
+    // ===== FULLSCREEN MENU =====
     const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuLinks = document.querySelectorAll('.menu-nav-link');
+    const menuPreviews = document.querySelectorAll('.menu-preview-img');
+
     hamburger.addEventListener('click', () => {
       hamburger.classList.toggle('active');
-      mobileMenu.classList.toggle('active');
-      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      menuOverlay.classList.toggle('active');
+      document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+      // Stagger link animations
+      menuLinks.forEach((link, i) => {
+        link.style.transitionDelay = menuOverlay.classList.contains('active') ? `${0.08 * i + 0.15}s` : '0s';
+      });
     });
-    function closeMobile() {
+
+    function closeMenu() {
       hamburger.classList.remove('active');
-      mobileMenu.classList.remove('active');
+      menuOverlay.classList.remove('active');
       document.body.style.overflow = '';
+      menuLinks.forEach(link => { link.style.transitionDelay = '0s'; });
     }
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', closeMobile);
+
+    // Hover preview — show villa image on hover
+    menuLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        const idx = link.getAttribute('data-preview');
+        menuPreviews.forEach(p => p.classList.remove('active'));
+        const target = document.querySelector(`.menu-preview-img[data-idx="${idx}"]`);
+        if (target) target.classList.add('active');
+      });
+      link.addEventListener('click', (e) => {
+        closeMenu();
+        // Smooth scroll after menu closes
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+          e.preventDefault();
+          setTimeout(() => {
+            document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+          }, 400);
+        }
+      });
     });
 
 
