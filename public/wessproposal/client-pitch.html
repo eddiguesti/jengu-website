@@ -12,7 +12,7 @@
     --a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;
     --t:#ededf4;--td:#a0a0b8;
   }
-  html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
+  html{scroll-behavior:smooth;scroll-snap-type:y proximity;}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;text-align:justify;}
 
   /* ── Slide ── */
@@ -20,6 +20,9 @@
     min-height:100vh;display:flex;align-items:center;justify-content:center;
     padding:4rem 3rem;position:relative;overflow:hidden;
     scroll-snap-align:start;
+  }
+  @media(max-height:800px){
+    .s{min-height:auto;padding:3rem 3rem;align-items:flex-start;}
   }
   .s-in{
     max-width:1100px;width:100%;
@@ -100,7 +103,7 @@
   .flow-s.v{opacity:1;transform:translateY(0);}
   .flow-a{display:none;}
   @media(max-width:768px){
-    .s{padding:3rem 1.5rem;}
+    .s{padding:3rem 1.5rem;min-height:auto;align-items:flex-start;}
     h1{font-size:2.2rem;}
     h2{font-size:1.6rem;}
     .sub{font-size:1rem;}
