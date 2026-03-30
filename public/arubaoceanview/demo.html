@@ -234,8 +234,10 @@
     }
     .nav-left { display: flex; align-items: center; gap: 1.2rem; }
     .nav-left a, .nav-left span {
-      font-size: 0.78rem; letter-spacing: 0.04em; color: #fff;
-      font-weight: 400; transition: opacity 0.3s, color 0.4s ease;
+      font-size: 0.72rem; letter-spacing: 0.06em; color: #fff;
+      font-weight: 500; text-transform: uppercase;
+      font-family: var(--font-sans);
+      transition: opacity 0.3s, color 0.4s ease;
     }
     .nav-left a:hover { opacity: 0.6; }
     .nav-left .sep { color: rgba(255,255,255,0.4); font-weight: 300; transition: color 0.4s ease; }
@@ -262,25 +264,49 @@
     .navbar.scrolled .nav-logo-text { color: var(--color-primary); }
     .nav-right { display: flex; align-items: center; gap: 0.8rem; }
     .lang-btn {
-      display: flex; align-items: center; gap: 0.35rem;
-      padding: 0.35rem 0.8rem; font-size: 0.72rem; letter-spacing: 0.03em;
-      border: 1px solid rgba(255,255,255,0.3); border-radius: 18px;
-      color: #fff; transition: all 0.3s;
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 0.9rem; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      font-family: var(--font-sans);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 100px;
+      color: rgba(255,255,255,0.9); transition: all 0.35s ease;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.06);
     }
-    .navbar.scrolled .lang-btn { border-color: rgba(107,99,71,0.15); color: var(--color-primary); }
-    .lang-btn:hover { border-color: rgba(255,255,255,0.6); }
-    .navbar.scrolled .lang-btn:hover { border-color: rgba(107,99,71,0.3); }
-    .lang-btn .globe { font-size: 0.8rem; }
-    .lang-btn .arrow { font-size: 0.55rem; }
+    .navbar.scrolled .lang-btn {
+      border-color: rgba(26,39,68,0.12); color: var(--color-primary);
+      background: rgba(26,39,68,0.03); backdrop-filter: none;
+    }
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.5);
+      transform: translateY(-1px);
+    }
+    .navbar.scrolled .lang-btn:hover {
+      background: rgba(26,39,68,0.06); border-color: rgba(26,39,68,0.25);
+    }
+    .lang-btn .globe { width: 14px; height: 14px; flex-shrink: 0; }
+    .lang-btn .arrow { font-size: 0.5rem; opacity: 0.6; margin-left: 0.1rem; }
     .btn-book {
-      padding: 0.45rem 1.2rem; font-size: 0.72rem; letter-spacing: 0.06em;
-      background: rgba(255,255,255,0.2); color: #fff; border-radius: 4px;
-      font-weight: 500; transition: all 0.3s ease;
-      border: 1px solid rgba(255,255,255,0.3);
+      padding: 0.55rem 1.6rem; font-size: 0.7rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 600;
+      font-family: var(--font-display);
+      background: #fff; color: var(--color-primary); border-radius: 100px;
+      transition: all 0.35s ease;
+      border: none;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
     }
-    .navbar.scrolled .btn-book { background: var(--color-primary); color: var(--color-cream); border-color: var(--color-primary); }
-    .btn-book:hover { background: rgba(255,255,255,0.35); }
-    .navbar.scrolled .btn-book:hover { background: var(--color-secondary); border-color: var(--color-secondary); }
+    .navbar.scrolled .btn-book {
+      background: var(--color-primary); color: #fff;
+      box-shadow: 0 2px 12px rgba(26,39,68,0.2);
+    }
+    .btn-book:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .navbar.scrolled .btn-book:hover {
+      background: var(--color-secondary);
+      box-shadow: 0 4px 20px rgba(26,39,68,0.3);
+    }
 
     /* Hamburger — always visible */
     .hamburger {
@@ -671,6 +697,13 @@
         linear-gradient(180deg, #f8fafb 0%, #f3f6f9 100%);
     }
 
+    /* ===== CONTENT WRAPPER — sits above fixed hero ===== */
+    .content-above-hero {
+      position: relative;
+      z-index: 2;
+      background: #f6f8fa;
+    }
+
     /* ===== SECTION COMMON ===== */
     section { position: relative; z-index: 1; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
@@ -678,7 +711,7 @@
 
     /* ===== INTRO ===== */
     .intro {
-      background: transparent;
+      background: #f6f8fa;
       padding: 6rem 0 3rem; text-align: center;
       position: relative; z-index: 1;
       border-top-left-radius: 28px;
@@ -703,7 +736,7 @@
     /* ===== 3D CYLINDER CAROUSEL ===== */
     .gallery-section {
       padding: 3rem 0 4rem;
-      background: transparent;
+      background: #f6f8fa;
       position: relative; z-index: 1;
       overflow: hidden;
     }
@@ -756,7 +789,7 @@
 
     /* ===== STYLISH LIVING / ROOMS ===== */
     .living-section {
-      background: transparent;
+      background: #f5f7f9;
       padding: 4rem 0 2rem;
     }
     .living-header {
@@ -881,7 +914,7 @@
 
     /* ===== CULINARY ===== */
     .culinary-section {
-      background: transparent;
+      background: #f6f8fa;
       padding: 6rem 0;
     }
     .culinary-header {
@@ -941,7 +974,7 @@
 
     /* ===== WELLNESS ===== */
     .wellness-section {
-      background: transparent;
+      background: #f6f8fa;
       padding: 6rem 0 3rem;
     }
     .wellness-layout {
@@ -1448,7 +1481,7 @@
       .nav-right .lang-btn { display: none; }
       .nav-center { position: relative; left: auto; transform: none; }
       .rooms-showcase-content { grid-template-columns: 1fr; }
-      .wellness-layout { grid-template-columns: 1fr; }
+      .wellness-layout { flex-direction: column; }
       .offers-grid { grid-template-columns: 1fr; }
       .newsletter-card { margin: 2rem 1.2rem; padding: 2rem; }
       .newsletter-form { grid-template-columns: 1fr; }
@@ -1498,7 +1531,7 @@
       <span class="nav-logo-text">Ocean Villas</span>
     </div>
     <div class="nav-right">
-      <button class="lang-btn"><span class="globe">&#127760;</span> English <span class="arrow">&#9662;</span></button>
+      <button class="lang-btn"><svg class="globe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN <span class="arrow">&#9662;</span></button>
       <button class="btn-book">Book</button>
     </div>
   </nav>
@@ -1590,6 +1623,9 @@
       </div>
     </div>
   </section>
+
+  <!-- All content after hero wrapped to sit above fixed hero background -->
+  <div class="content-above-hero">
 
   <!-- INTRO -->
   <section class="intro ocean-gradient" id="intro">
@@ -2063,6 +2099,8 @@
     </div>
   </section>
 
+  </div><!-- /.content-above-hero -->
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -2311,6 +2349,8 @@
     // ===== HERO ROUND ON SCROLL =====
     const heroInner = document.getElementById('heroInner');
     const heroSection = document.getElementById('hero');
+    const heroContent = document.querySelector('.hero-content');
+    const heroBottom = document.querySelector('.hero-bottom');
 
     function handleHeroBgRound(scrollY) {
       if (!heroInner || !heroSection) return;
@@ -2321,6 +2361,12 @@
       const inset = 14 * eased;
       heroInner.style.borderRadius = `${radius}px`;
       heroInner.style.inset = `${inset}px`;
+
+      // Fade out hero text as user scrolls
+      const fadeProgress = Math.max(0, Math.min(1, scrollY / (heroH * 0.35)));
+      const opacity = 1 - fadeProgress;
+      if (heroContent) heroContent.style.opacity = opacity;
+      if (heroBottom) heroBottom.style.opacity = opacity;
     }
 
     // ===== UNIFIED SCROLL HANDLER =====
