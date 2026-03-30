@@ -11,7 +11,7 @@
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { font-size: 16px; overflow-x: hidden; background: #ffffff; }
+    html { font-size: 16px; overflow-x: hidden; background: #f4f7f9; }
     body {
       font-family: var(--font-sans);
       background: #ffffff;
@@ -573,6 +573,20 @@
     .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal-scale.visible { opacity: 1; transform: scale(1); }
 
+    /* ===== CONTINUOUS BACKGROUND GRADIENT ===== */
+    .page-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 40% at 10% 20%, oklch(0.92 0.03 220 / 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 45%, oklch(0.94 0.02 200 / 0.4) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 35% at 30% 75%, oklch(0.93 0.025 210 / 0.35) 0%, transparent 50%),
+        radial-gradient(ellipse 90% 45% at 70% 90%, oklch(0.91 0.02 195 / 0.3) 0%, transparent 55%),
+        linear-gradient(180deg, #f8fafb 0%, #f3f6f9 100%);
+    }
+
     /* ===== SECTION COMMON ===== */
     section { position: relative; z-index: 1; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
@@ -580,7 +594,7 @@
 
     /* ===== INTRO ===== */
     .intro {
-      background: linear-gradient(180deg, #eef6fb 0%, #faf8f5 30%, #fdf6ee 60%, #f7fbfe 100%);
+      background: transparent;
       padding: 6rem 0 3rem; text-align: center;
       position: relative; z-index: 1;
       border-top-left-radius: 28px;
@@ -605,7 +619,7 @@
     /* ===== 3D CYLINDER CAROUSEL ===== */
     .gallery-section {
       padding: 3rem 0 4rem;
-      background: linear-gradient(180deg, #fdf8f2 0%, #f4f9fd 40%, #edf5fb 100%);
+      background: transparent;
       position: relative; z-index: 1;
       overflow: hidden;
     }
@@ -658,7 +672,7 @@
 
     /* ===== STYLISH LIVING / ROOMS ===== */
     .living-section {
-      background: linear-gradient(180deg, #edf5fb 0%, #faf8f4 40%, #fef9f1 100%);
+      background: transparent;
       padding: 4rem 0 2rem;
     }
     .living-header {
@@ -783,7 +797,7 @@
 
     /* ===== CULINARY ===== */
     .culinary-section {
-      background: linear-gradient(180deg, #fef9f1 0%, #f0f7fc 50%, #eaf4fa 100%);
+      background: transparent;
       padding: 6rem 0;
     }
     .culinary-header {
@@ -843,7 +857,7 @@
 
     /* ===== WELLNESS ===== */
     .wellness-section {
-      background: linear-gradient(180deg, #eaf4fa 0%, #faf8f4 40%, #fdf6ee 100%);
+      background: transparent;
       padding: 6rem 0 3rem;
     }
     .wellness-layout {
@@ -896,7 +910,7 @@
 
     /* ===== NATURE EXPERIENCES ===== */
     .nature-section {
-      background: linear-gradient(180deg, #fdf6ee 0%, #f0f7fc 50%, #e8f2f9 100%);
+      background: transparent;
       padding: 5rem 0;
     }
     .nature-card {
@@ -1039,7 +1053,7 @@
 
     /* ===== TESTIMONIALS ===== */
     .testimonials-section {
-      background: linear-gradient(180deg, #e8f2f9 0%, #faf8f4 40%, #f0f7fc 100%);
+      background: transparent;
       padding: 6rem 0; overflow: hidden;
     }
     .testimonials-header {
@@ -1378,6 +1392,8 @@
   </style>
 </head>
 <body>
+
+  <div class="page-gradient"></div>
 
   <!-- LOADING SCREEN -->
   <div class="loading-screen" id="loadingScreen">
