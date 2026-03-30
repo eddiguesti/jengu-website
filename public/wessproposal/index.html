@@ -255,6 +255,15 @@
   .learn-more:hover{background:rgba(0,206,201,0.12);border-color:rgba(0,206,201,0.5);transform:translateX(4px);}
   .learn-more .arrow{transition:transform 0.3s;font-style:normal;}
   .learn-more:hover .arrow{transform:translateX(4px);}
+  .price-card-more{
+    display:inline-flex;align-items:center;gap:0.4rem;margin-top:1rem;
+    color:var(--a3);font-size:0.75rem;font-weight:600;text-decoration:none;
+    padding:0.4rem 0.8rem;border:1px solid rgba(0,206,201,0.2);border-radius:8px;
+    background:rgba(0,206,201,0.04);transition:all 0.3s;
+  }
+  .price-card-more:hover{background:rgba(0,206,201,0.1);border-color:rgba(0,206,201,0.4);transform:translateX(3px);}
+  .price-card-more .arrow{transition:transform 0.3s;}
+  .price-card-more:hover .arrow{transform:translateX(3px);}
 
   /* ── Detail modal overlay ── */
   .detail-overlay{
@@ -1151,6 +1160,7 @@
           </div>
         </div>
         <div class="price-card-desc">Custom built AI that monitors your inbox, classifies tour operator emails, pulls the correct rate from Opera, and drafts responses automatically. Rate version tracking and discrepancy detection included.</div>
+        <a href="#" onclick="openDetail('detail-email-agent.html');return false;" class="price-card-more">More info <span class="arrow">→</span></a>
       </div>
 
       <div class="price-card">
@@ -1162,6 +1172,7 @@
           </div>
         </div>
         <div class="price-card-desc">Custom coded site in React. Cinematic animations, premium luxury feel, fast performance. Connected to your booking engine. A single group site starts at &euro;8,000. Multiple standalone sites with separate CMS and content management for each property: up to &euro;18,000.</div>
+        <a href="#" onclick="openDetail('detail-website.html');return false;" class="price-card-more">More info <span class="arrow">→</span></a>
       </div>
 
       <div class="price-card">
@@ -1209,6 +1220,7 @@
           </div>
         </div>
         <div class="price-card-desc">Custom built connector between your PMS and accounting software. Bookings flow automatically into Sage with correct account codes, tax, and department mapping. Rate reconciliation runs continuously.</div>
+        <a href="#" onclick="openDetail('detail-opera-sage.html');return false;" class="price-card-more">More info <span class="arrow">→</span></a>
       </div>
 
       <div class="price-card">
@@ -1220,6 +1232,7 @@
           </div>
         </div>
         <div class="price-card-desc">We configure and connect the channel manager to Opera. Rate mapping, room type mapping, restriction handling, and testing across all OTA channels. Ongoing support for rate updates and troubleshooting. Channel manager platform fees are separate and vary by vendor.</div>
+        <a href="#" onclick="openDetail('detail-channel-manager.html');return false;" class="price-card-more">More info <span class="arrow">→</span></a>
       </div>
 
       <div class="price-card">
@@ -1231,6 +1244,7 @@
           </div>
         </div>
         <div class="price-card-desc">Custom built operations dashboard. Live occupancy, bookings by channel, rate parity, revenue by outlet. Morning briefing automation. Data pulled from every connected system.</div>
+        <a href="#" onclick="openDetail('detail-dashboard.html');return false;" class="price-card-more">More info <span class="arrow">→</span></a>
       </div>
 
       <div class="price-card">
@@ -1242,6 +1256,7 @@
           </div>
         </div>
         <div class="price-card-desc">Automated rate adjustments for OTA and direct channels based on occupancy, competitor rates, and demand signals. Custom built pricing engine with Opera integration, rate strategy configuration, and ongoing optimisation.</div>
+        <a href="#" onclick="openDetail('detail-dynamic-pricing.html');return false;" class="price-card-more">More info <span class="arrow">→</span></a>
       </div>
 
       <div class="price-card">
