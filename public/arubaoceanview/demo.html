@@ -704,12 +704,29 @@
     .content-above-hero {
       position: relative;
       z-index: 2;
+      background: linear-gradient(180deg, #f8fafb 0%, #f3f6f9 100%);
+      overflow: hidden;
+    }
+    .content-above-hero::before {
+      content: '';
+      position: absolute;
+      inset: -20%;
+      z-index: 0;
+      pointer-events: none;
       background:
-        radial-gradient(ellipse 80% 40% at 10% 20%, oklch(0.92 0.03 220 / 0.5) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 90% 45%, oklch(0.94 0.02 200 / 0.4) 0%, transparent 55%),
-        radial-gradient(ellipse 70% 35% at 30% 75%, oklch(0.93 0.025 210 / 0.35) 0%, transparent 50%),
-        radial-gradient(ellipse 90% 45% at 70% 90%, oklch(0.91 0.02 195 / 0.3) 0%, transparent 55%),
-        linear-gradient(180deg, #f8fafb 0%, #f3f6f9 100%);
+        radial-gradient(ellipse 60% 40% at 20% 30%, oklch(0.90 0.04 220 / 0.5) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 50%, oklch(0.92 0.035 200 / 0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 35% at 40% 80%, oklch(0.91 0.03 210 / 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse 55% 45% at 65% 15%, oklch(0.93 0.025 190 / 0.35) 0%, transparent 55%);
+      animation: sunDrift 25s ease-in-out infinite;
+    }
+    .content-above-hero > * { position: relative; z-index: 1; }
+    @keyframes sunDrift {
+      0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25%  { transform: translate(8%, -5%) rotate(3deg) scale(1.05); }
+      50%  { transform: translate(-5%, 8%) rotate(-2deg) scale(1.02); }
+      75%  { transform: translate(6%, 4%) rotate(2deg) scale(1.08); }
+      100% { transform: translate(0, 0) rotate(0deg) scale(1); }
     }
 
     /* ===== SECTION COMMON ===== */
@@ -744,7 +761,7 @@
     /* ===== 3D CYLINDER CAROUSEL ===== */
     .gallery-section {
       padding: 3rem 0 4rem;
-      background: #f6f8fa;
+      background: transparent;
       position: relative; z-index: 1;
       overflow: hidden;
     }
@@ -769,11 +786,11 @@
     }
     .carousel-3d-viewport::before {
       left: 0;
-      background: linear-gradient(to right, #f4f9fd 0%, transparent 100%);
+      background: linear-gradient(to right, rgba(248,250,251,0.9) 0%, transparent 100%);
     }
     .carousel-3d-viewport::after {
       right: 0;
-      background: linear-gradient(to left, #f4f9fd 0%, transparent 100%);
+      background: linear-gradient(to left, rgba(248,250,251,0.9) 0%, transparent 100%);
     }
     .carousel-3d {
       position: relative;
@@ -797,7 +814,7 @@
 
     /* ===== STYLISH LIVING / ROOMS ===== */
     .living-section {
-      background: #f5f7f9;
+      background: transparent;
       padding: 4rem 0 2rem;
     }
     .living-header {
@@ -922,7 +939,7 @@
 
     /* ===== CULINARY ===== */
     .culinary-section {
-      background: #f6f8fa;
+      background: transparent;
       padding: 6rem 0;
     }
     .culinary-header {
@@ -982,7 +999,7 @@
 
     /* ===== WELLNESS ===== */
     .wellness-section {
-      background: #f6f8fa;
+      background: transparent;
       padding: 6rem 0 3rem;
     }
     .wellness-layout {
