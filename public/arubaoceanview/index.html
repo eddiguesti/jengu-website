@@ -697,6 +697,13 @@
         linear-gradient(180deg, #f8fafb 0%, #f3f6f9 100%);
     }
 
+    /* ===== CONTENT WRAPPER — sits above fixed hero ===== */
+    .content-above-hero {
+      position: relative;
+      z-index: 2;
+      background: #f6f8fa;
+    }
+
     /* ===== SECTION COMMON ===== */
     section { position: relative; z-index: 1; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
@@ -1617,6 +1624,9 @@
     </div>
   </section>
 
+  <!-- All content after hero wrapped to sit above fixed hero background -->
+  <div class="content-above-hero">
+
   <!-- INTRO -->
   <section class="intro ocean-gradient" id="intro">
     <div class="aurora-blob aurora-blob--1"></div>
@@ -2088,6 +2098,8 @@
       </div>
     </div>
   </section>
+
+  </div><!-- /.content-above-hero -->
 
   <!-- FOOTER -->
   <footer class="footer">
