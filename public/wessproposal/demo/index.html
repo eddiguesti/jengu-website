@@ -289,8 +289,8 @@
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(170deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 45%, transparent 65%),
-        linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 30%, rgba(0,0,0,0.4) 85%, rgba(0,0,0,0.65) 100%);
+        linear-gradient(170deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 45%, transparent 65%),
+        linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 30%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0.5) 100%);
       opacity: 0;
     }
     .hero.revealed .hero-overlay {
@@ -359,9 +359,10 @@
       font-family: var(--font-serif);
       font-size: clamp(2.6rem, 6vw, 5rem);
       font-weight: 300; font-style: italic;
-      color: var(--color-accent);
+      color: #fff;
       line-height: 1.15; letter-spacing: 0.02em;
       margin-top: 0.15em;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
 
     /* Clip-mask reveal with blur-to-sharp and horizontal drift */
@@ -407,21 +408,16 @@
 
     /* Bottom bar — staggered reveals */
     .hero-bottom { opacity: 0; }
-    .hero-family,
-    .hero-legacy { opacity: 0; }
+    .hero-rating { opacity: 0; }
     .hero-btns { opacity: 0; }
 
     .hero.revealed .hero-bottom {
       animation: fadeUp 0.9s ease forwards;
       animation-delay: 4.2s;
     }
-    .hero.revealed .hero-family {
+    .hero.revealed .hero-rating {
       animation: fadeUp 0.8s ease forwards;
       animation-delay: 4.5s;
-    }
-    .hero.revealed .hero-legacy {
-      animation: fadeUp 0.8s ease forwards;
-      animation-delay: 4.7s;
     }
     .hero.revealed .hero-btns {
       animation: btnReveal 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
@@ -452,17 +448,19 @@
     .hero-bottom-right {
       text-align: right;
     }
-    .hero-family {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 1.05rem; color: rgba(255,255,255,0.8);
-      margin-bottom: 0.4rem; font-weight: 300; line-height: 1.7;
-      max-width: 360px; margin-left: auto;
+    .hero-rating {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: 0.6rem; margin-bottom: 2rem;
     }
-    .hero-legacy {
-      font-family: var(--font-serif); font-style: italic;
-      font-size: 0.92rem; color: var(--color-accent);
-      font-weight: 400; margin-bottom: 2rem; line-height: 1.7;
-      max-width: 360px; margin-left: auto;
+    .hero-rating-row {
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .ta-logo { opacity: 0.85; }
+    .hero-rating-stars { display: flex; align-items: center; }
+    .hero-rating-label {
+      font-family: var(--font-sans);
+      font-size: 0.62rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45);
     }
     .hero-btns {
       display: flex; gap: 0.8rem; justify-content: flex-end;
@@ -1302,7 +1300,7 @@
       .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 1.2rem 1.5rem; }
       .hero-bottom-right { text-align: left; }
       .hero-btns { justify-content: flex-start; }
-      .hero-family, .hero-legacy { display: none; }
+      .hero-rating { display: none; }
       .hero-scroll-indicator { display: none; }
       .btn-book-hero, .btn-explore-hero { padding: 0.75rem 1.4rem; font-size: 0.65rem; }
       .navbar { padding: 0 1rem; height: 65px; }
@@ -1492,8 +1490,15 @@
           <div class="hero-scroll-line"></div>
         </div>
         <div class="hero-bottom-right">
-          <p class="hero-family">Three oceanfront estates on the southern coast of Mauritius.</p>
-          <p class="hero-legacy">Villas, hotels, and residences &mdash; each with a character of its own.</p>
+          <div class="hero-rating">
+            <div class="hero-rating-row">
+              <svg class="ta-logo" viewBox="0 0 32 32" width="28" height="28"><circle cx="16" cy="16" r="15" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1"/><circle cx="11" cy="15" r="4" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="11" cy="15" r="1.5" fill="#fff"/><circle cx="21" cy="15" r="4" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="21" cy="15" r="1.5" fill="#fff"/><path d="M8 10C10 7 14 6 16 6C18 6 22 7 24 10" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><path d="M14 22L16 20L18 22" fill="none" stroke="#34E0A1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div class="hero-rating-stars">
+                <svg viewBox="0 0 80 14" width="80" height="14"><circle cx="7" cy="7" r="6" fill="#34E0A1"/><circle cx="23" cy="7" r="6" fill="#34E0A1"/><circle cx="39" cy="7" r="6" fill="#34E0A1"/><circle cx="55" cy="7" r="6" fill="#34E0A1"/><circle cx="71" cy="7" r="6" fill="#34E0A1"/></svg>
+              </div>
+            </div>
+            <span class="hero-rating-label">Travellers' Choice 2025 &middot; Best of the Best</span>
+          </div>
           <div class="hero-btns">
             <a href="#cta" class="btn-book-hero">Book Your Stay <span class="arrow">&rarr;</span></a>
             <a href="#rooms" class="btn-explore-hero">Explore Properties</a>
