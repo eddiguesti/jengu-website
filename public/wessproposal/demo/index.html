@@ -138,23 +138,27 @@
     }
     .nav-right { display: flex; align-items: center; gap: 1rem; }
     .lang-btn {
-      display: flex; align-items: center; gap: 0.35rem;
-      padding: 0.4rem 0.9rem; font-size: 0.68rem; letter-spacing: 0.04em;
-      border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
-      color: rgba(255,255,255,0.7); transition: all 0.3s;
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0; font-size: 0.65rem; letter-spacing: 0.1em;
+      border: none; border-radius: 0;
+      color: rgba(255,255,255,0.5); transition: color 0.3s;
       font-family: var(--font-sans); background: none;
+      text-transform: uppercase; font-weight: 400;
     }
-    .lang-btn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
-    .lang-btn .globe { font-size: 0.8rem; }
-    .lang-btn .arrow { font-size: 0.55rem; }
+    .lang-btn:hover { color: #fff; }
+    .lang-btn .arrow { font-size: 0.5rem; opacity: 0.5; }
     .btn-book {
-      padding: 0.5rem 1.4rem; font-size: 0.68rem; letter-spacing: 0.1em;
-      background: rgba(255,255,255,0.15); color: #fff; border-radius: 4px;
-      font-weight: 500; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.55rem 1.6rem; font-size: 0.68rem; letter-spacing: 0.12em;
+      background: #fff; color: #1a1510; border-radius: 0;
+      font-weight: 600; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      border: none;
       font-family: var(--font-sans); text-transform: uppercase;
     }
-    .btn-book:hover { background: #fff; color: #1a1510; border-color: #fff; }
+    .btn-book:hover {
+      background: var(--color-accent); color: #1a1510;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(181,160,124,0.3);
+    }
 
     /* ===== MEGA MENU ===== */
     .mega-menu {
@@ -272,7 +276,7 @@
     .hero-bg img, .hero-bg video {
       width: 100%; height: 100%; object-fit: cover;
       position: absolute; inset: 0;
-      transform: scale(1.15);
+      transform: scale(1.05);
     }
     /* Cinematic zoom — video slowly scales in after load */
     .hero.revealed .hero-bg video,
@@ -281,7 +285,7 @@
       animation-delay: 2.4s;
     }
     @keyframes heroZoom {
-      from { transform: scale(1.15); }
+      from { transform: scale(1.05); }
       to   { transform: scale(1); }
     }
 
@@ -291,15 +295,6 @@
       background:
         linear-gradient(170deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 45%, transparent 65%),
         linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 30%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0.5) 100%);
-      opacity: 0;
-    }
-    .hero.revealed .hero-overlay {
-      animation: overlayReveal 2s ease forwards;
-      animation-delay: 2.2s;
-    }
-    @keyframes overlayReveal {
-      from { opacity: 0; }
-      to   { opacity: 1; }
     }
 
     /* --- Hero content: top-left headings --- */
@@ -1363,7 +1358,7 @@
       <span class="nav-logo-text">WESS</span>
     </div>
     <div class="nav-right">
-      <button class="lang-btn"><span class="globe">&#127760;</span> English <span class="arrow">&#9662;</span></button>
+      <button class="lang-btn">EN <span class="arrow">&#9662;</span></button>
       <button class="btn-book">Book</button>
     </div>
   </nav>
