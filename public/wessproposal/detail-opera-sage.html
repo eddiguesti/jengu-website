@@ -71,7 +71,7 @@
     <h2>Where the <span class="g2">Errors Start</span></h2>
 
     <div class="problem-box">
-      <p><strong style="color:var(--a4);">The current workflow:</strong> A booking arrives by email. Someone prints it. Someone else types it into Sage by hand. Every step is an opportunity for errors: wrong room, wrong date, wrong rate, wrong name. These compound through month-end, and finance spends days reconciling.</p>
+      <p><strong style="color:var(--a4);">The current workflow:</strong> A booking arrives by email. Someone prints it. Someone else enters it into Sage by hand. Every step is an opportunity for errors: wrong room, wrong date, wrong rate, wrong name. These compound through month-end, and finance spends days reconciling.</p>
     </div>
 
     <div class="flow">
@@ -113,7 +113,7 @@
       </div>
       <div class="card">
         <h3>Account Mapping</h3>
-        <p>Each Opera field maps to the correct Sage account code. Room revenue goes to the right category. Meal plans split correctly. Taxes calculate automatically. Configured once during setup, maintained centrally.</p>
+        <p>Each Opera field maps to the correct Sage account code. Room revenue goes to the right category. Meal plans are split correctly. Taxes are calculated automatically. Configured once during setup, centrally maintained.</p>
       </div>
       <div class="card">
         <h3>Invoice Generation</h3>
@@ -121,7 +121,7 @@
       </div>
       <div class="card">
         <h3>Continuous Reconciliation</h3>
-        <p>The connector continuously reconciles. If a rate changes in Opera after the invoice was created, the system flags it. If a booking is modified or cancelled, Sage updates automatically.</p>
+        <p>The connector continuously reconciles. If a rate changes in Opera after the invoice was created, the system flags it. If a booking is modified or canceled, Sage updates automatically.</p>
       </div>
     </div>
   </div>
@@ -158,7 +158,7 @@
       </div>
       <div class="card">
         <h3>Duplicate Prevention</h3>
-        <p>Every transaction is tracked by unique ID. If the same booking is processed twice, the system catches it before a duplicate invoice is created in Sage.</p>
+        <p>Every transaction is tracked by a unique ID. If the same booking is processed twice, the system catches it before a duplicate invoice is created in Sage.</p>
       </div>
     </div>
   </div>
@@ -174,10 +174,10 @@
     </div>
 
     <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Which Sage version?</strong> Sage 50, Sage 200, Sage X3? The connector architecture depends on the specific version and its API capabilities.</div></div>
-    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Chart of accounts structure</strong> How is the chart of accounts organised? By property, by department, by revenue type? The mapping layer needs to match your existing structure.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Chart of accounts structure</strong> How is the chart of accounts organized? By property, by department, by revenue type? The mapping layer needs to match your existing structure.</div></div>
     <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Night audit process</strong> What happens at end-of-day? What reports are generated? What data gets posted where? This determines the nightly sync logic.</div></div>
-    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Multi-property handling</strong> How are the different WESS properties represented in Sage? Separate companies? Departments within one company? Cost centres?</div></div>
-    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Current pain points</strong> Where specifically do errors happen most? Which reconciliation tasks take the longest? This helps us prioritise what to automate first.</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Multi-property handling</strong> How are the different WESS properties represented in Sage? Separate companies? Departments within one company? Cost centers?</div></div>
+    <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Current pain points</strong> Where specifically do errors happen most? Which reconciliation tasks take the longest? This helps us prioritize what to automate first.</div></div>
   </div>
 
   <!-- QUOTE -->
