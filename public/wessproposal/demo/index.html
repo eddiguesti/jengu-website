@@ -149,15 +149,15 @@
     .lang-btn .arrow { font-size: 0.5rem; opacity: 0.7; }
     .btn-book {
       padding: 0.55rem 1.6rem; font-size: 0.68rem; letter-spacing: 0.12em;
-      background: #fff; color: #1a1510; border-radius: 0;
+      background: var(--color-accent); color: #fff; border-radius: 0;
       font-weight: 600; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       border: none;
       font-family: var(--font-sans); text-transform: uppercase;
     }
     .btn-book:hover {
-      background: var(--color-accent); color: #1a1510;
+      background: #C4AD88; color: #fff;
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(181,160,124,0.3);
+      box-shadow: 0 4px 20px rgba(181,160,124,0.4);
     }
 
     /* ===== MEGA MENU ===== */
@@ -463,15 +463,16 @@
     .btn-book-hero {
       display: inline-flex; align-items: center; gap: 0.6rem;
       padding: 0.95rem 2.2rem;
-      background: #fff;
-      color: #1a1510; font-size: 0.72rem; letter-spacing: 0.14em;
+      background: var(--color-accent);
+      color: #fff; font-size: 0.72rem; letter-spacing: 0.14em;
       text-transform: uppercase; font-weight: 600;
       transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       border: none; font-family: var(--font-sans);
     }
     .btn-book-hero:hover {
-      background: var(--color-accent);
-      transform: translateY(-1px);
+      background: #C4AD88;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(181,160,124,0.5);
     }
     .btn-book-hero .arrow {
       transition: transform 0.3s; font-size: 0.85rem;
@@ -1359,7 +1360,7 @@
     </div>
     <div class="nav-right">
       <button class="lang-btn">EN <span class="arrow">&#9662;</span></button>
-      <button class="btn-book">Book</button>
+      <a href="#booking-info" class="btn-book" style="text-decoration:none;">Book</a>
     </div>
   </nav>
 
@@ -1495,7 +1496,7 @@
             <span class="hero-rating-label">Travellers' Choice 2025 &middot; Best of the Best</span>
           </div>
           <div class="hero-btns">
-            <a href="#cta" class="btn-book-hero">Book Your Stay <span class="arrow">&rarr;</span></a>
+            <a href="#booking-info" class="btn-book-hero">Book Your Stay <span class="arrow">&rarr;</span></a>
             <a href="#rooms" class="btn-explore-hero">Explore Properties</a>
           </div>
         </div>
@@ -1508,7 +1509,7 @@
     <div class="container reveal">
       <div class="diamond-deco"></div>
       <p>Discover the essence of barefoot luxury at Wess, a private villa retreat on the shores of Mauritius. Surrounded by turquoise lagoons, lush tropical gardens, and pristine white-sand beaches, our villas blend contemporary elegance with island warmth. Whether you seek adventure on the reef or stillness by the infinity pool, Wess is your sanctuary in paradise.</p>
-      <a href="#cta" class="btn-warm">Send request <span class="arrow">&longrightarrow;</span></a>
+      <a href="#booking-info" class="btn-warm">Send request <span class="arrow">&longrightarrow;</span></a>
     </div>
   </section>
 
@@ -1938,6 +1939,15 @@
     </div>
   </section>
 
+  <!-- BOOKING INFO -->
+  <section id="booking-info" style="padding:5rem 2rem;background:var(--color-cream);text-align:center;">
+    <div style="max-width:600px;margin:0 auto;">
+      <h2 style="font-family:var(--font-serif);font-size:clamp(1.6rem,3vw,2.4rem);color:var(--color-primary);margin-bottom:1.2rem;font-weight:400;">Direct Booking Engine</h2>
+      <p style="font-size:0.95rem;line-height:1.8;color:var(--color-secondary);margin-bottom:0.8rem;">This website will connect to your direct booking engine. Guests will select dates, see live availability from Opera, choose their room or villa, and pay securely — all without leaving the site.</p>
+      <p style="font-size:0.85rem;color:var(--color-muted);font-style:italic;">The booking integration will be configured during the build phase.</p>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -1967,7 +1977,7 @@
         </div>
         <div class="footer-cta">
           <h3 class="serif">Reserve your island escape</h3>
-          <a href="#" class="btn-footer-book">Book Now <span class="long-arrow">&longrightarrow;</span></a>
+          <a href="#booking-info" class="btn-footer-book">Book Now <span class="long-arrow">&longrightarrow;</span></a>
         </div>
       </div>
 
