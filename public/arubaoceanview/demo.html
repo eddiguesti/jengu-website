@@ -290,25 +290,26 @@
     .lang-btn .globe { width: 14px; height: 14px; flex-shrink: 0; }
     .lang-btn .arrow { font-size: 0.5rem; opacity: 0.6; margin-left: 0.1rem; }
     .btn-book {
-      padding: 0.55rem 1.6rem; font-size: 0.7rem; letter-spacing: 0.12em;
+      padding: 0.6rem 1.8rem; font-size: 0.68rem; letter-spacing: 0.14em;
       text-transform: uppercase; font-weight: 600;
-      font-family: var(--font-display);
-      background: #fff; color: var(--color-primary); border-radius: 100px;
-      transition: all 0.35s ease;
+      font-family: var(--font-sans);
+      background: #fff; color: var(--color-primary); border-radius: 10px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       border: none;
       box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      cursor: pointer;
     }
     .navbar.scrolled .btn-book {
       background: var(--color-primary); color: #fff;
       box-shadow: 0 2px 12px rgba(26,39,68,0.2);
     }
     .btn-book:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
     }
     .navbar.scrolled .btn-book:hover {
       background: var(--color-secondary);
-      box-shadow: 0 4px 20px rgba(26,39,68,0.3);
+      box-shadow: 0 6px 24px rgba(26,39,68,0.25);
     }
 
     /* Hamburger — always visible */
@@ -439,218 +440,448 @@
       position: absolute; inset: 0;
       transform: scale(1.15);
     }
-    /* Cinematic zoom — video slowly scales in after load */
-    .hero.revealed .hero-bg video,
-    .hero.revealed .hero-bg img {
-      animation: heroZoom 12s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-      animation-delay: 2.4s;
-    }
-    @keyframes heroZoom {
-      from { transform: scale(1.15); }
-      to   { transform: scale(1); }
+    /* ══════════════════════════════════════════
+       PREMIUM CINEMATIC ANIMATIONS
+       Inspired by Aman, Four Seasons, One&Only
+       ══════════════════════════════════════════ */
+
+    /* Custom easing curves */
+    :root {
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+      --ease-dramatic: cubic-bezier(0.7, 0, 0.3, 1);
     }
 
-    /* Overlay starts darker, lightens as video zooms */
+    /* 1. Video — slow cinematic Ken Burns drift + scale */
+    .hero-bg video, .hero-bg img {
+      transform: scale(1.2) translateX(2%);
+    }
+    .hero.revealed .hero-bg video,
+    .hero.revealed .hero-bg img {
+      animation: heroCinematic 25s var(--ease-smooth) forwards;
+      animation-delay: 0.5s;
+    }
+    @keyframes heroCinematic {
+      0%   { transform: scale(1.2) translateX(2%); }
+      100% { transform: scale(1.02) translateX(0%); }
+    }
+
+    /* 2. Overlay — fades in with the video reveal */
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(170deg, rgba(0,0,0,0.1) 0%, transparent 45%, transparent 65%),
-        linear-gradient(to bottom, transparent 0%, transparent 30%, rgba(0,0,0,0.1) 85%, rgba(0,0,0,0.25) 100%);
-      opacity: 0;
+        linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0.05) 50%, transparent 70%),
+        linear-gradient(to bottom, transparent 0%, transparent 80%, rgba(0,0,0,0.15) 100%);
     }
-    .hero.revealed .hero-overlay {
-      animation: overlayReveal 2s ease forwards;
-      animation-delay: 2.2s;
-    }
-    @keyframes overlayReveal {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+    @media(max-width:1024px) {
+      .hero-overlay {
+        background:
+          linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.05) 55%, transparent 70%);
+      }
+      .hero-content {
+        top: auto; transform: none;
+        bottom: clamp(1.5rem, 4vh, 3rem);
+        left: 2rem; right: 2rem;
+        max-width: none;
+      }
     }
 
-    /* --- Hero content: top-left headings --- */
+    /* 3. Hero content container */
     .hero-content {
       position: absolute; z-index: 2;
-      left: clamp(2rem, 5vw, 6rem);
-      top: clamp(7rem, 14vh, 10rem);
+      left: clamp(3rem, 6vw, 8rem);
+      top: 50%; transform: translateY(-50%);
+      max-width: 620px;
       text-align: left;
     }
 
-    /* Tagline with animated line */
+    /* 4. Tagline — clip wipe-in */
     .hero-tagline {
-      display: flex; align-items: center; gap: 1rem;
-      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-      margin-bottom: 1.8rem; font-weight: 400; color: rgba(255,255,255,0.5);
+      display: flex; align-items: center; gap: 1.2rem;
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      margin-bottom: 2.5rem; font-weight: 400; color: rgba(255,255,255,0.45);
       font-family: var(--font-sans);
       opacity: 0;
+      clip-path: inset(0 100% 0 0);
     }
     .hero-tagline .tag-line {
       width: 0; height: 1px; background: rgba(255,255,255,0.5);
     }
     .hero.revealed .hero-tagline {
-      animation: tagFadeIn 0.6s ease forwards;
-      animation-delay: 2.6s;
+      animation: clipRevealRight 0.8s var(--ease-expo) forwards;
+      animation-delay: 0.6s;
     }
     .hero.revealed .hero-tagline .tag-line {
-      animation: lineGrow 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      animation-delay: 2.8s;
+      animation: lineGrow 1s var(--ease-expo) forwards;
+      animation-delay: 0.9s;
     }
-    @keyframes tagFadeIn {
-      from { opacity: 0; transform: translateX(-10px); }
-      to   { opacity: 1; transform: translateX(0); }
+    @keyframes clipRevealRight {
+      0%   { clip-path: inset(0 100% 0 0); opacity: 0; }
+      30%  { opacity: 1; }
+      100% { clip-path: inset(0 0% 0 0); opacity: 1; }
     }
     @keyframes lineGrow {
       from { width: 0; }
-      to   { width: 36px; }
+      to   { width: 48px; }
     }
 
-    /* Bold + italic headline treatment */
+    /* 5. Headlines — per-character reveal */
     .hero-headline { margin-bottom: 0; }
     .hero-line {
-      display: block; overflow: hidden;
-    }
-    .hero-line-inner {
       display: block;
-      transform: translateY(110%);
-      filter: blur(8px);
-      opacity: 0;
     }
     .hero-line-bold {
       font-family: var(--font-display);
-      font-size: clamp(3.8rem, 9vw, 7.5rem);
+      font-size: clamp(3.2rem, 7.5vw, 6.5rem);
       font-weight: 700; text-transform: uppercase;
-      color: #fff; line-height: 0.88; letter-spacing: -0.035em;
-      text-shadow: 0 2px 30px rgba(0,0,0,0.7), 0 4px 60px rgba(0,0,0,0.4);
+      color: #fff; line-height: 0.92; letter-spacing: -0.025em;
+      text-shadow: 0 4px 60px rgba(0,0,0,0.4);
     }
     .hero-line-italic {
       font-family: var(--font-display);
-      font-size: clamp(2.2rem, 5vw, 4rem);
-      font-weight: 300; font-style: normal;
-      color: #fff;
-      line-height: 1.1; letter-spacing: -0.01em;
-      margin-top: 0.2em;
-      text-shadow: 0 2px 30px rgba(0,0,0,0.7), 0 4px 60px rgba(0,0,0,0.4);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+      font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.2; letter-spacing: 0.02em;
+      margin-top: 0.6em;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.4);
     }
 
-    /* Clip-mask reveal with blur-to-sharp and slight horizontal drift */
-    .hero.revealed .hero-line:nth-child(1) .hero-line-inner {
-      animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 2.9s;
+    /* Individual character animation */
+    .hero-char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(50%) rotateX(-40deg) scale(0.8);
+      filter: blur(8px);
+      transform-origin: bottom center;
+      animation: charReveal 0.6s var(--ease-expo) forwards;
     }
-    .hero.revealed .hero-line:nth-child(2) .hero-line-inner {
-      animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 3.1s;
+    .hero-char.space {
+      width: 0.25em;
     }
-    .hero.revealed .hero-line:nth-child(3) .hero-line-inner {
-      animation: textRevealItalic 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 3.4s;
-    }
-    @keyframes textReveal {
-      0%   { transform: translateY(110%) translateX(-15px); filter: blur(8px); opacity: 0; }
-      30%  { opacity: 1; }
-      100% { transform: translateY(0) translateX(0); filter: blur(0); opacity: 1; }
-    }
-    @keyframes textRevealItalic {
-      0%   { transform: translateY(100%) translateX(-20px); filter: blur(10px); opacity: 0; }
-      25%  { opacity: 1; }
-      100% { transform: translateY(0) translateX(0); filter: blur(0); opacity: 1; }
+    @keyframes charReveal {
+      0%   { opacity: 0; transform: translateY(50%) rotateX(-40deg) scale(0.8); filter: blur(8px); }
+      40%  { opacity: 1; filter: blur(2px); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0); }
     }
 
-    /* Bottom bar — staggered reveals */
-    .hero-bottom { opacity: 0; }
-    .hero-family,
-    .hero-legacy { opacity: 0; }
-    .hero-btns { opacity: 0; }
-
-    .hero.revealed .hero-bottom {
-      animation: fadeUp 0.8s ease forwards;
-      animation-delay: 3.6s;
+    /* Subtitle chars — softer, wider motion */
+    .hero-line-italic .hero-char {
+      transform: translateY(30px) scale(0.9);
+      filter: blur(12px);
+      animation-name: charRevealSoft;
+      animation-duration: 0.5s;
     }
-    .hero.revealed .hero-family {
-      animation: fadeUp 0.7s ease forwards;
-      animation-delay: 3.8s;
-    }
-    .hero.revealed .hero-legacy {
-      animation: fadeUp 0.7s ease forwards;
-      animation-delay: 3.95s;
-    }
-    .hero.revealed .hero-btns {
-      animation: btnReveal 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      animation-delay: 4.1s;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes btnReveal {
-      from { opacity: 0; transform: translateY(20px) scale(0.95); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes charRevealSoft {
+      0%   { opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(12px); }
+      50%  { opacity: 1; filter: blur(2px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
-    /* Scroll indicator pulses in last */
+    /* 6. Date bar — fizzle in */
+    .hero-date-bar { opacity: 0; filter: blur(8px); }
+    .hero.revealed .hero-date-bar {
+      animation: fizzleIn 1s var(--ease-expo) forwards;
+      animation-delay: 1.4s;
+    }
+
+    /* 7. Awards — fizzle in after date bar */
+    .hero-awards { opacity: 0; filter: blur(6px); }
+    .hero.revealed .hero-awards {
+      animation: fizzleIn 1s var(--ease-expo) forwards;
+      animation-delay: 1.8s;
+    }
+
+    @keyframes fizzleIn {
+      0%   { opacity: 0; filter: blur(8px); transform: scale(0.97); }
+      60%  { filter: blur(1px); }
+      100% { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+
+    /* 8. Scroll indicator */
     .hero-scroll-indicator { opacity: 0; }
     .hero.revealed .hero-scroll-indicator {
-      animation: fadeUp 0.6s ease forwards;
-      animation-delay: 4.4s;
+      animation: scrollReveal 1s var(--ease-smooth) forwards;
+      animation-delay: 3.2s;
+    }
+    @keyframes scrollReveal {
+      0%   { opacity: 0; }
+      100% { opacity: 1; }
     }
 
-    /* --- Hero bottom bar --- */
-    .hero-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-      display: flex; align-items: flex-end; justify-content: flex-end;
-      padding: 2rem clamp(2rem, 5vw, 6rem);
+    /* 9. Navbar — slides down */
+    .navbar {
+      transform: translateY(-100%); opacity: 0;
     }
-    .hero-bottom-right {
-      text-align: right;
+    .navbar.nav-revealed {
+      animation: navSlideDown 0.8s var(--ease-expo) forwards;
     }
-    .hero-family {
-      font-family: var(--font-sans); font-style: normal;
-      font-size: 0.9rem; color: #fff;
-      margin-bottom: 0.4rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.6);
+    @keyframes navSlideDown {
+      0%   { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
-    .hero-legacy {
-      font-family: var(--font-sans); font-style: normal;
-      font-size: 0.85rem; color: rgba(255,255,255,0.95);
-      font-weight: 300; margin-bottom: 1.5rem; letter-spacing: 0.04em;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.6);
-    }
+
     .hero-btns {
-      display: flex; gap: 0.8rem; justify-content: flex-end;
+      display: flex; gap: 1.2rem; justify-content: flex-start;
+      margin-top: 2.8rem;
+    }
+
+    /* --- Date picker bar --- */
+    .hero-date-bar {
+      display: flex; align-items: stretch;
+      margin-top: 2.8rem;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+    }
+    .hero-date-field {
+      padding: 1rem 1.6rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+      min-width: 140px;
+      position: relative;
+      cursor: pointer;
+    }
+    .hero-date-field label {
+      font-family: var(--font-sans);
+      font-size: 0.55rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+    }
+    .hero-date-input {
+      background: none; border: none; outline: none;
+      color: #fff; font-family: var(--font-sans);
+      font-size: 0.85rem; font-weight: 400;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      -webkit-appearance: none;
+      width: 100%;
+    }
+    /* Hide native date UI — we use custom calendar */
+    .hero-date-input[type="date"] {
+      position: absolute; opacity: 0; pointer-events: none;
+      width: 0; height: 0;
+    }
+    .hero-date-display {
+      color: rgba(255,255,255,0.7); font-family: var(--font-sans);
+      font-size: 0.85rem; font-weight: 400;
+      cursor: pointer; user-select: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-date-display.has-value { color: #fff; }
+    .hero-date-display .cal-icon {
+      width: 14px; height: 14px; opacity: 0.4;
+    }
+    .hero-date-field:hover .hero-date-display { color: #fff; }
+    .hero-date-field:hover .cal-icon { opacity: 0.7; }
+    .hero-select {
+      -webkit-appearance: none; appearance: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E") no-repeat right center;
+      padding-right: 1.2rem;
+    }
+    .hero-select option {
+      background: #1a1510; color: #fff;
+    }
+
+    /* --- Glass calendar dropdown — fixed to viewport --- */
+    .hero-calendar {
+      position: fixed;
+      background: linear-gradient(135deg, rgba(30,35,50,0.95), rgba(20,22,35,0.98));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 1.4rem;
+      min-width: 280px;
+      z-index: 99999;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .hero-calendar.open {
+      opacity: 1; visibility: visible;
+      pointer-events: auto;
+    }
+    @media(max-width:768px) {
+      .hero-calendar {
+        min-width: min(280px, 90vw);
+      }
+    }
+    .cal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cal-header span {
+      font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500;
+      color: #fff; letter-spacing: 0.05em;
+    }
+    .cal-nav {
+      background: none; border: none; color: rgba(255,255,255,0.5);
+      font-size: 1rem; cursor: pointer; padding: 0.3rem 0.5rem;
+      border-radius: 6px; transition: all 0.2s;
+    }
+    .cal-nav:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    }
+    .cal-day-label {
+      font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500;
+      color: rgba(255,255,255,0.3); text-align: center; padding: 0.4rem 0;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .cal-day {
+      font-family: var(--font-sans); font-size: 0.75rem;
+      color: rgba(255,255,255,0.7); text-align: center;
+      padding: 0.5rem; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; border: none; background: none;
+    }
+    .cal-day:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .cal-day.today { color: #fff; font-weight: 600; }
+    .cal-day.selected {
+      background: #fff; color: #0a0a0f; font-weight: 600;
+    }
+    .cal-day.other-month { color: rgba(255,255,255,0.15); }
+    .cal-day.past { color: rgba(255,255,255,0.12); pointer-events: none; }
+    .hero-date-divider {
+      width: 1px;
+      background: rgba(255,255,255,0.1);
+      align-self: stretch;
+      margin: 0.6rem 0;
+    }
+    .hero-search-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0 2.4rem;
+      background: #fff;
+      color: var(--color-primary, #1a2744); font-family: var(--font-sans);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; white-space: nowrap;
+      border-radius: 0 14px 14px 0;
+      margin: -1px -1px -1px 0;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .hero-search-btn:hover {
+      background: #f0f0f0;
+      padding-right: 2.8rem;
+    }
+    .hero-search-btn .arrow {
+      transition: transform 0.4s; font-size: 0.85rem;
+    }
+    .hero-search-btn:hover .arrow { transform: translateX(4px); }
+
+    @media(max-width:768px) {
+      /* overlay handled above */
+
+      /* Push content to bottom, compact */
+      .hero-content {
+        top: auto; transform: none;
+        bottom: 1rem;
+        left: 1.2rem; right: 1.2rem;
+        max-width: none;
+      }
+
+      /* Smaller headline */
+      .hero-line-bold {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+        line-height: 0.95;
+      }
+      .hero-line-italic {
+        font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+        margin-top: 0.3em;
+      }
+
+      /* Tight tagline */
+      .hero-tagline {
+        margin-bottom: 0.6rem;
+        font-size: 0.45rem;
+        gap: 0.8rem;
+      }
+
+      /* Date bar — horizontal row, compact */
+      .hero-date-bar {
+        flex-direction: row;
+        border-radius: 10px;
+        margin-top: 1rem;
+      }
+      .hero-date-divider {
+        width: 1px; height: auto;
+        margin: 0.4rem 0;
+      }
+      .hero-date-field {
+        padding: 0.5rem 0.8rem;
+        min-width: 0; flex: 1;
+      }
+      .hero-date-field label { font-size: 0.4rem; }
+      .hero-date-display { font-size: 0.7rem; gap: 0.3rem; }
+      .hero-date-display .cal-icon { width: 11px; height: 11px; }
+      .hero-search-btn {
+        border-radius: 0 10px 10px 0;
+        margin: -1px -1px -1px 0;
+        padding: 0 1.4rem;
+        font-size: 0.6rem;
+      }
+      .hero-date-field--guests { min-width: auto; }
+      .hero-select { font-size: 0.7rem; }
+
+      /* Awards — single row, tiny */
+      .hero-awards {
+        margin-top: 0.8rem;
+        padding-top: 0.6rem;
+        gap: 0.8rem;
+      }
+      .hero-awards img { height: 14px !important; }
+      .hero-awards img:nth-child(-n+2) { height: 24px !important; }
+
+      /* Scroll indicator hide on mobile */
+      .hero-scroll-indicator { display: none; }
+    }
+    .hero-awards {
+      display: flex; align-items: center; gap: 2.2rem; flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
     }
     .btn-book-hero {
       display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.95rem 2.2rem;
-      background: #fff;
-      color: #1a1510; font-size: 0.72rem; letter-spacing: 0.14em;
+      padding: 1rem 2.4rem;
+      background: linear-gradient(135deg, #d4a853, #e8c882);
+      color: #1a1510; font-size: 0.68rem; letter-spacing: 0.16em;
       text-transform: uppercase; font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       border: none; font-family: var(--font-sans);
+      border-radius: 10px;
+      box-shadow: 0 4px 24px rgba(212, 168, 83, 0.25);
     }
     .btn-book-hero:hover {
-      background: var(--color-accent);
-      transform: translateY(-1px);
+      background: linear-gradient(135deg, #e8c882, #d4a853);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(212, 168, 83, 0.4);
     }
     .btn-book-hero .arrow {
-      transition: transform 0.3s; font-size: 0.85rem;
+      transition: transform 0.4s; font-size: 0.8rem;
     }
-    .btn-book-hero:hover .arrow { transform: translateX(3px); }
+    .btn-book-hero:hover .arrow { transform: translateX(4px); }
     .btn-explore-hero {
       display: inline-flex; align-items: center;
-      padding: 0.95rem 2.2rem;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.45);
-      color: #fff; font-size: 0.72rem; letter-spacing: 0.14em;
-      text-transform: uppercase; font-weight: 500;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 1rem 2.4rem;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.9); font-size: 0.68rem; letter-spacing: 0.16em;
+      text-transform: uppercase; font-weight: 400;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       font-family: var(--font-sans);
+      border-radius: 10px;
     }
     .btn-explore-hero:hover {
-      border-color: #fff;
-      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
     }
     .hero-scroll-indicator {
-      position: absolute; bottom: 2rem; left: clamp(2rem, 5vw, 6rem);
+      position: absolute; bottom: clamp(4rem, 8vh, 7rem); right: clamp(3rem, 6vw, 8rem);
       z-index: 2; display: flex; flex-direction: column; align-items: center;
     }
     .hero-scroll-line {
@@ -1534,6 +1765,9 @@
 </head>
 <body>
 
+  <div class="hero-calendar" id="checkin-cal"></div>
+  <div class="hero-calendar" id="checkout-cal"></div>
+
   <div class="page-gradient"></div>
 
   <!-- LOADING SCREEN -->
@@ -1609,7 +1843,7 @@
     <div class="hero-inner" id="heroInner">
       <div class="hero-bg">
         <video autoplay muted loop playsinline>
-          <source src="hero-video.mp4" type="video/mp4">
+          <source src="hero-video-hq.mp4" type="video/mp4">
         </video>
       </div>
       <div class="hero-overlay"></div>
@@ -1620,31 +1854,50 @@
           <span class="tag-line"></span>
           <span>Savaneta, Aruba</span>
         </p>
-        <h1 class="hero-headline">
-          <span class="hero-line"><span class="hero-line-inner hero-line-bold">Ocean</span></span>
-          <span class="hero-line"><span class="hero-line-inner hero-line-bold">View</span></span>
-          <span class="hero-line"><span class="hero-line-inner hero-line-italic">Where Luxury Meets the Sea</span></span>
+        <h1 class="hero-headline" id="heroHeadline">
+          <span class="hero-line hero-line-bold" data-text="Ocean"></span>
+          <span class="hero-line hero-line-bold" data-text="View"></span>
+          <span class="hero-line hero-line-italic" data-text="Where Luxury Meets the Sea"></span>
         </h1>
+        <div class="hero-date-bar">
+          <div class="hero-date-field" onclick="toggleCal(event,'checkin')">
+            <label>Check In</label>
+            <div class="hero-date-display" id="checkin-display">
+              <svg class="cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Select date</span>
+            </div>
+          </div>
+          <div class="hero-date-divider"></div>
+          <div class="hero-date-field" onclick="toggleCal(event,'checkout')">
+            <label>Check Out</label>
+            <div class="hero-date-display" id="checkout-display">
+              <svg class="cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Select date</span>
+            </div>
+          </div>
+          <div class="hero-date-divider"></div>
+          <div class="hero-date-field hero-date-field--guests" onclick="event.stopPropagation()">
+            <label>Guests</label>
+            <select class="hero-date-input hero-select">
+              <option>2 Adults</option>
+              <option>1 Adult</option>
+              <option>3 Adults</option>
+              <option>4 Adults</option>
+            </select>
+          </div>
+          <a href="#cta" class="hero-search-btn">Search<span class="arrow">&rarr;</span></a>
+        </div>
+        <div class="hero-awards">
+          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/9a621410-5471-4cbd-be63-ee3296c74f64/finest-2025.png" alt="Fodor's Finest 2025" style="height:44px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
+          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/958253b4-eef8-49f2-87c5-23a8d5d08294/finest-2026.png" alt="Fodor's Finest 2026" style="height:44px;">
+          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/3fe66db0-6729-447b-b435-35811550a6af/Forbes%401x.png" alt="Forbes" style="height:22px;filter:invert(1);opacity:0.7;">
+          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/47b09f5c-1715-4c58-8786-1935e6e51c8b/Travel+Leisure%401x.png" alt="Travel + Leisure" style="height:22px;filter:invert(1);opacity:0.7;">
+          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/dddf11cd-0819-4202-aa1a-b2c753056b23/Conde%CC%81+Nast+Traveler%401x.png" alt="Condé Nast Traveler" style="height:22px;filter:invert(1);opacity:0.7;">
+        </div>
       </div>
 
-      <div class="hero-bottom">
-        <div class="hero-scroll-indicator">
-          <div class="hero-scroll-line"></div>
-        </div>
-        <div class="hero-bottom-right">
-          <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap;justify-content:flex-end;">
-            <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/9a621410-5471-4cbd-be63-ee3296c74f64/finest-2025.png" alt="Fodor's Finest 2025" style="height:60px;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.5));">
-            <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/958253b4-eef8-49f2-87c5-23a8d5d08294/finest-2026.png" alt="Fodor's Finest 2026" style="height:60px;">
-            <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/3fe66db0-6729-447b-b435-35811550a6af/Forbes%401x.png" alt="Forbes" style="height:28px;filter:invert(1);opacity:0.85;">
-            <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/47b09f5c-1715-4c58-8786-1935e6e51c8b/Travel+Leisure%401x.png" alt="Travel + Leisure" style="height:28px;filter:invert(1);opacity:0.85;">
-            <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/dddf11cd-0819-4202-aa1a-b2c753056b23/Conde%CC%81+Nast+Traveler%401x.png" alt="Condé Nast Traveler" style="height:28px;filter:invert(1);opacity:0.85;">
-          </div>
-          <p class="hero-family" style="font-size:0.85rem;color:rgba(255,255,255,0.8);font-style:normal;font-family:var(--font-sans);letter-spacing:0.05em;text-transform:uppercase;font-weight:400;">Adults-Only &nbsp;·&nbsp; Ocean View &nbsp;·&nbsp; Savaneta, Aruba</p>
-          <div class="hero-btns">
-            <a href="#cta" class="btn-book-hero">Book Your Escape <span class="arrow">&rarr;</span></a>
-            <a href="#rooms" class="btn-explore-hero">Explore Villas</a>
-          </div>
-        </div>
+      <div class="hero-scroll-indicator">
+        <div class="hero-scroll-line"></div>
       </div>
     </div>
   </section>
@@ -1786,7 +2039,7 @@
         </div>
       </div>
       <div class="culinary-slide" data-index="1">
-        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/1710368189462-0YMPB3KWY0XI0CU10NAE/image-asset.jpeg" alt="Sunset Dining" data-parallax loading="lazy">
+        <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/b595e240-6846-4255-85c5-cefd5760360d/_DSC0517.jpg" alt="Sunset Dining" data-parallax loading="lazy">
         <div class="culinary-slide-overlay">
           <p>Each evening, enjoy Caribbean-inspired dishes with the freshest local seafood, served waterfront as the sun sets over Savaneta.</p>
           <h3 class="serif">Sunset Dining</h3>
@@ -2273,6 +2526,53 @@
     // ===== NAVBAR + SCROLL HANDLERS =====
     const navbar = document.getElementById('navbar');
     const heroEl = document.querySelector('.hero');
+    // Reveal navbar after hero animations
+    setTimeout(() => navbar.classList.add('nav-revealed'), 800);
+
+    // ===== PER-CHARACTER TEXT REVEAL =====
+    (function() {
+      const lines = document.querySelectorAll('#heroHeadline .hero-line');
+      const BOLD_BASE = 600;      // bold lines start fast
+      const SUBTITLE_BASE = 1800; // subtitle starts after bold finishes
+      let boldCharIndex = 0;
+      let subtitleCharIndex = 0;
+
+      lines.forEach((line, lineIndex) => {
+        const text = line.getAttribute('data-text');
+        if (!text) return;
+
+        const chars = text.split('');
+        const fragment = document.createDocumentFragment();
+
+        if (lineIndex < 2) {
+          // OCEAN + VIEW — fast, 30ms stagger
+          if (lineIndex === 1) boldCharIndex += 2;
+          chars.forEach((char) => {
+            const span = document.createElement('span');
+            span.classList.add('hero-char');
+            if (char === ' ') { span.classList.add('space'); span.innerHTML = '&nbsp;'; }
+            else { span.textContent = char; }
+            span.style.animationDelay = (BOLD_BASE + boldCharIndex * 30) + 'ms';
+            boldCharIndex++;
+            fragment.appendChild(span);
+          });
+        } else {
+          // "Where Luxury Meets the Sea" — slow, luxurious, 55ms stagger
+          chars.forEach((char) => {
+            const span = document.createElement('span');
+            span.classList.add('hero-char');
+            if (char === ' ') { span.classList.add('space'); span.innerHTML = '&nbsp;'; }
+            else { span.textContent = char; }
+            span.style.animationDelay = (SUBTITLE_BASE + subtitleCharIndex * 55) + 'ms';
+            span.style.animationDuration = '0.8s';
+            subtitleCharIndex++;
+            fragment.appendChild(span);
+          });
+        }
+
+        line.appendChild(fragment);
+      });
+    })();
     let lastScrollY = 0;
     let navbarHidden = false;
     navbar.style.transition = 'all 0.4s ease, transform 0.35s ease';
@@ -2806,6 +3106,117 @@
         if (!inView) return;
         if (e.key === 'ArrowLeft') prevBtn.click();
         if (e.key === 'ArrowRight') nextBtn.click();
+      });
+    })();
+
+    /* ── Custom glass calendar ── */
+    (function() {
+      const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+      const state = {
+        checkin: { month: new Date().getMonth(), year: new Date().getFullYear(), selected: null },
+        checkout: { month: new Date().getMonth(), year: new Date().getFullYear(), selected: null }
+      };
+
+      function renderCal(type) {
+        const cal = document.getElementById(type + '-cal');
+        const s = state[type];
+        const today = new Date(); today.setHours(0,0,0,0);
+        const firstDay = new Date(s.year, s.month, 1).getDay();
+        const daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
+        const daysInPrev = new Date(s.year, s.month, 0).getDate();
+
+        let html = '<div class="cal-header">';
+        html += '<button class="cal-nav" onclick="event.stopPropagation();navCal(\'' + type + '\',-1)">&lsaquo;</button>';
+        html += '<span>' + MONTHS[s.month] + ' ' + s.year + '</span>';
+        html += '<button class="cal-nav" onclick="event.stopPropagation();navCal(\'' + type + '\',1)">&rsaquo;</button>';
+        html += '</div><div class="cal-grid">';
+
+        DAYS.forEach(d => { html += '<div class="cal-day-label">' + d + '</div>'; });
+
+        for (let i = firstDay - 1; i >= 0; i--) {
+          html += '<button class="cal-day other-month" disabled>' + (daysInPrev - i) + '</button>';
+        }
+        for (let d = 1; d <= daysInMonth; d++) {
+          const date = new Date(s.year, s.month, d);
+          const isPast = date < today;
+          const isToday = date.getTime() === today.getTime();
+          const isSelected = s.selected && s.selected.getTime() === date.getTime();
+          let cls = 'cal-day';
+          if (isPast) cls += ' past';
+          if (isToday) cls += ' today';
+          if (isSelected) cls += ' selected';
+          html += '<button class="' + cls + '" onclick="event.stopPropagation();selectDay(\'' + type + '\',' + d + ')">' + d + '</button>';
+        }
+        const totalCells = firstDay + daysInMonth;
+        const remaining = (7 - (totalCells % 7)) % 7;
+        for (let i = 1; i <= remaining; i++) {
+          html += '<button class="cal-day other-month" disabled>' + i + '</button>';
+        }
+        html += '</div>';
+        cal.innerHTML = html;
+      }
+
+      function positionCal(type, field) {
+        const cal = document.getElementById(type + '-cal');
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          // Center in viewport
+          cal.style.left = '50%';
+          cal.style.top = '50%';
+          cal.style.transform = 'translate(-50%, -50%)';
+        } else {
+          const rect = field.getBoundingClientRect();
+          cal.style.left = rect.left + 'px';
+          cal.style.top = (rect.bottom + 8) + 'px';
+          cal.style.transform = 'none';
+        }
+      }
+
+      window.toggleCal = function(e, type) {
+        e.stopPropagation();
+        const cal = document.getElementById(type + '-cal');
+        const field = e.currentTarget;
+        const otherType = type === 'checkin' ? 'checkout' : 'checkin';
+        document.getElementById(otherType + '-cal').classList.remove('open');
+        positionCal(type, field);
+        cal.classList.toggle('open');
+        if (cal.classList.contains('open')) renderCal(type);
+      };
+
+      window.navCal = function(type, dir) {
+        const s = state[type];
+        s.month += dir;
+        if (s.month > 11) { s.month = 0; s.year++; }
+        if (s.month < 0) { s.month = 11; s.year--; }
+        renderCal(type);
+      };
+
+      window.selectDay = function(type, day) {
+        const s = state[type];
+        s.selected = new Date(s.year, s.month, day);
+        const display = document.getElementById(type + '-display');
+        const formatted = s.selected.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        display.querySelector('span').textContent = formatted;
+        display.classList.add('has-value');
+        document.getElementById(type + '-cal').classList.remove('open');
+
+        if (type === 'checkin' && !state.checkout.selected) {
+          setTimeout(() => {
+            const cal = document.getElementById('checkout-cal');
+            const checkoutField = document.querySelectorAll('.hero-date-field')[1];
+            document.getElementById('checkin-cal').classList.remove('open');
+            positionCal('checkout', checkoutField);
+            cal.classList.add('open');
+            renderCal('checkout');
+          }, 200);
+        }
+      };
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.hero-date-field')) {
+          document.querySelectorAll('.hero-calendar').forEach(c => c.classList.remove('open'));
+        }
       });
     })();
 
