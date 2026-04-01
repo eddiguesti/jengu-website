@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wess — Luxury Villa Mauritius</title>
-  <meta name="description" content="Wess Villa in Mauritius. Where barefoot luxury meets the Indian Ocean.">
+  <title>WESS — Luxury Hotels & Residences, Mauritius</title>
+  <meta name="description" content="WESS Hotels and Residences in Mauritius. Where paradise feels like home.">
+
+  <!-- ===== FONTS ===== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+
   <style>
     /* ===== RESET ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { font-size: 16px; overflow-x: hidden; background: #ffffff; }
+    html { font-size: 16px; overflow-x: hidden; background: #f4f7f9; }
     body {
       font-family: var(--font-sans);
-      background: #ffffff;
+      background: #0a0a08;
       color: var(--color-primary);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -26,41 +29,20 @@
 
     /* ===== DESIGN TOKENS ===== */
     :root {
-      --color-primary: #3D3426;
-      --color-secondary: #6B6347;
-      --color-accent: #B5A07C;
-      --color-muted: #8A7E65;
-      --color-cream: #FAF7F2;
-      --color-sand: #F0ECE3;
-      --font-serif: 'Cormorant Garamond', Georgia, serif;
-      --font-display: 'Space Grotesk', 'DM Sans', sans-serif;
-      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
+      --color-primary: #1a2744;
+      --color-secondary: #3d5a80;
+      --color-accent: #89c2d9;
+      --color-muted: #5e7ea3;
+      --color-cream: #f0f7fc;
+      --color-sand: #e4f0f8;
+      --font-serif: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
-    /* ===== TYPOGRAPHY ===== */
-    .serif { font-family: var(--font-serif); }
-    h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; color: var(--color-primary); }
-    h1 { font-size: clamp(2.5rem, 5.5vw, 4.5rem); line-height: 1.08; letter-spacing: -0.02em; }
-    h2 { font-size: clamp(1.8rem, 3.5vw, 3rem); line-height: 1.15; }
-    h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); line-height: 1.3; }
-    p { font-size: 0.92rem; line-height: 1.75; font-weight: 300; color: var(--color-secondary); }
-
-    /* ===== CROWN ICON (SVG inline) ===== */
-    .crown-icon {
-      display: inline-block; width: 40px; height: 36px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80' fill='%23B5A07C'%3E%3Cpath d='M10 65L20 25L35 45L50 15L65 45L80 25L90 65Z'/%3E%3Crect x='8' y='68' width='84' height='8' rx='2'/%3E%3C/svg%3E") center/contain no-repeat;
-      opacity: 0.55;
-    }
-    .crown-icon-sm {
-      display: inline-block; width: 28px; height: 24px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 80' fill='%23B5A07C'%3E%3Cpath d='M10 65L20 25L35 45L50 15L65 45L80 25L90 65Z'/%3E%3Crect x='8' y='68' width='84' height='8' rx='2'/%3E%3C/svg%3E") center/contain no-repeat;
-      opacity: 0.45;
-    }
-    /* Diamond decorative element */
-    .diamond-deco {
-      width: 12px; height: 12px; margin: 0 auto 1.5rem;
-      border: 1px solid var(--color-accent); transform: rotate(45deg);
-      opacity: 0.5;
+      /* Custom easing curves */
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+      --ease-dramatic: cubic-bezier(0.7, 0, 0.3, 1);
     }
 
     /* ===== LOADING SCREEN ===== */
@@ -74,7 +56,7 @@
     .loading-greeting {
       font-family: var(--font-serif);
       font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300;
-      color: rgba(61,52,38,0.7);
+      color: rgba(61,52,38,0.7); letter-spacing: -0.01em;
       display: flex; align-items: center; gap: 0.6rem;
       opacity: 0; transition: opacity 0.5s ease;
     }
@@ -87,175 +69,204 @@
     /* ===== NAVBAR ===== */
     .navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 0 clamp(1.5rem, 4vw, 5rem); height: 80px;
+      padding: 0 2rem; height: 70px;
       display: flex; align-items: center; justify-content: space-between;
       background: transparent;
-      transition: background 0.5s ease, backdrop-filter 0.5s ease;
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
     }
     .navbar.scrolled {
-      background: rgba(10,10,8,0.85);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(107,99,71,0.08);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
     }
-    .nav-left { display: flex; align-items: center; gap: 0.6rem; }
-    .nav-burger {
-      display: flex; flex-direction: column; gap: 6px;
-      cursor: pointer; padding: 8px; position: relative; z-index: 1001;
-      transition: gap 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      background: none; border: none;
+    .nav-left { display: flex; align-items: center; gap: 1.2rem; }
+    .nav-left a, .nav-left span {
+      font-size: 0.72rem; letter-spacing: 0.06em; color: #fff;
+      font-weight: 500; text-transform: uppercase;
+      font-family: var(--font-sans);
+      transition: opacity 0.3s, color 0.4s ease;
     }
-    .nav-burger span {
-      display: block; height: 1.5px; background: #fff;
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      transform-origin: center;
-    }
-    .nav-burger span:nth-child(1) { width: 24px; }
-    .nav-burger span:nth-child(2) { width: 18px; }
-    .nav-burger span:nth-child(3) { width: 24px; }
-    .nav-burger.active { gap: 0; }
-    .nav-burger.active span:nth-child(1) { transform: rotate(45deg) translate(1px, 1px); width: 24px; }
-    .nav-burger.active span:nth-child(2) { opacity: 0; width: 0; }
-    .nav-burger.active span:nth-child(3) { transform: rotate(-45deg) translate(1px, -1px); width: 24px; }
-    .nav-label {
-      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.15em;
-      text-transform: uppercase; color: rgba(255,255,255,0.7);
-      transition: opacity 0.4s;
-    }
-    .nav-burger.active + .nav-label { opacity: 0; }
-
+    .nav-left a:hover { opacity: 0.6; }
+    .nav-left .sep { color: rgba(255,255,255,0.4); font-weight: 300; transition: color 0.4s ease; }
+    .navbar.scrolled .nav-left a,
+    .navbar.scrolled .nav-left span { color: var(--color-primary); }
+    .navbar.scrolled .nav-left .sep { color: rgba(61,52,38,0.25); }
     .nav-center {
       position: absolute; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
     }
     .nav-logo-icon {
-      width: 36px; height: 32px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90' fill='%23ffffff'%3E%3Cpath d='M50 5L30 30L10 15L18 55H82L90 15L70 30Z'/%3E%3Cpath d='M15 60H85V65C85 70 80 75 75 75H25C20 75 15 70 15 65Z'/%3E%3Cpath d='M35 75V85H40V75Z'/%3E%3Cpath d='M60 75V85H65V75Z'/%3E%3C/svg%3E") center/contain no-repeat;
-      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 32px; height: 28px;
+      transition: background 0.4s ease;
+    }
+    .nav-center img {
+      filter: brightness(0) invert(1);
+      transition: filter 0.4s ease;
+    }
+    .navbar.scrolled .nav-center img {
+      filter: none;
     }
     .nav-logo-text {
-      font-family: var(--font-serif);
-      font-size: 0.9rem; font-weight: 500; letter-spacing: 0.25em;
-      text-transform: uppercase; color: #fff;
+      font-family: var(--font-display);
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: #fff; transition: color 0.4s ease;
     }
-    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .navbar.scrolled .nav-logo-text { color: var(--color-primary); }
+    .nav-right { display: flex; align-items: center; gap: 0.8rem; }
     .lang-btn {
-      display: flex; align-items: center; gap: 0.3rem;
-      padding: 0.35rem 0.7rem; font-size: 0.7rem; letter-spacing: 0.12em;
-      border: 1px solid rgba(255,255,255,0.35); border-radius: 4px;
-      color: rgba(255,255,255,0.85); transition: color 0.3s, border-color 0.3s;
-      font-family: var(--font-sans); background: none;
-      text-transform: uppercase; font-weight: 500;
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem 0.9rem; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      font-family: var(--font-sans);
+      border: 1px solid rgba(255,255,255,0.25); border-radius: 100px;
+      color: rgba(255,255,255,0.9); transition: all 0.35s ease;
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.06);
     }
-    .lang-btn:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
-    .lang-btn .arrow { font-size: 0.5rem; opacity: 0.7; }
+    .navbar.scrolled .lang-btn {
+      border-color: rgba(26,39,68,0.12); color: var(--color-primary);
+      background: rgba(26,39,68,0.03); backdrop-filter: none;
+    }
+    .lang-btn:hover {
+      background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.5);
+      transform: translateY(-1px);
+    }
+    .navbar.scrolled .lang-btn:hover {
+      background: rgba(26,39,68,0.06); border-color: rgba(26,39,68,0.25);
+    }
+    .lang-btn .globe { width: 14px; height: 14px; flex-shrink: 0; }
+    .lang-btn .arrow { font-size: 0.5rem; opacity: 0.6; margin-left: 0.1rem; }
     .btn-book {
-      padding: 0.55rem 1.6rem; font-size: 0.68rem; letter-spacing: 0.12em;
-      background: var(--color-accent); color: #fff; border-radius: 0;
-      font-weight: 600; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      padding: 0.6rem 1.8rem; font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; font-weight: 600;
+      font-family: var(--font-sans);
+      background: #fff; color: var(--color-primary); border-radius: 10px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       border: none;
-      font-family: var(--font-sans); text-transform: uppercase;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+    .navbar.scrolled .btn-book {
+      background: var(--color-primary); color: #fff;
+      box-shadow: 0 2px 12px rgba(26,39,68,0.2);
     }
     .btn-book:hover {
-      background: #C4AD88; color: #fff;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(181,160,124,0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    }
+    .navbar.scrolled .btn-book:hover {
+      background: var(--color-secondary);
+      box-shadow: 0 6px 24px rgba(26,39,68,0.25);
     }
 
-    /* ===== MEGA MENU ===== */
-    .mega-menu {
+    /* Hamburger — always visible */
+    .hamburger {
+      display: flex; flex-direction: column; gap: 6px; cursor: pointer; z-index: 1001;
+      padding: 8px; position: relative;
+    }
+    .hamburger span {
+      width: 26px; height: 1.5px; background: #fff;
+      transition: all 0.4s cubic-bezier(0.77,0,0.18,1);
+      transform-origin: center;
+    }
+    .navbar.scrolled .hamburger span { background: var(--color-primary); }
+    .hamburger.active span { background: var(--color-primary) !important; }
+    .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5.5px); }
+    .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5.5px); }
+
+    /* Fullscreen Menu Overlay */
+    .menu-overlay {
       position: fixed; inset: 0; z-index: 999;
-      background: #0d0d0a;
-      display: flex;
+      background: rgba(250,247,242,0.97);
+      backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
       opacity: 0; visibility: hidden;
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+      transition: opacity 0.5s cubic-bezier(0.77,0,0.18,1), visibility 0.5s;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
     }
-    .mega-menu.active { opacity: 1; visibility: visible; }
-    .mega-left {
-      flex: 0 0 45%; display: flex; flex-direction: column;
-      justify-content: center; padding: 6rem clamp(2rem, 5vw, 6rem);
-      position: relative;
+    .menu-overlay.active { opacity: 1; visibility: visible; }
+
+    /* Left side — nav links */
+    .menu-nav {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 4rem 4rem 5rem;
+      gap: 0;
     }
-    .mega-left::after {
-      content: ''; position: absolute; right: 0; top: 10%; bottom: 10%;
-      width: 1px; background: linear-gradient(to bottom, transparent, rgba(181,160,124,0.2), transparent);
+    .menu-nav-link {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.5vw, 4rem);
+      font-weight: 400; letter-spacing: -0.02em;
+      color: var(--color-primary);
+      padding: 0.3rem 0;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.77,0,0.18,1), color 0.3s;
+      cursor: pointer; position: relative;
+      display: inline-block; width: fit-content;
     }
-    .mega-nav { display: flex; flex-direction: column; gap: 0; }
-    .mega-nav-item {
-      display: flex; align-items: center; gap: 1.5rem;
-      padding: 1.4rem 0; cursor: pointer; position: relative;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      opacity: 0; transform: translateX(-40px);
-      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    .menu-overlay.active .menu-nav-link {
+      opacity: 1; transform: translateY(0);
     }
-    .mega-menu.active .mega-nav-item { opacity: 1; transform: translateX(0); }
-    .mega-nav-item:nth-child(1) { transition-delay: 0.15s; }
-    .mega-nav-item:nth-child(2) { transition-delay: 0.22s; }
-    .mega-nav-item:nth-child(3) { transition-delay: 0.29s; }
-    .mega-nav-item:nth-child(4) { transition-delay: 0.36s; }
-    .mega-nav-item:nth-child(5) { transition-delay: 0.43s; }
-    .mega-nav-item:nth-child(6) { transition-delay: 0.50s; }
-    .mega-nav-num {
+    .menu-nav-link:hover { color: var(--color-secondary); }
+    .menu-nav-link .link-num {
       font-family: var(--font-sans);
-      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.15em;
-      color: rgba(181,160,124,0.4); min-width: 2rem;
-      transition: color 0.4s;
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em;
+      color: rgba(61,52,38,0.35);
+      position: absolute; left: -2rem; top: 50%; transform: translateY(-50%);
     }
-    .mega-nav-label {
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300;
-      color: rgba(255,255,255,0.5); letter-spacing: 0.02em;
-      transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Right side — preview image */
+    .menu-preview {
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
     }
-    .mega-nav-arrow {
-      font-size: 1.2rem; color: rgba(181,160,124,0);
-      margin-left: auto; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateX(-10px);
+    .menu-preview-img {
+      position: absolute; inset: 2rem;
+      border-radius: 16px; overflow: hidden;
+      opacity: 0; transform: scale(1.05);
+      transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.77,0,0.18,1);
     }
-    .mega-nav-item:hover .mega-nav-num { color: var(--color-accent); }
-    .mega-nav-item:hover .mega-nav-label { color: #fff; transform: translateX(8px); }
-    .mega-nav-item:hover .mega-nav-arrow { color: var(--color-accent); transform: translateX(0); }
-    .mega-nav-item.active-item .mega-nav-label { color: #fff; }
-    .mega-nav-item.active-item .mega-nav-num { color: var(--color-accent); }
-    .mega-right {
-      flex: 1; position: relative; overflow: hidden;
+    .menu-preview-img.active {
+      opacity: 1; transform: scale(1);
     }
-    .mega-image {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: scale(1.08);
+    .menu-preview-img img {
+      width: 100%; height: 100%; object-fit: cover;
     }
-    .mega-image.active { opacity: 1; transform: scale(1); }
-    .mega-image img { width: 100%; height: 100%; object-fit: cover; }
-    .mega-image-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(13,13,10,0.4) 0%, transparent 60%);
+
+    /* Bottom info in menu */
+    .menu-bottom {
+      position: absolute; bottom: 2.5rem; left: 5rem; right: 5rem;
+      display: flex; justify-content: space-between; align-items: flex-end;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease 0.3s, transform 0.5s ease 0.3s;
     }
-    .mega-image-caption {
-      position: absolute; bottom: 3rem; left: 3rem; right: 3rem;
-      opacity: 0; transform: translateY(15px);
-      transition: opacity 0.6s 0.2s ease, transform 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    .menu-overlay.active .menu-bottom {
+      opacity: 1; transform: translateY(0);
     }
-    .mega-image.active .mega-image-caption { opacity: 1; transform: translateY(0); }
-    .mega-image-caption h3 {
-      font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400;
-      color: #fff; margin-bottom: 0.4rem;
+    .menu-bottom-left {
+      font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(61,52,38,0.5);
+      line-height: 1.6;
     }
-    .mega-image-caption p {
-      font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6;
-      max-width: 400px; font-weight: 300;
+    .menu-bottom-right {
+      display: flex; gap: 1.5rem;
     }
-    .mega-bottom {
-      position: absolute; bottom: 3rem; left: clamp(2rem, 5vw, 6rem);
-      display: flex; gap: 3rem; align-items: center;
-      opacity: 0; transform: translateY(15px);
-      transition: opacity 0.6s 0.5s ease, transform 0.6s 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    .menu-bottom-right a {
+      font-size: 0.72rem; letter-spacing: 0.04em; color: var(--color-primary);
+      font-weight: 500; transition: opacity 0.3s;
     }
-    .mega-menu.active .mega-bottom { opacity: 1; transform: translateY(0); }
-    .mega-contact-item {
-      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+    .menu-bottom-right a:hover { opacity: 0.5; }
+
+    @media (max-width: 768px) {
+      .menu-overlay { grid-template-columns: 1fr; }
+      .menu-preview { display: none; }
+      .menu-nav { padding: 6rem 2rem 4rem; }
+      .menu-nav-link { font-size: 2rem; }
+      .menu-nav-link .link-num { left: -1.5rem; }
+      .menu-bottom { left: 2rem; right: 2rem; }
     }
-    .mega-contact-item a { color: rgba(255,255,255,0.5); transition: color 0.3s; text-decoration: none; }
-    .mega-contact-item a:hover { color: var(--color-accent); }
 
     /* ===== HERO ===== */
     .hero {
@@ -276,225 +287,319 @@
     .hero-bg img, .hero-bg video {
       width: 100%; height: 100%; object-fit: cover;
       position: absolute; inset: 0;
-      transform: scale(1.05);
-    }
-    /* Cinematic zoom — video slowly scales in after load */
-    .hero.revealed .hero-bg video,
-    .hero.revealed .hero-bg img {
-      animation: heroZoom 12s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-      animation-delay: 2.4s;
-    }
-    @keyframes heroZoom {
-      from { transform: scale(1.05); }
-      to   { transform: scale(1); }
+      transform: scale(1.15);
     }
 
-    /* Overlay starts darker, lightens as video zooms */
+    /* ===== CINEMATIC ANIMATIONS ===== */
+
+    /* 1. Video — slow cinematic Ken Burns drift + scale */
+    .hero-bg video, .hero-bg img {
+      transform: scale(1.2) translateX(2%);
+    }
+    .hero.revealed .hero-bg video,
+    .hero.revealed .hero-bg img {
+      animation: heroCinematic 25s var(--ease-smooth) forwards;
+      animation-delay: 0.5s;
+    }
+    @keyframes heroCinematic {
+      0%   { transform: scale(1.2) translateX(2%); }
+      100% { transform: scale(1.02) translateX(0%); }
+    }
+
+    /* 2. Overlay — left-to-right gradient */
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(170deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.05) 45%, transparent 65%),
-        linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 30%, rgba(0,0,0,0.25) 80%, rgba(0,0,0,0.5) 100%);
+        linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0.05) 50%, transparent 70%),
+        linear-gradient(to bottom, transparent 0%, transparent 80%, rgba(0,0,0,0.15) 100%);
     }
 
-    /* --- Hero content: top-left headings --- */
+    /* 3. Hero content container */
     .hero-content {
       position: absolute; z-index: 2;
-      left: clamp(2rem, 5vw, 6rem);
-      top: clamp(7rem, 14vh, 10rem);
+      left: clamp(3rem, 6vw, 8rem);
+      top: 50%; transform: translateY(-50%);
+      max-width: 620px;
       text-align: left;
     }
 
-    /* Tagline with animated line */
+    /* 4. Tagline — clip wipe-in */
     .hero-tagline {
-      display: flex; align-items: center; gap: 1rem;
-      font-size: 0.78rem; letter-spacing: 0.25em; text-transform: uppercase;
-      margin-bottom: 1.8rem; font-weight: 600; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 1.2rem;
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      margin-bottom: 2.5rem; font-weight: 400; color: rgba(255,255,255,0.45);
       font-family: var(--font-sans);
       opacity: 0;
+      clip-path: inset(0 100% 0 0);
     }
     .hero-tagline .tag-line {
-      width: 0; height: 1px; background: rgba(255,255,255,0.9);
+      width: 0; height: 1px; background: rgba(255,255,255,0.5);
     }
     .hero.revealed .hero-tagline {
-      animation: tagFadeIn 0.6s ease forwards;
-      animation-delay: 2.6s;
+      animation: clipRevealRight 0.8s var(--ease-expo) forwards;
+      animation-delay: 0.6s;
     }
     .hero.revealed .hero-tagline .tag-line {
-      animation: lineGrow 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      animation-delay: 2.8s;
+      animation: lineGrow 1s var(--ease-expo) forwards;
+      animation-delay: 0.9s;
     }
-    @keyframes tagFadeIn {
-      from { opacity: 0; transform: translateX(-10px); }
-      to   { opacity: 1; transform: translateX(0); }
+    @keyframes clipRevealRight {
+      0%   { clip-path: inset(0 100% 0 0); opacity: 0; }
+      30%  { opacity: 1; }
+      100% { clip-path: inset(0 0% 0 0); opacity: 1; }
     }
     @keyframes lineGrow {
       from { width: 0; }
-      to   { width: 36px; }
+      to   { width: 48px; }
     }
 
-    /* Bold + italic headline treatment */
+    /* 5. Headlines — per-character reveal */
     .hero-headline { margin-bottom: 0; }
     .hero-line {
-      display: block; overflow: hidden;
-    }
-    .hero-line-inner {
       display: block;
-      transform: translateY(115%);
-      filter: blur(14px);
-      opacity: 0;
     }
     .hero-line-bold {
       font-family: var(--font-display);
-      font-size: clamp(3.8rem, 9vw, 7.5rem);
+      font-size: clamp(3.2rem, 7.5vw, 6.5rem);
       font-weight: 700; text-transform: uppercase;
-      color: #fff; line-height: 0.88; letter-spacing: -0.035em;
+      color: #fff; line-height: 0.92; letter-spacing: -0.025em;
+      text-shadow: 0 4px 60px rgba(0,0,0,0.4);
     }
     .hero-line-italic {
-      font-family: var(--font-serif);
-      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 3.5vw, 2.6rem);
       font-weight: 300; font-style: italic;
-      color: #fff;
-      line-height: 1.15; letter-spacing: 0.02em;
-      margin-top: 0.15em;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+      color: rgba(255,255,255,0.85);
+      line-height: 1.2; letter-spacing: 0.02em;
+      margin-top: 0.6em;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.4);
     }
 
-    /* Clip-mask reveal with blur-to-sharp and horizontal drift */
-    .hero.revealed .hero-line:nth-child(1) .hero-line-inner {
-      animation: textReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 2.8s;
-    }
-    .hero.revealed .hero-line:nth-child(2) .hero-line-inner {
-      animation: textReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 3.1s;
-    }
-    .hero.revealed .hero-line:nth-child(3) .hero-line-inner {
-      animation: textRevealItalic 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 3.5s;
-    }
-    @keyframes textReveal {
-      0%   { transform: translateY(115%) translateX(-25px); filter: blur(14px); opacity: 0; }
-      20%  { opacity: 0.6; }
-      50%  { filter: blur(2px); }
-      100% { transform: translateY(0) translateX(0); filter: blur(0); opacity: 1; }
-    }
-    @keyframes textRevealItalic {
-      0%   { transform: translateY(100%) translateX(-35px) scale(0.95); filter: blur(16px); opacity: 0; }
-      15%  { opacity: 0.5; }
-      50%  { filter: blur(3px); }
-      100% { transform: translateY(0) translateX(0) scale(1); filter: blur(0); opacity: 1; }
-    }
-
-    /* Gold accent line under headline */
-    .hero-accent-line {
-      width: 0; height: 1px; margin-top: 2rem;
-      background: linear-gradient(90deg, var(--color-accent), transparent);
+    /* Individual character animation */
+    .hero-char {
+      display: inline-block;
       opacity: 0;
+      transform: translateY(50%) rotateX(-40deg) scale(0.8);
+      filter: blur(8px);
+      transform-origin: bottom center;
+      animation: charReveal 0.6s var(--ease-expo) forwards;
     }
-    .hero.revealed .hero-accent-line {
-      animation: accentGrow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: 4s;
+    .hero-char.space {
+      width: 0.25em;
     }
-    @keyframes accentGrow {
-      from { width: 0; opacity: 0; }
-      to { width: 120px; opacity: 0.6; }
-    }
-
-    /* Bottom bar — staggered reveals */
-    .hero-bottom { opacity: 0; }
-    .hero-rating { opacity: 0; }
-    .hero-btns { opacity: 0; }
-
-    .hero.revealed .hero-bottom {
-      animation: fadeUp 0.9s ease forwards;
-      animation-delay: 4.2s;
-    }
-    .hero.revealed .hero-rating {
-      animation: fadeUp 0.8s ease forwards;
-      animation-delay: 4.5s;
-    }
-    .hero.revealed .hero-btns {
-      animation: btnReveal 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-      animation-delay: 4.9s;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes btnReveal {
-      from { opacity: 0; transform: translateY(20px) scale(0.95); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+    @keyframes charReveal {
+      0%   { opacity: 0; transform: translateY(50%) rotateX(-40deg) scale(0.8); filter: blur(8px); }
+      40%  { opacity: 1; filter: blur(2px); }
+      100% { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0); }
     }
 
-    /* Scroll indicator pulses in last */
+    /* Subtitle chars — softer, wider motion */
+    .hero-line-italic .hero-char {
+      transform: translateY(30px) scale(0.9);
+      filter: blur(12px);
+      animation-name: charRevealSoft;
+      animation-duration: 0.5s;
+    }
+    @keyframes charRevealSoft {
+      0%   { opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(12px); }
+      50%  { opacity: 1; filter: blur(2px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    /* 6. Date bar — fizzle in */
+    .hero-date-bar { opacity: 0; filter: blur(8px); }
+    .hero.revealed .hero-date-bar {
+      animation: fizzleIn 1s var(--ease-expo) forwards;
+      animation-delay: 1.4s;
+    }
+
+    /* 7. Awards — fizzle in after date bar */
+    .hero-awards { opacity: 0; filter: blur(6px); }
+    .hero.revealed .hero-awards {
+      animation: fizzleIn 1s var(--ease-expo) forwards;
+      animation-delay: 1.8s;
+    }
+
+    @keyframes fizzleIn {
+      0%   { opacity: 0; filter: blur(8px); transform: scale(0.97); }
+      60%  { filter: blur(1px); }
+      100% { opacity: 1; filter: blur(0); transform: scale(1); }
+    }
+
+    /* 8. Scroll indicator */
     .hero-scroll-indicator { opacity: 0; }
     .hero.revealed .hero-scroll-indicator {
-      animation: fadeUp 0.6s ease forwards;
-      animation-delay: 5.2s;
+      animation: scrollReveal 1s var(--ease-smooth) forwards;
+      animation-delay: 3.2s;
+    }
+    @keyframes scrollReveal {
+      0%   { opacity: 0; }
+      100% { opacity: 1; }
     }
 
-    /* --- Hero bottom bar --- */
-    .hero-bottom {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
-      display: flex; align-items: flex-end; justify-content: flex-end;
-      padding: 2rem clamp(2rem, 5vw, 6rem);
+    /* 9. Navbar — slides down */
+    .navbar {
+      transform: translateY(-100%); opacity: 0;
     }
-    .hero-bottom-right {
-      text-align: right;
+    .navbar.nav-revealed {
+      animation: navSlideDown 0.8s var(--ease-expo) forwards;
     }
-    .hero-rating {
-      display: flex; flex-direction: column; align-items: flex-end;
-      gap: 0.6rem; margin-bottom: 2rem;
+    @keyframes navSlideDown {
+      0%   { transform: translateY(-100%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
-    .hero-rating-row {
-      display: flex; align-items: center; gap: 0.8rem;
+
+    /* --- Date picker bar --- */
+    .hero-date-bar {
+      display: flex; align-items: stretch;
+      margin-top: 2.8rem;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
     }
-    .ta-logo { opacity: 0.85; }
-    .hero-rating-stars { display: flex; align-items: center; }
-    .hero-rating-label {
+    .hero-date-field {
+      padding: 1rem 1.6rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+      min-width: 140px;
+      position: relative;
+      cursor: pointer;
+    }
+    .hero-date-field label {
       font-family: var(--font-sans);
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+      font-size: 0.55rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
     }
-    .hero-btns {
-      display: flex; gap: 0.8rem; justify-content: flex-end;
+    .hero-date-input {
+      background: none; border: none; outline: none;
+      color: #fff; font-family: var(--font-sans);
+      font-size: 0.85rem; font-weight: 400;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      -webkit-appearance: none;
+      width: 100%;
     }
-    .btn-book-hero {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.95rem 2.2rem;
-      background: var(--color-accent);
-      color: #fff; font-size: 0.72rem; letter-spacing: 0.14em;
-      text-transform: uppercase; font-weight: 600;
-      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      border: none; font-family: var(--font-sans);
+    /* Hide native date UI — we use custom calendar */
+    .hero-date-input[type="date"] {
+      position: absolute; opacity: 0; pointer-events: none;
+      width: 0; height: 0;
     }
-    .btn-book-hero:hover {
-      background: #C4AD88;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(181,160,124,0.5);
+    .hero-date-display {
+      color: rgba(255,255,255,0.7); font-family: var(--font-sans);
+      font-size: 0.85rem; font-weight: 400;
+      cursor: pointer; user-select: none;
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    .btn-book-hero .arrow {
-      transition: transform 0.3s; font-size: 0.85rem;
+    .hero-date-display.has-value { color: #fff; }
+    .hero-date-display .cal-icon {
+      width: 14px; height: 14px; opacity: 0.4;
     }
-    .btn-book-hero:hover .arrow { transform: translateX(3px); }
-    .btn-explore-hero {
-      display: inline-flex; align-items: center;
-      padding: 0.95rem 2.2rem;
+    .hero-date-field:hover .hero-date-display { color: #fff; }
+    .hero-date-field:hover .cal-icon { opacity: 0.7; }
+    .hero-select {
+      -webkit-appearance: none; appearance: none;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E") no-repeat right center;
+      padding-right: 1.2rem;
+    }
+    .hero-select option {
+      background: #1a1510; color: #fff;
+    }
+
+    /* --- Glass calendar dropdown — fixed to viewport --- */
+    .hero-calendar {
+      position: fixed;
+      background: linear-gradient(135deg, rgba(30,35,50,0.95), rgba(20,22,35,0.98));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 1.4rem;
+      min-width: 280px;
+      z-index: 99999;
+      opacity: 0; visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+      pointer-events: none;
+    }
+    .hero-calendar.open {
+      opacity: 1; visibility: visible;
+      pointer-events: auto;
+    }
+    .cal-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cal-header span {
+      font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500;
+      color: #fff; letter-spacing: 0.05em;
+    }
+    .cal-nav {
+      background: none; border: none; color: rgba(255,255,255,0.5);
+      font-size: 1rem; cursor: pointer; padding: 0.3rem 0.5rem;
+      border-radius: 6px; transition: all 0.2s;
+    }
+    .cal-nav:hover { color: #fff; background: rgba(255,255,255,0.1); }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+    }
+    .cal-day-label {
+      font-family: var(--font-sans); font-size: 0.55rem; font-weight: 500;
+      color: rgba(255,255,255,0.3); text-align: center; padding: 0.4rem 0;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .cal-day {
+      font-family: var(--font-sans); font-size: 0.75rem;
+      color: rgba(255,255,255,0.7); text-align: center;
+      padding: 0.5rem; border-radius: 8px; cursor: pointer;
+      transition: all 0.2s; border: none; background: none;
+    }
+    .cal-day:hover { background: rgba(255,255,255,0.1); color: #fff; }
+    .cal-day.today { color: #fff; font-weight: 600; }
+    .cal-day.selected {
+      background: #fff; color: #0a0a0f; font-weight: 600;
+    }
+    .cal-day.other-month { color: rgba(255,255,255,0.15); }
+    .cal-day.past { color: rgba(255,255,255,0.12); pointer-events: none; }
+    .hero-date-divider {
+      width: 1px;
       background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.45);
-      color: #fff; font-size: 0.72rem; letter-spacing: 0.14em;
-      text-transform: uppercase; font-weight: 500;
+      align-self: stretch;
+      margin: 0.6rem 0;
+    }
+    .hero-search-btn {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0 2.4rem;
+      background: #fff;
+      color: var(--color-primary, #1a2744); font-family: var(--font-sans);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      text-decoration: none; white-space: nowrap;
+      border-radius: 0 14px 14px 0;
+      margin: -1px -1px -1px 0;
       transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      font-family: var(--font-sans);
     }
-    .btn-explore-hero:hover {
-      border-color: #fff;
-      background: rgba(255,255,255,0.2);
+    .hero-search-btn:hover {
+      background: #f0f0f0;
+      padding-right: 2.8rem;
     }
+    .hero-search-btn .arrow {
+      transition: transform 0.4s; font-size: 0.85rem;
+    }
+    .hero-search-btn:hover .arrow { transform: translateX(4px); }
+
+    /* ===== AWARDS BAR ===== */
+    .hero-awards {
+      display: flex; align-items: center; gap: 2.2rem; flex-wrap: wrap;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== SCROLL INDICATOR ===== */
     .hero-scroll-indicator {
-      position: absolute; bottom: 2rem; left: clamp(2rem, 5vw, 6rem);
+      position: absolute; bottom: clamp(4rem, 8vh, 7rem); right: clamp(3rem, 6vw, 8rem);
       z-index: 2; display: flex; flex-direction: column; align-items: center;
     }
     .hero-scroll-line {
@@ -508,959 +613,156 @@
     }
     @keyframes scrollPulse { 0% { top: -100%; } 100% { top: 100%; } }
 
-    /* Shared button used in culinary/offers sections */
-    .btn-discover {
-      display: inline-block; padding: 0.7rem 1.8rem;
-      border: 1px solid rgba(255,255,255,0.5); color: #fff;
-      font-size: 0.78rem; letter-spacing: 0.06em;
-      transition: all 0.3s ease; border-radius: 3px;
-    }
-    .btn-discover:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
-
-    /* ===== REVEAL ANIMATIONS ===== */
-    .reveal {
-      opacity: 0; transform: translateY(50px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal-left.visible { opacity: 1; transform: translateX(0); }
-    .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal-right.visible { opacity: 1; transform: translateX(0); }
-    .reveal-scale { opacity: 0; transform: scale(0.92); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal-scale.visible { opacity: 1; transform: scale(1); }
-
-    /* ===== SECTION COMMON ===== */
-    section { position: relative; z-index: 1; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
-    .section-spacer { padding: 6rem 0; }
-
-    /* ===== INTRO ===== */
-    .intro {
-      background: #ffffff; padding: 6rem 0 3rem; text-align: center;
-      position: relative; z-index: 1;
-      border-top-left-radius: 28px;
-      border-top-right-radius: 28px;
-    }
-    .intro .container { max-width: 900px; }
-    .intro p {
-      font-size: 0.95rem; line-height: 1.85; max-width: 750px; margin: 0 auto 2rem;
-    }
-    .btn-warm {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.7rem 1.8rem; border: 1px solid rgba(107,99,71,0.3);
-      font-size: 0.78rem; letter-spacing: 0.05em; color: var(--color-primary);
-      transition: all 0.3s ease; border-radius: 3px; font-weight: 400;
-    }
-    .btn-warm:hover { background: var(--color-primary); color: var(--color-cream); }
-    .btn-warm--spaced { margin-top: 1rem; }
-    .mt-section { margin-top: 1.5rem; }
-    .btn-warm .arrow { transition: transform 0.3s; }
-    .btn-warm:hover .arrow { transform: translateX(4px); }
-
-    /* ===== 3D CYLINDER CAROUSEL ===== */
-    .gallery-section {
-      padding: 3rem 0 4rem; background: #ffffff;
-      position: relative; z-index: 1;
-      overflow: hidden;
-    }
-    .carousel-3d-viewport {
-      width: 100vw; margin-left: calc(-50vw + 50%);
-      overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      height: 460px;
-      perspective: 1400px;
-      perspective-origin: 50% 45%;
-      position: relative;
-    }
-    /* Soft fade on edges */
-    .carousel-3d-viewport::before,
-    .carousel-3d-viewport::after {
-      content: '';
-      position: absolute;
-      top: 0; bottom: 0;
-      width: 100px;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .carousel-3d-viewport::before {
-      left: 0;
-      background: linear-gradient(to right, #ffffff 0%, transparent 100%);
-    }
-    .carousel-3d-viewport::after {
-      right: 0;
-      background: linear-gradient(to left, #ffffff 0%, transparent 100%);
-    }
-    .carousel-3d {
-      position: relative;
-      width: 280px; height: 380px;
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-    .carousel-3d-card {
-      position: absolute; width: 280px; height: 380px;
-      left: 0; top: 0;
-      border-radius: 14px; overflow: hidden;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-    }
-    .carousel-3d-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      pointer-events: none;
-      color: transparent; font-size: 0;
+    /* ===== RESPONSIVE — 1024px ===== */
+    @media(max-width:1024px) {
+      .hero-overlay {
+        background:
+          linear-gradient(to top, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 30%, rgba(0,0,0,0.05) 55%, transparent 70%);
+      }
+      .hero-content {
+        top: auto; transform: none;
+        bottom: clamp(1.5rem, 4vh, 3rem);
+        left: 2rem; right: 2rem;
+        max-width: none;
+      }
     }
 
-    /* ===== STYLISH LIVING / ROOMS ===== */
-    .living-section {
-      background: #ffffff; padding: 4rem 0 2rem;
-    }
-    .living-header {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem;
-    }
-    .living-header h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); }
-    .living-header p { max-width: 450px; }
+    /* ===== RESPONSIVE — 768px ===== */
+    @media(max-width:768px) {
+      .hero-calendar {
+        min-width: min(280px, 90vw);
+      }
 
-    /* Tabs */
-    .tabs-container { margin-bottom: 0; }
-    .rooms-showcase-tabs {
-      position: absolute; top: 1.5rem; left: 2rem; z-index: 2;
-    }
-    .tabs {
-      display: flex; gap: 0.5rem; margin-bottom: 0;
-    }
-    .tab-btn {
-      display: flex; align-items: center; gap: 0.4rem;
-      padding: 0.65rem 1.3rem; font-size: 0.78rem; letter-spacing: 0.03em;
-      border: 1px solid rgba(250,247,242,0.3); border-radius: 6px;
-      color: rgba(250,247,242,0.85); transition: all 0.3s ease; font-weight: 400;
-      background: transparent; cursor: pointer;
-    }
-    .tab-btn .tab-icon { font-size: 0.85rem; }
-    .tab-btn .tab-icon-svg { vertical-align: -2px; margin-right: 2px; }
-    .tab-btn.active {
-      background: rgba(255,255,255,0.95); color: var(--color-primary); border-color: rgba(255,255,255,0.5);
-    }
-    .tab-btn:hover:not(.active) { border-color: rgba(250,247,242,0.5); background: rgba(250,247,242,0.1); }
+      /* Push content to bottom, compact */
+      .hero-content {
+        top: auto; transform: none;
+        bottom: 1rem;
+        left: 1.2rem; right: 1.2rem;
+        max-width: none;
+      }
 
-    /* Room cards on background */
-    .rooms-showcase {
-      position: relative; border-radius: 16px;
-      padding: 5rem 2.5rem 2.5rem; min-height: 520px;
-      display: flex; align-items: center;
-      overflow: hidden; background: #2a2318;
-    }
-    .rooms-showcase-bg {
-      position: absolute; inset: 0;
-    }
-    .rooms-showcase-bg img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: brightness(0.5);
-      color: transparent; font-size: 0;
-    }
-    .rooms-showcase-content {
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem 2rem;
-      align-items: center; width: 100%;
-      overflow: visible;
-    }
-    .rooms-showcase-text h3 {
-      color: #FAF7F2; font-size: clamp(1.5rem, 2.5vw, 2.2rem);
-      line-height: 1.2; margin-bottom: 1rem;
-    }
-    .rooms-showcase-text p { color: rgba(250,247,242,0.7); font-size: 0.88rem; }
-    .room-cards-scroll {
-      display: flex; gap: 1.2rem; overflow-x: auto;
-      scrollbar-width: none; -ms-overflow-style: none;
-      scroll-snap-type: x mandatory;
-      padding: 1rem 1.2rem 1rem 0;
-      -webkit-overflow-scrolling: touch;
-    }
-    .room-cards-scroll::-webkit-scrollbar { display: none; }
-    /* Fade hint on right edge to indicate scroll */
-    .room-cards-scroll-wrapper {
-      position: relative; overflow: hidden;
-      min-width: 0; /* prevent grid blowout */
-    }
-    .room-cards-scroll-wrapper::after {
-      content: '';
-      position: absolute; right: 0; top: 0; bottom: 0;
-      width: 60px; pointer-events: none;
-      background: linear-gradient(to right, transparent, rgba(0,0,0,0.25));
-      z-index: 2; border-radius: 0 14px 14px 0;
-      opacity: 1; transition: opacity 0.3s;
-    }
-    .room-cards-scroll-wrapper.scrolled-end::after { opacity: 0; }
-    .room-card {
-      width: 240px; min-width: 240px;
-      background: rgba(250,247,242,0.95);
-      border-radius: 14px; overflow: hidden; flex-shrink: 0;
-      scroll-snap-align: start;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      border: 2.5px solid rgba(255,255,255,0.7);
-    }
-    .room-card:last-child { margin-right: 0.5rem; }
-    .room-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
-    .room-card-img {
-      position: relative; aspect-ratio: 4/3; overflow: hidden;
-    }
-    .room-card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease;
-      color: transparent; font-size: 0;
-    }
-    .room-card:hover .room-card-img img { transform: scale(1.06); }
-    .room-card-price {
-      position: absolute; top: 0.8rem; left: 0.8rem;
-      background: rgba(250,247,242,0.92); padding: 0.35rem 0.8rem;
-      border-radius: 20px; font-size: 0.7rem; color: var(--color-primary);
-      font-weight: 500; backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.6);
-    }
-    .room-card-body { padding: 1.2rem; }
-    .room-card-body h3 { font-size: 1.05rem; margin-bottom: 0.4rem; font-weight: 400; color: var(--color-primary); }
-    .room-card-body p { font-size: 0.78rem; line-height: 1.5; color: var(--color-muted); }
-    .rooms-nav {
-      display: flex; gap: 0.6rem; justify-content: center;
-      margin-top: 1.5rem; grid-column: 1 / -1;
-    }
-    .rooms-nav-btn {
-      width: 38px; height: 38px; border-radius: 50%;
-      border: 1px solid rgba(250,247,242,0.4);
-      background: rgba(250,247,242,0.1);
-      display: flex; align-items: center; justify-content: center;
-      color: #FAF7F2; font-size: 1rem; transition: all 0.3s;
-    }
-    .rooms-nav-btn:hover { background: rgba(250,247,242,0.25); }
+      /* Smaller headline */
+      .hero-line-bold {
+        font-size: clamp(2rem, 10vw, 2.8rem);
+        line-height: 0.95;
+      }
+      .hero-line-italic {
+        font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+        margin-top: 0.3em;
+      }
 
-    /* ===== CULINARY ===== */
-    .culinary-section {
-      background: #ffffff; padding: 6rem 0;
-    }
-    .culinary-header {
-      text-align: center; max-width: 700px; margin: 0 auto 3rem;
-    }
-    .culinary-header .crown-icon { margin-bottom: 1rem; }
-    .culinary-header h2 { margin-bottom: 1rem; }
-    .culinary-header p { margin-bottom: 1.5rem; }
+      /* Tight tagline */
+      .hero-tagline {
+        margin-bottom: 0.6rem;
+        font-size: 0.45rem;
+        gap: 0.8rem;
+      }
 
-    /* Full-width parallax culinary slider */
-    .culinary-parallax {
-      position: relative; height: 75vh; min-height: 450px;
-      overflow: hidden; background: #1a1510;
-    }
-    .culinary-slide {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 1s ease;
-    }
-    .culinary-slide.active { opacity: 1; }
-    .culinary-slide img {
-      width: 100%; height: 160%; object-fit: cover;
-      position: absolute; top: -30%;
-      will-change: transform;
-      color: transparent; font-size: 0;
-    }
-    .culinary-slide-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.5) 100%);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 2rem;
-    }
-    .culinary-slide-overlay p {
-      color: rgba(255,255,255,0.85); max-width: 600px; margin-bottom: 0.8rem;
-      font-size: 0.9rem;
-    }
-    .culinary-slide-overlay h3 {
-      color: #fff; font-size: clamp(1.8rem, 3vw, 2.8rem);
-      margin-bottom: 1.5rem; font-weight: 300;
-    }
-    .culinary-dots {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; gap: 0.6rem; z-index: 2; align-items: center;
-      background: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
-      padding: 0.6rem 1.2rem; border-radius: 30px;
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .culinary-dot {
-      width: 36px; height: 3px; background: rgba(255,255,255,0.3);
-      cursor: pointer; transition: all 0.4s; border-radius: 2px;
-    }
-    .culinary-dot.active { background: #fff; width: 48px; }
-    .culinary-arrow {
-      background: none; border: none; color: #fff; font-size: 1.2rem;
-      margin-left: 0.5rem; cursor: pointer; opacity: 0.7; transition: opacity 0.3s;
-    }
-    .culinary-arrow:hover { opacity: 1; }
+      /* Date bar — horizontal row, compact */
+      .hero-date-bar {
+        flex-direction: row;
+        border-radius: 10px;
+        margin-top: 1rem;
+      }
+      .hero-date-divider {
+        width: 1px; height: auto;
+        margin: 0.4rem 0;
+      }
+      .hero-date-field {
+        padding: 0.5rem 0.8rem;
+        min-width: 0; flex: 1;
+      }
+      .hero-date-field label { font-size: 0.4rem; }
+      .hero-date-display { font-size: 0.7rem; gap: 0.3rem; }
+      .hero-date-display .cal-icon { width: 11px; height: 11px; }
+      .hero-search-btn {
+        border-radius: 0 10px 10px 0;
+        margin: -1px -1px -1px 0;
+        padding: 0 1.4rem;
+        font-size: 0.6rem;
+      }
+      .hero-date-field--guests { min-width: auto; }
+      .hero-select { font-size: 0.7rem; }
 
-    /* ===== WELLNESS ===== */
-    .wellness-section {
-      background: #ffffff; padding: 6rem 0 3rem;
-    }
-    .wellness-layout {
-      display: grid; grid-template-columns: 320px 1fr; gap: 3rem;
-      align-items: start;
-    }
-    .wellness-text .crown-icon-sm { margin-bottom: 1rem; }
-    .wellness-text h2 { margin-bottom: 1rem; font-size: clamp(1.6rem, 2.5vw, 2.3rem); }
-    .wellness-text p { margin-bottom: 1.5rem; }
-    .wellness-cards-wrapper {
-      position: relative;
-    }
-    .wellness-cards {
-      display: flex; gap: 1.2rem; overflow-x: auto;
-      scrollbar-width: none; scroll-snap-type: x mandatory;
-      padding: 0.5rem 0;
-    }
-    .wellness-cards::-webkit-scrollbar { display: none; }
-    .wellness-card {
-      min-width: 280px; border-radius: 12px; overflow: hidden;
-      flex-shrink: 0; scroll-snap-align: start; position: relative;
-      aspect-ratio: 4/3;
-    }
-    .wellness-card img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease;
-      color: transparent; font-size: 0;
-    }
-    .wellness-card:hover img { transform: scale(1.06); }
-    .wellness-card-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 1.2rem; color: #fff;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    }
-    .wellness-card-info h3 { color: #fff; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.3rem; }
-    .wellness-card-info p { color: rgba(255,255,255,0.75); font-size: 0.78rem; }
-    .wellness-nav {
-      display: flex; gap: 0.6rem; margin-top: 1.5rem;
-    }
-    .wellness-nav-btn {
-      width: 38px; height: 38px; border-radius: 50%;
-      border: 1px solid rgba(107,99,71,0.2);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--color-primary); font-size: 1rem; transition: all 0.3s;
-    }
-    .wellness-nav-btn:hover { background: rgba(107,99,71,0.08); }
-    .wellness-footnote {
-      margin-top: 1.5rem; padding: 0.8rem 1.2rem;
-      background: var(--color-sand);
-      border-radius: 6px;
-      font-size: 0.82rem; color: var(--color-muted);
-      text-align: center;
-    }
+      /* Awards — single row, tiny */
+      .hero-awards {
+        margin-top: 0.8rem;
+        padding-top: 0.6rem;
+        gap: 0.8rem;
+      }
+      .hero-awards img { height: 14px !important; }
+      .hero-awards img:nth-child(-n+2) { height: 24px !important; }
 
-    /* ===== NATURE EXPERIENCES ===== */
-    .nature-section {
-      background: #ffffff; padding: 5rem 0;
-    }
-    .nature-card {
-      background: #F0ECE3; border-radius: 16px; overflow: hidden;
-      display: grid; grid-template-columns: 1fr 1.2fr; min-height: 400px;
-    }
-    .nature-card-text { padding: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
-    .nature-card-text h2 {
-      font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 1rem; line-height: 1.15;
-    }
-    .nature-card-text p { margin-bottom: 1.5rem; }
-    .nature-card-right {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-      position: relative;
-    }
-    .nature-img-main {
-      grid-column: 1 / -1; position: relative; overflow: hidden;
-      min-height: 400px;
-    }
-    .nature-img-main img {
-      width: 100%; height: 100%; object-fit: cover;
-      position: absolute; top: 0; left: 0;
-      opacity: 0; transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-      transform: scale(1.08);
-      color: transparent; font-size: 0;
-    }
-    .nature-img-main img.active {
-      opacity: 1; transform: scale(1); z-index: 1;
-    }
-    .nature-img-main img.exiting {
-      opacity: 0; transform: scale(0.95); z-index: 0;
-    }
-    .nature-detail-card {
-      position: absolute; right: -1rem; top: 50%; transform: translateY(-50%);
-      background: #ffffff; border-radius: 12px; padding: 2rem;
-      width: 340px; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      overflow: hidden;
-    }
-    .nature-detail-card h3 { margin-bottom: 0.6rem; font-size: 1.5rem; }
-    .nature-detail-card p { font-size: 0.85rem; margin-bottom: 1rem; }
-    .nature-detail-text {
-      transition: opacity 0.45s ease, transform 0.45s ease;
-    }
-    .nature-detail-text.slide-out-left {
-      opacity: 0; transform: translateX(-30px);
-    }
-    .nature-detail-text.slide-out-right {
-      opacity: 0; transform: translateX(30px);
-    }
-    .nature-detail-text.slide-in-left {
-      opacity: 0; transform: translateX(30px);
-    }
-    .nature-detail-text.slide-in-right {
-      opacity: 0; transform: translateX(-30px);
-    }
-    .nature-detail-text.slide-enter {
-      opacity: 1; transform: translateX(0);
-    }
-    .nature-nav {
-      display: flex; gap: 0.6rem; margin-top: 1rem; align-items: center;
-    }
-    .nature-nav-btn {
-      width: 38px; height: 38px; border-radius: 50%;
-      border: 1px solid rgba(107,99,71,0.2);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--color-primary); font-size: 1rem; cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      background: transparent; position: relative; overflow: hidden;
-    }
-    .nature-nav-btn:hover { background: rgba(107,99,71,0.08); transform: scale(1.12); }
-    .nature-nav-btn:active { transform: scale(0.9); }
-    .nature-progress {
-      display: flex; gap: 6px; align-items: center;
-    }
-    .nature-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(107,99,71,0.2); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .nature-dot.active {
-      width: 20px; border-radius: 3px;
-      background: var(--color-secondary);
-    }
-
-    /* ===== OFFERS ===== */
-    .offers-section {
-      position: relative; padding: 6rem 0;
-      overflow: hidden; background: #1a1510;
-    }
-    .offers-bg {
-      position: absolute; inset: 0;
-    }
-    .offers-bg img {
-      width: 100%; height: 130%; object-fit: cover;
-      filter: brightness(0.35);
-      will-change: transform; position: absolute; top: -15%;
-      color: transparent; font-size: 0;
-    }
-    .offers-content {
-      position: relative; z-index: 1;
-    }
-    .offers-header {
-      margin-bottom: 2rem;
-    }
-    .offers-header .crown-icon { margin-bottom: 1rem; }
-    .crown-icon--light { filter: brightness(2); }
-    .offers-header h2 { color: #FAF7F2; margin-bottom: 0.8rem; }
-    .offers-header p { color: rgba(250,247,242,0.7); max-width: 550px; margin-bottom: 1.5rem; }
-    .offers-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
-    }
-    .offer-card {
-      position: relative; border-radius: 12px;
-      overflow: hidden; backdrop-filter: blur(10px);
-      border: 1px solid rgba(250,247,242,0.1);
-      aspect-ratio: 3/4;
-      transition: transform 0.4s ease, border-color 0.4s;
-    }
-    .offer-card:hover { transform: translateY(-6px); border-color: rgba(250,247,242,0.25); }
-    .offer-card img {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.6s ease;
-      color: transparent; font-size: 0;
-    }
-    .offer-card:hover img { transform: scale(1.06); }
-    .offer-card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.2) 100%);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1.5rem;
-    }
-    .offer-card-overlay h3 { color: #FAF7F2; font-size: 1.15rem; margin-bottom: 0.4rem; font-weight: 400; }
-    .offer-card-overlay p { color: rgba(250,247,242,0.75); font-size: 0.8rem; line-height: 1.5; }
-    .offers-note {
-      text-align: center; margin-top: 2rem; padding: 1rem 1.5rem;
-      color: rgba(250,247,242,0.7); font-size: 0.85rem;
-      background: rgba(255,255,255,0.06);
-      border-radius: 8px;
-    }
-    .offers-note strong { color: #FAF7F2; font-weight: 500; }
-
-    /* ===== TESTIMONIALS ===== */
-    .testimonials-section {
-      background: #ffffff; padding: 6rem 0; overflow: hidden;
-    }
-    .testimonials-header {
-      text-align: center; margin-bottom: 3rem;
-    }
-    .testimonials-header .crown-icon-sm { margin-bottom: 1rem; }
-    .testimonials-header h2 { margin-bottom: 0.8rem; }
-    .testimonials-header p { color: var(--color-muted); max-width: 550px; margin: 0 auto; }
-    .testimonials-marquee {
-      position: relative;
-    }
-    .testimonials-marquee::before, .testimonials-marquee::after {
-      content: ''; position: absolute; top: 0; bottom: 0; width: 100px;
-      z-index: 2; pointer-events: none;
-    }
-    .testimonials-marquee::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
-    .testimonials-marquee::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
-    .marquee-row {
-      display: flex; gap: 1.2rem; margin-bottom: 1.2rem;
-      width: max-content;
-    }
-    .marquee-row:nth-child(1) { animation: marqueeLeft 50s linear infinite; }
-    .marquee-row:nth-child(2) { animation: marqueeRight 45s linear infinite; }
-    @keyframes marqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    @keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-    .testimonial-card {
-      min-width: 340px; padding: 1.8rem; flex-shrink: 0;
-      background: #fff; border-radius: 10px;
-      border: 1px solid rgba(107,99,71,0.06);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-    }
-    .testimonial-card blockquote {
-      font-size: 0.88rem; line-height: 1.7; color: var(--color-secondary);
-      margin-bottom: 1rem; font-style: normal;
-    }
-    .testimonial-card .author {
-      font-size: 0.8rem; font-weight: 500; color: var(--color-primary);
-    }
-
-    /* ===== WELLNESS CAROUSEL (fullscreen crossfade) ===== */
-    .wellness-carousel-section {
-      position: relative; height: 100vh; min-height: 600px;
-      overflow: hidden; background: #0f0d0a;
-      z-index: 2;
-    }
-    .wc-slides { position: absolute; inset: 0; }
-    .wc-slide {
-      position: absolute; inset: 0;
-      opacity: 0; transition: opacity 1.4s ease;
-    }
-    .wc-slide.active { opacity: 1; }
-    .wc-slide img {
-      width: 100%; height: 100%; object-fit: cover;
-      animation: wcKenBurns 12s ease-in-out infinite alternate;
-      filter: brightness(0.45);
-      color: transparent; font-size: 0;
-    }
-    @keyframes wcKenBurns {
-      0%   { transform: scale(1)   translate(0, 0); }
-      100% { transform: scale(1.08) translate(-1%, -1%); }
-    }
-    .wc-slide:nth-child(2) img { animation-delay: -4s; transform-origin: right center; }
-    .wc-slide:nth-child(3) img { animation-delay: -8s; transform-origin: left bottom; }
-    .wc-slide:nth-child(4) img { animation-delay: -2s; transform-origin: center top; }
-    .wc-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(
-        160deg,
-        rgba(0,0,0,0.55) 0%,
-        rgba(0,0,0,0.2) 40%,
-        rgba(0,0,0,0.45) 100%
-      );
-    }
-    .wc-content {
-      position: absolute; inset: 0; z-index: 2;
-      display: flex; align-items: center; justify-content: center;
-      padding: 2rem;
-    }
-    .wc-inner {
-      max-width: 680px; text-align: center;
-    }
-    .wc-label {
-      display: inline-block;
-      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: rgba(255,255,255,0.5); margin-bottom: 1.8rem;
-    }
-    .wc-inner h2 {
-      color: #FAF7F2; font-weight: 300;
-      font-size: clamp(2rem, 4.5vw, 3.8rem);
-      margin-bottom: 1.2rem; line-height: 1.1;
-    }
-    .wc-inner p {
-      color: rgba(250,247,242,0.8); max-width: 500px; margin: 0 auto 2.5rem;
-      font-size: 0.92rem; line-height: 1.75;
-    }
-    .wc-btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.85rem 2.2rem; background: rgba(250,247,242,0.1);
-      border: 1px solid rgba(250,247,242,0.35); color: #FAF7F2;
-      font-size: 0.78rem; letter-spacing: 0.05em; border-radius: 3px;
-      transition: all 0.3s; backdrop-filter: blur(8px);
-    }
-    .wc-btn:hover { background: rgba(250,247,242,0.22); border-color: #FAF7F2; }
-    /* Bottom bar: counter + progress + dots */
-    .wc-controls {
-      position: absolute; bottom: 2.5rem; left: 0; right: 0; z-index: 3;
-      display: flex; align-items: center; justify-content: center; gap: 1.8rem;
-      padding: 0 2rem;
-    }
-    .wc-counter {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem; color: rgba(255,255,255,0.5);
-      min-width: 46px; text-align: center;
-    }
-    .wc-counter .wc-current { color: #fff; font-size: 1.2rem; }
-    .wc-dots { display: flex; gap: 0.6rem; align-items: center; }
-    .wc-dot {
-      width: 32px; height: 2px; background: rgba(255,255,255,0.25);
-      border-radius: 2px; overflow: hidden; cursor: pointer;
-      position: relative; transition: background 0.3s;
-    }
-    .wc-dot::after {
-      content: ''; position: absolute; left: 0; top: 0;
-      height: 100%; width: 0; background: #fff;
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-    .wc-dot.active::after {
-      width: 100%;
-      transition: width 5s linear;
-    }
-    .wc-dot.done::after { width: 100%; transition: none; }
-    .wc-arrows { display: flex; gap: 0.5rem; }
-    .wc-arrow {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff; display: flex; align-items: center; justify-content: center;
-      font-size: 0.85rem; background: rgba(255,255,255,0.05);
-      transition: all 0.3s; cursor: pointer; backdrop-filter: blur(6px);
-    }
-    .wc-arrow:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.5); }
-
-    @media (max-width: 768px) {
-      .wc-controls { bottom: 1.5rem; gap: 1rem; }
-      .wc-counter { display: none; }
-    }
-
-    /* ===== NEWSLETTER ===== */
-    .newsletter-section {
-      position: relative; overflow: hidden;
-      padding: 0; background: #F0ECE3;
-      z-index: 2; /* Slides OVER the sticky CTA */
-    }
-    .newsletter-inner {
-      position: relative; max-width: 1200px; margin: 0 auto;
-      min-height: 500px;
-    }
-    .newsletter-bg {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 55%;
-      overflow: hidden;
-    }
-    .newsletter-bg img {
-      width: 100%; height: 100%; object-fit: cover; object-position: top;
-      filter: brightness(0.85);
-      color: transparent; font-size: 0;
-    }
-    .newsletter-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, #F0ECE3 0%, transparent 40%);
-    }
-    .newsletter-card {
-      position: relative; z-index: 1;
-      background: rgba(240,236,227,0.92); backdrop-filter: blur(16px);
-      border-radius: 16px; padding: 3.5rem;
-      margin: 3rem 2.5rem; max-width: 700px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-      border: 1px solid rgba(107,99,71,0.08);
-    }
-    .newsletter-card .crown-icon { margin-bottom: 1.2rem; }
-    .newsletter-card h2 { margin-bottom: 0.8rem; font-size: clamp(1.6rem, 2.5vw, 2.3rem); }
-    .newsletter-card > p { margin-bottom: 2rem; }
-    .newsletter-form {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
-    }
-    .newsletter-form input, .newsletter-form select {
-      padding: 0.8rem 1rem; border: 1px solid rgba(107,99,71,0.15);
-      border-radius: 6px; background: #ffffff; color: var(--color-primary);
-      font-family: inherit; font-size: 0.85rem;
-      transition: border-color 0.3s;
-    }
-    .newsletter-form input::placeholder { color: var(--color-accent); }
-    .newsletter-form select { color: var(--color-accent); }
-    .newsletter-form input:focus, .newsletter-form select:focus {
-      outline: none; border-color: rgba(107,99,71,0.4);
-    }
-    .newsletter-form .full-width { grid-column: 1 / -1; }
-    .btn-subscribe {
-      grid-column: 1 / -1; justify-self: center;
-      padding: 0.7rem 2rem; background: var(--color-primary); color: var(--color-cream);
-      border: none; border-radius: 6px; font-size: 0.8rem;
-      letter-spacing: 0.05em; font-weight: 500; cursor: pointer;
-      transition: all 0.3s;
-    }
-    .btn-subscribe:hover { background: var(--color-secondary); }
-    .newsletter-legal {
-      grid-column: 1 / -1; text-align: center;
-      font-size: 0.72rem; color: var(--color-muted); margin-top: 0.5rem;
-    }
-    .newsletter-legal a { text-decoration: underline; }
-
-    /* ===== FOOTER ===== */
-    .footer {
-      background: var(--color-primary); color: var(--color-cream); padding: 5rem 0 2rem;
-      position: relative; z-index: 2;
-    }
-    .footer-top {
-      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 3rem;
-      margin-bottom: 3rem;
-    }
-    .footer-brand .footer-logo-icon {
-      width: 50px; height: 44px; margin-bottom: 1rem;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90' fill='%23FAF7F2'%3E%3Cpath d='M50 5L30 30L10 15L18 55H82L90 15L70 30Z'/%3E%3Cpath d='M15 60H85V65C85 70 80 75 75 75H25C20 75 15 70 15 65Z'/%3E%3Cpath d='M35 75V85H40V75Z'/%3E%3Cpath d='M60 75V85H65V75Z'/%3E%3C/svg%3E") center/contain no-repeat;
-    }
-    .footer-brand h3 { color: var(--color-cream); font-size: 1.6rem; margin-bottom: 1rem; font-weight: 400; }
-    .footer-brand p { color: rgba(250,247,242,0.5); font-size: 0.85rem; line-height: 1.7; }
-    .footer-cta {
-      display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start;
-    }
-    .footer-cta h3 { color: var(--color-cream); font-size: clamp(1.3rem, 2vw, 1.8rem); text-align: right; margin-bottom: 1.5rem; font-weight: 400; }
-    .btn-footer-book {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.8rem 2rem; border: 1px solid rgba(250,247,242,0.3);
-      color: #FAF7F2; font-size: 0.8rem; letter-spacing: 0.06em;
-      border-radius: 4px; transition: all 0.3s;
-    }
-    .btn-footer-book:hover { background: rgba(250,247,242,0.1); border-color: rgba(250,247,242,0.5); }
-    .btn-footer-book .long-arrow { transition: transform 0.3s; }
-    .btn-footer-book:hover .long-arrow { transform: translateX(5px); }
-    .footer-col h4 {
-      font-family: var(--font-sans); font-size: 0.75rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(250,247,242,0.4); margin-bottom: 1.5rem; font-weight: 500;
-    }
-    .footer-col a {
-      display: block; font-size: 0.88rem; color: rgba(250,247,242,0.65);
-      margin-bottom: 0.7rem; transition: color 0.3s;
-    }
-    .footer-col a:hover { color: #FAF7F2; }
-    .footer-contact {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      padding: 2rem 0; border-top: 1px solid rgba(250,247,242,0.08);
-      border-bottom: 1px solid rgba(250,247,242,0.08);
-      margin-bottom: 2rem; align-items: center;
-    }
-    .footer-contact-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem; border: 1px solid rgba(250,247,242,0.15);
-      border-radius: 6px; font-size: 0.82rem; color: rgba(250,247,242,0.7);
-      transition: all 0.3s;
-    }
-    .footer-contact-item:hover { border-color: rgba(250,247,242,0.3); color: var(--color-cream); }
-    .footer-partners {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      padding: 1.5rem 0; justify-content: center;
-      align-items: center;
-    }
-    .footer-partner {
-      font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
-      color: rgba(250,247,242,0.25); font-weight: 500;
-    }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding-top: 2rem;
-    }
-    .footer-bottom p { color: rgba(250,247,242,0.35); font-size: 0.78rem; }
-    .footer-social { display: flex; gap: 0.8rem; }
-    .footer-social a {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1px solid rgba(250,247,242,0.15);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(250,247,242,0.5); font-size: 0.85rem;
-      transition: all 0.3s;
-    }
-    .footer-social a:hover { border-color: rgba(250,247,242,0.4); color: var(--color-cream); }
-
-    /* ===== LAZY IMAGE TRANSITIONS ===== */
-    img[loading="lazy"] { opacity: 0; transition: opacity 0.4s ease; }
-    img[loading="lazy"].loaded { opacity: 1; }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .offers-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-top { grid-template-columns: 1fr 1fr; }
-      .nature-card { grid-template-columns: 1fr; }
-      .nature-detail-card { position: relative; right: 0; top: 0; transform: none; margin: 1.5rem; }
-    }
-    @media (max-width: 768px) {
-      .hero-line-bold { font-size: clamp(3rem, 13vw, 4.5rem); }
-      .hero-line-italic { font-size: clamp(1.6rem, 6.5vw, 2.2rem); }
-      .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; padding: 1.2rem 1.5rem; }
-      .hero-bottom-right { text-align: left; }
-      .hero-btns { justify-content: flex-start; }
-      .hero-rating { display: none; }
+      /* Scroll indicator hide on mobile */
       .hero-scroll-indicator { display: none; }
-      .btn-book-hero, .btn-explore-hero { padding: 0.75rem 1.4rem; font-size: 0.65rem; }
-      .navbar { padding: 0 1rem; height: 65px; }
-      .nav-label { display: none; }
-      .lang-btn { display: none !important; }
-      .mega-menu { flex-direction: column; }
-      .mega-left { flex: none; padding: 6rem 2rem 2rem; }
-      .mega-left::after { display: none; }
-      .mega-right { flex: 1; min-height: 200px; }
-      .mega-nav-label { font-size: 1.6rem; }
-      .mega-image-caption { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
-      .mega-bottom { display: none; }
-      .rooms-showcase-content { grid-template-columns: 1fr; }
-      .wellness-layout { grid-template-columns: 1fr; }
-      .offers-grid { grid-template-columns: 1fr; }
-      .newsletter-card { margin: 2rem 1.2rem; padding: 2rem; }
-      .newsletter-form { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; }
-      .footer-cta { align-items: flex-start; }
-      .footer-cta h3 { text-align: left; }
-      .carousel-3d-viewport { height: 280px; }
-      .carousel-3d-card { width: 170px; height: 230px; }
-      .carousel-3d { width: 170px; height: 230px; }
-      .carousel-3d-viewport::before,
-      .carousel-3d-viewport::after { width: 60px; }
-      .culinary-parallax { height: 60vh; min-height: 350px; }
-    }
-    @media (max-width: 480px) {
-      .container { padding: 0 1.2rem; }
-      .rooms-showcase { padding: 4.5rem 1.2rem 2rem; }
-      .rooms-showcase-tabs { top: 1rem; left: 1.2rem; }
-      .carousel-3d-viewport { height: 260px; }
-      .carousel-3d-card { width: 160px; height: 220px; }
-      .carousel-3d { width: 160px; height: 220px; }
-      .carousel-3d-viewport::before,
-      .carousel-3d-viewport::after { width: 30px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LOADING SCREEN -->
+  <!-- ===== CALENDAR DROPDOWNS (must be on body to avoid overflow clipping) ===== -->
+  <div class="hero-calendar" id="checkin-cal"></div>
+  <div class="hero-calendar" id="checkout-cal"></div>
+
+  <!-- ===== LOADING SCREEN ===== -->
   <div class="loading-screen" id="loadingScreen">
-    <div class="loading-greeting" id="greeting1"><span class="dot"></span> Bonzour</div>
+    <div class="loading-greeting" id="greeting1"><span class="dot"></span> Welcome</div>
     <div class="loading-greeting" id="greeting2"><span class="dot"></span> Bienvenue</div>
-    <div class="loading-greeting" id="greeting3"><span class="dot"></span> Welcome</div>
-    <div class="loading-greeting" id="greeting4"><span class="dot"></span> Swaagatam</div>
+    <div class="loading-greeting" id="greeting3"><span class="dot"></span> Willkommen</div>
+    <div class="loading-greeting" id="greeting4"><span class="dot"></span> Bonzour</div>
   </div>
 
-  <!-- NAVBAR -->
+  <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="nav-left">
-      <button class="nav-burger" id="navBurger" aria-label="Open menu">
+      <div class="hamburger" id="hamburger">
         <span></span><span></span><span></span>
-      </button>
-      <span class="nav-label">Menu</span>
+      </div>
     </div>
     <div class="nav-center">
-      <div class="nav-logo-icon"></div>
-      <span class="nav-logo-text">WESS</span>
+      <span class="nav-logo-text" style="font-size:1.1rem;letter-spacing:0.25em;font-weight:700;">WESS</span>
     </div>
     <div class="nav-right">
-      <button class="lang-btn">EN <span class="arrow">&#9662;</span></button>
-      <a href="#booking-info" class="btn-book" style="text-decoration:none;">Book</a>
+      <button class="lang-btn"><svg class="globe" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> EN <span class="arrow">&#9662;</span></button>
+      <button class="btn-book">Book Now</button>
     </div>
   </nav>
 
-  <!-- MEGA MENU -->
-  <div class="mega-menu" id="megaMenu">
-    <div class="mega-left">
-      <nav class="mega-nav">
-        <div class="mega-nav-item active-item" data-img="0">
-          <span class="mega-nav-num">01</span>
-          <span class="mega-nav-label">Villas</span>
-          <span class="mega-nav-arrow">&rarr;</span>
-        </div>
-        <div class="mega-nav-item" data-img="1">
-          <span class="mega-nav-num">02</span>
-          <span class="mega-nav-label">Hotels</span>
-          <span class="mega-nav-arrow">&rarr;</span>
-        </div>
-        <div class="mega-nav-item" data-img="2">
-          <span class="mega-nav-num">03</span>
-          <span class="mega-nav-label">Beach Residences</span>
-          <span class="mega-nav-arrow">&rarr;</span>
-        </div>
-        <div class="mega-nav-item" data-img="3">
-          <span class="mega-nav-num">04</span>
-          <span class="mega-nav-label">Dining</span>
-          <span class="mega-nav-arrow">&rarr;</span>
-        </div>
-        <div class="mega-nav-item" data-img="4">
-          <span class="mega-nav-num">05</span>
-          <span class="mega-nav-label">Wellness</span>
-          <span class="mega-nav-arrow">&rarr;</span>
-        </div>
-        <div class="mega-nav-item" data-img="5">
-          <span class="mega-nav-num">06</span>
-          <span class="mega-nav-label">Experiences</span>
-          <span class="mega-nav-arrow">&rarr;</span>
-        </div>
-      </nav>
-      <div class="mega-bottom">
-        <div class="mega-contact-item"><a href="tel:+23012345678">+230 123 456 78</a></div>
-        <div class="mega-contact-item"><a href="mailto:stay@wess.mu">stay@wess.mu</a></div>
-      </div>
+  <!-- ===== FULLSCREEN MENU OVERLAY ===== -->
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="menu-nav">
+      <a href="#" class="menu-nav-link" data-preview="0"><span class="link-num">01</span>Hotels</a>
+      <a href="#" class="menu-nav-link" data-preview="1"><span class="link-num">02</span>Villas</a>
+      <a href="#" class="menu-nav-link" data-preview="2"><span class="link-num">03</span>Beach</a>
+      <a href="#" class="menu-nav-link" data-preview="3"><span class="link-num">04</span>Dining</a>
+      <a href="#" class="menu-nav-link" data-preview="4"><span class="link-num">05</span>Spa</a>
+      <a href="#" class="menu-nav-link" data-preview="5"><span class="link-num">06</span>Contact</a>
     </div>
-    <div class="mega-right">
-      <div class="mega-image active" data-idx="0">
-        <img src="Legend-Hill-Villa-Blackstone-by-night.webp" alt="WESS Villas">
-        <div class="mega-image-overlay"></div>
-        <div class="mega-image-caption">
-          <h3>Private Villas</h3>
-          <p>Secluded hillside retreats with panoramic ocean views, private pools, and dedicated butler service.</p>
-        </div>
+    <div class="menu-preview">
+      <div class="menu-preview-img active" data-idx="0" style="background:linear-gradient(135deg,#1a2744,#3d5a80);"></div>
+      <div class="menu-preview-img" data-idx="1" style="background:linear-gradient(135deg,#3d5a80,#89c2d9);"></div>
+      <div class="menu-preview-img" data-idx="2" style="background:linear-gradient(135deg,#89c2d9,#5e7ea3);"></div>
+      <div class="menu-preview-img" data-idx="3" style="background:linear-gradient(135deg,#1a2744,#5e7ea3);"></div>
+      <div class="menu-preview-img" data-idx="4" style="background:linear-gradient(135deg,#3d5a80,#1a2744);"></div>
+      <div class="menu-preview-img" data-idx="5" style="background:linear-gradient(135deg,#5e7ea3,#89c2d9);"></div>
+    </div>
+    <div class="menu-bottom">
+      <div class="menu-bottom-left">
+        WESS Hotels &amp; Residences<br>
+        Mauritius, Indian Ocean
       </div>
-      <div class="mega-image" data-idx="1">
-        <img src="../xr-mruxm-strmruxrpo-206312_Wide-Hor.jpeg" alt="WESS Hotels">
-        <div class="mega-image-overlay"></div>
-        <div class="mega-image-caption">
-          <h3>Boutique Hotels</h3>
-          <p>Intimate luxury hotels where every detail has been considered, from sunrise to starlight.</p>
-        </div>
-      </div>
-      <div class="mega-image" data-idx="2">
-        <img src="../xr-mruxm-strmruxrgr-142284_Classic-Hor.jpeg" alt="WESS Beach Residences">
-        <div class="mega-image-overlay"></div>
-        <div class="mega-image-caption">
-          <h3>Beach Residences</h3>
-          <p>Step from your terrace onto white sand. The ocean is not a view here &mdash; it is your garden.</p>
-        </div>
-      </div>
-      <div class="mega-image" data-idx="3">
-        <img src="Legend-Hill-Villa-Blackstone-by-night.webp" alt="WESS Dining">
-        <div class="mega-image-overlay"></div>
-        <div class="mega-image-caption">
-          <h3>Culinary Journeys</h3>
-          <p>From ocean-to-table seafood to Mauritian-Creole fusion, every meal tells a story.</p>
-        </div>
-      </div>
-      <div class="mega-image" data-idx="4">
-        <img src="../xr-mruxm-strmruxrpo-206312_Wide-Hor.jpeg" alt="WESS Wellness">
-        <div class="mega-image-overlay"></div>
-        <div class="mega-image-caption">
-          <h3>Wellness &amp; Spa</h3>
-          <p>Ancient healing traditions meet modern therapies in spaces designed for stillness.</p>
-        </div>
-      </div>
-      <div class="mega-image" data-idx="5">
-        <img src="../xr-mruxm-strmruxrgr-142284_Classic-Hor.jpeg" alt="WESS Experiences">
-        <div class="mega-image-overlay"></div>
-        <div class="mega-image-caption">
-          <h3>Island Experiences</h3>
-          <p>Reef diving, Le Morne trails, private catamaran sunsets &mdash; curated by those who know the island best.</p>
-        </div>
+      <div class="menu-bottom-right">
+        <a href="#">Instagram</a>
+        <a href="mailto:info@wesshotels.com">Email</a>
       </div>
     </div>
   </div>
 
-  <!-- HERO -->
+  <!-- ===== HERO SECTION ===== -->
   <section class="hero revealed" id="hero">
     <div class="hero-inner" id="heroInner">
       <div class="hero-bg">
-        <video autoplay muted loop playsinline poster="Legend-Hill-Villa-Blackstone-by-night.webp">
+        <video autoplay muted loop playsinline>
           <source src="hero.webm" type="video/webm">
           <source src="hero.mp4" type="video/mp4">
         </video>
@@ -1468,609 +770,68 @@
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
+        <!-- Tagline with animated line -->
         <p class="hero-tagline">
-          <span>Hotels &amp; Residences</span>
+          <span>Luxury Hotels &amp; Residences</span>
           <span class="tag-line"></span>
           <span>Mauritius</span>
         </p>
-        <h1 class="hero-headline">
-          <span class="hero-line"><span class="hero-line-inner hero-line-bold">Where</span></span>
-          <span class="hero-line"><span class="hero-line-inner hero-line-bold">Paradise</span></span>
-          <span class="hero-line"><span class="hero-line-inner hero-line-italic">Begins at Your Door</span></span>
+
+        <!-- Headline — characters are injected by JS -->
+        <h1 class="hero-headline" id="heroHeadline">
+          <span class="hero-line hero-line-bold" data-text="WESS"></span>
+          <span class="hero-line hero-line-italic" data-text="Where Paradise Feels Like Home"></span>
         </h1>
-        <div class="hero-accent-line"></div>
-      </div>
 
-      <div class="hero-bottom">
-        <div class="hero-scroll-indicator">
-          <div class="hero-scroll-line"></div>
-        </div>
-        <div class="hero-bottom-right">
-          <div class="hero-rating">
-            <div class="hero-rating-row">
-              <svg class="ta-logo" viewBox="0 0 32 32" width="28" height="28"><circle cx="16" cy="16" r="15" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1"/><circle cx="11" cy="15" r="4" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="11" cy="15" r="1.5" fill="#fff"/><circle cx="21" cy="15" r="4" fill="none" stroke="#fff" stroke-width="1.2"/><circle cx="21" cy="15" r="1.5" fill="#fff"/><path d="M8 10C10 7 14 6 16 6C18 6 22 7 24 10" fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/><path d="M14 22L16 20L18 22" fill="none" stroke="#34E0A1" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <div class="hero-rating-stars">
-                <svg viewBox="0 0 80 14" width="80" height="14"><circle cx="7" cy="7" r="6" fill="#34E0A1"/><circle cx="23" cy="7" r="6" fill="#34E0A1"/><circle cx="39" cy="7" r="6" fill="#34E0A1"/><circle cx="55" cy="7" r="6" fill="#34E0A1"/><circle cx="71" cy="7" r="6" fill="#34E0A1"/></svg>
-              </div>
-            </div>
-            <span class="hero-rating-label">Travellers' Choice 2025 &middot; Best of the Best</span>
-          </div>
-          <div class="hero-btns">
-            <a href="#booking-info" class="btn-book-hero">Book Your Stay <span class="arrow">&rarr;</span></a>
-            <a href="#rooms" class="btn-explore-hero">Explore Properties</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTRO -->
-  <section class="intro" id="intro">
-    <div class="container reveal">
-      <div class="diamond-deco"></div>
-      <p>Discover the essence of barefoot luxury at Wess, a private villa retreat on the shores of Mauritius. Surrounded by turquoise lagoons, lush tropical gardens, and pristine white-sand beaches, our villas blend contemporary elegance with island warmth. Whether you seek adventure on the reef or stillness by the infinity pool, Wess is your sanctuary in paradise.</p>
-      <a href="#booking-info" class="btn-warm">Send request <span class="arrow">&longrightarrow;</span></a>
-    </div>
-  </section>
-
-  <!-- 3D CYLINDER CAROUSEL -->
-  <section class="gallery-section" id="gallerySection">
-    <div class="carousel-3d-viewport">
-      <div class="carousel-3d" id="carousel3d">
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=80" alt="Villa Pool" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="Beach Sunset" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Tropical Resort" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?w=600&q=80" alt="Mauritius Coast" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1559599746-8823b38544c6?w=600&q=80" alt="Pool Villa" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=600&q=80" alt="Mauritius Landscape" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="Lagoon" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&q=80" alt="Tropical Beach" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Luxury Hotel" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="Hotel Infinity Pool" referrerpolicy="no-referrer" loading="lazy"></div>
-        <div class="carousel-3d-card"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80" alt="Grand Hotel Lobby" referrerpolicy="no-referrer" loading="lazy"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STYLISH LIVING / ROOMS -->
-  <section class="living-section" id="rooms">
-    <div class="container">
-      <div class="living-header reveal">
-        <div>
-          <h2 class="serif">Villas and Suites</h2>
-        </div>
-        <div>
-          <p>Wake to ocean breezes, open-air living, and interiors crafted from natural island materials.</p>
-          <a href="#" class="btn-warm btn-warm--spaced">Discover Villas <span class="arrow">&longrightarrow;</span></a>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Rooms showcase with background -->
-    <div class="container mt-section">
-      <div class="rooms-showcase reveal-scale" id="roomsShowcase">
-        <div class="rooms-showcase-bg">
-          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80" alt="Villa Interior" loading="lazy">
-        </div>
-        <div class="rooms-showcase-tabs">
-          <div class="tabs">
-            <button class="tab-btn active" data-tab="rooms"><svg class="tab-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14"/><path d="M3 15h18"/><path d="M3 11h18"/><rect x="7" y="5" width="10" height="6" rx="1"/></svg> Villas</button>
-            <button class="tab-btn" data-tab="amenities"><svg class="tab-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg> Amenities</button>
-            <button class="tab-btn" data-tab="sustainability"><svg class="tab-icon-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10"/><path d="M2 12h10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/><path d="M17 17l5 5"/><path d="M22 17l-5 5"/></svg> Sustainability</button>
-          </div>
-        </div>
-        <div class="rooms-showcase-content">
-          <div class="rooms-showcase-text">
-            <h3 class="serif">Private villas and ocean-view suites</h3>
-          </div>
-          <div class="room-cards-scroll-wrapper" id="roomCardsWrapper">
-            <div class="room-cards-scroll" id="roomCardsScroll">
-              <div class="room-card">
-                <div class="room-card-img">
-                  <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Lagoon Villa" loading="lazy">
-                  <span class="room-card-price">From 450 &euro;</span>
-                </div>
-                <div class="room-card-body">
-                  <h3 class="serif">Lagoon Villa</h3>
-                  <p>Beachfront villa with private plunge pool, outdoor shower, and uninterrupted views of the turquoise lagoon.</p>
-                </div>
-              </div>
-              <div class="room-card">
-                <div class="room-card-img">
-                  <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Ocean Suite" loading="lazy">
-                  <span class="room-card-price">From 380 &euro;</span>
-                </div>
-                <div class="room-card-body">
-                  <h3 class="serif">Ocean Suite</h3>
-                  <p>Elevated suite with floor-to-ceiling windows, king bed, and a wraparound terrace facing the Indian Ocean.</p>
-                </div>
-              </div>
-              <div class="room-card">
-                <div class="room-card-img">
-                  <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Garden Pavilion" loading="lazy">
-                  <span class="room-card-price">From 320 &euro;</span>
-                </div>
-                <div class="room-card-body">
-                  <h3 class="serif">Garden Pavilion</h3>
-                  <p>Nestled among tropical gardens with an open-air living area and steps to the infinity pool.</p>
-                </div>
-              </div>
-              <div class="room-card">
-                <div class="room-card-img">
-                  <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80" alt="Presidential Villa" loading="lazy">
-                  <span class="room-card-price">From 750 &euro;</span>
-                </div>
-                <div class="room-card-body">
-                  <h3 class="serif">Presidential Villa</h3>
-                  <p>Two-bedroom villa with private chef kitchen, infinity pool, and direct beach access for the ultimate retreat.</p>
-                </div>
-              </div>
+        <!-- Glass date picker bar -->
+        <div class="hero-date-bar">
+          <div class="hero-date-field" onclick="toggleCal(event,'checkin')">
+            <label>Check In</label>
+            <div class="hero-date-display" id="checkin-display">
+              <svg class="cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Select date</span>
             </div>
           </div>
-          <div class="rooms-nav">
-            <button class="rooms-nav-btn" id="roomNavPrev">&larr;</button>
-            <button class="rooms-nav-btn" id="roomNavNext">&rarr;</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CULINARY -->
-  <section class="culinary-section" id="culinary">
-    <div class="container">
-      <div class="culinary-header reveal">
-        <div class="crown-icon"></div>
-        <h2 class="serif">Culinary Journeys at Wess</h2>
-        <p>At Wess, every meal is a celebration of island flavour. Our executive chef blends Mauritian Creole traditions with modern gastronomy, sourcing the freshest seafood, tropical fruits, and aromatic spices. Begin your mornings with a bountiful tropical breakfast, and end your evenings with candlelit dining under the stars.</p>
-        <a href="#" class="btn-warm">Our Culinary World <span class="arrow">&longrightarrow;</span></a>
-      </div>
-    </div>
-
-    <!-- Full-width parallax culinary slider -->
-    <div class="culinary-parallax" id="culinaryParallax">
-      <div class="culinary-slide active" data-index="0">
-        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80" alt="Tropical Breakfast" data-parallax loading="lazy">
-        <div class="culinary-slide-overlay">
-          <p>Begin each morning with fresh tropical fruits, house-baked pastries, local honey, and freshly squeezed juices served on your private terrace overlooking the ocean.</p>
-          <h3 class="serif">Tropical Breakfast</h3>
-          <a href="#" class="btn-discover">Learn More <span>&longrightarrow;</span></a>
-        </div>
-      </div>
-      <div class="culinary-slide" data-index="1">
-        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80" alt="Sunset Dining" data-parallax loading="lazy">
-        <div class="culinary-slide-overlay">
-          <p>Each evening, our chef presents a multi-course tasting menu of Creole-inspired dishes with the freshest local seafood under the stars.</p>
-          <h3 class="serif">Sunset Dining</h3>
-          <a href="#" class="btn-discover">Learn More <span>&longrightarrow;</span></a>
-        </div>
-      </div>
-      <div class="culinary-slide" data-index="2">
-        <img src="https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=1920&q=80" alt="Tropical Cocktails" data-parallax loading="lazy">
-        <div class="culinary-slide-overlay">
-          <p>Our mixologists craft signature cocktails using Mauritian rum, fresh tropical fruits, and aromatic botanicals from our own garden.</p>
-          <h3 class="serif">Cocktail Bar</h3>
-          <a href="#" class="btn-discover">Learn More <span>&longrightarrow;</span></a>
-        </div>
-      </div>
-      <div class="culinary-dots">
-        <div class="culinary-dot active" data-slide="0"></div>
-        <div class="culinary-dot" data-slide="1"></div>
-        <div class="culinary-dot" data-slide="2"></div>
-        <button class="culinary-arrow" id="culinaryNext">&rarr;</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- WELLNESS -->
-  <section class="wellness-section" id="wellness">
-    <div class="container">
-      <div class="wellness-layout">
-        <div class="wellness-text reveal-left">
-          <div class="crown-icon-sm"></div>
-          <h2 class="serif">Island Spa &amp; Wellness</h2>
-          <p>Let the rhythm of the Indian Ocean guide your relaxation. Our spa draws on Mauritian healing traditions with treatments using local coconut oil, vanilla, and tropical botanicals.</p>
-          <a href="#" class="btn-warm">Discover Our Spa <span class="arrow">&longrightarrow;</span></a>
-        </div>
-        <div class="wellness-cards-wrapper reveal-right">
-          <div class="wellness-cards" id="wellnessCards">
-            <div class="wellness-card">
-              <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80" alt="Spa Massage" loading="lazy">
-              <div class="wellness-card-info">
-                <h3 class="serif">Island Massage</h3>
-                <p>Restorative full-body massage using warm coconut oil and tropical aromatherapy.</p>
-              </div>
-            </div>
-            <div class="wellness-card">
-              <img src="https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=800&q=80" alt="Infinity Pool" loading="lazy">
-              <div class="wellness-card-info">
-                <h3 class="serif">Infinity Pool</h3>
-                <p>Our oceanfront infinity pool blends seamlessly with the horizon for pure tranquility.</p>
-              </div>
-            </div>
-            <div class="wellness-card">
-              <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80" alt="Yoga Pavilion" loading="lazy">
-              <div class="wellness-card-info">
-                <h3 class="serif">Yoga Pavilion</h3>
-                <p>Open-air sunrise yoga sessions overlooking the lagoon with our resident instructor.</p>
-              </div>
+          <div class="hero-date-divider"></div>
+          <div class="hero-date-field" onclick="toggleCal(event,'checkout')">
+            <label>Check Out</label>
+            <div class="hero-date-display" id="checkout-display">
+              <svg class="cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Select date</span>
             </div>
           </div>
-          <div class="wellness-nav">
-            <button class="wellness-nav-btn" id="wellnessNavPrev">&larr;</button>
-            <button class="wellness-nav-btn" id="wellnessNavNext">&rarr;</button>
+          <div class="hero-date-divider"></div>
+          <div class="hero-date-field hero-date-field--guests" onclick="event.stopPropagation()">
+            <label>Guests</label>
+            <select class="hero-date-input hero-select">
+              <option>2 Guests</option>
+              <option>1 Guest</option>
+              <option>3 Guests</option>
+              <option>4 Guests</option>
+              <option>5+ Guests</option>
+            </select>
           </div>
+          <a href="#" class="hero-search-btn">Check Availability<span class="arrow">&rarr;</span></a>
         </div>
-      </div>
-      <p class="wellness-footnote reveal">Our spa and wellness facilities are complimentary for all villa guests.</p>
-    </div>
-  </section>
 
-  <!-- NATURE EXPERIENCES -->
-  <section class="nature-section" id="nature">
-    <div class="container">
-      <div class="nature-card reveal-scale">
-        <div class="nature-card-text">
-          <h2 class="serif">Island Experiences</h2>
-          <p>Wess is your gateway to the wonders of Mauritius. From coral reefs teeming with marine life to lush botanical gardens and volcanic peaks, every day brings a new adventure.</p>
-          <a href="#" class="btn-warm">Discover Experiences <span class="arrow">&longrightarrow;</span></a>
-        </div>
-        <div class="nature-card-right" id="natureSlider">
-          <div class="nature-img-main">
-            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80" alt="Le Morne Peninsula" loading="lazy" class="active">
-            <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&q=80" alt="Chamarel Seven Coloured Earth" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1501179691280-9e1e5895e718?w=800&q=80" alt="Black River Gorges" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?w=800&q=80" alt="Ile aux Cerfs" loading="lazy">
-            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" alt="Flic en Flac Beach" loading="lazy">
-          </div>
-          <div class="nature-detail-card">
-            <div class="nature-detail-text slide-enter">
-              <h3 class="serif">Le Morne Peninsula</h3>
-              <p>A UNESCO World Heritage site rising dramatically from the turquoise lagoon &mdash; offering world-class kitesurfing, hiking trails, and panoramic ocean views.</p>
-            </div>
-            <div class="nature-nav">
-              <button class="nature-nav-btn" id="naturePrev">&larr;</button>
-              <div class="nature-progress" id="natureDots"></div>
-              <button class="nature-nav-btn" id="natureNext">&rarr;</button>
-            </div>
-          </div>
-        </div>
+      </div>
+
+      <!-- Scroll indicator (right side) -->
+      <div class="hero-scroll-indicator">
+        <div class="hero-scroll-line"></div>
       </div>
     </div>
   </section>
-
-  <!-- OFFERS -->
-  <section class="offers-section" id="offers">
-    <div class="offers-bg">
-      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80" alt="Ocean Background" loading="lazy">
-    </div>
-    <div class="container offers-content">
-      <div class="offers-header reveal">
-        <div class="crown-icon crown-icon--light"></div>
-        <h2 class="serif">Exclusive Packages for Your Island Escape</h2>
-        <p>Wess curates bespoke experiences for every kind of traveller &mdash; from romantic getaways to family adventures and wellness retreats, all wrapped in barefoot luxury.</p>
-        <a href="#" class="btn-discover">Discover Packages <span>&longrightarrow;</span></a>
-      </div>
-      <div class="offers-grid reveal">
-        <div class="offer-card">
-          <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80" alt="Beach Escape" loading="lazy">
-          <div class="offer-card-overlay">
-            <h3 class="serif">Beach Escape</h3>
-            <p>Seven nights of sun, sand, and serenity with spa credits included.</p>
-          </div>
-        </div>
-        <div class="offer-card">
-          <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80" alt="Honeymoon Package" loading="lazy">
-          <div class="offer-card-overlay">
-            <h3 class="serif">Honeymoon Package</h3>
-            <p>Romantic dinners, couples spa, and a private sunset catamaran cruise.</p>
-          </div>
-        </div>
-        <div class="offer-card">
-          <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Family Paradise" loading="lazy">
-          <div class="offer-card-overlay">
-            <h3 class="serif">Family Paradise</h3>
-            <p>Kids club, snorkelling trips, and interconnecting villa suites for the whole family.</p>
-          </div>
-        </div>
-        <div class="offer-card">
-          <img src="https://images.unsplash.com/photo-1540541338287-41700c307c7c?w=800&q=80" alt="Adventure Package" loading="lazy">
-          <div class="offer-card-overlay">
-            <h3 class="serif">Ocean Adventures</h3>
-            <p>Deep-sea fishing, kitesurfing, and guided reef snorkelling for thrill seekers.</p>
-          </div>
-        </div>
-      </div>
-      <div class="offers-note reveal">
-        <strong>Packages are available year-round and can be tailored to your preferences.</strong><br>
-        Contact our concierge team for a bespoke itinerary.
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="testimonials-section" id="testimonials">
-    <div class="container">
-      <div class="testimonials-header reveal">
-        <div class="crown-icon-sm"></div>
-        <h2 class="serif">What our guests say</h2>
-        <p>Real stories from travellers who found their paradise at Wess.</p>
-      </div>
-    </div>
-    <div class="testimonials-marquee">
-      <div class="marquee-row">
-        <div class="testimonial-card">
-          <blockquote>Absolute paradise. The villa was stunning, the staff anticipated our every need, and waking up to that ocean view every morning was life-changing.</blockquote>
-          <p class="author">Sophie Laurent</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>We celebrated our anniversary at Wess and it exceeded every expectation. The private dinner on the beach was the most romantic evening of our lives.</blockquote>
-          <p class="author">James &amp; Emily Carter</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>Travelled with three kids and everyone was happy. The kids club was fantastic, the pool never got old, and the food was incredible for the whole family.</blockquote>
-          <p class="author">Priya Sharma</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>The spa treatments using local ingredients were unlike anything I've experienced. Pure bliss from check-in to checkout.</blockquote>
-          <p class="author">Marcus Chen</p>
-        </div>
-        <!-- Duplicated for seamless scroll -->
-        <div class="testimonial-card">
-          <blockquote>Absolute paradise. The villa was stunning, the staff anticipated our every need, and waking up to that ocean view every morning was life-changing.</blockquote>
-          <p class="author">Sophie Laurent</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>We celebrated our anniversary at Wess and it exceeded every expectation. The private dinner on the beach was the most romantic evening of our lives.</blockquote>
-          <p class="author">James &amp; Emily Carter</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>Travelled with three kids and everyone was happy. The kids club was fantastic, the pool never got old, and the food was incredible for the whole family.</blockquote>
-          <p class="author">Priya Sharma</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>The spa treatments using local ingredients were unlike anything I've experienced. Pure bliss from check-in to checkout.</blockquote>
-          <p class="author">Marcus Chen</p>
-        </div>
-      </div>
-      <div class="marquee-row">
-        <div class="testimonial-card">
-          <blockquote>The snorkelling trip they arranged was the highlight of our trip. Crystal clear water, incredible coral, and a packed picnic lunch on a private island.</blockquote>
-          <p class="author">Olivia Thompson</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>We've stayed at luxury resorts around the world, but Wess has a warmth and authenticity that sets it apart. Already planning our return.</blockquote>
-          <p class="author">David &amp; Anna Müller</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>The Creole cuisine was extraordinary. Every meal felt like a celebration. The cocktail bar at sunset is not to be missed.</blockquote>
-          <p class="author">Yuki Tanaka</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>Barefoot luxury at its finest. No pretension, just pure relaxation and impeccable service.</blockquote>
-          <p class="author">Olivia Thompson</p>
-        </div>
-        <!-- Duplicated -->
-        <div class="testimonial-card">
-          <blockquote>The snorkelling trip they arranged was the highlight of our trip. Crystal clear water, incredible coral, and a packed picnic lunch on a private island.</blockquote>
-          <p class="author">Olivia Thompson</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>We've stayed at luxury resorts around the world, but Wess has a warmth and authenticity that sets it apart. Already planning our return.</blockquote>
-          <p class="author">David &amp; Anna Müller</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>The Creole cuisine was extraordinary. Every meal felt like a celebration. The cocktail bar at sunset is not to be missed.</blockquote>
-          <p class="author">Yuki Tanaka</p>
-        </div>
-        <div class="testimonial-card">
-          <blockquote>Barefoot luxury at its finest. No pretension, just pure relaxation and impeccable service.</blockquote>
-          <p class="author">Olivia Thompson</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WELLNESS CAROUSEL -->
-  <section class="wellness-carousel-section" id="wellnessCarousel">
-    <div class="wc-slides">
-      <div class="wc-slide active">
-        <img src="https://images.unsplash.com/photo-1573052905904-34ad8c27f0cc?w=1920&q=80" alt="Infinity Pool" loading="lazy">
-      </div>
-      <div class="wc-slide">
-        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbec6d?w=1920&q=80" alt="Spa Treatment" loading="lazy">
-      </div>
-      <div class="wc-slide">
-        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1920&q=80" alt="Tropical Garden" loading="lazy">
-      </div>
-      <div class="wc-slide">
-        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1920&q=80" alt="Resort Spa" loading="lazy">
-      </div>
-    </div>
-    <div class="wc-overlay"></div>
-    <div class="wc-content">
-      <div class="wc-inner">
-        <span class="wc-label">Wellness &amp; Relaxation</span>
-        <h2 class="serif">Unwind in Tropical Serenity</h2>
-        <p>Our island spa draws on Mauritian healing traditions. Indulge in treatments using local vanilla, coconut, and tropical botanicals.</p>
-        <a href="#" class="wc-btn">Explore Wellness <span>&longrightarrow;</span></a>
-      </div>
-    </div>
-    <div class="wc-controls">
-      <span class="wc-counter"><span class="wc-current">01</span> / 04</span>
-      <div class="wc-dots">
-        <div class="wc-dot active" data-wc="0"></div>
-        <div class="wc-dot" data-wc="1"></div>
-        <div class="wc-dot" data-wc="2"></div>
-        <div class="wc-dot" data-wc="3"></div>
-      </div>
-      <div class="wc-arrows">
-        <button class="wc-arrow" id="wcPrev">&#8592;</button>
-        <button class="wc-arrow" id="wcNext">&#8594;</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER -->
-  <section class="newsletter-section" id="newsletter">
-    <div class="newsletter-inner">
-      <div class="newsletter-bg">
-        <img src="https://images.unsplash.com/photo-1559599746-8823b38544c6?w=1920&q=80" alt="Villa Guests" loading="lazy">
-      </div>
-      <div class="newsletter-card reveal">
-        <div class="crown-icon"></div>
-        <h2 class="serif">Stay inspired with Wess</h2>
-        <p>Be the first to know about exclusive packages, island stories, and the latest from Wess, straight to your inbox.</p>
-        <form class="newsletter-form" onsubmit="event.preventDefault();">
-          <select>
-            <option value="">Choose salutation</option>
-            <option>Mr.</option>
-            <option>Mrs.</option>
-            <option>Ms.</option>
-          </select>
-          <input type="text" placeholder="Given name">
-          <input type="text" placeholder="Family name">
-          <input type="email" placeholder="Email" class="full-width">
-          <button type="submit" class="btn-subscribe">Subscribe</button>
-          <p class="newsletter-legal">By submitting this form, you agree to Wess's <a href="#">privacy policy</a>.</p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOOKING INFO -->
-  <section id="booking-info" style="padding:5rem 2rem;background:var(--color-cream);text-align:center;">
-    <div style="max-width:600px;margin:0 auto;">
-      <h2 style="font-family:var(--font-serif);font-size:clamp(1.6rem,3vw,2.4rem);color:var(--color-primary);margin-bottom:1.2rem;font-weight:400;">Direct Booking Engine</h2>
-      <p style="font-size:0.95rem;line-height:1.8;color:var(--color-secondary);margin-bottom:0.8rem;">This website will connect to your direct booking engine. Guests will select dates, see live availability from Opera, choose their room or villa, and pay securely — all without leaving the site.</p>
-      <p style="font-size:0.85rem;color:var(--color-muted);font-style:italic;">The booking integration will be configured during the build phase.</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="footer-logo-icon"></div>
-          <h3 class="serif">Wess</h3>
-          <p>
-            Coastal Road, Le Morne<br>
-            South West Coast<br>
-            Mauritius
-          </p>
-        </div>
-        <div class="footer-col">
-          <h4>Menu</h4>
-          <a href="#">Stay</a>
-          <a href="#">Enjoy</a>
-          <a href="#">Experience</a>
-          <a href="#">Discover</a>
-        </div>
-        <div class="footer-col">
-          <h4>Legal Information</h4>
-          <a href="#">Imprint</a>
-          <a href="#">Privacy &amp; Cookie Policy</a>
-          <a href="#">Privacy Settings</a>
-          <a href="#">Sitemap</a>
-        </div>
-        <div class="footer-cta">
-          <h3 class="serif">Reserve your island escape</h3>
-          <a href="#booking-info" class="btn-footer-book">Book Now <span class="long-arrow">&longrightarrow;</span></a>
-        </div>
-      </div>
-
-      <div class="footer-contact">
-        <a href="tel:+2305555000" class="footer-contact-item">&#128222; +230 555 5000</a>
-        <a href="mailto:hello@wess-mauritius.com" class="footer-contact-item">&#9993; hello@wess-mauritius.com</a>
-        <a href="#" class="footer-contact-item">&#128205; Virtual Tour</a>
-      </div>
-
-      <div class="footer-partners">
-        <span class="footer-partner">Mauritius Tourism</span>
-        <span class="footer-partner">Beachcomber</span>
-        <span class="footer-partner">Air Mauritius</span>
-        <span class="footer-partner">Le Morne Heritage</span>
-        <span class="footer-partner">Booking.com</span>
-        <span class="footer-partner">Blue Safari</span>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; Wess Mauritius 2025</p>
-        <div class="footer-social">
-          <a href="#" title="Facebook">f</a>
-          <a href="#" title="Instagram">&#9679;</a>
-        </div>
-      </div>
-    </div>
-  </footer>
 
   <script>
-    // ===== SMOOTH SCROLL ENGINE (Lenis-style) =====
-    (function() {
-      let currentY = window.scrollY;
-      let targetY = window.scrollY;
-      const ease = 0.08; // lower = smoother/slower (0.08 is buttery)
-      let rafId = null;
-      let isSmooth = true;
-
-      // Disable on mobile (touch devices handle their own momentum)
-      if ('ontouchstart' in window) isSmooth = false;
-
-      if (isSmooth) {
-        // Hijack wheel events
-        window.addEventListener('wheel', (e) => {
-          e.preventDefault();
-          targetY += e.deltaY * 0.7; // dampen scroll amount
-          targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-        }, { passive: false });
-
-        // Keep target in sync if user uses scrollbar/keys
-        window.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowDown') { targetY += 100; e.preventDefault(); }
-          if (e.key === 'ArrowUp') { targetY -= 100; e.preventDefault(); }
-          if (e.key === 'PageDown') { targetY += window.innerHeight * 0.8; e.preventDefault(); }
-          if (e.key === 'PageUp') { targetY -= window.innerHeight * 0.8; e.preventDefault(); }
-          if (e.key === ' ') { targetY += window.innerHeight * 0.8; e.preventDefault(); }
-          targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-        });
-
-        function smoothLoop() {
-          currentY += (targetY - currentY) * ease;
-
-          // Snap when close enough
-          if (Math.abs(targetY - currentY) < 0.5) {
-            currentY = targetY;
-          }
-
-          window.scrollTo(0, currentY);
-          rafId = requestAnimationFrame(smoothLoop);
-        }
-        smoothLoop();
-
-        // Sync target when clicking anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-          a.addEventListener('click', (e) => {
-            const href = a.getAttribute('href');
-            if (href === '#') return;
-            e.preventDefault();
-            const el = document.querySelector(href);
-            if (el) {
-              targetY = el.getBoundingClientRect().top + window.scrollY - 70;
-              targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-            }
-          });
-        });
-      }
-    })();
-
     // ===== LOADING SCREEN =====
     const greetings = ['greeting1', 'greeting2', 'greeting3', 'greeting4'];
     let greetingIndex = 0;
 
     function showNextGreeting() {
-      greetings.forEach(id => document.getElementById(id).classList.remove('visible'));
+      greetings.forEach(function(id) {
+        document.getElementById(id).classList.remove('visible');
+      });
       document.getElementById(greetings[greetingIndex]).classList.add('visible');
       greetingIndex = (greetingIndex + 1) % greetings.length;
     }
@@ -2078,22 +839,73 @@
     showNextGreeting();
     const greetingInterval = setInterval(showNextGreeting, 700);
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
+    window.addEventListener('load', function() {
+      setTimeout(function() {
         clearInterval(greetingInterval);
         document.getElementById('loadingScreen').classList.add('hidden');
-      }, 2800);
+      }, 1200);
     });
 
-    // ===== NAVBAR + SCROLL HANDLERS =====
+    // ===== NAVBAR REVEAL =====
     const navbar = document.getElementById('navbar');
     const heroEl = document.querySelector('.hero');
-    let lastScrollY = 0;
-    let navbarHidden = false;
+
+    // Reveal navbar after hero animations
+    setTimeout(function() {
+      navbar.classList.add('nav-revealed');
+    }, 800);
+
+    // ===== PER-CHARACTER TEXT REVEAL =====
+    (function() {
+      var lines = document.querySelectorAll('#heroHeadline .hero-line');
+      var BOLD_BASE = 600;      // bold lines start fast
+      var SUBTITLE_BASE = 1800; // subtitle starts after bold finishes
+      var boldCharIndex = 0;
+      var subtitleCharIndex = 0;
+
+      lines.forEach(function(line, lineIndex) {
+        var text = line.getAttribute('data-text');
+        if (!text) return;
+
+        var chars = text.split('');
+        var fragment = document.createDocumentFragment();
+
+        if (lineIndex < 1) {
+          // WESS — fast, 30ms stagger
+          chars.forEach(function(char) {
+            var span = document.createElement('span');
+            span.classList.add('hero-char');
+            if (char === ' ') { span.classList.add('space'); span.innerHTML = '&nbsp;'; }
+            else { span.textContent = char; }
+            span.style.animationDelay = (BOLD_BASE + boldCharIndex * 30) + 'ms';
+            boldCharIndex++;
+            fragment.appendChild(span);
+          });
+        } else {
+          // "Where Paradise Feels Like Home" — slow, luxurious, 55ms stagger
+          chars.forEach(function(char) {
+            var span = document.createElement('span');
+            span.classList.add('hero-char');
+            if (char === ' ') { span.classList.add('space'); span.innerHTML = '&nbsp;'; }
+            else { span.textContent = char; }
+            span.style.animationDelay = (SUBTITLE_BASE + subtitleCharIndex * 55) + 'ms';
+            span.style.animationDuration = '0.8s';
+            subtitleCharIndex++;
+            fragment.appendChild(span);
+          });
+        }
+
+        line.appendChild(fragment);
+      });
+    })();
+
+    // ===== NAVBAR SCROLL BEHAVIOR =====
+    var lastScrollY = 0;
+    var navbarHidden = false;
     navbar.style.transition = 'all 0.4s ease, transform 0.35s ease';
 
     function handleNavbarScroll(scrollY) {
-      const heroBottom = heroEl ? heroEl.offsetHeight - 100 : 50;
+      var heroBottom = heroEl ? heroEl.offsetHeight - 100 : 50;
       navbar.classList.toggle('scrolled', scrollY > heroBottom);
     }
 
@@ -2108,494 +920,187 @@
       lastScrollY = scrollY;
     }
 
-    // ===== MEGA MENU =====
-    const burger = document.getElementById('navBurger');
-    const megaMenu = document.getElementById('megaMenu');
-    const megaItems = document.querySelectorAll('.mega-nav-item');
-    const megaImages = document.querySelectorAll('.mega-image');
-
-    burger.addEventListener('click', () => {
-      const isOpen = megaMenu.classList.contains('active');
-      burger.classList.toggle('active');
-      megaMenu.classList.toggle('active');
-      document.body.style.overflow = isOpen ? '' : 'hidden';
-    });
-
-    megaItems.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        const idx = item.dataset.img;
-        megaItems.forEach(i => i.classList.remove('active-item'));
-        item.classList.add('active-item');
-        megaImages.forEach(img => {
-          img.classList.toggle('active', img.dataset.idx === idx);
-        });
-      });
-    });
-
-
-    // ===== SCROLL REVEAL =====
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
-
-    // ===== PARALLAX ENGINE =====
-    const parallaxSections = [
-      // Hero is position:fixed, no parallax needed - it stays put as you scroll
-      { selector: '.culinary-slide img', speed: 0.3, parent: '.culinary-parallax' },
-      { selector: '.offers-bg img', speed: 0.2, parent: '.offers-section' },
-      { selector: '.newsletter-bg img', speed: 0.15, parent: '.newsletter-section' },
-    ];
-
-    function handleParallax() {
-      const winH = window.innerHeight;
-      parallaxSections.forEach(({ selector, speed, parent }) => {
-        const parentEl = document.querySelector(parent);
-        if (!parentEl) return;
-        const rect = parentEl.getBoundingClientRect();
-        if (rect.bottom < -100 || rect.top > winH + 100) return;
-        const elements = document.querySelectorAll(selector);
-        const rawOffset = (rect.top - winH / 2) * speed;
-        const maxShift = parentEl.offsetHeight * 0.25;
-        const offset = Math.max(-maxShift, Math.min(maxShift, rawOffset));
-        elements.forEach(el => {
-          el.style.transform = `translateY(${offset}px) scale(1.08)`;
-        });
-      });
-    }
-
-    // ===== HERO ROUND ON SCROLL =====
-    const heroInner = document.getElementById('heroInner');
-    const heroSection = document.getElementById('hero');
+    // ===== HERO ROUND-ON-SCROLL =====
+    var heroInner = document.getElementById('heroInner');
+    var heroSection = document.getElementById('hero');
+    var heroContent = document.querySelector('.hero-content');
 
     function handleHeroBgRound(scrollY) {
       if (!heroInner || !heroSection) return;
-      const heroH = heroSection.offsetHeight;
-      const progress = Math.max(0, Math.min(1, scrollY / (heroH * 0.5)));
-      const eased = progress * progress * (3 - 2 * progress);
-      const radius = 28 * eased;
-      const inset = 14 * eased;
-      heroInner.style.borderRadius = `${radius}px`;
-      heroInner.style.inset = `${inset}px`;
+      var heroH = heroSection.offsetHeight;
+      var progress = Math.max(0, Math.min(1, scrollY / (heroH * 0.5)));
+      var eased = progress * progress * (3 - 2 * progress);
+      var radius = 28 * eased;
+      var inset = 14 * eased;
+      heroInner.style.borderRadius = radius + 'px';
+      heroInner.style.inset = inset + 'px';
+
+      // Fade out hero text as user scrolls
+      var fadeProgress = Math.max(0, Math.min(1, scrollY / (heroH * 0.35)));
+      var opacity = 1 - fadeProgress;
+      if (heroContent) heroContent.style.opacity = opacity;
     }
 
     // ===== UNIFIED SCROLL HANDLER =====
-    let scrollTicking = false;
-    window.addEventListener('scroll', () => {
+    var scrollTicking = false;
+    window.addEventListener('scroll', function() {
       if (scrollTicking) return;
       scrollTicking = true;
-      requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
+      requestAnimationFrame(function() {
+        var scrollY = window.scrollY;
         handleNavbarScroll(scrollY);
         handleNavbarHideShow(scrollY);
         handleHeroBgRound(scrollY);
-        handleParallax();
-
         scrollTicking = false;
       });
     }, { passive: true });
 
-    // ===== WELLNESS CAROUSEL =====
+    // ===== FULLSCREEN MENU =====
+    var hamburger = document.getElementById('hamburger');
+    var menuOverlay = document.getElementById('menuOverlay');
+    var menuLinks = document.querySelectorAll('.menu-nav-link');
+    var menuPreviews = document.querySelectorAll('.menu-preview-img');
+
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.style.overflow = menuOverlay.classList.contains('active') ? 'hidden' : '';
+      // Stagger link animations
+      menuLinks.forEach(function(link, i) {
+        link.style.transitionDelay = menuOverlay.classList.contains('active') ? (0.08 * i + 0.15) + 's' : '0s';
+      });
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      menuOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+      menuLinks.forEach(function(link) { link.style.transitionDelay = '0s'; });
+    }
+
+    // Hover preview — show image on hover
+    menuLinks.forEach(function(link) {
+      link.addEventListener('mouseenter', function() {
+        var idx = link.getAttribute('data-preview');
+        menuPreviews.forEach(function(p) { p.classList.remove('active'); });
+        var target = document.querySelector('.menu-preview-img[data-idx="' + idx + '"]');
+        if (target) target.classList.add('active');
+      });
+      link.addEventListener('click', function(e) {
+        closeMenu();
+      });
+    });
+
+    // ===== CUSTOM GLASS CALENDAR =====
     (function() {
-      const slides = document.querySelectorAll('.wc-slide');
-      const dots = document.querySelectorAll('.wc-dot');
-      const counter = document.querySelector('.wc-current');
-      const prevBtn = document.getElementById('wcPrev');
-      const nextBtn = document.getElementById('wcNext');
-      if (!slides.length) return;
+      var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+      var state = {
+        checkin: { month: new Date().getMonth(), year: new Date().getFullYear(), selected: null },
+        checkout: { month: new Date().getMonth(), year: new Date().getFullYear(), selected: null }
+      };
 
-      let wcIndex = 0;
-      let wcTimer = null;
-      const INTERVAL = 5000;
+      function renderCal(type) {
+        var cal = document.getElementById(type + '-cal');
+        var s = state[type];
+        var today = new Date(); today.setHours(0,0,0,0);
+        var firstDay = new Date(s.year, s.month, 1).getDay();
+        var daysInMonth = new Date(s.year, s.month + 1, 0).getDate();
+        var daysInPrev = new Date(s.year, s.month, 0).getDate();
 
-      function goTo(idx) {
-        slides[wcIndex].classList.remove('active');
-        dots[wcIndex].classList.remove('active');
-        dots[wcIndex].classList.add('done');
+        var html = '<div class="cal-header">';
+        html += '<button class="cal-nav" onclick="event.stopPropagation();navCal(\'' + type + '\',-1)">&lsaquo;</button>';
+        html += '<span>' + MONTHS[s.month] + ' ' + s.year + '</span>';
+        html += '<button class="cal-nav" onclick="event.stopPropagation();navCal(\'' + type + '\',1)">&rsaquo;</button>';
+        html += '</div><div class="cal-grid">';
 
-        wcIndex = (idx + slides.length) % slides.length;
+        DAYS.forEach(function(d) { html += '<div class="cal-day-label">' + d + '</div>'; });
 
-        // Reset all done states
-        dots.forEach(d => d.classList.remove('done'));
-        slides[wcIndex].classList.add('active');
-        dots[wcIndex].classList.add('active');
-        counter.textContent = String(wcIndex + 1).padStart(2, '0');
-
-        resetTimer();
+        for (var i = firstDay - 1; i >= 0; i--) {
+          html += '<button class="cal-day other-month" disabled>' + (daysInPrev - i) + '</button>';
+        }
+        for (var d = 1; d <= daysInMonth; d++) {
+          var date = new Date(s.year, s.month, d);
+          var isPast = date < today;
+          var isToday = date.getTime() === today.getTime();
+          var isSelected = s.selected && s.selected.getTime() === date.getTime();
+          var cls = 'cal-day';
+          if (isPast) cls += ' past';
+          if (isToday) cls += ' today';
+          if (isSelected) cls += ' selected';
+          html += '<button class="' + cls + '" onclick="event.stopPropagation();selectDay(\'' + type + '\',' + d + ')">' + d + '</button>';
+        }
+        var totalCells = firstDay + daysInMonth;
+        var remaining = (7 - (totalCells % 7)) % 7;
+        for (var i = 1; i <= remaining; i++) {
+          html += '<button class="cal-day other-month" disabled>' + i + '</button>';
+        }
+        html += '</div>';
+        cal.innerHTML = html;
       }
 
-      function resetTimer() {
-        clearInterval(wcTimer);
-        wcTimer = setInterval(() => goTo(wcIndex + 1), INTERVAL);
+      function positionCal(type, field) {
+        var cal = document.getElementById(type + '-cal');
+        var isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          // Center in viewport
+          cal.style.left = '50%';
+          cal.style.top = '50%';
+          cal.style.transform = 'translate(-50%, -50%)';
+        } else {
+          var rect = field.getBoundingClientRect();
+          cal.style.left = rect.left + 'px';
+          cal.style.top = (rect.bottom + 8) + 'px';
+          cal.style.transform = 'none';
+        }
       }
 
-      dots.forEach(dot => {
-        dot.addEventListener('click', () => goTo(Number(dot.dataset.wc)));
-      });
-      prevBtn.addEventListener('click', () => goTo(wcIndex - 1));
-      nextBtn.addEventListener('click', () => goTo(wcIndex + 1));
+      window.toggleCal = function(e, type) {
+        e.stopPropagation();
+        var cal = document.getElementById(type + '-cal');
+        var field = e.currentTarget;
+        var otherType = type === 'checkin' ? 'checkout' : 'checkin';
+        document.getElementById(otherType + '-cal').classList.remove('open');
+        positionCal(type, field);
+        cal.classList.toggle('open');
+        if (cal.classList.contains('open')) renderCal(type);
+      };
 
-      resetTimer();
-    })();
+      window.navCal = function(type, dir) {
+        var s = state[type];
+        s.month += dir;
+        if (s.month > 11) { s.month = 0; s.year++; }
+        if (s.month < 0) { s.month = 11; s.year--; }
+        renderCal(type);
+      };
 
-    // ===== CULINARY SLIDER =====
-    let culinaryIndex = 0;
-    const culinarySlides = document.querySelectorAll('.culinary-slide');
-    const culinaryDots = document.querySelectorAll('.culinary-dot');
+      window.selectDay = function(type, day) {
+        var s = state[type];
+        s.selected = new Date(s.year, s.month, day);
+        var display = document.getElementById(type + '-display');
+        var formatted = s.selected.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        display.querySelector('span').textContent = formatted;
+        display.classList.add('has-value');
+        document.getElementById(type + '-cal').classList.remove('open');
 
-    function showCulinarySlide(index) {
-      culinarySlides.forEach(s => s.classList.remove('active'));
-      culinaryDots.forEach(d => d.classList.remove('active'));
-      culinarySlides[index].classList.add('active');
-      culinaryDots[index].classList.add('active');
-      culinaryIndex = index;
-    }
+        if (type === 'checkin' && !state.checkout.selected) {
+          setTimeout(function() {
+            var cal = document.getElementById('checkout-cal');
+            var checkoutField = document.querySelectorAll('.hero-date-field')[1];
+            document.getElementById('checkin-cal').classList.remove('open');
+            positionCal('checkout', checkoutField);
+            cal.classList.add('open');
+            renderCal('checkout');
+          }, 200);
+        }
+      };
 
-    culinaryDots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        showCulinarySlide(parseInt(dot.dataset.slide));
-        resetCulinaryAutoplay();
-      });
-    });
-
-    let culinaryAutoplay = setInterval(() => {
-      showCulinarySlide((culinaryIndex + 1) % culinarySlides.length);
-    }, 5000);
-
-    function resetCulinaryAutoplay() {
-      clearInterval(culinaryAutoplay);
-      culinaryAutoplay = setInterval(() => {
-        showCulinarySlide((culinaryIndex + 1) % culinarySlides.length);
-      }, 5000);
-    }
-
-    // ===== ROOM CARDS SCROLL =====
-    function scrollRoomCards(direction) {
-      const container = document.getElementById('roomCardsScroll');
-      const cardWidth = container.querySelector('.room-card').offsetWidth + 19;
-      container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-    }
-
-    const roomNavPrev = document.getElementById('roomNavPrev');
-    const roomNavNext = document.getElementById('roomNavNext');
-    if (roomNavPrev) roomNavPrev.addEventListener('click', () => scrollRoomCards(-1));
-    if (roomNavNext) roomNavNext.addEventListener('click', () => scrollRoomCards(1));
-
-    // Fade hint: hide gradient when scrolled to the end
-    (function initRoomScrollHint() {
-      const wrapper = document.getElementById('roomCardsWrapper');
-      const scroller = document.getElementById('roomCardsScroll');
-      if (!wrapper || !scroller) return;
-
-      function checkEnd() {
-        const atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 10;
-        wrapper.classList.toggle('scrolled-end', atEnd);
-      }
-      scroller.addEventListener('scroll', checkEnd, { passive: true });
-      checkEnd();
-    })();
-
-    // ===== WELLNESS SCROLL =====
-    function scrollWellness(direction) {
-      const container = document.getElementById('wellnessCards');
-      const cardWidth = container.querySelector('.wellness-card').offsetWidth + 19;
-      container.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-    }
-
-    const wellnessNavPrev = document.getElementById('wellnessNavPrev');
-    const wellnessNavNext = document.getElementById('wellnessNavNext');
-    if (wellnessNavPrev) wellnessNavPrev.addEventListener('click', () => scrollWellness(-1));
-    if (wellnessNavNext) wellnessNavNext.addEventListener('click', () => scrollWellness(1));
-
-    // ===== CULINARY ARROW (formerly inline onclick) =====
-    const culinaryNextBtn = document.getElementById('culinaryNext');
-    if (culinaryNextBtn) {
-      culinaryNextBtn.addEventListener('click', () => {
-        showCulinarySlide((culinaryIndex + 1) % culinarySlides.length);
-        resetCulinaryAutoplay();
-      });
-    }
-
-    // ===== TABS =====
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      });
-    });
-
-    // ===== LAZY IMAGE LOAD TRANSITIONS =====
-    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-      if (img.complete) {
-        img.classList.add('loaded');
-      } else {
-        img.addEventListener('load', () => img.classList.add('loaded'));
-      }
-    });
-
-    // ===== STAGGER REVEAL FOR OFFER CARDS =====
-    const offerCards = document.querySelectorAll('.offer-card');
-    const offerObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }, i * 120);
-          offerObserver.unobserve(entry.target);
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.hero-date-field')) {
+          document.querySelectorAll('.hero-calendar').forEach(function(c) { c.classList.remove('open'); });
         }
       });
-    }, { threshold: 0.1 });
-    offerCards.forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
-      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      offerObserver.observe(card);
-    });
-
-    // ===== 3D CYLINDER CAROUSEL =====
-    (function() {
-      const carousel = document.getElementById('carousel3d');
-      if (!carousel) return;
-      const cards = carousel.querySelectorAll('.carousel-3d-card');
-      const numCards = cards.length;
-      const theta = 360 / numCards;
-      const radius = 1000;
-
-      // Concave cylinder — cards pushed inward (negative translateZ)
-      cards.forEach((card, i) => {
-        const angle = theta * i;
-        card.style.transform = `rotateY(${angle}deg) translateZ(-${radius}px)`;
-      });
-
-      let currentAngle = 0;
-      let velocity = 0;
-      let autoSpeed = 0.015; // gentle continuous auto-spin
-      let prevScrollY = window.scrollY;
-      let isInView = false;
-
-      const observer = new IntersectionObserver((entries) => {
-        isInView = entries[0].isIntersecting;
-      }, { threshold: 0.05 });
-      observer.observe(document.getElementById('gallerySection'));
-
-      // Scroll adds momentum
-      window.addEventListener('scroll', () => {
-        const delta = window.scrollY - prevScrollY;
-        velocity += delta * 0.004;
-        prevScrollY = window.scrollY;
-      });
-
-      function animate() {
-        if (isInView) {
-          velocity *= 0.97;
-          currentAngle -= (autoSpeed + velocity);
-          carousel.style.transform = `rotateY(${currentAngle}deg)`;
-        }
-        requestAnimationFrame(animate);
-      }
-      animate();
-
-      // Drag to rotate
-      let isDragging = false;
-      let dragStartX = 0;
-      let dragStartAngle = 0;
-      const viewport = carousel.parentElement;
-
-      viewport.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        dragStartX = e.clientX;
-        dragStartAngle = currentAngle;
-        velocity = 0;
-        viewport.style.cursor = 'grabbing';
-        e.preventDefault();
-      });
-
-      window.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        const dx = e.clientX - dragStartX;
-        currentAngle = dragStartAngle + dx * 0.15;
-      });
-
-      window.addEventListener('mouseup', () => {
-        if (isDragging) {
-          isDragging = false;
-          viewport.style.cursor = 'grab';
-        }
-      });
-
-      // Touch support
-      viewport.addEventListener('touchstart', (e) => {
-        isDragging = true;
-        dragStartX = e.touches[0].clientX;
-        dragStartAngle = currentAngle;
-        velocity = 0;
-      }, { passive: true });
-
-      viewport.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const dx = e.touches[0].clientX - dragStartX;
-        currentAngle = dragStartAngle + dx * 0.15;
-      }, { passive: true });
-
-      viewport.addEventListener('touchend', () => { isDragging = false; });
-
-      viewport.style.cursor = 'grab';
     })();
-
-    // ===== ROOM CARDS STAGGER =====
-    const roomObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const cards = entry.target.querySelectorAll('.room-card');
-          cards.forEach((card, i) => {
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            }, i * 150);
-          });
-          roomObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    const roomScroll = document.getElementById('roomCardsScroll');
-    if (roomScroll) {
-      roomScroll.querySelectorAll('.room-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(25px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.4s ease';
-      });
-      roomObserver.observe(roomScroll);
-    }
-
-    // ===== WELLNESS CARD HOVER TILT =====
-    document.querySelectorAll('.wellness-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.transition = 'transform 0.4s ease';
-      });
-      card.addEventListener('mouseenter', () => {
-        card.style.transition = 'transform 0.1s ease';
-      });
-    });
-
-    // ===== ISLAND EXPERIENCES SLIDER =====
-    (function() {
-      const slider = document.getElementById('natureSlider');
-      if (!slider) return;
-
-      const experiences = [
-        { title: 'Le Morne Peninsula', desc: 'A UNESCO World Heritage site rising dramatically from the turquoise lagoon &mdash; offering world-class kitesurfing, hiking trails, and panoramic ocean views.' },
-        { title: 'Chamarel Seven Coloured Earth', desc: 'A geological wonder where volcanic minerals paint the earth in vivid bands of red, brown, violet, and blue &mdash; a surreal landscape unlike anywhere else on the planet.' },
-        { title: 'Black River Gorges', desc: 'Mauritius\u2019 largest national park with dense tropical forest, rare endemic birds, and breathtaking viewpoints over cascading waterfalls and deep gorges.' },
-        { title: '\u00CEle aux Cerfs', desc: 'A pristine island paradise with powdery white sand beaches, crystal-clear lagoons, and an 18-hole championship golf course designed by Bernhard Langer.' },
-        { title: 'Flic en Flac Beach', desc: 'The longest public beach on the island, famous for spectacular sunsets, calm turquoise waters, and some of the best snorkelling and diving spots in Mauritius.' }
-      ];
-
-      const images = slider.querySelectorAll('.nature-img-main img');
-      const textContainer = slider.querySelector('.nature-detail-text');
-      const dotsContainer = document.getElementById('natureDots');
-      const prevBtn = document.getElementById('naturePrev');
-      const nextBtn = document.getElementById('natureNext');
-      let current = 0;
-      let isAnimating = false;
-
-      // Build dots
-      experiences.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.className = 'nature-dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => goTo(i));
-        dot.style.cursor = 'pointer';
-        dotsContainer.appendChild(dot);
-      });
-
-      function updateDots(idx) {
-        dotsContainer.querySelectorAll('.nature-dot').forEach((d, i) => {
-          d.classList.toggle('active', i === idx);
-        });
-      }
-
-      function goTo(idx) {
-        if (isAnimating || idx === current) return;
-        isAnimating = true;
-        const direction = idx > current ? 'left' : 'right';
-
-        // Animate image crossfade
-        images[current].classList.remove('active');
-        images[current].classList.add('exiting');
-        images[idx].classList.remove('exiting');
-        images[idx].classList.add('active');
-
-        // Animate text slide out
-        textContainer.classList.remove('slide-enter');
-        textContainer.classList.add('slide-out-' + direction);
-
-        updateDots(idx);
-
-        // After text slides out, swap content and slide in
-        setTimeout(() => {
-          textContainer.querySelector('h3').textContent = experiences[idx].title;
-          textContainer.querySelector('p').innerHTML = experiences[idx].desc;
-          textContainer.classList.remove('slide-out-' + direction);
-          textContainer.classList.add('slide-in-' + direction);
-
-          // Force reflow then animate in
-          void textContainer.offsetWidth;
-          textContainer.classList.remove('slide-in-' + direction);
-          textContainer.classList.add('slide-enter');
-        }, 350);
-
-        // Clean up exiting image
-        setTimeout(() => {
-          images[current].classList.remove('exiting');
-          current = idx;
-          isAnimating = false;
-        }, 900);
-      }
-
-      prevBtn.addEventListener('click', () => {
-        const idx = (current - 1 + experiences.length) % experiences.length;
-        goTo(idx);
-      });
-
-      nextBtn.addEventListener('click', () => {
-        const idx = (current + 1) % experiences.length;
-        goTo(idx);
-      });
-
-      // Auto-advance every 6 seconds
-      let autoTimer = setInterval(() => {
-        const idx = (current + 1) % experiences.length;
-        goTo(idx);
-      }, 6000);
-
-      // Pause auto-advance on hover
-      slider.addEventListener('mouseenter', () => clearInterval(autoTimer));
-      slider.addEventListener('mouseleave', () => {
-        autoTimer = setInterval(() => {
-          const idx = (current + 1) % experiences.length;
-          goTo(idx);
-        }, 6000);
-      });
-
-      // Keyboard navigation when section is visible
-      document.addEventListener('keydown', (e) => {
-        const rect = slider.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight && rect.bottom > 0;
-        if (!inView) return;
-        if (e.key === 'ArrowLeft') prevBtn.click();
-        if (e.key === 'ArrowRight') nextBtn.click();
-      });
-    })();
-
   </script>
 </body>
 </html>
