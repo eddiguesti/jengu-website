@@ -303,23 +303,67 @@
       padding: 0.6rem 1.8rem; font-size: 0.68rem; letter-spacing: 0.14em;
       text-transform: uppercase; font-weight: 600;
       font-family: var(--font-sans);
-      background: #fff; color: var(--color-primary); border-radius: 10px;
+      background: linear-gradient(135deg, #4f8cff, #6c5ce7, #a855f7);
+      background-size: 200% 200%;
+      animation: gradientShift 4s ease infinite;
+      color: #fff; border-radius: 10px;
       transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
       border: none;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 2px 16px rgba(108,92,231,0.3);
       cursor: pointer;
     }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
     .navbar.scrolled .btn-book {
-      background: var(--color-primary); color: #fff;
-      box-shadow: 0 2px 12px rgba(26,39,68,0.2);
+      box-shadow: 0 2px 16px rgba(108,92,231,0.25);
     }
     .btn-book:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 30px rgba(108,92,231,0.4);
+      animation-duration: 1.5s;
+    }
+
+    /* Shine sweep on all CTAs */
+    .btn-book,
+    .btn-warm,
+    .btn-discover,
+    .btn-footer-book,
+    .hero-search-btn,
+    .btn-book-hero,
+    .btn-explore-hero {
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-book::after,
+    .btn-warm::after,
+    .btn-discover::after,
+    .btn-footer-book::after,
+    .hero-search-btn::after,
+    .btn-book-hero::after,
+    .btn-explore-hero::after {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      pointer-events: none;
+    }
+    .btn-book:hover::after,
+    .btn-warm:hover::after,
+    .btn-discover:hover::after,
+    .btn-footer-book:hover::after,
+    .hero-search-btn:hover::after,
+    .btn-book-hero:hover::after,
+    .btn-explore-hero:hover::after {
+      animation: btnShine 0.6s ease forwards;
+    }
+    @keyframes btnShine {
+      0% { left: -100%; }
+      100% { left: 150%; }
     }
     .navbar.scrolled .btn-book:hover {
-      background: var(--color-secondary);
-      box-shadow: 0 6px 24px rgba(26,39,68,0.25);
+      box-shadow: 0 8px 30px rgba(108,92,231,0.35);
     }
 
     /* Hamburger — always visible */
@@ -480,7 +524,7 @@
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 25%, rgba(0,0,0,0.05) 50%, transparent 70%),
+        linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.12) 50%, transparent 65%),
         linear-gradient(to bottom, transparent 0%, transparent 80%, rgba(0,0,0,0.15) 100%);
     }
     @media(max-width:1024px) {
@@ -505,7 +549,7 @@
       text-align: left;
     }
 
-    /* 4. Tagline — clip wipe-in */
+    /* 4. Tagline — clip wipe-in (paused until ready) */
     .hero-tagline {
       display: flex; align-items: center; gap: 1.2rem;
       font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
@@ -514,6 +558,10 @@
       opacity: 0;
       clip-path: inset(0 100% 0 0);
     }
+    .hero.revealed .hero-tagline,
+    .hero.revealed .hero-tagline .tag-line { animation-play-state: paused; }
+    .hero-ready.revealed .hero-tagline,
+    .hero-ready.revealed .hero-tagline .tag-line { animation-play-state: running; }
     .hero-tagline .tag-line {
       width: 0; height: 1px; background: rgba(255,255,255,0.5);
     }
@@ -557,7 +605,7 @@
       text-shadow: 0 2px 40px rgba(0,0,0,0.4);
     }
 
-    /* Individual character animation */
+    /* Individual character animation — paused until page ready */
     .hero-char {
       display: inline-block;
       opacity: 0;
@@ -565,6 +613,10 @@
       filter: blur(8px);
       transform-origin: bottom center;
       animation: charReveal 0.6s var(--ease-expo) forwards;
+      animation-play-state: paused;
+    }
+    .hero-ready .hero-char {
+      animation-play-state: running;
     }
     .hero-char.space {
       width: 0.25em;
@@ -588,19 +640,23 @@
       100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
-    /* 6. Date bar — fizzle in */
+    /* 6. Date bar — fizzle in (paused until ready) */
     .hero-date-bar { opacity: 0; filter: blur(8px); }
     .hero.revealed .hero-date-bar {
       animation: fizzleIn 1s var(--ease-expo) forwards;
       animation-delay: 1.4s;
+      animation-play-state: paused;
     }
+    .hero-ready.revealed .hero-date-bar { animation-play-state: running; }
 
-    /* 7. Awards — fizzle in after date bar */
+    /* 7. Awards — fizzle in after date bar (paused until ready) */
     .hero-awards { opacity: 0; filter: blur(6px); }
     .hero.revealed .hero-awards {
       animation: fizzleIn 1s var(--ease-expo) forwards;
       animation-delay: 1.8s;
+      animation-play-state: paused;
     }
+    .hero-ready.revealed .hero-awards { animation-play-state: running; }
 
     @keyframes fizzleIn {
       0%   { opacity: 0; filter: blur(8px); transform: scale(0.97); }
@@ -696,7 +752,7 @@
     /* --- Glass calendar dropdown — fixed to viewport --- */
     .hero-calendar {
       position: fixed;
-      background: linear-gradient(135deg, rgba(30,35,50,0.95), rgba(20,22,35,0.98));
+      background: linear-gradient(135deg, #1e2332, #141623);
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 14px;
       padding: 1.4rem;
@@ -907,12 +963,18 @@
 
     /* Shared button used in culinary/offers sections */
     .btn-discover {
-      display: inline-block; padding: 0.7rem 1.8rem;
-      border: 1px solid rgba(255,255,255,0.5); color: #fff;
-      font-size: 0.78rem; letter-spacing: 0.06em;
-      transition: all 0.3s ease; border-radius: 3px;
+      display: inline-block; padding: 0.75rem 2rem;
+      background: #fff; color: var(--color-primary, #1a2744);
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 10px; border: none;
+      font-family: var(--font-sans);
     }
-    .btn-discover:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+    .btn-discover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255,255,255,0.15);
+    }
 
     /* ===== REVEAL ANIMATIONS ===== */
     .reveal {
@@ -988,12 +1050,19 @@
       font-size: 0.95rem; line-height: 1.85; max-width: 750px; margin: 0 auto 2rem;
     }
     .btn-warm {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.7rem 1.8rem; border: 1px solid rgba(107,99,71,0.3);
-      font-size: 0.78rem; letter-spacing: 0.05em; color: var(--color-primary);
-      transition: all 0.3s ease; border-radius: 3px; font-weight: 400;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.85rem 2.2rem;
+      background: var(--color-primary); color: #fff;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      border-radius: 10px; border: none;
+      font-family: var(--font-sans);
     }
-    .btn-warm:hover { background: var(--color-primary); color: #fff; }
+    .btn-warm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,39,68,0.25);
+    }
     .btn-warm--spaced { margin-top: 1rem; }
     .mt-section { margin-top: 1.5rem; }
     .btn-warm .arrow { transition: transform 0.3s; }
@@ -1647,81 +1716,140 @@
     }
     .newsletter-legal a { text-decoration: underline; }
 
-    /* ===== FOOTER ===== */
+    /* ===== FOOTER — PREMIUM ===== */
     .footer {
-      background: linear-gradient(180deg, #0d1b2a 0%, #142638 40%, #1a2d42 70%, #0f1e30 100%);
-      color: var(--color-cream); padding: 5rem 0 2rem;
+      background: #0a0f18;
+      color: var(--color-cream);
       position: relative; z-index: 2;
+      overflow: hidden;
     }
-    .footer-top {
-      display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 3rem;
-      margin-bottom: 3rem;
+
+    /* Big CTA banner */
+    .footer-hero {
+      position: relative;
+      padding: 6rem 0;
+      text-align: center;
+      background:
+        linear-gradient(180deg, transparent 0%, rgba(10,15,24,0.6) 100%),
+        url('https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/22e2ce74-35f3-45de-afd1-c11969abf949/DJI_20240804172918_0019_D.jpg') center 60%/cover;
     }
-    .footer-brand .footer-logo-icon {
-      width: 50px; height: 44px; margin-bottom: 1rem;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 90' fill='%23FAF7F2'%3E%3Cpath d='M50 5L30 30L10 15L18 55H82L90 15L70 30Z'/%3E%3Cpath d='M15 60H85V65C85 70 80 75 75 75H25C20 75 15 70 15 65Z'/%3E%3Cpath d='M35 75V85H40V75Z'/%3E%3Cpath d='M60 75V85H65V75Z'/%3E%3C/svg%3E") center/contain no-repeat;
+    .footer-hero::after {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(10,15,24,0.55);
     }
-    .footer-brand h3 { color: var(--color-cream); font-size: 1.6rem; margin-bottom: 1rem; font-weight: 400; }
-    .footer-brand p { color: rgba(250,247,242,0.5); font-size: 0.85rem; line-height: 1.7; }
-    .footer-cta {
-      display: flex; flex-direction: column; align-items: flex-end; justify-content: flex-start;
+    .footer-hero-inner {
+      position: relative; z-index: 1;
     }
-    .footer-cta h3 { color: var(--color-cream); font-size: clamp(1.3rem, 2vw, 1.8rem); text-align: right; margin-bottom: 1.5rem; font-weight: 400; }
+    .footer-hero-tagline {
+      font-family: var(--font-sans);
+      font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;
+    }
+    .footer-hero h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 400;
+      color: #fff; margin-bottom: 0.5rem; letter-spacing: -0.01em;
+    }
+    .footer-hero h2 em {
+      font-style: italic; font-weight: 300;
+      color: rgba(255,255,255,0.8);
+    }
+    .footer-hero-sub {
+      font-size: 0.85rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 2.5rem; font-weight: 300;
+    }
     .btn-footer-book {
       display: inline-flex; align-items: center; gap: 0.6rem;
-      padding: 0.8rem 2rem; border: 1px solid rgba(250,247,242,0.3);
-      color: #FAF7F2; font-size: 0.8rem; letter-spacing: 0.06em;
-      border-radius: 4px; transition: all 0.3s;
+      padding: 1rem 2.4rem;
+      background: #fff; color: var(--color-primary, #1a2744);
+      font-family: var(--font-sans);
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      border: none; border-radius: 10px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      text-decoration: none;
     }
-    .btn-footer-book:hover { background: rgba(250,247,242,0.1); border-color: rgba(250,247,242,0.5); }
-    .btn-footer-book .long-arrow { transition: transform 0.3s; }
+    .btn-footer-book:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255,255,255,0.15);
+    }
+    .btn-footer-book .long-arrow {
+      transition: transform 0.4s; font-size: 0.85rem;
+    }
     .btn-footer-book:hover .long-arrow { transform: translateX(5px); }
+
+    /* Grid section */
+    .footer-grid {
+      display: grid; grid-template-columns: 1.8fr 1fr 1fr;
+      gap: 4rem; padding: 4rem 0 3rem;
+      border-bottom: 1px solid rgba(250,247,242,0.06);
+    }
+    .footer-brand h3 {
+      color: var(--color-cream); font-size: 1.4rem;
+      margin-bottom: 0.8rem; font-weight: 400;
+    }
+    .footer-brand p {
+      color: rgba(250,247,242,0.4); font-size: 0.82rem; line-height: 1.8;
+      max-width: 320px;
+    }
+    .footer-brand-contact {
+      display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.5rem;
+    }
+    .footer-brand-contact a {
+      color: rgba(250,247,242,0.5); font-size: 0.8rem;
+      transition: color 0.3s; text-decoration: none;
+    }
+    .footer-brand-contact a:hover { color: #fff; }
     .footer-col h4 {
-      font-family: var(--font-sans); font-size: 0.75rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(250,247,242,0.4); margin-bottom: 1.5rem; font-weight: 500;
+      font-family: var(--font-sans); font-size: 0.6rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(250,247,242,0.3); margin-bottom: 1.8rem; font-weight: 500;
     }
     .footer-col a {
-      display: block; font-size: 0.88rem; color: rgba(250,247,242,0.65);
-      margin-bottom: 0.7rem; transition: color 0.3s;
+      display: block; font-size: 0.85rem; color: rgba(250,247,242,0.55);
+      margin-bottom: 0.8rem; transition: color 0.3s; text-decoration: none;
     }
     .footer-col a:hover { color: #FAF7F2; }
-    .footer-contact {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      padding: 2rem 0; border-top: 1px solid rgba(250,247,242,0.08);
-      border-bottom: 1px solid rgba(250,247,242,0.08);
-      margin-bottom: 2rem; align-items: center;
-    }
-    .footer-contact-item {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem; border: 1px solid rgba(250,247,242,0.15);
-      border-radius: 6px; font-size: 0.82rem; color: rgba(250,247,242,0.7);
-      transition: all 0.3s;
-    }
-    .footer-contact-item:hover { border-color: rgba(250,247,242,0.3); color: var(--color-cream); }
+
+    /* Partners strip */
     .footer-partners {
-      display: flex; flex-wrap: wrap; gap: 1.5rem;
-      padding: 1.5rem 0; justify-content: center;
-      align-items: center;
+      display: flex; flex-wrap: wrap; gap: 2.5rem;
+      padding: 2rem 0; justify-content: center; align-items: center;
+      border-bottom: 1px solid rgba(250,247,242,0.06);
     }
     .footer-partner {
-      font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
-      color: rgba(250,247,242,0.25); font-weight: 500;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(250,247,242,0.18); font-weight: 500;
+      transition: color 0.3s;
     }
+    .footer-partner:hover { color: rgba(250,247,242,0.4); }
+
+    /* Bottom */
     .footer-bottom {
       display: flex; justify-content: space-between; align-items: center;
-      padding-top: 2rem;
+      padding: 2rem 0;
     }
-    .footer-bottom p { color: rgba(250,247,242,0.35); font-size: 0.78rem; }
-    .footer-social { display: flex; gap: 0.8rem; }
+    .footer-bottom p { color: rgba(250,247,242,0.25); font-size: 0.72rem; }
+    .footer-bottom a { color: rgba(250,247,242,0.4); text-decoration: none; transition: color 0.3s; }
+    .footer-bottom a:hover { color: #fff; }
+    .footer-social { display: flex; gap: 0.6rem; }
     .footer-social a {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1px solid rgba(250,247,242,0.15);
+      width: 34px; height: 34px; border-radius: 10px;
+      border: 1px solid rgba(250,247,242,0.1);
       display: flex; align-items: center; justify-content: center;
-      color: rgba(250,247,242,0.5); font-size: 0.85rem;
+      color: rgba(250,247,242,0.35); font-size: 0.8rem;
       transition: all 0.3s;
     }
-    .footer-social a:hover { border-color: rgba(250,247,242,0.4); color: var(--color-cream); }
+    .footer-social a:hover {
+      border-color: rgba(250,247,242,0.3); color: var(--color-cream);
+      background: rgba(250,247,242,0.05);
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-hero { padding: 4rem 1.5rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
 
     /* ===== LAZY IMAGE TRANSITIONS ===== */
     img[loading="lazy"] { opacity: 0; transition: opacity 0.4s ease; }
@@ -2391,48 +2519,50 @@
 
   <!-- FOOTER -->
   <footer class="footer">
+    <!-- Big CTA with aerial background -->
+    <div class="footer-hero">
+      <div class="footer-hero-inner">
+        <p class="footer-hero-tagline">Adults-Only &middot; Ocean View &middot; Savaneta, Aruba</p>
+        <h2 class="serif">Your Escape <em>Awaits</em></h2>
+        <p class="footer-hero-sub">Fodor's Finest 2025 &amp; 2026</p>
+        <a href="#cta" class="btn-footer-book">Book Your Stay <span class="long-arrow">&rarr;</span></a>
+      </div>
+    </div>
+
     <div class="container">
-      <div class="footer-top">
+      <!-- Grid -->
+      <div class="footer-grid">
         <div class="footer-brand">
-          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/9362924d-c3ec-4f9f-8d55-f27b95b2bd7a/AOV+Logo+%28new%29.png" alt="Aruba Ocean Villas" style="width:50px;height:auto;margin-bottom:1rem;filter:brightness(2);">
+          <img src="https://images.squarespace-cdn.com/content/v1/6015b7878480883a984732cd/9362924d-c3ec-4f9f-8d55-f27b95b2bd7a/AOV+Logo+%28new%29.png" alt="Aruba Ocean Villas" style="width:40px;height:auto;margin-bottom:1.2rem;filter:brightness(2);opacity:0.7;">
           <h3 class="serif">Aruba Ocean Villas</h3>
-          <p>
-            Adults-only luxury overwater villas.<br>
-            Family owned and operated.<br>
-            Savaneta, Aruba
-          </p>
+          <p>Adults-only luxury overwater villas. Family owned and operated since 2015. Savaneta, Aruba.</p>
+          <div class="footer-brand-contact">
+            <a href="mailto:info@arubaoceanvillas.com">info@arubaoceanvillas.com</a>
+            <a href="https://www.instagram.com/arubaoceanvillas">@arubaoceanvillas</a>
+            <a href="#">Savaneta, Aruba</a>
+          </div>
         </div>
         <div class="footer-col">
-          <h4>Menu</h4>
-          <a href="#">Home</a>
+          <h4>Explore</h4>
           <a href="#">Our Villas</a>
           <a href="#">Restaurant</a>
           <a href="#">Experiences</a>
+          <a href="#">Gallery</a>
           <a href="#">Before You Book</a>
-          <a href="#">Blog</a>
           <a href="#">Contact</a>
         </div>
         <div class="footer-col">
           <h4>As Featured In</h4>
           <a href="#">Forbes</a>
           <a href="#">Travel + Leisure</a>
-          <a href="#">Fodor's</a>
+          <a href="#">Fodor's Travel</a>
           <a href="#">Cond&eacute; Nast Traveler</a>
           <a href="#">Vogue Arabia</a>
-          <a href="#">National Geographic Traveller</a>
-        </div>
-        <div class="footer-cta">
-          <h3 class="serif">Begin your escape</h3>
-          <a href="#" class="btn-footer-book">Book Now <span class="long-arrow">&longrightarrow;</span></a>
+          <a href="#">Nat Geo Traveller</a>
         </div>
       </div>
 
-      <div class="footer-contact">
-        <a href="mailto:info@arubaoceanvillas.com" class="footer-contact-item">&#9993; info@arubaoceanvillas.com</a>
-        <a href="#" class="footer-contact-item">&#128205; Savaneta, Aruba</a>
-        <a href="https://www.instagram.com/arubaoceanvillas" class="footer-contact-item">&#128247; Instagram</a>
-      </div>
-
+      <!-- Partners -->
       <div class="footer-partners">
         <span class="footer-partner">Forbes</span>
         <span class="footer-partner">Travel + Leisure</span>
@@ -2443,8 +2573,9 @@
         <span class="footer-partner">Caribbean Journal</span>
       </div>
 
+      <!-- Bottom -->
       <div class="footer-bottom">
-        <p>&copy; 2026 Aruba Ocean Villas. All rights reserved. | Designed by <a href="https://www.jengu.ai" style="color:rgba(250,247,242,0.6);">Jengu</a></p>
+        <p>&copy; 2026 Aruba Ocean Villas. All rights reserved. | Designed by <a href="https://www.jengu.ai">Jengu</a></p>
         <div class="footer-social">
           <a href="https://www.facebook.com/arubaoceanvillas" title="Facebook">f</a>
           <a href="https://www.instagram.com/arubaoceanvillas" title="Instagram">&#9679;</a>
@@ -2498,6 +2629,10 @@
       setTimeout(() => {
         clearInterval(greetingInterval);
         document.getElementById('loadingScreen').classList.add('hidden');
+        // Start all hero animations now that page is visible
+        setTimeout(() => {
+          document.querySelector('.hero').classList.add('hero-ready');
+        }, 300);
       }, 1200);
     });
 
@@ -2510,8 +2645,8 @@
     // ===== PER-CHARACTER TEXT REVEAL =====
     (function() {
       const lines = document.querySelectorAll('#heroHeadline .hero-line');
-      const BOLD_BASE = 600;      // bold lines start fast
-      const SUBTITLE_BASE = 1800; // subtitle starts after bold finishes
+      const BOLD_BASE = 300;      // bold lines start shortly after ready
+      const SUBTITLE_BASE = 1200; // subtitle starts after bold finishes
       let boldCharIndex = 0;
       let subtitleCharIndex = 0;
 
