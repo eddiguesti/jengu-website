@@ -8,7 +8,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..700;1,14..32,300..700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
   <style>
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
     /* ===== RESET ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { font-size: 16px; overflow-x: hidden; background: #f4f7f9; }
@@ -2445,63 +2455,31 @@
   </footer>
 
   <script>
-    // ===== SMOOTH SCROLL ENGINE (Lenis-style) =====
-    (function() {
-      let currentY = window.scrollY;
-      let targetY = window.scrollY;
-      const ease = 0.08; // lower = smoother/slower (0.08 is buttery)
-      let rafId = null;
-      let isSmooth = true;
+    // ===== LENIS SMOOTH SCROLL =====
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+      touchMultiplier: 1.5,
+    });
 
-      // Disable on mobile (touch devices handle their own momentum)
-      if ('ontouchstart' in window) isSmooth = false;
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 
-      if (isSmooth) {
-        // Hijack wheel events
-        window.addEventListener('wheel', (e) => {
-          e.preventDefault();
-          targetY += e.deltaY * 0.7; // dampen scroll amount
-          targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-        }, { passive: false });
-
-        // Keep target in sync if user uses scrollbar/keys
-        window.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowDown') { targetY += 100; e.preventDefault(); }
-          if (e.key === 'ArrowUp') { targetY -= 100; e.preventDefault(); }
-          if (e.key === 'PageDown') { targetY += window.innerHeight * 0.8; e.preventDefault(); }
-          if (e.key === 'PageUp') { targetY -= window.innerHeight * 0.8; e.preventDefault(); }
-          if (e.key === ' ') { targetY += window.innerHeight * 0.8; e.preventDefault(); }
-          targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-        });
-
-        function smoothLoop() {
-          currentY += (targetY - currentY) * ease;
-
-          // Snap when close enough
-          if (Math.abs(targetY - currentY) < 0.5) {
-            currentY = targetY;
-          }
-
-          window.scrollTo(0, currentY);
-          rafId = requestAnimationFrame(smoothLoop);
-        }
-        smoothLoop();
-
-        // Sync target when clicking anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-          a.addEventListener('click', (e) => {
-            const href = a.getAttribute('href');
-            if (href === '#') return;
-            e.preventDefault();
-            const el = document.querySelector(href);
-            if (el) {
-              targetY = el.getBoundingClientRect().top + window.scrollY - 70;
-              targetY = Math.max(0, Math.min(targetY, document.body.scrollHeight - window.innerHeight));
-            }
-          });
-        });
-      }
-    })();
+    // Anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if (el) lenis.scrollTo(el, { offset: -70 });
+      });
+    });
 
     // ===== LOADING SCREEN =====
     const greetings = ['greeting1', 'greeting2', 'greeting3', 'greeting4'];
