@@ -1,30 +1,53 @@
 /**
  * Typography Styles
- * Font families, headings, and text utilities
- *
- * @author Claude Code Refactor
- * @version 2.0.0
+ * Fraunces (editorial display serif) for hero headlines + display moments.
+ * Inter for everything else.
  */
 
-/* Headings - Sulphur Point Bold for h1 and h3, Figtree for others */
-h1, h3 {
-  font-family: 'Sulphur Point', sans-serif;
-  font-weight: 700;
-  line-height: 1.2;
+/* Display headlines: Fraunces — modern editorial serif, opsz aware */
+h1 {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-h2, h4, h5, h6 {
-  font-family: 'Figtree', sans-serif;
+/* Section headings: Inter for clean modern grotesque feel */
+h2, h3, h4, h5, h6 {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-weight: 600;
   line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+/* h2 specifically gets a touch more weight + tighter tracking for hierarchy */
+h2 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 /* Body text and UI labels */
-p, span, a, button, input, textarea, select, label {
-  font-family: 'Figtree', sans-serif;
+body, p, span, a, button, input, textarea, select, label, li {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+body {
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optional: utility for editorial serif moments inline */
+.serif-display {
+  font-family: 'Fraunces', Georgia, serif;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
 /* Responsive text utility classes */

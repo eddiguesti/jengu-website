@@ -15,6 +15,18 @@
   --success: #10B981;
   --accent-yellow: #FBBF24;
 
+  /* Editorial accent (warm, replaces cyan→purple gradients) */
+  --accent: #FFB95A;
+  --accent-soft: rgba(255, 185, 90, 0.12);
+  --accent-strong: #FFA438;
+  --ink: #F5F1EA;
+  --ink-muted: rgba(245, 241, 234, 0.62);
+  --ink-faint: rgba(245, 241, 234, 0.42);
+  --hairline: rgba(245, 241, 234, 0.10);
+  --surface-0: #0B0B0C;
+  --surface-1: #131315;
+  --surface-2: #1A1A1D;
+
   /* Backgrounds */
   --bg-main: #000000;
   --bg-light: #121212;

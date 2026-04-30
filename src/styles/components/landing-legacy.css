@@ -57,7 +57,7 @@
     }
 
     body {
-      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--text-secondary);
       line-height: 1.6;
       overflow-x: hidden;
@@ -83,7 +83,7 @@
 
     /* Headings - Sulphur Point Bold for h1 and h3, Figtree for others */
     h1, h3 {
-      font-family: 'Sulphur Point', sans-serif;
+      font-family: 'Fraunces', Georgia, serif;
       font-weight: 700;
       line-height: 1.2;
       -webkit-font-smoothing: antialiased;
@@ -92,14 +92,14 @@
     }
 
     h2, h4, h5, h6 {
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       font-weight: 600;
       line-height: 1.2;
     }
 
     /* Body text and UI labels */
     p, span, a, button, input, textarea, select, label {
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
     }
 
     /* GPU Acceleration for smooth mobile performance */
@@ -473,7 +473,7 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 0.875rem;
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       transition: all 0.3s ease;
       box-shadow: 0 2px 8px rgba(255, 185, 90, 0.3);
       border: none;
@@ -4670,7 +4670,7 @@
       border-radius: 12px;
       color: var(--text-primary);
       font-size: 1rem;
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       transition: all 0.3s ease;
     }
 
@@ -4896,7 +4896,7 @@
       color: var(--text-primary);
       font-size: 1.15rem;
       font-weight: 600;
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       text-align: left;
       cursor: pointer;
       transition: all 0.3s ease;

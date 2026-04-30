@@ -203,7 +203,7 @@ nav.scrolled .nav-right {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.875rem;
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   transition: all 0.3s ease;
   box-shadow: 0 2px 8px rgba(255, 185, 90, 0.3);
   border: none;

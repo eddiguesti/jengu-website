@@ -51,7 +51,7 @@
     }
 
     body {
-      font-family: 'Figtree', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: var(--text-secondary);
       line-height: 1.6;
       overflow-x: hidden;
@@ -77,7 +77,7 @@
 
     /* Headings - Sulphur Point Bold for h1 and h3, Figtree for others */
     h1, h3 {
-      font-family: 'Sulphur Point', sans-serif;
+      font-family: 'Fraunces', Georgia, serif;
       font-weight: 700;
       line-height: 1.2;
       -webkit-font-smoothing: antialiased;
@@ -86,14 +86,14 @@
     }
 
     h2, h4, h5, h6 {
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       font-weight: 600;
       line-height: 1.2;
     }
 
     /* Body text and UI labels */
     p, span, a, button, input, textarea, select, label {
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
     }
 
     /* GPU Acceleration for smooth mobile performance */
@@ -593,7 +593,7 @@
       text-decoration: none;
       font-weight: 600;
       font-size: 0.875rem;
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       transition: all 0.3s ease;
       box-shadow: 0 2px 8px rgba(255, 185, 90, 0.3);
       border: none;
@@ -5444,7 +5444,7 @@
       border-radius: 12px;
       color: var(--text-primary);
       font-size: 1rem;
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       transition: all 0.3s ease;
     }
 
@@ -5763,7 +5763,7 @@
       color: var(--text-primary);
       font-size: 1.15rem;
       font-weight: 600;
-      font-family: 'Figtree', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       text-align: left;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -6721,7 +6721,7 @@
 }
 
 .stat-number {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 3.5rem;
   font-weight: 700;
   background: linear-gradient(135deg, #06B6D4, #8B5CF6);
@@ -6788,7 +6788,7 @@
 }
 
 .process-mapping-content h2 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2rem, 4vw, 3rem);
   margin: 1rem 0 1.5rem;
   color: #fff;
@@ -6838,7 +6838,7 @@
 }
 
 .mapping-benefits .benefit-text h4 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.2rem;
   color: #fff;
   margin-bottom: 0.5rem;
@@ -6873,7 +6873,7 @@
 }
 
 .state-label {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -7215,7 +7215,7 @@
 }
 
 .features .section-header h2 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.75rem);
   color: #fff;
   margin-bottom: 1rem;
@@ -7296,7 +7296,7 @@
 }
 
 .feature-header h3 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   color: #fff;
 }
 
@@ -7381,7 +7381,7 @@
 }
 
 .benefits-content h2 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.75rem);
   margin-bottom: 1rem;
   color: #fff;
@@ -7444,7 +7444,7 @@
 }
 
 .benefits-list .benefit-text h4 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.15rem;
   color: #fff;
   margin-bottom: 0.5rem;
@@ -7467,7 +7467,7 @@
 }
 
 .roi-preview h3 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.5rem;
   margin-bottom: 2rem;
   color: #fff;
@@ -7529,7 +7529,7 @@
 }
 
 .cta-content h2 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   color: white;
   margin-bottom: 1.5rem;
@@ -7614,7 +7614,7 @@
 }
 
 .social-proof .section-header h2 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.5rem);
   color: #fff;
 }
@@ -7669,7 +7669,7 @@
 }
 
 .trust-badge h4 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.15rem;
   margin-bottom: 0.75rem;
   color: #fff;
@@ -7716,7 +7716,7 @@
 }
 
 .faq-section .section-header h2 {
-  font-family: 'Sulphur Point', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2rem, 4vw, 2.5rem);
   color: #fff;
   margin-bottom: 1rem;
@@ -7760,7 +7760,7 @@
   color: #fff;
   font-size: 1.1rem;
   font-weight: 600;
-  font-family: 'Figtree', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   text-align: left;
   cursor: pointer;
   transition: all 0.3s ease;
