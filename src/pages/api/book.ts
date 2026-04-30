@@ -525,61 +525,107 @@ function buildEvent(payload: any) {
   const endIso = `${date}T${String(endHours).padStart(2, '0')}:${String(endMins).padStart(2, '0')}:00`;
 
   const subject = `Jengu Discovery Call — ${name}`;
+  const { formattedDate, formattedTime } = formatMeetingDateTime(date, time, timezone);
 
   // HTML body for the calendar event. Outlook auto-appends the Teams join
   // block (URL, meeting ID, passcode) below this content.
+  //
+  // Compatibility notes (Outlook desktop on Windows uses Word's HTML engine):
+  //   - linear-gradient → not supported, falls back to nothing. Use solid colors.
+  //   - <div max-width> → ignored. Use <table width="640">.
+  //   - <h3> → applies its own default margins. Use <p> or table-cell labels.
+  //   - <ol>/<ul> → bullets sometimes drop. Build numbered/bulleted lists with
+  //     table rows + manual numbers/bullets for guaranteed rendering.
+  //   - letter-spacing → ignored. Don't rely on it.
+  //   - border-radius → mostly works on modern Outlook, ignored on older. OK as
+  //     a progressive enhancement.
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeCompany = company ? escapeHtml(company) : '';
   const safePhone = phone ? escapeHtml(phone) : '';
   const safeNotes = extraInfo ? escapeHtml(extraInfo).replace(/\n/g, '<br>') : '';
+  const safeDate = escapeHtml(formattedDate);
+  const safeTime = escapeHtml(formattedTime);
+
+  const sectionLabel = (text: string) => `
+    <tr><td style="padding:14px 0 6px;">
+      <p style="margin:0;font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${text}</p>
+    </td></tr>`;
 
   const bodyHtml = `
-<div style="font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:#1f2937;font-size:14px;line-height:1.55;max-width:640px;">
+<table cellpadding="0" cellspacing="0" border="0" width="640" style="border-collapse:collapse;font-family:Segoe UI,Helvetica,Arial,sans-serif;color:#1f2937;font-size:14px;line-height:1.55;width:640px;max-width:100%;">
+  <tr><td>
 
-  <div style="background:linear-gradient(90deg,#fef3c7,#fde68a);padding:14px 18px;border-radius:8px;margin-bottom:18px;border-left:4px solid #f59e0b;">
-    <p style="margin:0;font-size:15px;color:#78350f;">
-      <strong>Jengu Discovery Call</strong> · 30 minutes · Microsoft Teams
-    </p>
-    <p style="margin:6px 0 0;font-size:13px;color:#92400e;">
-      Looking forward to meeting you, ${safeName}. The Teams join link is at the bottom of this invite.
-    </p>
-  </div>
+    <!-- Header banner: solid color, no gradient -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background-color:#fef3c7;border-left:4px solid #f59e0b;">
+      <tr><td style="padding:14px 18px;">
+        <p style="margin:0;font-size:15px;color:#78350f;font-family:Segoe UI,Helvetica,Arial,sans-serif;">
+          <strong>Jengu Discovery Call</strong> &middot; 30 minutes &middot; Microsoft Teams
+        </p>
+        <p style="margin:6px 0 0;font-size:13px;color:#92400e;font-family:Segoe UI,Helvetica,Arial,sans-serif;">
+          Your Microsoft Teams join link is at the bottom of this invite &darr;
+        </p>
+      </td></tr>
+    </table>
 
-  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">Your details</h3>
-  <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:20px;">
-    <tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Name</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safeName}</td></tr>
-    <tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Email</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safeEmail}</td></tr>
-    ${safeCompany ? `<tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Company</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safeCompany}</td></tr>` : ''}
-    ${safePhone ? `<tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Phone</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safePhone}</td></tr>` : ''}
-  </table>
+    <!-- WHEN -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+      ${sectionLabel('When')}
+      <tr><td>
+        <p style="margin:0;font-size:18px;font-weight:600;color:#111827;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safeDate}</p>
+        <p style="margin:2px 0 0;font-size:15px;color:#f59e0b;font-weight:500;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safeTime}</p>
+      </td></tr>
+    </table>
 
-  ${safeNotes ? `
-  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">Notes from ${safeName}</h3>
-  <div style="background:#f9fafb;border-left:3px solid #f59e0b;padding:12px 14px;border-radius:6px;margin-bottom:20px;color:#374151;">
-    ${safeNotes}
-  </div>` : ''}
+    <!-- WHO -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+      ${sectionLabel('Who')}
+      <tr><td>
+        <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+          <tr><td width="80" style="padding:3px 14px 3px 0;color:#6b7280;font-size:13px;font-family:Segoe UI,Helvetica,Arial,sans-serif;">Name</td><td style="padding:3px 0;color:#111827;font-weight:500;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safeName}</td></tr>
+          <tr><td style="padding:3px 14px 3px 0;color:#6b7280;font-size:13px;font-family:Segoe UI,Helvetica,Arial,sans-serif;">Email</td><td style="padding:3px 0;color:#111827;font-weight:500;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safeEmail}</td></tr>
+          ${safeCompany ? `<tr><td style="padding:3px 14px 3px 0;color:#6b7280;font-size:13px;font-family:Segoe UI,Helvetica,Arial,sans-serif;">Company</td><td style="padding:3px 0;color:#111827;font-weight:500;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safeCompany}</td></tr>` : ''}
+          ${safePhone ? `<tr><td style="padding:3px 14px 3px 0;color:#6b7280;font-size:13px;font-family:Segoe UI,Helvetica,Arial,sans-serif;">Phone</td><td style="padding:3px 0;color:#111827;font-weight:500;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safePhone}</td></tr>` : ''}
+        </table>
+      </td></tr>
+    </table>
 
-  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">What we'll cover</h3>
-  <ol style="margin:0 0 20px;padding-left:22px;color:#374151;">
-    <li style="margin-bottom:6px;">Your current operations &amp; bottlenecks</li>
-    <li style="margin-bottom:6px;">Where AI automation can save hours or drive revenue</li>
-    <li style="margin-bottom:6px;">A clear next-step plan with realistic ROI</li>
-  </ol>
+    ${safeNotes ? `
+    <!-- NOTES -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+      ${sectionLabel(`What ${safeName} wrote`)}
+      <tr><td>
+        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;background-color:#fffbeb;border-left:3px solid #f59e0b;">
+          <tr><td style="padding:12px 14px;color:#374151;font-size:14px;line-height:1.55;font-family:Segoe UI,Helvetica,Arial,sans-serif;">${safeNotes}</td></tr>
+        </table>
+      </td></tr>
+    </table>` : ''}
 
-  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">A few tips before we meet</h3>
-  <ul style="margin:0 0 20px;padding-left:22px;color:#374151;">
-    <li style="margin-bottom:6px;">Bring 1–2 specific tasks you'd love to automate</li>
-    <li style="margin-bottom:6px;">Rough numbers help — booking volume, hours/week on repetitive work, support tickets</li>
-    <li style="margin-bottom:6px;">Test your Teams audio &amp; camera 5 minutes before</li>
-  </ul>
+    <!-- AGENDA (numbered table rows for Outlook bullet reliability) -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+      ${sectionLabel('Agenda')}
+      <tr><td style="padding:4px 0;color:#374151;font-size:14px;font-family:Segoe UI,Helvetica,Arial,sans-serif;"><strong style="color:#f59e0b;">1.</strong>&nbsp;&nbsp;Where you are today &mdash; current operations and bottlenecks</td></tr>
+      <tr><td style="padding:4px 0;color:#374151;font-size:14px;font-family:Segoe UI,Helvetica,Arial,sans-serif;"><strong style="color:#f59e0b;">2.</strong>&nbsp;&nbsp;Where AI fits &mdash; concrete automation wins for your business</td></tr>
+      <tr><td style="padding:4px 0;color:#374151;font-size:14px;font-family:Segoe UI,Helvetica,Arial,sans-serif;"><strong style="color:#f59e0b;">3.</strong>&nbsp;&nbsp;Next steps &mdash; a clear plan with realistic ROI</td></tr>
+    </table>
 
-  <p style="margin:0;color:#6b7280;font-size:13px;border-top:1px solid #e5e7eb;padding-top:14px;">
-    Need to reschedule or cancel? Reply to this invite or email
-    <a href="mailto:hello@jengu.ai" style="color:#f59e0b;text-decoration:none;font-weight:500;">hello@jengu.ai</a>.
-  </p>
+    <!-- PREP -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">
+      ${sectionLabel('Quick prep')}
+      <tr><td style="padding:4px 0;color:#374151;font-size:14px;font-family:Segoe UI,Helvetica,Arial,sans-serif;"><strong style="color:#f59e0b;">&middot;</strong>&nbsp;&nbsp;Have 1&ndash;2 tasks in mind you'd love to automate</td></tr>
+      <tr><td style="padding:4px 0;color:#374151;font-size:14px;font-family:Segoe UI,Helvetica,Arial,sans-serif;"><strong style="color:#f59e0b;">&middot;</strong>&nbsp;&nbsp;Rough numbers help (volume, hours per week, ticket counts)</td></tr>
+    </table>
 
-</div>
+    <!-- FOOTER -->
+    <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin-top:18px;">
+      <tr><td style="border-top:1px solid #e5e7eb;padding:14px 0 0;color:#6b7280;font-size:13px;font-family:Segoe UI,Helvetica,Arial,sans-serif;">
+        Need to reschedule or cancel? Reply to this invite or email
+        <a href="mailto:hello@jengu.ai" style="color:#f59e0b;text-decoration:none;font-weight:500;">hello@jengu.ai</a>.
+      </td></tr>
+    </table>
+
+  </td></tr>
+</table>
 `.trim();
 
   const event: any = {
