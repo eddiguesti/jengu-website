@@ -152,22 +152,14 @@ const teamMember = {
               </div>
 
               <div class="form-group">
-                <label>{t.booking.form.contactMethodLabel} *</label>
-                <div class="contact-methods" id="contactMethodGroup">
-                  <button type="button" class="method-btn" data-method="Zoom">
-                    <i class="fas fa-video"></i> {t.booking.contactMethods.zoom}
-                  </button>
-                  <button type="button" class="method-btn" data-method="Google Meet">
-                    <i class="fab fa-google"></i> {t.booking.contactMethods.googleMeet}
-                  </button>
-                  <button type="button" class="method-btn" data-method="Microsoft Teams">
-                    <i class="fab fa-microsoft"></i> {t.booking.contactMethods.teams}
-                  </button>
-                  <button type="button" class="method-btn" data-method="Phone call">
-                    <i class="fas fa-phone"></i> {t.booking.contactMethods.phone}
-                  </button>
+                <div class="meeting-platform-indicator">
+                  <i class="fab fa-microsoft"></i>
+                  <div>
+                    <strong>Microsoft Teams</strong>
+                    <span>A secure Teams meeting link will be in your invite.</span>
+                  </div>
                 </div>
-                <input type="hidden" id="contactMethod" />
+                <input type="hidden" id="contactMethod" value="Microsoft Teams" />
               </div>
 
               <div class="form-group">
@@ -582,46 +574,20 @@ const teamMember = {
     min-height: 90px;
   }
 
-  /* Contact Methods */
-  .contact-methods {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .method-btn {
-    padding: 14px 18px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.02);
-    color: #d1d5db;
-    font-size: 0.9rem;
-    cursor: pointer;
+  /* Meeting Platform Indicator (Teams) */
+  .meeting-platform-indicator {
     display: flex;
     align-items: center;
-    gap: 10px;
-    transition: all 0.2s ease;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08));
   }
-
-  .method-btn i {
-    font-size: 1rem;
-    opacity: 0.7;
-  }
-
-  .method-btn:hover {
-    background: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.3);
-  }
-
-  .method-btn.selected {
-    background: linear-gradient(135deg, #10b981, #059669);
-    border-color: transparent;
-    color: #fff;
-  }
-
-  .method-btn.selected i {
-    opacity: 1;
-  }
+  .meeting-platform-indicator > i { font-size: 1.5rem; color: #10b981; flex-shrink: 0; }
+  .meeting-platform-indicator > div { display: flex; flex-direction: column; gap: 2px; line-height: 1.35; }
+  .meeting-platform-indicator strong { color: #f3f4f6; font-size: 0.95rem; font-weight: 600; }
+  .meeting-platform-indicator span { color: #9ca3af; font-size: 0.85rem; }
 
   /* Action Buttons */
   .booking-actions {

@@ -1,0 +1,56 @@
+name: Booking Reminders (1h before)
+
+# Hits /api/send-reminders every 5 minutes. The endpoint queries Microsoft
+# Graph for any Jengu booking starting in 55–65 minutes and emails the
+# attendee a reminder with their Teams join link. Idempotent: events that
+# already had their reminder sent are skipped via a custom Graph property.
+
+on:
+  schedule:
+    # GitHub schedules the smallest cadence at 5 minutes. The reminder
+    # endpoint's lookahead window is 55–65 min so a 5-min cadence guarantees
+    # every event gets exactly one reminder fire.
+    - cron: '*/5 * * * *'
+
+  # Manual trigger button on the Actions tab — useful for testing.
+  workflow_dispatch:
+
+jobs:
+  send-reminders:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Fire reminder cron
+        env:
+          REMINDER_CRON_SECRET: ${{ secrets.REMINDER_CRON_SECRET }}
+          ENDPOINT: https://jengu.ai/api/send-reminders
+        run: |
+          if [ -z "$REMINDER_CRON_SECRET" ]; then
+            echo "::error::REMINDER_CRON_SECRET is not set in repo secrets"
+            exit 1
+          fi
+
+          # -s silent, -S show errors, -f fail on HTTP >= 400, -w write status
+          response=$(curl -sS -X POST "$ENDPOINT" \
+            -H "Authorization: Bearer $REMINDER_CRON_SECRET" \
+            -H "Content-Type: application/json" \
+            -w "\nHTTP_STATUS:%{http_code}")
+
+          http_status=$(echo "$response" | grep "HTTP_STATUS:" | cut -d: -f2)
+          body=$(echo "$response" | sed '/HTTP_STATUS:/d')
+
+          echo "Status: $http_status"
+          echo "Body:"
+          echo "$body"
+
+          if [ "$http_status" != "200" ]; then
+            echo "::error::Reminder endpoint returned $http_status"
+            exit 1
+          fi
+
+          # Surface a one-line summary in the GitHub Actions log.
+          sent=$(echo "$body" | grep -oE '"sent":\[[^]]*\]' | grep -oE '"to":"[^"]*"' | wc -l | tr -d ' ')
+          skipped=$(echo "$body" | grep -oE '"skipped":\[[^]]*\]' | grep -oE '"reason":"[^"]*"' | wc -l | tr -d ' ')
+          errors=$(echo "$body" | grep -oE '"errors":\[[^]]*\]' | grep -oE '"error":"[^"]*"' | wc -l | tr -d ' ')
+          echo "::notice::sent=$sent skipped=$skipped errors=$errors"

@@ -31,7 +31,6 @@ function initBookingModal() {
   const userEmailInput = document.getElementById("userEmail");
   const userPhoneInput = document.getElementById("userPhone");
   const contactMethodHidden = document.getElementById("contactMethod");
-  const contactMethodGroup = document.getElementById("contactMethodGroup");
   const extraInfoInput = document.getElementById("extraInfo");
 
   if (!calendarGrid || !slotsContainer) {
@@ -39,17 +38,9 @@ function initBookingModal() {
     return;
   }
 
-  // Contact method buttons logic
-  if (contactMethodGroup) {
-    const buttons = contactMethodGroup.querySelectorAll('.method-btn');
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        const method = btn.dataset.method || '';
-        if (contactMethodHidden) contactMethodHidden.value = method;
-        buttons.forEach(function (b) { b.classList.remove('selected'); });
-        btn.classList.add('selected');
-      });
-    });
+  // Microsoft Teams is the only meeting platform we offer.
+  if (contactMethodHidden && !contactMethodHidden.value) {
+    contactMethodHidden.value = "Microsoft Teams";
   }
 
   // Basic state
@@ -258,12 +249,7 @@ function initBookingModal() {
     if (companyNameInput) companyNameInput.value = '';
     if (userEmailInput) userEmailInput.value = '';
     if (userPhoneInput) userPhoneInput.value = '';
-    if (contactMethodHidden) contactMethodHidden.value = '';
-    if (contactMethodGroup) {
-      contactMethodGroup.querySelectorAll('.method-btn.selected').forEach(function (btn) {
-        btn.classList.remove('selected');
-      });
-    }
+    if (contactMethodHidden) contactMethodHidden.value = "Microsoft Teams";
     if (extraInfoInput) extraInfoInput.value = '';
     hideMessage();
     updateLabels();
@@ -328,11 +314,11 @@ function initBookingModal() {
       const email = userEmailInput.value.trim();
       const company = companyNameInput.value.trim();
       const phone = userPhoneInput.value.trim();
-      const contactMethod = contactMethodHidden.value;
+      const contactMethod = contactMethodHidden.value || "Microsoft Teams";
       const extraInfo = extraInfoInput.value.trim();
 
-      if (!name || !email || !contactMethod) {
-        showMessage(t.messages?.fillRequired || "Please add your name, email and preferred contact method to confirm.", 'error');
+      if (!name || !email) {
+        showMessage(t.messages?.fillRequired || "Please add your name and email to confirm.", 'error');
         return;
       }
 
@@ -342,7 +328,14 @@ function initBookingModal() {
         return;
       }
 
-      const timezoneValue = timezoneSelect.value;
+      let timezoneValue = timezoneSelect.value;
+      if (timezoneValue === 'local') {
+        try {
+          timezoneValue = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+        } catch (_) {
+          timezoneValue = 'UTC';
+        }
+      }
 
       const payload = {
         date: selectedDate,

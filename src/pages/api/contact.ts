@@ -244,12 +244,6 @@ async function sendAdminNotification(token: string, data: any, env: any) {
         contentType: 'HTML',
         content: htmlContent
       },
-      from: {
-        emailAddress: {
-          address: 'hello@jengu.ai',
-          name: 'Jengu Website'
-        }
-      },
       toRecipients: [
         {
           emailAddress: {
@@ -408,12 +402,6 @@ async function sendCustomerThankYou(token: string, data: any, env: any) {
       body: {
         contentType: 'HTML',
         content: htmlContent
-      },
-      from: {
-        emailAddress: {
-          address: 'hello@jengu.ai',
-          name: 'Jengu AI'
-        }
       },
       toRecipients: [
         {

@@ -41,24 +41,50 @@ async function getAccessToken(env: any): Promise<string> {
 }
 
 /**
+ * Format a customer-supplied (date, time, timezone) triple into human-readable
+ * strings that match exactly what the customer saw when booking. The raw
+ * `time` is treated as a wall-clock string, never round-tripped through Date.
+ */
+function formatMeetingDateTime(date: string, time: string, timezone: string) {
+  const [yyyy, mm, dd] = date.split('-').map(Number);
+  const [h24, min] = time.split(':').map(Number);
+
+  // Render the date label by anchoring on noon UTC of the chosen day, then
+  // formatting in the customer's timezone — this avoids any midnight rollover
+  // edge case while still printing the correct weekday.
+  const dateAnchor = new Date(Date.UTC(yyyy, mm - 1, dd, 12, 0, 0));
+  const formattedDate = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: timezone
+  }).format(dateAnchor);
+
+  // Time: format directly from the raw HH:MM the customer picked.
+  const ampm = h24 >= 12 ? 'PM' : 'AM';
+  const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+  const tzLabel =
+    new Intl.DateTimeFormat('en-US', { timeZone: timezone, timeZoneName: 'short' })
+      .formatToParts(dateAnchor)
+      .find((p) => p.type === 'timeZoneName')?.value || timezone;
+  const formattedTime = `${h12}:${String(min).padStart(2, '0')} ${ampm} ${tzLabel}`;
+
+  return { formattedDate, formattedTime };
+}
+
+/**
  * Send notification email to admin when a new booking is made
  */
 async function sendAdminNotification(token: string, payload: any, env: any) {
   const GRAPH_USER = env.GRAPH_USER;
-  const { name, email, company, phone, date, time, contactMethod, extraInfo } = payload;
+  const { name, email, company, phone, date, time, timezone, contactMethod, extraInfo } = payload;
 
-  // Format date nicely
-  const dateObj = new Date(`${date}T${time}:00`);
-  const formattedDate = dateObj.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  const formattedTime = dateObj.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit'
-  });
+  // The customer's `date` and `time` are already wall-clock values in their
+  // chosen `timezone`. Formatting them against any Date object would re-apply a
+  // timezone offset and shift the displayed value. Format the raw strings
+  // directly so the admin sees the exact same time the customer picked.
+  const { formattedDate, formattedTime } = formatMeetingDateTime(date, time, timezone);
 
   const emailBody = `
 <!DOCTYPE html>
@@ -134,6 +160,13 @@ async function sendAdminNotification(token: string, payload: any, env: any) {
 </html>
   `.trim();
 
+  // Notify both Edd (mailbox owner) and Chris on every new booking. We
+  // dedupe addresses case-insensitively so GRAPH_USER=chris@jengu.ai wouldn't
+  // produce two copies.
+  const adminRecipients = [GRAPH_USER, 'chris@jengu.ai']
+    .filter((addr, i, arr) => arr.findIndex((a) => a.toLowerCase() === addr.toLowerCase()) === i)
+    .map((address) => ({ emailAddress: { address, name: 'Jengu Team' } }));
+
   const emailMessage = {
     message: {
       subject: `🗓️ New Booking: ${name} - ${formattedDate} at ${formattedTime}`,
@@ -141,14 +174,7 @@ async function sendAdminNotification(token: string, payload: any, env: any) {
         contentType: 'HTML',
         content: emailBody
       },
-      toRecipients: [
-        {
-          emailAddress: {
-            address: GRAPH_USER,
-            name: 'Jengu Team'
-          }
-        }
-      ]
+      toRecipients: adminRecipients
     },
     saveToSentItems: false
   };
@@ -175,21 +201,13 @@ async function sendAdminNotification(token: string, payload: any, env: any) {
  */
 async function sendConfirmationEmail(token: string, payload: any, eventDetails: any, env: any) {
   const GRAPH_USER = env.GRAPH_USER;
-  const { name, email, date, time, contactMethod } = payload;
+  const { name, email, date, time, timezone } = payload;
 
-  // Format date nicely
-  const dateObj = new Date(`${date}T${time}:00`);
-  const formattedDate = dateObj.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  const formattedTime = dateObj.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    timeZoneName: 'short'
-  });
+  // See note in sendAdminNotification: format the raw wall-clock strings so the
+  // customer sees the time they actually picked, in the timezone they picked.
+  const { formattedDate, formattedTime } = formatMeetingDateTime(date, time, timezone);
+
+  const calendarNoticeBody = "Your calendar invitation is on its way — it includes your Microsoft Teams join link. We'll also send a reminder one hour before the call.";
 
   const emailBody = `
 <!DOCTYPE html>
@@ -269,7 +287,7 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
                         </td>
                         <td width="50%" style="padding: 12px 0;">
                           <p style="margin: 0 0 4px; font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Platform</p>
-                          <p style="margin: 0; font-size: 15px; color: #374151; font-weight: 600;">${contactMethod}</p>
+                          <p style="margin: 0; font-size: 15px; color: #374151; font-weight: 600;">Microsoft Teams</p>
                         </td>
                       </tr>
                     </table>
@@ -283,7 +301,7 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
                 <tr>
                   <td style="background-color: #fffbeb; border-radius: 12px; padding: 20px 24px; border-left: 4px solid #f59e0b;">
                     <p style="margin: 0 0 4px; font-size: 15px; color: #92400e; font-weight: 600;">&#128197; Calendar invite sent</p>
-                    <p style="margin: 0; font-size: 14px; color: #a16207; line-height: 1.5;">Check your inbox for a calendar invitation with the meeting link.</p>
+                    <p style="margin: 0; font-size: 14px; color: #a16207; line-height: 1.5;">${calendarNoticeBody}</p>
                   </td>
                 </tr>
               </table>
@@ -445,12 +463,6 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
         contentType: 'HTML',
         content: emailBody
       },
-      from: {
-        emailAddress: {
-          address: 'hello@jengu.ai',
-          name: 'Jengu'
-        }
-      },
       toRecipients: [
         {
           emailAddress: {
@@ -483,57 +495,127 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
 /**
  * Convert widget payload into Graph event body
  */
-function buildEvent(payload: any) {
-  const { date, time, timezone, name, email, company, phone, contactMethod, extraInfo } = payload;
+// Custom property GUID we attach to every Jengu booking so the reminder cron
+// can identify our events and dedupe sends. Graph requires a valid UUID for
+// the property-set namespace.
+const JENGU_PROPERTY_SET_ID = '{c4d8f2a0-1a3b-4e7c-9d11-bf3e2a8c7e10}';
 
-  // date: "YYYY-MM-DD", time: "HH:MM"
-  // Create a 30-min slot
+function escapeHtml(s: string) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function buildEvent(payload: any) {
+  const { date, time, timezone, name, email, company, phone, extraInfo } = payload;
+
+  // 30-minute slot in the customer's selected IANA timezone.
+  // dateTime is a naive wall-clock string; Graph applies the timeZone field
+  // to convert it to the correct UTC instant.
   const startIso = `${date}T${time}:00`;
   const [hours, minutes] = time.split(':').map(Number);
-  const endMinutes = (hours * 60 + minutes + 30) % 1440; // Add 30 minutes
+  const endMinutes = (hours * 60 + minutes + 30) % 1440;
   const endHours = Math.floor(endMinutes / 60);
   const endMins = endMinutes % 60;
   const endIso = `${date}T${String(endHours).padStart(2, '0')}:${String(endMins).padStart(2, '0')}:00`;
 
-  // Map "local" to UTC; otherwise just pass the string through.
-  const graphTimeZone = timezone === 'local' ? 'UTC' : timezone;
+  const subject = `Jengu Discovery Call — ${name}`;
 
-  const subject = `Meeting with ${name}`;
-  const bodyText =
-    `Name: ${name}\n` +
-    `Email: ${email}\n` +
-    (company ? `Company: ${company}\n` : '') +
-    (phone ? `Phone: ${phone}\n` : '') +
-    `Preferred platform: ${contactMethod}\n\n` +
-    (extraInfo ? `Notes:\n${extraInfo}\n` : '');
+  // HTML body for the calendar event. Outlook auto-appends the Teams join
+  // block (URL, meeting ID, passcode) below this content.
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeCompany = company ? escapeHtml(company) : '';
+  const safePhone = phone ? escapeHtml(phone) : '';
+  const safeNotes = extraInfo ? escapeHtml(extraInfo).replace(/\n/g, '<br>') : '';
 
-  return {
+  const bodyHtml = `
+<div style="font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Arial,sans-serif;color:#1f2937;font-size:14px;line-height:1.55;max-width:640px;">
+
+  <div style="background:linear-gradient(90deg,#fef3c7,#fde68a);padding:14px 18px;border-radius:8px;margin-bottom:18px;border-left:4px solid #f59e0b;">
+    <p style="margin:0;font-size:15px;color:#78350f;">
+      <strong>Jengu Discovery Call</strong> · 30 minutes · Microsoft Teams
+    </p>
+    <p style="margin:6px 0 0;font-size:13px;color:#92400e;">
+      Looking forward to meeting you, ${safeName}. The Teams join link is at the bottom of this invite.
+    </p>
+  </div>
+
+  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">Your details</h3>
+  <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;margin-bottom:20px;">
+    <tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Name</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safeName}</td></tr>
+    <tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Email</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safeEmail}</td></tr>
+    ${safeCompany ? `<tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Company</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safeCompany}</td></tr>` : ''}
+    ${safePhone ? `<tr><td style="padding:4px 14px 4px 0;color:#6b7280;">Phone</td><td style="padding:4px 0;color:#111827;font-weight:500;">${safePhone}</td></tr>` : ''}
+  </table>
+
+  ${safeNotes ? `
+  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">Notes from ${safeName}</h3>
+  <div style="background:#f9fafb;border-left:3px solid #f59e0b;padding:12px 14px;border-radius:6px;margin-bottom:20px;color:#374151;">
+    ${safeNotes}
+  </div>` : ''}
+
+  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">What we'll cover</h3>
+  <ol style="margin:0 0 20px;padding-left:22px;color:#374151;">
+    <li style="margin-bottom:6px;">Your current operations &amp; bottlenecks</li>
+    <li style="margin-bottom:6px;">Where AI automation can save hours or drive revenue</li>
+    <li style="margin-bottom:6px;">A clear next-step plan with realistic ROI</li>
+  </ol>
+
+  <h3 style="margin:0 0 10px;font-size:14px;color:#111827;text-transform:uppercase;letter-spacing:0.04em;">A few tips before we meet</h3>
+  <ul style="margin:0 0 20px;padding-left:22px;color:#374151;">
+    <li style="margin-bottom:6px;">Bring 1–2 specific tasks you'd love to automate</li>
+    <li style="margin-bottom:6px;">Rough numbers help — booking volume, hours/week on repetitive work, support tickets</li>
+    <li style="margin-bottom:6px;">Test your Teams audio &amp; camera 5 minutes before</li>
+  </ul>
+
+  <p style="margin:0;color:#6b7280;font-size:13px;border-top:1px solid #e5e7eb;padding-top:14px;">
+    Need to reschedule or cancel? Reply to this invite or email
+    <a href="mailto:hello@jengu.ai" style="color:#f59e0b;text-decoration:none;font-weight:500;">hello@jengu.ai</a>.
+  </p>
+
+</div>
+`.trim();
+
+  const event: any = {
     subject,
-    body: {
-      contentType: 'Text',
-      content: bodyText
-    },
-    start: {
-      dateTime: startIso,
-      timeZone: graphTimeZone
-    },
-    end: {
-      dateTime: endIso,
-      timeZone: graphTimeZone
-    },
+    body: { contentType: 'HTML', content: bodyHtml },
+    start: { dateTime: startIso, timeZone: timezone },
+    end: { dateTime: endIso, timeZone: timezone },
     attendees: [
       {
-        emailAddress: {
-          address: email,
-          name: name
-        },
+        emailAddress: { address: email, name: name },
         type: 'required'
       }
     ],
-    location: {
-      displayName: contactMethod === 'Phone call' ? 'Phone call' : contactMethod
-    }
+    location: { displayName: 'Microsoft Teams' },
+    responseRequested: true,
+    allowNewTimeProposals: false,
+    isOnlineMeeting: true,
+    onlineMeetingProvider: 'teamsForBusiness',
+
+    // Tag the event so the reminder cron can identify Jengu bookings and
+    // mark which ones already had their reminder sent.
+    singleValueExtendedProperties: [
+      {
+        id: `String ${JENGU_PROPERTY_SET_ID} Name JenguBooking`,
+        value: 'true'
+      },
+      {
+        id: `String ${JENGU_PROPERTY_SET_ID} Name JenguReminderSent`,
+        value: 'false'
+      },
+      {
+        id: `String ${JENGU_PROPERTY_SET_ID} Name JenguAttendeeTimezone`,
+        value: timezone
+      }
+    ]
   };
+
+  return event;
 }
 
 /**
@@ -630,6 +712,31 @@ export const POST: APIRoute = async ({ request, locals }) => {
         JSON.stringify({
           error: 'Invalid Time Format',
           message: 'There was a problem with the time you selected. Please refresh the page and try selecting a time slot again.'
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Validate timezone: must be a real IANA zone, not "local" or empty.
+    // A stale "local" value here would silently shift the calendar entry by
+    // the customer's UTC offset, so reject it explicitly.
+    if (!payload.timezone || payload.timezone === 'local') {
+      return new Response(
+        JSON.stringify({
+          error: 'Invalid Timezone',
+          message: 'Your timezone could not be detected. Please refresh the page and pick a timezone before booking.'
+        }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+    try {
+      // Throws RangeError on invalid IANA zone names.
+      new Intl.DateTimeFormat('en-US', { timeZone: payload.timezone });
+    } catch {
+      return new Response(
+        JSON.stringify({
+          error: 'Invalid Timezone',
+          message: `The timezone "${payload.timezone}" is not recognized. Please refresh the page and try again.`
         }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
