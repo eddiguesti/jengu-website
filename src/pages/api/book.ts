@@ -174,6 +174,7 @@ async function sendAdminNotification(token: string, payload: any, env: any) {
         contentType: 'HTML',
         content: emailBody
       },
+      from: { emailAddress: { address: 'hello@jengu.ai', name: 'Jengu' } },
       toRecipients: adminRecipients
     },
     saveToSentItems: false
@@ -463,6 +464,7 @@ async function sendConfirmationEmail(token: string, payload: any, eventDetails: 
         contentType: 'HTML',
         content: emailBody
       },
+      from: { emailAddress: { address: 'hello@jengu.ai', name: 'Jengu' } },
       toRecipients: [
         {
           emailAddress: {

@@ -134,6 +134,7 @@ async function sendReminder(token: string, env: any, opts: {
       message: {
         subject: opts.subject,
         body: { contentType: 'HTML', content: opts.html },
+        from: { emailAddress: { address: 'hello@jengu.ai', name: 'Jengu' } },
         toRecipients: [{ emailAddress: { address: opts.to, name: opts.toName } }]
       },
       saveToSentItems: true
