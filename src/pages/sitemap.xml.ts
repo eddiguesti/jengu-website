@@ -31,11 +31,16 @@ function generateSitemapEntry(entry: SitemapEntry): string {
   return `  <url>\n${lines.join('\n')}\n  </url>`;
 }
 
+function withTrailingSlash(path: string): string {
+  return path.endsWith('/') ? path : `${path}/`;
+}
+
 function getAlternates(path: string): { lang: string; url: string }[] {
+  const p = withTrailingSlash(path);
   return [
-    { lang: 'en', url: `${SITE_URL}${path}` },
-    { lang: 'fr', url: `${SITE_URL}/fr${path}` },
-    { lang: 'es', url: `${SITE_URL}/es${path}` }
+    { lang: 'en', url: `${SITE_URL}${p}` },
+    { lang: 'fr', url: `${SITE_URL}/fr${p === '/' ? '/' : p}` },
+    { lang: 'es', url: `${SITE_URL}/es${p === '/' ? '/' : p}` }
   ];
 }
 
@@ -73,44 +78,47 @@ export const GET: APIRoute = async () => {
   const staticPages: SitemapEntry[] = [];
 
   for (const page of multilingualPages) {
+    const p = withTrailingSlash(page.path);
+    const alternates = getAlternates(page.path);
+
     // English version (canonical)
     staticPages.push({
-      url: `${SITE_URL}${page.path}`,
+      url: `${SITE_URL}${p}`,
       lastmod: page.lastmod,
       priority: page.priority,
       changefreq: page.changefreq,
-      alternates: getAlternates(page.path)
+      alternates
     });
 
     // French version
     staticPages.push({
-      url: `${SITE_URL}/fr${page.path}`,
+      url: `${SITE_URL}/fr${p === '/' ? '/' : p}`,
       lastmod: page.lastmod,
       priority: page.priority,
       changefreq: page.changefreq,
-      alternates: getAlternates(page.path)
+      alternates
     });
 
     // Spanish version
     staticPages.push({
-      url: `${SITE_URL}/es${page.path}`,
+      url: `${SITE_URL}/es${p === '/' ? '/' : p}`,
       lastmod: page.lastmod,
       priority: page.priority,
       changefreq: page.changefreq,
-      alternates: getAlternates(page.path)
+      alternates
     });
   }
 
   // English-only pages (no translations)
   staticPages.push({
-    url: `${SITE_URL}/calculator/ai-agents-roi`,
+    url: `${SITE_URL}/calculator/ai-agents-roi/`,
     lastmod: today,
     priority: '0.9',
     changefreq: 'monthly'
   });
 
   staticPages.push({
-    url: `${SITE_URL}/survey`,
+    url: `${SITE_URL}/survey/`,
     lastmod: today,
     priority: '0.7',
     changefreq: 'monthly'

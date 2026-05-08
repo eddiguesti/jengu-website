@@ -30,6 +30,8 @@ if (currentPath.startsWith('/fr/')) {
   basePath = currentPath.substring(3);
 } else if (currentPath.startsWith('/es/')) {
   basePath = currentPath.substring(3);
+} else if (currentPath === '/fr' || currentPath === '/es') {
+  basePath = '/';
 }
 
 // Ensure basePath starts with /
@@ -37,27 +39,25 @@ if (!basePath.startsWith('/')) {
   basePath = '/' + basePath;
 }
 
-// Remove trailing slash if present (except for root)
-if (basePath !== '/' && basePath.endsWith('/')) {
-  basePath = basePath.slice(0, -1);
-}
+// Normalise trailing slash (Astro builds with format: 'directory' → all URLs end in /)
+const matchPath = basePath !== '/' && basePath.endsWith('/') ? basePath.slice(0, -1) : basePath;
+const urlPath = basePath === '/' ? '/' : (basePath.endsWith('/') ? basePath : `${basePath}/`);
 
-// Check if this path has multilingual support
-const hasTranslations = multilingualPaths.has(basePath);
+// Check if this path has multilingual support (compared without trailing slash)
+const hasTranslations = multilingualPaths.has(matchPath);
 
-const enUrl = `${siteUrl}${basePath}`;
-const frUrl = `${siteUrl}/fr${basePath}`;
-const esUrl = `${siteUrl}/es${basePath}`;
+const enUrl = `${siteUrl}${urlPath}`;
+const frUrl = urlPath === '/' ? `${siteUrl}/fr/` : `${siteUrl}/fr${urlPath}`;
+const esUrl = urlPath === '/' ? `${siteUrl}/es/` : `${siteUrl}/es${urlPath}`;
 ---
 
-{/* Only render hreflang links if translations exist for this path */}
-{hasTranslations ? (
+{/* Only render hreflang links if translations exist for this path. */}
+{/* Canonical is handled by SEOHead.astro on every page. */}
+{hasTranslations && (
   <>
     <link rel="alternate" hreflang="en" href={enUrl} />
     <link rel="alternate" hreflang="fr" href={frUrl} />
     <link rel="alternate" hreflang="es" href={esUrl} />
     <link rel="alternate" hreflang="x-default" href={enUrl} />
   </>
-) : (
-  <link rel="canonical" href={enUrl} />
 )}
