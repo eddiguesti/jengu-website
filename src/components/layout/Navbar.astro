@@ -38,6 +38,9 @@ const t = getTranslations(currentLocale);
         <span>{t.nav.freeConsultation}</span>
       </button>
 
+      <!-- Language Switcher -->
+      <LanguageSwitcher />
+
       <!-- Burger Menu Button -->
       <button class="burger-menu" id="burgerMenu" aria-label="Toggle menu">
         <span class="burger-line"></span>
@@ -92,10 +95,6 @@ const t = getTranslations(currentLocale);
             <i class="fas fa-envelope"></i>
             <span>Email Management</span>
           </a>
-          <div class="burger-dropdown-divider"></div>
-          <div class="burger-dropdown-lang">
-            <LanguageSwitcher />
-          </div>
         </div>
       </div>
     </div>
