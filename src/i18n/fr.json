@@ -12,7 +12,7 @@
     "calculateROI": "Analyse ROI Gratuite",
     "freeConsultation": "Consultation Gratuite",
     "getConsultation": "Obtenez une Consultation Gratuite",
-    "tryPricingDemo": "Gratuit Jusqu'au Profit"
+    "tryPricingDemo": "Gratuit jusqu'à rentabilité"
   },
   "footer": {
     "company": "Entreprise",
@@ -38,18 +38,18 @@
     "scheduleCall": "Planifier un Appel",
     "tryCalculator": "Analyse ROI Gratuite",
     "viewCaseStudies": "Voir les Études de Cas",
-    "readMore": "Lire Plus"
+    "readMore": "Lire la suite"
   },
   "common": {
-    "readMore": "Lire Plus →",
-    "learnMore": "En Savoir Plus →",
+    "readMore": "Lire la suite →",
+    "learnMore": "En savoir plus →",
     "getInTouch": "Contactez-nous",
     "contactUs": "Nous Contacter"
   },
   "booking": {
     "title": "Planifier un appel",
     "duration": "30 MIN • VISIOCONFÉRENCE",
-    "subtitle": "Choisissez une date et une heure qui vous convient. Tous les horaires sont affichés dans votre fuseau horaire local.",
+    "subtitle": "Choisissez une date et un horaire qui vous conviennent. Tous les créneaux sont affichés dans votre fuseau horaire.",
     "step1": "Choisir la date",
     "step2": "Choisir l'heure",
     "step3": "Confirmer",
@@ -135,15 +135,15 @@
     "messages": {
       "selectBoth": "Veuillez choisir une date et un créneau horaire.",
       "fillRequired": "Veuillez ajouter votre nom, e-mail et méthode de contact préférée pour confirmer.",
-      "creating": "Création de votre événement de calendrier…",
+      "creating": "Enregistrement dans votre calendrier…",
       "confirmationPrefix": "Réservation confirmée pour le ",
       "confirmationAt": " à ",
       "confirmationVia": " via ",
       "confirmationEmail": ". Nous enverrons un e-mail à ",
       "confirmationDetails": " avec les détails.",
-      "errorSave": "Nous n'avons pas pu enregistrer cela dans le calendrier. Veuillez réessayer ou contacter le support.",
-      "errorCreate": "Échec de la création de l'événement de calendrier.",
-      "awaitingTimeSelection": "Maintenant, choisissez un créneau horaire à droite pour compléter votre réservation.",
+      "errorSave": "Impossible d'enregistrer la réservation dans votre calendrier. Veuillez réessayer ou contacter le support.",
+      "errorCreate": "Impossible de créer l'événement.",
+      "awaitingTimeSelection": "Choisissez maintenant un créneau à droite pour finaliser votre réservation.",
       "scheduledInTimezone": "Votre réunion sera programmée en "
     }
   }

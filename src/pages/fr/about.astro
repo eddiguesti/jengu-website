@@ -5,8 +5,8 @@ import { generateSEO } from '../../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'À propos de Jengu | Les Personnes Derrière Votre Avantage IA',
-  description: "Nous sommes une nouvelle entreprise avec une longue histoire. Notre équipe d'experts IA et automatisation chevronnés se consacre à créer des solutions IA pratiques et axées sur les résultats pour l'industrie du tourisme et de l'hôtellerie.",
+  title: 'À propos de Jengu | L\'équipe derrière votre avantage IA',
+  description: "Une jeune entreprise avec une longue histoire. Notre équipe d'experts en IA et en automatisation conçoit des solutions IA pragmatiques et orientées résultats pour le secteur du tourisme et de l'hôtellerie.",
   canonical: `${Astro.site}fr/about/`,
   ogType: 'article'
 });
@@ -22,8 +22,8 @@ const jsonLd = [
 const teamMembers = [
   {
     name: 'Danny Smith',
-    role: 'Directeur, COO Fractionnel',
-    bio: 'Expert dans la conception d\'organisations distantes hautement performantes, Danny se concentre sur l\'intersection de la conception de systèmes, du comportement humain et de l\'excellence opérationnelle. Il a joué un rôle clé dans la mise à l\'échelle d\'Oyster de 14 à 500 personnes, l\'aidant à atteindre une valorisation de 1 milliard de dollars, et apporte une expérience diversifiée en tant qu\'ingénieur logiciel et COO pour diverses entreprises technologiques.',
+    role: 'Directeur, COO à temps partagé',
+    bio: 'Expert dans la conception d\'organisations distantes très performantes, Danny travaille à la croisée du design de systèmes, du comportement humain et de l\'excellence opérationnelle. Il a joué un rôle clé dans la croissance d\'Oyster, qui est passée de 14 à 500 personnes et a atteint une valorisation de 1 milliard de dollars. Son parcours d\'ingénieur logiciel et de COO l\'a mené dans plusieurs entreprises tech.',
     linkedin: 'https://www.linkedin.com/in/dannyasmith/',
     photo: '/images/team/danny-smith.webp'
   }
@@ -38,7 +38,7 @@ const teamMembers = [
         Nous sommes une nouvelle entreprise avec une <span class="gradient-text">longue histoire.</span>
       </h1>
       <p class="animate-on-scroll" style="transition-delay: 0.1s;">
-        Jengu a été fondée en 2023, mais notre histoire a commencé des années plus tôt. Nous sommes un collectif d'ingénieurs IA chevronnés, d'experts en automatisation et d'initiés de l'hôtellerie qui ont vu un écart entre le potentiel de l'IA et les besoins pratiques de l'industrie du tourisme. Nous nous sommes réunis pour combler cet écart.
+        Jengu a été fondée en 2023, mais notre histoire a commencé bien avant. Nous sommes un collectif d'ingénieurs IA expérimentés, d'experts en automatisation et de professionnels du secteur, réunis par le même constat : un fossé entre ce que l'IA promet et ce dont l'industrie du tourisme a réellement besoin. Nous nous sommes rassemblés pour le combler.
       </p>
     </div>
   </header>
@@ -52,9 +52,9 @@ const teamMembers = [
           <div class="card-icon">
             <i class="fas fa-flag-checkered"></i>
           </div>
-          <h3>Notre Mission</h3>
+          <h3>Notre mission</h3>
           <p>
-            Créer des solutions IA pratiques et axées sur les résultats qui donnent aux entreprises du tourisme et de l'hôtellerie un véritable avantage concurrentiel. Nous traduisons une technologie complexe en résultats tangibles : temps économisé, revenus augmentés et clients plus heureux.
+            Concevoir des solutions IA pragmatiques et orientées résultats qui donnent aux entreprises du tourisme et de l'hôtellerie un véritable avantage concurrentiel. Nous traduisons une technologie complexe en résultats tangibles : temps gagné, revenus en hausse, clients plus satisfaits.
           </p>
         </div>
         <!-- Approach -->
@@ -62,12 +62,12 @@ const teamMembers = [
           <div class="card-icon">
             <i class="fas fa-cogs"></i>
           </div>
-          <h3>Notre Approche</h3>
+          <h3>Notre approche</h3>
           <ol class="approach-steps">
-            <li><span>1.</span> Découvrir & Analyser</li>
-            <li><span>2.</span> Cartographier & Stratégiser</li>
-            <li><span>3.</span> Construire & Intégrer</li>
-            <li><span>4.</span> Optimiser & Soutenir</li>
+            <li><span>1.</span> Découvrir et analyser</li>
+            <li><span>2.</span> Cartographier et planifier</li>
+            <li><span>3.</span> Construire et intégrer</li>
+            <li><span>4.</span> Optimiser et accompagner</li>
           </ol>
         </div>
       </div>
@@ -78,9 +78,9 @@ const teamMembers = [
   <section class="team-section-about">
     <div class="section-container">
       <SectionHeader
-        badge="Notre Équipe"
-        title="Rencontrez les Fondateurs"
-        description="Jengu est dirigée par une équipe pratique de constructeurs et de résolveurs de problèmes. Nous combinons une expertise technique approfondie avec une passion pour créer des solutions élégantes et efficaces."
+        badge="Notre équipe"
+        title="Rencontrez les fondateurs"
+        description="Jengu est dirigée par une équipe pragmatique : des bâtisseurs qui résolvent les vrais problèmes. Nous allions une expertise technique pointue à la passion de créer des solutions élégantes et efficaces."
       />
       <div class="team-grid-about">
         {teamMembers.map((member, index) => (
@@ -110,25 +110,25 @@ const teamMembers = [
   <section class="values-section">
     <div class="section-container">
       <SectionHeader
-        badge="Nos Principes Directeurs"
-        title="Comment Nous Travaillons"
-        description="Nos valeurs ne sont pas que des mots sur une page ; ce sont les principes qui guident nos décisions, notre code et nos partenariats."
+        badge="Nos principes directeurs"
+        title="Notre façon de travailler"
+        description="Nos valeurs ne sont pas de simples mots affichés quelque part : ce sont les principes qui guident nos décisions, notre code et nos partenariats."
       />
       <div class="values-grid-about">
         <div class="value-card-about animate-on-scroll">
           <div class="value-icon"><i class="fas fa-handshake"></i></div>
-          <h4>Partenariat Pragmatique</h4>
-          <p>Nous travaillons avec vous, pas pour vous. Nous sommes des partenaires technologiques axés sur la résolution de vos problèmes réels avec une IA pratique et efficace—pas seulement vous vendre la dernière tendance.</p>
+          <h4>Partenariat pragmatique</h4>
+          <p>Nous travaillons avec vous, pas pour vous. Nous sommes des partenaires technologiques concentrés sur la résolution de vos vrais problèmes avec une IA concrète et efficace — pas pour vous vendre la dernière mode du moment.</p>
         </div>
         <div class="value-card-about animate-on-scroll" style="transition-delay: 0.1s;">
           <div class="value-icon"><i class="fas fa-code"></i></div>
-          <h4>Ingénierie Honnête</h4>
-          <p>Nous construisons des systèmes robustes et de haute qualité. Notre approche est ancrée dans la transparence, de notre code à notre communication. Nous vous disons ce que vous devez entendre, pas seulement ce que vous voulez entendre.</p>
+          <h4>Ingénierie honnête</h4>
+          <p>Nous bâtissons des systèmes robustes et soignés. Notre approche repose sur la transparence, du code à la communication. Nous vous disons ce que vous devez entendre, pas seulement ce que vous voulez entendre.</p>
         </div>
         <div class="value-card-about animate-on-scroll" style="transition-delay: 0.2s;">
           <div class="value-icon"><i class="fas fa-chart-line"></i></div>
-          <h4>Impact Mesurable</h4>
-          <p>Notre objectif est de fournir un retour sur investissement clair. Nous mesurons notre succès par votre succès : les heures que vous économisez, les revenus que vous gagnez et les maux de tête opérationnels que nous éliminons.</p>
+          <h4>Impact mesurable</h4>
+          <p>Notre objectif : un retour sur investissement clair. Nous mesurons notre succès au vôtre — les heures que vous gagnez, les revenus que vous générez et les casse-têtes opérationnels que nous éliminons.</p>
         </div>
       </div>
     </div>
@@ -138,10 +138,10 @@ const teamMembers = [
   <section class="about-cta-section">
     <div class="section-container">
       <div class="cta-card animate-on-scroll">
-        <h2>Prêt à construire votre avantage ?</h2>
-        <p>Parlons de la façon dont notre expérience peut devenir votre avantage injuste sur le marché. Obtenez une consultation gratuite et sans obligation avec l'un de nos fondateurs.</p>
+        <h2>Prêt à bâtir votre avantage ?</h2>
+        <p>Parlons de la façon dont notre expérience peut vous donner une longueur d'avance sur le marché. Réservez une consultation gratuite et sans engagement avec l'un de nos fondateurs.</p>
         <button onclick="openBookingModal()" class="btn btn-primary btn-large btn-modern">
-          <span>Réserver une Consultation Gratuite</span>
+          <span>Réserver une consultation gratuite</span>
         </button>
       </div>
     </div>

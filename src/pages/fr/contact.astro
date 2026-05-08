@@ -4,8 +4,8 @@ import { generateSEO } from '../../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'Contactez-Nous - Réservez Votre Consultation IA Gratuite',
-  description: 'Planifiez une consultation gratuite de 30 minutes pour discuter de l\'automatisation IA pour votre entreprise touristique. Écrivez-nous à info@jengu.ai ou réservez un appel vidéo. Obtenez des conseils experts en chatbots, automatisation et ROI.',
+  title: 'Nous contacter — Réservez votre consultation IA gratuite',
+  description: 'Planifiez une consultation gratuite de 30 minutes pour échanger sur l\'automatisation IA de votre entreprise touristique. Écrivez-nous à info@jengu.ai ou réservez un appel vidéo. Conseils d\'experts sur les chatbots, l\'automatisation et le ROI.',
   canonical: `${Astro.site}fr/contact/`,
   ogType: 'website'
 });
@@ -29,8 +29,8 @@ const jsonLd = [
           <div class="contact-icon">
             <i class="fas fa-envelope"></i>
           </div>
-          <h3>Écrivez-Nous</h3>
-          <p>Pour les demandes générales et le support</p>
+          <h3>Écrivez-nous</h3>
+          <p>Pour toute demande générale ou question de support</p>
           <a href="mailto:info@jengu.ai">info@jengu.ai</a>
         </div>
 
@@ -38,25 +38,25 @@ const jsonLd = [
           <div class="contact-icon">
             <i class="fas fa-calendar-alt"></i>
           </div>
-          <h3>Réservez une Démo</h3>
-          <p>Planifiez une consultation personnalisée de 30 minutes pour discuter de vos besoins d'automatisation</p>
-          <a href="#" onclick="openBookingModal(); return false;">Réservez Maintenant →</a>
+          <h3>Réservez une démo</h3>
+          <p>Planifiez une consultation personnalisée de 30 minutes pour échanger sur vos besoins d'automatisation</p>
+          <a href="#" onclick="openBookingModal(); return false;">Réserver maintenant →</a>
         </div>
 
         <div class="contact-card">
           <div class="contact-icon">
             <i class="fas fa-calculator"></i>
           </div>
-          <h3>Calculez Votre ROI</h3>
+          <h3>Calculez votre ROI</h3>
           <p>Découvrez vos économies potentielles en 2 minutes</p>
-          <a href="/fr/calculator">Essayer la Calculatrice →</a>
+          <a href="/fr/calculator">Essayer le calculateur →</a>
         </div>
       </div>
 
       <!-- Contact Form -->
       <div class="contact-form-wrapper">
-        <h2>Envoyez-Nous un Message</h2>
-        <p style="color: var(--gray); margin-bottom: 2rem;">Remplissez le formulaire ci-dessous et nous vous répondrons dans les 24 heures</p>
+        <h2>Envoyez-nous un message</h2>
+        <p style="color: var(--gray); margin-bottom: 2rem;">Remplissez le formulaire ci-dessous, nous vous répondons sous 24 heures</p>
 
         <form id="contactForm" onsubmit="handleSubmit(event)">
           <div class="form-row">
@@ -82,36 +82,36 @@ const jsonLd = [
           </div>
 
           <div class="form-group">
-            <label for="businessType">Type d'Entreprise *</label>
+            <label for="businessType">Type d'entreprise *</label>
             <select id="businessType" name="businessType" required>
               <option value="">Sélectionnez votre type d'entreprise</option>
               <option value="hotel">Hôtel</option>
               <option value="resort">Resort</option>
-              <option value="campsite">Camping/Parc de Vacances</option>
-              <option value="bnb">Gîte/Maison d'Hôte</option>
-              <option value="travel-agency">Agence de Voyage</option>
+              <option value="campsite">Camping / Parc de vacances</option>
+              <option value="bnb">Gîte / Maison d'hôtes</option>
+              <option value="travel-agency">Agence de voyage</option>
               <option value="tour-operator">Voyagiste</option>
               <option value="other">Autre</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="interest">À quoi vous intéressez-vous ? *</label>
+            <label for="interest">Qu'est-ce qui vous intéresse ? *</label>
             <select id="interest" name="interest" required>
               <option value="">Sélectionnez un service</option>
-              <option value="chatbot">Chatbots IA et Bots Téléphoniques</option>
-              <option value="software">Développement Logiciel Personnalisé</option>
+              <option value="chatbot">Chatbots IA et bots vocaux</option>
+              <option value="software">Développement logiciel sur mesure</option>
               <option value="api">Intégrations API</option>
-              <option value="email">Automatisation Email</option>
-              <option value="pricing">Tarification Dynamique</option>
-              <option value="full">Suite d'Automatisation Complète</option>
-              <option value="consultation">Exploration / Consultation</option>
+              <option value="email">Automatisation des e-mails</option>
+              <option value="pricing">Tarification dynamique</option>
+              <option value="full">Suite d'automatisation complète</option>
+              <option value="consultation">Exploration / consultation</option>
             </select>
           </div>
 
           <div class="form-group">
             <label for="message">Parlez-nous de vos besoins *</label>
-            <textarea id="message" name="message" required placeholder="Décrivez vos défis actuels et vos objectifs..."></textarea>
+            <textarea id="message" name="message" required placeholder="Décrivez vos enjeux actuels et vos objectifs..."></textarea>
           </div>
 
           <button type="submit" class="submit-btn">
@@ -125,12 +125,12 @@ const jsonLd = [
   <!-- Booking CTA -->
   <section class="calendly-section">
     <div class="calendly-container">
-      <h2>Préférez Discuter ? <span class="gradient-text">Réservez un Appel</span></h2>
+      <h2>Vous préférez en parler ? <span class="gradient-text">Réservez un appel</span></h2>
       <p>
-        Planifiez une consultation vidéo de 30 minutes avec notre équipe. Nous discuterons de vos besoins spécifiques, vous montrerons des exemples concrets et vous expliquerons comment l'automatisation IA peut transformer votre entreprise.
+        Planifiez une consultation vidéo de 30 minutes avec notre équipe. Nous discuterons de vos besoins, vous montrerons des exemples concrets et vous expliquerons comment l'automatisation IA peut transformer votre entreprise.
       </p>
       <button onclick="openBookingModal()" class="calendly-btn">
-        <i class="fas fa-video"></i> Réservez une Consultation
+        <i class="fas fa-video"></i> Réserver une consultation
       </button>
     </div>
   </section>
@@ -159,15 +159,15 @@ const jsonLd = [
         const result = await response.json();
 
         if (!response.ok) {
-          throw new Error(result.error || 'Échec de l\'envoi du message');
+          throw new Error(result.error || 'Impossible d\'envoyer le message');
         }
 
-        alert('✅ Merci pour votre message ! Nous vous répondrons dans les 24 heures.');
+        alert('✅ Merci pour votre message ! Nous vous répondons sous 24 heures.');
         event.target.reset();
 
       } catch (error) {
         console.error('Erreur d\'envoi du formulaire:', error);
-        alert('❌ ' + (error.message || 'Une erreur s\'est produite. Veuillez réessayer ou nous envoyer un e-mail à info@jengu.ai'));
+        alert('❌ ' + (error.message || 'Une erreur s\'est produite. Veuillez réessayer ou nous écrire à info@jengu.ai'));
       } finally {
         submitButton.disabled = false;
         submitButton.innerHTML = originalButtonText;
