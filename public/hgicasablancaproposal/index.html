@@ -98,6 +98,24 @@
     .price-table{font-size:0.85rem;}
     .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
   }
+
+  /* Guest journey / swim lane */
+  .journey { margin-top: 2rem; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.5rem; overflow-x: auto; }
+  .journey-grid { display: grid; grid-template-columns: 130px repeat(6, 1fr); gap: 0; align-items: stretch; min-width: 700px; }
+  .jh { padding: 0.6rem 0.5rem; font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--td); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .jh.actor { text-align: left; padding-left: 0.5rem; }
+  .jrow { display: contents; }
+  .jrow .jactor { padding: 0.9rem 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--td); display: flex; align-items: center; border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .jrow .jcell { padding: 0.7rem 0.5rem; border-right: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.72rem; color: var(--t); position: relative; min-height: 60px; }
+  .jrow .jcell.box { background: rgba(108,92,231,0.08); border-radius: 6px; margin: 6px 4px; }
+  .jrow .jcell.warn { background: rgba(253,121,168,0.10); border: 1px dashed rgba(253,121,168,0.4); border-radius: 6px; margin: 6px 4px; }
+  .jrow .jcell.win { background: rgba(0,206,201,0.10); border: 1px dashed rgba(0,206,201,0.4); border-radius: 6px; margin: 6px 4px; }
+  .jrow .jcell .pin { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(0,0,0,0.4); }
+  .jrow .jcell.warn .pin { background: var(--a4); }
+  .jrow .jcell.win .pin { background: var(--a3); }
+  .jlegend { display: flex; gap: 1.2rem; margin-top: 1rem; font-size: 0.75rem; color: var(--td); flex-wrap: wrap; }
+  .jlegend span { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .jlegend .ldot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 </style>
 </head>
 <body>
@@ -112,6 +130,7 @@
     <a href="#s4"></a>
     <a href="#s5"></a>
     <a href="#s6"></a>
+    <a href="#s7"></a>
   </div>
 </nav>
 
@@ -186,12 +205,107 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — THINGS WE CAN BUILD      -->
+<!-- 5 — HOW WE MAP               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s5">
+<section class="s" id="s5" style="min-height:auto;padding:5rem 3rem;">
+  <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
+  <div class="s-in" style="max-width:1100px;">
+    <div class="tag">04 — How We Map</div>
+    <h2>Guest Journey First,<br><span class="g3">Workflows Second</span></h2>
+    <p class="sub">We always start with the guest. What does someone actually go through, end to end, from booking to checkout? Once that's clear we layer the workflows your team runs to deliver it. Friction shows up where the two don't line up.</p>
+
+    <p style="margin-top:2rem;font-size:0.7rem;color:var(--td);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Simple example · check-in flow · 6 minutes from arrival to room</p>
+
+    <div class="journey">
+      <div class="journey-grid">
+        <div class="jh actor">Lane</div>
+        <div class="jh">00:00</div>
+        <div class="jh">00:30</div>
+        <div class="jh">01:30</div>
+        <div class="jh">03:00</div>
+        <div class="jh">04:30</div>
+        <div class="jh">06:00</div>
+
+        <div class="jrow">
+          <div class="jactor">Guest</div>
+          <div class="jcell box">Walks in</div>
+          <div class="jcell"></div>
+          <div class="jcell box">Hands ID</div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell box">Receives key</div>
+        </div>
+
+        <div class="jrow">
+          <div class="jactor">Reception</div>
+          <div class="jcell box">Greets</div>
+          <div class="jcell box">Searches PMS</div>
+          <div class="jcell warn">Manual ID type<div class="pin">!</div></div>
+          <div class="jcell warn">Auth payment<div class="pin">!</div></div>
+          <div class="jcell box">Allocates room</div>
+          <div class="jcell box">Encodes &amp; hands key</div>
+        </div>
+
+        <div class="jrow">
+          <div class="jactor">PMS (OnQ)</div>
+          <div class="jcell"></div>
+          <div class="jcell box">Returns reservation</div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell box">Updates room status</div>
+          <div class="jcell"></div>
+        </div>
+
+        <div class="jrow">
+          <div class="jactor">Honors</div>
+          <div class="jcell"></div>
+          <div class="jcell warn">Tier flag — when?<div class="pin">?</div></div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+        </div>
+
+        <div class="jrow">
+          <div class="jactor">Housekeeping</div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell"></div>
+          <div class="jcell win">Room marked ready<div class="pin">✓</div></div>
+          <div class="jcell"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="jlegend">
+      <span><span class="ldot" style="background:rgba(108,92,231,0.4);"></span>Step in the flow</span>
+      <span><span class="ldot" style="background:var(--a4);"></span>Friction we'd investigate</span>
+      <span><span class="ldot" style="background:var(--a3);"></span>Handoff worth tracking</span>
+    </div>
+
+    <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
+      <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
+        <div style="font-size:0.65rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">What the friction tells us</div>
+        <p style="font-size:0.85rem;color:var(--td);line-height:1.55;">Two steps are still manual (ID typing, payment auth) and the loyalty tier surfaces too late. All three are AI/automation candidates worth scoring.</p>
+      </div>
+      <div style="padding:1rem 1.2rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:8px;">
+        <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">What the handoff tells us</div>
+        <p style="font-size:0.85rem;color:var(--td);line-height:1.55;">Housekeeping marks a room ready in their system — does that signal reach reception in real time? Often the lag here is the single biggest cause of "ready in 15 min" reception guesses.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--td);font-style:italic;line-height:1.6;">This is one moment of one journey. The full engagement maps the same level of detail across every stage — from the OTA booking landing in the PMS, through arrival, in-stay, departure, and post-stay review response. Anywhere a step crosses lanes is where the engagement spends most of its attention.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — THINGS WE CAN BUILD      -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s6">
   <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
   <div class="s-in">
-    <div class="tag">04 — Some Examples</div>
+    <div class="tag">05 — Some Examples</div>
     <h2>Things We<br><span class="g2">Tend to Surface</span></h2>
     <p class="sub">Not a prediction list. Just things hotels are putting in right now and getting real value out of. Won't know which actually fit HGI Sud until we look.</p>
 
@@ -208,13 +322,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 6 — HOW WE WORK              -->
+<!-- 7 — HOW WE WORK              -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s6">
+<section class="s" id="s7">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">05 — How It Goes</div>
+    <div class="tag">06 — How It Goes</div>
     <h2>Three Phases<br><span class="g3">Done With You</span></h2>
     <p class="sub">No black box. No surprises. You're in the room for every key call. We map, you pick what to act on, then we build it.</p>
 
