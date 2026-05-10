@@ -45,58 +45,20 @@
   }
   .card.v{opacity:1;transform:translateY(0);}
   .card h3{font-size:1.05rem;margin-bottom:0.6rem;}
-  .card p{font-size:0.9rem;color:var(--td);line-height:1.55;}
+  .card p{font-size:0.92rem;color:var(--td);line-height:1.6;}
   .card .ico{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--a3);margin-bottom:0.5rem;}
 
   .flow{display:flex;align-items:center;gap:0.8rem;margin-top:2rem;flex-wrap:wrap;}
   .flow-s{
     background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
-    padding:0.8rem 1.2rem;font-size:0.85rem;color:var(--t);font-weight:500;
+    padding:0.8rem 1.2rem;font-size:0.9rem;color:var(--t);font-weight:500;
     opacity:0;transform:scale(0.9);transition:all 0.4s;
   }
   .flow-s.v{opacity:1;transform:scale(1);}
   .flow-a{color:var(--a3);font-weight:700;opacity:0;transition:opacity 0.4s;}
   .flow-a.v{opacity:1;}
 
-  .tl{position:relative;padding-left:2rem;margin-top:2.5rem;}
-  .tl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--a1),var(--a3));}
-  .tl-i{
-    position:relative;margin-bottom:1.8rem;padding-left:1.5rem;
-    opacity:0;transform:translateX(-20px);transition:all 0.5s;
-  }
-  .tl-i.v{opacity:1;transform:translateX(0);}
-  .tl-i::before{
-    content:'';position:absolute;left:-2.35rem;top:0.3rem;
-    width:12px;height:12px;border-radius:50%;background:var(--a1);
-    box-shadow:0 0 12px rgba(108,92,231,0.5);
-  }
-  .tl-i h4{font-size:1rem;font-weight:700;color:var(--t);margin-bottom:0.3rem;}
-  .tl-i p{font-size:0.9rem;color:var(--td);line-height:1.5;}
-  .wk{font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--a3);margin-bottom:0.4rem;}
-
-  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-top:2rem;}
-  .stat{
-    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
-    padding:1.5rem;text-align:center;
-    opacity:0;transform:scale(0.95);transition:all 0.5s;
-  }
-  .stat.v{opacity:1;transform:scale(1);}
-  .stat .val{font-size:1.6rem;font-weight:900;line-height:1;margin-bottom:0.3rem;color:var(--a3);}
-  .stat .label{font-size:0.75rem;color:var(--td);font-weight:500;line-height:1.35;}
-
-  /* Process map cards */
-  .map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:0.9rem;margin-top:2rem;}
-  .map-c{
-    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:12px;
-    padding:1.3rem;opacity:0;transform:translateY(15px);transition:all 0.4s;
-  }
-  .map-c.v{opacity:1;transform:translateY(0);}
-  .map-c .map-i{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.6rem;}
-  .map-c h4{font-size:1rem;font-weight:700;color:var(--t);margin-bottom:0.5rem;}
-  .map-c p{font-size:0.82rem;color:var(--td);line-height:1.5;}
-
-  /* Tables */
-  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.9rem;margin-top:1.5rem;}
+  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
   .price-table thead th{
     text-align:left;padding:0.8rem 1.2rem;font-size:0.6rem;font-weight:600;
     letter-spacing:2px;text-transform:uppercase;color:var(--td);
@@ -104,19 +66,12 @@
   }
   .price-table thead th:last-child{text-align:right;}
   .price-table tbody td{
-    padding:1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);
+    padding:1.1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);
     color:var(--t);font-weight:400;vertical-align:top;
   }
   .price-table tbody td:last-child{text-align:right;font-weight:600;white-space:nowrap;}
-  .price-table tbody td .td-sub{font-size:0.75rem;color:var(--td);font-weight:400;margin-top:0.25rem;line-height:1.5;}
-  .price-table tbody tr.recommended{background:rgba(0,206,201,0.04);}
-  .price-table tbody tr.recommended td:first-child::before{
-    content:'Recommended';display:inline-block;background:linear-gradient(135deg,var(--a3),var(--a2));
-    color:#000;font-size:0.6rem;font-weight:800;letter-spacing:1px;padding:0.18rem 0.55rem;
-    border-radius:4px;margin-bottom:0.5rem;
-  }
+  .price-table tbody td .td-sub{font-size:0.78rem;color:var(--td);font-weight:400;margin-top:0.3rem;line-height:1.55;}
 
-  /* CTA buttons */
   .cta{
     display:inline-block;padding:1.1rem 2.8rem;font-weight:800;font-size:1.05rem;
     text-decoration:none;border-radius:60px;letter-spacing:0.02em;
@@ -146,10 +101,9 @@
     .s{padding:3rem 1.5rem;}
     .flow{flex-direction:column;align-items:flex-start;}
     .flow-a{transform:rotate(90deg);font-size:0.8rem;}
-    .stat-grid{grid-template-columns:repeat(2,1fr);}
     nav{padding:0.5rem 1rem;gap:1rem;}
-    .price-table{font-size:0.8rem;}
-    .price-table thead th, .price-table tbody td, .price-table tfoot td{padding:0.6rem 0.8rem;}
+    .price-table{font-size:0.85rem;}
+    .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
   }
 </style>
 </head>
@@ -166,7 +120,6 @@
     <a href="#s5"></a>
     <a href="#s6"></a>
     <a href="#s7"></a>
-    <a href="#s8"></a>
   </div>
 </nav>
 
@@ -179,193 +132,110 @@
   <div class="s-in">
     <div class="tag">Proposal for Ajay Harjani · General Manager</div>
     <h1>Hilton Garden Inn<br><span class="g1">Casablanca Sud</span></h1>
-    <p class="sub" style="font-size:1.25rem;max-width:680px;">A three-week process map of the eight workflows that touch your guests most. A clear picture of how the property actually runs today — and a structured view of where the best opportunities to improve sit.</p>
+    <p class="sub" style="font-size:1.3rem;max-width:700px;">We map how the hotel actually runs. Then we sit down with you and talk about what we saw. From there, you decide what to do next. No commitment to do anything else.</p>
 
-    <div class="stat-grid" style="margin-top:2.5rem;">
-      <div class="stat">
-        <div class="val">3 Weeks</div>
-        <div class="label">Kickoff to readout</div>
-      </div>
-      <div class="stat">
-        <div class="val">8 Workflows</div>
-        <div class="label">Mapped end-to-end</div>
-      </div>
-      <div class="stat">
-        <div class="val">1 Playbook</div>
-        <div class="label">Yours to keep</div>
-      </div>
-    </div>
-
-    <div style="margin-top:2.2rem;">
+    <div style="margin-top:2.5rem;">
       <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
-      <span style="color:var(--td);margin-left:1rem;font-size:0.95rem;">AI &amp; automation built for hospitality.</span>
+      <span style="color:var(--td);margin-left:1rem;font-size:0.95rem;">AI &amp; automation, hospitality only.</span>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 2 — WHY A PROCESS MAP        -->
+<!-- 2 — WHAT IS A PROCESS MAP    -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s2">
   <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
   <div class="s-in">
-    <div class="tag">01 — Why a Process Map</div>
-    <h2>See How the Property<br><span class="g2">Actually Runs</span></h2>
-    <p class="sub">Most hotels run on a mix of brand systems, long-tenured habits and undocumented handoffs. Nobody — not even the people doing the work — has a single, true picture of how it all fits together. A process map creates that picture.</p>
-
-    <div class="grid3">
-      <div class="card">
-        <div class="ico">Clarity</div>
-        <h3>Every step, visible</h3>
-        <p>Every step, every system, every handoff, every wait state — drawn into one diagram per workflow. The friction shows up where you can finally do something about it.</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="color:var(--a4);">Direction</div>
-        <h3>A defensible, prioritised plan</h3>
-        <p>Once it's mapped, the conversation about "what to do next" becomes obvious. You move from opinion-based decisions to a structured plan you can return to, present, and prove progress against.</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="color:var(--a5);">Brand-safe</div>
-        <h3>Improvements that fit Hilton</h3>
-        <p>The highest-impact opportunities at any branded property almost always live <em>around</em> the brand systems — in the workflow, communication and service design layered on top. That's exactly what we map.</p>
-      </div>
-    </div>
+    <div class="tag">01 — What It Is</div>
+    <h2>See How the Hotel<br><span class="g2">Actually Runs</span></h2>
+    <p class="sub" style="font-size:1.1rem;">Hotels are messy. Brand systems on top of decade-old habits on top of stuff people just worked out for themselves. The result is that nobody really has the full picture. Not the GM, not the heads of department, not the people doing it day in day out. A process map gives you that picture. In one place. Probably for the first time.</p>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 3 — WHAT WE MAP              -->
+<!-- 3 — WHY DO IT                -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s3">
   <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
   <div class="s-in">
-    <div class="tag">02 — Scope</div>
-    <h2>Eight Workflows,<br><span class="g2">One Property</span></h2>
-    <p class="sub">The eight workflows that touch the most guests and the most staff hours. Each becomes a swim-lane diagram showing every step, system, handoff and wait state.</p>
+    <div class="tag">02 — Why Bother</div>
+    <h2>Find the<br><span class="g2">Biggest Opportunities</span></h2>
+    <p class="sub">You don't need to commit to changing anything. You just need to see it clearly. Once it's mapped, the conversation about what to do next basically writes itself.</p>
 
-    <div class="map-grid">
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a1);">● Front Office</div>
-        <h4>Check-in &amp; check-out</h4>
-        <p>Arrival flow, ID and payment, key issuance, loyalty recognition, room-not-ready handling.</p>
+    <div class="grid3">
+      <div class="card">
+        <div class="ico">Clarity</div>
+        <h3>Stuff stops being abstract</h3>
+        <p>Every step, every system, every handoff. Drawn into one picture you can actually look at. The friction that everyone vaguely knew about turns into a thing you can point at.</p>
       </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a3);">● Reservations</div>
-        <h4>Direct, OTA &amp; group</h4>
-        <p>Channel sync, group blocks, modifications, cancellations, RFP responses, rate logic.</p>
+      <div class="card">
+        <div class="ico" style="color:var(--a4);">Conversation</div>
+        <h3>The maps are the easy bit</h3>
+        <p>The useful part is what happens once you have them. You and the team look at the picture together. Things that were vaguely felt become things you can actually talk about.</p>
       </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a4);">● Housekeeping</div>
-        <h4>Room status &amp; flow</h4>
-        <p>Stayover vs check-out priority, queue rooms, deep cleans, lost &amp; found, late checkouts.</p>
+      <div class="card">
+        <div class="ico" style="color:var(--a5);">Brand-fit</div>
+        <h3>Around Hilton, not against it</h3>
+        <p>You can't tear out the PMS or rewrite Honors. The interesting stuff tends to live in the workflow built around the brand systems anyway. That's where we look.</p>
       </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a5);">● Garden Grille &amp; Bar</div>
-        <h4>Breakfast, F&amp;B &amp; in-room</h4>
-        <p>Cover counts, allergens, room service, bar tabs to room, supplier ordering, charge reconciliation.</p>
-      </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a2);">● Meetings &amp; Events</div>
-        <h4>RFP through to invoice</h4>
-        <p>RFP responses, BEO distribution, AV setup, F&amp;B coordination, post-event invoicing.</p>
-      </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a1);">● Engineering</div>
-        <h4>Tickets, PPM &amp; OOO</h4>
-        <p>Ticket logging, vendor coordination, PPM schedule, room out-of-service, brand engineering.</p>
-      </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a3);">● Guest Communication</div>
-        <h4>Pre-arrival to post-stay</h4>
-        <p>Pre-arrival, in-stay channels, late-checkout requests, complaint escalation, review responses.</p>
-      </div>
-      <div class="map-c">
-        <div class="map-i" style="color:var(--a4);">● Night Audit &amp; Reporting</div>
-        <h4>Close, flash &amp; handover</h4>
-        <p>Audit close, daily flash, vs-budget reporting, manager-on-duty handover, brand compliance.</p>
-      </div>
-    </div>
-
-    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a3);">
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;">If your priorities are different — for example breakfast and reservations are fine but engineering is on fire — we trim and re-weight the scope before kickoff. The price doesn't change.</p>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 4 — HOW WE WORK              -->
+<!-- 4 — HOW WE'D DO IT           -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s4">
   <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-150px;right:-150px;"></div>
   <div class="s-in">
-    <div class="tag">03 — How &amp; When</div>
-    <h2>Five Steps,<br><span class="g1">Three Weeks</span></h2>
-    <p class="sub">We work around your operations, not through them. Most staff give us 20 minutes once. The rest is shadow observation during their normal shift.</p>
+    <div class="tag">03 — How It Works</div>
+    <h2>Light Touch,<br><span class="g1">Nothing Stops</span></h2>
+    <p class="sub">Quick conversations with each head of department. Then we shadow normal shifts. Your team carries on doing their jobs while we watch and ask the occasional question.</p>
 
     <div class="flow">
-      <div class="flow-s">Stakeholder interviews</div>
+      <div class="flow-s">Conversations</div>
       <div class="flow-a">→</div>
-      <div class="flow-s">Shadow observation</div>
+      <div class="flow-s">Shadowing</div>
       <div class="flow-a">→</div>
-      <div class="flow-s">Build swim-lane maps</div>
+      <div class="flow-s">Build the maps</div>
       <div class="flow-a">→</div>
-      <div class="flow-s">Bottleneck analysis</div>
+      <div class="flow-s">Spot the friction</div>
       <div class="flow-a">→</div>
-      <div class="flow-s">Score &amp; deliver</div>
+      <div class="flow-s">Agree priorities</div>
     </div>
 
-    <div class="tl">
-      <div class="tl-i">
-        <div class="wk">Week 1 · Discover</div>
-        <h4>Kickoff &amp; stakeholder interviews</h4>
-        <p>30-minute kickoff to lock scope. Then short conversations across the team — most done in 20-minute slots between shifts so the operation never pauses.</p>
-      </div>
-      <div class="tl-i">
-        <div class="wk">Week 2 · Map</div>
-        <h4>Two days on-property + draft maps</h4>
-        <p>Two days at HGI Casablanca Sud during the rhythms that matter — morning rush, breakfast service, afternoon arrivals, one full night audit. Drafts of the maps mid-week for you to react to.</p>
-      </div>
-      <div class="tl-i">
-        <div class="wk">Week 3 · Score &amp; Deliver</div>
-        <h4>Bottleneck analysis &amp; readout</h4>
-        <p>Each step in each map is reviewed. Improvements ranked by impact and ease. Final readout meeting (60 min, in-person or Teams) with you and whoever you want in the room.</p>
-      </div>
-      <div class="tl-i">
-        <div class="wk">After Week 3 · Optional</div>
-        <h4>Implementation — separate quote</h4>
-        <p>If you want us to build any of the surfaced opportunities, we quote each as a separate fixed-fee project. No retainer, no pressure to continue.</p>
-      </div>
-    </div>
+    <p style="margin-top:2.5rem;color:var(--td);font-size:1rem;line-height:1.7;max-width:720px;">We agree the scope with you at kickoff — which workflows matter most, where to focus. The on-property time is spent during the moments that actually stress the operation, not the quiet afternoons. The rest of the time we're back at the desk drawing it all up.</p>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — DELIVERABLES             -->
+<!-- 5 — WHAT YOU GET             -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s5">
   <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
   <div class="s-in">
     <div class="tag">04 — What You Get</div>
-    <h2>Three Artefacts<br><span class="g3">You Keep Forever</span></h2>
-    <p class="sub">Designed to stay useful long after we're gone. Show them to corporate. Use them when the brand auditor asks how you're driving improvement.</p>
+    <h2>What's<br><span class="g3">In Your Hands</span></h2>
+    <p class="sub">Things you can use long after we've gone. Show them to corporate. Hand them to your next FOM. Pull them out when the brand auditor asks how you're driving improvement.</p>
 
     <div class="grid3">
       <div class="card">
-        <h3>The Process Map Book</h3>
-        <p>Eight swim-lane maps in PDF and editable format. Every workflow visualised end-to-end with systems, owners, decision points and friction marked. Suitable for SOP review, brand audits, and onboarding.</p>
+        <h3>The maps themselves</h3>
+        <p>The diagrams. Every step, every system, every owner, every place we noticed friction. PDF and editable. Useful for SOP review, brand auditors, training a new hire.</p>
       </div>
       <div class="card">
-        <h3>The Opportunity Scorecard</h3>
-        <p>Every improvement we surface, ranked by impact and ease. Filterable by department. Turns "we should look at this stuff" into a prioritised plan you can present to corporate or the owner.</p>
+        <h3>What we noticed</h3>
+        <p>A written summary of what stood out. Things that surprised us, things that look harder than they need to be, things that look fine. We talk it through with you, you decide what's worth doing about any of it.</p>
       </div>
       <div class="card">
-        <h3>The Quick-Wins Playbook</h3>
-        <p>The opportunities you can implement immediately — without buying anything. Step-by-step, with templates and example scripts. Designed to start showing results before any tools get bought.</p>
+        <h3>A few easy starts</h3>
+        <p>If we spot anything that's small enough for your team to act on without us, we write it up. No software, no vendors, no further engagement needed. Take it or leave it.</p>
       </div>
     </div>
 
     <div style="margin-top:2rem;padding:1rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
-      <p style="font-size:0.88rem;color:var(--td);line-height:1.6;">Plus a 60-minute executive readout — we walk you and your team through the maps, the scorecard, and the recommended order of operations. Q&amp;A, agree on what's next.</p>
+      <p style="font-size:0.95rem;color:var(--td);line-height:1.65;">Plus the readout meeting at the end. We walk you and whoever you want in the room through everything. Q&amp;A, agree what's next, you decide whether there even is a next.</p>
     </div>
   </div>
 </section>
@@ -376,39 +246,40 @@
 <section class="s" id="s6">
   <div class="orb" style="width:500px;height:500px;background:var(--a5);bottom:-100px;right:-150px;"></div>
   <div class="s-in">
-    <div class="tag">05 — Why Jengu</div>
-    <h2>Built For<br><span class="g2">Branded Hotels</span></h2>
-    <p class="sub">We don't do anything else. Every Jengu engagement is a hotel, holiday park, or hospitality group. We know how brand standards, locked-down PMS systems, and tenured teams shape what's actually possible.</p>
+    <div class="tag">05 — Why Us</div>
+    <h2>Hospitality.<br><span class="g2">Nothing Else.</span></h2>
+    <p class="sub">Every Jengu engagement is a hotel, a holiday park or a hospitality group. We know how brand standards, locked-down systems and tenured teams shape what's actually possible.</p>
 
     <div class="grid3">
       <div class="card">
-        <div class="ico">Hospitality-only</div>
-        <h3>We speak your language</h3>
-        <p>OnQ, OPERA, Mews, channel managers, BEO tools, brand standards. No translating from generic management consulting. We know the constraints and we work inside them.</p>
+        <div class="ico">We speak hotel</div>
+        <h3>OnQ. OPERA. Mews.</h3>
+        <p>Channel managers, BEO tools, brand standards. No translating from generic management consulting frameworks. We know the constraints and we work inside them.</p>
       </div>
       <div class="card">
-        <div class="ico" style="color:var(--a4);">Built for Hilton constraints</div>
+        <div class="ico" style="color:var(--a4);">We get Hilton</div>
         <h3>OnQ stays. Honors stays.</h3>
-        <p>You can't rip out core brand systems, and you shouldn't. Process mapping is exactly the right tool when those systems are fixed — it surfaces the opportunities that live around them, not inside them.</p>
+        <p>You can't rip out the core brand systems and you shouldn't try. The interesting stuff at branded hotels tends to live around those systems, not inside them. That's where the maps tend to point.</p>
       </div>
       <div class="card">
-        <div class="ico" style="color:var(--a5);">No vendor lock-in</div>
-        <h3>The deliverables are yours</h3>
-        <p>You can take the maps, scorecard and playbook to a different implementation partner, your own corporate IT, or no one at all. We're trying to be the smartest three weeks you spent this year — not your next subscription.</p>
+        <div class="ico" style="color:var(--a5);">No lock-in</div>
+        <h3>Yours when we're done</h3>
+        <p>Take the maps to a different vendor, to corporate IT, do nothing with them. Up to you. We don't sell software and we're not trying to put you on a retainer.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 7 — INVESTMENT               -->
+<!-- 7 — INVESTMENT + NEXT        -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s7">
-  <div class="orb" style="width:500px;height:500px;background:var(--a3);top:10%;left:-150px;"></div>
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">06 — Investment</div>
-    <h2>Two Ways<br><span class="g3">to Run This</span></h2>
-    <p class="sub">Same methodology, different depth. Pick based on whether you want a remote-first diagnostic or want us physically in the building during the busiest hours.</p>
+    <div class="tag">06 — Pricing &amp; Next Steps</div>
+    <h2>Two Ways<br><span class="g3">to Run It</span></h2>
+    <p class="sub">Same approach, different depth. Pick whichever feels right. Happy to talk you through either.</p>
 
     <table class="price-table">
       <thead>
@@ -417,45 +288,29 @@
       <tbody>
         <tr>
           <td>
-            <strong>Lite — Remote diagnostic</strong>
-            <div class="td-sub">All eight workflows mapped. Interviews via Teams. Shadow observation replaced with screen-share walkthroughs and video clips from your team.</div>
+            <strong>Remote</strong>
+            <div class="td-sub">Conversations and observation done over Teams and screen-share. Lighter, fully off-site.</div>
           </td>
-          <td>38,000 MAD <div class="td-sub">≈ €3,500 · 3 weeks · one-off</div></td>
+          <td>From 38,000 MAD <div class="td-sub">≈ €3,500</div></td>
         </tr>
-        <tr class="recommended">
+        <tr>
           <td>
-            <strong>Full — On-site engagement</strong>
-            <div class="td-sub">Everything in Lite, plus two days physically on-property during morning rush, breakfast, evening arrivals, and one full night audit. Travel and accommodation included.</div>
+            <strong>On-site</strong>
+            <div class="td-sub">Everything in Remote, plus time on the property during the rhythms that matter. Travel and accommodation included.</div>
           </td>
-          <td>59,000 MAD <div class="td-sub">≈ €5,500 · 3 weeks · one-off</div></td>
+          <td>From 59,000 MAD <div class="td-sub">≈ €5,500</div></td>
         </tr>
       </tbody>
     </table>
 
-    <div style="margin-top:1.5rem;padding:1.4rem 1.8rem;background:var(--card);border:1px solid rgba(108,92,231,0.2);border-radius:14px;">
-      <h3 style="font-size:1rem;color:var(--t);margin-bottom:0.6rem;">Payment</h3>
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.65;">50% on kickoff, 50% on delivery of the readout. Invoice in MAD or EUR. No retainer. No automatic implementation fees. If anything in the deliverables doesn't land — say so and we'll re-cut it.</p>
-    </div>
-  </div>
-</section>
+    <p style="margin-top:1.2rem;font-size:0.9rem;color:var(--td);line-height:1.6;">Half on kickoff, half on delivery. Invoice in MAD or EUR, your call. No retainer afterwards.</p>
 
-<!-- ════════════════════════════ -->
-<!-- 8 — NEXT STEPS               -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s8">
-  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
-  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
-  <div class="s-in" style="text-align:center;">
-    <div class="tag">07 — Next Steps</div>
-    <h2>Let's Have<br><span class="g3">a 30-Min Call</span></h2>
-    <p class="sub" style="margin:0 auto 1rem;">A 30-minute discovery call. We confirm scope, line up the right interviewees, walk you through the on-site days, and answer any questions. We can be on-property within two weeks of go-ahead.</p>
-
-    <div style="margin-top:2.5rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="https://www.jengu.ai/book" target="_blank" class="cta cta-primary">Book a 30-min Call &nbsp;→</a>
-      <a href="mailto:hello@jengu.ai?subject=HGI%20Casablanca%20Sud%20%E2%80%94%20process%20mapping" class="cta cta-secondary">Email a Question</a>
+    <div style="margin-top:2.5rem;text-align:center;">
+      <a href="https://www.jengu.ai/book" target="_blank" class="cta cta-primary">Book a call &nbsp;→</a>
+      <a href="mailto:hello@jengu.ai?subject=HGI%20Casablanca%20Sud%20%E2%80%94%20process%20mapping" class="cta cta-secondary" style="margin-left:1rem;">Just email us</a>
     </div>
 
-    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);">
+    <div style="margin-top:2.5rem;text-align:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);">
       <a href="mailto:hello@jengu.ai" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">hello@jengu.ai</a>
       <span style="color:var(--td);margin:0 0.8rem;">·</span>
       <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
@@ -472,7 +327,7 @@ function dp(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.
 rz();cp();dp();addEventListener('resize',()=>{rz();cp();});
 
 const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('v');
-const bs=en.target.querySelectorAll('.flow-s,.flow-a,.card,.stat,.tl-i,.map-c');
+const bs=en.target.querySelectorAll('.flow-s,.flow-a,.card');
 bs.forEach((b,i)=>setTimeout(()=>b.classList.add('v'),i*100));}});},{threshold:.15});
 document.querySelectorAll('.s-in').forEach(e=>io.observe(e));
 
