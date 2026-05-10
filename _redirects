@@ -95,3 +95,71 @@
 # Note: Trailing slash redirects removed as they conflict
 # with Astro's directory build format (which adds trailing slashes)
 # ============================================
+
+# ============================================
+# Removed blog posts (low-quality / off-niche / duplicates)
+# Redirect to blog index so old links don't 404
+# ============================================
+/blog/5-ways-ai-automation-is-saving-businesses-time-and-money/ /blog/ 301
+/blog/ai-driven-dynamic-pricing-transforming-e-commerce/ /blog/ 301
+/blog/ai-driven-personalization-vs-customer-privacy-striking-the-right-balance-in-banking/ /blog/ 301
+/blog/ai-engineer-pack-50-credits-for-leading-developer-tools/ /blog/ 301
+/blog/ai-for-small-businesses-affordable-tools-and-strategies-in-2025/ /blog/ 301
+/blog/ai-powered-solutions-how-to-stay-ahead-in-2025/ /blog/ 301
+/blog/ai-predictive-maintenance-for-hotels-prevent-equipment-failu-1777194417444/ /blog/ 301
+/blog/ai-predictive-maintenance-for-hotels-prevent-equipment-failu-1778062990279/ /blog/ 301
+/blog/ai-predictive-maintenance-for-hotels-prevent-equipment-failu-1778149754549/ /blog/ 301
+/blog/ai-process-automation-save-time-and-costs-for-uk-companies/ /blog/ 301
+/blog/ai-tools-revolutionizing-business-process-automation/ /blog/ 301
+/blog/ai-translation-in-hospitality-breaking-language-barriers-1778232491982/ /blog/ 301
+/blog/ai-upselling-for-hotels-strategies-to-boost-revenue-1775120645775/ /blog/ 301
+/blog/ai-upselling-for-hotels-strategies-to-boost-revenue-1777629045902/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1775466873021/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1775726036173/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1776417796428/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1776679369853/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1777285315431/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1777371592148/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1777713184622/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1778318703690/ /blog/ 301
+/blog/ai-upselling-in-hotels-strategies-to-boost-revenue-1778406142009/ /blog/ 301
+/blog/balancing-ai-innovation-and-customer-privacy-in-banking-a-2025-guide/ /blog/ 301
+/blog/best-practices-for-implementing-ai-automation/ /blog/ 301
+/blog/breaking-language-barriers-with-ai-translation-in-hospitalit-1777800347946/ /blog/ 301
+/blog/building-customer-trust-through-transparent-ai-practices-in-banking/ /blog/ 301
+/blog/how-ai-agents-simplify-internal-processes-for-companies-in-2025/ /blog/ 301
+/blog/how-ai-can-help-your-business-save-time-and-money-in-2025/ /blog/ 301
+/blog/how-ai-enhances-data-security-and-privacy-in-modern-banking/ /blog/ 301
+/blog/how-ai-process-mapping-improves-efficiency-in-manufacturing/ /blog/ 301
+/blog/how-banks-can-leverage-ai-without-compromising-user-privacy/ /blog/ 301
+/blog/how-jenguai-is-helping-companies-embrace-digital-transformation/ /blog/ 301
+/blog/how-jenguai-is-transforming-automation-and-process-mapping-in-the-uk/ /blog/ 301
+/blog/how-to-automate-business-workflows-with-ai-in-london/ /blog/ 301
+/blog/how-to-identify-key-areas-for-ai-automation-in-your-business/ /blog/ 301
+/blog/how-to-identify-processes-for-automation-in-your-business/ /blog/ 301
+/blog/how-to-use-ai-for-workflow-optimization-in-finance/ /blog/ 301
+/blog/how-to-use-ai-in-your-business-a-practical-guide-for-2025/ /blog/ 301
+/blog/mitigating-privacy-risks-in-ai-enabled-financial-services/ /blog/ 301
+/blog/predictive-maintenance-for-hotels-ai-prevents-equipment-fail-1776331488966/ /blog/ 301
+/blog/predictive-maintenance-for-hotels-ai-prevents-equipment-fail-1776502610405/ /blog/ 301
+/blog/predictive-maintenance-for-hotels-ai-prevents-equipment-fail-1776764659714/ /blog/ 301
+/blog/predictive-maintenance-in-hotels-ai-prevents-equipment-failu-1777889941059/ /blog/ 301
+/blog/process-mapping-the-key-to-workflow-optimization-for-businesses/ /blog/ 301
+/blog/regulatory-compliance-in-ai-powered-banking-navigating-privacy-laws-in-2025/ /blog/ 301
+/blog/revolutionizing-sales-how-ai-and-automation-are-transforming-the-sales-process/ /blog/ 301
+/blog/streamline-operations-how-ai-can-improve-efficiency/ /blog/ 301
+/blog/streamlining-customer-service-with-ai-automation/ /blog/ 301
+/blog/the-ethical-implications-of-ai-in-banking-privacy-concerns-and-solutions/ /blog/ 301
+/blog/the-future-of-ai-in-business-trends-to-watch-in-2025/ /blog/ 301
+/blog/the-future-of-privacy-first-ai-solutions-in-the-banking-sector/ /blog/ 301
+/blog/the-future-of-workflow-optimization-with-ai-in-2024/ /blog/ 301
+/blog/the-role-of-ai-in-improving-business-efficiency-in-2025/ /blog/ 301
+/blog/the-role-of-process-mapping-in-ai-workflow-optimization/ /blog/ 301
+/blog/the-ultimate-guide-to-workflow-automation-for-small-businesses/ /blog/ 301
+/blog/time-launches-ai-platform-for-interactive-journalism-experience/ /blog/ 301
+/blog/top-ai-tools-for-ensuring-privacy-compliance-in-banking-2025-edition/ /blog/ 301
+/blog/top-ai-tools-to-transform-your-business-in-2025/ /blog/ 301
+/blog/top-benefits-of-process-mapping-for-automation-in-london/ /blog/ 301
+/blog/top-tools-for-business-process-mapping-and-automation-in-2025/ /blog/ 301
+/blog/top-workflow-automation-tools-for-2024/ /blog/ 301
+/blog/using-ai-to-streamline-customer-service-operations-in-2025/ /blog/ 301

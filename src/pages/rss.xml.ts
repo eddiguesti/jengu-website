@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
-const SITE_URL = 'https://jengu.ai';
+const SITE_URL = 'https://www.jengu.ai';
 const SITE_NAME = 'Jengu';
 const SITE_DESCRIPTION = 'AI automation insights for tourism and hospitality. Learn about chatbots, workflow automation, and digital transformation.';
 

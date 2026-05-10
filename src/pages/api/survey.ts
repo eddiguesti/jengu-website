@@ -216,8 +216,8 @@ async function sendConfirmationEmail(token: string, payload: SurveyPayload, env:
         <p style="margin:0 0 4px;font-size:14px;font-weight:600;color:#fff;">Jengu</p>
         <p style="margin:0 0 2px;font-size:13px;color:#9ca3af;">AI for Travel & Hospitality</p>
         <p style="margin:0 0 8px;font-size:13px;color:#9ca3af;">
-          <a href="https://jengu.ai" style="color:#93c5fd;text-decoration:none;">jengu.ai</a> | 
-          <a href="https://jengu.ai/contact" style="color:#93c5fd;text-decoration:none;">Contact us</a>
+          <a href="https://www.jengu.ai" style="color:#93c5fd;text-decoration:none;">jengu.ai</a> | 
+          <a href="https://www.jengu.ai/contact" style="color:#93c5fd;text-decoration:none;">Contact us</a>
         </p>
         <p style="margin:0;font-size:12px;color:#6b7280;">© 2026 Jengu. All rights reserved.</p>
       </div>

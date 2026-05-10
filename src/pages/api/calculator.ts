@@ -423,11 +423,11 @@ async function sendCustomerThankYou(token: string, data: any, env: any) {
         AI Automation for Tourism & Hospitality
       </p>
       <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 16px;">
-        <a href="https://jengu.ai" style="color: #818cf8; text-decoration: none; font-size: 13px;">Website</a>
+        <a href="https://www.jengu.ai" style="color: #818cf8; text-decoration: none; font-size: 13px;">Website</a>
         <span style="color: #4b5563;">•</span>
-        <a href="https://jengu.ai/services" style="color: #818cf8; text-decoration: none; font-size: 13px;">Services</a>
+        <a href="https://www.jengu.ai/services" style="color: #818cf8; text-decoration: none; font-size: 13px;">Services</a>
         <span style="color: #4b5563;">•</span>
-        <a href="https://jengu.ai/case-studies" style="color: #818cf8; text-decoration: none; font-size: 13px;">Case Studies</a>
+        <a href="https://www.jengu.ai/case-studies" style="color: #818cf8; text-decoration: none; font-size: 13px;">Case Studies</a>
       </div>
       <p style="margin: 0; color: #6b7280; font-size: 12px;">
         © ${new Date().getFullYear()} Jengu AI. All rights reserved.

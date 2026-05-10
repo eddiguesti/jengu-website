@@ -16,7 +16,7 @@ export interface SEOConfig {
 }
 
 const SITE_NAME = 'Jengu';
-const SITE_URL = 'https://jengu.ai';
+const SITE_URL = 'https://www.jengu.ai';
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/logo.png`;
 const DEFAULT_DESCRIPTION = 'AI automation solutions for tourism and hospitality. Smart AI agents delivering 30% more bookings and 40+ hours saved weekly.';
 const MIN_DESCRIPTION_LENGTH = 120;

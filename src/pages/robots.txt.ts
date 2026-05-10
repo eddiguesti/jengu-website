@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-const SITE_URL = 'https://jengu.ai';
+const SITE_URL = 'https://www.jengu.ai';
 
 export const GET: APIRoute = async () => {
   const robotsTxt = `

@@ -4,7 +4,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jengu.ai',
+  site: 'https://www.jengu.ai',
   adapter: cloudflare({
     mode: 'directory',
     functionPerRoute: false

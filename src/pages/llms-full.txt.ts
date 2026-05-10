@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
-const SITE_URL = 'https://jengu.ai';
+const SITE_URL = 'https://www.jengu.ai';
 
 export const GET: APIRoute = async () => {
   const blogPosts = await getCollection('blog', ({ data }) => {

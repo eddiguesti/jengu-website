@@ -353,7 +353,7 @@ async function sendCustomerThankYou(token: string, data: any, env: any) {
         <p style="margin: 0 0 20px; color: #d1d5db; font-size: 15px;">
           Want to get started right away?
         </p>
-        <a href="https://jengu.ai/calculator"
+        <a href="https://www.jengu.ai/calculator"
            style="display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%); color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 999px; font-weight: 600; font-size: 16px; box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4); margin-bottom: 12px;">
           📊 Calculate Your ROI
         </a>
@@ -382,11 +382,11 @@ async function sendCustomerThankYou(token: string, data: any, env: any) {
         AI Automation for Tourism & Hospitality
       </p>
       <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 16px;">
-        <a href="https://jengu.ai" style="color: #818cf8; text-decoration: none; font-size: 13px;">Website</a>
+        <a href="https://www.jengu.ai" style="color: #818cf8; text-decoration: none; font-size: 13px;">Website</a>
         <span style="color: #4b5563;">•</span>
-        <a href="https://jengu.ai/about" style="color: #818cf8; text-decoration: none; font-size: 13px;">About Us</a>
+        <a href="https://www.jengu.ai/about" style="color: #818cf8; text-decoration: none; font-size: 13px;">About Us</a>
         <span style="color: #4b5563;">•</span>
-        <a href="https://jengu.ai/services" style="color: #818cf8; text-decoration: none; font-size: 13px;">Services</a>
+        <a href="https://www.jengu.ai/services" style="color: #818cf8; text-decoration: none; font-size: 13px;">Services</a>
       </div>
       <p style="margin: 0; color: #6b7280; font-size: 12px;">
         © ${new Date().getFullYear()} Jengu AI. All rights reserved.

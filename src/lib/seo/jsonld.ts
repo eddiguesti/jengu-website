@@ -1,5 +1,5 @@
 const SITE_NAME = 'Jengu';
-const SITE_URL = 'https://jengu.ai';
+const SITE_URL = 'https://www.jengu.ai';
 
 export interface OrganizationSchema {
   '@context': 'https://schema.org';
