@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hilton Garden Inn Casablanca Sud — Process Map | Jengu</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{
     --bg:#0a0a0f;--card:#12121a;
@@ -21,7 +21,7 @@
     scroll-snap-align:start;
   }
   .s-in{
-    max-width:1100px;width:100%;
+    max-width:1000px;width:100%;
     opacity:0;transform:translateY(40px);
     transition:opacity 0.7s,transform 0.7s;
   }
@@ -30,33 +30,29 @@
   .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
 
   .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
-  h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1.02;margin-bottom:1rem;color:var(--t);}
-  h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.05;margin-bottom:1rem;color:var(--t);}
-  h3{font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;color:var(--t);}
+  h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1.02;margin-bottom:1.2rem;color:var(--t);}
+  h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.05;margin-bottom:1.2rem;color:var(--t);}
   .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
   .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
   .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-  .sub{font-size:1.15rem;color:var(--td);max-width:640px;line-height:1.6;}
+  .sub{font-size:1.15rem;color:var(--td);max-width:680px;line-height:1.7;}
 
-  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2rem;}
-  .card{
-    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
-    padding:1.8rem;opacity:0;transform:translateY(20px);transition:all 0.5s;
+  .examples{
+    margin-top:2rem;display:grid;grid-template-columns:1fr;gap:0.7rem;
   }
-  .card.v{opacity:1;transform:translateY(0);}
-  .card h3{font-size:1.05rem;margin-bottom:0.6rem;}
-  .card p{font-size:0.92rem;color:var(--td);line-height:1.6;}
-  .card .ico{font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--a3);margin-bottom:0.5rem;}
-
-  .flow{display:flex;align-items:center;gap:0.8rem;margin-top:2rem;flex-wrap:wrap;}
-  .flow-s{
+  .ex{
     background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
-    padding:0.8rem 1.2rem;font-size:0.9rem;color:var(--t);font-weight:500;
-    opacity:0;transform:scale(0.9);transition:all 0.4s;
+    padding:1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;
+    opacity:0;transform:translateX(-15px);transition:all 0.4s;
   }
-  .flow-s.v{opacity:1;transform:scale(1);}
-  .flow-a{color:var(--a3);font-weight:700;opacity:0;transition:opacity 0.4s;}
-  .flow-a.v{opacity:1;}
+  .ex.v{opacity:1;transform:translateX(0);}
+  .ex .num{
+    flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--a3);
+    letter-spacing:2px;margin-top:3px;min-width:28px;
+  }
+  .ex p{font-size:0.95rem;color:var(--t);line-height:1.55;}
+  .ex p strong{color:var(--t);font-weight:600;}
+  .ex p span{color:var(--td);}
 
   .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
   .price-table thead th{
@@ -88,7 +84,6 @@
     display:flex;align-items:center;gap:1.5rem;
     background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);
     border:1px solid rgba(255,255,255,0.06);border-radius:40px;padding:0.6rem 1.5rem;
-    transition:all 0.4s;
   }
   nav .logo{font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
   .dots{display:flex;gap:6px;}
@@ -99,8 +94,6 @@
 
   @media(max-width:768px){
     .s{padding:3rem 1.5rem;}
-    .flow{flex-direction:column;align-items:flex-start;}
-    .flow-a{transform:rotate(90deg);font-size:0.8rem;}
     nav{padding:0.5rem 1rem;gap:1rem;}
     .price-table{font-size:0.85rem;}
     .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
@@ -118,168 +111,67 @@
     <a href="#s3"></a>
     <a href="#s4"></a>
     <a href="#s5"></a>
-    <a href="#s6"></a>
-    <a href="#s7"></a>
   </div>
 </nav>
 
 <!-- ════════════════════════════ -->
-<!-- 1 — HERO                     -->
+<!-- 1 — HERO / RECOMMENDATION    -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s1">
   <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
   <div class="s-in">
-    <div class="tag">Proposal for Ajay Harjani · General Manager</div>
-    <h1>Hilton Garden Inn<br><span class="g1">Casablanca Sud</span></h1>
-    <p class="sub" style="font-size:1.3rem;max-width:700px;">Here's the idea. We come in for a few weeks, map how the hotel actually runs day to day, then sit down with you and walk through what we saw. That's it. What you do with the maps after is your call.</p>
+    <div class="tag">For Ajay Harjani · Hilton Garden Inn Casablanca Sud</div>
+    <h1>A Process Map<br><span class="g1">for AI &amp; Automation</span></h1>
+    <p class="sub" style="font-size:1.3rem;max-width:720px;">After our quick chat, the best move is a simple process map of the hotel — specifically to find where AI and automation could actually make a difference. That's the whole engagement.</p>
 
     <div style="margin-top:2.5rem;">
       <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
-      <span style="color:var(--td);margin-left:1rem;font-size:0.95rem;">AI &amp; automation, hospitality only.</span>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 2 — WHAT IS A PROCESS MAP    -->
+<!-- 2 — WHY THIS                 -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s2">
   <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
   <div class="s-in">
-    <div class="tag">01 — What It Is</div>
-    <h2>See How the Hotel<br><span class="g2">Actually Runs</span></h2>
-    <p class="sub" style="font-size:1.1rem;">Hotels are messy. Brand standards on top of old habits on top of fixes nobody ever wrote down. Result: nobody has the full picture, not even the people doing the work. A process map puts it all in one place. Probably the first time anyone there has seen it like that.</p>
+    <div class="tag">01 — Why This</div>
+    <h2>The Cleanest Way<br><span class="g2">to Find Real AI Wins</span></h2>
+    <p class="sub" style="font-size:1.1rem;">Most hotels jump straight to buying tools. The result is a stack of subscriptions that don't talk to each other. Mapping how the property actually runs first means we spot the real opportunities — the spots where AI or smart tooling would quietly take work off people's plates. Not "here's a list of products." More like "here's where you'd actually get value."</p>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 3 — WHY DO IT                -->
+<!-- 3 — WHAT WE MIGHT FIND       -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s3">
   <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
   <div class="s-in">
-    <div class="tag">02 — Why Bother</div>
-    <h2>Find the<br><span class="g2">Biggest Opportunities</span></h2>
-    <p class="sub">You don't need to commit to changing anything yet. You just need to see it clearly. Once it's mapped, the conversation about what to do next gets a lot easier to have.</p>
+    <div class="tag">02 — Some Examples</div>
+    <h2>Things We<br><span class="g2">Tend to Surface</span></h2>
+    <p class="sub">Not a prediction list, just the kind of stuff that often turns up in a hotel like this. Wouldn't know which actually apply until we look.</p>
 
-    <div class="grid3">
-      <div class="card">
-        <div class="ico">Clarity</div>
-        <h3>Stuff stops being abstract</h3>
-        <p>Every step. Every system. Every awkward handoff. All in one diagram. The friction that everyone sort of knew about turns into something you can point at and actually discuss.</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="color:var(--a4);">Conversation</div>
-        <h3>Maps are the easy bit</h3>
-        <p>Drawing them is the easy part. The useful part is what comes after: you, the team, the picture, a coffee, a few hours. Things you'd been working around for a while suddenly have a name.</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="color:var(--a5);">Brand-fit</div>
-        <h3>Around Hilton, not against</h3>
-        <p>You can't tear out the PMS or rewrite Honors (and shouldn't try). The interesting stuff tends to sit in the workflow built around the brand systems anyway. That's the bit we look at.</p>
-      </div>
+    <div class="examples">
+      <div class="ex"><div class="num">01</div><p><strong>Spreadsheets being kept up by hand.</strong> <span>Things that should be a small dashboard or a one-line AI input.</span></p></div>
+      <div class="ex"><div class="num">02</div><p><strong>Dashboards that should exist but don't.</strong> <span>Numbers your team currently chases between three different systems every morning.</span></p></div>
+      <div class="ex"><div class="num">03</div><p><strong>Manual data entry AI could handle.</strong> <span>Bookings, invoices, supplier lists, anything someone is retyping from one place into another.</span></p></div>
+      <div class="ex"><div class="num">04</div><p><strong>A guest messaging assistant on WhatsApp.</strong> <span>Pre-arrival, in-stay, late-checkout, FAQs. Picks up the easy 70%, hands the rest to your team.</span></p></div>
+      <div class="ex"><div class="num">05</div><p><strong>Centralising things that live in five different places.</strong> <span>Maintenance tickets, lost &amp; found, supplier comms, internal notes — pulled into something everyone can see.</span></p></div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 4 — HOW WE'D DO IT           -->
+<!-- 4 — PRICING                  -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s4">
-  <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-150px;right:-150px;"></div>
-  <div class="s-in">
-    <div class="tag">03 — How It Works</div>
-    <h2>Light Touch,<br><span class="g1">Nothing Stops</span></h2>
-    <p class="sub">Short chats with each head of department. Then we shadow normal shifts. Your team gets on with their jobs. We watch, ask the odd question, take notes.</p>
-
-    <div class="flow">
-      <div class="flow-s">Conversations</div>
-      <div class="flow-a">→</div>
-      <div class="flow-s">Shadowing</div>
-      <div class="flow-a">→</div>
-      <div class="flow-s">Build the maps</div>
-      <div class="flow-a">→</div>
-      <div class="flow-s">Spot the friction</div>
-      <div class="flow-a">→</div>
-      <div class="flow-s">Agree priorities</div>
-    </div>
-
-    <p style="margin-top:2.5rem;color:var(--td);font-size:1rem;line-height:1.7;max-width:720px;">Scope is agreed with you at kickoff. The on-property time is spent during the moments that actually stress the operation, not the quiet afternoons. Everything else happens back at our end (drawing, sketching, head-scratching).</p>
-  </div>
-</section>
-
-<!-- ════════════════════════════ -->
-<!-- 5 — WHAT YOU GET             -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s5">
   <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
   <div class="s-in">
-    <div class="tag">04 — What You Get</div>
-    <h2>What's<br><span class="g3">In Your Hands</span></h2>
-    <p class="sub">Things you can keep using long after we've gone. Show them to corporate. Hand them to your next FOM. Pull them out when a brand auditor asks how you're driving improvement.</p>
-
-    <div class="grid3">
-      <div class="card">
-        <h3>The maps</h3>
-        <p>The diagrams themselves. PDF and editable. Useful for SOP review, brand auditors, training a new hire.</p>
-      </div>
-      <div class="card">
-        <h3>What we noticed</h3>
-        <p>A written summary of what stood out as we drew everything up. Things that surprised us. Things that look harder than they need to be. Things that look fine. We talk it through with you. What you do about any of it (if anything) is your call.</p>
-      </div>
-      <div class="card">
-        <h3>A few easy starts</h3>
-        <p>If we spot anything small enough for your team to act on without us, we write it up. No software to buy. No vendors to call. Take or leave.</p>
-      </div>
-    </div>
-
-    <div style="margin-top:2rem;padding:1rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;">
-      <p style="font-size:0.95rem;color:var(--td);line-height:1.65;">Plus a readout meeting at the end. We walk you (and whoever else you want in the room) through everything. Q&amp;A, you decide whether there's a next step or not.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════ -->
-<!-- 6 — WHY JENGU                -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s6">
-  <div class="orb" style="width:500px;height:500px;background:var(--a5);bottom:-100px;right:-150px;"></div>
-  <div class="s-in">
-    <div class="tag">05 — Why Us</div>
-    <h2>Hospitality.<br><span class="g2">Nothing Else.</span></h2>
-    <p class="sub">Every Jengu engagement is a hotel, a holiday park, or a hospitality group. We know how brand standards, locked-down systems and tenured teams shape what's actually possible at a property.</p>
-
-    <div class="grid3">
-      <div class="card">
-        <div class="ico">We speak hotel</div>
-        <h3>OnQ. OPERA. Mews.</h3>
-        <p>Channel managers, BEO tools, brand standards, the lot. Not translating any of this from a generic management consulting framework.</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="color:var(--a4);">We get Hilton</div>
-        <h3>OnQ stays. Honors stays.</h3>
-        <p>You can't rip out the core brand systems and you shouldn't try. The interesting stuff at branded hotels tends to live around them anyway. That's where the maps tend to point.</p>
-      </div>
-      <div class="card">
-        <div class="ico" style="color:var(--a5);">No lock-in</div>
-        <h3>Yours when we're done</h3>
-        <p>Take it all to a different vendor, to corporate IT, do nothing with it. Up to you. We don't sell software and we're not after a retainer.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════ -->
-<!-- 7 — INVESTMENT + NEXT        -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s7">
-  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
-  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
-  <div class="s-in">
-    <div class="tag">06 — Pricing &amp; Next Steps</div>
+    <div class="tag">03 — Pricing</div>
     <h2>Two Ways<br><span class="g3">to Run It</span></h2>
-    <p class="sub">Same approach, different depth. Pick whichever feels right. Happy to talk you through either.</p>
+    <p class="sub">Same approach. Pick whichever feels right.</p>
 
     <table class="price-table">
       <thead>
@@ -289,25 +181,38 @@
         <tr>
           <td>
             <strong>Remote</strong>
-            <div class="td-sub">Conversations and observation done over Teams and screen-share. Lighter, fully off-site.</div>
+            <div class="td-sub">Conversations and observation done over Teams and screen-share.</div>
           </td>
           <td>From 38,000 MAD <div class="td-sub">≈ €3,500</div></td>
         </tr>
         <tr>
           <td>
             <strong>On-site</strong>
-            <div class="td-sub">Everything in Remote, plus time on the property during the rhythms that matter. Travel and accommodation included.</div>
+            <div class="td-sub">Plus time on the property during the rhythms that matter. Travel and accommodation included.</div>
           </td>
           <td>From 59,000 MAD <div class="td-sub">≈ €5,500</div></td>
         </tr>
       </tbody>
     </table>
 
-    <p style="margin-top:1.2rem;font-size:0.9rem;color:var(--td);line-height:1.6;">Half on kickoff, half on delivery. Invoice in MAD or EUR, your call. No retainer afterwards.</p>
+    <p style="margin-top:1.2rem;font-size:0.9rem;color:var(--td);line-height:1.6;">Half on kickoff, half on delivery. No retainer afterwards.</p>
+  </div>
+</section>
 
-    <div style="margin-top:2.5rem;text-align:center;">
-      <a href="https://www.jengu.ai/book" target="_blank" class="cta cta-primary">Book a call &nbsp;→</a>
-      <a href="mailto:hello@jengu.ai?subject=HGI%20Casablanca%20Sud%20%E2%80%94%20process%20mapping" class="cta cta-secondary" style="margin-left:1rem;">Just email us</a>
+<!-- ════════════════════════════ -->
+<!-- 5 — NEXT                     -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s5">
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
+  <div class="s-in" style="text-align:center;">
+    <div class="tag">04 — Next</div>
+    <h2>Up to<br><span class="g3">You</span></h2>
+    <p class="sub" style="margin:0 auto 1rem;">Reply, give us a shout, or book a slot below. Happy to answer anything before kicking off.</p>
+
+    <div style="margin-top:2.5rem;">
+      <a href="https://www.jengu.ai/book" target="_blank" class="cta cta-primary">Book a slot &nbsp;→</a>
+      <a href="mailto:hello@jengu.ai?subject=HGI%20Casablanca%20Sud%20%E2%80%94%20process%20map" class="cta cta-secondary" style="margin-left:1rem;">Email us</a>
     </div>
 
     <div style="margin-top:2.5rem;text-align:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);">
@@ -327,7 +232,7 @@ function dp(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.
 rz();cp();dp();addEventListener('resize',()=>{rz();cp();});
 
 const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('v');
-const bs=en.target.querySelectorAll('.flow-s,.flow-a,.card');
+const bs=en.target.querySelectorAll('.ex');
 bs.forEach((b,i)=>setTimeout(()=>b.classList.add('v'),i*100));}});},{threshold:.15});
 document.querySelectorAll('.s-in').forEach(e=>io.observe(e));
 
