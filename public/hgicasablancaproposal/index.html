@@ -389,6 +389,117 @@ function TopicsCard({ topics }) {
     </div>`;
 }
 
+function ResponseCard({ resp }) {
+  if (!resp || !resp.median_days) return null;
+  const total = resp.with_response;
+  const within48 = resp.within_48h;
+  const within7 = resp.within_7d;
+  const within30 = resp.within_30d;
+  const over30 = resp.over_30d;
+  const pct = (n) => Math.round(100 * n / total);
+  return html`
+    <div class="dash-card">
+      <h4>Owner response audit (TripAdvisor sample)</h4>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+        <div style="flex:1;min-width:120px;background:rgba(253,121,168,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #fd79a8;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Median response</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.median_days} <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">days</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:rgba(253,203,110,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #fdcb6e;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">P90 response</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.p90_days} <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">days</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:rgba(255,77,77,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #ff4d4d;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Slowest response</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.p99_days}<span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;"> d</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:rgba(0,206,201,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #00cec9;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Hilton standard</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">48 <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">hours</span></div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:1rem;">
+        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
+          <div style="color:#a0a0b8;">Within 48 hours</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within48)}%;background:#00cec9;border-radius:4px;`}></div></div>
+          <div style="color:#00cec9;font-weight:700;text-align:right;">${pct(within48)}%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
+          <div style="color:#a0a0b8;">Within 7 days</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within7)}%;background:#fdcb6e;border-radius:4px;`}></div></div>
+          <div style="color:#fdcb6e;font-weight:700;text-align:right;">${pct(within7)}%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
+          <div style="color:#a0a0b8;">Within 30 days</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within30)}%;background:#a29bfe;border-radius:4px;`}></div></div>
+          <div style="color:#a29bfe;font-weight:700;text-align:right;">${pct(within30)}%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;">
+          <div style="color:#a0a0b8;">Took over 30 days</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(over30)}%;background:#fd79a8;border-radius:4px;`}></div></div>
+          <div style="color:#fd79a8;font-weight:700;text-align:right;">${pct(over30)}%</div>
+        </div>
+      </div>
+      <p style="margin-top:0.9rem;font-size:0.75rem;color:#a0a0b8;line-height:1.5;">${pct(within48)}% of reviews get a response within Hilton's 48-hour brand standard. Average response time is ${resp.avg_days} days. AI-drafted replies bring this to under an hour.</p>
+    </div>`;
+}
+
+function VelocityChart({ velocity }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.ApexCharts || !velocity) return;
+    const months = velocity.map(d => d.month);
+    const chart = new ApexCharts(ref.current, {
+      chart: { type: 'bar', height: 250, background: 'transparent', stacked: true, toolbar: { show: false } },
+      theme: { mode: 'dark' },
+      colors: ['#fd79a8', 'rgba(255,255,255,0.1)'],
+      series: [
+        { name: 'Negative (1-2★)', data: velocity.map(d => d.negative) },
+        { name: 'Other reviews', data: velocity.map(d => d.total - d.negative) },
+      ],
+      xaxis: { categories: months, labels: { style: { colors: '#a0a0b8', fontSize: '10px' }, rotate: -45 }, tickAmount: Math.min(12, months.length) },
+      yaxis: { labels: { style: { colors: '#a0a0b8' } } },
+      grid: { borderColor: 'rgba(255,255,255,0.05)' },
+      legend: { position: 'top', labels: { colors: '#ededf4' } },
+      plotOptions: { bar: { columnWidth: '70%' } },
+      tooltip: { theme: 'dark' },
+    });
+    chart.render();
+    return () => chart.destroy();
+  }, [velocity]);
+  return html`
+    <div class="dash-card">
+      <h4>Negative review velocity over time</h4>
+      <div ref=${ref}></div>
+      <p style="margin-top:0.6rem;font-size:0.75rem;color:#a0a0b8;font-style:italic;line-height:1.5;">Pink bars show 1-2★ reviews per month. Useful for spotting whether things are getting better or worse — and which periods to investigate.</p>
+    </div>`;
+}
+
+function CountryCard({ countries }) {
+  if (!countries || Object.keys(countries).length === 0) return null;
+  const flag = (cc) => {
+    if (!cc || cc.length !== 2) return '🌍';
+    return String.fromCodePoint(...cc.toUpperCase().split('').map(c => 0x1F1A5 + c.charCodeAt(0)));
+  };
+  const NAME = { MA: 'Morocco', FR: 'France', SA: 'Saudi Arabia', NL: 'Netherlands', AE: 'UAE', GB: 'United Kingdom', US: 'United States', QA: 'Qatar', BE: 'Belgium', EG: 'Egypt', CH: 'Switzerland', DE: 'Germany', TR: 'Turkey', KW: 'Kuwait', CA: 'Canada', TN: 'Tunisia', IT: 'Italy', ES: 'Spain' };
+  const sorted = Object.entries(countries).sort((a,b) => b[1] - a[1]).slice(0, 12);
+  const max = sorted[0][1];
+  return html`
+    <div class="dash-card">
+      <h4>Top guest origin countries (Booking data)</h4>
+      <div style="display:flex;flex-direction:column;gap:0.45rem;">
+        ${sorted.map(([cc, n]) => html`
+          <div style="display:grid;grid-template-columns:40px 130px 1fr 50px;gap:0.6rem;align-items:center;font-size:0.83rem;">
+            <div style="font-size:1.2rem;text-align:center;">${flag(cc)}</div>
+            <div style="color:#ededf4;">${NAME[cc] || cc}</div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${100*n/max}%;background:linear-gradient(90deg,#6c5ce7,#00cec9);border-radius:4px;`}></div></div>
+            <div style="color:#a0a0b8;text-align:right;">${n}</div>
+          </div>`)}
+      </div>
+      <p style="margin-top:0.9rem;font-size:0.75rem;color:#a0a0b8;line-height:1.5;">Determines which languages a guest-messaging assistant should support. AR/FR/EN cover ~75% of guest base.</p>
+    </div>`;
+}
+
 function CompetitorCard({ competitors }) {
   if (!competitors || competitors.length === 0) return null;
   const sorted = [...competitors].sort((a, b) => b.avg_rating - a.avg_rating);
@@ -443,7 +554,7 @@ function Dashboard() {
     });
   }, [data, filter]);
 
-  if (!data) return html`<div style="color:#a0a0b8;text-align:center;padding:3rem;">Loading 282 reviews…</div>`;
+  if (!data) return html`<div style="color:#a0a0b8;text-align:center;padding:3rem;">Loading reviews…</div>`;
   const a = data.aggregates;
 
   return html`
@@ -487,6 +598,13 @@ function Dashboard() {
       <div class="dash-row split">
         <${TopicsCard} topics=${a.topics} />
         <${DonutChart} title="Language of original review" data=${a.by_lang} palette=${['#6c5ce7','#00cec9','#fd79a8','#fdcb6e','#a29bfe','#818cf8','#22d3ee']} />
+      </div>
+
+      ${a.velocity ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${VelocityChart} velocity=${a.velocity} /></div>` : ''}
+
+      <div class="dash-row split">
+        ${a.response ? html`<${ResponseCard} resp=${a.response} />` : ''}
+        ${a.by_country ? html`<${CountryCard} countries=${a.by_country} />` : ''}
       </div>
 
       ${competitors ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${CompetitorCard} competitors=${competitors} /></div>` : ''}
