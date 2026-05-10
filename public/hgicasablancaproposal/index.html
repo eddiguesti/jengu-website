@@ -99,6 +99,67 @@
     .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
   }
 
+  /* Editorial three-phase timeline */
+  .phases-tl { position: relative; margin: 3.5rem 0 2.5rem; padding-left: 88px; max-width: 760px; }
+  .phases-tl::before {
+    content: '';
+    position: absolute;
+    left: 31px; top: 28px; bottom: 28px;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(0,206,201,0.6) 0%, rgba(0,206,201,0.2) 50%, rgba(0,206,201,0.05) 100%);
+  }
+  .phase-row { position: relative; padding: 2rem 0 2.4rem; }
+  .phase-row + .phase-row { border-top: 1px solid rgba(255,255,255,0.04); }
+  .phase-num {
+    position: absolute;
+    left: -88px; top: 1.8rem;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid rgba(0,206,201,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem; font-weight: 600; font-style: italic;
+    color: var(--a3);
+    box-shadow: inset 0 0 0 4px rgba(0,206,201,0.04);
+  }
+  .phase-kicker { font-size: 0.62rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--td); margin-bottom: 0.4rem; }
+  .phase-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.1rem, 4vw, 2.8rem);
+    font-weight: 600; font-style: italic;
+    color: var(--t);
+    line-height: 1; margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .phase-lead {
+    color: var(--t);
+    font-size: 1.05rem; line-height: 1.7;
+    margin: 0 0 1rem;
+    font-weight: 400;
+  }
+  .phase-body { color: var(--td); font-size: 0.95rem; line-height: 1.75; margin: 0; }
+  .phase-out {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    color: var(--a3);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 1.4rem;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(0,206,201,0.4);
+  }
+  .closing-rule {
+    margin: 4rem auto 2rem;
+    width: 60px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  @media (max-width: 700px) {
+    .phases-tl { padding-left: 0; }
+    .phases-tl::before { display: none; }
+    .phase-num { position: static; margin-bottom: 0.8rem; }
+  }
+
   /* Simple flow chart */
   .flowchart { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 2rem auto 1rem; max-width: 720px; }
   .fc-row { display: grid; grid-template-columns: 1fr 280px 1fr; align-items: center; gap: 1rem; width: 100%; }
@@ -296,39 +357,49 @@
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
     <div class="tag">06 — How It Goes</div>
-    <h2>Three Phases<br><span class="g3">Done With You</span></h2>
-    <p class="sub">No black box. No surprises. You're in the room for every key call. We map, you pick what to act on, then we build it.</p>
+    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">The engagement,<br><span class="g3" style="font-style:italic;">in three movements.</span></h2>
+    <p class="sub" style="font-size:1.05rem;">No black box. You're in the room for every call that matters. We map, you decide what to act on, then we build it.</p>
 
-    <div class="grid3" style="margin-top:2rem;">
-      <div class="card">
-        <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#6c5ce7,#00cec9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:0.6rem;">1</div>
-        <h3>Map it</h3>
-        <p>A few weeks. We map how the hotel actually runs end to end. Short conversations with each head of department, time on the property during the rhythms that matter, every workflow drawn out. You see the maps mid-engagement so you can react before we lock anything in.</p>
-        <div style="margin-top:0.9rem;font-size:0.78rem;color:var(--a2);font-style:italic;line-height:1.5;">You walk away with: the maps, the patterns, the friction points.</div>
+    <div class="phases-tl">
+      <div class="phase-row">
+        <div class="phase-num">i</div>
+        <div class="phase-kicker">Phase one</div>
+        <div class="phase-name">Map.</div>
+        <p class="phase-lead">A few weeks of observing how the property actually runs.</p>
+        <p class="phase-body">Short conversations with each head of department. Time on the floor during the moments that stress the operation. Every workflow drawn out as it really happens, not as the SOP says. You see the maps mid-engagement so you can react before anything's locked in.</p>
+        <p class="phase-out">A clean set of process maps and a marked shortlist of where the friction sits.</p>
       </div>
-      <div class="card">
-        <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#fd79a8,#fdcb6e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:0.6rem;">2</div>
-        <h3>Pick the wins</h3>
-        <p>Sit down with you and walk through everything. Pick the low-hanging fruit together. The things worth fixing first, based on impact and what you can actually move on without burning political capital. Some get done by your team, some by us.</p>
-        <div style="margin-top:0.9rem;font-size:0.78rem;color:var(--a2);font-style:italic;line-height:1.5;">You walk away with: a prioritised list, agreed with you, not for you.</div>
+
+      <div class="phase-row">
+        <div class="phase-num">ii</div>
+        <div class="phase-kicker">Phase two</div>
+        <div class="phase-name">Decide.</div>
+        <p class="phase-lead">Sit down with you and pick the wins together.</p>
+        <p class="phase-body">Walk through what we found. Identify the low-hanging fruit. Choose what's worth doing first, based on impact and what you can move on without burning political capital. Some items get owned by your team, some by us.</p>
+        <p class="phase-out">A prioritised plan, agreed with you, not for you.</p>
       </div>
-      <div class="card">
-        <div style="font-size:2.5rem;font-weight:900;background:linear-gradient(135deg,#00cec9,#a29bfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:0.6rem;">3</div>
-        <h3>Build the toolkit</h3>
-        <p>Layer in the software and AI agents that lock in the wins and start future-proofing the operation. WhatsApp guest assistant, AI review responses, daily reports auto-generated, predictive maintenance — whichever the maps point at. Brand-safe. Integrated with what you already have.</p>
-        <div style="margin-top:0.9rem;font-size:0.78rem;color:var(--a2);font-style:italic;line-height:1.5;">You walk away with: working tools, owned by you, no vendor lock-in.</div>
+
+      <div class="phase-row">
+        <div class="phase-num">iii</div>
+        <div class="phase-kicker">Phase three</div>
+        <div class="phase-name">Build.</div>
+        <p class="phase-lead">Layer in the tools that lock the wins in for good.</p>
+        <p class="phase-body">WhatsApp guest assistant. AI-drafted review responses. Daily reports written for you. Predictive maintenance. Whichever the maps point at. Built brand-safe, integrated with what you already run, designed to be handed over and lived with by your own team.</p>
+        <p class="phase-out">Working tools, owned by you. No retainer. No vendor lock-in.</p>
       </div>
     </div>
 
-    <div style="margin-top:2.5rem;text-align:center;">
+    <div class="closing-rule"></div>
+
+    <div style="text-align:center;">
       <a href="https://www.jengu.ai/book" target="_blank" class="cta cta-primary">Book a slot &nbsp;→</a>
       <a href="mailto:hello@jengu.ai?subject=HGI%20Casablanca%20Sud%20%E2%80%94%20process%20map" class="cta cta-secondary" style="margin-left:1rem;">Email us</a>
     </div>
 
-    <div style="margin-top:2rem;text-align:center;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);">
-      <a href="mailto:hello@jengu.ai" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:0.95rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">hello@jengu.ai</a>
-      <span style="color:var(--td);margin:0 0.8rem;">·</span>
-      <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:0.95rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
+    <div style="margin-top:2.5rem;text-align:center;font-size:0.9rem;color:var(--td);">
+      <a href="mailto:hello@jengu.ai" style="color:var(--a3);text-decoration:none;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">hello@jengu.ai</a>
+      <span style="margin:0 0.8rem;opacity:0.5;">·</span>
+      <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);text-decoration:none;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
     </div>
   </div>
 </section>
