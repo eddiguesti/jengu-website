@@ -389,12 +389,47 @@ function TopicsCard({ topics }) {
     </div>`;
 }
 
+function CompetitorCard({ competitors }) {
+  if (!competitors || competitors.length === 0) return null;
+  const sorted = [...competitors].sort((a, b) => b.avg_rating - a.avg_rating);
+  const labels = {
+    'movenpick': 'Movenpick Casablanca',
+    'hyatt': 'Hyatt Regency Casablanca',
+    'sofitel': 'Sofitel Tour Blanche',
+    'fourseasons': 'Four Seasons Casablanca',
+    'HGI Sud (you)': 'HGI Casablanca Sud (you)',
+  };
+  return html`
+    <div class="dash-card">
+      <h4>Casablanca competitor benchmark</h4>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        ${sorted.map(c => {
+          const isYou = c.name === 'HGI Sud (you)';
+          const lbl = labels[c.name] || c.name;
+          const barPct = (c.avg_rating / 5) * 100;
+          const barColor = isYou ? 'linear-gradient(90deg,#6c5ce7,#00cec9)' : 'rgba(255,255,255,0.18)';
+          const txtColor = isYou ? '#ededf4' : '#a0a0b8';
+          return html`
+            <div style=${`display:grid;grid-template-columns:200px 1fr 60px 80px;gap:0.6rem;align-items:center;padding:0.5rem 0;${isYou ? 'background:rgba(108,92,231,0.06);border-radius:8px;padding:0.5rem 0.7rem;' : ''}`}>
+              <div style=${`color:${txtColor};font-weight:${isYou ? 700 : 500};font-size:0.85rem;`}>${lbl}</div>
+              <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:10px;overflow:hidden;"><div style=${`height:100%;width:${barPct}%;background:${barColor};border-radius:4px;`}></div></div>
+              <div style=${`color:#fdcb6e;font-weight:700;font-size:0.85rem;text-align:right;`}>${c.avg_rating}<span style="color:#a0a0b8;font-size:0.7rem;font-weight:400;">/5</span></div>
+              <div style="color:#a0a0b8;font-size:0.72rem;text-align:right;">${c.total_reviews.toLocaleString()} rev</div>
+            </div>`;
+        })}
+      </div>
+      <p style="margin-top:0.9rem;font-size:0.7rem;color:#a0a0b8;font-style:italic;line-height:1.5;">Competitor ratings derived from a TripAdvisor sample. Total review counts are accurate. Use for directional comparison only.</p>
+    </div>`;
+}
+
 function Dashboard() {
   const [data, setData] = useState(null);
+  const [competitors, setCompetitors] = useState(null);
   const [filter, setFilter] = useState({ source: 'All', rating: 'All', q: '' });
 
   useEffect(() => {
     fetch('./dashboard-data.json').then(r => r.json()).then(setData);
+    fetch('./competitors.json').then(r => r.json()).then(setCompetitors).catch(() => {});
   }, []);
 
   const filtered = useMemo(() => {
@@ -453,6 +488,8 @@ function Dashboard() {
         <${TopicsCard} topics=${a.topics} />
         <${DonutChart} title="Language of original review" data=${a.by_lang} palette=${['#6c5ce7','#00cec9','#fd79a8','#fdcb6e','#a29bfe','#818cf8','#22d3ee']} />
       </div>
+
+      ${competitors ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${CompetitorCard} competitors=${competitors} /></div>` : ''}
 
       <div class="dash-card" style="margin-top:1rem;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
