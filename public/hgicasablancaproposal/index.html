@@ -111,6 +111,7 @@
     <a href="#s3"></a>
     <a href="#s4"></a>
     <a href="#s5"></a>
+    <a href="#s6"></a>
   </div>
 </nav>
 
@@ -151,13 +152,13 @@
   <div class="s-in">
     <div class="tag">02 — A Quick Look at Public Reviews</div>
     <h2>Some Patterns<br><span class="g3">Already Visible</span></h2>
-    <p class="sub">Before sending this over we read every public review of the hotel we could pull. 116 from TripAdvisor, 100 from Booking, 20 from Google. 236 in total. Four patterns kept coming up across all three sources. None are the answer on their own. They're things worth a closer look in the map.</p>
+    <p class="sub">Before sending this over we read every public review of the hotel we could pull. 116 from TripAdvisor, 100 from Booking, 68 from Google. 284 in total. Four patterns kept coming up across all three sources. None are the answer on their own. Things worth a closer look in the map.</p>
 
     <div style="margin-top:1.8rem;display:flex;gap:0.6rem;flex-wrap:wrap;font-size:0.7rem;color:var(--td);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">
       <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">116 TripAdvisor</span>
       <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">100 Booking.com</span>
-      <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">20 Google</span>
-      <span style="padding:0.4rem 0.8rem;background:rgba(0,206,201,0.12);border:1px solid rgba(0,206,201,0.3);border-radius:999px;color:var(--a3);">236 reviews analysed</span>
+      <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">68 Google</span>
+      <span style="padding:0.4rem 0.8rem;background:rgba(0,206,201,0.12);border:1px solid rgba(0,206,201,0.3);border-radius:999px;color:var(--a3);">284 reviews analysed</span>
     </div>
 
     <div class="examples" style="margin-top:1.8rem;">
@@ -172,12 +173,25 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 4 — THINGS WE CAN BUILD      -->
+<!-- 4 — LIVE REVIEW DASHBOARD    -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s4">
+<section class="s" id="s4" style="min-height:auto;padding:4rem 3rem 6rem;">
+  <div class="orb" style="width:600px;height:600px;background:var(--a2);top:-200px;right:-200px;"></div>
+  <div class="s-in" style="max-width:1200px;">
+    <div class="tag">03 — Live Review Dashboard</div>
+    <h2>Every Review<br><span class="g3">In One Place</span></h2>
+    <p class="sub">Filterable, searchable, charted. This is the kind of always-on intelligence layer the engagement could leave in your hands. Try the filters.</p>
+    <div id="reviewDashboard" style="margin-top:2rem;"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 5 — THINGS WE CAN BUILD      -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s5">
   <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
   <div class="s-in">
-    <div class="tag">03 — Some Examples</div>
+    <div class="tag">04 — Some Examples</div>
     <h2>Things We<br><span class="g2">Tend to Surface</span></h2>
     <p class="sub">Not a prediction list. Just things hotels are putting in right now and getting real value out of. Won't know which actually fit HGI Sud until we look.</p>
 
@@ -194,13 +208,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — NEXT                     -->
+<!-- 6 — NEXT                     -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s5">
+<section class="s" id="s6">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in" style="text-align:center;">
-    <div class="tag">04 — Next</div>
+    <div class="tag">05 — Next</div>
     <h2>Up to<br><span class="g3">You</span></h2>
     <p class="sub" style="margin:0 auto 1rem;">Reply to this, drop us an email, or grab a slot. Happy to walk through any of it before kicking off.</p>
 
@@ -238,5 +252,245 @@ ds.forEach(d=>d.addEventListener('click',e=>{e.preventDefault();document.querySe
 let cs=0;
 addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();cs=Math.min(cs+1,ss.length-1);ss[cs].scrollIntoView({behavior:'smooth'});}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cs=Math.max(cs-1,0);ss[cs].scrollIntoView({behavior:'smooth'});}});
 </script>
+
+<!-- Dashboard styles -->
+<style>
+  #reviewDashboard { font-family: 'Inter', sans-serif; color: var(--t); }
+  .dash-grid { display: grid; gap: 1rem; grid-template-columns: repeat(4, 1fr); }
+  .dash-tile { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.4rem 1.5rem; }
+  .dash-tile .lbl { font-size: 0.65rem; color: var(--td); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .dash-tile .val { font-size: 2rem; font-weight: 900; line-height: 1; }
+  .dash-tile .sub { font-size: 0.78rem; color: var(--td); margin-top: 0.4rem; }
+  .dash-row { display: grid; gap: 1rem; margin-top: 1rem; }
+  .dash-row.split { grid-template-columns: 2fr 1fr; }
+  .dash-card { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.5rem; }
+  .dash-card h4 { font-size: 0.72rem; color: var(--td); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem; }
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 1.5rem 0 1rem; }
+  .pill-btn { padding: 0.4rem 0.9rem; border-radius: 999px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--td); font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .pill-btn:hover { color: var(--t); border-color: rgba(255,255,255,0.25); }
+  .pill-btn.active { background: linear-gradient(135deg, var(--a1), var(--a3)); color: #fff; border-color: transparent; }
+  .search-box { padding: 0.55rem 1rem; border-radius: 999px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--t); font-size: 0.85rem; min-width: 220px; outline: none; }
+  .search-box:focus { border-color: var(--a3); }
+  .review-feed { max-height: 600px; overflow-y: auto; padding-right: 0.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
+  .review-feed::-webkit-scrollbar { width: 6px; } .review-feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  .rev-item { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem 1.2rem; }
+  .rev-meta { display: flex; gap: 0.6rem; align-items: center; font-size: 0.7rem; color: var(--td); margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .rev-source { padding: 0.15rem 0.55rem; border-radius: 999px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.6rem; }
+  .rev-source.TripAdvisor { background: rgba(0,206,201,0.15); color: var(--a3); }
+  .rev-source.Booking { background: rgba(108,92,231,0.15); color: var(--a2); }
+  .rev-source.Google { background: rgba(253,121,168,0.15); color: var(--a4); }
+  .rev-stars { color: var(--a5); letter-spacing: 1px; font-size: 0.85rem; }
+  .rev-stars .empty { color: rgba(255,255,255,0.15); }
+  .rev-title { font-size: 0.95rem; font-weight: 600; color: var(--t); margin-bottom: 0.3rem; }
+  .rev-text { font-size: 0.82rem; color: var(--td); line-height: 1.55; }
+  .topic-row { display: grid; grid-template-columns: 180px 1fr 60px 60px; gap: 0.6rem; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.82rem; }
+  .topic-row .name { color: var(--t); }
+  .topic-row .bar-wrap { background: rgba(255,255,255,0.05); border-radius: 4px; height: 8px; overflow: hidden; }
+  .topic-row .bar { height: 100%; border-radius: 4px; }
+  .topic-row .neg { color: var(--a4); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .topic-row .pos { color: var(--a3); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 768px) {
+    .dash-grid { grid-template-columns: repeat(2, 1fr); }
+    .dash-row.split { grid-template-columns: 1fr; }
+    .topic-row { grid-template-columns: 110px 1fr 40px 40px; font-size: 0.72rem; }
+  }
+</style>
+
+<!-- Dashboard libs -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.49.1/dist/apexcharts.min.js"></script>
+
+<script type="module">
+import { h, render } from 'https://esm.sh/preact@10.19.3';
+import { useState, useEffect, useMemo, useRef } from 'https://esm.sh/preact@10.19.3/hooks';
+import htm from 'https://esm.sh/htm@3.1.1';
+const html = htm.bind(h);
+
+const SOURCES = ['TripAdvisor', 'Booking', 'Google'];
+const SOURCE_COLORS = { TripAdvisor: '#00cec9', Booking: '#a29bfe', Google: '#fd79a8' };
+
+function Stars({ n }) {
+  const filled = '★'.repeat(n);
+  const empty = '☆'.repeat(5 - n);
+  return html`<span class="rev-stars">${filled}<span class="empty">${empty}</span></span>`;
+}
+
+function TimeChart({ trend }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.ApexCharts || trend.length === 0) return;
+    const months = trend.map(d => d.month);
+    const series = SOURCES.map(s => ({
+      name: s,
+      data: trend.map(d => d[s] != null ? Number(d[s].toFixed(2)) : null),
+    }));
+    const chart = new ApexCharts(ref.current, {
+      chart: { type: 'line', height: 280, background: 'transparent', toolbar: { show: false }, animations: { speed: 400 } },
+      theme: { mode: 'dark' },
+      stroke: { curve: 'smooth', width: 2.5 },
+      markers: { size: 4 },
+      colors: SOURCES.map(s => SOURCE_COLORS[s]),
+      series,
+      xaxis: { categories: months, labels: { style: { colors: '#a0a0b8', fontSize: '11px' }, rotate: -45 }, tickAmount: Math.min(12, months.length) },
+      yaxis: { min: 0, max: 5, labels: { style: { colors: '#a0a0b8' }, formatter: v => v.toFixed(1) + '★' } },
+      grid: { borderColor: 'rgba(255,255,255,0.05)' },
+      legend: { position: 'top', labels: { colors: '#ededf4' } },
+      tooltip: { theme: 'dark' },
+    });
+    chart.render();
+    return () => chart.destroy();
+  }, [trend]);
+  return html`<div ref=${ref}></div>`;
+}
+
+function DonutChart({ title, data, palette }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.ApexCharts) return;
+    const labels = Object.keys(data);
+    const series = Object.values(data);
+    const chart = new ApexCharts(ref.current, {
+      chart: { type: 'donut', height: 220, background: 'transparent' },
+      theme: { mode: 'dark' },
+      labels, series,
+      colors: palette || ['#6c5ce7', '#a29bfe', '#00cec9', '#fd79a8', '#fdcb6e', '#818cf8', '#22d3ee'],
+      legend: { position: 'bottom', labels: { colors: '#ededf4' }, fontSize: '11px' },
+      dataLabels: { enabled: false },
+      stroke: { width: 0 },
+      plotOptions: { pie: { donut: { size: '65%', labels: { show: true, total: { show: true, label: 'Total', color: '#ededf4', formatter: () => series.reduce((a,b)=>a+b, 0) } } } } },
+    });
+    chart.render();
+    return () => chart.destroy();
+  }, [data]);
+  return html`
+    <div class="dash-card">
+      <h4>${title}</h4>
+      <div ref=${ref}></div>
+    </div>`;
+}
+
+function TopicsCard({ topics }) {
+  const sorted = [...topics].sort((a, b) => b.neg - a.neg);
+  const max = Math.max(...sorted.map(t => t.total), 1);
+  return html`
+    <div class="dash-card">
+      <h4>Topics surfaced (sorted by negative mentions)</h4>
+      <div>
+        ${sorted.map(t => {
+          const pct = (t.total / max) * 100;
+          return html`
+            <div class="topic-row">
+              <div class="name">${t.topic}</div>
+              <div class="bar-wrap"><div class="bar" style=${`width:${pct}%;background:linear-gradient(90deg,#fd79a8 ${100*t.neg/Math.max(t.total,1)}%, #00cec9 ${100*t.neg/Math.max(t.total,1)}%);`}></div></div>
+              <div class="neg">${t.neg}<span style="color:#a0a0b8;font-weight:400;font-size:0.7rem;"> neg</span></div>
+              <div class="pos">${t.pos}<span style="color:#a0a0b8;font-weight:400;font-size:0.7rem;"> pos</span></div>
+            </div>`;
+        })}
+      </div>
+    </div>`;
+}
+
+function Dashboard() {
+  const [data, setData] = useState(null);
+  const [filter, setFilter] = useState({ source: 'All', rating: 'All', q: '' });
+
+  useEffect(() => {
+    fetch('./dashboard-data.json').then(r => r.json()).then(setData);
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!data) return [];
+    const q = filter.q.toLowerCase();
+    return data.reviews.filter(r => {
+      if (filter.source !== 'All' && r.source !== filter.source) return false;
+      if (filter.rating !== 'All' && r.rating !== Number(filter.rating)) return false;
+      if (q && !((r.title||'') + ' ' + (r.text||'') + ' ' + (r.reviewer||'')).toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [data, filter]);
+
+  if (!data) return html`<div style="color:#a0a0b8;text-align:center;padding:3rem;">Loading 282 reviews…</div>`;
+  const a = data.aggregates;
+
+  return html`
+    <div>
+      <div class="dash-grid">
+        <div class="dash-tile">
+          <div class="lbl">Total reviews</div>
+          <div class="val g1" style="background:linear-gradient(135deg,#6c5ce7,#00cec9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${a.total}</div>
+          <div class="sub">across 3 platforms</div>
+        </div>
+        <div class="dash-tile">
+          <div class="lbl">Average rating</div>
+          <div class="val" style="color:#fdcb6e;">${a.avg_rating}<span style="font-size:1rem;color:#a0a0b8;"> / 5</span></div>
+          <div class="sub">unweighted across all sources</div>
+        </div>
+        <div class="dash-tile">
+          <div class="lbl">Negative (1–2★)</div>
+          <div class="val" style="color:#fd79a8;">${a.negative_pct}%</div>
+          <div class="sub">${Math.round(a.negative_pct * a.total / 100)} reviews</div>
+        </div>
+        <div class="dash-tile">
+          <div class="lbl">Source mix</div>
+          <div style="display:flex;flex-direction:column;gap:0.3rem;margin-top:0.3rem;">
+            ${SOURCES.map(s => html`
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+                <span style="color:${SOURCE_COLORS[s]};font-weight:600;">${s}</span>
+                <span style="color:#ededf4;font-weight:700;">${a.by_source[s]||0}</span>
+              </div>`)}
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-row split">
+        <div class="dash-card">
+          <h4>Rating trend over time</h4>
+          <${TimeChart} trend=${a.trend} />
+        </div>
+        <${DonutChart} title="Trip type" data=${a.by_trip_type} />
+      </div>
+
+      <div class="dash-row split">
+        <${TopicsCard} topics=${a.topics} />
+        <${DonutChart} title="Language of original review" data=${a.by_lang} palette=${['#6c5ce7','#00cec9','#fd79a8','#fdcb6e','#a29bfe','#818cf8','#22d3ee']} />
+      </div>
+
+      <div class="dash-card" style="margin-top:1rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+          <h4 style="margin-bottom:0;">Filterable review feed</h4>
+          <div style="font-size:0.8rem;color:#a0a0b8;">${filtered.length} of ${a.total} reviews shown</div>
+        </div>
+        <div class="filter-bar">
+          ${['All', ...SOURCES].map(s => html`
+            <button class=${'pill-btn ' + (filter.source === s ? 'active' : '')} onClick=${() => setFilter({...filter, source: s})}>${s}</button>`)}
+          <span style="opacity:0.3;">|</span>
+          ${['All', '1', '2', '3', '4', '5'].map(r => html`
+            <button class=${'pill-btn ' + (String(filter.rating) === r ? 'active' : '')} onClick=${() => setFilter({...filter, rating: r})}>${r === 'All' ? 'All ★' : r + '★'}</button>`)}
+          <input class="search-box" type="text" placeholder="Search reviews…" value=${filter.q} onInput=${e => setFilter({...filter, q: e.target.value})} />
+        </div>
+        <div class="review-feed">
+          ${filtered.length === 0 ? html`<div style="text-align:center;color:#a0a0b8;padding:2rem;">No reviews match these filters</div>` :
+            filtered.slice(0, 100).map(r => html`
+              <div class="rev-item">
+                <div class="rev-meta">
+                  <span class=${'rev-source ' + r.source}>${r.source}</span>
+                  <${Stars} n=${r.rating} />
+                  ${r.date ? html`<span>${r.date}</span>` : ''}
+                  ${r.trip_type ? html`<span>· ${r.trip_type}</span>` : ''}
+                  ${r.lang && r.lang !== 'en' ? html`<span>· ${r.lang}</span>` : ''}
+                  ${r.country ? html`<span>· ${r.country}</span>` : ''}
+                  ${r.reviewer ? html`<span style="margin-left:auto;">${r.reviewer}</span>` : ''}
+                </div>
+                ${r.title ? html`<div class="rev-title">${r.title}</div>` : ''}
+                <div class="rev-text">${r.text}</div>
+              </div>`)}
+          ${filtered.length > 100 ? html`<div style="text-align:center;color:#a0a0b8;padding:1rem;font-size:0.78rem;">Showing first 100 of ${filtered.length} matches. Refine filters to narrow.</div>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+render(html`<${Dashboard} />`, document.getElementById('reviewDashboard'));
+</script>
+
 </body>
 </html>
