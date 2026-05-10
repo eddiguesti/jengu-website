@@ -99,23 +99,40 @@
     .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
   }
 
-  /* Guest journey / swim lane */
-  .journey { margin-top: 2rem; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.5rem; overflow-x: auto; }
-  .journey-grid { display: grid; grid-template-columns: 130px repeat(6, 1fr); gap: 0; align-items: stretch; min-width: 700px; }
-  .jh { padding: 0.6rem 0.5rem; font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--td); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .jh.actor { text-align: left; padding-left: 0.5rem; }
-  .jrow { display: contents; }
-  .jrow .jactor { padding: 0.9rem 0.5rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--td); display: flex; align-items: center; border-right: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .jrow .jcell { padding: 0.7rem 0.5rem; border-right: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; justify-content: center; text-align: center; font-size: 0.72rem; color: var(--t); position: relative; min-height: 60px; }
-  .jrow .jcell.box { background: rgba(108,92,231,0.08); border-radius: 6px; margin: 6px 4px; }
-  .jrow .jcell.warn { background: rgba(253,121,168,0.10); border: 1px dashed rgba(253,121,168,0.4); border-radius: 6px; margin: 6px 4px; }
-  .jrow .jcell.win { background: rgba(0,206,201,0.10); border: 1px dashed rgba(0,206,201,0.4); border-radius: 6px; margin: 6px 4px; }
-  .jrow .jcell .pin { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; color: #fff; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(0,0,0,0.4); }
-  .jrow .jcell.warn .pin { background: var(--a4); }
-  .jrow .jcell.win .pin { background: var(--a3); }
-  .jlegend { display: flex; gap: 1.2rem; margin-top: 1rem; font-size: 0.75rem; color: var(--td); flex-wrap: wrap; }
-  .jlegend span { display: inline-flex; align-items: center; gap: 0.5rem; }
-  .jlegend .ldot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  /* Guest journey overview pill row */
+  .gj-stages { display: flex; gap: 0.4rem; align-items: stretch; margin: 2rem 0 1.2rem; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.4rem; }
+  .gj-stage { flex: 1; min-width: 150px; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.9rem 1rem; position: relative; }
+  .gj-stage.zoom { border-color: rgba(0,206,201,0.4); background: linear-gradient(135deg, rgba(0,206,201,0.08), rgba(108,92,231,0.08)); box-shadow: 0 0 0 1px rgba(0,206,201,0.15); }
+  .gj-stage::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: var(--td); font-size: 1.1rem; z-index: 2; }
+  .gj-stage:last-child::after { display: none; }
+  .gj-stage .gs-time { font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--a3); }
+  .gj-stage .gs-name { font-size: 0.95rem; font-weight: 700; color: var(--t); margin-top: 0.2rem; }
+  .gj-stage .gs-sub { font-size: 0.72rem; color: var(--td); margin-top: 0.3rem; line-height: 1.4; }
+
+  /* Service blueprint */
+  .blueprint { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 0; margin-top: 1.5rem; overflow: hidden; }
+  .bp-head { background: linear-gradient(135deg, rgba(0,206,201,0.10), rgba(108,92,231,0.10)); padding: 1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+  .bp-head h4 { color: var(--t); font-size: 0.9rem; font-weight: 700; margin: 0; }
+  .bp-head .bp-sub { font-size: 0.72rem; color: var(--td); }
+  .bp-body { display: grid; grid-template-columns: 150px repeat(6, 1fr); gap: 0; }
+  .bp-time { padding: 0.7rem 0.6rem; text-align: center; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; color: var(--a3); border-bottom: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.04); background: rgba(0,206,201,0.04); }
+  .bp-time:first-child { background: var(--card); color: var(--td); text-align: left; padding-left: 1rem; }
+  .bp-row-label { padding: 1.1rem 1rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--td); background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; }
+  .bp-row-label .bp-row-sub { display: block; font-size: 0.6rem; color: rgba(160,160,184,0.6); font-weight: 500; letter-spacing: 0.5px; text-transform: none; margin-top: 0.2rem; }
+  .bp-cell { padding: 0.85rem 0.75rem; border-right: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.74rem; color: var(--t); line-height: 1.45; min-height: 60px; display: flex; align-items: center; }
+  .bp-cell.empty { color: rgba(255,255,255,0.15); justify-content: center; font-size: 1rem; }
+  .bp-cell.system { font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 0.68rem; color: var(--a2); background: rgba(108,92,231,0.04); }
+  .bp-cell.pain { background: rgba(253,121,168,0.06); color: var(--a4); font-weight: 600; font-size: 0.72rem; line-height: 1.4; }
+  .bp-cell.pain::before { content: '⚠ '; color: var(--a4); font-weight: 800; }
+  .bp-cell.win { background: rgba(0,206,201,0.06); color: var(--a3); font-weight: 600; font-size: 0.72rem; }
+  .bp-cell.win::before { content: '✓ '; color: var(--a3); font-weight: 800; }
+  .bp-row:last-of-type .bp-cell { border-bottom: none; }
+  @media (max-width: 768px) {
+    .bp-body { display: block; }
+    .bp-body .bp-time { display: none; }
+    .bp-row-label { display: block; padding: 0.5rem 1rem; }
+    .bp-cell { display: block; padding: 0.5rem 1rem; min-height: auto; }
+  }
 </style>
 </head>
 <body>
@@ -214,88 +231,116 @@
     <h2>Guest Journey First,<br><span class="g3">Workflows Second</span></h2>
     <p class="sub">We always start with the guest. What does someone actually go through, end to end, from booking to checkout? Once that's clear we layer the workflows your team runs to deliver it. Friction shows up where the two don't line up.</p>
 
-    <p style="margin-top:2rem;font-size:0.7rem;color:var(--td);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Simple example · check-in flow · 6 minutes from arrival to room</p>
+    <p style="margin-top:1.5rem;font-size:0.7rem;color:var(--td);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Step 1 · The full guest journey, mapped as stages</p>
 
-    <div class="journey">
-      <div class="journey-grid">
-        <div class="jh actor">Lane</div>
-        <div class="jh">00:00</div>
-        <div class="jh">00:30</div>
-        <div class="jh">01:30</div>
-        <div class="jh">03:00</div>
-        <div class="jh">04:30</div>
-        <div class="jh">06:00</div>
-
-        <div class="jrow">
-          <div class="jactor">Guest</div>
-          <div class="jcell box">Walks in</div>
-          <div class="jcell"></div>
-          <div class="jcell box">Hands ID</div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell box">Receives key</div>
-        </div>
-
-        <div class="jrow">
-          <div class="jactor">Reception</div>
-          <div class="jcell box">Greets</div>
-          <div class="jcell box">Searches PMS</div>
-          <div class="jcell warn">Manual ID type<div class="pin">!</div></div>
-          <div class="jcell warn">Auth payment<div class="pin">!</div></div>
-          <div class="jcell box">Allocates room</div>
-          <div class="jcell box">Encodes &amp; hands key</div>
-        </div>
-
-        <div class="jrow">
-          <div class="jactor">PMS (OnQ)</div>
-          <div class="jcell"></div>
-          <div class="jcell box">Returns reservation</div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell box">Updates room status</div>
-          <div class="jcell"></div>
-        </div>
-
-        <div class="jrow">
-          <div class="jactor">Honors</div>
-          <div class="jcell"></div>
-          <div class="jcell warn">Tier flag — when?<div class="pin">?</div></div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-        </div>
-
-        <div class="jrow">
-          <div class="jactor">Housekeeping</div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell"></div>
-          <div class="jcell win">Room marked ready<div class="pin">✓</div></div>
-          <div class="jcell"></div>
-        </div>
+    <div class="gj-stages">
+      <div class="gj-stage">
+        <div class="gs-time">T-7d → T-1d</div>
+        <div class="gs-name">Booking</div>
+        <div class="gs-sub">OTA / direct booking lands. PMS sync. Pre-arrival comms.</div>
+      </div>
+      <div class="gj-stage zoom">
+        <div class="gs-time">T-0</div>
+        <div class="gs-name">Arrival &amp; check-in</div>
+        <div class="gs-sub">↓ Zoomed in below</div>
+      </div>
+      <div class="gj-stage">
+        <div class="gs-time">T+15m → T+22h</div>
+        <div class="gs-name">In-stay</div>
+        <div class="gs-sub">Service requests, F&amp;B, in-room comfort, complaints.</div>
+      </div>
+      <div class="gj-stage">
+        <div class="gs-time">T+24h</div>
+        <div class="gs-name">Departure</div>
+        <div class="gs-sub">Folio settle, transfer to airport, key return, late checkout.</div>
+      </div>
+      <div class="gj-stage">
+        <div class="gs-time">T+1d → T+30d</div>
+        <div class="gs-name">Post-stay</div>
+        <div class="gs-sub">Survey, review, loyalty points, repeat-stay marketing.</div>
       </div>
     </div>
 
-    <div class="jlegend">
-      <span><span class="ldot" style="background:rgba(108,92,231,0.4);"></span>Step in the flow</span>
-      <span><span class="ldot" style="background:var(--a4);"></span>Friction we'd investigate</span>
-      <span><span class="ldot" style="background:var(--a3);"></span>Handoff worth tracking</span>
+    <p style="margin-top:1.8rem;font-size:0.7rem;color:var(--td);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Step 2 · Zoom into one stage as a service blueprint (5 layers × 6 micro-moments)</p>
+
+    <div class="blueprint">
+      <div class="bp-head">
+        <h4>Arrival &amp; check-in · service blueprint</h4>
+        <div class="bp-sub">First 6 minutes from lobby door to room key</div>
+      </div>
+      <div class="bp-body">
+        <!-- Time row -->
+        <div class="bp-time">Stage</div>
+        <div class="bp-time">00:00</div>
+        <div class="bp-time">00:30</div>
+        <div class="bp-time">01:30</div>
+        <div class="bp-time">03:00</div>
+        <div class="bp-time">04:30</div>
+        <div class="bp-time">06:00</div>
+
+        <!-- Guest experience -->
+        <div class="bp-row-label">Guest<span class="bp-row-sub">What they feel</span></div>
+        <div class="bp-cell">Walks in tired from CMN airport</div>
+        <div class="bp-cell">Greeted, names said</div>
+        <div class="bp-cell">Hands over passport</div>
+        <div class="bp-cell">Card reader pause</div>
+        <div class="bp-cell">Room number announced</div>
+        <div class="bp-cell">Key in hand, heading to lift</div>
+
+        <!-- Frontstage -->
+        <div class="bp-row-label">Frontstage<span class="bp-row-sub">Visible team actions</span></div>
+        <div class="bp-cell">Reception greets, "checking in?"</div>
+        <div class="bp-cell">Looks up reservation in OnQ</div>
+        <div class="bp-cell">Types passport details into form</div>
+        <div class="bp-cell">Inserts card, waits for auth</div>
+        <div class="bp-cell">Picks room, checks status</div>
+        <div class="bp-cell">Encodes RFID key, hands over</div>
+
+        <!-- Backstage -->
+        <div class="bp-row-label">Backstage<span class="bp-row-sub">Hidden processes</span></div>
+        <div class="bp-cell empty">·</div>
+        <div class="bp-cell">PMS lookup; checks group block; flags Honors tier</div>
+        <div class="bp-cell">ID image stored to compliance folder</div>
+        <div class="bp-cell">Card auth call to acquirer</div>
+        <div class="bp-cell">PMS-to-housekeeping API check on room status</div>
+        <div class="bp-cell">Encoder writes to RFID; room status flips to "occupied"</div>
+
+        <!-- Systems -->
+        <div class="bp-row-label">Systems<span class="bp-row-sub">What's running</span></div>
+        <div class="bp-cell empty">·</div>
+        <div class="bp-cell system">OnQ · Honors</div>
+        <div class="bp-cell system">OnQ · scanner</div>
+        <div class="bp-cell system">Payment gateway</div>
+        <div class="bp-cell system">OnQ · HK app</div>
+        <div class="bp-cell system">OnQ · key encoder</div>
+
+        <!-- Pain / wins -->
+        <div class="bp-row-label">Where it breaks<span class="bp-row-sub">Friction &amp; wins</span></div>
+        <div class="bp-cell empty">·</div>
+        <div class="bp-cell pain">Honors tier often missed; recognition by name doesn't happen</div>
+        <div class="bp-cell pain">Manual typing = 60-90s of dead time per guest</div>
+        <div class="bp-cell pain">Card reader timeout on virtual cards from OTAs</div>
+        <div class="bp-cell win">Real-time HK status now visible (recent win)</div>
+        <div class="bp-cell empty">·</div>
+      </div>
     </div>
 
-    <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;">
+    <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
       <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
-        <div style="font-size:0.65rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">What the friction tells us</div>
-        <p style="font-size:0.85rem;color:var(--td);line-height:1.55;">Two steps are still manual (ID typing, payment auth) and the loyalty tier surfaces too late. All three are AI/automation candidates worth scoring.</p>
+        <div style="font-size:0.62rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">Honors tier missed → automation candidate</div>
+        <p style="font-size:0.78rem;color:var(--td);line-height:1.5;margin:0;">Pre-arrival flag on the PMS lookup screen so the desk says the right thing. Doesn't replace the team. Just makes them look prepared.</p>
       </div>
-      <div style="padding:1rem 1.2rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:8px;">
-        <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">What the handoff tells us</div>
-        <p style="font-size:0.85rem;color:var(--td);line-height:1.55;">Housekeeping marks a room ready in their system — does that signal reach reception in real time? Often the lag here is the single biggest cause of "ready in 15 min" reception guesses.</p>
+      <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
+        <div style="font-size:0.62rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">Manual ID typing → automation candidate</div>
+        <p style="font-size:0.78rem;color:var(--td);line-height:1.5;margin:0;">Passport scanner with OCR, drops fields straight into OnQ. 60-90 seconds back per guest. Multiplied by check-in volume per day.</p>
+      </div>
+      <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
+        <div style="font-size:0.62rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">Virtual-card timeouts → automation candidate</div>
+        <p style="font-size:0.78rem;color:var(--td);line-height:1.5;margin:0;">Pre-auth virtual cards at booking time, not at check-in. Removes the awkward pause from the guest's first impression.</p>
       </div>
     </div>
 
-    <p style="margin-top:1.5rem;font-size:0.85rem;color:var(--td);font-style:italic;line-height:1.6;">This is one moment of one journey. The full engagement maps the same level of detail across every stage — from the OTA booking landing in the PMS, through arrival, in-stay, departure, and post-stay review response. Anywhere a step crosses lanes is where the engagement spends most of its attention.</p>
+    <p style="margin-top:1.6rem;font-size:0.85rem;color:var(--td);font-style:italic;line-height:1.6;">That's one stage in detail. The full engagement does the same depth on the other four stages above — and on the back-of-house workflows (housekeeping handover, F&amp;B service, night audit) that don't show up in the guest's view but feed every part of it.</p>
   </div>
 </section>
 
