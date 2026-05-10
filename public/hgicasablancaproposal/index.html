@@ -99,39 +99,32 @@
     .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
   }
 
-  /* Guest journey overview pill row */
-  .gj-stages { display: flex; gap: 0.4rem; align-items: stretch; margin: 2rem 0 1.2rem; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.4rem; }
-  .gj-stage { flex: 1; min-width: 150px; background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 0.9rem 1rem; position: relative; }
-  .gj-stage.zoom { border-color: rgba(0,206,201,0.4); background: linear-gradient(135deg, rgba(0,206,201,0.08), rgba(108,92,231,0.08)); box-shadow: 0 0 0 1px rgba(0,206,201,0.15); }
-  .gj-stage::after { content: '→'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); color: var(--td); font-size: 1.1rem; z-index: 2; }
-  .gj-stage:last-child::after { display: none; }
-  .gj-stage .gs-time { font-size: 0.6rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--a3); }
-  .gj-stage .gs-name { font-size: 0.95rem; font-weight: 700; color: var(--t); margin-top: 0.2rem; }
-  .gj-stage .gs-sub { font-size: 0.72rem; color: var(--td); margin-top: 0.3rem; line-height: 1.4; }
-
-  /* Service blueprint */
-  .blueprint { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 0; margin-top: 1.5rem; overflow: hidden; }
-  .bp-head { background: linear-gradient(135deg, rgba(0,206,201,0.10), rgba(108,92,231,0.10)); padding: 1rem 1.4rem; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
-  .bp-head h4 { color: var(--t); font-size: 0.9rem; font-weight: 700; margin: 0; }
-  .bp-head .bp-sub { font-size: 0.72rem; color: var(--td); }
-  .bp-body { display: grid; grid-template-columns: 150px repeat(6, 1fr); gap: 0; }
-  .bp-time { padding: 0.7rem 0.6rem; text-align: center; font-size: 0.65rem; font-weight: 700; letter-spacing: 1px; color: var(--a3); border-bottom: 1px solid rgba(255,255,255,0.08); border-right: 1px solid rgba(255,255,255,0.04); background: rgba(0,206,201,0.04); }
-  .bp-time:first-child { background: var(--card); color: var(--td); text-align: left; padding-left: 1rem; }
-  .bp-row-label { padding: 1.1rem 1rem; font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--td); background: rgba(255,255,255,0.02); border-right: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; }
-  .bp-row-label .bp-row-sub { display: block; font-size: 0.6rem; color: rgba(160,160,184,0.6); font-weight: 500; letter-spacing: 0.5px; text-transform: none; margin-top: 0.2rem; }
-  .bp-cell { padding: 0.85rem 0.75rem; border-right: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.74rem; color: var(--t); line-height: 1.45; min-height: 60px; display: flex; align-items: center; }
-  .bp-cell.empty { color: rgba(255,255,255,0.15); justify-content: center; font-size: 1rem; }
-  .bp-cell.system { font-family: 'SF Mono', Menlo, Monaco, monospace; font-size: 0.68rem; color: var(--a2); background: rgba(108,92,231,0.04); }
-  .bp-cell.pain { background: rgba(253,121,168,0.06); color: var(--a4); font-weight: 600; font-size: 0.72rem; line-height: 1.4; }
-  .bp-cell.pain::before { content: '⚠ '; color: var(--a4); font-weight: 800; }
-  .bp-cell.win { background: rgba(0,206,201,0.06); color: var(--a3); font-weight: 600; font-size: 0.72rem; }
-  .bp-cell.win::before { content: '✓ '; color: var(--a3); font-weight: 800; }
-  .bp-row:last-of-type .bp-cell { border-bottom: none; }
+  /* Simple flow chart */
+  .flowchart { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 2rem auto 1rem; max-width: 720px; }
+  .fc-row { display: grid; grid-template-columns: 1fr 280px 1fr; align-items: center; gap: 1rem; width: 100%; }
+  .fc-row > .fc-spacer { }
+  .fc-box {
+    background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
+    padding: 1.1rem 1.4rem; font-size: 0.95rem; color: var(--t); font-weight: 500;
+    text-align: center; line-height: 1.4; box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+  }
+  .fc-box.start { background: linear-gradient(135deg, rgba(108,92,231,0.18), rgba(0,206,201,0.18)); border-color: rgba(108,92,231,0.4); font-weight: 700; }
+  .fc-box.end { background: linear-gradient(135deg, rgba(0,206,201,0.18), rgba(162,155,254,0.18)); border-color: rgba(0,206,201,0.4); font-weight: 700; }
+  .fc-box.friction { background: rgba(253,121,168,0.08); border-color: rgba(253,121,168,0.4); border-style: dashed; }
+  .fc-arrow { color: var(--td); font-size: 1.6rem; line-height: 1; padding: 0.4rem 0; text-align: center; opacity: 0.6; }
+  .fc-callout {
+    background: rgba(253,121,168,0.06); border-left: 3px solid var(--a4);
+    border-radius: 8px; padding: 0.65rem 0.9rem; font-size: 0.78rem; color: var(--td);
+    line-height: 1.5;
+  }
+  .fc-callout strong { color: var(--a4); font-weight: 700; }
+  .fc-callout-r { text-align: left; }
+  .fc-callout-l { text-align: right; }
   @media (max-width: 768px) {
-    .bp-body { display: block; }
-    .bp-body .bp-time { display: none; }
-    .bp-row-label { display: block; padding: 0.5rem 1rem; }
-    .bp-cell { display: block; padding: 0.5rem 1rem; min-height: auto; }
+    .fc-row { grid-template-columns: 1fr; }
+    .fc-callout { text-align: left !important; }
+    .fc-spacer { display: none; }
   }
 </style>
 </head>
@@ -228,119 +221,48 @@
   <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
   <div class="s-in" style="max-width:1100px;">
     <div class="tag">04 — How We Map</div>
-    <h2>Guest Journey First,<br><span class="g3">Workflows Second</span></h2>
-    <p class="sub">We always start with the guest. What does someone actually go through, end to end, from booking to checkout? Once that's clear we layer the workflows your team runs to deliver it. Friction shows up where the two don't line up.</p>
+    <h2>What a Flow Chart<br><span class="g3">Actually Looks Like</span></h2>
+    <p class="sub">Here's the simplest possible example, from a real moment at any hotel: a guest asks for an extra towel.</p>
 
-    <p style="margin-top:1.5rem;font-size:0.7rem;color:var(--td);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Step 1 · The full guest journey, mapped as stages</p>
-
-    <div class="gj-stages">
-      <div class="gj-stage">
-        <div class="gs-time">T-7d → T-1d</div>
-        <div class="gs-name">Booking</div>
-        <div class="gs-sub">OTA / direct booking lands. PMS sync. Pre-arrival comms.</div>
+    <div class="flowchart">
+      <div class="fc-row">
+        <div class="fc-spacer"></div>
+        <div class="fc-box start">Guest calls reception</div>
+        <div class="fc-spacer"></div>
       </div>
-      <div class="gj-stage zoom">
-        <div class="gs-time">T-0</div>
-        <div class="gs-name">Arrival &amp; check-in</div>
-        <div class="gs-sub">↓ Zoomed in below</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-row">
+        <div class="fc-spacer"></div>
+        <div class="fc-box">Reception writes it on a notepad</div>
+        <div class="fc-spacer"></div>
       </div>
-      <div class="gj-stage">
-        <div class="gs-time">T+15m → T+22h</div>
-        <div class="gs-name">In-stay</div>
-        <div class="gs-sub">Service requests, F&amp;B, in-room comfort, complaints.</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-row">
+        <div class="fc-spacer"></div>
+        <div class="fc-box friction">Radios housekeeping</div>
+        <div class="fc-callout fc-callout-r"><strong>Lost in radio noise.</strong> No record. No-one's tracking it.</div>
       </div>
-      <div class="gj-stage">
-        <div class="gs-time">T+24h</div>
-        <div class="gs-name">Departure</div>
-        <div class="gs-sub">Folio settle, transfer to airport, key return, late checkout.</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-row">
+        <div class="fc-spacer"></div>
+        <div class="fc-box friction">HK gets to the room "when free"</div>
+        <div class="fc-callout fc-callout-r"><strong>No SLA.</strong> Could be 5 minutes. Could be an hour.</div>
       </div>
-      <div class="gj-stage">
-        <div class="gs-time">T+1d → T+30d</div>
-        <div class="gs-name">Post-stay</div>
-        <div class="gs-sub">Survey, review, loyalty points, repeat-stay marketing.</div>
-      </div>
-    </div>
-
-    <p style="margin-top:1.8rem;font-size:0.7rem;color:var(--td);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Step 2 · Zoom into one stage as a service blueprint (5 layers × 6 micro-moments)</p>
-
-    <div class="blueprint">
-      <div class="bp-head">
-        <h4>Arrival &amp; check-in · service blueprint</h4>
-        <div class="bp-sub">First 6 minutes from lobby door to room key</div>
-      </div>
-      <div class="bp-body">
-        <!-- Time row -->
-        <div class="bp-time">Stage</div>
-        <div class="bp-time">00:00</div>
-        <div class="bp-time">00:30</div>
-        <div class="bp-time">01:30</div>
-        <div class="bp-time">03:00</div>
-        <div class="bp-time">04:30</div>
-        <div class="bp-time">06:00</div>
-
-        <!-- Guest experience -->
-        <div class="bp-row-label">Guest<span class="bp-row-sub">What they feel</span></div>
-        <div class="bp-cell">Walks in tired from CMN airport</div>
-        <div class="bp-cell">Greeted, names said</div>
-        <div class="bp-cell">Hands over passport</div>
-        <div class="bp-cell">Card reader pause</div>
-        <div class="bp-cell">Room number announced</div>
-        <div class="bp-cell">Key in hand, heading to lift</div>
-
-        <!-- Frontstage -->
-        <div class="bp-row-label">Frontstage<span class="bp-row-sub">Visible team actions</span></div>
-        <div class="bp-cell">Reception greets, "checking in?"</div>
-        <div class="bp-cell">Looks up reservation in OnQ</div>
-        <div class="bp-cell">Types passport details into form</div>
-        <div class="bp-cell">Inserts card, waits for auth</div>
-        <div class="bp-cell">Picks room, checks status</div>
-        <div class="bp-cell">Encodes RFID key, hands over</div>
-
-        <!-- Backstage -->
-        <div class="bp-row-label">Backstage<span class="bp-row-sub">Hidden processes</span></div>
-        <div class="bp-cell empty">·</div>
-        <div class="bp-cell">PMS lookup; checks group block; flags Honors tier</div>
-        <div class="bp-cell">ID image stored to compliance folder</div>
-        <div class="bp-cell">Card auth call to acquirer</div>
-        <div class="bp-cell">PMS-to-housekeeping API check on room status</div>
-        <div class="bp-cell">Encoder writes to RFID; room status flips to "occupied"</div>
-
-        <!-- Systems -->
-        <div class="bp-row-label">Systems<span class="bp-row-sub">What's running</span></div>
-        <div class="bp-cell empty">·</div>
-        <div class="bp-cell system">OnQ · Honors</div>
-        <div class="bp-cell system">OnQ · scanner</div>
-        <div class="bp-cell system">Payment gateway</div>
-        <div class="bp-cell system">OnQ · HK app</div>
-        <div class="bp-cell system">OnQ · key encoder</div>
-
-        <!-- Pain / wins -->
-        <div class="bp-row-label">Where it breaks<span class="bp-row-sub">Friction &amp; wins</span></div>
-        <div class="bp-cell empty">·</div>
-        <div class="bp-cell pain">Honors tier often missed; recognition by name doesn't happen</div>
-        <div class="bp-cell pain">Manual typing = 60-90s of dead time per guest</div>
-        <div class="bp-cell pain">Card reader timeout on virtual cards from OTAs</div>
-        <div class="bp-cell win">Real-time HK status now visible (recent win)</div>
-        <div class="bp-cell empty">·</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-row">
+        <div class="fc-spacer"></div>
+        <div class="fc-box end">Guest gets towel — eventually</div>
+        <div class="fc-spacer"></div>
       </div>
     </div>
 
-    <div style="margin-top:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;">
-      <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
-        <div style="font-size:0.62rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">Honors tier missed → automation candidate</div>
-        <p style="font-size:0.78rem;color:var(--td);line-height:1.5;margin:0;">Pre-arrival flag on the PMS lookup screen so the desk says the right thing. Doesn't replace the team. Just makes them look prepared.</p>
-      </div>
-      <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
-        <div style="font-size:0.62rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">Manual ID typing → automation candidate</div>
-        <p style="font-size:0.78rem;color:var(--td);line-height:1.5;margin:0;">Passport scanner with OCR, drops fields straight into OnQ. 60-90 seconds back per guest. Multiplied by check-in volume per day.</p>
-      </div>
-      <div style="padding:1rem 1.2rem;background:rgba(253,121,168,0.06);border-left:3px solid var(--a4);border-radius:8px;">
-        <div style="font-size:0.62rem;color:var(--a4);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">Virtual-card timeouts → automation candidate</div>
-        <p style="font-size:0.78rem;color:var(--td);line-height:1.5;margin:0;">Pre-auth virtual cards at booking time, not at check-in. Removes the awkward pause from the guest's first impression.</p>
-      </div>
-    </div>
+    <p style="margin-top:1.5rem;font-size:0.95rem;color:var(--t);line-height:1.65;max-width:720px;margin-left:auto;margin-right:auto;text-align:center;">That's it. That's a flow chart.</p>
+    <p style="margin-top:1rem;font-size:0.95rem;color:var(--td);line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;text-align:center;">Once it's drawn out, the broken bits stop being invisible. Now multiply it by 50 things happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets — and you've got a clear picture of where time and money are actually leaking. The fixes start to look obvious.</p>
 
-    <p style="margin-top:1.6rem;font-size:0.85rem;color:var(--td);font-style:italic;line-height:1.6;">That's one stage in detail. The full engagement does the same depth on the other four stages above — and on the back-of-house workflows (housekeeping handover, F&amp;B service, night audit) that don't show up in the guest's view but feed every part of it.</p>
+    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:720px;margin-left:auto;margin-right:auto;">
+      <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">In this case the fix is</div>
+      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;margin:0;">A central guest-request log (WhatsApp / app / shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping points at.</p>
+    </div>
   </div>
 </section>
 
