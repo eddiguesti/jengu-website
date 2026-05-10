@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hilton Garden Inn Casablanca Sud — Process Mapping | Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0a0a0f;--card:#12121a;
+    --a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;
+    --t:#ededf4;--td:#a0a0b8;
+  }
+  html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;}
+
+  .s{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:4rem 3rem;position:relative;overflow:hidden;
+    scroll-snap-align:start;
+  }
+  .s-in{
+    max-width:1100px;width:100%;
+    opacity:0;transform:translateY(40px);
+    transition:opacity 0.7s,transform 0.7s;
+  }
+  .s-in.v{opacity:1;transform:translateY(0);}
+
+  .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1.02;margin-bottom:1rem;color:var(--t);}
+  h2{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.05;margin-bottom:1rem;color:var(--t);}
+  h3{font-size:1.3rem;font-weight:700;margin-bottom:0.5rem;color:var(--t);}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.15rem;color:var(--td);max-width:600px;line-height:1.6;}
+
+  .bullets{margin-top:2rem;display:flex;flex-direction:column;gap:1rem;}
+  .bullet{
+    display:flex;align-items:flex-start;gap:1rem;
+    font-size:1.05rem;line-height:1.4;color:var(--t);
+    opacity:0;transform:translateX(-20px);transition:all 0.5s;
+  }
+  .bullet.v{opacity:1;transform:translateX(0);}
+  .bullet .dot{
+    flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:7px;
+    background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);
+  }
+
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-top:2rem;}
+  .card{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
+    padding:2rem;opacity:0;transform:translateY(20px);transition:all 0.5s;
+  }
+  .card.v{opacity:1;transform:translateY(0);}
+  .card h3{font-size:1.1rem;margin-bottom:0.5rem;}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.5;}
+
+  .flow{display:flex;align-items:center;gap:0.8rem;margin-top:2rem;flex-wrap:wrap;}
+  .flow-s{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
+    padding:0.8rem 1.2rem;font-size:0.85rem;color:var(--t);font-weight:500;
+    opacity:0;transform:scale(0.9);transition:all 0.4s;
+  }
+  .flow-s.v{opacity:1;transform:scale(1);}
+  .flow-a{color:var(--a3);font-weight:700;opacity:0;transition:opacity 0.4s;}
+  .flow-a.v{opacity:1;}
+
+  .tl{position:relative;padding-left:2rem;}
+  .tl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--a1),var(--a3));}
+  .tl-i{
+    position:relative;margin-bottom:2rem;padding-left:1.5rem;
+    opacity:0;transform:translateX(-20px);transition:all 0.5s;
+  }
+  .tl-i.v{opacity:1;transform:translateX(0);}
+  .tl-i::before{
+    content:'';position:absolute;left:-2.35rem;top:0.3rem;
+    width:12px;height:12px;border-radius:50%;background:var(--a1);
+    box-shadow:0 0 12px rgba(108,92,231,0.5);
+  }
+  .tl-i h4{font-size:1rem;font-weight:700;color:var(--t);margin-bottom:0.3rem;}
+  .tl-i p{font-size:0.9rem;color:var(--td);line-height:1.5;}
+  .wk{font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--a3);margin-bottom:0.4rem;}
+
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:2rem;}
+  .stat{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
+    padding:1.5rem;text-align:center;
+    opacity:0;transform:scale(0.95);transition:all 0.5s;
+  }
+  .stat.v{opacity:1;transform:scale(1);}
+  .stat .val{font-size:2rem;font-weight:900;line-height:1;margin-bottom:0.3rem;}
+  .stat .val.bad{color:var(--a4);}
+  .stat .val.warn{color:var(--a5);}
+  .stat .val.good{color:var(--a3);}
+  .stat .label{font-size:0.7rem;color:var(--td);font-weight:500;line-height:1.3;}
+
+  .quote-box{
+    margin-top:2rem;padding:1.5rem 2rem;
+    background:var(--card);border:1px solid rgba(108,92,231,0.2);border-radius:14px;
+    border-left:3px solid var(--a1);
+  }
+  .quote-box p{font-size:0.95rem;color:var(--td);line-height:1.6;font-style:italic;}
+  .quote-box .attr{font-size:0.75rem;color:var(--a2);font-style:normal;margin-top:0.5rem;font-weight:600;}
+
+  /* Process map cards (custom for this proposal) */
+  .map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.8rem;margin-top:2rem;}
+  .map-c{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:12px;
+    padding:1.2rem;opacity:0;transform:translateY(15px);transition:all 0.4s;
+  }
+  .map-c.v{opacity:1;transform:translateY(0);}
+  .map-c .map-i{font-size:1.4rem;margin-bottom:0.5rem;}
+  .map-c h4{font-size:0.95rem;font-weight:700;color:var(--t);margin-bottom:0.3rem;}
+  .map-c p{font-size:0.78rem;color:var(--td);line-height:1.45;}
+
+  /* Tables */
+  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.9rem;margin-top:1.5rem;}
+  .price-table thead th{
+    text-align:left;padding:0.8rem 1.2rem;font-size:0.6rem;font-weight:600;
+    letter-spacing:2px;text-transform:uppercase;color:var(--td);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .price-table thead th:last-child{text-align:right;}
+  .price-table tbody td{
+    padding:0.8rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);
+    color:var(--t);font-weight:400;vertical-align:top;
+  }
+  .price-table tbody td:last-child{text-align:right;font-weight:600;white-space:nowrap;}
+  .price-table tbody td .td-sub{font-size:0.75rem;color:var(--td);font-weight:400;margin-top:0.2rem;}
+  .price-table tfoot td{
+    padding:1rem 1.2rem;border-top:1px solid rgba(255,255,255,0.1);
+    font-weight:700;color:var(--t);
+  }
+  .price-table tfoot td:last-child{
+    text-align:right;font-size:1.3rem;font-weight:900;
+    background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
+  nav{
+    position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:100;
+    display:flex;align-items:center;gap:1.5rem;
+    background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.06);border-radius:40px;padding:0.6rem 1.5rem;
+    transition:all 0.4s;
+  }
+  nav .logo{font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .dots{display:flex;gap:6px;}
+  .dots a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);display:block;transition:all 0.3s;}
+  .dots a.active{background:var(--a1);box-shadow:0 0 8px rgba(108,92,231,0.5);}
+
+  canvas#p{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
+
+  @media(max-width:768px){
+    .s{padding:3rem 1.5rem;}
+    .flow{flex-direction:column;align-items:flex-start;}
+    .flow-a{transform:rotate(90deg);font-size:0.8rem;}
+    .stat-grid{grid-template-columns:repeat(2,1fr);}
+    nav{padding:0.5rem 1rem;gap:1rem;}
+    .price-table{font-size:0.8rem;}
+    .price-table thead th, .price-table tbody td, .price-table tfoot td{padding:0.6rem 0.8rem;}
+  }
+</style>
+</head>
+<body>
+<canvas id="p"></canvas>
+
+<nav>
+  <div class="logo">JENGU</div>
+  <div class="dots">
+    <a href="#s1" class="active"></a>
+    <a href="#s2"></a>
+    <a href="#s3"></a>
+    <a href="#s4"></a>
+    <a href="#s5"></a>
+    <a href="#s6"></a>
+    <a href="#s7"></a>
+    <a href="#s8"></a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════ -->
+<!-- 1 — INTRO                    -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s1">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
+  <div class="s-in">
+    <div class="tag">Proposal for the Leadership Team</div>
+    <h1>Hilton Garden Inn<br><span class="g1">Casablanca Sud</span></h1>
+    <p class="sub">A 3-week process mapping engagement to find where time, money and guest experience are quietly leaking — and turn each one into a concrete automation opportunity, scored and ready to act on.</p>
+
+    <div class="stat-grid" style="margin-top:2.5rem;">
+      <div class="stat">
+        <div class="val good" style="font-size:1.2rem;">Discover</div>
+      </div>
+      <div class="stat">
+        <div class="val good" style="font-size:1.2rem;">Map</div>
+      </div>
+      <div class="stat">
+        <div class="val good" style="font-size:1.2rem;">Score &amp; Recommend</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
+      <span style="color:var(--td);margin:0 0.8rem;">·</span>
+      <span style="color:var(--td);font-size:0.95rem;">AI &amp; automation for hospitality</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 2 — WHY THIS MATTERS         -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s2">
+  <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">01 — Why Start Here</div>
+    <h2>Map First,<br><span class="g2">Then Automate</span></h2>
+    <p class="sub">Most hotels jump straight to buying tools. The result is a stack of subscriptions that don't talk to each other and staff who go back to manual workarounds. Mapping first means every Dirham you spend later lands on the highest-impact bottleneck.</p>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>Find what's actually broken</h3>
+        <p>Reception saying "we don't have time" is rarely about reception. It's a downstream symptom of a missed handoff with housekeeping, an OTA sync delay, or a Honors-tier flag that never made it into the morning brief. Mapping makes the real cause visible.</p>
+      </div>
+      <div class="card">
+        <h3>A baseline you can prove gains against</h3>
+        <p>If you don't know how long check-in takes today, you can't prove a kiosk saved 4 minutes per guest. The map becomes the before-photo. Six months later, the after-photo writes itself.</p>
+      </div>
+      <div class="card">
+        <h3>Lower-risk than buying tools blind</h3>
+        <p>A 3-week diagnostic is far cheaper than rolling out a guest messaging platform that 30% of staff bypass. We hand you a ranked roadmap so the first thing you buy is the thing with the clearest ROI.</p>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <p>"You can't optimise what you can't see. Process mapping turns a hundred individual frustrations into one clear picture of where the property is bleeding hours."</p>
+      <div class="attr">— Jengu engagement principle</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 3 — WHAT WE'LL MAP           -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s3">
+  <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">02 — Scope</div>
+    <h2>Eight Workflows,<br><span class="g2">One Property</span></h2>
+    <p class="sub">We focus on the workflows that touch the most guests and the most staff hours. Each gets a swim-lane map showing every step, every system, every handoff, and every wait state.</p>
+
+    <div class="map-grid">
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a1);">●</div>
+        <h4>Front Desk &amp; Check-in</h4>
+        <p>Arrival flow, ID scan, payment authorisation, key issuance, Honors tier recognition, room-not-ready handling.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a3);">●</div>
+        <h4>Reservations &amp; OTA</h4>
+        <p>Direct vs OTA flow, group blocks, modifications, cancellations, no-show policy enforcement, channel manager sync.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a4);">●</div>
+        <h4>Housekeeping</h4>
+        <p>Room status updates, queue room handling, deep-clean rotation, lost &amp; found, minibar replenishment, late checkouts.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a5);">●</div>
+        <h4>Breakfast &amp; F&amp;B</h4>
+        <p>Cover counts, allergen handling, room service tickets, bar tabs to room, supplier ordering, end-of-shift cash-up.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a2);">●</div>
+        <h4>Meetings &amp; Events</h4>
+        <p>RFP responses, BEO distribution, AV setup, F&amp;B coordination, post-event invoicing, corporate-rate enforcement.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a1);">●</div>
+        <h4>Engineering &amp; Maintenance</h4>
+        <p>Ticket logging, vendor coordination, PPM schedule, room out-of-service flow, energy/HVAC routine checks.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a3);">●</div>
+        <h4>Guest Communication</h4>
+        <p>Pre-arrival, in-stay messaging, late-checkout requests, complaint escalation, post-stay follow-up, review responses.</p>
+      </div>
+      <div class="map-c">
+        <div class="map-i" style="color:var(--a4);">●</div>
+        <h4>Reporting &amp; Night Audit</h4>
+        <p>Daily flash, MTD/YTD vs budget, REVPAR &amp; ADR review, manager-on-duty handover, brand compliance reporting.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a3);">
+      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;">If your priorities are different — say breakfast and reservations are fine but maintenance is on fire — we trim and re-weight the scope before kickoff. The price doesn't change.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 4 — METHODOLOGY              -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s4">
+  <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-150px;right:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">03 — How We Work</div>
+    <h2>Five Steps,<br><span class="g1">No Disruption</span></h2>
+    <p class="sub">We work around your operations, not through them. Most staff give us 20 minutes once. The rest is shadow observation during their normal shift — they barely notice we're there.</p>
+
+    <div class="flow">
+      <div class="flow-s">Stakeholder interviews</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Shadow observation</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Build swim-lane maps</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Bottleneck &amp; waste analysis</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Score opportunities</div>
+    </div>
+
+    <div class="bullets" style="margin-top:2rem;">
+      <div class="bullet"><div class="dot" style="background:var(--a1);"></div><div><strong>Stakeholder interviews</strong> — 15-20 minute sit-downs with the GM, FOM, Housekeeping Manager, F&amp;B Manager, Reservations lead, Chief Engineer, and 2-3 line staff per department. Where the pain actually lives.</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>Shadow observation</strong> — two days on-property, watching the actual flow during morning rush, breakfast service, mid-afternoon arrivals, and the night audit. No clipboards out, no theatre.</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div><strong>Swim-lane process maps</strong> — every step, every system (OnQ, channel manager, Hilton Honors, F&amp;B POS, BEO tool), every handoff and every wait state. Industry-standard BPMN notation so anyone can read it.</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>Bottleneck &amp; waste analysis</strong> — we mark the eight Lean wastes (waiting, defects, over-processing, etc.) directly on the maps. Now the painful steps are coloured red and the wins are obvious.</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a2);"></div><div><strong>Opportunity scoring</strong> — every fix gets two scores: <em>Impact</em> (hours saved/week, guest-experience uplift, revenue captured) and <em>Ease</em> (build effort, change-management cost, risk). Plotted on a 2×2 — quick wins are top-right.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 5 — DELIVERABLES             -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s5">
+  <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">04 — What You Get</div>
+    <h2>Everything is<br><span class="g3">Yours to Keep</span></h2>
+    <p class="sub">Three deliverables, designed to be useful long after we're gone. Show them to corporate, hand them to the next GM, use them when the brand auditor asks how you're driving efficiency.</p>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>The Process Map Book</h3>
+        <p>Eight swim-lane maps in PDF and editable formats. Every workflow visualised end-to-end with the systems, owners, decision points, and pain points marked. Suitable for SOP review, brand audits, and onboarding new managers.</p>
+      </div>
+      <div class="card">
+        <h3>The Opportunity Scorecard</h3>
+        <p>Every improvement we found, ranked. Hours/week saved, estimated revenue uplift, guest-experience score, build effort, and risk. Filterable by department. The thing that turns "we should automate stuff" into a prioritised plan.</p>
+      </div>
+      <div class="card">
+        <h3>The 30-Day Quick-Wins Playbook</h3>
+        <p>Three opportunities your team can implement in the next 30 days without buying anything. Step-by-step, with templates and example scripts. Usually pays for the engagement on its own before any tools get bought.</p>
+      </div>
+    </div>
+
+    <div class="bullets" style="margin-top:1.5rem;">
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>One executive readout</strong> — a 60-minute walk-through with you, your management team, and (if you want) corporate. We present the maps, the scorecard, and the top 5 opportunities, and answer questions.</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a1);"></div><div><strong>Brand-aware</strong> — Hilton's OnQ, Honors, and Connect+ workflows are factored in from day one. We won't recommend anything that breaks brand standards or compliance.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — TIMELINE                 -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s6">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;left:-200px;"></div>
+  <div class="s-in">
+    <div class="tag">05 — Timeline</div>
+    <h2>Three Weeks<br><span class="g1">End to End</span></h2>
+    <p class="sub">From kickoff to readout in 21 days. Your team's time commitment: roughly 30 minutes per interviewee, plus normal shift work during shadow days.</p>
+
+    <div class="tl" style="margin-top:2.5rem;">
+      <div class="tl-i">
+        <div class="wk">Week 1 · Discover</div>
+        <h4>Kickoff &amp; stakeholder interviews</h4>
+        <p>30-minute kickoff with leadership to lock scope. Then 8-10 stakeholder interviews across departments — most done remotely or in 20-minute slots between shifts. We pull existing SOPs, brand checklists, and any KPI dashboards you can share.</p>
+      </div>
+      <div class="tl-i">
+        <div class="wk">Week 2 · Map</div>
+        <h4>Two days on-property + map building</h4>
+        <p>Two days on-site at HGI Casablanca Sud — morning rush, breakfast, afternoon check-ins, and one night audit. Back at the desk we draft the eight swim-lane maps. You get a draft to react to before we move on.</p>
+      </div>
+      <div class="tl-i">
+        <div class="wk">Week 3 · Score &amp; Deliver</div>
+        <h4>Bottleneck analysis, scoring, executive readout</h4>
+        <p>Map markup with the eight Lean wastes. Each improvement scored on Impact × Ease. Quick-wins playbook drafted. Final readout meeting with your team — slides + maps walk-through, Q&amp;A, agree on what to do next.</p>
+      </div>
+      <div class="tl-i">
+        <div class="wk">Week 4+ · Optional</div>
+        <h4>Implementation support (separate engagement)</h4>
+        <p>If you want us to actually build the top opportunities — the AI email triage, the kiosk integration, the housekeeping app, whatever the scorecard surfaces — we quote that as a separate fixed-fee project after the readout. No pressure, no retainer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 7 — INVESTMENT               -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s7">
+  <div class="orb" style="width:500px;height:500px;background:var(--a5);top:-100px;right:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">06 — Investment</div>
+    <h2>Two Ways<br><span class="g2">to Run This</span></h2>
+    <p class="sub">Same methodology, different depth. Pick based on whether you want a remote-first diagnostic or want us physically in the building during the busiest service hours.</p>
+
+    <table class="price-table">
+      <thead>
+        <tr><th>Option</th><th>Investment</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <strong>Lite — Remote diagnostic</strong>
+            <div class="td-sub">All eight workflows mapped. Interviews via Teams. Shadow observation replaced with screen-share walkthroughs and video clips. Same deliverables, slightly less granular bottleneck data.</div>
+          </td>
+          <td>€3,500 <div class="td-sub">3 weeks · one-off</div></td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Full — On-site engagement</strong>
+            <div class="td-sub">Everything in Lite, plus two days physically on-property during morning rush, breakfast, evening arrivals, and one full night audit. Travel and accommodation included.</div>
+          </td>
+          <td>€5,500 <div class="td-sub">3 weeks · one-off</div></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><td>Recommended for HGI Casablanca Sud</td><td>Full — €5,500</td></tr>
+      </tfoot>
+    </table>
+
+    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;border-left:3px solid var(--a3);">
+      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;"><strong style="color:var(--t);">Why we recommend Full for an airport-adjacent business hotel:</strong> the pain is in the morning rush and the late evening — corporate guests arriving from the airport at 22:00 with the desk understaffed, breakfast hitting capacity at 07:30, M&amp;E setup overlapping with checkout. You only see those rhythms by being there.</p>
+    </div>
+
+    <div style="margin-top:1.5rem;padding:1.2rem 1.5rem;background:var(--card);border:1px solid rgba(108,92,231,0.2);border-radius:14px;">
+      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;"><strong style="color:var(--t);">Payment:</strong> 50% on kickoff, 50% on delivery of the readout. No retainer, no lock-in. If anything in the deliverables doesn't land — say so and we'll re-cut it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 8 — NEXT STEPS               -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s8">
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
+  <div class="s-in" style="text-align:center;">
+    <div class="tag">07 — Next Steps</div>
+    <h2>Ready to See<br><span class="g3">What's Hiding</span></h2>
+    <p class="sub" style="margin:0 auto 1rem;">A 30-minute discovery call to confirm scope, line up the right interviewees, and answer any questions. We can be on-property within two weeks of go-ahead.</p>
+
+    <div style="margin-top:3rem;">
+      <a href="https://www.jengu.ai/book" target="_blank" style="display:inline-block;padding:1.2rem 3.5rem;background:linear-gradient(135deg,var(--a1),var(--a3));color:#fff;font-weight:800;font-size:1.2rem;text-decoration:none;border-radius:60px;letter-spacing:0.03em;box-shadow:0 6px 30px rgba(108,92,231,0.5),0 0 60px rgba(0,206,201,0.15);transition:transform 0.2s,box-shadow 0.2s;">Book a Discovery Call &nbsp;→</a>
+    </div>
+
+    <div style="margin-top:3rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+      <div style="background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem 1.8rem;text-align:center;">
+        <div style="font-size:0.9rem;color:var(--t);font-weight:600;">3 weeks end-to-end</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">Kickoff to readout</div>
+      </div>
+      <div style="background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem 1.8rem;text-align:center;">
+        <div style="font-size:0.9rem;color:var(--t);font-weight:600;">~30 min per interviewee</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">Minimal staff disruption</div>
+      </div>
+      <div style="background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:1.2rem 1.8rem;text-align:center;">
+        <div style="font-size:0.9rem;color:var(--t);font-weight:600;">No lock-in</div>
+        <div style="font-size:0.72rem;color:var(--td);margin-top:0.2rem;">Implementation is optional &amp; separate</div>
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);">
+      <p style="font-size:0.85rem;color:var(--td);margin-bottom:0.5rem;">Or reach us directly</p>
+      <a href="mailto:hello@jengu.ai" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">hello@jengu.ai</a>
+      <span style="color:var(--td);margin:0 0.8rem;">·</span>
+      <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
+    </div>
+  </div>
+</section>
+
+
+<script>
+const c=document.getElementById('p'),x=c.getContext('2d');let ps=[];
+function rz(){c.width=innerWidth;c.height=innerHeight;}
+function cp(){ps=[];const n=Math.floor((c.width*c.height)/18000);for(let i=0;i<n;i++)ps.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,s:Math.random()*1.3+.4,o:Math.random()*.25+.08});}
+function dp(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;x.beginPath();x.arc(p.x,p.y,p.s,0,Math.PI*2);x.fillStyle=`rgba(108,92,231,${p.o})`;x.fill();});for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){const d=Math.hypot(ps[i].x-ps[j].x,ps[i].y-ps[j].y);if(d<100){x.beginPath();x.moveTo(ps[i].x,ps[i].y);x.lineTo(ps[j].x,ps[j].y);x.strokeStyle=`rgba(108,92,231,${.05*(1-d/100)})`;x.lineWidth=.4;x.stroke();}}requestAnimationFrame(dp);}
+rz();cp();dp();addEventListener('resize',()=>{rz();cp();});
+
+const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('v');
+const bs=en.target.querySelectorAll('.bullet,.flow-s,.flow-a,.card,.stat,.tl-i,.map-c');
+bs.forEach((b,i)=>setTimeout(()=>b.classList.add('v'),i*120));}});},{threshold:.15});
+document.querySelectorAll('.s-in').forEach(e=>io.observe(e));
+
+const ss=document.querySelectorAll('.s'),ds=document.querySelectorAll('.dots a');
+const no=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=[...ss].indexOf(en.target);ds.forEach(d=>d.classList.remove('active'));if(ds[i])ds[i].classList.add('active');}});},{threshold:.3});
+ss.forEach(s=>no.observe(s));
+ds.forEach(d=>d.addEventListener('click',e=>{e.preventDefault();document.querySelector(d.getAttribute('href')).scrollIntoView({behavior:'smooth'});}));
+
+let cs=0;
+addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();cs=Math.min(cs+1,ss.length-1);ss[cs].scrollIntoView({behavior:'smooth'});}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cs=Math.max(cs-1,0);ss[cs].scrollIntoView({behavior:'smooth'});}});
+</script>
+</body>
+</html>
