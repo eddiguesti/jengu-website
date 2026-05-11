@@ -20,6 +20,16 @@
     padding:4rem 3rem;position:relative;overflow:hidden;
     scroll-snap-align:start;
   }
+  /* clean separator at the top of every section after the hero */
+  .s + .s::before{
+    content:'';
+    position:absolute;
+    top:0;left:50%;transform:translateX(-50%);
+    width:min(80%,720px);
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
+    pointer-events:none;
+  }
   .s-in{
     max-width:1000px;width:100%;
     opacity:0;transform:translateY(40px);
@@ -53,7 +63,7 @@
   .ex.v{opacity:1;transform:translateY(0);}
   .ex:hover{border-color:rgba(108,92,231,0.35);transform:translateY(-2px);}
   .ex .num{
-    font-size:0.6rem;font-weight:700;color:var(--a3);
+    font-size:0.65rem;font-weight:700;color:var(--a3);
     letter-spacing:2px;text-transform:uppercase;
   }
   .ex .ex-title{
@@ -107,8 +117,8 @@
     border-radius:10px;
   }
   .wk-st .wk-st-n{
-    font-size:0.6rem;font-weight:700;letter-spacing:1.5px;
-    color:var(--a2);margin-bottom:0.4rem;
+    font-size:0.65rem;font-weight:700;letter-spacing:2px;
+    color:var(--a2);margin-bottom:0.4rem;text-transform:uppercase;
   }
   .wk-st .wk-st-t{font-size:0.85rem;color:var(--t);font-weight:500;line-height:1.4;}
   .wk-st::after{
@@ -275,7 +285,7 @@
     background: rgba(253,121,168,0.06);
   }
   .fl-actor {
-    font-size: 0.62rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 700;
     text-transform: uppercase; letter-spacing: 2px;
     color: var(--a3);
   }
@@ -325,7 +335,7 @@
   }
   .fl-issue-h {
     display: block;
-    font-size: 0.62rem; font-weight: 700;
+    font-size: 0.65rem; font-weight: 700;
     text-transform: uppercase; letter-spacing: 2px;
     color: var(--a4);
     margin-bottom: 0.4rem;
@@ -466,7 +476,7 @@
     <p style="margin-top:2rem;font-size:1rem;color:var(--td);line-height:1.7;max-width:640px;">When sketched out, the broken segments are made visible. Multiply this by 50 events happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets, etc. — and you get a clear picture of where time and money are leaking. The fixes start to become apparent.</p>
 
     <div style="margin-top:1.8rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:640px;">
-      <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">In this case the fix is</div>
+      <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;">In this case the fix is</div>
       <p style="font-size:0.92rem;color:var(--td);line-height:1.6;margin:0;">A central guest-request log (WhatsApp, app, or shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping highlights.</p>
     </div>
   </div>
@@ -567,7 +577,7 @@
         <div class="phase-kicker">Phase one</div>
         <div class="phase-name">Map.</div>
         <p class="phase-lead">A few weeks of remote sessions to capture how the property really runs.</p>
-        <p class="phase-body">Video calls with each HoD. Screen-shares of the systems they actually use. Photo and video clips from your team during busy moments. Every workflow drawn as it happens, not as the SOP says. You see the maps as we go, so you can give feedback early.</p>
+        <p class="phase-body">Short interviews with floor staff, heads of department and the GM. Comparing how each level describes the same process reveals where management's view and the operational reality diverge — that's typically where the friction sits. Screen-shares of the systems people use day-to-day. Maps shared with you as we progress, so you can give feedback early.</p>
         <p class="phase-out">A clean set of process maps and a shortlist of the key friction points.</p>
       </div>
 
@@ -602,8 +612,8 @@
 <!-- 7 — INVESTMENT               -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s7" style="min-height:auto;padding:6rem 3rem 7rem;">
-  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;right:-200px;"></div>
-  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-100px;left:-100px;"></div>
+  <div class="orb" style="width:600px;height:600px;background:var(--a5);top:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a4);bottom:-100px;left:-100px;"></div>
   <div class="s-in" style="max-width:880px;">
     <div class="tag">06 — Investment</div>
     <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">The map,<br><span class="g3" style="font-style:italic;">one price.</span></h2>
