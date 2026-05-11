@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hilton Garden Inn Casablanca Sud — Карта процессов | Jengu</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --bg:#0a0a0f;--card:#12121a;
+    --a1:#6c5ce7;--a2:#a29bfe;--a3:#00cec9;--a4:#fd79a8;--a5:#fdcb6e;
+    --t:#ededf4;--td:#a0a0b8;
+  }
+  html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;}
+
+  .s{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:4rem 3rem;position:relative;overflow:hidden;
+    scroll-snap-align:start;
+  }
+  .s-in{
+    max-width:1000px;width:100%;
+    opacity:0;transform:translateY(40px);
+    transition:opacity 0.7s,transform 0.7s;
+  }
+  .s-in.v{opacity:1;transform:translateY(0);}
+
+  .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
+
+  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
+  h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1.02;margin-bottom:1.2rem;color:var(--t);}
+  h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.05;margin-bottom:1.2rem;color:var(--t);}
+  .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .sub{font-size:1.15rem;color:var(--td);max-width:680px;line-height:1.7;}
+
+  .examples{
+    margin-top:2rem;display:grid;grid-template-columns:1fr;gap:0.7rem;
+  }
+  .ex{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
+    padding:1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;
+    opacity:0;transform:translateX(-15px);transition:all 0.4s;
+  }
+  .ex.v{opacity:1;transform:translateX(0);}
+  .ex .num{
+    flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--a3);
+    letter-spacing:2px;margin-top:3px;min-width:28px;
+  }
+  .ex p{font-size:0.95rem;color:var(--t);line-height:1.55;}
+  .ex p strong{color:var(--t);font-weight:600;}
+  .ex p span{color:var(--td);}
+
+  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
+  .price-table thead th{
+    text-align:left;padding:0.8rem 1.2rem;font-size:0.6rem;font-weight:600;
+    letter-spacing:2px;text-transform:uppercase;color:var(--td);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .price-table thead th:last-child{text-align:right;}
+  .price-table tbody td{
+    padding:1.1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);
+    color:var(--t);font-weight:400;vertical-align:top;
+  }
+  .price-table tbody td:last-child{text-align:right;font-weight:600;white-space:nowrap;}
+  .price-table tbody td .td-sub{font-size:0.78rem;color:var(--td);font-weight:400;margin-top:0.3rem;line-height:1.55;}
+
+  .cta{
+    display:inline-block;padding:1.1rem 2.8rem;font-weight:800;font-size:1.05rem;
+    text-decoration:none;border-radius:60px;letter-spacing:0.02em;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .cta-primary{background:linear-gradient(135deg,var(--a1),var(--a3));color:#fff;
+    box-shadow:0 6px 30px rgba(108,92,231,0.5),0 0 60px rgba(0,206,201,0.15);}
+  .cta-primary:hover{transform:translateY(-2px);}
+  .cta-secondary{background:transparent;color:var(--t);border:1px solid rgba(255,255,255,0.18);}
+  .cta-secondary:hover{background:rgba(255,255,255,0.04);}
+
+  nav{
+    position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:100;
+    display:flex;align-items:center;gap:1.5rem;
+    background:rgba(10,10,15,0.7);backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,0.06);border-radius:40px;padding:0.6rem 1.5rem;
+  }
+  nav .logo{font-weight:800;font-size:1.2rem;background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .dots{display:flex;gap:6px;}
+  .dots a{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);display:block;transition:all 0.3s;}
+  .dots a.active{background:var(--a1);box-shadow:0 0 8px rgba(108,92,231,0.5);}
+
+  canvas#p{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
+
+  @media(max-width:768px){
+    .s{padding:3rem 1.5rem;}
+    nav{padding:0.5rem 1rem;gap:1rem;}
+    .price-table{font-size:0.85rem;}
+    .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
+  }
+
+  /* Editorial three-phase timeline */
+  .phases-tl { position: relative; margin: 3.5rem 0 2.5rem; padding-left: 88px; max-width: 760px; }
+  .phases-tl::before {
+    content: '';
+    position: absolute;
+    left: 31px; top: 28px; bottom: 28px;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(0,206,201,0.6) 0%, rgba(0,206,201,0.2) 50%, rgba(0,206,201,0.05) 100%);
+  }
+  .phase-row { position: relative; padding: 2rem 0 2.4rem; }
+  .phase-row + .phase-row { border-top: 1px solid rgba(255,255,255,0.04); }
+  .phase-num {
+    position: absolute;
+    left: -88px; top: 1.8rem;
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid rgba(0,206,201,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem; font-weight: 600; font-style: italic;
+    color: var(--a3);
+    box-shadow: inset 0 0 0 4px rgba(0,206,201,0.04);
+  }
+  .phase-kicker { font-size: 0.62rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--td); margin-bottom: 0.4rem; }
+  .phase-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.1rem, 4vw, 2.8rem);
+    font-weight: 600; font-style: italic;
+    color: var(--t);
+    line-height: 1; margin-bottom: 1.2rem;
+    letter-spacing: -0.01em;
+  }
+  .phase-lead {
+    color: var(--t);
+    font-size: 1.05rem; line-height: 1.7;
+    margin: 0 0 1rem;
+    font-weight: 400;
+  }
+  .phase-body { color: var(--td); font-size: 0.95rem; line-height: 1.75; margin: 0; }
+  .phase-out {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    color: var(--a3);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 1.4rem;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(0,206,201,0.4);
+  }
+  .closing-rule {
+    margin: 4rem auto 2rem;
+    width: 60px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  @media (max-width: 700px) {
+    .phases-tl { padding-left: 0; }
+    .phases-tl::before { display: none; }
+    .phase-num { position: static; margin-bottom: 0.8rem; }
+  }
+
+  /* Simple flow chart — single left-aligned column, friction inline */
+  .flowchart {
+    display: flex; flex-direction: column; align-items: stretch;
+    margin: 2.5rem 0 1.5rem;
+    width: 100%;
+    max-width: 560px;
+  }
+  .fc-box {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 1.15rem 1.4rem;
+    font-size: 0.95rem;
+    color: var(--t);
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.45;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+  }
+  .fc-box.start {
+    background: linear-gradient(135deg, rgba(108,92,231,0.20), rgba(0,206,201,0.14));
+    border-color: rgba(108,92,231,0.45); font-weight: 700;
+  }
+  .fc-box.end {
+    background: linear-gradient(135deg, rgba(0,206,201,0.20), rgba(162,155,254,0.15));
+    border-color: rgba(0,206,201,0.45); font-weight: 700;
+  }
+  .fc-box.friction {
+    background: rgba(253,121,168,0.06);
+    border-color: rgba(253,121,168,0.4);
+    border-style: dashed;
+  }
+  .fc-box .fc-note {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed rgba(253,121,168,0.25);
+    font-size: 0.78rem;
+    color: var(--td);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .fc-box .fc-note strong { color: var(--a4); font-weight: 700; }
+  .fc-arrow {
+    color: rgba(160,160,184,0.55);
+    font-size: 1.4rem; line-height: 1;
+    padding: 0.55rem 0; text-align: center;
+    font-family: monospace;
+  }
+
+  @media (max-width: 540px) {
+    .flowchart { margin: 1.8rem auto; max-width: 100%; }
+    .fc-box { font-size: 0.9rem; padding: 1rem 1.15rem; border-radius: 12px; }
+    .fc-arrow { font-size: 1.25rem; padding: 0.4rem 0; }
+    .fc-box .fc-note { font-size: 0.76rem; }
+  }
+</style>
+</head>
+<body>
+<canvas id="p"></canvas>
+
+<nav>
+  <div class="logo">JENGU</div>
+  <div class="dots">
+    <a href="#s1" class="active"></a>
+    <a href="#s2"></a>
+    <a href="#s3"></a>
+    <a href="#s4"></a>
+    <a href="#s5"></a>
+    <a href="#s6"></a>
+    <a href="#s7"></a>
+    <a href="#s8"></a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════ -->
+<!-- 1 — HERO / RECOMMENDATION    -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s1">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
+  <div class="s-in">
+    <div class="tag">Для Аджая Харджани · Hilton Garden Inn Casablanca Sud</div>
+    <h1>Карта процессов<br><span class="g1">для ИИ и автоматизации</span></h1>
+    <p class="sub" style="font-size:1.3rem;max-width:720px;">Краткое продолжение нашего разговора. Самый чёткий первый шаг — это простая карта процессов отеля, целенаправленно ищущая точки, где ИИ и автоматизация могут принести реальную пользу. В этом вся работа.</p>
+
+    <div style="margin-top:2.5rem;">
+      <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 2 — WHY THIS                 -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s2">
+  <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">01 — Почему именно это</div>
+    <h2>Самый чёткий способ<br><span class="g2">найти реальные выигрыши от ИИ</span></h2>
+    <p class="sub" style="font-size:1.1rem;">Большинство отелей сразу бросаются покупать инструменты. В итоге — набор подписок, которые не общаются друг с другом, и команда, возвращающаяся к таблицам. Если сначала составить карту операций, видно, где именно ИИ или умные инструменты могут тихо снять рутину с людей. Меньше «вот список продуктов», больше «вот где ценность».</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 3 — WHAT WE ALREADY SEE      -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s3">
+  <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">02 — Быстрый взгляд на публичные отзывы</div>
+    <h2>Некоторые закономерности<br><span class="g3">уже заметны</span></h2>
+    <p class="sub">Перед отправкой мы прочитали все публичные отзывы об отеле, которые смогли собрать. 116 с TripAdvisor, 100 с Booking, 68 с Google. Итого 284. Четыре закономерности повторялись во всех трёх источниках. По отдельности это не ответ. Это вещи, на которые стоит присмотреться в карте.</p>
+
+    <div style="margin-top:1.8rem;display:flex;gap:0.6rem;flex-wrap:wrap;font-size:0.7rem;color:var(--td);font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">
+      <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">116 TripAdvisor</span>
+      <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">100 Booking.com</span>
+      <span style="padding:0.4rem 0.8rem;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:999px;">68 Google</span>
+      <span style="padding:0.4rem 0.8rem;background:rgba(0,206,201,0.12);border:1px solid rgba(0,206,201,0.3);border-radius:999px;color:var(--a3);">284 отзыва проанализировано</span>
+    </div>
+
+    <div class="examples" style="margin-top:1.8rem;">
+      <div class="ex"><div class="num">01</div><p><strong>Горячая вода и напор упоминаются часто.</strong> <span>24 упоминания во всех трёх источниках. В основном сгруппированы вокруг утренних часов душа. Может быть инфраструктура. А может быть просто хозяйственная служба берёт ту же горячую воду в неподходящее время. Карта покажет.</span></p></div>
+      <div class="ex"><div class="num">02</div><p><strong>Запросы гостей не доходят до исполнителя.</strong> <span>Несколько отзывов о том, как просили воду или полотенца — и ничего не происходило. Объём небольшой, но тон жёсткий. Это решается системой учёта запросов с SLA.</span></p></div>
+      <div class="ex"><div class="num">03</div><p><strong>Ответы на отзывы — медленные.</strong> <span>Текущее медианное время ответа на TripAdvisor — около 5 дней. Некоторые тянулись месяцами. Стандарт Hilton — 48 часов. Ответы, набросанные ИИ, сокращают это до часа.</span></p></div>
+      <div class="ex"><div class="num">04</div><p><strong>Завтрак и ресторан в часы пик.</strong> <span>Самая обсуждаемая тема во всех трёх источниках. В основном положительно, но в загруженные моменты — реальный негативный хвост. Сервис замедляется, когда зал заполняется. Может быть штат. Может быть кухонный поток. Может быть заказ поставщикам. Карта покажет.</span></p></div>
+    </div>
+
+    <p style="margin-top:1.5rem;font-size:0.9rem;color:var(--td);font-style:italic;line-height:1.6;">Это поверхностные сигналы. То, что замечают гости. Карта покажет настоящие причины за ними.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 4 — LIVE REVIEW DASHBOARD    -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s4" style="min-height:auto;padding:4rem 3rem 6rem;">
+  <div class="orb" style="width:600px;height:600px;background:var(--a2);top:-200px;right:-200px;"></div>
+  <div class="s-in" style="max-width:1200px;">
+    <div class="tag">03 — Живая панель отзывов</div>
+    <h2>Все отзывы<br><span class="g3">в одном месте</span></h2>
+    <p class="sub">С фильтрами, поиском и графиками. Это тот слой постоянной аналитики, который проект может оставить в ваших руках. Попробуйте фильтры.</p>
+    <div id="reviewDashboard" style="margin-top:2rem;"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 5 — HOW WE MAP               -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s5" style="min-height:auto;padding:5rem 3rem;">
+  <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
+  <div class="s-in" style="max-width:1100px;">
+    <div class="tag">04 — Как мы составляем карту</div>
+    <h2>Как на самом деле<br><span class="g3">выглядит блок-схема</span></h2>
+    <p class="sub">Самый простой возможный пример — реальный момент в любом отеле: гость просит дополнительное полотенце.</p>
+
+    <div class="flowchart">
+      <div class="fc-box start">Гость звонит на ресепшен</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-box">Ресепшен записывает в блокнот</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-box friction">
+        Передаёт по рации хозслужбе
+        <div class="fc-note"><strong>Теряется в радиошуме.</strong> Нет записи. Никто не отслеживает.</div>
+      </div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-box friction">
+        Хозслужба доходит до номера «когда свободна»
+        <div class="fc-note"><strong>Нет SLA.</strong> Может 5 минут. Может час.</div>
+      </div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-box end">Гость получает полотенце — в итоге</div>
+    </div>
+
+    <p style="margin-top:1.5rem;font-size:1rem;color:var(--t);line-height:1.65;max-width:560px;font-weight:500;">Вот и всё. Это и есть блок-схема.</p>
+    <p style="margin-top:1rem;font-size:0.95rem;color:var(--td);line-height:1.7;max-width:560px;">Когда это нарисовано, сломанные места перестают быть невидимыми. Теперь умножьте на 50 вещей, происходящих каждый день в отеле — заезд, завтрак, бронирования через OTA, жалобы, рум-сервис, заявки на обслуживание — и вы получите чёткую картину, где утекают время и деньги. Решения становятся очевидными.</p>
+
+    <div style="margin-top:1.8rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:560px;">
+      <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">В этом случае решение —</div>
+      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;margin:0;">Централизованный журнал запросов гостей (WhatsApp / приложение / общий дашборд) с отслеживанием SLA. Одно изменение убирает то же трение из десятков подобных рабочих процессов. Именно на это указывает картирование процессов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — THINGS WE CAN BUILD      -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s6">
+  <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">05 — Несколько примеров</div>
+    <h2>То, что мы<br><span class="g2">обычно находим</span></h2>
+    <p class="sub">Не список предсказаний. Просто вещи, которые отели сейчас внедряют и получают реальную пользу. Что из этого подойдёт HGI Sud — узнаем только после анализа.</p>
+
+    <div class="examples">
+      <div class="ex"><div class="num">01</div><p><strong>WhatsApp-ассистент для гостей на трёх-четырёх языках.</strong> <span>Арабский, французский, английский — и ещё один, если нужно. Отвечает на частые вопросы, обрабатывает поздний выезд, рекомендации ресторанов, информацию перед заездом. Берёт на себя простые 70%, чтобы команда занималась только тем, что действительно требует их внимания. Пожалуй, самое масштабное внедрение в отелях прямо сейчас.</span></p></div>
+      <div class="ex"><div class="num">02</div><p><strong>Ответы на отзывы, написанные ИИ.</strong> <span>Booking, TripAdvisor, Google. Готовит ответ в вашем тоне в течение часа после публикации отзыва. Вы одобряете партиями. Стандарт Hilton — 48 часов. Это сокращает до часа.</span></p></div>
+      <div class="ex"><div class="num">03</div><p><strong>Поток допродаж перед заездом.</strong> <span>Персонализированные письма перед заездом. Апгрейд номера, поздний выезд, завтрак, трансфер из аэропорта. Строится на источнике бронирования и истории гостя. Приносит дополнительный доход без вмешательства людей.</span></p></div>
+      <div class="ex"><div class="num">04</div><p><strong>Ежедневные отчёты, написанные для вас.</strong> <span>Flash, MTD, обновления для владельцев. Тянутся из PMS вместо того, чтобы кто-то собирал вручную в 06:30. У вас в почте до утренней планёрки.</span></p></div>
+      <div class="ex"><div class="num">05</div><p><strong>Предиктивное обслуживание HVAC и ключевого оборудования.</strong> <span>Умный мониторинг, который выявляет поломки раньше, чем гости. Полезно в отеле с высокой нагрузкой на кондиционирование.</span></p></div>
+      <div class="ex"><div class="num">06</div><p><strong>Тихая подготовка к переходу на HotelKey.</strong> <span>Hilton заменяет OnQ во всех объектах, и HGI в первой волне. Карты делают миграцию более гладкой. Вы уже будете знать, какие процессы зависят от каких систем и где живут обходные пути.</span></p></div>
+      <div class="ex"><div class="num">07</div><p><strong>Централизация разбросанных по инструментам данных.</strong> <span>Заявки на обслуживание, бюро находок, переписка с поставщиками, заметки смен. В одном месте, доступном всем. Скучно. Всегда работает.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 7 — HOW WE WORK              -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s7">
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
+  <div class="s-in">
+    <div class="tag">06 — Как это происходит</div>
+    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">Проект,<br><span class="g3" style="font-style:italic;">в трёх движениях.</span></h2>
+    <p class="sub" style="font-size:1.05rem;">Никаких чёрных ящиков. Вы в комнате при каждом важном решении. Мы составляем карту, вы решаете, на что действовать, затем мы строим.</p>
+
+    <div class="phases-tl">
+      <div class="phase-row">
+        <div class="phase-num">i</div>
+        <div class="phase-kicker">Этап первый</div>
+        <div class="phase-name">Карта.</div>
+        <p class="phase-lead">Несколько недель наблюдения за тем, как отель реально работает.</p>
+        <p class="phase-body">Короткие беседы с каждым руководителем отдела. Время на этажах в моменты, которые нагружают операцию. Каждый процесс зарисован так, как он происходит на самом деле, а не так, как написано в SOP. Вы видите карты по ходу проекта, чтобы реагировать до того, как что-либо зафиксировано.</p>
+        <p class="phase-out">Чистый набор карт процессов и отмеченный шорт-лист, где находится трение.</p>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-num">ii</div>
+        <div class="phase-kicker">Этап второй</div>
+        <div class="phase-name">Решение.</div>
+        <p class="phase-lead">Садимся с вами и выбираем выигрыши вместе.</p>
+        <p class="phase-body">Проходим то, что нашли. Определяем низко висящие плоды. Выбираем, что стоит делать в первую очередь, исходя из влияния и того, что вы можете провести без расходования политического капитала. Что-то берёт ваша команда, что-то — мы.</p>
+        <p class="phase-out">Приоритизированный план, согласованный с вами, а не за вас.</p>
+      </div>
+
+      <div class="phase-row">
+        <div class="phase-num">iii</div>
+        <div class="phase-kicker">Этап третий</div>
+        <div class="phase-name">Реализация.</div>
+        <p class="phase-lead">Внедряем инструменты, которые закрепляют выигрыши.</p>
+        <p class="phase-body">WhatsApp-ассистент для гостей. Ответы на отзывы от ИИ. Ежедневные отчёты, написанные для вас. Предиктивное обслуживание. Что бы ни указали карты. Построено в соответствии с бренд-стандартами, интегрировано с тем, что у вас уже работает, и спроектировано так, чтобы передать команде и жить с этим самостоятельно.</p>
+        <p class="phase-out">Работающие инструменты, принадлежащие вам. Без абонентских платежей. Без привязки к поставщику.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;padding:1.4rem 1.6rem;background:rgba(108,92,231,0.05);border-left:3px solid rgba(108,92,231,0.4);border-radius:10px;max-width:760px;">
+      <div style="font-size:0.65rem;color:var(--a2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;">Замечание о доступе</div>
+      <p style="font-size:0.92rem;color:var(--td);line-height:1.7;margin:0;">Мы не запрашиваем доступ к OnQ, Honors или Connect+. Карты строятся по наблюдениям и беседам с вашей командой. Инструменты, которые мы создаём, работают рядом со стеком Hilton, а не внутри него. Всё, что потребовало бы одобрения бренда, явно отмечается в карте, чтобы вы могли решить, стоит ли за это бороться.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 8 — INVESTMENT               -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s8" style="min-height:auto;padding:6rem 3rem 7rem;">
+  <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;right:-200px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-100px;left:-100px;"></div>
+  <div class="s-in" style="max-width:880px;">
+    <div class="tag">07 — Стоимость</div>
+    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">Карта,<br><span class="g3" style="font-style:italic;">одна цена.</span></h2>
+
+    <div style="margin-top:3rem;text-align:center;">
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(4.5rem,9vw,6.5rem);font-weight:600;font-style:italic;color:var(--t);line-height:1;letter-spacing:-0.04em;">£5,000</div>
+      <div style="margin-top:1.2rem;font-size:1rem;color:var(--td);">Путь гостя и бэк-офис. От начала до конца.</div>
+    </div>
+
+    <div style="margin:3rem auto 0;width:60px;border-top:1px solid rgba(255,255,255,0.15);"></div>
+
+    <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;">Половина на старте, половина при сдаче. Взаимное NDA подписывается до начала.</p>
+  </div>
+</section>
+
+<script>
+const c=document.getElementById('p'),x=c.getContext('2d');let ps=[];
+function rz(){c.width=innerWidth;c.height=innerHeight;}
+function cp(){ps=[];const n=Math.floor((c.width*c.height)/18000);for(let i=0;i<n;i++)ps.push({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,s:Math.random()*1.3+.4,o:Math.random()*.25+.08});}
+function dp(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;x.beginPath();x.arc(p.x,p.y,p.s,0,Math.PI*2);x.fillStyle=`rgba(108,92,231,${p.o})`;x.fill();});for(let i=0;i<ps.length;i++)for(let j=i+1;j<ps.length;j++){const d=Math.hypot(ps[i].x-ps[j].x,ps[i].y-ps[j].y);if(d<100){x.beginPath();x.moveTo(ps[i].x,ps[i].y);x.lineTo(ps[j].x,ps[j].y);x.strokeStyle=`rgba(108,92,231,${.05*(1-d/100)})`;x.lineWidth=.4;x.stroke();}}requestAnimationFrame(dp);}
+rz();cp();dp();addEventListener('resize',()=>{rz();cp();});
+
+const io=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){en.target.classList.add('v');
+const bs=en.target.querySelectorAll('.ex');
+bs.forEach((b,i)=>setTimeout(()=>b.classList.add('v'),i*100));}});},{threshold:.15});
+document.querySelectorAll('.s-in').forEach(e=>io.observe(e));
+
+const ss=document.querySelectorAll('.s'),ds=document.querySelectorAll('.dots a');
+const no=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting){const i=[...ss].indexOf(en.target);ds.forEach(d=>d.classList.remove('active'));if(ds[i])ds[i].classList.add('active');}});},{threshold:.3});
+ss.forEach(s=>no.observe(s));
+ds.forEach(d=>d.addEventListener('click',e=>{e.preventDefault();document.querySelector(d.getAttribute('href')).scrollIntoView({behavior:'smooth'});}));
+
+let cs=0;
+addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();cs=Math.min(cs+1,ss.length-1);ss[cs].scrollIntoView({behavior:'smooth'});}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cs=Math.max(cs-1,0);ss[cs].scrollIntoView({behavior:'smooth'});}});
+</script>
+
+<!-- Dashboard styles -->
+<style>
+  #reviewDashboard { font-family: 'Inter', sans-serif; color: var(--t); }
+  .dash-grid { display: grid; gap: 1rem; grid-template-columns: repeat(4, 1fr); }
+  .dash-tile { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.4rem 1.5rem; }
+  .dash-tile .lbl { font-size: 0.65rem; color: var(--td); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .dash-tile .val { font-size: 2rem; font-weight: 900; line-height: 1; }
+  .dash-tile .sub { font-size: 0.78rem; color: var(--td); margin-top: 0.4rem; }
+  .dash-row { display: grid; gap: 1rem; margin-top: 1rem; }
+  .dash-row.split { grid-template-columns: 2fr 1fr; }
+  .dash-card { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.5rem; }
+  .dash-card h4 { font-size: 0.72rem; color: var(--td); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem; }
+  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 1.5rem 0 1rem; }
+  .pill-btn { padding: 0.4rem 0.9rem; border-radius: 999px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--td); font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; user-select: none; }
+  .pill-btn:hover { color: var(--t); border-color: rgba(255,255,255,0.25); }
+  .pill-btn.active { background: linear-gradient(135deg, var(--a1), var(--a3)); color: #fff; border-color: transparent; }
+  .search-box { padding: 0.55rem 1rem; border-radius: 999px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--t); font-size: 0.85rem; min-width: 220px; outline: none; }
+  .search-box:focus { border-color: var(--a3); }
+  .review-feed { max-height: 600px; overflow-y: auto; padding-right: 0.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
+  .review-feed::-webkit-scrollbar { width: 6px; } .review-feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  .rev-item { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem 1.2rem; }
+  .rev-meta { display: flex; gap: 0.6rem; align-items: center; font-size: 0.7rem; color: var(--td); margin-bottom: 0.5rem; flex-wrap: wrap; }
+  .rev-source { padding: 0.15rem 0.55rem; border-radius: 999px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.6rem; }
+  .rev-source.TripAdvisor { background: rgba(0,206,201,0.15); color: var(--a3); }
+  .rev-source.Booking { background: rgba(108,92,231,0.15); color: var(--a2); }
+  .rev-source.Google { background: rgba(253,121,168,0.15); color: var(--a4); }
+  .rev-stars { color: var(--a5); letter-spacing: 1px; font-size: 0.85rem; }
+  .rev-stars .empty { color: rgba(255,255,255,0.15); }
+  .rev-title { font-size: 0.95rem; font-weight: 600; color: var(--t); margin-bottom: 0.3rem; }
+  .rev-text { font-size: 0.82rem; color: var(--td); line-height: 1.55; }
+  .topic-row { display: grid; grid-template-columns: 180px 1fr 60px 60px; gap: 0.6rem; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.82rem; }
+  .topic-row .name { color: var(--t); }
+  .topic-row .bar-wrap { background: rgba(255,255,255,0.05); border-radius: 4px; height: 8px; overflow: hidden; }
+  .topic-row .bar { height: 100%; border-radius: 4px; }
+  .topic-row .neg { color: var(--a4); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  .topic-row .pos { color: var(--a3); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+  @media (max-width: 768px) {
+    .dash-grid { grid-template-columns: repeat(2, 1fr); }
+    .dash-row.split { grid-template-columns: 1fr; }
+    .topic-row { grid-template-columns: 110px 1fr 40px 40px; font-size: 0.72rem; }
+  }
+</style>
+
+<!-- Dashboard libs -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.49.1/dist/apexcharts.min.js"></script>
+
+<script type="module">
+import { h, render } from 'https://esm.sh/preact@10.19.3';
+import { useState, useEffect, useMemo, useRef } from 'https://esm.sh/preact@10.19.3/hooks';
+import htm from 'https://esm.sh/htm@3.1.1';
+const html = htm.bind(h);
+
+const SOURCES = ['TripAdvisor', 'Booking', 'Google'];
+const SOURCE_COLORS = { TripAdvisor: '#00cec9', Booking: '#a29bfe', Google: '#fd79a8' };
+
+function Stars({ n }) {
+  const filled = '★'.repeat(n);
+  const empty = '☆'.repeat(5 - n);
+  return html`<span class="rev-stars">${filled}<span class="empty">${empty}</span></span>`;
+}
+
+function TimeChart({ trend }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.ApexCharts || trend.length === 0) return;
+    const months = trend.map(d => d.month);
+    const series = SOURCES.map(s => ({
+      name: s,
+      data: trend.map(d => d[s] != null ? Number(d[s].toFixed(2)) : null),
+    }));
+    const chart = new ApexCharts(ref.current, {
+      chart: { type: 'line', height: 280, background: 'transparent', toolbar: { show: false }, animations: { speed: 400 } },
+      theme: { mode: 'dark' },
+      stroke: { curve: 'smooth', width: 2.5 },
+      markers: { size: 4 },
+      colors: SOURCES.map(s => SOURCE_COLORS[s]),
+      series,
+      xaxis: { categories: months, labels: { style: { colors: '#a0a0b8', fontSize: '11px' }, rotate: -45 }, tickAmount: Math.min(12, months.length) },
+      yaxis: { min: 0, max: 5, labels: { style: { colors: '#a0a0b8' }, formatter: v => v.toFixed(1) + '★' } },
+      grid: { borderColor: 'rgba(255,255,255,0.05)' },
+      legend: { position: 'top', labels: { colors: '#ededf4' } },
+      tooltip: { theme: 'dark' },
+    });
+    chart.render();
+    return () => chart.destroy();
+  }, [trend]);
+  return html`<div ref=${ref}></div>`;
+}
+
+function DonutChart({ title, data, palette }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.ApexCharts) return;
+    const labels = Object.keys(data);
+    const series = Object.values(data);
+    const chart = new ApexCharts(ref.current, {
+      chart: { type: 'donut', height: 220, background: 'transparent' },
+      theme: { mode: 'dark' },
+      labels, series,
+      colors: palette || ['#6c5ce7', '#a29bfe', '#00cec9', '#fd79a8', '#fdcb6e', '#818cf8', '#22d3ee'],
+      legend: { position: 'bottom', labels: { colors: '#ededf4' }, fontSize: '11px' },
+      dataLabels: { enabled: false },
+      stroke: { width: 0 },
+      plotOptions: { pie: { donut: { size: '65%', labels: { show: true, total: { show: true, label: 'Total', color: '#ededf4', formatter: () => series.reduce((a,b)=>a+b, 0) } } } } },
+    });
+    chart.render();
+    return () => chart.destroy();
+  }, [data]);
+  return html`
+    <div class="dash-card">
+      <h4>${title}</h4>
+      <div ref=${ref}></div>
+    </div>`;
+}
+
+function TopicsCard({ topics }) {
+  const sorted = [...topics].sort((a, b) => b.neg - a.neg);
+  const max = Math.max(...sorted.map(t => t.total), 1);
+  return html`
+    <div class="dash-card">
+      <h4>Темы в отзывах (по количеству негативных упоминаний)</h4>
+      <div>
+        ${sorted.map(t => {
+          const pct = (t.total / max) * 100;
+          return html`
+            <div class="topic-row">
+              <div class="name">${t.topic}</div>
+              <div class="bar-wrap"><div class="bar" style=${`width:${pct}%;background:linear-gradient(90deg,#fd79a8 ${100*t.neg/Math.max(t.total,1)}%, #00cec9 ${100*t.neg/Math.max(t.total,1)}%);`}></div></div>
+              <div class="neg">${t.neg}<span style="color:#a0a0b8;font-weight:400;font-size:0.7rem;"> нег</span></div>
+              <div class="pos">${t.pos}<span style="color:#a0a0b8;font-weight:400;font-size:0.7rem;"> поз</span></div>
+            </div>`;
+        })}
+      </div>
+    </div>`;
+}
+
+function ResponseCard({ resp }) {
+  if (!resp || !resp.median_days) return null;
+  const total = resp.with_response;
+  const within48 = resp.within_48h;
+  const within7 = resp.within_7d;
+  const within30 = resp.within_30d;
+  const over30 = resp.over_30d;
+  const pct = (n) => Math.round(100 * n / total);
+  return html`
+    <div class="dash-card">
+      <h4>Аудит ответов отеля (выборка TripAdvisor)</h4>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+        <div style="flex:1;min-width:120px;background:rgba(253,121,168,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #fd79a8;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Медиана</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.median_days} <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">дн.</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:rgba(253,203,110,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #fdcb6e;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">P90</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.p90_days} <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">дн.</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:rgba(255,77,77,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #ff4d4d;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Самый медленный</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.p99_days}<span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;"> дн.</span></div>
+        </div>
+        <div style="flex:1;min-width:120px;background:rgba(0,206,201,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #00cec9;">
+          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Стандарт Hilton</div>
+          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">48 <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">часов</span></div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:1rem;">
+        <div style="display:grid;grid-template-columns:140px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
+          <div style="color:#a0a0b8;">В течение 48 часов</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within48)}%;background:#00cec9;border-radius:4px;`}></div></div>
+          <div style="color:#00cec9;font-weight:700;text-align:right;">${pct(within48)}%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
+          <div style="color:#a0a0b8;">В течение 7 дней</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within7)}%;background:#fdcb6e;border-radius:4px;`}></div></div>
+          <div style="color:#fdcb6e;font-weight:700;text-align:right;">${pct(within7)}%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
+          <div style="color:#a0a0b8;">В течение 30 дней</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within30)}%;background:#a29bfe;border-radius:4px;`}></div></div>
+          <div style="color:#a29bfe;font-weight:700;text-align:right;">${pct(within30)}%</div>
+        </div>
+        <div style="display:grid;grid-template-columns:140px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;">
+          <div style="color:#a0a0b8;">Более 30 дней</div>
+          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(over30)}%;background:#fd79a8;border-radius:4px;`}></div></div>
+          <div style="color:#fd79a8;font-weight:700;text-align:right;">${pct(over30)}%</div>
+        </div>
+      </div>
+      <p style="margin-top:0.9rem;font-size:0.75rem;color:#a0a0b8;line-height:1.5;">${pct(within48)}% отзывов получают ответ в рамках стандарта Hilton (48 часов). Среднее время ответа — ${resp.avg_days} дней. Ответы, набросанные ИИ, сокращают это до часа.</p>
+    </div>`;
+}
+
+function VelocityChart({ velocity }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    if (!ref.current || !window.ApexCharts || !velocity) return;
+    const months = velocity.map(d => d.month);
+    const chart = new ApexCharts(ref.current, {
+      chart: { type: 'bar', height: 250, background: 'transparent', stacked: true, toolbar: { show: false } },
+      theme: { mode: 'dark' },
+      colors: ['#fd79a8', 'rgba(255,255,255,0.1)'],
+      series: [
+        { name: 'Негативные (1-2★)', data: velocity.map(d => d.negative) },
+        { name: 'Остальные отзывы', data: velocity.map(d => d.total - d.negative) },
+      ],
+      xaxis: { categories: months, labels: { style: { colors: '#a0a0b8', fontSize: '10px' }, rotate: -45 }, tickAmount: Math.min(12, months.length) },
+      yaxis: { labels: { style: { colors: '#a0a0b8' } } },
+      grid: { borderColor: 'rgba(255,255,255,0.05)' },
+      legend: { position: 'top', labels: { colors: '#ededf4' } },
+      plotOptions: { bar: { columnWidth: '70%' } },
+      tooltip: { theme: 'dark' },
+    });
+    chart.render();
+    return () => chart.destroy();
+  }, [velocity]);
+  return html`
+    <div class="dash-card">
+      <h4>Динамика негативных отзывов по времени</h4>
+      <div ref=${ref}></div>
+      <p style="margin-top:0.6rem;font-size:0.75rem;color:#a0a0b8;font-style:italic;line-height:1.5;">Розовые столбики — отзывы 1-2★ по месяцам. Полезно для понимания, становится ли лучше или хуже — и какие периоды стоит расследовать.</p>
+    </div>`;
+}
+
+function CountryCard({ countries }) {
+  if (!countries || Object.keys(countries).length === 0) return null;
+  const flag = (cc) => {
+    if (!cc || cc.length !== 2) return '🌍';
+    return String.fromCodePoint(...cc.toUpperCase().split('').map(c => 0x1F1A5 + c.charCodeAt(0)));
+  };
+  const NAME = { MA: 'Марокко', FR: 'Франция', SA: 'Саудовская Аравия', NL: 'Нидерланды', AE: 'ОАЭ', GB: 'Великобритания', US: 'США', QA: 'Катар', BE: 'Бельгия', EG: 'Египет', CH: 'Швейцария', DE: 'Германия', TR: 'Турция', KW: 'Кувейт', CA: 'Канада', TN: 'Тунис', IT: 'Италия', ES: 'Испания', RU: 'Россия' };
+  const sorted = Object.entries(countries).sort((a,b) => b[1] - a[1]).slice(0, 12);
+  const max = sorted[0][1];
+  return html`
+    <div class="dash-card">
+      <h4>Топ стран-источников гостей (данные Booking)</h4>
+      <div style="display:flex;flex-direction:column;gap:0.45rem;">
+        ${sorted.map(([cc, n]) => html`
+          <div style="display:grid;grid-template-columns:40px 130px 1fr 50px;gap:0.6rem;align-items:center;font-size:0.83rem;">
+            <div style="font-size:1.2rem;text-align:center;">${flag(cc)}</div>
+            <div style="color:#ededf4;">${NAME[cc] || cc}</div>
+            <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${100*n/max}%;background:linear-gradient(90deg,#6c5ce7,#00cec9);border-radius:4px;`}></div></div>
+            <div style="color:#a0a0b8;text-align:right;">${n}</div>
+          </div>`)}
+      </div>
+      <p style="margin-top:0.9rem;font-size:0.75rem;color:#a0a0b8;line-height:1.5;">Определяет, какие языки должен поддерживать гостевой ассистент. AR/FR/EN покрывают ~75% гостей.</p>
+    </div>`;
+}
+
+function CompetitorCard({ competitors }) {
+  if (!competitors || competitors.length === 0) return null;
+  const sorted = [...competitors].sort((a, b) => b.avg_rating - a.avg_rating);
+  const labels = {
+    'movenpick': 'Movenpick Casablanca',
+    'hyatt': 'Hyatt Regency Casablanca',
+    'sofitel': 'Sofitel Tour Blanche',
+    'fourseasons': 'Four Seasons Casablanca',
+    'HGI Sud (you)': 'HGI Casablanca Sud (вы)',
+  };
+  return html`
+    <div class="dash-card">
+      <h4>Сравнение с конкурентами в Касабланке</h4>
+      <div style="display:flex;flex-direction:column;gap:0.6rem;">
+        ${sorted.map(c => {
+          const isYou = c.name === 'HGI Sud (you)';
+          const lbl = labels[c.name] || c.name;
+          const barPct = (c.avg_rating / 5) * 100;
+          const barColor = isYou ? 'linear-gradient(90deg,#6c5ce7,#00cec9)' : 'rgba(255,255,255,0.18)';
+          const txtColor = isYou ? '#ededf4' : '#a0a0b8';
+          return html`
+            <div style=${`display:grid;grid-template-columns:200px 1fr 60px 80px;gap:0.6rem;align-items:center;padding:0.5rem 0;${isYou ? 'background:rgba(108,92,231,0.06);border-radius:8px;padding:0.5rem 0.7rem;' : ''}`}>
+              <div style=${`color:${txtColor};font-weight:${isYou ? 700 : 500};font-size:0.85rem;`}>${lbl}</div>
+              <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:10px;overflow:hidden;"><div style=${`height:100%;width:${barPct}%;background:${barColor};border-radius:4px;`}></div></div>
+              <div style=${`color:#fdcb6e;font-weight:700;font-size:0.85rem;text-align:right;`}>${c.avg_rating}<span style="color:#a0a0b8;font-size:0.7rem;font-weight:400;">/5</span></div>
+              <div style="color:#a0a0b8;font-size:0.72rem;text-align:right;">${c.total_reviews.toLocaleString()} отз.</div>
+            </div>`;
+        })}
+      </div>
+      <p style="margin-top:0.9rem;font-size:0.7rem;color:#a0a0b8;font-style:italic;line-height:1.5;">Оценки конкурентов выведены из выборки TripAdvisor. Общее количество отзывов точное. Используйте для направления, не для точного сравнения.</p>
+    </div>`;
+}
+
+function Dashboard() {
+  const [data, setData] = useState(null);
+  const [competitors, setCompetitors] = useState(null);
+  const [filter, setFilter] = useState({ source: 'All', rating: 'All', q: '' });
+
+  useEffect(() => {
+    fetch('../hgicasablancaproposal/dashboard-data.json').then(r => r.json()).then(setData);
+    fetch('../hgicasablancaproposal/competitors.json').then(r => r.json()).then(setCompetitors).catch(() => {});
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (!data) return [];
+    const q = filter.q.toLowerCase();
+    return data.reviews.filter(r => {
+      if (filter.source !== 'All' && r.source !== filter.source) return false;
+      if (filter.rating !== 'All' && r.rating !== Number(filter.rating)) return false;
+      if (q && !((r.title||'') + ' ' + (r.text||'') + ' ' + (r.reviewer||'')).toLowerCase().includes(q)) return false;
+      return true;
+    });
+  }, [data, filter]);
+
+  if (!data) return html`<div style="color:#a0a0b8;text-align:center;padding:3rem;">Загрузка отзывов…</div>`;
+  const a = data.aggregates;
+
+  return html`
+    <div>
+      <div class="dash-grid">
+        <div class="dash-tile">
+          <div class="lbl">Всего отзывов</div>
+          <div class="val g1" style="background:linear-gradient(135deg,#6c5ce7,#00cec9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${a.total}</div>
+          <div class="sub">с 3 платформ</div>
+        </div>
+        <div class="dash-tile">
+          <div class="lbl">Средняя оценка</div>
+          <div class="val" style="color:#fdcb6e;">${a.avg_rating}<span style="font-size:1rem;color:#a0a0b8;"> / 5</span></div>
+          <div class="sub">невзвешенное по всем источникам</div>
+        </div>
+        <div class="dash-tile">
+          <div class="lbl">Негативные (1–2★)</div>
+          <div class="val" style="color:#fd79a8;">${a.negative_pct}%</div>
+          <div class="sub">${Math.round(a.negative_pct * a.total / 100)} отзывов</div>
+        </div>
+        <div class="dash-tile">
+          <div class="lbl">Распределение источников</div>
+          <div style="display:flex;flex-direction:column;gap:0.3rem;margin-top:0.3rem;">
+            ${SOURCES.map(s => html`
+              <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
+                <span style="color:${SOURCE_COLORS[s]};font-weight:600;">${s}</span>
+                <span style="color:#ededf4;font-weight:700;">${a.by_source[s]||0}</span>
+              </div>`)}
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-row split">
+        <div class="dash-card">
+          <h4>Тренд оценки во времени</h4>
+          <${TimeChart} trend=${a.trend} />
+        </div>
+        <${DonutChart} title="Тип поездки" data=${a.by_trip_type} />
+      </div>
+
+      <div class="dash-row split">
+        <${TopicsCard} topics=${a.topics} />
+        <${DonutChart} title="Язык оригинала отзыва" data=${a.by_lang} palette=${['#6c5ce7','#00cec9','#fd79a8','#fdcb6e','#a29bfe','#818cf8','#22d3ee']} />
+      </div>
+
+      ${a.velocity ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${VelocityChart} velocity=${a.velocity} /></div>` : ''}
+
+      <div class="dash-row split">
+        ${a.response ? html`<${ResponseCard} resp=${a.response} />` : ''}
+        ${a.by_country ? html`<${CountryCard} countries=${a.by_country} />` : ''}
+      </div>
+
+      ${competitors ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${CompetitorCard} competitors=${competitors} /></div>` : ''}
+
+      <div class="dash-card" style="margin-top:1rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+          <h4 style="margin-bottom:0;">Лента отзывов с фильтрами</h4>
+          <div style="font-size:0.8rem;color:#a0a0b8;">показано ${filtered.length} из ${a.total}</div>
+        </div>
+        <div class="filter-bar">
+          ${['All', ...SOURCES].map(s => html`
+            <button class=${'pill-btn ' + (filter.source === s ? 'active' : '')} onClick=${() => setFilter({...filter, source: s})}>${s === 'All' ? 'Все' : s}</button>`)}
+          <span style="opacity:0.3;">|</span>
+          ${['All', '1', '2', '3', '4', '5'].map(r => html`
+            <button class=${'pill-btn ' + (String(filter.rating) === r ? 'active' : '')} onClick=${() => setFilter({...filter, rating: r})}>${r === 'All' ? 'Все ★' : r + '★'}</button>`)}
+          <input class="search-box" type="text" placeholder="Поиск по отзывам…" value=${filter.q} onInput=${e => setFilter({...filter, q: e.target.value})} />
+        </div>
+        <div class="review-feed">
+          ${filtered.length === 0 ? html`<div style="text-align:center;color:#a0a0b8;padding:2rem;">Нет отзывов по этим фильтрам</div>` :
+            filtered.slice(0, 100).map(r => html`
+              <div class="rev-item">
+                <div class="rev-meta">
+                  <span class=${'rev-source ' + r.source}>${r.source}</span>
+                  <${Stars} n=${r.rating} />
+                  ${r.date ? html`<span>${r.date}</span>` : ''}
+                  ${r.trip_type ? html`<span>· ${r.trip_type}</span>` : ''}
+                  ${r.lang && r.lang !== 'en' ? html`<span>· ${r.lang}</span>` : ''}
+                  ${r.country ? html`<span>· ${r.country}</span>` : ''}
+                  ${r.reviewer ? html`<span style="margin-left:auto;">${r.reviewer}</span>` : ''}
+                </div>
+                ${r.title ? html`<div class="rev-title">${r.title}</div>` : ''}
+                <div class="rev-text">${r.text}</div>
+              </div>`)}
+          ${filtered.length > 100 ? html`<div style="text-align:center;color:#a0a0b8;padding:1rem;font-size:0.78rem;">Показаны первые 100 из ${filtered.length}. Уточните фильтры.</div>` : ''}
+        </div>
+      </div>
+    </div>`;
+}
+
+render(html`<${Dashboard} />`, document.getElementById('reviewDashboard'));
+</script>
+
+</body>
+</html>
