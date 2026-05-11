@@ -160,21 +160,15 @@
     .phase-num { position: static; margin-bottom: 0.8rem; }
   }
 
-  /* Simple flow chart — responsive at every size */
+  /* Simple flow chart — single centred column, friction inline */
   .flowchart {
     display: flex; flex-direction: column; align-items: center;
     margin: 2.5rem auto;
     width: 100%;
-    max-width: 920px;
-  }
-  .fc-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px) minmax(0, 1fr);
-    align-items: center;
-    column-gap: 1.4rem;
-    width: 100%;
+    max-width: 480px;
   }
   .fc-box {
+    width: 100%;
     background: var(--card);
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 14px;
@@ -183,10 +177,8 @@
     color: var(--t);
     font-weight: 500;
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.45;
     box-shadow: 0 4px 24px rgba(0,0,0,0.25);
-    position: relative;
-    z-index: 1;
   }
   .fc-box.start {
     background: linear-gradient(135deg, rgba(108,92,231,0.20), rgba(0,206,201,0.14));
@@ -197,45 +189,32 @@
     border-color: rgba(0,206,201,0.45); font-weight: 700;
   }
   .fc-box.friction {
-    background: rgba(253,121,168,0.08);
+    background: rgba(253,121,168,0.06);
     border-color: rgba(253,121,168,0.4);
     border-style: dashed;
   }
+  .fc-box .fc-note {
+    margin-top: 0.7rem;
+    padding-top: 0.7rem;
+    border-top: 1px dashed rgba(253,121,168,0.25);
+    font-size: 0.78rem;
+    color: var(--td);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .fc-box .fc-note strong { color: var(--a4); font-weight: 700; }
   .fc-arrow {
     color: rgba(160,160,184,0.55);
-    font-size: 1.5rem; line-height: 1;
-    padding: 0.5rem 0; text-align: center;
+    font-size: 1.4rem; line-height: 1;
+    padding: 0.55rem 0; text-align: center;
     font-family: monospace;
   }
-  .fc-callout {
-    background: rgba(253,121,168,0.06);
-    border-left: 3px solid var(--a4);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    font-size: 0.82rem;
-    color: var(--td);
-    line-height: 1.55;
-    text-align: left;
-  }
-  .fc-callout strong { color: var(--a4); font-weight: 700; }
-  .fc-spacer { /* takes grid space, invisible */ }
 
-  /* Tablet — when there's not enough room for callouts on the side */
-  @media (max-width: 880px) {
-    .fc-row { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin: 0 auto; }
-    .fc-spacer { display: none; }
-    .fc-callout {
-      margin-top: 0.6rem;
-      text-align: left;
-    }
-  }
-
-  /* Mobile — tighter spacing, smaller text */
-  @media (max-width: 480px) {
-    .flowchart { margin: 1.5rem auto; }
-    .fc-box { font-size: 0.88rem; padding: 1rem 1.1rem; border-radius: 12px; }
-    .fc-arrow { font-size: 1.3rem; padding: 0.3rem 0; }
-    .fc-callout { font-size: 0.78rem; padding: 0.65rem 0.85rem; }
+  @media (max-width: 540px) {
+    .flowchart { margin: 1.8rem auto; max-width: 100%; }
+    .fc-box { font-size: 0.9rem; padding: 1rem 1.15rem; border-radius: 12px; }
+    .fc-arrow { font-size: 1.25rem; padding: 0.4rem 0; }
+    .fc-box .fc-note { font-size: 0.76rem; }
   }
 </style>
 </head>
@@ -336,35 +315,21 @@
     <p class="sub">Here's the simplest possible example, from a real moment at any hotel: a guest asks for an extra towel.</p>
 
     <div class="flowchart">
-      <div class="fc-row">
-        <div class="fc-spacer"></div>
-        <div class="fc-box start">Guest calls reception</div>
-        <div class="fc-spacer"></div>
+      <div class="fc-box start">Guest calls reception</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-box">Reception writes it on a notepad</div>
+      <div class="fc-arrow">↓</div>
+      <div class="fc-box friction">
+        Radios housekeeping
+        <div class="fc-note"><strong>Lost in radio noise.</strong> No record. No-one's tracking it.</div>
       </div>
       <div class="fc-arrow">↓</div>
-      <div class="fc-row">
-        <div class="fc-spacer"></div>
-        <div class="fc-box">Reception writes it on a notepad</div>
-        <div class="fc-spacer"></div>
+      <div class="fc-box friction">
+        HK gets to the room "when free"
+        <div class="fc-note"><strong>No SLA.</strong> Could be 5 minutes. Could be an hour.</div>
       </div>
       <div class="fc-arrow">↓</div>
-      <div class="fc-row">
-        <div class="fc-spacer"></div>
-        <div class="fc-box friction">Radios housekeeping</div>
-        <div class="fc-callout fc-callout-r"><strong>Lost in radio noise.</strong> No record. No-one's tracking it.</div>
-      </div>
-      <div class="fc-arrow">↓</div>
-      <div class="fc-row">
-        <div class="fc-spacer"></div>
-        <div class="fc-box friction">HK gets to the room "when free"</div>
-        <div class="fc-callout fc-callout-r"><strong>No SLA.</strong> Could be 5 minutes. Could be an hour.</div>
-      </div>
-      <div class="fc-arrow">↓</div>
-      <div class="fc-row">
-        <div class="fc-spacer"></div>
-        <div class="fc-box end">Guest gets towel — eventually</div>
-        <div class="fc-spacer"></div>
-      </div>
+      <div class="fc-box end">Guest gets towel — eventually</div>
     </div>
 
     <p style="margin-top:1.5rem;font-size:0.95rem;color:var(--t);line-height:1.65;max-width:720px;margin-left:auto;margin-right:auto;text-align:center;">That's it. That's a flow chart.</p>
