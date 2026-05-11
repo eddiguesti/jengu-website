@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Voice of the Guest — HGI Casablanca Sud</title>
+<style>
+  :root{
+    --bg:#0A0817; --bg-2:#0E0B1F; --card:#13111F; --card-2:#181527;
+    --line:rgba(255,255,255,.06); --text:#F4F4FB; --muted:#8E91AE;
+    --accent:#5EE3D5; --accent-2:#7B7AF7;
+    --pos:#5EE3D5; --warn:#FFCC66; --neg:#FF85A8; --info:#9D9CE7;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,'Inter','Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  body{background:radial-gradient(1200px 600px at 80% -10%, rgba(123,122,247,.10), transparent 60%), radial-gradient(900px 500px at -10% 30%, rgba(94,227,213,.06), transparent 60%), var(--bg)}
+  .wrap{max-width:1040px;margin:0 auto;padding:40px 28px 56px}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent-2);font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:18px}
+  h1{font-size:44px;line-height:1.1;letter-spacing:-.025em;margin:0 0 14px;font-weight:700}
+  h1 span{background:linear-gradient(90deg,var(--accent) 0%,var(--accent-2) 70%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);font-size:16px;line-height:1.6;max-width:760px;margin:0 0 36px}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:48px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative;overflow:hidden}
+  .stat .lbl{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em;margin-bottom:14px;font-weight:600}
+  .stat .num{font-size:36px;font-weight:700;letter-spacing:-.025em;line-height:1}
+  .stat .meta{color:var(--muted);font-size:12px;margin-top:10px;opacity:.85}
+  .stat.s1 .num{color:var(--accent-2)}
+  .stat.s2 .num{color:var(--neg)}
+  .stat.s3 .num{color:var(--accent)}
+  .stat.s4 .num{color:var(--warn)}
+
+  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:0 0 18px;flex-wrap:wrap;gap:8px}
+  .section-title h2{font-size:22px;margin:0;font-weight:600;letter-spacing:-.01em}
+  .section-title .step{color:var(--muted);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+
+  /* RESPONSE BLOCK */
+  .resp-block{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-bottom:48px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .panel h3{margin:0 0 14px;font-size:16px;font-weight:600}
+  .panel .desc{color:var(--muted);font-size:13px;line-height:1.55;margin:0 0 18px}
+
+  /* STEPPER */
+  .stepper{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:0 0 48px;padding:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:14px}
+  .step-pill{position:relative;padding:10px 12px;border-radius:10px;display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.02)}
+  .step-pill .n{font-size:10px;letter-spacing:.16em;color:var(--accent-2);font-weight:700}
+  .step-pill .t{font-size:13px;font-weight:600;color:var(--text)}
+  .step-pill .s{font-size:11px;color:var(--muted);margin-top:2px}
+  .step-pill::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--line);font-size:14px}
+  .step-pill:last-child::after{display:none}
+
+  /* PIPELINE */
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:18px}
+  .node{padding:12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02);text-align:center}
+  .node .h{font-size:11px;letter-spacing:.12em;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+  .node .v{font-size:13px;font-weight:600}
+  .node .x{font-size:11px;color:var(--muted);margin-top:4px}
+
+  /* AGENT EMAIL MOCKUP */
+  .mockup{background:#0F0E1A;border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden;font-family:-apple-system,'SF Pro',sans-serif;margin-top:18px}
+  .mockup .mhead{padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);display:flex;justify-content:space-between;align-items:center;font-size:12px}
+  .mockup .mhead .from{color:var(--muted)}
+  .mockup .mhead .from b{color:var(--text)}
+  .mockup .mhead .when{color:var(--muted);font-size:11px}
+  .mockup .mbody{padding:16px 18px}
+  .mockup .msubj{font-size:15px;font-weight:600;margin-bottom:12px}
+  .mockup .mbody p{margin:0 0 10px;font-size:13px;line-height:1.55;color:var(--text)}
+  .mockup .mbody .item{padding:10px 12px;background:rgba(255,255,255,.03);border-left:2px solid var(--accent);border-radius:6px;margin:8px 0;font-size:12.5px;line-height:1.5}
+  .mockup .mbody .item .src{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-right:6px}
+  .mockup .mbody .item .rate{display:inline-block;font-size:11px;color:var(--warn);font-weight:600}
+  .mockup .trend-mini{display:flex;gap:3px;align-items:flex-end;height:24px;margin:6px 0}
+  .mockup .trend-mini i{display:block;width:8px;background:var(--accent-2);border-radius:2px;opacity:.7}
+
+  /* BEFORE/AFTER TABLE */
+  .ba{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:48px}
+  .ba-row{display:grid;grid-template-columns:1.6fr 1fr 1fr 0.8fr;gap:0;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .ba-row:last-child{border-bottom:0}
+  .ba-row.head{background:rgba(255,255,255,.05)}
+  .ba-row > div{padding:14px 18px;font-size:13px;display:flex;align-items:center;border-right:1px solid var(--line)}
+  .ba-row > div:last-child{border-right:0}
+  .ba-row.head > div{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .ba-row .b{color:var(--neg);text-decoration:line-through;text-decoration-color:rgba(255,133,168,.45)}
+  .ba-row .a{color:var(--accent);font-weight:600}
+  .ba-row .saved{color:var(--warn);font-weight:700;font-variant-numeric:tabular-nums;text-align:right;justify-content:flex-end}
+
+  /* TECH STACK TABLE */
+  .stack-table{border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .stack-row{display:grid;grid-template-columns:140px 1fr 140px;gap:0;border-bottom:1px solid var(--line)}
+  .stack-row:last-child{border-bottom:0}
+  .stack-row > div{padding:12px 16px;font-size:13px;border-right:1px solid var(--line);display:flex;align-items:center}
+  .stack-row > div:last-child{border-right:0}
+  .stack-row .layer{color:var(--accent-2);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .stack-row .tool{color:var(--text)}
+  .stack-row .cost{color:var(--muted);font-size:12px;justify-content:flex-end;text-align:right}
+
+  /* AGENT ARCHITECTURE DIAGRAM */
+  .arch{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:32px;position:relative;overflow:hidden}
+  .arch::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle, rgba(255,255,255,.025) 1px, transparent 1px);background-size:20px 20px;opacity:.5;pointer-events:none}
+  .arch-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;flex-wrap:wrap;gap:8px;position:relative;z-index:2}
+  .arch-head h3{margin:0;font-size:16px;font-weight:600}
+  .arch-head .meta{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+
+  .arch-flow{display:grid;grid-template-columns:1fr auto 1.4fr auto 1.6fr auto 1fr;gap:10px;align-items:stretch;position:relative;z-index:2}
+  .arch-flow.biz{grid-template-columns:0.9fr auto 1.3fr auto 1.4fr auto 0.95fr;align-items:stretch}
+  .arch-flow.biz .arch-arrow{align-self:center}
+  .arch-stage{display:flex;flex-direction:column;gap:6px;min-width:0}
+  .arch-stage > .stage-h{font-size:9.5px;letter-spacing:.16em;color:var(--accent-2);font-weight:700;text-transform:uppercase;margin-bottom:4px;text-align:center}
+  .arch-node{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.35;color:var(--text);text-align:center;font-weight:500;flex:1;display:flex;flex-direction:column;justify-content:center}
+  .arch-node small{display:block;font-size:10px;color:var(--muted);font-weight:500;margin-top:3px}
+
+  .arch-node.brain{flex:none;margin:auto 0;background:linear-gradient(160deg,rgba(123,122,247,.10),rgba(94,227,213,.04));border:1.5px solid rgba(123,122,247,.4);padding:14px 16px;text-align:left;box-shadow:0 0 30px rgba(123,122,247,.12)}
+  .arch-node.brain .b-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px;display:flex;align-items:center;gap:8px}
+  .arch-node.brain .b-title::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent-2);box-shadow:0 0 8px var(--accent-2)}
+  .arch-node.brain .b-sub{font-size:10.5px;color:var(--muted);margin-bottom:6px;letter-spacing:.04em}
+  .arch-node.brain .b-block{margin-top:10px}
+  .arch-node.brain .b-lbl{font-size:9px;letter-spacing:.14em;color:var(--accent-2);text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .arch-node.brain .b-chips{display:flex;flex-wrap:wrap;gap:5px}
+  .arch-node.brain .b-chip{font-size:10.5px;padding:4px 8px;background:rgba(123,122,247,.10);border:1px solid rgba(123,122,247,.25);border-radius:4px;color:var(--text);font-weight:500}
+  .arch-node.brain .b-mem{font-size:10.5px;color:var(--muted);background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.1);border-radius:6px;padding:8px 10px;line-height:1.5}
+
+  .arch-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent-2);font-size:16px;opacity:.6;font-weight:700}
+
+  .arch-feedback{margin-top:14px;display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,204,102,.04);border:1px dashed rgba(255,204,102,.25);border-radius:8px;position:relative;z-index:2}
+  .arch-feedback .fb-icon{width:24px;height:24px;border-radius:50%;background:rgba(255,204,102,.15);color:var(--warn);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:13px}
+  .arch-feedback .fb-text{font-size:12px;color:var(--muted);line-height:1.45}
+  .arch-feedback .fb-text b{color:var(--warn);font-weight:600}
+
+  /* BUSINESS-FOCUSED ARCH ELEMENTS */
+  .arch-node.biz-src{padding:14px 16px;text-align:left;justify-content:flex-start;gap:8px;flex:none;margin:auto 0}
+  .arch-node.biz-src .src-hero{text-align:left;padding-bottom:2px}
+  .arch-node.biz-src .src-hero-num{font-size:30px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .arch-node.biz-src .src-hero-lbl{font-size:11px;letter-spacing:.06em;color:var(--text);font-weight:600;margin-top:6px}
+  .arch-node.biz-src .src-hero-sub{font-size:10.5px;color:var(--muted);margin-top:2px;opacity:.8}
+  .arch-node.biz-src .src-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(123,122,247,.25),transparent);margin:2px 0}
+  .arch-node.biz-src .src-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;padding:3px 0;font-size:12px}
+  .arch-node.biz-src .src-name{color:var(--text);opacity:.9}
+  .arch-node.biz-src .src-num{color:var(--muted);font-variant-numeric:tabular-nums;font-weight:600}
+  .arch-node.biz-src .src-bar{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.05);position:relative;overflow:hidden}
+  .arch-node.biz-src .src-bar::after{content:'';position:absolute;left:0;top:0;height:100%;width:var(--p, 50%);background:linear-gradient(90deg,var(--accent-2),var(--accent));border-radius:2px;opacity:.65}
+  .arch-node.biz-src .src-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .arch-node.biz-src .src-mini-row{display:flex;flex-direction:column;gap:2px;text-align:center;padding:6px 4px;background:rgba(255,255,255,.02);border-radius:6px}
+  .arch-node.biz-src .src-mini-val{color:var(--text);font-weight:700;font-size:15px;font-variant-numeric:tabular-nums;line-height:1.1}
+  .arch-node.biz-src .src-mini-lbl{color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.08em;font-weight:600;line-height:1.2}
+  .arch-note{margin-top:8px;font-size:10.5px;color:var(--muted);line-height:1.4;font-style:italic;opacity:.75;text-align:left;padding:0 4px}
+
+  .arch-node.brain .b-biz-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--text);line-height:1.4;margin-top:4px;padding:3px 0}
+  .arch-node.brain .b-biz-row .num{flex-shrink:0;width:20px;height:20px;border-radius:50%;background:rgba(123,122,247,.18);color:var(--accent-2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+
+  .arch-node.dept{padding:10px 12px;text-align:left;background:var(--card-2);cursor:pointer;transition:border-color .2s, transform .2s;position:relative}
+  .arch-node.dept:hover{border-color:var(--c, var(--accent));transform:translateY(-1px)}
+  .arch-node.dept::after{content:'→';position:absolute;top:14px;right:14px;color:var(--muted);font-size:13px;opacity:0;transition:opacity .2s, transform .2s}
+  .arch-node.dept:hover::after{opacity:.6;transform:translateX(2px)}
+
+  /* MODAL */
+  .modal-bg{position:fixed;inset:0;background:rgba(10,8,23,.85);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:60px 24px;overflow-y:auto}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:760px;width:100%;padding:28px;position:relative;animation:modalIn .25s ease}
+  @keyframes modalIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .modal-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+  .modal-title{font-size:18px;font-weight:600;color:var(--text)}
+  .modal-title .mt-pct{color:var(--mc, var(--accent-2));margin-right:10px;font-weight:700}
+  .modal-meta{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  .modal-close{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--muted);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s, color .2s}
+  .modal-close:hover{background:rgba(255,255,255,.1);color:var(--text)}
+  .modal-list{display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow-y:auto;padding-right:8px;margin-top:8px}
+  .modal-list::-webkit-scrollbar{width:6px}
+  .modal-list::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+  .modal-item{padding:12px 14px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:8px;font-size:13px;line-height:1.5}
+  .modal-item .mi-meta{display:flex;align-items:center;gap:10px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-weight:700}
+  .modal-item .mi-src{color:var(--accent-2)}
+  .modal-item .mi-int{margin-left:auto;color:var(--warn)}
+  .modal-item .mi-body{color:var(--text);font-style:italic;opacity:.9}
+  .arch-node.dept .d-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+  .arch-node.dept .d-pct{font-size:18px;font-weight:700;color:var(--c, var(--accent));letter-spacing:-.02em}
+  .arch-node.dept .d-trend{font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:2px 6px;border-radius:3px}
+  .arch-node.dept .d-trend.up{color:#FF85A8;background:rgba(255,133,168,.10)}
+  .arch-node.dept .d-trend.down{color:#5EE3D5;background:rgba(94,227,213,.10)}
+  .arch-node.dept .d-trend.flat{color:#FFCC66;background:rgba(255,204,102,.10)}
+  .arch-node.dept .d-cat{font-size:13px;font-weight:600;color:var(--text);margin-bottom:1px;line-height:1.25}
+  .arch-node.dept .d-owner{font-size:10.5px;color:var(--muted);font-weight:500;line-height:1.35;margin-bottom:4px}
+  .arch-node.dept .d-summary{font-size:11px;color:color-mix(in srgb, var(--c, var(--accent)) 70%, var(--muted));line-height:1.4;font-style:italic;border-top:1px dashed color-mix(in srgb, var(--c, var(--accent)) 18%, transparent);padding-top:5px;margin-top:1px;opacity:.95}
+
+  .arch-node.outcome{padding:10px 12px;text-align:left;background:linear-gradient(135deg,rgba(94,227,213,.04),var(--card-2));border-color:rgba(94,227,213,.18)}
+  .arch-node.outcome .o-val{font-size:18px;font-weight:700;color:var(--accent);letter-spacing:-.01em;line-height:1.1;margin-bottom:3px}
+  .arch-node.outcome .o-lbl{font-size:10.5px;color:var(--muted);line-height:1.35;font-weight:500}
+  .arch-node.outcome.highlight{background:linear-gradient(135deg,rgba(123,122,247,.10),rgba(94,227,213,.04));border-color:rgba(123,122,247,.3)}
+  .arch-node.outcome.highlight .o-val{background:linear-gradient(135deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  @media (max-width:980px){
+    .arch-flow{grid-template-columns:1fr;gap:8px}
+    .arch-arrow{transform:rotate(90deg);padding:6px 0}
+    .arch-stage > .stage-h{text-align:left}
+  }
+
+  /* WORKFLOW TIMELINE */
+  .wf{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-bottom:32px}
+  .wf-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;flex-wrap:wrap;gap:8px}
+  .wf-head h3{margin:0;font-size:15px;font-weight:600}
+  .wf-head .meta{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  .wf-step{display:grid;grid-template-columns:80px 1fr;gap:18px;padding:12px 0;border-bottom:1px solid var(--line);position:relative}
+  .wf-step:last-child{border-bottom:0}
+  .wf-step .wt{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.05em;font-variant-numeric:tabular-nums;padding-top:2px}
+  .wf-step .wb .wn{font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:3px}
+  .wf-step .wb .wd{font-size:12.5px;color:var(--muted);line-height:1.55}
+  .wf-step .wb .wd b{color:var(--accent);font-weight:600}
+  .wf-step .wb .wd .who{color:var(--accent-2);font-weight:600}
+  .wf-step .wb .wq{font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;padding:8px 12px;background:rgba(255,255,255,.025);border-left:2px solid var(--accent);border-radius:0 4px 4px 0}
+
+  /* CONSTELLATION — bottlenecks + solutions in one view */
+  .cons{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px;margin-bottom:32px;height:860px;overflow:hidden}
+  .cons::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle, rgba(255,255,255,.04) 1px, transparent 1px);background-size:24px 24px;opacity:.6;pointer-events:none}
+  .cons-grid{position:absolute;inset:0;z-index:2}
+
+  /* HUB */
+  .cons-hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 30% 30%, rgba(123,122,247,.16), rgba(94,227,213,.04) 65%, rgba(0,0,0,.2));border:1.5px solid rgba(123,122,247,.5);border-radius:50%;width:260px;height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;z-index:3;box-shadow:0 0 70px rgba(123,122,247,.18), inset 0 0 40px rgba(0,0,0,.3)}
+  .cons-hub::before{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(123,122,247,.18)}
+  .cons-hub::after{content:'';position:absolute;inset:-28px;border-radius:50%;border:1px solid rgba(94,227,213,.08)}
+  .cons-hub .ht{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);font-weight:700;margin-bottom:14px;opacity:.9}
+  .cons-hub .htotal{font-size:48px;font-weight:700;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;letter-spacing:-.03em}
+  .cons-hub .hl{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:8px}
+  .cons-hub .hs{font-size:10.5px;color:var(--muted);margin-top:18px;line-height:1.6;opacity:.6;max-width:200px}
+  .cons-hub .hub-loop{display:none}
+
+  /* NODES — circular, positioned radially around hub */
+  .cons-node{position:absolute;left:50%;top:50%;width:220px;height:220px;margin:-110px 0 0 -110px;border-radius:50%;border:1.5px solid color-mix(in srgb, var(--node-color, var(--accent)) 50%, transparent);background:radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--node-color, var(--accent)) 10%, transparent) 0%, var(--card-2) 65%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;cursor:pointer;transition:box-shadow .3s ease, border-color .3s ease, --tx-scale .3s ease;z-index:3;box-shadow:0 0 34px color-mix(in srgb, var(--node-color, var(--accent)) 14%, transparent), inset 0 1px 0 rgba(255,255,255,.04);--tx-scale:1;transform:translate(var(--tx, 0), var(--ty, 0)) scale(var(--tx-scale))}
+  .cons-node:hover{--tx-scale:1.04;border-color:color-mix(in srgb, var(--node-color, var(--accent)) 80%, transparent);box-shadow:0 0 48px color-mix(in srgb, var(--node-color, var(--accent)) 28%, transparent), inset 0 1px 0 rgba(255,255,255,.06)}
+  .cons-node .cn-pct{font-size:32px;font-weight:700;color:var(--node-color, var(--accent));line-height:1;letter-spacing:-.02em}
+  .cons-node .cn-pcl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:600;margin-top:6px;opacity:.7}
+  .cons-node .cn-name{font-size:14px;font-weight:600;color:var(--text);margin-top:12px;line-height:1.25}
+  .cons-node .cn-owner{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;font-weight:600;max-width:170px;line-height:1.4;opacity:.7}
+  .cons-node .cn-sol{font-size:10.5px;color:color-mix(in srgb, var(--node-color, var(--accent)) 75%, var(--text));margin-top:10px;line-height:1.4;font-weight:500;max-width:160px;border-top:1px solid color-mix(in srgb, var(--node-color, var(--accent)) 18%, transparent);padding-top:8px;opacity:.95}
+  .cons-node .cn-sol b{color:var(--node-color, var(--accent));font-weight:700}
+  .cons-node .cn-trend{position:absolute;top:18px;right:18px;font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;letter-spacing:.04em;display:flex;align-items:center;gap:3px}
+  .cons-node .cn-trend.up{color:#FF85A8;background:rgba(255,133,168,.12)}
+  .cons-node .cn-trend.down{color:#5EE3D5;background:rgba(94,227,213,.12)}
+  .cons-node .cn-trend.flat{color:#FFCC66;background:rgba(255,204,102,.12)}
+  .cons-node .cn-spark{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:2px;align-items:flex-end;height:14px;opacity:.55}
+  .cons-node .cn-spark i{display:block;width:3px;background:var(--node-color, var(--accent));border-radius:1px}
+
+  /* 5 nodes at 72° intervals, radius 280px from hub center */
+  .cons-node.n1{--node-color:#FF85A8;--tx:0px;--ty:-280px}
+  .cons-node.n2{--node-color:#7B7AF7;--tx:266px;--ty:-87px}
+  .cons-node.n3{--node-color:#5EE3D5;--tx:164px;--ty:226px}
+  .cons-node.n4{--node-color:#FFCC66;--tx:-164px;--ty:226px}
+  .cons-node.n5{--node-color:#9D9CE7;--tx:-266px;--ty:-87px}
+
+  .cons-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+  .cons-svg line{stroke-width:1.5;opacity:.35;stroke-linecap:round}
+  .cons-svg .flow-glow{stroke-linecap:round;stroke-width:2.5;fill:none;opacity:.85;filter:drop-shadow(0 0 6px currentColor)}
+  .cons-svg .flow-dot{filter:drop-shadow(0 0 8px currentColor)}
+  .cons-svg .pulse-ring{fill:none;stroke-width:2;opacity:.6}
+
+  @media (max-width:900px){
+    .cons{height:auto;padding:24px}
+    .cons-hub{position:static;transform:none;margin:0 auto 20px;width:200px;height:200px}
+    .cons-grid{position:static}
+    .cons-node{position:static;width:auto;height:auto;border-radius:12px;margin:8px 0;padding:16px;flex-direction:row;justify-content:flex-start;text-align:left;gap:14px;--tx:0;--ty:0}
+    .cons-node:hover{--tx-scale:1}
+    .cons-node .cn-pct{font-size:24px}
+    .cons-node .cn-name{margin-top:0}
+    .cons-svg{display:none}
+  }
+
+  /* ACTIONS block */
+  .actions{margin-top:14px;background:linear-gradient(135deg,rgba(123,122,247,.06),rgba(94,227,213,.03));border:1px solid rgba(123,122,247,.18);border-radius:10px;padding:14px 16px}
+  .actions .at{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .actions .at::before{content:'';width:14px;height:14px;border-radius:3px;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+  .actions ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .actions li{font-size:13px;line-height:1.5;color:var(--text);padding-left:18px;position:relative}
+  .actions li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700}
+  .actions li b{color:var(--accent);font-weight:600}
+
+  /* DISCLOSURE for reviews */
+  details.reviews-disc{margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+  details.reviews-disc summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600;padding:6px 0;user-select:none}
+  details.reviews-disc summary::-webkit-details-marker{display:none}
+  details.reviews-disc summary::after{content:'▾';margin-left:auto;font-size:11px;color:var(--accent);transition:transform .2s}
+  details.reviews-disc[open] summary::after{transform:rotate(180deg)}
+  details.reviews-disc summary:hover{color:var(--accent)}
+
+  /* REVIEW FEEDS — horizontal swipeable cards */
+  .feed-wrap{margin-top:14px;border-top:1px solid var(--line);padding-top:14px;position:relative}
+  .feed{display:flex;flex-direction:row;gap:12px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0;padding:2px;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
+  .feed::-webkit-scrollbar{display:none;height:0;width:0}
+  .feed-item{flex:0 0 340px;scroll-snap-align:start;padding:14px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:8px;font-size:13px;line-height:1.55;display:flex;flex-direction:column;min-height:140px}
+  .feed-item:hover{background:rgba(255,255,255,.04);border-color:rgba(94,227,213,.3)}
+  .feed-meta{display:flex;align-items:center;gap:10px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:700;flex-shrink:0}
+  .feed-meta .src{color:var(--accent-2)}
+  .feed-meta .int{margin-left:auto;color:var(--warn)}
+  .feed-item .body{color:var(--text);font-style:italic;opacity:.9;font-size:12.5px}
+
+  /* Fade indicators at edges */
+  .feed-wrap::before, .feed-wrap::after{content:'';position:absolute;top:14px;bottom:14px;width:32px;pointer-events:none;z-index:2;transition:opacity .2s}
+  .feed-wrap::before{left:0;background:linear-gradient(90deg,var(--card),transparent);opacity:0}
+  .feed-wrap::after{right:0;background:linear-gradient(-90deg,var(--card),transparent);opacity:1}
+  .feed-wrap.at-start::before{opacity:0}
+  .feed-wrap.at-end::after{opacity:0}
+  .feed-wrap.not-start::before{opacity:1}
+  .feed-wrap.not-end::after{opacity:1}
+
+  /* Nav arrows */
+  .feed-nav{position:absolute;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;font-weight:700;z-index:3;transition:opacity .2s,background .2s;user-select:none}
+  .feed-nav:hover{background:var(--card-2);border-color:var(--accent)}
+  .feed-nav.left{left:-8px}
+  .feed-nav.right{right:-8px}
+  .feed-nav[disabled]{opacity:0;pointer-events:none}
+
+  /* ECOSYSTEM */
+  .eco{display:flex;flex-direction:column;gap:14px;margin-bottom:48px}
+  .eco-tier{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;grid-template-columns:200px 1fr 180px;gap:20px;align-items:start;transition:border-color .25s}
+  .eco-tier:hover{border-color:rgba(123,122,247,.35)}
+  .eco-tier.live{border-color:rgba(94,227,213,.35);background:linear-gradient(135deg,rgba(94,227,213,.06),var(--card) 40%)}
+  .eco-head{display:flex;flex-direction:column;gap:6px}
+  .eco-head .lyr{font-size:11px;letter-spacing:.16em;color:var(--accent-2);font-weight:700;text-transform:uppercase}
+  .eco-head h3{font-size:18px;margin:2px 0 4px;font-weight:600}
+  .eco-head .when{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.04em}
+  .eco-head .when.now{color:var(--accent)}
+  .eco-head .when.now::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+  .eco-head .when.next::before{content:'+';color:var(--accent-2);font-weight:700;margin-right:-2px}
+  .eco-caps{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+  .eco-cap{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .eco-cap .ct{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+  .eco-cap .cd{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .eco-kpi{background:rgba(123,122,247,.06);border:1px solid rgba(123,122,247,.2);border-radius:10px;padding:12px 14px}
+  .eco-kpi .ktitle{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);font-weight:700;margin-bottom:6px}
+  .eco-kpi .kval{font-size:13px;color:var(--text);font-weight:600;line-height:1.4}
+  .eco-kpi .ksrc{font-size:10.5px;color:var(--muted);margin-top:6px;font-style:italic}
+
+  /* CLOSED LOOP */
+  .loop{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:18px 0 24px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
+  .loop-step{padding:18px 16px;border-right:1px solid var(--line);position:relative;background:linear-gradient(180deg,rgba(123,122,247,.04),transparent)}
+  .loop-step:last-child{border-right:0}
+  .loop-step::after{content:'→';position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--accent-2);font-size:18px;font-weight:700;background:var(--card);width:18px;text-align:center;z-index:2}
+  .loop-step:last-child::after{display:none}
+  .loop-step .ln{font-size:10px;letter-spacing:.16em;color:var(--accent-2);font-weight:700;margin-bottom:4px}
+  .loop-step .lt{font-size:14px;font-weight:600;margin-bottom:6px}
+  .loop-step .ld{font-size:12px;color:var(--muted);line-height:1.5}
+  .loop-step .lout{font-size:11px;color:var(--accent);margin-top:8px;font-weight:600;letter-spacing:.04em;border-top:1px solid var(--line);padding-top:8px}
+
+  /* MONTHLY SCORECARD MOCKUP */
+  .score{background:#0F0E1A;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:14px}
+  .score .sh{padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.02);font-size:12px;color:var(--muted);display:flex;justify-content:space-between}
+  .score .sh b{color:var(--text)}
+  .score .sb{padding:14px 16px}
+  .score-row{display:grid;grid-template-columns:1.4fr 100px 110px 110px 110px;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);align-items:center;font-size:12.5px}
+  .score-row:last-child{border-bottom:0}
+  .score-row.h{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--line);padding-bottom:10px}
+  .score-row .owner{color:var(--text);font-weight:500}
+  .score-row .stat-num{font-variant-numeric:tabular-nums;color:var(--text)}
+  .score-row .trend-cell{display:flex;align-items:center;gap:6px;font-weight:600}
+  .score-row .trend-cell.up{color:var(--neg)}
+  .score-row .trend-cell.down{color:var(--accent)}
+  .score-row .trend-cell.flat{color:var(--warn)}
+  .score-row .status{font-size:10px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;padding:4px 8px;border-radius:4px;text-align:center}
+  .score-row .status.ok{background:rgba(94,227,213,.10);color:var(--accent)}
+  .score-row .status.watch{background:rgba(255,204,102,.10);color:var(--warn)}
+  .score-row .status.escalate{background:rgba(255,133,168,.10);color:var(--neg)}
+
+  /* DETAIL TAGS */
+  .tag{display:inline-block;font-size:10px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;padding:3px 8px;border-radius:4px;background:rgba(255,255,255,.05);color:var(--muted);margin-right:6px}
+  .tag.peak{background:rgba(255,133,168,.10);color:var(--neg)}
+  .tag.avg{background:rgba(255,204,102,.10);color:var(--warn)}
+  .tag.cov{background:rgba(94,227,213,.10);color:var(--accent)}
+
+  .resp-good{background:linear-gradient(160deg,rgba(94,227,213,.08),rgba(94,227,213,.02));border-color:rgba(94,227,213,.25)}
+  .resp-bad{background:linear-gradient(160deg,rgba(255,133,168,.07),rgba(255,133,168,.02));border-color:rgba(255,133,168,.25)}
+  .micro-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .micro{padding:14px;background:rgba(255,255,255,.03);border-radius:10px}
+  .micro .v{font-size:24px;font-weight:700;letter-spacing:-.02em}
+  .micro .v.pos{color:var(--pos)}
+  .micro .v.warn{color:var(--warn)}
+  .micro .v.neg{color:var(--neg)}
+  .micro .l{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+
+  /* TREND */
+  .trend-row{display:grid;grid-template-columns:170px 1fr 60px;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .trend-row:last-child{border-bottom:0}
+  .trend-name{font-size:13px;font-weight:500}
+  .trend-svg{width:100%;height:36px}
+  .trend-tag{font-size:11px;font-weight:700;text-align:right;letter-spacing:.05em}
+  .trend-tag.rising{color:var(--neg)} .trend-tag.flat{color:var(--warn)} .trend-tag.falling{color:var(--accent)}
+
+  /* BOTTLENECKS */
+  .issues{display:flex;flex-direction:column;gap:12px;margin-bottom:48px}
+  .issue{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;overflow:hidden;transition:border-color .25s, transform .25s}
+  .issue > *{min-width:0}
+  .issue:hover{border-color:rgba(77,212,255,.4);transform:translateY(-2px)}
+  .issue .head{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+  .issue .rank{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.1em;width:24px}
+  .issue h3{font-size:17px;margin:0;font-weight:600}
+  .issue .pct{margin-left:auto;font-size:13px;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+  .bar{height:6px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;margin:10px 0 12px}
+  .bar > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:99px;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+  .quote{color:var(--muted);font-size:14px;line-height:1.55;font-style:italic;border-left:2px solid var(--accent);padding:6px 0 6px 14px;margin:0}
+  .quote::before{content:'«';color:var(--accent);font-size:20px;margin-right:2px;font-style:normal;vertical-align:-1px}
+  .quote::after{content:'»';color:var(--accent);font-size:20px;margin-left:2px;font-style:normal;vertical-align:-1px}
+  .auto{background:linear-gradient(160deg,rgba(77,212,255,.07),rgba(124,92,255,.07));border:1px solid rgba(77,212,255,.18);border-radius:10px;padding:14px;align-self:start}
+  .auto .lbl{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .auto p{margin:0;font-size:13px;line-height:1.5;color:var(--text)}
+
+  /* PLAYBOOK */
+  .play{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:36px}
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+  .pcard::after{content:'';position:absolute;inset:auto -40px -40px auto;width:140px;height:140px;background:radial-gradient(closest-side,rgba(77,212,255,.18),transparent);pointer-events:none}
+  .pcard .ico{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#0A0E27;margin-bottom:14px}
+  .pcard h4{margin:0 0 6px;font-size:15px;font-weight:600}
+  .pcard p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+
+  /* FOOTER */
+  .foot{display:flex;align-items:center;justify-content:space-between;padding:18px 0 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px;flex-wrap:wrap;gap:8px}
+  .foot strong{color:var(--text);font-weight:600}
+  .pulse{display:inline-flex;align-items:center;gap:8px;color:var(--pos);font-size:12px;font-weight:600}
+  .pulse::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--pos);box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(94,227,213,.6)}70%{box-shadow:0 0 0 12px rgba(94,227,213,0)}100%{box-shadow:0 0 0 0 rgba(94,227,213,0)}}
+
+  @media (max-width:780px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .resp-block{grid-template-columns:1fr}
+    .issue{grid-template-columns:1fr}
+    .play{grid-template-columns:1fr}
+    .trend-row{grid-template-columns:120px 1fr 50px}
+    h1{font-size:28px}
+  }
+
+  .reveal{opacity:0;transform:translateY(12px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="reveal">
+    <div class="eyebrow">Worked example for Ajay Harjani · GM, HGI Casablanca Sud</div>
+    <h1>How we turn <span>guest reviews</span><br/>into an automation map</h1>
+    <p class="sub">An example of our methodology, run on your data: <strong>raw reviews → AI patterns → concrete agents</strong>.</p>
+  </div>
+
+  <!-- STEP 1 — DATA -->
+  <div class="section-title reveal" style="margin-top:8px">
+    <h2>Step 1 · What we collected</h2>
+  </div>
+  <div class="pipeline reveal" style="margin-bottom:18px">
+    <div class="node"><div class="h">Booking</div><div class="v">455</div></div>
+    <div class="node"><div class="h">Google</div><div class="v">455</div></div>
+    <div class="node"><div class="h">Hotels.com</div><div class="v">110</div></div>
+    <div class="node"><div class="h">TripAdvisor</div><div class="v">69</div></div>
+    <div class="node" style="background:rgba(123,122,247,.06);border-color:rgba(123,122,247,.25)"><div class="h" style="color:var(--accent-2)">Total</div><div class="v" style="color:var(--accent-2)">1089</div></div>
+  </div>
+  <div class="stats reveal" style="margin-bottom:48px">
+    <div class="stat s1"><div class="lbl">Reviews collected</div><div class="num" data-count="1089">0</div><div class="meta">~38 reviews/month</div></div>
+    <div class="stat s3"><div class="lbl">Platforms</div><div class="num">4</div><div class="meta">Booking · Google · Hotels.com · TripAdvisor</div></div>
+    <div class="stat s2"><div class="lbl">Contain complaints</div><div class="num" data-count="43" data-suffix="%">0</div><div class="meta">472 reviews · AI sentiment analysis</div></div>
+    <div class="stat s4"><div class="lbl">Analysis depth</div><div class="num">24 mo</div><div class="meta">May 2024 — May 2026</div></div>
+  </div>
+
+  <div class="section-title reveal">
+    <h2>Step 2 · What we found</h2>
+  </div>
+
+  <div class="resp-block">
+
+    <div class="panel resp-good reveal" style="display:flex;flex-direction:column">
+      <h3>✓ Reply pipeline in great shape</h3>
+      <div class="micro-stats">
+        <div class="micro"><div class="v pos">95%</div><div class="l">all replied</div></div>
+        <div class="micro"><div class="v pos">~99%</div><div class="l">low ratings replied</div></div>
+        <div class="micro"><div class="v pos">2.9d</div><div class="l">median</div></div>
+        <div class="micro"><div class="v warn">20d</div><div class="l">P90 — long tail</div></div>
+      </div>
+      <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--line);flex:1;display:flex;flex-direction:column;gap:8px">
+        <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px">Response time distribution</div>
+        <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
+          <span style="color:var(--text);opacity:.85">≤ 1 day</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:32%;background:var(--accent);border-radius:4px;opacity:.85"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~32%</span>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
+          <span style="color:var(--text);opacity:.85">1–3 days</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:42%;background:var(--accent);border-radius:4px;opacity:.85"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~42%</span>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
+          <span style="color:var(--text);opacity:.85">3–7 days</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:18%;background:var(--warn);border-radius:4px;opacity:.75"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~18%</span>
+        </div>
+        <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
+          <span style="color:var(--text);opacity:.85">&gt; 7 days</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:8%;background:var(--neg);border-radius:4px;opacity:.7"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~8%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel resp-bad reveal">
+      <h3>✗ Resolution pipeline missing</h3>
+      <p class="desc" style="margin-bottom:14px">The reply soothes the guest — but never reaches F&amp;B, Front Office or Housekeeping. The same categories keep coming back month after month.</p>
+      <div id="trend-rows"></div>
+    </div>
+
+  </div>
+
+  <!-- BOTTLENECKS -->
+  <div class="section-title reveal">
+    <h2>Step 3 · Bottlenecks &amp; solutions</h2>
+  </div>
+
+  <p class="reveal" style="color:var(--muted);font-size:13.5px;line-height:1.6;max-width:760px;margin:0 0 24px">
+    The AI agent closes the full loop on every complaint: <strong>analysis → alert the right manager → reply to the guest → verify in 4 weeks → close or escalate to GM</strong>.
+  </p>
+
+
+  <!-- AGENT ARCHITECTURE — business-focused -->
+  <div class="arch reveal">
+    <div class="arch-flow biz">
+      <!-- Stage 1: Where guests write -->
+      <div class="arch-stage">
+        <div class="stage-h">① Where guests write</div>
+        <div class="arch-node biz-src">
+          <div class="src-hero">
+            <div class="src-hero-num">1 089</div>
+            <div class="src-hero-lbl">reviews over 24 months</div>
+            <div class="src-hero-sub">~38 reviews/month</div>
+          </div>
+          <div class="src-divider"></div>
+          <div class="src-row"><span class="src-name">Booking.com</span><span class="src-bar" style="--p:42%"></span><span class="src-num">455</span></div>
+          <div class="src-row"><span class="src-name">Google Maps</span><span class="src-bar" style="--p:42%"></span><span class="src-num">455</span></div>
+          <div class="src-row"><span class="src-name">Hotels.com</span><span class="src-bar" style="--p:10%"></span><span class="src-num">110</span></div>
+          <div class="src-row"><span class="src-name">TripAdvisor</span><span class="src-bar" style="--p:6%"></span><span class="src-num">69</span></div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <!-- Stage 2: What agent does (business-framed) -->
+      <div class="arch-stage">
+        <div class="stage-h">② What the agent does</div>
+        <div class="arch-node brain">
+          <div class="b-title">AI agent · 24/7</div>
+          <div class="b-sub">semantic understanding + action</div>
+          <div class="b-biz-row"><span class="num">1</span> Understands the complaint — category, intensity, context</div>
+          <div class="b-biz-row"><span class="num">2</span> Alerts the manager + auto-publishes guest reply (1-click approve for critical ones)</div>
+          <div class="b-biz-row"><span class="num">3</span> Manager replies with one line: <b>what they did</b></div>
+          <div class="b-biz-row"><span class="num">4</span> After 4 weeks: did the complaint stop? → case closed</div>
+          <div class="b-biz-row"><span class="num">5</span> Unconfirmed / still recurring → GM escalation</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <!-- Stage 3: Who acts -->
+      <div class="arch-stage wide">
+        <div class="stage-h">③ Who gets the signal</div>
+        <div class="arch-node dept" style="--c:#FF85A8" data-cat="Front Desk & Service" data-title="Front Desk & Service" data-owner="Front Office Manager">
+          <div class="d-row"><span class="d-pct">17%</span><span class="d-trend flat">→ flat</span></div>
+          <div class="d-cat">Front Desk &amp; Service</div>
+          <div class="d-owner">Front Office Manager · 143 complaints</div>
+          <div class="d-summary">rude staff, booking cancellations, long check-in waits</div>
+        </div>
+        <div class="arch-node dept" style="--c:#7B7AF7" data-cat="Room Condition" data-title="Room Condition" data-owner="Maintenance / Housekeeping">
+          <div class="d-row"><span class="d-pct">13%</span><span class="d-trend up">↑ +37%</span></div>
+          <div class="d-cat">Room Condition</div>
+          <div class="d-owner">Maintenance / Housekeeping · 112</div>
+          <div class="d-summary">worn towels &amp; furniture, AC, sofa instead of bed</div>
+        </div>
+        <div class="arch-node dept" style="--c:#5EE3D5" data-cat="Food & Breakfast" data-title="Food & Breakfast" data-owner="F&B Manager">
+          <div class="d-row"><span class="d-pct">13%</span><span class="d-trend up">↑ +130%</span></div>
+          <div class="d-cat">Food &amp; Breakfast</div>
+          <div class="d-owner">F&amp;B Manager · 101</div>
+          <div class="d-summary">broken coffee machine, empty buffet by 9am, slow service</div>
+        </div>
+        <div class="arch-node dept" style="--c:#FFCC66" data-cat="Location" data-title="Location" data-owner="Sales / Marketing">
+          <div class="d-row"><span class="d-pct">7%</span><span class="d-trend down">↓ −88%</span></div>
+          <div class="d-cat">Location</div>
+          <div class="d-owner">Sales / Marketing · 64</div>
+          <div class="d-summary">far from city centre, no shuttle, business district not tourist zone</div>
+        </div>
+        <div class="arch-node dept" style="--c:#9D9CE7" data-cat="Cleanliness & Housekeeping" data-title="Cleanliness" data-owner="Executive Housekeeper">
+          <div class="d-row"><span class="d-pct">6%</span><span class="d-trend up">↑ +100%</span></div>
+          <div class="d-cat">Cleanliness</div>
+          <div class="d-owner">Executive Housekeeper · 55</div>
+          <div class="d-summary">hair in bathroom, musty smell, dust on surfaces</div>
+        </div>
+      </div>
+
+      <div class="arch-arrow">→</div>
+
+      <!-- Stage 4: Business outcomes -->
+      <div class="arch-stage">
+        <div class="stage-h">④ Business outcomes</div>
+        <div class="arch-node outcome">
+          <div class="o-val">24h → 2 min</div>
+          <div class="o-lbl">from review to ops team</div>
+        </div>
+        <div class="arch-node outcome">
+          <div class="o-val">−12 h/wk</div>
+          <div class="o-lbl">GM + Duty Manager time</div>
+        </div>
+        <div class="arch-node outcome">
+          <div class="o-val">100%</div>
+          <div class="o-lbl">complaints with closed loop (fix or escalate)</div>
+        </div>
+        <div class="arch-node outcome">
+          <div class="o-val">+1 quarter</div>
+          <div class="o-lbl">lead time on SALT regression</div>
+        </div>
+        <div class="arch-node outcome highlight">
+          <div class="o-val">+0.1–0.3 ★</div>
+          <div class="o-lbl">rating uplift potential after closing Top-3 categories for 2 quarters</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL — list of negative reviews per category -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="close">×</button>
+      <div class="modal-head">
+        <div class="modal-title"><span class="mt-pct" id="modal-pct"></span><span id="modal-title"></span></div>
+        <div class="modal-meta" id="modal-meta"></div>
+      </div>
+      <div class="modal-list" id="modal-list"></div>
+    </div>
+  </div>
+
+  <!-- WORKFLOW TIMELINE -->
+  <div class="wf reveal">
+    <div class="wf-head">
+      <h3>Example: one negative review from intake to closure</h3>
+      <div class="meta">end-to-end · ~30 days</div>
+    </div>
+
+    <div class="wf-step">
+      <div class="wt">T+0</div>
+      <div class="wb">
+        <div class="wn">New review on Booking · ★★☆☆☆</div>
+        <div class="wq">«Breakfast was not great — coffee machine broken, nothing left by 9am.»</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 5 sec</div>
+      <div class="wb">
+        <div class="wn">AI analysis</div>
+        <div class="wd">Category <b>F&amp;B</b> · sentiment <b>negative</b> · intensity <b>0.78</b> · entities: «coffee machine broken», «buffet empty 9am»</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 30 sec</div>
+      <div class="wb">
+        <div class="wn">Email to <span class="who">F&amp;B Manager</span></div>
+        <div class="wd">Quote + 3 similar in past week + category trend <b>↑ +130%</b> vs last month</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 60 sec</div>
+      <div class="wb">
+        <div class="wn">Guest reply generated in hotel tone</div>
+        <div class="wq">«Thank you for your feedback. We've forwarded this to our F&amp;B Manager to review the coffee equipment and breakfast staffing during peak hours.»</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 5 min</div>
+      <div class="wb">
+        <div class="wn">Auto-publish reply to OTA</div>
+        <div class="wd"><b>intensity &lt; 0.7</b> — agent publishes the draft directly to Booking / Hotels.com / TripAdvisor / Google via extranet API<br/><b>intensity ≥ 0.7</b> (critical) — Duty Manager gets an email with a 1-click «approve & publish» button. Edits possible before publishing</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 2–7 days</div>
+      <div class="wb">
+        <div class="wn">Manager confirms action <span class="who">one-line reply</span></div>
+        <div class="wq">«Replaced coffee machine, added one staff on the buffet 7:30–10:00, briefed the shift.»</div>
+        <div class="wd">If there's <b>no manager reply within 7 days</b> — agent sends a reminder and flags the case as «no-action»</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 4 weeks</div>
+      <div class="wb">
+        <div class="wn">Verify — did the action work?</div>
+        <div class="wd">Subcategory «coffee / buffet timing» — declined / stable / increased? Result → email to F&amp;B Manager</div>
+      </div>
+    </div>
+    <div class="wf-step">
+      <div class="wt">+ 30 days</div>
+      <div class="wb">
+        <div class="wn">Closure or escalation</div>
+        <div class="wd"><b>Closed:</b> manager-confirmed + no recurrence in 30 days<br/><b>GM escalation:</b> not confirmed / no reply / recurring — alert with full action history and «unresolved» flag</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot reveal">
+    <div><strong>Prepared by Jengu</strong></div>
+    <div class="pulse">Live · 1089 reviews · 4 sources</div>
+  </div>
+
+</div>
+
+<script>
+  // Trend data (last 12 months: Jun 2025 - May 2026)
+const FEEDS = {"Front Desk & Service": [{"intensity": 1.0, "date": "2025-11-08", "source": "booking", "text": "Due Buchung wurde 3h vor unserer Anreise mit 3 Kindern um Mitternacht unberechenbar STORNIERT. KATASTR."}, {"intensity": 0.9, "date": "2025-06-03", "source": "hotelscom", "text": "Never seen such a bad service. No one seems to care about anything, you have to ask for any basic (having the right number of towels, having cups for breakfast, …)"}, {"intensity": 0.85, "date": "2025-08-13", "source": "google_maps", "text": "Terrible hotel and service! This is not Hilton! I am a Hilton Honor Diamond guest. …"}, {"intensity": 0.85, "date": "2024-05-10", "source": "google_maps", "text": "Your answer is completely false. And I didn't expect a different answer from you. No need to argue. You canceled a reservation at the last minute. Not at all professional. …"}, {"intensity": 0.9, "date": "2024-05-10", "source": "google_maps", "text": "Terrible service, it's a shame that a Hilton has such bad service."}, {"intensity": 0.75, "date": "2024-09-01", "source": "booking", "text": "El trato del personal de recepción que a pesar que en la página había disponibilidad, no se nos permitió el acceso al mismo"}, {"intensity": 0.75, "date": "2024-08-02", "source": "booking", "text": "Personeel niet Hilton niveau, vooral met eigen telefoon bezig. Arrogante houding. Niet behulpzaam"}, {"intensity": 0.75, "date": "2024-05-10", "source": "google_maps", "text": "Nice hotel for relaxation, quiet, comfortable sheets but the only downside is the staff. ILL POLITE ouuuuuffff"}, {"intensity": 0.7, "date": "2026-01-10", "source": "booking", "text": "L’accueil du personnel à Lacceuil très mal poli et désagréable . À peine si on répond au bonjour et s’adresse n’importe comment aux clients . …"}, {"intensity": 0.7, "date": "2025-05-10", "source": "google_maps", "text": "You guys need to improve your customer service, need to monitor the customer need whenever they say something!"}, {"intensity": 0.7, "date": "2024-12-25", "source": "booking", "text": "If u call the reception and you ask them about any thing they never bring it tell u call many many times"}, {"intensity": 0.7, "date": "2024-10-25", "source": "booking", "text": "Mi sono lamentanto dalla direttrice della maleducazione del suo staff ed era maleducata e montata anche lei."}, {"intensity": 0.8, "date": "", "source": "google_maps", "text": "Avoid this hotel! The security staff are very rude and unprofessional. 👎👎 …"}, {"intensity": 0.65, "date": "2024-07-31", "source": "booking", "text": "Lors de notre sortie personne n'est venu nous aidé alors qu'on a 3 enfants et 4 valises .... Apparement il faut se débrouiller par nos propres moyen lors des départs contrairement …"}, {"intensity": 0.9, "date": "2024-05-10", "source": "google_maps", "text": "I booked two nights five days in advance by phone. The person on the phone took my contact information and confirmed the reservation. …"}, {"intensity": 0.6, "date": "2025-11-07", "source": "booking", "text": "طلبت مغادرة متاخرة ودفعت ثمنها عند الوصول ولكن تم طرق الباب وتم الاتصال قبل الموعد المتفق عليه"}, {"intensity": 0.6, "date": "2024-10-25", "source": "booking", "text": "Lo staff poco presente e maleducato, soprattutto il ragazzo di colore che lavora alla reception."}, {"intensity": 0.6, "date": "2024-06-03", "source": "hotelscom", "text": "New building, poor service, overstaffed but not responsive to most of the requests."}, {"intensity": 0.7, "date": "2025-06-14", "source": "google_maps", "text": "I called the hotel for reservations but no one answered the call"}, {"intensity": 0.7, "date": "2024-05-15", "source": "booking", "text": "Pas de lit bébé malgré une demande confirmée par l'hôtel."}, {"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "The hotel itself is clean and nice, however, the check-in was a complete disaster. The manager and the supervisor were very unfriendly. …"}, {"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "The manager was unfortunately very rude.  We were a group of eight people. He insisted on knowing who was sharing a room with whom, which I felt violated our privacy. …"}, {"intensity": 0.65, "date": "2024-07-05", "source": "booking", "text": "I forgot my watch and didn’t get back, they said it wasn’t found."}, {"intensity": 0.55, "date": "2024-12-14", "source": "booking", "text": "Personnel apparement très occupé à discuter entre eux et à faire des allez retours pour je ne sais quel raison"}, {"intensity": 0.75, "date": "2024-05-10", "source": "google_maps", "text": "Very bad experience, I have requested a new reciept for my stay to the hotel 10days no feedback, this hotel agent gives me an email and she initiated the email with 5 people in …"}, {"intensity": 0.6, "date": "2025-05-19", "source": "booking", "text": "البطئ  في اجراءات تسجيل الدخول وتسجيل الخروج"}, {"intensity": 0.5, "date": "2025-08-07", "source": "hotelscom", "text": "over all the property was great 9/10. maybe a little improvement i staff and communication would give it a 10/10."}, {"intensity": 0.5, "date": "2024-08-17", "source": "booking", "text": "Que llegamos antes y no tenían la habitación lista es ara muy tarde la entrada al hotel"}, {"intensity": 0.95, "date": "2024-05-10", "source": "google_maps", "text": "Poorly ventilated rooms, zero professionalism from the reception staff (especially a certain Zakaria), I will never return, avoid at all costs"}, {"intensity": 0.55, "date": "2024-06-28", "source": "hotelscom", "text": "Une jeune à l'accueil pas du tout accueillante."}, {"intensity": 0.85, "date": "2026-05-09", "source": "hotelscom", "text": "When me and my colleague was on our way to the hotel from our first stay. They cancelled our reservation 2h before arrival. No room where longer available. …"}, {"intensity": 0.85, "date": "2025-08-13", "source": "booking", "text": "Je n’ai rien apprécié , pas d’eau chaude , personnelle qui ne tiens pas compte des client, mail concernant un oreiller manquant !!!!!!! Une honte"}, {"intensity": 0.5, "date": "2025-05-27", "source": "booking", "text": "Service level not Upto Hilton standards. Room service closes early."}, {"intensity": 0.5, "date": "2024-12-29", "source": "booking", "text": "El trato recibido de algunos trabajadores del Hotel"}, {"intensity": 0.5, "date": "2024-09-18", "source": "booking", "text": "L attente pour réservation soit disant perdu … —‘"}, {"intensity": 0.85, "date": "2024-08-24", "source": "booking", "text": "Herrie door loslopende kinderen die van 01:00 tot 06:00 op de gang lopen te schreeuwen en op deuren slaan. Hotel doet er niets aan, na meerdere verzoeken."}, {"intensity": 0.85, "date": "2024-08-19", "source": "booking", "text": "Réception Imane was rude and impolite,the card she gave us was not working,we had to back to the réception again.Dispointed."}, {"intensity": 0.85, "date": "", "source": "google_maps", "text": "Unfortunately, this is one of the worst hotels I've ever stayed in. There's no service, the staff is extremely rude, and I wouldn't recommend it to anyone. …"}, {"intensity": 0.4, "date": "2026-05-03", "source": "google_maps", "text": "The service needs to be improved, and the servers need badges. But the food is good."}, {"intensity": 0.4, "date": "2025-02-15", "source": "booking", "text": "The reception team didn’t really provide service when it was needed Not all of them though just some of them"}, {"intensity": 0.4, "date": "2024-10-20", "source": "booking", "text": "The staff at reception came across as a bit rude; this may have been because of the language barrier. They were a bit abrupt and treated us a bit unprofessionally."}, {"intensity": 0.8, "date": "2024-08-19", "source": "booking", "text": "Cojí 2 habitaciones interconectadas y al llegar al hotel me dicen que no todas estan ocupadas!!! La vdd que se espera de un hotel Hilton"}, {"intensity": 0.8, "date": "2024-08-11", "source": "booking", "text": "Tesis ters bir lokasyonda . Receptiondaki bir bayan beni kazıkladı. 80 euroya oda satın almıştım. Bayan 130 dolar istedi. İletişim çok kötüydü."}, {"intensity": 0.4, "date": "2024-05-10", "source": "google_maps", "text": "A 4-star hotel. Fairly good, but its drawback is the lack of staff to help with loading and unloading luggage."}, {"intensity": 0.9, "date": "2024-05-10", "source": "google_maps", "text": "Very poor service and over priced!! I don’t recommend at all !"}, {"intensity": 0.75, "date": "2024-08-08", "source": "booking", "text": "Pas de lit bebe dispo malgres la demande depuis des mois !   Pas de drap dispo pour les canapes convertible lors du coucher obligé d’appeler la reception"}, {"intensity": 0.75, "date": "2024-07-03", "source": "booking", "text": "I have to leave at 5 am they promise to pack some breakfast for me and the my kids but i didnot recieve any ."}, {"intensity": 0.7, "date": "2025-06-22", "source": "booking", "text": "Souper au restaurant avec quelques pépins, dont certains auraient pu avoir un impact médical. Peu de réactivité du services sur cet enjeu."}, {"intensity": 0.7, "date": "2025-05-10", "source": "google_maps", "text": "The services are totally lacking. The location is inconvenient to the city but very close to the airport."}, {"intensity": 0.5, "date": "2024-05-10", "source": "google_maps", "text": "Beautiful and completely renovated. The reception staff, especially Mr. Sufyan, are a respectful man. However, some of the employees were inconsistent about the inclusion of …"}, {"intensity": 0.7, "date": "", "source": "google_maps", "text": "From a 4 down to a 1. The rooms are okay. I've had worse breakfasts, but the breakfast isn't worthy of a Hilton. And worst of all: the incompetent staff at the reception."}, {"intensity": 0.5, "date": "", "source": "google_maps", "text": "It's a good Hilton hotel, up to Garden Inn standards. The breakfast is good, and the rooms are clean and comfortable. …"}, {"intensity": 0.4, "date": "2026-03-30", "source": "booking", "text": "Dining room: the servers need training on the job."}, {"intensity": 0.4, "date": "2025-08-02", "source": "booking", "text": "de personeel bij de receptie waren niet echt vriendelijke.  Lehcen wel."}, {"intensity": 0.4, "date": "2025-07-19", "source": "booking", "text": "عدم وجود موظف في الكوفي ببهو الفندق لتقديم طلبات القهوه للزبائن"}, {"intensity": 0.8, "date": "2025-04-29", "source": "booking", "text": "Tout  Personnel , service nul, petit DJ catastrophique"}, {"intensity": 0.8, "date": "2025-03-25", "source": "booking", "text": "Отвратительная еда и не дружелюбный персонал"}, {"intensity": 0.4, "date": "2024-05-10", "source": "google_maps", "text": "Excellent welcome, average service, and good food."}, {"intensity": 0.65, "date": "2024-06-23", "source": "hotelscom", "text": "The shuttle to and from the airport is a falsed ad.  Not so visitor friendly or able to speak outside of Native language."}, {"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "Terrible staff"}, {"intensity": 0.6, "date": "2025-12-30", "source": "booking", "text": "Le personnel pas trop ouvert La qualite du menu petit dejeuner pas varie Pas de chaleur et de convivialite du person em decoration standart  Pas de flexibilite du personnel"}, {"intensity": 0.6, "date": "2025-11-12", "source": "booking", "text": "The breakfast was fine but the staff was few and therefor not attentive.  I found that the coffee machine was broken and was spraying coffee all over the place."}, {"intensity": 0.6, "date": "2025-04-02", "source": "booking", "text": "Lavabo avait un problème: un peu bouché et en le signalant; pas d'actions de même pour la demande claquette de bain qui n'a pas été satisfaite après l'avoir demandé !!!"}, {"intensity": 0.6, "date": "2025-01-08", "source": "booking", "text": "Le petit déjeuner (pas assez de roulements les plats souvent vides) les pains style msemen étaient secs je pense même de la veille . Le personnel pas très agréable et pas réactif"}, {"intensity": 1.0, "date": "2024-11-01", "source": "booking", "text": "It was the worst experience in my life. When I tried to check-out, there was no one in the front desk. I waited several minutes that one male staff was smoking at out of entrance. …"}, {"intensity": 0.6, "date": "2024-07-09", "source": "booking", "text": "Juste le serveur du restaurant côté tante qui nous a mâle accueil et un peu gâché la soirée donc on ne fautera pas notre anniversaire de mariage dans se restaurant prévu le 12 …"}, {"intensity": 0.6, "date": "", "source": "google_maps", "text": "Excellent service as a Hilton Diamonds Member I was provided with all the benefits friendly staff but very incompetent manager asks me extra payment for my girlfriend and for a …"}, {"intensity": 0.7, "date": "2024-10-28", "source": "hotelscom", "text": "Terrible service and switches not working."}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "Upon our arrival at 11 p.m., we were informed that there were no more rooms available, despite a confirmation received during the day and the arrival time specified by telephone …"}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "It was the worst experience in my life. When I tried to check-out, there was no one in the front desk. I waited several minutes that one male staff was smoking at out of entrance. …"}, {"intensity": 0.7, "date": "2024-07-28", "source": "booking", "text": "Service nul de la reception"}, {"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "It's a new, high-quality hotel, but the staff definitely doesn't live up to that quality. It's best to be careful. …"}, {"intensity": 0.7, "date": "2024-05-10", "source": "google_maps", "text": "No respect for privacy , not friendly"}, {"intensity": 0.8, "date": "2025-08-08", "source": "booking", "text": "Atendimento ruim. Cheguei 23:00 e quartos não estavam prontos. Contratei transfer no hotel e motorista chegou atrasado. Banheiro não tinha toalhas"}, {"intensity": 0.8, "date": "2024-11-29", "source": "booking", "text": "Nuls à la réception. Pas d eau chaude pas de pression douche déformée. Hôtel qui a besoin d une reprise en mains. Il y a mieux aux alentours"}, {"intensity": 0.75, "date": "2024-12-25", "source": "hotelscom", "text": "Everything i good about this hotel except their refund policy. They seem like a small hotel although its the hilton. …"}, {"intensity": 0.3, "date": "2025-11-11", "source": "google_maps", "text": "Nice hotel, average welcome, no interaction with the customer."}, {"intensity": 0.3, "date": "2024-10-29", "source": "booking", "text": "Le fonctionnement des ascenseurs mal expliqué"}, {"intensity": 0.5, "date": "2025-06-14", "source": "google_maps", "text": "If you are looking for Hilton standards, this hotel will let you down.  Rooms: decent size and clean. Old torn towels. Called and asked for extra towelS …"}, {"intensity": 0.5, "date": "2024-07-15", "source": "hotelscom", "text": "They do not charge on the room the taxi, and they do not make change, restaurant is not good,"}, {"intensity": 0.7, "date": "2025-12-11", "source": "google_maps", "text": "Hilton Garden Inn Casablanca Sud: a large hotel lacking soul. The design is flawed, cold, and inconsistent, despite an impressive lobby. …"}, {"intensity": 0.7, "date": "2025-10-27", "source": "booking", "text": "Le prix sur Booking n'est pas le prix que j'ai payé, car Booking m'a montré 2384,60 dirhams et l'hôtel a déduit 3000 dirhams, et lorsque j'ai demandé la facture, elle n'est pas …"}, {"intensity": 0.85, "date": "2025-09-12", "source": "google_maps", "text": "Tiny room, overpriced, and service was unfriendly. Definitely not coming back."}, {"intensity": 0.6, "date": "2026-02-27", "source": "booking", "text": "لا يوجد موظف تحميل الأمتعة نهائياً"}, {"intensity": 0.6, "date": "2026-02-09", "source": "google_maps", "text": "Worst delivery service"}, {"intensity": 0.6, "date": "2024-07-28", "source": "booking", "text": "Le personnel de l’hôtel indiscipliné"}, {"intensity": 0.6, "date": "2024-07-28", "source": "booking", "text": "The employees are not professional"}, {"intensity": 0.9, "date": "2024-11-30", "source": "booking", "text": "تم دفع مبلغ الحجز واستقطاعة عن طريق البوكنج من البطاقة الائتمانية وطلبوا مني الدفع مره اخري لقيمة الحجز في الفندق واوضحت لهم انه تم الدفع للبوكنج ورفضوا وقمت بالدفع مره اخري يعني …"}, {"intensity": 0.75, "date": "2025-10-12", "source": "google_maps", "text": "My fiancé and I booked a night at this hotel to be close to the airport for an early morning flight. Unfortunately, we were unable to check in normally because I’m Moroccan and …"}, {"intensity": 0.5, "date": "2026-04-12", "source": "booking", "text": "Pas de change à la réception et y a pas un moyen de tirer du cash"}, {"intensity": 0.85, "date": "2026-04-10", "source": "google_maps", "text": "I am usually a loyal guest at Hilton, but my recent stay at Garden Inn Casablanca was very disappointing. My fiancée and I booked two rooms, then we were not allowed to visit her …"}, {"intensity": 0.85, "date": "2025-09-12", "source": "google_maps", "text": "Worst hotel experience! After payment, the disturbance began with repeated phone calls until midnight. This behavior is unprofessional and unacceptable, especially compared to …"}, {"intensity": 0.85, "date": "2025-05-10", "source": "google_maps", "text": "The service was awful. I've stayed in hostels where the service and attention were much better. It's not a Hilton, but it's priced the same. …"}, {"intensity": 0.5, "date": "2024-10-18", "source": "booking", "text": "Temiz değil, personel neredeyse hiç ingilizce bilmiyor."}, {"intensity": 0.85, "date": "2024-05-10", "source": "google_maps", "text": "You have to make your own bed when you take Suite 711. I asked 3 times but they apologize. Room staff on July 10 between 9 p.m. and midnight, double zero!!!. …"}, {"intensity": 0.7, "date": "2026-03-22", "source": "booking", "text": "J’ai réservé et payer une suite , arrivée sur place on me propose 2 chambres Il aurra fallu plus d’une heure de pourparlers en restant ferme sur mes positions et avec l’aide d’un …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "I made the reservation for my parents as a gift with the breakfast included. I called the resevation team and sent them all the information needed for it to be debited from my …"}, {"intensity": 0.4, "date": "2026-03-06", "source": "hotelscom", "text": "Didn’t go to the pool.. too cold.. my cleaning lady was excellent, I gave her a very good review, the staff running the restaurant I found to be quite slow in first of all …"}, {"intensity": 0.5, "date": "2025-10-27", "source": "hotelscom", "text": "Je suis pas content de service"}, {"intensity": 0.4, "date": "2025-08-24", "source": "booking", "text": "For making tea/coffee only 2 pcs of tea bags/coffee were given.  Staff was so so."}, {"intensity": 0.4, "date": "2025-07-04", "source": "hotelscom", "text": "Hotel Confortable et silencieux. Au petit déjeuner aucun accueil, personnel ignore les clients. Personnel de la reception stressé.  Tres bon restaurant au RC"}, {"intensity": 0.8, "date": "2025-06-23", "source": "booking", "text": "After requesting a quite room - A room in the 3rd floor has been awarded. The room was close to the immediate neighbours which had construction word ongoing ... …"}, {"intensity": 0.4, "date": "2025-01-25", "source": "booking", "text": "Pas de roomservice 24/24  pas de chaussons dans les chambres  Pas d’assistance bagages jusqu’à la chambre"}, {"intensity": 0.5, "date": "2024-11-30", "source": "booking", "text": "الزحام وعدم إمكان التمديد"}, {"intensity": 0.5, "date": "2024-07-18", "source": "booking", "text": "Checkin time was so long"}, {"intensity": 0.75, "date": "2025-07-23", "source": "booking", "text": "- ik moest 2 keer bellen om de koffers te laten ophalen - ik stond vijf minuten aan de balie en duurde lang om geholpen te worden - shampoo was leeg toen ik wilde douchen  - het …"}, {"intensity": 0.75, "date": "2024-07-11", "source": "booking", "text": "Le petit déjeuner était médiocre, jus d’orange n’était pas naturel , la vénoiserie étaient trop dure ,rien ne se trouvait sur le buffet ni les tasses de café, ni les bols, ni les …"}, {"intensity": 0.8, "date": "2024-08-10", "source": "booking", "text": "Un accueil des plus déplaisant  Retard pour avoir une chambre nous devions entrer a 15h nous avons reçu les chambres à 17h10 De plus les chambres était éloignée alors que nous …"}, {"intensity": 0.7, "date": "2026-04-04", "source": "booking", "text": "The restaurant and the bar located on the 1st floor, useless. No atmosphere. The staff were poorly trained. During breakfast, no saucers, no small plates, no cups, no small …"}, {"intensity": 0.5, "date": "2024-05-10", "source": "google_maps", "text": "The digital key doesn’t work. That should be a bare minimum for a Hilton. Instead, I had to stand waiting for the check in people for ten minutes to reissue keys because the thing …"}, {"intensity": 0.65, "date": "2025-11-10", "source": "tripadvisor", "text": "Hilton Garden Inn Casablanca South: a great soulless hotel. The design is flawed, cold and inconsistent, despite an impressive entrance hall. …"}, {"intensity": 0.8, "date": "2026-01-09", "source": "booking", "text": "الخدمه سيئة جدا والنظافة بعد السكن"}, {"intensity": 0.4, "date": "2024-09-09", "source": "booking", "text": "no se habla español"}, {"intensity": 0.9, "date": "2025-06-14", "source": "google_maps", "text": "My experience with the establishment was negative; the rooms were stuffy, the service was poor, and there were frequent malfunctions in the air conditioning, lighting, and …"}, {"intensity": 0.6, "date": "2026-03-27", "source": "hotelscom", "text": "Great stay overall. The room was spacious, comfortable, and recently renovated. Breakfast was another highlight, offering a wide variety of options. …"}, {"intensity": 0.6, "date": "2024-08-03", "source": "booking", "text": "It was my third time staying at the hotel and there was a significant drop in the overall experience when compared with my first or second stay. …"}, {"intensity": 0.85, "date": "2025-05-04", "source": "booking", "text": "الموظفين معاملتهم سيئة خاصة الاستقبال نفسيات ولايوجد خدمات بالفندق حتى رفع الشنط بالغرف والاثاث والمفارش وصخة ومسودة  والغرفة تفتقر من اقل الاساسيات والموقع بعيد عن المدينة حوالي …"}, {"intensity": 0.5, "date": "2025-08-25", "source": "booking", "text": "Staff not very well trained. Housekeeping and facilities not great"}, {"intensity": 0.4, "date": "2025-05-10", "source": "google_maps", "text": "The hotel is not older than two years. I came back to the hotel to travel back to my country. The rooms are clean, swimmingpool isn't and the staff is somewhat slow. …"}, {"intensity": 0.9, "date": "2026-02-09", "source": "tripadvisor", "text": "I booked a stay at Hilton Garden Inn Casablanca using the Hilton Friends &amp; Family rate through my Hilton Honors account. …"}, {"intensity": 0.8, "date": "2024-06-27", "source": "tripadvisor", "text": "Hotel of recent construction, near the highway, far from the city. Large and quite clean suite with comfortable bedding but with a cracked window tile. …"}, {"intensity": 0.85, "date": "2025-07-20", "source": "booking", "text": "If you're looking for an immersive experience in self-service and awkward encounters, this hotel delivers with flair. …"}, {"intensity": 0.5, "date": "2026-04-25", "source": "booking", "text": "Very good hotel overall but the breakfast and lunch to be enhanced especially the service as the staff is leaving the restaurant without cleaning the dishes, when the guests leave …"}, {"intensity": 0.75, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are spotless. The location is quite far from the city, but that's to be expected when you book there. …"}, {"intensity": 0.8, "date": "2026-01-01", "source": "booking", "text": "I would like to express my dissatisfaction with the behavior of a staff member working the night shift at around 10:00 PM. …"}, {"intensity": 0.8, "date": "2025-02-27", "source": "booking", "text": "Le personnel de l'accueil est blasé, non focalisé sur la satisfaction du client. Attente trop longue et aucun effort pour aider. …"}, {"intensity": 0.8, "date": "2024-05-20", "source": "booking", "text": "Habíamos reservado en Booking, el precio era de 97 € +2€ de tasas por persona (eramos 2). Eso son 102€. El recepcionista nos dice que son 102€, le damos 110€ en efectivo y de …"}, {"intensity": 0.7, "date": "2025-08-19", "source": "booking", "text": "Personeel bij de incheckbalie die niet zoveel zin heeft. Je kan vanaf 3 uur inchecken maar om 3 uur staat niemand er om je in te checken en de dame die er staat staat die heeft …"}, {"intensity": 0.8, "date": "2024-08-14", "source": "booking", "text": "Aucune prise en charge pour les bagages Arrivée dans la chambre les draps étaient sales Le personnel au moment du petit déjeuner est regardant avec l’impression d’être surveillé …"}, {"intensity": 0.6, "date": "2024-09-20", "source": "hotelscom", "text": "Les + : Hotel moderne, neuf, chambre très agréable, parking  Les - : accueil très variable. 1h pour avoir un plat au restaurant (alors que seulement10 clients), on doit tout …"}, {"intensity": 0.75, "date": "2025-10-12", "source": "google_maps", "text": "We chose this hotel because it was 20 minutes from the airport. The reception was mediocre. The rooms are of average standard with poor-quality materials, a slippery and deep …"}, {"intensity": 0.9, "date": "2024-07-30", "source": "booking", "text": "Nous avons réservé une chambre familiale via Booking.com arrivé à la réception on nous dit qu’elle n’est plus dispos. …"}, {"intensity": 0.7, "date": "2024-08-13", "source": "booking", "text": "Personnel peu accueillant, peu aimable et sur la défensive. Mal formé. Absence d'huile d'olive au restaurant (petit détail qui en dit beaucoup sur l'approvisionnement et surtout …"}, {"intensity": 0.85, "date": "2026-02-09", "source": "google_maps", "text": "The staff were only moderately friendly and unfriendly at breakfast, especially one woman who didn't respond to greetings and gave me a dirty look. …"}, {"intensity": 0.55, "date": "2024-05-10", "source": "google_maps", "text": "We had forgotten our passport, so we couldn't identify ourselves, we finally contacted the previous hotel where we stayed to send us a photo, we solved it. …"}, {"intensity": 0.4, "date": "2024-08-03", "source": "booking", "text": "1. No dine in service. 2. Room service."}, {"intensity": 0.2, "date": "2024-08-02", "source": "booking", "text": "One person in reception"}, {"intensity": 0.5, "date": "2025-03-26", "source": "tripadvisor", "text": "The hotel is located between the airport and the city. Outdoor swimming pool but very average environment...there is a restaurant adjacent to the hotel. …"}, {"intensity": 0.75, "date": "2024-09-17", "source": "booking", "text": "Problèmes de parking au sous sol pour les grosses voitures, interdiction de stationner sur la place du patron, alors qu'il n'a pas de place pour les clients Dites au patron \" Le …"}, {"intensity": 0.3, "date": "2024-07-15", "source": "booking", "text": "It is far out of town, but we were aware of this, it cost 150-200 DHM for taxis into town, reception will call them for you if asked. …"}, {"intensity": 0.95, "date": "2024-09-29", "source": "booking", "text": "Eine einzige Katastrophe war das Restaurant. Als wir Abends noch etwas Essen wollten hat der Kellner 2x die falschen Speisen gebracht. …"}, {"intensity": 0.95, "date": "2024-08-17", "source": "tripadvisor", "text": "We came for a one night staycation to explore the city before heading to an other city as a family the room and amenities were fine although when we asked about towels in the pool …"}, {"intensity": 0.95, "date": "2024-05-10", "source": "google_maps", "text": "A 5-star hotel, but I'm not giving it 5 stars because they charged us twice for our stay and the money hasn't been refunded to this day. …"}, {"intensity": 0.7, "date": "2024-05-10", "source": "google_maps", "text": "Upon arrival, I noticed that the room was not cleaned properly, was dirty under chairs, etc, and the sheets were strained. …"}, {"intensity": 0.9, "date": "2026-03-11", "source": "google_maps", "text": "The reception staff are not at all friendly. They are condescending and very unpleasant. Unless you insist, you don't get a paper invoice. …"}, {"intensity": 0.9, "date": "2024-07-19", "source": "booking", "text": "2- The apology of front office manager Lehcen after I escalated. He gave me a free long late check out. Thanks  1- The extremely bad smell of toilet in room 325  I couldn’t even …"}, {"intensity": 0.9, "date": "2024-06-13", "source": "booking", "text": "سؤ التعامل من قبل موظفي الاستقبال زكريا وايمان ويونس فعند وصولي للفندق الساعه 0215 مع ابني كان هنالك شخصين افارقة لا أعلم من اي دولة وكان الموظف زكريا ينهي اجراءتهم وهو مبتسم ورغم …"}, {"intensity": 0.85, "date": "2025-09-29", "source": "booking", "text": "Breakfast was not Hilton worthy, staff was not restocking the buffet sufficiently and was unprepared for the number of guests that are checked in. …"}, {"intensity": 0.85, "date": "2024-09-09", "source": "tripadvisor", "text": "Before I checked in I have asked about the shuttle cuz my flight next day they told me we have it and it’s free than once I make check out . …"}, {"intensity": 0.8, "date": "2025-01-13", "source": "tripadvisor", "text": "I have been a regular guest at this hotel for two yearsEverything is great, except....I am there now and following a reprogramming of the list of available TV channels, I find …"}, {"intensity": 0.6, "date": "2025-02-06", "source": "booking", "text": "Personnel peu avenant, rien à voir avec les autres Marocains rencontrés. Au restaurant ou pdj, pas un bonjour, pas un sourire. …"}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "The rooms were perfectly comfortable. Only the restaurant detracts from this hotel's overall rating at this price point. …"}, {"intensity": 0.75, "date": "2024-12-23", "source": "booking", "text": "La qualité du petit déjeuner et du service dans le restaurant : 20 minutes d’attente pour avoir des œufs bouillis alors que le bac était vide depuis un moment, les petites …"}, {"intensity": 0.9, "date": "2024-05-20", "source": "booking", "text": "First of all It's far away from Hilton Standards .  In reality, It's even not a Hilton Garden Inn. Its's clearly Trouble Inn Hotel. …"}, {"intensity": 0.65, "date": "2025-05-10", "source": "google_maps", "text": "The hotel itself is fine. Parking is free for hotel guests.  The location is a bit out on the outskirts of town, ideal for access to the highway or the airport, but there's …"}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "We stayed one night at this Hilton on Aug 16th, 2024, never coming back again for the following reasons: - No water was provided for the checkout day, they made us wait one hour …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "Good hotel, good service, but a few things to point out. Charging 30 dirhams for coffee when you have to make it yourself is really shocking. Coffee should be free. …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "This hotel has quickly become one of my favorite places to stay! As a family of four, finding a room that accommodates everyone comfortably is always a challenge, but the King …"}, {"intensity": 0.9, "date": "2025-03-01", "source": "booking", "text": "Mal accueillies par la personne à l'accueil. Aucun effort pour libérer des chambres simples. C'est son collègue qui est venu en renfort et nous a trouvé deux chambres simples, …"}, {"intensity": 0.9, "date": "2024-12-22", "source": "hotelscom", "text": "We checked in on the 19th around 7ish , we were exhausted since we were driving for 7 hours. And traffic was bad. …"}, {"intensity": 0.85, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are functional and clean.  The laundry service mixed up my clothing. I received items which were not mine, but some of my items were missing. …"}, {"intensity": 0.55, "date": "2026-02-09", "source": "tripadvisor", "text": "I often stay in this hotel. it is convenient by its proximity to the highways leading to casa, rabat and marrakesh and the rooms are nice. …"}, {"intensity": 0.8, "date": "2025-07-14", "source": "tripadvisor", "text": "I previously stayed at this hotel in 2022, and to my surprise, construction is still ongoing. We chose this hotel again due to its proximity to the airport, but the experience was …"}, {"intensity": 0.8, "date": "2024-06-02", "source": "booking", "text": "- Réceptionniste antipathique  - Petit déjeuner pas terrible et pauvre: boissons censé être chauds sont tellement froid,... …"}, {"intensity": 0.75, "date": "2025-05-10", "source": "google_maps", "text": "The hotel is located a bit outside the city. The area isn't very inviting, but it's close to the airport. Underground parking is free. The staff is friendly but not very helpful. …"}, {"intensity": 0.6, "date": "2025-07-20", "source": "hotelscom", "text": "The hotel was clean. Service was not the best.  If you have a complaint,  they really don't care to resolve it. The food taste and variety was average. …"}, {"intensity": 0.9, "date": "2025-07-07", "source": "booking", "text": "Emplacement très mauvais et loin de toutes commodités, cet établissement ressemble à une prison, si par hasard vous arrivez en groupe et on vous loge dans des chambres dans …"}, {"intensity": 0.85, "date": "2026-04-10", "source": "google_maps", "text": "Dear Sir/Madam,  I am writing to bring to your attention several particularly regrettable incidents that occurred during our recent stay at the Hilton Garden Inn Casablanca Sud. …"}, {"intensity": 0.8, "date": "2025-08-13", "source": "google_maps", "text": "I previously stayed at this hotel in 2022, and to my surprise, construction is still ongoing. We chose this hotel again due to its proximity to the airport, but the experience was …"}, {"intensity": 1.0, "date": "2024-10-10", "source": "tripadvisor", "text": "FUYEZ!!!!This Inn is light years away from the standards of a real HILTON.Are there competent people at this establishment????So everything sucks, I don't know where to …"}, {"intensity": 0.9, "date": "2026-02-09", "source": "tripadvisor", "text": "I have stayed at the Hilton Garden Inn Casablanca three times over the past two years, and unfortunately, the hotel has declined significantly in just the last six months. …"}, {"intensity": 0.65, "date": "2026-02-09", "source": "tripadvisor", "text": "The good: Clean room, nice room, good wifi, good hot water. The bad: three lights didn't work in our room. They came and fixed two of them. The third one just needed a new bulb. …"}, {"intensity": 0.9, "date": "2025-02-12", "source": "tripadvisor", "text": "The room was cozy to say the least, the bathroom door would not shut &amp; the entrance  door would not lock, would class the bed as a double camp bed, the mattress was so …"}, {"intensity": 0.8, "date": "2025-07-21", "source": "booking", "text": "Les oreillers de sommeil sont vides et inconfortables. Les agents de sécurité d’une société privée à Hilton garden dérangent bcp les résidents et leur harcèle et  suivre de près …"}, {"intensity": 0.75, "date": "", "source": "google_maps", "text": "This hotel is new, but a poorly run operation. My first room, 627, the door came off the hinge when I opened. The bellman helping with my bag said he would go get another room …"}, {"intensity": 0.6, "date": "2024-05-29", "source": "tripadvisor", "text": "Cons:It was a disaster with the hours of bar and restaurant. No one could agree on the hours of services. What I learned: 630am to 1030am breakfast 1st floor restaurant and Bar …"}], "Room Condition": [{"intensity": 0.7, "date": "2024-09-19", "source": "booking", "text": "Le canapé pour dormir. On est censé avoir un lit quand on réserve une chambre de 3 personnes."}, {"intensity": 0.6, "date": "2024-08-15", "source": "booking", "text": "Le fait qu’il n’y ait pas de fenêtre dans la chambre"}, {"intensity": 0.5, "date": "2025-02-02", "source": "booking", "text": "Étant claustrophobe je n ai pas du tout aimé le fait qu’il n’y ait aucune fenetre/balcon dans l ensemble des chambres"}, {"intensity": 0.5, "date": "2024-08-11", "source": "booking", "text": "Le personnel très agréable,  réactif aux demandes .  Le restaurant coller à l'hôtel à surtout ne pas rater .  Le manque de chaine TV (sport,international)"}, {"intensity": 0.65, "date": "2024-05-10", "source": "google_maps", "text": "A lovely setting, impeccable service in the restaurant and reception, the only drawback is the smell of grills in the rooms given its proximity to the Khayma restaurant, otherwise …"}, {"intensity": 0.9, "date": "2026-05-03", "source": "google_maps", "text": "Please be careful with your valuables, jewelry, phone, perfume, etc. Theft from guest rooms. (organized gangs)"}, {"intensity": 0.5, "date": "2026-01-02", "source": "booking", "text": "They didn’t offer common water to the rooms"}, {"intensity": 0.85, "date": "2024-08-19", "source": "booking", "text": "Réception Imane was rude and impolite,the card she gave us was not working,we had to back to the réception again.Dispointed."}, {"intensity": 0.4, "date": "2025-09-24", "source": "booking", "text": "Chambre agréable (sauf la vue sur un terrain en travaux) Personnel très agréable et à l'écoute Séjour pour raisons professionnelles"}, {"intensity": 0.4, "date": "2025-05-10", "source": "google_maps", "text": "A decent hotel. Only 2 stars because the windows in the room can't be opened.  The rest can't be rated as we've already left."}, {"intensity": 0.4, "date": "2025-04-25", "source": "booking", "text": "Wenig Charme, dieses Hotel könnte überall auf der Welt stehen …kleine Riads sind sehr viel schöner"}, {"intensity": 0.8, "date": "2024-08-19", "source": "booking", "text": "Cojí 2 habitaciones interconectadas y al llegar al hotel me dicen que no todas estan ocupadas!!! La vdd que se espera de un hotel Hilton"}, {"intensity": 0.4, "date": "2024-05-10", "source": "google_maps", "text": "There are no windows or balconies in the entire hotel. We didn't like that! Otherwise, everything was fine!"}, {"intensity": 0.75, "date": "2024-08-08", "source": "booking", "text": "Pas de lit bebe dispo malgres la demande depuis des mois !   Pas de drap dispo pour les canapes convertible lors du coucher obligé d’appeler la reception"}, {"intensity": 0.9, "date": "2025-09-12", "source": "google_maps", "text": "Null"}, {"intensity": 0.5, "date": "2025-08-13", "source": "google_maps", "text": "A clean and tidy hotel. Very good furniture, good service, and reasonable prices compared to other hotels in the city. …"}, {"intensity": 0.7, "date": "2025-06-05", "source": "booking", "text": "Les Serviettes de bain étaient en très mauvais état. Le prix de la chambre et des repas est très cher compte tenu de la localisation."}, {"intensity": 0.4, "date": "2024-11-03", "source": "booking", "text": "Fenster im Zimmer kann nicht geöffnet werden"}, {"intensity": 0.8, "date": "2025-10-17", "source": "booking", "text": "Odalarda su bile yok."}, {"intensity": 0.9, "date": "2024-08-20", "source": "booking", "text": "Towels are very very bad Are discarded and damaged, should nit be used not even in a lowest star hotel,,, i was very disappointed and was obliged to buy towels for our use during …"}, {"intensity": 0.3, "date": "2025-07-14", "source": "google_maps", "text": "Nice hotel for the area. Reasonably priced - not competitive, close to few options you can walk to. Rooms are nice, slightly small, staff are nice. …"}, {"intensity": 0.3, "date": "2024-12-10", "source": "booking", "text": "Dommage qu’il n’y a pas des grandes chambres familiales. Si il n’y a de chambres cote à cote est bien vous devrez séparer votre famille en 2. …"}, {"intensity": 0.6, "date": "2024-11-11", "source": "booking", "text": "Месторасположение, грязные окна , застиранное белье и полотенца , нет гигиенических принадлежностей"}, {"intensity": 0.9, "date": "2024-09-30", "source": "booking", "text": "Mauvaise expérience chambre très sale, poussière partout, salle de bain mal nettoyée avec des cheveux ds le lavabo j'ai même trouvé un cafard mort sous la table de chevet"}, {"intensity": 0.6, "date": "2024-06-28", "source": "booking", "text": "In allgemein, zugänglichen Räumen und Außenbereich deutlich zu reduziert eingerichtet und nicht komfortabel (u.a. Pool-Area), definitiv kein Urlaubshotel für längere Aufenthalte."}, {"intensity": 0.7, "date": "2025-12-21", "source": "booking", "text": "The electricity was turned off many time in my room"}, {"intensity": 0.85, "date": "2025-11-11", "source": "google_maps", "text": "Nothing like other Hilton hotels... And what a crazy idea to diffuse so many allergen-laden fragrances when the room windows are sealed shut! …"}, {"intensity": 0.85, "date": "2025-09-12", "source": "google_maps", "text": "Very bad its not the standards of hilton, they are building the riad there, the first day i came i stepped in to wet cement everything was dirty and I was just following …"}, {"intensity": 0.7, "date": "2025-09-12", "source": "google_maps", "text": "Service is great. My room continually smells of sewage. 7th floor room 709."}, {"intensity": 0.7, "date": "2024-10-28", "source": "hotelscom", "text": "Terrible service and switches not working."}, {"intensity": 0.7, "date": "2024-06-07", "source": "booking", "text": "Le mobilier et l’hygiène très décevant par rapport à ce qui t’a sur le net"}, {"intensity": 0.8, "date": "2025-09-05", "source": "hotelscom", "text": "Didn’t end up staying , room was not very cleaning. Towels filled with strings how old it was and very noisy who you have entered the room they don’t allow other guest"}, {"intensity": 0.8, "date": "2025-08-21", "source": "booking", "text": "L’emplacement catastrophique l’odeur dans la chambre insupportable tout le long du séjour pas de fenêtre dans la chambre"}, {"intensity": 0.8, "date": "2024-11-29", "source": "booking", "text": "Nuls à la réception. Pas d eau chaude pas de pression douche déformée. Hôtel qui a besoin d une reprise en mains. Il y a mieux aux alentours"}, {"intensity": 0.6, "date": "2025-11-24", "source": "booking", "text": "Robinet  Douche froide Qualité des serviette  Pantouf  Toilette"}, {"intensity": 0.3, "date": "2025-09-06", "source": "booking", "text": "The room smelled a little damp I was tired rest 24 hours I slept right away"}, {"intensity": 0.6, "date": "2025-08-22", "source": "booking", "text": "Les climes ne marchent pas , les serviettes déchirées"}, {"intensity": 0.6, "date": "2024-12-21", "source": "booking", "text": "Hotel is on the outskirts and absolutely not at Hilton Garden standards"}, {"intensity": 0.6, "date": "2024-08-04", "source": "booking", "text": "Établissement mal situé, chambre donnant sur terrain vague!"}, {"intensity": 0.6, "date": "2024-07-27", "source": "booking", "text": "Rioleringsgeur in de kamer.  Rand van kinderbed gescheurd."}, {"intensity": 0.6, "date": "2024-07-06", "source": "booking", "text": "Limite de chaînes tv toilettes piscine st fermés"}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "The room smells musty because the windows can't be opened."}, {"intensity": 0.5, "date": "2025-06-14", "source": "google_maps", "text": "If you are looking for Hilton standards, this hotel will let you down.  Rooms: decent size and clean. Old torn towels. Called and asked for extra towelS …"}, {"intensity": 0.75, "date": "2024-09-22", "source": "booking", "text": "لايمثل سلسلة فنادق الهلتون في العالم  لايوجد شطاف ويلاحظ ترشيد في مياه الشراب والكهرباء والملايات والمناشف مستهلكه ورائحة دورة المياه مؤثره بشكل سلبي على الغرفه"}, {"intensity": 0.5, "date": "2024-09-16", "source": "hotelscom", "text": "surprised to see a Hilton with a torn up and worn out towels . Great gym and a wonderful staff . The Room was spacious and the hotel is 20 minutes to the airport but far from the …"}, {"intensity": 0.5, "date": "2024-08-21", "source": "booking", "text": "De kamers aan de zwembadzijde zijn wel erg vochtig en er hangt een vreemde geur. Na dit te hebben aangekaart hebben we een andere kamer toegewezen gekregen"}, {"intensity": 0.5, "date": "2024-07-28", "source": "booking", "text": "Les fenêtres ne s'ouvrent pas,  Pas d'endroit fumeur même à la piscine qui est dehors on ne peux pas fumer"}, {"intensity": 0.5, "date": "", "source": "google_maps", "text": "Excellent bedding. Every time I stay at this hotel, I get a handicapped room. I don't like the bathroom in these rooms."}, {"intensity": 0.7, "date": "2026-03-11", "source": "google_maps", "text": "Food department very bad. Room service in on 5pm to 9pm. In that slot ordered for a sandwich which was bland so much that I had to remove the chicken to eat it. …"}, {"intensity": 0.7, "date": "2025-12-11", "source": "google_maps", "text": "Hilton Garden Inn Casablanca Sud: a large hotel lacking soul. The design is flawed, cold, and inconsistent, despite an impressive lobby. …"}, {"intensity": 0.85, "date": "2025-09-12", "source": "google_maps", "text": "Tiny room, overpriced, and service was unfriendly. Definitely not coming back."}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "There are no windows"}, {"intensity": 0.7, "date": "2025-02-18", "source": "booking", "text": "Light of the room is very bad, it is almost dark and when I asked them they told me we provide only calm light. Internet is most of time not available. …"}, {"intensity": 0.5, "date": "2024-09-04", "source": "booking", "text": "Cher pour un hôtel dans une zone en construction"}, {"intensity": 0.5, "date": "2024-08-10", "source": "booking", "text": "Impossible d'aérer la chambre car les fenêtres ne s'ouvrent pas"}, {"intensity": 0.85, "date": "2024-05-10", "source": "google_maps", "text": "You have to make your own bed when you take Suite 711. I asked 3 times but they apologize. Room staff on July 10 between 9 p.m. and midnight, double zero!!!. …"}, {"intensity": 0.6, "date": "2026-04-28", "source": "booking", "text": "The room also had no SLIP-FLOP and no personal care supplies. (Toothbrush, ear cleaning rod, comb) Also, the electrical installation of the room is problematic. …"}, {"intensity": 0.5, "date": "2026-04-08", "source": "booking", "text": "Pas de dentifrices  Pas de pantoufles"}, {"intensity": 0.5, "date": "2026-02-19", "source": "booking", "text": "TEK KULLANIMLIK TERLİK YOKTU"}, {"intensity": 0.4, "date": "2026-02-09", "source": "google_maps", "text": "I've been staying at this hotel regularly since it opened.  The location is ideal for me, between the city center and the airport.  The service is very good. …"}, {"intensity": 0.8, "date": "2025-10-12", "source": "google_maps", "text": "I had coffee there with friends and wandered around the terraces, but I was very disappointed. The coffee was served in a broken cup... …"}, {"intensity": 0.4, "date": "2025-08-24", "source": "booking", "text": "For making tea/coffee only 2 pcs of tea bags/coffee were given.  Staff was so so."}, {"intensity": 0.4, "date": "2025-03-02", "source": "booking", "text": "Pas de beurre au petit déjeuner rupture ??? Pas les principales chaînes de télé françaises"}, {"intensity": 0.4, "date": "2025-01-25", "source": "booking", "text": "Pas de roomservice 24/24  pas de chaussons dans les chambres  Pas d’assistance bagages jusqu’à la chambre"}, {"intensity": 0.5, "date": "2025-01-20", "source": "booking", "text": "aucune chaine de télévision française"}, {"intensity": 0.8, "date": "2024-12-26", "source": "booking", "text": "WIFI qui ne fonctionne pas, pas d'eau chaude, état de la chambre... A éviter - Pour le prix vous trouverez beaucoup mieux et moins cher"}, {"intensity": 0.5, "date": "2024-08-17", "source": "booking", "text": "Les lits très courts."}, {"intensity": 0.6, "date": "2025-11-11", "source": "booking", "text": "Il n'y a pas de chausson dommage nous devons garder nos basket pour aller au toilette. L'odeur dans la chambre pas aéré"}, {"intensity": 0.6, "date": "2024-09-19", "source": "booking", "text": "No free tooth brush and slippers you need to ask the staff also location too far from city also breakfast is always same"}, {"intensity": 0.75, "date": "2026-05-10", "source": "booking", "text": "I had to go outside to buy water  I would also like to express my disappointment that the hotel does not even provide complimentary water for guests. …"}, {"intensity": 0.8, "date": "2026-03-11", "source": "google_maps", "text": "Several days of technical problems, room changes, and nighttime disturbances significantly impacted our stay. Damaged bed linens. …"}, {"intensity": 0.8, "date": "2025-10-12", "source": "booking", "text": "Est ce que vous êtes sûr que c’est un Hilton !!  Vue sur station d’essence et chantier  Chambre très petite  Oreillers de lit très très mous et plats  Pas de petit déjeuné inclus …"}, {"intensity": 0.8, "date": "2024-08-10", "source": "booking", "text": "Un accueil des plus déplaisant  Retard pour avoir une chambre nous devions entrer a 15h nous avons reçu les chambres à 17h10 De plus les chambres était éloignée alors que nous …"}, {"intensity": 0.5, "date": "2026-04-25", "source": "booking", "text": "Kamer zonder raam die open kan of kippen  dus geen verse lucht die er binnen komt wat zeer jammer is het stonk daar enorm en Fauzi heeft ons geholpen voor een andere kamer deze …"}, {"intensity": 0.5, "date": "2025-09-03", "source": "booking", "text": "we hadden op de heenreis ook hier een nacht verbleven, dit was uitstekend bevallen omdat we een prima kamer hadden helaas was dat op de terugreis minder. …"}, {"intensity": 0.4, "date": "2026-01-26", "source": "booking", "text": "manque de variété de thé de qualité dans la chambre et le petit déjeuner"}, {"intensity": 0.2, "date": "2024-10-15", "source": "booking", "text": "un petit frigidaire dans la chambre aurait été apprécié"}, {"intensity": 0.5, "date": "2025-05-02", "source": "booking", "text": "- Les oreillers sont vraiment très mous et inconfortable   je trouve que vous êtes un peu cher au niveau de l’hébergement et surtout le petit déjeuner"}, {"intensity": 0.65, "date": "2025-11-10", "source": "tripadvisor", "text": "Hilton Garden Inn Casablanca South: a great soulless hotel. The design is flawed, cold and inconsistent, despite an impressive entrance hall. …"}, {"intensity": 0.4, "date": "2026-04-13", "source": "booking", "text": "Vue sur le chantier d'à côté"}, {"intensity": 0.4, "date": "2025-09-29", "source": "booking", "text": "I don't like towels is old"}, {"intensity": 0.4, "date": "2024-08-24", "source": "booking", "text": "Les fenêtres ne s ouvrent pas"}, {"intensity": 0.4, "date": "2024-07-18", "source": "booking", "text": "Pas de terrasse dans la chambre."}, {"intensity": 0.9, "date": "2025-06-14", "source": "google_maps", "text": "My experience with the establishment was negative; the rooms were stuffy, the service was poor, and there were frequent malfunctions in the air conditioning, lighting, and …"}, {"intensity": 0.65, "date": "2024-07-31", "source": "booking", "text": "Un vide de 2cm au niveau de la porte principale de la chambre. On entend les gens dans le couloir et les femmes de chambres le matin. …"}, {"intensity": 0.45, "date": "2025-08-13", "source": "google_maps", "text": "Close to airport. Good for one night stay. Room smallish and full of dust. Breakfast poor. Underground parking is a plus."}, {"intensity": 0.3, "date": "2025-07-12", "source": "booking", "text": "Regulations for use of elevator (you can reach only your floor). Distance to city center. View of construction work across the street."}, {"intensity": 0.9, "date": "2025-05-04", "source": "booking", "text": "Das Badezimmer hat gestunken wie eine Kloake! Selbst nach einer Woche und yweimaliger Nachfrage war es nach 5 Naechten nicht moeglich de Conditioner in der Dousche nach \\u …"}, {"intensity": 0.3, "date": "2024-12-15", "source": "hotelscom", "text": "Overall fine but need some adjustments for example room temperature not working and body lotion disposer not working"}, {"intensity": 0.85, "date": "2025-05-04", "source": "booking", "text": "الموظفين معاملتهم سيئة خاصة الاستقبال نفسيات ولايوجد خدمات بالفندق حتى رفع الشنط بالغرف والاثاث والمفارش وصخة ومسودة  والغرفة تفتقر من اقل الاساسيات والموقع بعيد عن المدينة حوالي …"}, {"intensity": 0.5, "date": "2024-08-10", "source": "booking", "text": "الموقع - السعر  -  حجم الغرفة  تكلفة التوصيل للمطار مرتفعة جداً   !!!"}, {"intensity": 0.8, "date": "2026-05-03", "source": "google_maps", "text": "Very poor room service quality with low choice. Breakfast badly organized and table dirty - not prepared for new guests. …"}, {"intensity": 0.8, "date": "2025-07-20", "source": "booking", "text": "La saleté sur le sol de la chambre, le calcaire sur les poignets de la porte de la douche. Problème de lavabo bouché. Odeur de canalisation, on a dû changer de chambre. …"}, {"intensity": 0.8, "date": "2024-06-27", "source": "tripadvisor", "text": "Hotel of recent construction, near the highway, far from the city. Large and quite clean suite with comfortable bedding but with a cracked window tile. …"}, {"intensity": 0.5, "date": "2024-06-11", "source": "hotelscom", "text": "Very clean and neat. Staff are friendly. Location is ok. Bathroom fan is not working. Not enough lighting in the room. Reading light is broken but works. …"}, {"intensity": 0.6, "date": "2024-07-18", "source": "hotelscom", "text": "Really bad odor in the room"}, {"intensity": 0.5, "date": "2024-10-10", "source": "booking", "text": "L’emplacement était commode pour nous mais l’hôtel est dans une zone autoroutière et la vue est franchement laide.  Les fenêtres des chambres  ne s’ouvrent pas. …"}, {"intensity": 0.5, "date": "2025-05-17", "source": "booking", "text": "لا يوجد شطاف ولا يوجد غرف للمدخنين"}, {"intensity": 0.75, "date": "2025-10-12", "source": "google_maps", "text": "We chose this hotel because it was 20 minutes from the airport. The reception was mediocre. The rooms are of average standard with poor-quality materials, a slippery and deep …"}, {"intensity": 0.7, "date": "2024-08-13", "source": "booking", "text": "Personnel peu accueillant, peu aimable et sur la défensive. Mal formé. Absence d'huile d'olive au restaurant (petit détail qui en dit beaucoup sur l'approvisionnement et surtout …"}, {"intensity": 0.85, "date": "2024-09-21", "source": "hotelscom", "text": "Every time I go for breakfast the plates are dirty, the towels so old it feels horrible when you touch it, the swimming pool very cold, the taxis expansive Because they taxi gives …"}, {"intensity": 0.4, "date": "2024-07-23", "source": "booking", "text": "Tapijt was nat doch was wat minder"}, {"intensity": 0.9, "date": "2024-07-19", "source": "booking", "text": "2- The apology of front office manager Lehcen after I escalated. He gave me a free long late check out. Thanks  1- The extremely bad smell of toilet in room 325  I couldn’t even …"}, {"intensity": 0.9, "date": "2024-06-13", "source": "booking", "text": "سؤ التعامل من قبل موظفي الاستقبال زكريا وايمان ويونس فعند وصولي للفندق الساعه 0215 مع ابني كان هنالك شخصين افارقة لا أعلم من اي دولة وكان الموظف زكريا ينهي اجراءتهم وهو مبتسم ورغم …"}, {"intensity": 0.4, "date": "2026-04-19", "source": "google_maps", "text": "Minor flaws in the rooms (burnt-out lightbulb, cracked or clogged sink) but clean. Convenient location near the highway. …"}, {"intensity": 0.8, "date": "2025-01-13", "source": "tripadvisor", "text": "I have been a regular guest at this hotel for two yearsEverything is great, except....I am there now and following a reprogramming of the list of available TV channels, I find …"}, {"intensity": 0.9, "date": "2024-05-20", "source": "booking", "text": "First of all It's far away from Hilton Standards .  In reality, It's even not a Hilton Garden Inn. Its's clearly Trouble Inn Hotel. …"}, {"intensity": 0.5, "date": "2025-08-13", "source": "google_maps", "text": "We stayed two nights at this hotel, and I must commend the impeccable service from the staff. However, there were a few minor inconveniences. …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "Good hotel, good service, but a few things to point out. Charging 30 dirhams for coffee when you have to make it yourself is really shocking. Coffee should be free. …"}, {"intensity": 0.9, "date": "2024-12-22", "source": "hotelscom", "text": "We checked in on the 19th around 7ish , we were exhausted since we were driving for 7 hours. And traffic was bad. …"}, {"intensity": 0.75, "date": "2025-05-10", "source": "google_maps", "text": "The hotel is located a bit outside the city. The area isn't very inviting, but it's close to the airport. Underground parking is free. The staff is friendly but not very helpful. …"}, {"intensity": 0.6, "date": "2025-07-20", "source": "hotelscom", "text": "The hotel was clean. Service was not the best.  If you have a complaint,  they really don't care to resolve it. The food taste and variety was average. …"}, {"intensity": 0.85, "date": "2026-04-10", "source": "google_maps", "text": "Dear Sir/Madam,  I am writing to bring to your attention several particularly regrettable incidents that occurred during our recent stay at the Hilton Garden Inn Casablanca Sud. …"}, {"intensity": 0.9, "date": "2026-02-09", "source": "tripadvisor", "text": "I have stayed at the Hilton Garden Inn Casablanca three times over the past two years, and unfortunately, the hotel has declined significantly in just the last six months. …"}, {"intensity": 0.65, "date": "2026-02-09", "source": "tripadvisor", "text": "The good: Clean room, nice room, good wifi, good hot water. The bad: three lights didn't work in our room. They came and fixed two of them. The third one just needed a new bulb. …"}, {"intensity": 0.9, "date": "2025-02-12", "source": "tripadvisor", "text": "The room was cozy to say the least, the bathroom door would not shut &amp; the entrance  door would not lock, would class the bed as a double camp bed, the mattress was so …"}, {"intensity": 0.8, "date": "2025-07-21", "source": "booking", "text": "Les oreillers de sommeil sont vides et inconfortables. Les agents de sécurité d’une société privée à Hilton garden dérangent bcp les résidents et leur harcèle et  suivre de près …"}, {"intensity": 0.65, "date": "2025-07-20", "source": "booking", "text": "Formule demi pension gênante et n’est pas bien maîtrisée malgré la bonne initiative de temps en temps du jeune homme gérant du restaurant mais il y’a des failles qu’il faut régler …"}, {"intensity": 0.75, "date": "", "source": "google_maps", "text": "This hotel is new, but a poorly run operation. My first room, 627, the door came off the hinge when I opened. The bellman helping with my bag said he would go get another room …"}, {"intensity": 0.6, "date": "2024-05-29", "source": "tripadvisor", "text": "Cons:It was a disaster with the hours of bar and restaurant. No one could agree on the hours of services. What I learned: 630am to 1030am breakfast 1st floor restaurant and Bar …"}], "Food & Breakfast": [{"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "The restaurant service is really really bad. Every day it takes long time to get the food. Breakfast quality and variety getting worse over the months."}, {"intensity": 0.65, "date": "2025-09-12", "source": "google_maps", "text": "Great location, very convenient room, it's a shame room service wasn't available... There was construction next door, but the staff were super friendly. Spotlessly clean."}, {"intensity": 0.6, "date": "2025-08-15", "source": "booking", "text": "العشاء ليس فيه تنوع يتم تقديم قائمة فيه عدد محدود  للضيوف  انصح بعدم  اداء وجبة العشاء في الفندق"}, {"intensity": 0.6, "date": "2025-06-12", "source": "hotelscom", "text": "Problème au petit déjeuner, il faut courir après les tasses, les petites cuiellers , 1 machine à café sur 2 ne fonctionne pas  Le reste ça va"}, {"intensity": 0.65, "date": "2025-09-12", "source": "google_maps", "text": "Hotel is comfortable but coffee machines in the breakfast restaurant are terrible. They were not able to change them for 3 years. Nothing goes better for this place. …"}, {"intensity": 0.5, "date": "2025-05-19", "source": "booking", "text": "Colazione da migliorare, mi aspetterei qualcosa di più"}, {"intensity": 0.5, "date": "2024-06-09", "source": "booking", "text": "La colazione, non adatta alla qualità del resto"}, {"intensity": 0.4, "date": "2025-05-10", "source": "google_maps", "text": "I was expecting a little more from the Hilton hotel, especially regarding breakfast."}, {"intensity": 0.4, "date": "2025-05-10", "source": "google_maps", "text": "Currently room service is working until 10:30pm only. Breakfast is not various, fyi."}, {"intensity": 0.75, "date": "2024-07-03", "source": "booking", "text": "I have to leave at 5 am they promise to pack some breakfast for me and the my kids but i didnot recieve any ."}, {"intensity": 0.75, "date": "2024-07-02", "source": "booking", "text": "Restaurant 1er étage médiocre. N'a rien avoir avec l'image d'un hotel 4*. Attention à ce qu'on mange et â la propreté."}, {"intensity": 0.5, "date": "2026-04-01", "source": "booking", "text": "The breakfast needs improvement, for  example, there isn't a great selection of pastries and bread. The tea tray leaves much to be desired. The menu is very limited. …"}, {"intensity": 0.7, "date": "2025-06-22", "source": "booking", "text": "Souper au restaurant avec quelques pépins, dont certains auraient pu avoir un impact médical. Peu de réactivité du services sur cet enjeu."}, {"intensity": 0.7, "date": "", "source": "google_maps", "text": "From a 4 down to a 1. The rooms are okay. I've had worse breakfasts, but the breakfast isn't worthy of a Hilton. And worst of all: the incompetent staff at the reception."}, {"intensity": 0.4, "date": "2025-09-30", "source": "booking", "text": "Marokkaanse eten niet aanwezig bij diner."}, {"intensity": 0.4, "date": "2025-05-10", "source": "google_maps", "text": "Modern rooms, somehow close to the airport. Breakfast was below average"}, {"intensity": 0.8, "date": "2025-04-29", "source": "booking", "text": "Tout  Personnel , service nul, petit DJ catastrophique"}, {"intensity": 0.4, "date": "2025-04-17", "source": "booking", "text": "Tout était bien sauf le petit déjeuner qui était pas quantitatif"}, {"intensity": 0.8, "date": "2025-03-25", "source": "booking", "text": "Отвратительная еда и не дружелюбный персонал"}, {"intensity": 0.4, "date": "2024-10-27", "source": "booking", "text": "Cappuccino verdient die Bezeichnung nicht."}, {"intensity": 0.4, "date": "2024-08-15", "source": "booking", "text": "le dîner au restaurant pas trop le choix ."}, {"intensity": 0.3, "date": "2026-04-09", "source": "booking", "text": "Breakfast: some minor improvements can be done to improve the overall experience such as putting napkins on the table and a spoon. …"}, {"intensity": 0.6, "date": "2025-12-30", "source": "booking", "text": "Le personnel pas trop ouvert La qualite du menu petit dejeuner pas varie Pas de chaleur et de convivialite du person em decoration standart  Pas de flexibilite du personnel"}, {"intensity": 0.6, "date": "2025-11-12", "source": "booking", "text": "The breakfast was fine but the staff was few and therefor not attentive.  I found that the coffee machine was broken and was spraying coffee all over the place."}, {"intensity": 0.3, "date": "2025-11-06", "source": "hotelscom", "text": "Few small hiccups, like was told no red wine, but then it's served to someone else? Bartender took good care of me."}, {"intensity": 0.6, "date": "2025-10-01", "source": "booking", "text": "ontbijt werd niet op tijd aangevuld, duurde lang. Koffie apparaat zeer oud en werkte niet goed. Warm water werkte niet goed in badkamer,"}, {"intensity": 0.6, "date": "2025-08-21", "source": "booking", "text": "خيمه الاكل المصاحبه للفندق ليست ع مستوى التميز في طهي الطعام او جوده المكان ووجود القطط والذباب قليلا"}, {"intensity": 0.6, "date": "2025-06-27", "source": "booking", "text": "Breakfast was poor - bad quality and not good choice, Location is not particularly great for Casabalanca"}, {"intensity": 0.6, "date": "2025-01-08", "source": "booking", "text": "Le petit déjeuner (pas assez de roulements les plats souvent vides) les pains style msemen étaient secs je pense même de la veille . Le personnel pas très agréable et pas réactif"}, {"intensity": 0.6, "date": "2024-08-21", "source": "booking", "text": "Tarif du petit déjeuner excessif (150dh - 15€) en comparaison de restaurants (premium) aux alentours qui proposent également des petits déjeuners pour 2 fois moins cher."}, {"intensity": 0.6, "date": "2024-08-17", "source": "tripadvisor", "text": "Best customer service experience with the best staff … front desk Zakaria and restaurant  🧑‍🍳 Wissal 🧑‍🍳 Soukaina #one The executive chef needs to adjust the breakfast items like …"}, {"intensity": 0.3, "date": "2024-05-10", "source": "google_maps", "text": "The room was perfectly fine, and the hotel is fairly new. The restaurant closes at 10 PM, which isn't great."}, {"intensity": 0.7, "date": "2024-11-11", "source": "booking", "text": "After taking so much money, breakfast facilities were not given."}, {"intensity": 0.4, "date": "2026-03-20", "source": "hotelscom", "text": "Les chambres sont spacieuses et propre. La literie est confortable. Seul bémol est le restaurant 5 personnes à table et 45 minutes d'attente avant d'être servi. …"}, {"intensity": 0.7, "date": "2025-07-31", "source": "booking", "text": "tout petit déjeuner inéxistant"}, {"intensity": 0.7, "date": "2024-07-01", "source": "booking", "text": "Desayuno fatal"}, {"intensity": 0.7, "date": "2024-05-10", "source": "google_maps", "text": "The restaurant is way below average"}, {"intensity": 0.65, "date": "2024-06-29", "source": "booking", "text": "Corridors smelt. Food in the restaurant in the evening poor."}, {"intensity": 0.6, "date": "2024-09-10", "source": "booking", "text": "Konum kötü şehir dışında etrafında hiç birşey yok yemek yiyecek yer yok"}, {"intensity": 0.85, "date": "2024-07-05", "source": "tripadvisor", "text": "This is very good business hotel, neat , clean and spacious room.The rooms has lot of positivity and ample of sunlight. …"}, {"intensity": 0.5, "date": "2026-04-26", "source": "tripadvisor", "text": "Very great housekeeping service.bad canteen service,the table is not cleaned in time.when i go for breakfast no available clean table."}, {"intensity": 0.5, "date": "2025-11-03", "source": "hotelscom", "text": "Wonderful staff. Poor internet/wifi. Overcrowded dining for breakfast and dinner."}, {"intensity": 0.5, "date": "2025-06-02", "source": "booking", "text": "L’emplacement un peu loin du centre (30mns) et le restaurant (continental et sans saveurs)"}, {"intensity": 0.5, "date": "2024-10-28", "source": "booking", "text": "le petit déjeuner est pas très varié, machine à café est en panne. Le bruit du ventilateur dans la salle de bain est dérangeant pendant la nuit."}, {"intensity": 0.5, "date": "2024-07-15", "source": "hotelscom", "text": "They do not charge on the room the taxi, and they do not make change, restaurant is not good,"}, {"intensity": 0.7, "date": "2026-03-11", "source": "google_maps", "text": "Food department very bad. Room service in on 5pm to 9pm. In that slot ordered for a sandwich which was bland so much that I had to remove the chicken to eat it. …"}, {"intensity": 0.6, "date": "2025-03-07", "source": "hotelscom", "text": "Café da manhã bem fraco"}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "Rooms smell odd. Breakfast is filthy. Had to take 7 plates to find a clean one. One plate had hair, other had food residue. There was flies around the food. …"}, {"intensity": 0.5, "date": "2025-01-13", "source": "booking", "text": "mancanza termosifone in bagno colazione salata poco \"occidentale\""}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "We had a pleasant stay. The hotel is very good, the welcome at reception is great, the modern rooms are perfect, the breakfast is all really great except the egg pan (seriously …"}, {"intensity": 0.4, "date": "2026-04-19", "source": "google_maps", "text": "Very great housekeeping service.|bad canteen service,the table is not cleaned in time.|when i go for breakfast no available clean table."}, {"intensity": 0.4, "date": "2025-07-04", "source": "hotelscom", "text": "Hotel Confortable et silencieux. Au petit déjeuner aucun accueil, personnel ignore les clients. Personnel de la reception stressé.  Tres bon restaurant au RC"}, {"intensity": 0.4, "date": "2025-03-02", "source": "booking", "text": "Pas de beurre au petit déjeuner rupture ??? Pas les principales chaînes de télé françaises"}, {"intensity": 0.5, "date": "2024-09-05", "source": "booking", "text": "Het ontbijt viel tegen"}, {"intensity": 0.5, "date": "2024-07-17", "source": "booking", "text": "Petit dej et dîner vraiment bof"}, {"intensity": 0.6, "date": "2024-09-19", "source": "booking", "text": "No free tooth brush and slippers you need to ask the staff also location too far from city also breakfast is always same"}, {"intensity": 0.75, "date": "2024-07-11", "source": "booking", "text": "Le petit déjeuner était médiocre, jus d’orange n’était pas naturel , la vénoiserie étaient trop dure ,rien ne se trouvait sur le buffet ni les tasses de café, ni les bols, ni les …"}, {"intensity": 0.8, "date": "2025-10-12", "source": "booking", "text": "Est ce que vous êtes sûr que c’est un Hilton !!  Vue sur station d’essence et chantier  Chambre très petite  Oreillers de lit très très mous et plats  Pas de petit déjeuné inclus …"}, {"intensity": 0.7, "date": "2026-04-04", "source": "booking", "text": "The restaurant and the bar located on the 1st floor, useless. No atmosphere. The staff were poorly trained. During breakfast, no saucers, no small plates, no cups, no small …"}, {"intensity": 0.4, "date": "2026-01-26", "source": "booking", "text": "manque de variété de thé de qualité dans la chambre et le petit déjeuner"}, {"intensity": 0.4, "date": "2024-09-17", "source": "booking", "text": "Les boissons non comprises dans les déjeuner et dîner"}, {"intensity": 0.5, "date": "2025-05-02", "source": "booking", "text": "- Les oreillers sont vraiment très mous et inconfortable   je trouve que vous êtes un peu cher au niveau de l’hébergement et surtout le petit déjeuner"}, {"intensity": 0.4, "date": "2026-04-10", "source": "google_maps", "text": "Delecious food but small portions"}, {"intensity": 0.4, "date": "2026-04-10", "source": "tripadvisor", "text": "Delecious food but small portions"}, {"intensity": 0.4, "date": "2025-01-27", "source": "booking", "text": "Petit déjeuner à revoir :  A améliorer"}, {"intensity": 0.4, "date": "2025-01-01", "source": "booking", "text": "Le dîner à revoir."}, {"intensity": 0.4, "date": "2024-11-10", "source": "booking", "text": "Pequeno almoço fraco"}, {"intensity": 0.9, "date": "2025-06-14", "source": "google_maps", "text": "My experience with the establishment was negative; the rooms were stuffy, the service was poor, and there were frequent malfunctions in the air conditioning, lighting, and …"}, {"intensity": 0.6, "date": "2026-03-27", "source": "hotelscom", "text": "Great stay overall. The room was spacious, comfortable, and recently renovated. Breakfast was another highlight, offering a wide variety of options. …"}, {"intensity": 0.45, "date": "2025-08-13", "source": "google_maps", "text": "Close to airport. Good for one night stay. Room smallish and full of dust. Breakfast poor. Underground parking is a plus."}, {"intensity": 0.3, "date": "2025-07-20", "source": "booking", "text": "food is pretty ugh but breakfast is worth it to save time. You have to pick up pool towels from reception- for some reason they are afraid to leave them at the pool."}, {"intensity": 0.6, "date": "2024-08-03", "source": "booking", "text": "It was my third time staying at the hotel and there was a significant drop in the overall experience when compared with my first or second stay. …"}, {"intensity": 0.8, "date": "2026-05-03", "source": "google_maps", "text": "Very poor room service quality with low choice. Breakfast badly organized and table dirty - not prepared for new guests. …"}, {"intensity": 0.8, "date": "2024-06-27", "source": "tripadvisor", "text": "Hotel of recent construction, near the highway, far from the city. Large and quite clean suite with comfortable bedding but with a cracked window tile. …"}, {"intensity": 0.5, "date": "2026-04-25", "source": "booking", "text": "Very good hotel overall but the breakfast and lunch to be enhanced especially the service as the staff is leaving the restaurant without cleaning the dishes, when the guests leave …"}, {"intensity": 0.5, "date": "2024-08-11", "source": "booking", "text": "J'ai pris 2nuits avec petit déjeuner mais il s avere que mon vol etait tôt le samedi matin du coup je n'ai pas pu profiter du 2ème petit déjeuner J'ai demander à me faire une …"}, {"intensity": 0.75, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are spotless. The location is quite far from the city, but that's to be expected when you book there. …"}, {"intensity": 0.8, "date": "2024-08-14", "source": "booking", "text": "Aucune prise en charge pour les bagages Arrivée dans la chambre les draps étaient sales Le personnel au moment du petit déjeuner est regardant avec l’impression d’être surveillé …"}, {"intensity": 0.6, "date": "2024-09-20", "source": "hotelscom", "text": "Les + : Hotel moderne, neuf, chambre très agréable, parking  Les - : accueil très variable. 1h pour avoir un plat au restaurant (alors que seulement10 clients), on doit tout …"}, {"intensity": 0.6, "date": "2025-10-26", "source": "hotelscom", "text": "The staff was friendly and the hotel was clean.  However the breakfast choices were substandard.  Also, for some reason we had to almost have a fit about having washcloths. …"}, {"intensity": 0.7, "date": "2024-08-13", "source": "booking", "text": "Personnel peu accueillant, peu aimable et sur la défensive. Mal formé. Absence d'huile d'olive au restaurant (petit détail qui en dit beaucoup sur l'approvisionnement et surtout …"}, {"intensity": 0.85, "date": "2024-09-21", "source": "hotelscom", "text": "Every time I go for breakfast the plates are dirty, the towels so old it feels horrible when you touch it, the swimming pool very cold, the taxis expansive Because they taxi gives …"}, {"intensity": 0.85, "date": "2026-02-09", "source": "google_maps", "text": "The staff were only moderately friendly and unfriendly at breakfast, especially one woman who didn't respond to greetings and gave me a dirty look. …"}, {"intensity": 0.4, "date": "2026-03-24", "source": "booking", "text": "- Breakfast  - Bsthroom"}, {"intensity": 0.4, "date": "2024-08-03", "source": "booking", "text": "1. No dine in service. 2. Room service."}, {"intensity": 0.95, "date": "2024-09-29", "source": "booking", "text": "Eine einzige Katastrophe war das Restaurant. Als wir Abends noch etwas Essen wollten hat der Kellner 2x die falschen Speisen gebracht. …"}, {"intensity": 0.7, "date": "2024-11-30", "source": "booking", "text": "It’s far from everything. You need a taxi/car for everything. If you are in Casablanca on vacation and do not want to take a taxi for everything, find a hotel close to the mosque …"}, {"intensity": 0.4, "date": "2026-04-19", "source": "google_maps", "text": "Minor flaws in the rooms (burnt-out lightbulb, cracked or clogged sink) but clean. Convenient location near the highway. …"}, {"intensity": 0.85, "date": "2025-09-29", "source": "booking", "text": "Breakfast was not Hilton worthy, staff was not restocking the buffet sufficiently and was unprepared for the number of guests that are checked in. …"}, {"intensity": 0.8, "date": "2026-02-18", "source": "booking", "text": "The food served in the hotel restaurant was terrible.  We had a cheeseburger and Caesar Salad for lunch.  The cheeseburger tasted like cardboard, and had no beef flavor. …"}, {"intensity": 0.6, "date": "2025-02-06", "source": "booking", "text": "Personnel peu avenant, rien à voir avec les autres Marocains rencontrés. Au restaurant ou pdj, pas un bonjour, pas un sourire. …"}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "The rooms were perfectly comfortable. Only the restaurant detracts from this hotel's overall rating at this price point. …"}, {"intensity": 0.75, "date": "2024-12-23", "source": "booking", "text": "La qualité du petit déjeuner et du service dans le restaurant : 20 minutes d’attente pour avoir des œufs bouillis alors que le bac était vide depuis un moment, les petites …"}, {"intensity": 0.9, "date": "2024-05-20", "source": "booking", "text": "First of all It's far away from Hilton Standards .  In reality, It's even not a Hilton Garden Inn. Its's clearly Trouble Inn Hotel. …"}, {"intensity": 0.65, "date": "2025-05-10", "source": "google_maps", "text": "The hotel itself is fine. Parking is free for hotel guests.  The location is a bit out on the outskirts of town, ideal for access to the highway or the airport, but there's …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "Good hotel, good service, but a few things to point out. Charging 30 dirhams for coffee when you have to make it yourself is really shocking. Coffee should be free. …"}, {"intensity": 0.9, "date": "2025-03-01", "source": "booking", "text": "Mal accueillies par la personne à l'accueil. Aucun effort pour libérer des chambres simples. C'est son collègue qui est venu en renfort et nous a trouvé deux chambres simples, …"}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "Travelling on business for 3 nights and I would happily return.  The location was reasonably close to the airport and where I needed to be so it worked out well. …"}, {"intensity": 0.85, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are functional and clean.  The laundry service mixed up my clothing. I received items which were not mine, but some of my items were missing. …"}, {"intensity": 0.55, "date": "2026-02-09", "source": "tripadvisor", "text": "I often stay in this hotel. it is convenient by its proximity to the highways leading to casa, rabat and marrakesh and the rooms are nice. …"}, {"intensity": 0.8, "date": "2025-07-14", "source": "tripadvisor", "text": "I previously stayed at this hotel in 2022, and to my surprise, construction is still ongoing. We chose this hotel again due to its proximity to the airport, but the experience was …"}, {"intensity": 0.8, "date": "2024-06-02", "source": "booking", "text": "- Réceptionniste antipathique  - Petit déjeuner pas terrible et pauvre: boissons censé être chauds sont tellement froid,... …"}, {"intensity": 0.75, "date": "2025-05-10", "source": "google_maps", "text": "The hotel is located a bit outside the city. The area isn't very inviting, but it's close to the airport. Underground parking is free. The staff is friendly but not very helpful. …"}, {"intensity": 0.6, "date": "2025-07-20", "source": "hotelscom", "text": "The hotel was clean. Service was not the best.  If you have a complaint,  they really don't care to resolve it. The food taste and variety was average. …"}, {"intensity": 0.8, "date": "2025-08-13", "source": "google_maps", "text": "I previously stayed at this hotel in 2022, and to my surprise, construction is still ongoing. We chose this hotel again due to its proximity to the airport, but the experience was …"}, {"intensity": 1.0, "date": "2024-10-10", "source": "tripadvisor", "text": "FUYEZ!!!!This Inn is light years away from the standards of a real HILTON.Are there competent people at this establishment????So everything sucks, I don't know where to …"}, {"intensity": 0.75, "date": "2025-09-27", "source": "booking", "text": "This hotel is not suitable for leisurely stays. We had selected this property as we are familiar with the Hilton brand, and assumed that we could therefore rely on it. …"}, {"intensity": 0.9, "date": "2026-02-09", "source": "tripadvisor", "text": "I have stayed at the Hilton Garden Inn Casablanca three times over the past two years, and unfortunately, the hotel has declined significantly in just the last six months. …"}, {"intensity": 0.9, "date": "2025-02-12", "source": "tripadvisor", "text": "The room was cozy to say the least, the bathroom door would not shut &amp; the entrance  door would not lock, would class the bed as a double camp bed, the mattress was so …"}, {"intensity": 0.8, "date": "2025-07-21", "source": "booking", "text": "Les oreillers de sommeil sont vides et inconfortables. Les agents de sécurité d’une société privée à Hilton garden dérangent bcp les résidents et leur harcèle et  suivre de près …"}, {"intensity": 0.65, "date": "2025-07-20", "source": "booking", "text": "Formule demi pension gênante et n’est pas bien maîtrisée malgré la bonne initiative de temps en temps du jeune homme gérant du restaurant mais il y’a des failles qu’il faut régler …"}, {"intensity": 0.75, "date": "", "source": "google_maps", "text": "This hotel is new, but a poorly run operation. My first room, 627, the door came off the hinge when I opened. The bellman helping with my bag said he would go get another room …"}, {"intensity": 0.6, "date": "2024-05-29", "source": "tripadvisor", "text": "Cons:It was a disaster with the hours of bar and restaurant. No one could agree on the hours of services. What I learned: 630am to 1030am breakfast 1st floor restaurant and Bar …"}], "Location": [{"intensity": 0.7, "date": "2024-05-10", "source": "google_maps", "text": "It's a shame it's out of the city centre because it's a very nice hotel, very comfortable and the staff are great!"}, {"intensity": 0.7, "date": "2024-05-10", "source": "google_maps", "text": "The hotel is beautiful and clean, the staff are very wonderful, and it has all the services, a cafe and restaurants, but its problem is that it is far from the city center"}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "Great for passing by. Nice pool. You are a little bit far from Casablanca center. So taxi or rent a car is the best option to discover Casablanca"}, {"intensity": 0.6, "date": "2025-12-07", "source": "booking", "text": "Şehre uzak. Civarda market,cafe...v.s birsey yok."}, {"intensity": 0.5, "date": "2025-12-11", "source": "google_maps", "text": "Very nice , very clean . Judging a little bit far from the restaurant and nightlife. Good breakfast and service"}, {"intensity": 0.5, "date": "2025-03-28", "source": "booking", "text": "Ne pas y aller si ce n'est pas pour un voyage d'affaire car il n'y a aucun restaurant à proximité"}, {"intensity": 0.5, "date": "2024-05-10", "source": "google_maps", "text": "Good experience. Clean rooms and good food. A bit far from the city center if you are staying there for leisure"}, {"intensity": 0.65, "date": "2024-05-10", "source": "google_maps", "text": "Brand new hotel with great amenities and lovely decor. The staff is friendly and takes care of you. The restaurant's dishes are well-prepared and plentiful. …"}, {"intensity": 0.5, "date": "2025-07-29", "source": "hotelscom", "text": "Un peu loin des grands centres. Autrement, je recommade vraiment cet hôtel."}, {"intensity": 0.5, "date": "2024-09-25", "source": "booking", "text": "loin de tous , pas de restaurant à distance de marche"}, {"intensity": 0.6, "date": "2026-02-06", "source": "hotelscom", "text": "very clean room, staff was polite and attentive, the restuarant chhiwat L khayma is amazing, the only issue is location out of city center we had quite a trouble in getting taxi …"}, {"intensity": 0.6, "date": "2025-07-30", "source": "tripadvisor", "text": "Friendly hotel, professional and friendly staff, open air swimming pool , clean and spacious rooms, to move better be vehicle, the location of this hotel in an area where there is …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "Staff were very accommodating. The language barrier causes some confusion with room service but staff were very friendly and apologetic. …"}, {"intensity": 0.4, "date": "2026-01-10", "source": "google_maps", "text": "Everything was great. Only the location is a bit of a drawback. It's quite far from the city center."}, {"intensity": 0.4, "date": "2026-01-10", "source": "hotelscom", "text": "Clean and nice, But is to far from the city, from the restaurants and nightlife."}, {"intensity": 0.4, "date": "2024-08-07", "source": "booking", "text": "L’emplacement est loin de la ville prevoir une voiture . Mais l’hotel est calme propre et bien fréquentée pour des familles"}, {"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "Wonderful stay in the Hilton gardens The  Staff here couldn't be more helpful wonderful cleaners looking after you in the room always topping up your water the breakfast is superb …"}, {"intensity": 0.7, "date": "2025-05-10", "source": "google_maps", "text": "The services are totally lacking. The location is inconvenient to the city but very close to the airport."}, {"intensity": 0.4, "date": "2024-06-09", "source": "booking", "text": "L'environnement n'est pas top et assez isolé"}, {"intensity": 0.6, "date": "2025-06-27", "source": "booking", "text": "Breakfast was poor - bad quality and not good choice, Location is not particularly great for Casabalanca"}, {"intensity": 0.6, "date": "2024-05-22", "source": "tripadvisor", "text": "Hotel is only 2 years old so all nice and fresh. Staff were all very friendly, breakfast was excellent which lots of Moroccan treats to try. …"}, {"intensity": 0.3, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are very nice.  The hotel's location is so-so. A bit out of the way. …"}, {"intensity": 0.4, "date": "2026-01-08", "source": "booking", "text": "Parfois compliqué de se déplacer autrement qu’en Taxi.  Il y a un bus qui emmène en ville qui devrait être conseillé. …"}, {"intensity": 0.4, "date": "2025-07-19", "source": "booking", "text": "Posizione proprio non centrale e visto il tantissimo traffico di casablanca era complicato e ci voleva tanto tempo per raggiungere i siti di interesse della città. …"}, {"intensity": 0.7, "date": "2024-08-19", "source": "booking", "text": "Location was a big disappointment."}, {"intensity": 0.8, "date": "2025-08-21", "source": "booking", "text": "L’emplacement catastrophique l’odeur dans la chambre insupportable tout le long du séjour pas de fenêtre dans la chambre"}, {"intensity": 0.3, "date": "2025-01-10", "source": "booking", "text": "Little bit far from main city or good restaurants"}, {"intensity": 0.6, "date": "2024-09-10", "source": "booking", "text": "Konum kötü şehir dışında etrafında hiç birşey yok yemek yiyecek yer yok"}, {"intensity": 0.6, "date": "2024-08-04", "source": "booking", "text": "Établissement mal situé, chambre donnant sur terrain vague!"}, {"intensity": 0.5, "date": "2025-12-11", "source": "google_maps", "text": "The staff were only moderately friendly at first, but that improved; perhaps it was just my impression. The room was spacious, comfortable, and clean. The service was impeccable. …"}, {"intensity": 0.5, "date": "2025-06-02", "source": "booking", "text": "L’emplacement un peu loin du centre (30mns) et le restaurant (continental et sans saveurs)"}, {"intensity": 0.5, "date": "2024-09-16", "source": "hotelscom", "text": "surprised to see a Hilton with a torn up and worn out towels . Great gym and a wonderful staff . The Room was spacious and the hotel is 20 minutes to the airport but far from the …"}, {"intensity": 0.5, "date": "2024-08-16", "source": "booking", "text": "Environnement. Des constructions partout. Pas besoin de prendre chambre avec vue y a rien à voir😂 La piscine est petite"}, {"intensity": 0.8, "date": "2024-05-10", "source": "google_maps", "text": "I had to go to Casablanca for a medical appointment and I decided to give this spot a try. Fatima Zahra and Zakaria were at the front desk and they went above and beyond to make …"}, {"intensity": 0.5, "date": "2024-08-26", "source": "booking", "text": "L'hôtel est très loin du centre-ville et pas de bus shuttle pour l'aéroport."}, {"intensity": 0.6, "date": "2025-12-11", "source": "google_maps", "text": "Very nice experience. The staff is friendly and very attentive. Alot of construction in the area and traffic may be distruptive to and from the hotel, but tolerable. …"}, {"intensity": 0.6, "date": "2024-11-16", "source": "tripadvisor", "text": "Very nice hotel but uninteresting area. Many thanks for the young woman at reception for help installing wifi on my mobile. Very clean and classy room. …"}, {"intensity": 0.5, "date": "2025-10-26", "source": "hotelscom", "text": "Location was not good"}, {"intensity": 0.4, "date": "2025-10-12", "source": "google_maps", "text": "A comfortable hotel 20 minutes from the airport, with an excellent breakfast and plenty of space. It lacks amenities and is far from the city center."}, {"intensity": 0.6, "date": "2024-09-19", "source": "booking", "text": "No free tooth brush and slippers you need to ask the staff also location too far from city also breakfast is always same"}, {"intensity": 0.7, "date": "2025-08-15", "source": "booking", "text": "Hôtel pas propre  Équipements décevants  Loin de tout"}, {"intensity": 0.6, "date": "2024-05-11", "source": "tripadvisor", "text": "Very new and upscale hotel, superb quality of furniture and amenities, and very friendly staff. The only draw back is location, otherwise I would’ve given it 5/5 easily. …"}, {"intensity": 0.4, "date": "2024-09-08", "source": "booking", "text": "Un peu cher compte tenu de l’emplacement"}, {"intensity": 0.2, "date": "2024-08-13", "source": "booking", "text": "Il faut être véhiculé l’hôtel se situe un peu loin"}, {"intensity": 0.5, "date": "2024-09-07", "source": "booking", "text": "excentré, aucun taxi n'a voulu s'y rendre depuis la gare ferroviaire piscine trés petite,"}, {"intensity": 0.4, "date": "2025-10-27", "source": "booking", "text": "لايوجد حوله مطاعم"}, {"intensity": 0.4, "date": "2025-06-22", "source": "booking", "text": "Location, far from the centre"}, {"intensity": 0.4, "date": "2025-05-07", "source": "booking", "text": "L'emplacement est loin de la ville"}, {"intensity": 0.4, "date": "2024-09-18", "source": "booking", "text": "الموقع بعيد عن السنتر"}, {"intensity": 0.4, "date": "2024-08-27", "source": "booking", "text": "Des travaux les routes abîmées"}, {"intensity": 0.3, "date": "2025-07-12", "source": "booking", "text": "Regulations for use of elevator (you can reach only your floor). Distance to city center. View of construction work across the street."}, {"intensity": 0.5, "date": "2025-03-14", "source": "tripadvisor", "text": "Hilton Garden inn,  Casablanca The issues that come with it being a garden Inn cashing on the Hilton prefix. All Garden Inns are pretty basic. …"}, {"intensity": 0.85, "date": "2025-05-04", "source": "booking", "text": "الموظفين معاملتهم سيئة خاصة الاستقبال نفسيات ولايوجد خدمات بالفندق حتى رفع الشنط بالغرف والاثاث والمفارش وصخة ومسودة  والغرفة تفتقر من اقل الاساسيات والموقع بعيد عن المدينة حوالي …"}, {"intensity": 0.5, "date": "2024-08-10", "source": "booking", "text": "الموقع - السعر  -  حجم الغرفة  تكلفة التوصيل للمطار مرتفعة جداً   !!!"}, {"intensity": 0.6, "date": "2025-11-28", "source": "hotelscom", "text": "Hôtel moderne et bien équipé. Petit déjeuner très  correct. Situation très excentrée. Accès en taxi uniquement . …"}, {"intensity": 0.35, "date": "2025-08-12", "source": "booking", "text": "De omgeving is wat minder"}, {"intensity": 0.5, "date": "2024-10-08", "source": "hotelscom", "text": "We stayed here for our last night as we had an early airport run. The suite was spacious and amazing, 2 bathrooms, living room & big bedroom. …"}, {"intensity": 0.75, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are spotless. The location is quite far from the city, but that's to be expected when you book there. …"}, {"intensity": 0.3, "date": "2025-01-04", "source": "booking", "text": "Etwas weit weg von Flughafen."}, {"intensity": 0.3, "date": "2024-05-24", "source": "booking", "text": "Un poco apartado del centro."}, {"intensity": 0.5, "date": "2024-10-10", "source": "booking", "text": "L’emplacement était commode pour nous mais l’hôtel est dans une zone autoroutière et la vue est franchement laide.  Les fenêtres des chambres  ne s’ouvrent pas. …"}, {"intensity": 0.45, "date": "2026-02-09", "source": "tripadvisor", "text": "Nice hotel, clean, comfortable. There's a swimming pool and a gym. Unfortunately, the pool is not heating up. Breakfasts are delicious and varied. …"}, {"intensity": 0.7, "date": "2025-07-14", "source": "google_maps", "text": "Lovely Hotel! The rooms were really nice – super modern and the swimming pool was great. Breakfast wasn’t quite to my taste, but everything else was fabulous. …"}, {"intensity": 0.4, "date": "2026-04-10", "source": "google_maps", "text": "It was relatively a new hotel, the facility was pretty good. The service was excellent. It is half way from airport to downtown, not a very convenient location. …"}, {"intensity": 0.4, "date": "2024-07-26", "source": "booking", "text": "Enige nadeel vonden wij de locatie. Naar Hassan-II moskee en de corniche half uur met de taxi.  €175 betaald per nacht (2 volwassenen, 3 kinderen). …"}, {"intensity": 0.4, "date": "2024-05-10", "source": "google_maps", "text": "Clean hotel close to the airport but far from the city center and if you don't have a car and driver you may find it difficult to get a taxi from the city center to the hotel …"}, {"intensity": 0.6, "date": "2024-09-20", "source": "hotelscom", "text": "Les + : Hotel moderne, neuf, chambre très agréable, parking  Les - : accueil très variable. 1h pour avoir un plat au restaurant (alors que seulement10 clients), on doit tout …"}, {"intensity": 0.85, "date": "2024-09-21", "source": "hotelscom", "text": "Every time I go for breakfast the plates are dirty, the towels so old it feels horrible when you touch it, the swimming pool very cold, the taxis expansive Because they taxi gives …"}, {"intensity": 0.2, "date": "2024-09-07", "source": "booking", "text": "Un peu éloigné de Casablanca"}, {"intensity": 0.2, "date": "2024-05-10", "source": "google_maps", "text": "Not bad, but a bit off-center."}, {"intensity": 0.3, "date": "2024-07-15", "source": "booking", "text": "It is far out of town, but we were aware of this, it cost 150-200 DHM for taxis into town, reception will call them for you if asked. …"}, {"intensity": 0.7, "date": "2024-11-30", "source": "booking", "text": "It’s far from everything. You need a taxi/car for everything. If you are in Casablanca on vacation and do not want to take a taxi for everything, find a hotel close to the mosque …"}, {"intensity": 0.85, "date": "2024-09-09", "source": "tripadvisor", "text": "Before I checked in I have asked about the shuttle cuz my flight next day they told me we have it and it’s free than once I make check out . …"}, {"intensity": 0.6, "date": "2025-02-06", "source": "booking", "text": "Personnel peu avenant, rien à voir avec les autres Marocains rencontrés. Au restaurant ou pdj, pas un bonjour, pas un sourire. …"}, {"intensity": 0.6, "date": "2025-05-10", "source": "google_maps", "text": "Good hotel, good service, but a few things to point out. Charging 30 dirhams for coffee when you have to make it yourself is really shocking. Coffee should be free. …"}, {"intensity": 0.6, "date": "2024-05-11", "source": "tripadvisor", "text": "This is a new hotel so the design and feeling is very fresh.  Rooms super functional and bright and comfortable. …"}, {"intensity": 0.9, "date": "2025-07-07", "source": "booking", "text": "Emplacement très mauvais et loin de toutes commodités, cet établissement ressemble à une prison, si par hasard vous arrivez en groupe et on vous loge dans des chambres dans …"}, {"intensity": 0.75, "date": "2025-09-27", "source": "booking", "text": "This hotel is not suitable for leisurely stays. We had selected this property as we are familiar with the Hilton brand, and assumed that we could therefore rely on it. …"}, {"intensity": 0.9, "date": "2025-02-12", "source": "tripadvisor", "text": "The room was cozy to say the least, the bathroom door would not shut &amp; the entrance  door would not lock, would class the bed as a double camp bed, the mattress was so …"}], "Cleanliness & Housekeeping": [{"intensity": 0.75, "date": "2024-06-21", "source": "booking", "text": "Les cheveux par terre. Il faut bien penser à passer l’aspirateur avant toute chose et à bien laver la serpillère avant de la passer sur le sol. Il s’agit là d’un Hilton."}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "The condition of the pool is catastrophic, the dirtiest pool I have ever seen, the water is green it is so dirty"}, {"intensity": 0.9, "date": "2026-05-03", "source": "google_maps", "text": "Please be careful with your valuables, jewelry, phone, perfume, etc. Theft from guest rooms. (organized gangs)"}, {"intensity": 0.75, "date": "2024-07-02", "source": "booking", "text": "Restaurant 1er étage médiocre. N'a rien avoir avec l'image d'un hotel 4*. Attention à ce qu'on mange et â la propreté."}, {"intensity": 0.7, "date": "2025-01-07", "source": "booking", "text": "Forte odeur de tabac dans les sanitaires Odeurs de canalisation des l’entrée en chambre"}, {"intensity": 0.4, "date": "2024-09-16", "source": "booking", "text": "J'ai perdu une chaussette à laquelle je tenais particulièrement"}, {"intensity": 0.65, "date": "2024-05-10", "source": "google_maps", "text": "The hotel is very nice. The staff is extremely friendly. They even made a birthday cake as a surprise. My room was left uncleaned on the second day, but otherwise the amenities …"}, {"intensity": 0.9, "date": "2024-08-20", "source": "booking", "text": "Towels are very very bad Are discarded and damaged, should nit be used not even in a lowest star hotel,,, i was very disappointed and was obliged to buy towels for our use during …"}, {"intensity": 0.75, "date": "2024-08-21", "source": "booking", "text": "Bedsheets are dirty and it is not clean"}, {"intensity": 0.6, "date": "2025-08-21", "source": "booking", "text": "خيمه الاكل المصاحبه للفندق ليست ع مستوى التميز في طهي الطعام او جوده المكان ووجود القطط والذباب قليلا"}, {"intensity": 0.6, "date": "2024-11-11", "source": "booking", "text": "Месторасположение, грязные окна , застиранное белье и полотенца , нет гигиенических принадлежностей"}, {"intensity": 0.9, "date": "2024-09-30", "source": "booking", "text": "Mauvaise expérience chambre très sale, poussière partout, salle de bain mal nettoyée avec des cheveux ds le lavabo j'ai même trouvé un cafard mort sous la table de chevet"}, {"intensity": 0.6, "date": "2024-08-12", "source": "booking", "text": "Manque de places au parking les oreillers et draps sentaient mauvais, on nous les a changé après réclamation"}, {"intensity": 0.85, "date": "2025-09-12", "source": "google_maps", "text": "Very bad its not the standards of hilton, they are building the riad there, the first day i came i stepped in to wet cement everything was dirty and I was just following …"}, {"intensity": 0.7, "date": "2024-06-07", "source": "booking", "text": "Le mobilier et l’hygiène très décevant par rapport à ce qui t’a sur le net"}, {"intensity": 0.65, "date": "2024-06-29", "source": "booking", "text": "Corridors smelt. Food in the restaurant in the evening poor."}, {"intensity": 0.8, "date": "2025-09-05", "source": "hotelscom", "text": "Didn’t end up staying , room was not very cleaning. Towels filled with strings how old it was and very noisy who you have entered the room they don’t allow other guest"}, {"intensity": 0.8, "date": "2025-08-21", "source": "booking", "text": "L’emplacement catastrophique l’odeur dans la chambre insupportable tout le long du séjour pas de fenêtre dans la chambre"}, {"intensity": 0.6, "date": "2025-04-20", "source": "booking", "text": "Les mauvaises odeurs des egouts dans la chambre"}, {"intensity": 0.5, "date": "2026-04-26", "source": "tripadvisor", "text": "Very great housekeeping service.bad canteen service,the table is not cleaned in time.when i go for breakfast no available clean table."}, {"intensity": 0.75, "date": "2024-09-22", "source": "booking", "text": "لايمثل سلسلة فنادق الهلتون في العالم  لايوجد شطاف ويلاحظ ترشيد في مياه الشراب والكهرباء والملايات والمناشف مستهلكه ورائحة دورة المياه مؤثره بشكل سلبي على الغرفه"}, {"intensity": 0.5, "date": "2024-08-21", "source": "booking", "text": "De kamers aan de zwembadzijde zijn wel erg vochtig en er hangt een vreemde geur. Na dit te hebben aangekaart hebben we een andere kamer toegewezen gekregen"}, {"intensity": 0.6, "date": "2025-12-17", "source": "booking", "text": "Pis ti"}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "Rooms smell odd. Breakfast is filthy. Had to take 7 plates to find a clean one. One plate had hair, other had food residue. There was flies around the food. …"}, {"intensity": 0.5, "date": "2024-10-18", "source": "booking", "text": "Temiz değil, personel neredeyse hiç ingilizce bilmiyor."}, {"intensity": 0.6, "date": "2024-05-10", "source": "google_maps", "text": "We had a pleasant stay. The hotel is very good, the welcome at reception is great, the modern rooms are perfect, the breakfast is all really great except the egg pan (seriously …"}, {"intensity": 0.4, "date": "2026-04-19", "source": "google_maps", "text": "Very great housekeeping service.|bad canteen service,the table is not cleaned in time.|when i go for breakfast no available clean table."}, {"intensity": 0.5, "date": "2024-08-01", "source": "booking", "text": "la chambre n'est pas faite a temps."}, {"intensity": 0.6, "date": "2025-11-11", "source": "booking", "text": "Il n'y a pas de chausson dommage nous devons garder nos basket pour aller au toilette. L'odeur dans la chambre pas aéré"}, {"intensity": 0.7, "date": "2025-08-15", "source": "booking", "text": "Hôtel pas propre  Équipements décevants  Loin de tout"}, {"intensity": 0.75, "date": "2025-07-23", "source": "booking", "text": "- ik moest 2 keer bellen om de koffers te laten ophalen - ik stond vijf minuten aan de balie en duurde lang om geholpen te worden - shampoo was leeg toen ik wilde douchen  - het …"}, {"intensity": 0.8, "date": "2026-03-11", "source": "google_maps", "text": "Several days of technical problems, room changes, and nighttime disturbances significantly impacted our stay. Damaged bed linens. …"}, {"intensity": 0.8, "date": "2026-01-09", "source": "booking", "text": "الخدمه سيئة جدا والنظافة بعد السكن"}, {"intensity": 0.4, "date": "2024-10-28", "source": "booking", "text": "Slow in house keeping"}, {"intensity": 0.45, "date": "2025-08-13", "source": "google_maps", "text": "Close to airport. Good for one night stay. Room smallish and full of dust. Breakfast poor. Underground parking is a plus."}, {"intensity": 0.9, "date": "2025-05-04", "source": "booking", "text": "Das Badezimmer hat gestunken wie eine Kloake! Selbst nach einer Woche und yweimaliger Nachfrage war es nach 5 Naechten nicht moeglich de Conditioner in der Dousche nach \\u …"}, {"intensity": 0.85, "date": "2025-05-04", "source": "booking", "text": "الموظفين معاملتهم سيئة خاصة الاستقبال نفسيات ولايوجد خدمات بالفندق حتى رفع الشنط بالغرف والاثاث والمفارش وصخة ومسودة  والغرفة تفتقر من اقل الاساسيات والموقع بعيد عن المدينة حوالي …"}, {"intensity": 0.5, "date": "2025-08-25", "source": "booking", "text": "Staff not very well trained. Housekeeping and facilities not great"}, {"intensity": 0.4, "date": "2025-09-12", "source": "google_maps", "text": "On arrival, security kindly directed me to the car park and I was even shown the entrance by another guest great first impression. …"}, {"intensity": 0.8, "date": "2026-05-03", "source": "google_maps", "text": "Very poor room service quality with low choice. Breakfast badly organized and table dirty - not prepared for new guests. …"}, {"intensity": 0.8, "date": "2025-07-20", "source": "booking", "text": "La saleté sur le sol de la chambre, le calcaire sur les poignets de la porte de la douche. Problème de lavabo bouché. Odeur de canalisation, on a dû changer de chambre. …"}, {"intensity": 0.6, "date": "2024-07-18", "source": "hotelscom", "text": "Really bad odor in the room"}, {"intensity": 0.8, "date": "2024-08-14", "source": "booking", "text": "Aucune prise en charge pour les bagages Arrivée dans la chambre les draps étaient sales Le personnel au moment du petit déjeuner est regardant avec l’impression d’être surveillé …"}, {"intensity": 0.6, "date": "2025-10-26", "source": "hotelscom", "text": "The staff was friendly and the hotel was clean.  However the breakfast choices were substandard.  Also, for some reason we had to almost have a fit about having washcloths. …"}, {"intensity": 0.85, "date": "2024-09-21", "source": "hotelscom", "text": "Every time I go for breakfast the plates are dirty, the towels so old it feels horrible when you touch it, the swimming pool very cold, the taxis expansive Because they taxi gives …"}, {"intensity": 0.4, "date": "2024-07-23", "source": "booking", "text": "Tapijt was nat doch was wat minder"}, {"intensity": 0.75, "date": "2024-09-17", "source": "booking", "text": "Problèmes de parking au sous sol pour les grosses voitures, interdiction de stationner sur la place du patron, alors qu'il n'a pas de place pour les clients Dites au patron \" Le …"}, {"intensity": 0.7, "date": "2024-05-10", "source": "google_maps", "text": "Upon arrival, I noticed that the room was not cleaned properly, was dirty under chairs, etc, and the sheets were strained. …"}, {"intensity": 0.9, "date": "2024-07-19", "source": "booking", "text": "2- The apology of front office manager Lehcen after I escalated. He gave me a free long late check out. Thanks  1- The extremely bad smell of toilet in room 325  I couldn’t even …"}, {"intensity": 0.85, "date": "2025-09-29", "source": "booking", "text": "Breakfast was not Hilton worthy, staff was not restocking the buffet sufficiently and was unprepared for the number of guests that are checked in. …"}, {"intensity": 0.8, "date": "2026-02-18", "source": "booking", "text": "The food served in the hotel restaurant was terrible.  We had a cheeseburger and Caesar Salad for lunch.  The cheeseburger tasted like cardboard, and had no beef flavor. …"}, {"intensity": 0.5, "date": "2025-08-13", "source": "google_maps", "text": "We stayed two nights at this hotel, and I must commend the impeccable service from the staff. However, there were a few minor inconveniences. …"}, {"intensity": 0.95, "date": "2025-05-10", "source": "google_maps", "text": "We stayed one night at this Hilton on Aug 16th, 2024, never coming back again for the following reasons: - No water was provided for the checkout day, they made us wait one hour …"}, {"intensity": 0.85, "date": "2024-05-10", "source": "google_maps", "text": "The rooms are functional and clean.  The laundry service mixed up my clothing. I received items which were not mine, but some of my items were missing. …"}, {"intensity": 0.8, "date": "2024-06-02", "source": "booking", "text": "- Réceptionniste antipathique  - Petit déjeuner pas terrible et pauvre: boissons censé être chauds sont tellement froid,... …"}, {"intensity": 0.9, "date": "2025-07-07", "source": "booking", "text": "Emplacement très mauvais et loin de toutes commodités, cet établissement ressemble à une prison, si par hasard vous arrivez en groupe et on vous loge dans des chambres dans …"}, {"intensity": 0.85, "date": "2026-04-10", "source": "google_maps", "text": "Dear Sir/Madam,  I am writing to bring to your attention several particularly regrettable incidents that occurred during our recent stay at the Hilton Garden Inn Casablanca Sud. …"}, {"intensity": 1.0, "date": "2024-10-10", "source": "tripadvisor", "text": "FUYEZ!!!!This Inn is light years away from the standards of a real HILTON.Are there competent people at this establishment????So everything sucks, I don't know where to …"}, {"intensity": 0.65, "date": "2025-07-20", "source": "booking", "text": "Formule demi pension gênante et n’est pas bien maîtrisée malgré la bonne initiative de temps en temps du jeune homme gérant du restaurant mais il y’a des failles qu’il faut régler …"}, {"intensity": 0.75, "date": "", "source": "google_maps", "text": "This hotel is new, but a poorly run operation. My first room, 627, the door came off the hinge when I opened. The bellman helping with my bag said he would go get another room …"}]};
+
+const renderFeeds = () => {
+  const SRC_LABEL = {
+    'booking': 'Booking.com',
+    'hotelscom': 'Hotels.com',
+    'tripadvisor': 'TripAdvisor',
+    'google_maps': 'Google',
+  };
+  document.querySelectorAll('.feed[data-cat]').forEach(el => {
+    const cat = el.getAttribute('data-cat');
+    const items = FEEDS[cat] || [];
+    el.innerHTML = items.map(it => {
+      const intPct = Math.round(it.intensity * 100);
+      const src = SRC_LABEL[it.source] || it.source;
+      const date = it.date || '';
+      return `
+        <div class="feed-item">
+          <div class="feed-meta">
+            <span class="src">${src}</span>
+            <span class="date">${date}</span>
+            <span class="int">intensity ${intPct}%</span>
+          </div>
+          <div class="body">«${it.text}»</div>
+        </div>
+      `;
+    }).join('');
+
+    const wrap = el.parentElement;
+    const updateNav = () => {
+      const max = el.scrollWidth - el.clientWidth - 1;
+      const atStart = el.scrollLeft <= 1;
+      const atEnd = el.scrollLeft >= max;
+      const prev = wrap.querySelector('.feed-nav.left');
+      const next = wrap.querySelector('.feed-nav.right');
+      if (prev) prev.toggleAttribute('disabled', atStart);
+      if (next) next.toggleAttribute('disabled', atEnd);
+      wrap.classList.toggle('not-start', !atStart);
+      wrap.classList.toggle('not-end', !atEnd);
+    };
+    el.addEventListener('scroll', updateNav, { passive: true });
+    const scrollBy = (dir) => {
+      const cardW = 340 + 12; // item width + gap
+      el.scrollBy({ left: cardW * dir, behavior: 'smooth' });
+    };
+    wrap.querySelector('.feed-nav.left')?.addEventListener('click', () => scrollBy(-1));
+    wrap.querySelector('.feed-nav.right')?.addEventListener('click', () => scrollBy(1));
+    updateNav();
+  });
+};
+renderFeeds();
+
+// Constellation: connecting lines hub → nodes, click handlers
+const renderConstellation = () => {
+  const cons = document.querySelector('.cons');
+  const svg = document.getElementById('cons-svg');
+  if (!cons || !svg) return;
+  const hub = cons.querySelector('.cons-hub');
+  const nodes = cons.querySelectorAll('.cons-node');
+  const colors = ['#FF85A8','#7B7AF7','#5EE3D5','#FFCC66','#9D9CE7'];
+
+  const drawLines = () => {
+    const cr = cons.getBoundingClientRect();
+    const hr = hub.getBoundingClientRect();
+    const hx = hr.left + hr.width/2 - cr.left;
+    const hy = hr.top + hr.height/2 - cr.top;
+    svg.setAttribute('viewBox', `0 0 ${cr.width} ${cr.height}`);
+    svg.innerHTML = '';
+    // gradients defs
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    nodes.forEach((n, i) => {
+      const nr = n.getBoundingClientRect();
+      const nx = nr.left + nr.width/2 - cr.left;
+      const ny = nr.top + nr.height/2 - cr.top;
+      const dx = nx - hx, dy = ny - hy;
+      const dist = Math.hypot(dx, dy);
+      const startR = hr.width/2 + 8;
+      const x1 = hx + dx/dist*startR;
+      const y1 = hy + dy/dist*startR;
+      const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+      grad.setAttribute('id', `grad-${i}`);
+      grad.setAttribute('x1', nx); grad.setAttribute('y1', ny);
+      grad.setAttribute('x2', x1); grad.setAttribute('y2', y1);
+      grad.setAttribute('gradientUnits', 'userSpaceOnUse');
+      grad.innerHTML = `<stop offset="0" stop-color="${colors[i]}" stop-opacity="0.9"/><stop offset="1" stop-color="${colors[i]}" stop-opacity="0.15"/>`;
+      defs.appendChild(grad);
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', x1); line.setAttribute('y1', y1);
+      line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+      line.setAttribute('stroke', `url(#grad-${i})`);
+      svg.appendChild(line);
+
+      // Single subtle dot per line — shows agent gathering complaints into the hub
+      const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      dot.setAttribute('class', 'flow-dot');
+      dot.setAttribute('r', '3');
+      dot.setAttribute('fill', colors[i]);
+      dot.style.color = colors[i];
+      const delay = i * 0.8;
+      const a1 = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      a1.setAttribute('attributeName', 'cx');
+      a1.setAttribute('values', `${nx};${x1}`);
+      a1.setAttribute('dur', '4s');
+      a1.setAttribute('repeatCount', 'indefinite');
+      a1.setAttribute('begin', `${delay}s`);
+      const a2 = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      a2.setAttribute('attributeName', 'cy');
+      a2.setAttribute('values', `${ny};${y1}`);
+      a2.setAttribute('dur', '4s');
+      a2.setAttribute('repeatCount', 'indefinite');
+      a2.setAttribute('begin', `${delay}s`);
+      const aOp = document.createElementNS('http://www.w3.org/2000/svg', 'animate');
+      aOp.setAttribute('attributeName', 'opacity');
+      aOp.setAttribute('values', '0;0.85;0.85;0');
+      aOp.setAttribute('keyTimes', '0;0.2;0.85;1');
+      aOp.setAttribute('dur', '4s');
+      aOp.setAttribute('repeatCount', 'indefinite');
+      aOp.setAttribute('begin', `${delay}s`);
+      dot.append(a1, a2, aOp);
+      svg.appendChild(dot);
+    });
+    svg.insertBefore(defs, svg.firstChild);
+  };
+
+  drawLines();
+  window.addEventListener('resize', drawLines);
+  // Re-draw after fonts/layout settle
+  setTimeout(drawLines, 100);
+  setTimeout(drawLines, 500);
+
+  nodes.forEach(n => {
+    n.addEventListener('click', () => {
+      const idx = +n.dataset.idx;
+      const cards = document.querySelectorAll('.issues > .issue');
+      const card = cards[idx];
+      if (!card) return;
+      const det = card.querySelector('details.reviews-disc');
+      if (det) det.open = true;
+      card.scrollIntoView({ behavior:'smooth', block:'center' });
+      card.style.transition = 'border-color .3s';
+      card.style.borderColor = 'var(--accent)';
+      setTimeout(() => { card.style.borderColor = ''; }, 1500);
+    });
+  });
+};
+
+renderConstellation();
+
+// Department card click → modal with all complaints in that category
+const SRC_LABEL_FULL = { booking: 'Booking.com', hotelscom: 'Hotels.com', tripadvisor: 'TripAdvisor', google_maps: 'Google' };
+const modalBg = document.getElementById('modal-bg');
+const modalEl = modalBg ? modalBg.querySelector('.modal') : null;
+const openModal = (cat, title, owner, pct, color) => {
+  const list = FEEDS[cat] || [];
+  document.getElementById('modal-title').textContent = title + ' · ' + owner;
+  document.getElementById('modal-meta').textContent = list.length + ' reviews · ' + cat;
+  const pctEl = document.getElementById('modal-pct');
+  pctEl.textContent = pct;
+  pctEl.style.color = color;
+  if (modalEl) modalEl.style.setProperty('--mc', color);
+  document.getElementById('modal-list').innerHTML = list.map(it => `
+    <div class="modal-item">
+      <div class="mi-meta">
+        <span class="mi-src">${SRC_LABEL_FULL[it.source] || it.source}</span>
+        <span>${it.date || ''}</span>
+        <span class="mi-int">intensity ${Math.round((it.intensity || 0) * 100)}%</span>
+      </div>
+      <div class="mi-body">«${it.text}»</div>
+    </div>
+  `).join('');
+  modalBg.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+const closeModal = () => {
+  modalBg.classList.remove('open');
+  document.body.style.overflow = '';
+};
+document.querySelectorAll('.arch-node.dept[data-cat]').forEach(card => {
+  card.addEventListener('click', () => {
+    const pct = card.querySelector('.d-pct').textContent;
+    const color = getComputedStyle(card).getPropertyValue('--c').trim() || 'var(--accent)';
+    openModal(card.dataset.cat, card.dataset.title, card.dataset.owner, pct, color);
+  });
+});
+document.getElementById('modal-close')?.addEventListener('click', closeModal);
+modalBg?.addEventListener('click', e => { if (e.target === modalBg) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Tiny sparklines inside each circle node
+document.querySelectorAll('.cn-spark[data-vals]').forEach(el => {
+  const vals = el.dataset.vals.split(',').map(Number);
+  const max = Math.max(...vals, 1);
+  el.innerHTML = vals.map(v => {
+    const h = Math.max(2, (v / max) * 14);
+    return `<i style="height:${h}px"></i>`;
+  }).join('');
+});
+
+  const TREND = {
+    months: ['06','07','08','09','10','11','12','01','02','03','04','05'],
+    series: [
+      { name: 'Front Desk / Service', data: [6,8,9,3,4,5,2,3,7,5,5,2],  tag: 'flat',    label: 'flat' },
+      { name: 'Room Condition',       data: [3,6,6,9,4,4,2,2,4,2,6,3],  tag: 'rising',  label: '↑ rising' },
+      { name: 'Food & Breakfast',     data: [5,7,4,5,3,3,1,1,4,4,9,1],  tag: 'rising',  label: '↑ rising' },
+      { name: 'Location',             data: [3,6,3,1,3,1,4,3,2,0,1,0],  tag: 'falling', label: '↓ falling' },
+      { name: 'Cleanliness',          data: [0,4,6,4,1,1,1,1,1,1,3,2],  tag: 'rising',  label: '↑ rising' },
+    ]
+  };
+  const renderTrend = () => {
+    const root = document.getElementById('trend-rows');
+    const max = Math.max(...TREND.series.flatMap(s => s.data));
+    root.innerHTML = TREND.series.map(s => {
+      const W = 200, H = 36, n = s.data.length;
+      const bw = (W - (n-1)*3) / n;
+      const bars = s.data.map((v,i) => {
+        const h = max ? (v/max)*(H-4) : 0;
+        const x = i*(bw+3), y = H-h;
+        const color = s.tag === 'rising' ? '#FF85A8' : s.tag === 'falling' ? '#5EE3D5' : '#FFCC66';
+        return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${color}" opacity="${v?0.85:0.15}"/>`;
+      }).join('');
+      return `<div class="trend-row">
+        <div class="trend-name">${s.name}</div>
+        <svg class="trend-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${bars}</svg>
+        <div class="trend-tag ${s.tag}">${s.label}</div>
+      </div>`;
+    }).join('');
+  };
+  renderTrend();
+
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  const animateCount = (el)=>{
+    const target = +el.dataset.count;
+    const suffix = el.dataset.suffix || '';
+    const dur = 1100; const start = performance.now();
+    const tick = (now)=>{
+      const t = Math.min(1,(now-start)/dur);
+      const eased = 1 - Math.pow(1-t,3);
+      el.textContent = Math.round(target*eased) + suffix;
+      if(t<1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const cio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting && e.target.dataset.count){ animateCount(e.target); cio.unobserve(e.target); } });
+  },{threshold:.4});
+  document.querySelectorAll('.stat .num[data-count]').forEach(el=>cio.observe(el));
+
+  const bio = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const i = e.target.querySelector('i');
+        if(i){ const w = i.style.getPropertyValue('--w'); requestAnimationFrame(()=>{ i.style.width = w; }); }
+        bio.unobserve(e.target);
+      }
+    });
+  },{threshold:.3});
+  document.querySelectorAll('.bar').forEach(el=>bio.observe(el));
+</script>
+</body>
+</html>

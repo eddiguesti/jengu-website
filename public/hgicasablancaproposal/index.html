@@ -54,6 +54,56 @@
   .ex p strong{color:var(--t);font-weight:600;}
   .ex p span{color:var(--td);}
 
+  /* Worked-example card linking to the live demo */
+  .worked{
+    margin:2rem 0 1.5rem;
+    display:flex;align-items:stretch;gap:0;
+    background:linear-gradient(135deg,rgba(108,92,231,0.10),rgba(0,206,201,0.05));
+    border:1px solid rgba(108,92,231,0.35);
+    border-radius:16px;overflow:hidden;
+    text-decoration:none;color:inherit;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .worked:hover{transform:translateY(-2px);border-color:rgba(108,92,231,0.6);box-shadow:0 14px 40px rgba(108,92,231,0.18);}
+  .worked .wk-side{
+    flex-shrink:0;width:5.5rem;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:1.2rem 0.6rem;
+    background:rgba(108,92,231,0.12);
+    border-right:1px solid rgba(108,92,231,0.25);
+    text-align:center;gap:0.35rem;
+  }
+  .worked .wk-side .wk-eye{
+    font-size:0.55rem;font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;color:var(--a2);line-height:1.2;
+  }
+  .worked .wk-side .wk-num{
+    font-size:1.8rem;font-weight:900;color:var(--t);line-height:1;font-variant-numeric:tabular-nums;
+  }
+  .worked .wk-side .wk-unit{font-size:0.62rem;color:var(--td);letter-spacing:0.5px;line-height:1.2;}
+  .worked .wk-body{flex:1;padding:1.1rem 1.4rem 1.15rem;}
+  .worked .wk-tag{
+    font-size:0.58rem;font-weight:700;letter-spacing:2px;
+    text-transform:uppercase;color:var(--a3);margin-bottom:0.35rem;
+  }
+  .worked .wk-title{
+    font-size:1.05rem;font-weight:700;color:var(--t);line-height:1.35;margin-bottom:0.45rem;
+  }
+  .worked .wk-desc{
+    font-size:0.88rem;color:var(--td);line-height:1.6;margin-bottom:0.6rem;
+  }
+  .worked .wk-cta{
+    display:inline-flex;align-items:center;gap:0.4rem;
+    font-size:0.78rem;font-weight:600;color:var(--a3);
+    border-bottom:1px solid rgba(0,206,201,0.35);padding-bottom:1px;
+  }
+  .worked .wk-cta::after{content:'→';font-size:0.95rem;line-height:1;}
+  @media(max-width:560px){
+    .worked{flex-direction:column;}
+    .worked .wk-side{width:100%;flex-direction:row;justify-content:flex-start;gap:0.8rem;padding:0.85rem 1.1rem;border-right:none;border-bottom:1px solid rgba(108,92,231,0.25);}
+    .worked .wk-side .wk-num{font-size:1.4rem;}
+  }
+
   .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
   .price-table thead th{
     text-align:left;padding:0.8rem 1.2rem;font-size:0.6rem;font-weight:600;
@@ -160,61 +210,110 @@
     .phase-num { position: static; margin-bottom: 0.8rem; }
   }
 
-  /* Simple flow chart — single left-aligned column, friction inline */
-  .flowchart {
-    display: flex; flex-direction: column; align-items: stretch;
+  /* Flow chart — editorial timeline, framed card, role + action per step */
+  .flowmap {
     margin: 2.5rem 0 1.5rem;
     width: 100%;
-    max-width: 560px;
-  }
-  .fc-box {
-    width: 100%;
-    background: var(--card);
+    max-width: 640px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 1.15rem 1.4rem;
-    font-size: 0.95rem;
-    color: var(--t);
-    font-weight: 500;
-    text-align: center;
-    line-height: 1.45;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    border-radius: 18px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.35);
+    overflow: hidden;
   }
-  .fc-box.start {
-    background: linear-gradient(135deg, rgba(108,92,231,0.20), rgba(0,206,201,0.14));
-    border-color: rgba(108,92,231,0.45); font-weight: 700;
+  .flowmap-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
   }
-  .fc-box.end {
-    background: linear-gradient(135deg, rgba(0,206,201,0.20), rgba(162,155,254,0.15));
-    border-color: rgba(0,206,201,0.45); font-weight: 700;
+  .flowmap-head .lbl {
+    font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
+    color: var(--a3); text-transform: uppercase;
   }
-  .fc-box.friction {
-    background: rgba(253,121,168,0.06);
-    border-color: rgba(253,121,168,0.4);
-    border-style: dashed;
+  .flowmap-head .title {
+    font-size: 0.92rem; color: var(--t); font-weight: 600;
   }
-  .fc-box .fc-note {
-    margin-top: 0.7rem;
-    padding-top: 0.7rem;
-    border-top: 1px dashed rgba(253,121,168,0.25);
-    font-size: 0.78rem;
+  .flowmap-steps {
+    list-style: none; margin: 0; padding: 1.6rem 1.5rem 1.6rem 1.5rem;
+    position: relative;
+  }
+  .flowmap-steps::before {
+    content: ''; position: absolute;
+    left: calc(1.5rem + 1.15rem); top: 2.3rem; bottom: 2.3rem;
+    width: 1px;
+    background: linear-gradient(180deg,
+      rgba(108,92,231,0.55) 0%,
+      rgba(108,92,231,0.25) 18%,
+      rgba(253,121,168,0.4) 42%,
+      rgba(253,121,168,0.4) 68%,
+      rgba(0,206,201,0.5) 100%);
+  }
+  .fm-step {
+    display: flex; gap: 1.1rem; align-items: flex-start;
+    padding: 0.55rem 0;
+    position: relative;
+  }
+  .fm-num {
+    flex-shrink: 0;
+    width: 2.3rem; height: 2.3rem;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.14);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.72rem; font-weight: 700;
+    color: var(--td); letter-spacing: 0.5px;
+    position: relative; z-index: 1;
+    transition: transform 0.4s ease;
+  }
+  .fm-step.fm-start .fm-num {
+    background: linear-gradient(135deg, rgba(108,92,231,0.25), rgba(108,92,231,0.08));
+    border-color: rgba(108,92,231,0.55); color: var(--t);
+  }
+  .fm-step.fm-friction .fm-num {
+    background: rgba(253,121,168,0.1);
+    border-color: rgba(253,121,168,0.5);
+    color: var(--a4);
+  }
+  .fm-step.fm-end .fm-num {
+    background: linear-gradient(135deg, rgba(0,206,201,0.25), rgba(0,206,201,0.08));
+    border-color: rgba(0,206,201,0.55); color: var(--t);
+  }
+  .fm-content {
+    padding-top: 0.15rem; flex: 1; min-width: 0;
+  }
+  .fm-actor {
+    font-size: 0.62rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
     color: var(--td);
-    font-weight: 400;
-    line-height: 1.5;
+    margin-bottom: 0.3rem;
   }
-  .fc-box .fc-note strong { color: var(--a4); font-weight: 700; }
-  .fc-arrow {
-    color: rgba(160,160,184,0.55);
-    font-size: 1.4rem; line-height: 1;
-    padding: 0.55rem 0; text-align: center;
-    font-family: monospace;
+  .fm-step.fm-friction .fm-actor { color: var(--a4); }
+  .fm-action {
+    font-size: 0.98rem; color: var(--t);
+    font-weight: 500; line-height: 1.5;
   }
+  .fm-issue {
+    margin-top: 0.55rem;
+    padding: 0.55rem 0.85rem;
+    background: rgba(253,121,168,0.05);
+    border-left: 2px solid rgba(253,121,168,0.55);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.82rem;
+    color: var(--td);
+    line-height: 1.55;
+  }
+  .fm-issue b { color: var(--t); font-weight: 600; }
 
   @media (max-width: 540px) {
-    .flowchart { margin: 1.8rem auto; max-width: 100%; }
-    .fc-box { font-size: 0.9rem; padding: 1rem 1.15rem; border-radius: 12px; }
-    .fc-arrow { font-size: 1.25rem; padding: 0.4rem 0; }
-    .fc-box .fc-note { font-size: 0.76rem; }
+    .flowmap { margin: 1.8rem auto; max-width: 100%; border-radius: 14px; }
+    .flowmap-head { padding: 0.85rem 1.1rem; }
+    .flowmap-head .title { font-size: 0.85rem; }
+    .flowmap-steps { padding: 1.3rem 1.1rem; }
+    .flowmap-steps::before { left: calc(1.1rem + 1rem); }
+    .fm-num { width: 2rem; height: 2rem; font-size: 0.68rem; }
+    .fm-action { font-size: 0.92rem; }
+    .fm-issue { font-size: 0.78rem; }
   }
 </style>
 </head>
@@ -274,22 +373,50 @@
     <h2>What a Flow Chart<br><span class="g3">Actually Looks Like</span></h2>
     <p class="sub">Here's the simplest possible example, from a real moment at any hotel: a guest asks for an extra towel.</p>
 
-    <div class="flowchart">
-      <div class="fc-box start">Guest calls reception</div>
-      <div class="fc-arrow">↓</div>
-      <div class="fc-box">Reception writes it on a notepad</div>
-      <div class="fc-arrow">↓</div>
-      <div class="fc-box friction">
-        Radios housekeeping
-        <div class="fc-note"><strong>Lost in radio noise.</strong> No record. No-one's tracking it.</div>
+    <div class="flowmap">
+      <div class="flowmap-head">
+        <div class="lbl">Process · Towel Request</div>
+        <div class="title">Guest asks for an extra towel</div>
       </div>
-      <div class="fc-arrow">↓</div>
-      <div class="fc-box friction">
-        HK gets to the room "when free"
-        <div class="fc-note"><strong>No SLA.</strong> Could be 5 minutes. Could be an hour.</div>
-      </div>
-      <div class="fc-arrow">↓</div>
-      <div class="fc-box end">Guest gets towel — eventually</div>
+      <ol class="flowmap-steps">
+        <li class="fm-step fm-start">
+          <div class="fm-num">01</div>
+          <div class="fm-content">
+            <div class="fm-actor">Guest</div>
+            <div class="fm-action">Calls reception.</div>
+          </div>
+        </li>
+        <li class="fm-step">
+          <div class="fm-num">02</div>
+          <div class="fm-content">
+            <div class="fm-actor">Reception</div>
+            <div class="fm-action">Writes the request on a notepad.</div>
+          </div>
+        </li>
+        <li class="fm-step fm-friction">
+          <div class="fm-num">03</div>
+          <div class="fm-content">
+            <div class="fm-actor">Reception → Housekeeping</div>
+            <div class="fm-action">Radios it across.</div>
+            <div class="fm-issue"><b>Lost in radio noise.</b> No record, no-one's tracking it.</div>
+          </div>
+        </li>
+        <li class="fm-step fm-friction">
+          <div class="fm-num">04</div>
+          <div class="fm-content">
+            <div class="fm-actor">Housekeeping</div>
+            <div class="fm-action">Gets to the room when free.</div>
+            <div class="fm-issue"><b>No SLA.</b> Could be five minutes. Could be an hour.</div>
+          </div>
+        </li>
+        <li class="fm-step fm-end">
+          <div class="fm-num">05</div>
+          <div class="fm-content">
+            <div class="fm-actor">Guest</div>
+            <div class="fm-action">Receives the towel — eventually.</div>
+          </div>
+        </li>
+      </ol>
     </div>
 
     <p style="margin-top:1.5rem;font-size:1rem;color:var(--t);line-height:1.65;max-width:560px;font-weight:500;">That's it. That's a flow chart.</p>
@@ -311,6 +438,20 @@
     <div class="tag">03 — Some Examples</div>
     <h2>Things We<br><span class="g2">Tend to Surface</span></h2>
     <p class="sub">Not a prediction list. Just things hotels are putting in right now and getting real value out of. Won't know which actually fit HGI Sud until we look.</p>
+
+    <a class="worked" href="voice-of-guest-agent.html" target="_blank" rel="noopener">
+      <div class="wk-side">
+        <div class="wk-eye">Live demo</div>
+        <div class="wk-num">1,089</div>
+        <div class="wk-unit">reviews · 24 months</div>
+      </div>
+      <div class="wk-body">
+        <div class="wk-tag">Worked example · run on your data</div>
+        <div class="wk-title">A Voice-of-Guest agent that closes the loop on every complaint.</div>
+        <p class="wk-desc">Reads Booking, Google, Hotels.com and TripAdvisor reviews. Categorises and scores intensity. Alerts the right department head. Auto-drafts the public reply (one-click approve on critical ones). Checks back four weeks later — if the same complaint stops, the case closes; if it doesn't, it escalates to the GM. Lives outside the Hilton stack.</p>
+        <span class="wk-cta">Open the worked example</span>
+      </div>
+    </a>
 
     <div class="examples">
       <div class="ex"><div class="num">01</div><p><strong>WhatsApp guest assistant in three or four languages.</strong> <span>Arabic, French, English, plus one more if it helps. Pre-loaded with your hotel info, menu, local recs, FAQs. Handles the easy 70% — late-checkout asks, restaurant recs, breakfast hours, transfer info. Anything needing PMS data (room number, folio) hands off to your team. Lives on WhatsApp and web. No OnQ access required.</span></p></div>
