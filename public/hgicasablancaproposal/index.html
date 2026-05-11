@@ -244,110 +244,71 @@
     .phase-num { position: static; margin-bottom: 0.8rem; }
   }
 
-  /* Flow chart — editorial timeline, framed card, role + action per step */
-  .flowmap {
-    margin: 2.5rem 0 1.5rem;
-    width: 100%;
-    max-width: 640px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.005));
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
-    box-shadow: 0 12px 48px rgba(0,0,0,0.35);
-    overflow: hidden;
+  /* Process map — editorial typographic treatment, no boxes */
+  .fmap {
+    margin: 2.6rem 0 1.5rem;
+    max-width: 820px;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
-  .flowmap-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    background: rgba(255,255,255,0.02);
+  .fmap-row {
+    display: grid;
+    grid-template-columns: 5rem minmax(0,1.1fr) minmax(0,1fr);
+    gap: 1.6rem;
+    align-items: baseline;
+    padding: 1.4rem 0 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
   }
-  .flowmap-head .lbl {
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 2px;
-    color: var(--a3); text-transform: uppercase;
+  .fmap-n {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic; font-weight: 600;
+    font-size: 2.6rem; line-height: 1;
+    color: rgba(255,255,255,0.32);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
   }
-  .flowmap-head .title {
-    font-size: 0.92rem; color: var(--t); font-weight: 600;
+  .fmap-row.fmap-bad .fmap-n {
+    color: rgba(253,121,168,0.85);
   }
-  .flowmap-steps {
-    list-style: none; margin: 0; padding: 1.6rem 1.5rem 1.6rem 1.5rem;
-    position: relative;
-  }
-  .flowmap-steps::before {
-    content: ''; position: absolute;
-    left: calc(1.5rem + 1.15rem); top: 2.3rem; bottom: 2.3rem;
-    width: 1px;
-    background: linear-gradient(180deg,
-      rgba(108,92,231,0.55) 0%,
-      rgba(108,92,231,0.25) 18%,
-      rgba(253,121,168,0.4) 42%,
-      rgba(253,121,168,0.4) 68%,
-      rgba(0,206,201,0.5) 100%);
-  }
-  .fm-step {
-    display: flex; gap: 1.1rem; align-items: flex-start;
-    padding: 0.55rem 0;
-    position: relative;
-  }
-  .fm-num {
-    flex-shrink: 0;
-    width: 2.3rem; height: 2.3rem;
-    border-radius: 50%;
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,0.14);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.72rem; font-weight: 700;
-    color: var(--td); letter-spacing: 0.5px;
-    position: relative; z-index: 1;
-    transition: transform 0.4s ease;
-  }
-  .fm-step.fm-start .fm-num {
-    background: linear-gradient(135deg, rgba(108,92,231,0.25), rgba(108,92,231,0.08));
-    border-color: rgba(108,92,231,0.55); color: var(--t);
-  }
-  .fm-step.fm-friction .fm-num {
-    background: rgba(253,121,168,0.1);
-    border-color: rgba(253,121,168,0.5);
-    color: var(--a4);
-  }
-  .fm-step.fm-end .fm-num {
-    background: linear-gradient(135deg, rgba(0,206,201,0.25), rgba(0,206,201,0.08));
-    border-color: rgba(0,206,201,0.55); color: var(--t);
-  }
-  .fm-content {
-    padding-top: 0.15rem; flex: 1; min-width: 0;
-  }
-  .fm-actor {
-    font-size: 0.62rem; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--td);
-    margin-bottom: 0.3rem;
-  }
-  .fm-step.fm-friction .fm-actor { color: var(--a4); }
-  .fm-action {
-    font-size: 0.98rem; color: var(--t);
-    font-weight: 500; line-height: 1.5;
-  }
-  .fm-issue {
-    margin-top: 0.55rem;
-    padding: 0.55rem 0.85rem;
-    background: rgba(253,121,168,0.05);
-    border-left: 2px solid rgba(253,121,168,0.55);
-    border-radius: 0 6px 6px 0;
-    font-size: 0.82rem;
-    color: var(--td);
+  .fmap-act {
+    font-size: 1.1rem;
+    color: var(--t);
+    font-weight: 500;
     line-height: 1.55;
   }
-  .fm-issue b { color: var(--t); font-weight: 600; }
-
-  @media (max-width: 540px) {
-    .flowmap { margin: 1.8rem auto; max-width: 100%; border-radius: 14px; }
-    .flowmap-head { padding: 0.85rem 1.1rem; }
-    .flowmap-head .title { font-size: 0.85rem; }
-    .flowmap-steps { padding: 1.3rem 1.1rem; }
-    .flowmap-steps::before { left: calc(1.1rem + 1rem); }
-    .fm-num { width: 2rem; height: 2rem; font-size: 0.68rem; }
-    .fm-action { font-size: 0.92rem; }
-    .fm-issue { font-size: 0.78rem; }
+  .fmap-issue {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    color: rgba(253,121,168,0.9);
+    line-height: 1.55;
+    padding-left: 1.2rem;
+    border-left: 1px solid rgba(253,121,168,0.3);
+  }
+  .fmap-issue b {
+    color: #fff; font-weight: 600;
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.35rem;
+    color: var(--a4);
+  }
+  @media (max-width: 720px) {
+    .fmap-row {
+      grid-template-columns: 3.2rem 1fr;
+      gap: 1rem;
+      padding: 1.1rem 0 1.25rem;
+    }
+    .fmap-n { font-size: 1.9rem; }
+    .fmap-act { font-size: 1rem; }
+    .fmap-issue {
+      grid-column: 2 / -1;
+      margin-top: 0.4rem;
+      padding-left: 0.9rem;
+      font-size: 0.92rem;
+    }
   }
 </style>
 </head>
@@ -376,7 +337,7 @@
   <div class="s-in">
     <div class="tag">For Ajay Harjani · Hilton Garden Inn Casablanca Sud</div>
     <h1>A Process Map<br><span class="g1">for AI &amp; Automation</span></h1>
-    <p class="sub" style="font-size:1.3rem;max-width:720px;">Quick follow up to our chat. The cleanest first move is a process map of the hotel. Specifically pointed at finding where AI and automation could actually do something useful. That's the whole job.</p>
+    <p class="sub" style="font-size:1.3rem;max-width:720px;">Following our chat. We map the property's processes, looking for the spots where AI and automation can actually pull weight. Then we know what's worth building.</p>
 
     <div style="margin-top:2.5rem;">
       <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
@@ -391,8 +352,8 @@
   <div class="orb" style="width:500px;height:500px;background:var(--a4);top:-100px;left:-150px;"></div>
   <div class="s-in">
     <div class="tag">01 — Why This</div>
-    <h2>The Cleanest Way<br><span class="g2">to Find Real AI Wins</span></h2>
-    <p class="sub" style="font-size:1.1rem;">Most hotels rush in and buy tools. They end up with a stack of subscriptions nobody talks to and a team that goes back to spreadsheets. Mapping the operation first lets us see where AI or smart tooling could quietly take work off people's plates. Less "here's a product list", more "here's where the value is".</p>
+    <h2>Map First.<br><span class="g2">Build Second.</span></h2>
+    <p class="sub" style="font-size:1.1rem;">Most hotels buy tools first and ask questions later. A pile of subscriptions, nobody using them, the team back on spreadsheets. Mapping first tells you what's actually worth building. Not a product list. A clear shot of where the value sits.</p>
   </div>
 </section>
 
@@ -405,61 +366,39 @@
   <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
   <div class="s-in" style="max-width:1100px;">
     <div class="tag">02 — How We Map</div>
-    <h2>What a Flow Chart<br><span class="g3">Actually Looks Like</span></h2>
-    <p class="sub">Here's the simplest possible example, from a real moment at any hotel: a guest asks for an extra towel.</p>
+    <h2>One Process,<br><span class="g3">Drawn Out.</span></h2>
+    <p class="sub">A guest asks for an extra towel. Five steps. Two of them quietly broken.</p>
 
-    <div class="flowmap">
-      <div class="flowmap-head">
-        <div class="lbl">Process · Towel Request</div>
-        <div class="title">Guest asks for an extra towel</div>
+    <div class="fmap">
+      <div class="fmap-row">
+        <div class="fmap-n">01</div>
+        <div class="fmap-act">Guest calls reception.</div>
       </div>
-      <ol class="flowmap-steps">
-        <li class="fm-step fm-start">
-          <div class="fm-num">01</div>
-          <div class="fm-content">
-            <div class="fm-actor">Guest</div>
-            <div class="fm-action">Calls reception.</div>
-          </div>
-        </li>
-        <li class="fm-step">
-          <div class="fm-num">02</div>
-          <div class="fm-content">
-            <div class="fm-actor">Reception</div>
-            <div class="fm-action">Writes the request on a notepad.</div>
-          </div>
-        </li>
-        <li class="fm-step fm-friction">
-          <div class="fm-num">03</div>
-          <div class="fm-content">
-            <div class="fm-actor">Reception → Housekeeping</div>
-            <div class="fm-action">Radios it across.</div>
-            <div class="fm-issue"><b>Lost in radio noise.</b> No record, no-one's tracking it.</div>
-          </div>
-        </li>
-        <li class="fm-step fm-friction">
-          <div class="fm-num">04</div>
-          <div class="fm-content">
-            <div class="fm-actor">Housekeeping</div>
-            <div class="fm-action">Gets to the room when free.</div>
-            <div class="fm-issue"><b>No SLA.</b> Could be five minutes. Could be an hour.</div>
-          </div>
-        </li>
-        <li class="fm-step fm-end">
-          <div class="fm-num">05</div>
-          <div class="fm-content">
-            <div class="fm-actor">Guest</div>
-            <div class="fm-action">Receives the towel — eventually.</div>
-          </div>
-        </li>
-      </ol>
+      <div class="fmap-row">
+        <div class="fmap-n">02</div>
+        <div class="fmap-act">Reception writes the request on a notepad.</div>
+      </div>
+      <div class="fmap-row fmap-bad">
+        <div class="fmap-n">03</div>
+        <div class="fmap-act">Reception radios it across to housekeeping.</div>
+        <div class="fmap-issue"><b>Lost in radio noise</b>No record. No-one's tracking it.</div>
+      </div>
+      <div class="fmap-row fmap-bad">
+        <div class="fmap-n">04</div>
+        <div class="fmap-act">Housekeeping gets to the room when free.</div>
+        <div class="fmap-issue"><b>No SLA</b>Could be five minutes. Could be an hour.</div>
+      </div>
+      <div class="fmap-row">
+        <div class="fmap-n">05</div>
+        <div class="fmap-act">Guest receives the towel — eventually.</div>
+      </div>
     </div>
 
-    <p style="margin-top:1.5rem;font-size:1rem;color:var(--t);line-height:1.65;max-width:560px;font-weight:500;">That's it. That's a flow chart.</p>
-    <p style="margin-top:1rem;font-size:0.95rem;color:var(--td);line-height:1.7;max-width:560px;">Once it's drawn out, the broken bits stop being invisible. Now multiply it by 50 things happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets — and you've got a clear picture of where time and money are actually leaking. The fixes start to look obvious.</p>
+    <p style="margin-top:2rem;font-size:1rem;color:var(--td);line-height:1.7;max-width:640px;">Drawn out, the broken bits stop being invisible. Multiply this by fifty things happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets — and you've got a clear picture of where time and money are leaking. The fixes start to look obvious.</p>
 
-    <div style="margin-top:1.8rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:560px;">
+    <div style="margin-top:1.8rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:640px;">
       <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">In this case the fix is</div>
-      <p style="font-size:0.9rem;color:var(--td);line-height:1.6;margin:0;">A central guest-request log (WhatsApp / app / shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping points at.</p>
+      <p style="font-size:0.92rem;color:var(--td);line-height:1.6;margin:0;">A central guest-request log (WhatsApp, app, or shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping points at.</p>
     </div>
   </div>
 </section>
@@ -471,44 +410,44 @@
   <div class="orb" style="width:500px;height:500px;background:var(--a5);top:10%;right:-150px;"></div>
   <div class="s-in">
     <div class="tag">03 — Some Examples</div>
-    <h2>Things We<br><span class="g2">Tend to Surface</span></h2>
-    <p class="sub">Not a prediction list. Just things hotels are putting in right now and getting real value out of. Won't know which actually fit HGI Sud until we look.</p>
+    <h2>What Tends<br><span class="g2">to Come Out</span></h2>
+    <p class="sub">Not predictions. Things hotels are running right now and getting value from. Which ones fit HGI Sud, we'll know after the map.</p>
 
     <div class="examples">
       <div class="ex">
         <div class="num">01</div>
-        <div class="ex-title">WhatsApp guest assistant in any language.</div>
-        <div class="ex-body">Pre-loaded with your hotel info, menu, local recs, FAQs. Replies in whichever language the guest writes in — Arabic, French, English, German, Russian, Mandarin, doesn't matter. Handles the easy 70% — late-checkout asks, restaurant recs, breakfast hours, transfer info. Anything needing PMS data (room number, folio) hands off to your team. Lives on WhatsApp and web. No OnQ access required.</div>
+        <div class="ex-title">WhatsApp guest assistant.</div>
+        <div class="ex-body">Pre-loaded with your hotel info, menu, local recs, FAQs. Replies in whichever language the guest writes in. Handles the easy 70%: late checkout, restaurant recs, breakfast hours, transfers. Anything needing PMS data hands back to your team. WhatsApp and web. No OnQ access.</div>
       </div>
       <div class="ex">
         <div class="num">02</div>
         <div class="ex-title">AI-drafted review responses.</div>
-        <div class="ex-body">Reads from the public Booking, TripAdvisor and Google review pages. Drafts a reply in your voice within an hour of the review going up. Your team approves in batches and posts from your normal accounts. No Hilton system integration. Brings response time well inside the 48-hour brand standard.</div>
+        <div class="ex-body">Reads the public Booking, TripAdvisor and Google pages. Drafts a reply in your voice within the hour. Your team approves in batches and posts from the normal accounts. Response time well inside the 48-hour brand standard. No Hilton integration.</div>
       </div>
       <div class="ex">
         <div class="num">03</div>
         <div class="ex-title">Pre-arrival upsell flow.</div>
-        <div class="ex-body">Reservations drops a list of upcoming arrivals into the tool (CSV, paste, or forwarded confirmation emails). It drafts personalised pre-arrival emails — upgrade offer, late checkout, breakfast, airport transfer. Your team approves in batches and sends from the normal email account. No PMS integration needed.</div>
+        <div class="ex-body">Reservations drops arrivals into the tool — CSV, paste, or forwarded confirmations. It drafts personalised emails: upgrade, late checkout, breakfast, transfer. Your team approves in batches and sends from the usual account. No PMS integration.</div>
       </div>
       <div class="ex">
         <div class="num">04</div>
         <div class="ex-title">Daily reports written for you.</div>
-        <div class="ex-body">Your night auditor exports the standard PMS reports they already run. The tool ingests those exports and writes the flash, the MTD and the owner update in your voice. In your inbox before the morning meeting. No OnQ integration — just augments the exports your team already does.</div>
+        <div class="ex-body">Night audit exports the standard PMS reports they already run. The tool ingests them and writes the flash, the MTD and the owner update in your voice. In your inbox before the morning meeting. No OnQ integration.</div>
       </div>
       <div class="ex">
         <div class="num">05</div>
         <div class="ex-title">Predictive maintenance on HVAC and key kit.</div>
-        <div class="ex-body">Smart sensors on HVAC units, boilers and lifts. Flags failures before guests do. Lives on the engineering side, fully independent from OnQ. Alerts route via WhatsApp or wherever your team already works. Especially useful at a property with a heavy A/C load.</div>
+        <div class="ex-body">Smart sensors on HVAC, boilers and lifts. Flags failures before guests do. Engineering side only, no OnQ touch. Alerts route through WhatsApp or wherever your team already works. Useful at a property with heavy A/C load.</div>
       </div>
       <div class="ex">
         <div class="num">06</div>
         <div class="ex-title">Quiet prep for the HotelKey rollout.</div>
-        <div class="ex-body">Hilton is replacing OnQ across all properties and HGI is in the first wave. The maps make the migration smoother. You'll already know which workflows depend on which systems and where the workarounds live.</div>
+        <div class="ex-body">Hilton is replacing OnQ. HGI is in the first wave. The maps make migration smoother — you already know which workflows depend on which system and where the workarounds live.</div>
       </div>
       <div class="ex">
         <div class="num">07</div>
-        <div class="ex-title">Centralising things scattered across tools.</div>
-        <div class="ex-body">Maintenance tickets, lost and found, supplier comms, shift notes. Into one place everyone can see. Lives outside the Hilton stack — no integration required. Boring. Always works.</div>
+        <div class="ex-title">Centralising what's scattered.</div>
+        <div class="ex-body">Maintenance tickets, lost and found, supplier comms, shift notes. One place everyone can see. Lives outside the Hilton stack. No integration required. Boring. Always works.</div>
       </div>
     </div>
   </div>
@@ -523,7 +462,7 @@
   <div class="s-in" style="max-width:960px;">
     <div class="tag">04 — Worked Example</div>
     <h2>One We've Already<br><span class="g1">Run on Your Reviews</span></h2>
-    <p class="sub" style="max-width:760px;">A Voice-of-Guest agent built from 1,089 reviews of HGI Casablanca Sud across Booking, Google, Hotels.com and TripAdvisor. It categorises every complaint, alerts the right head of department, drafts the public reply, and checks four weeks later whether the same issue stopped recurring.</p>
+    <p class="sub" style="max-width:760px;">Built from 1,089 reviews of HGI Sud across Booking, Google, Hotels.com and TripAdvisor. The agent categorises every complaint, alerts the right HoD, drafts the public reply, and checks four weeks later whether the same issue stopped recurring.</p>
 
     <div class="wk-stats">
       <div class="wk-stat">
@@ -569,25 +508,25 @@
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
     <div class="tag">05 — How It Goes</div>
-    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">The engagement,<br><span class="g3" style="font-style:italic;">in three movements.</span></h2>
-    <p class="sub" style="font-size:1.05rem;">No black box. You're in the room for every call that matters. We map, you decide what to act on, then we build it.</p>
+    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">Three movements.<br><span class="g3" style="font-style:italic;">No black box.</span></h2>
+    <p class="sub" style="font-size:1.05rem;">You're in the room for every call that matters. We map. You decide. Then we build.</p>
 
     <div class="phases-tl">
       <div class="phase-row">
         <div class="phase-num">i</div>
         <div class="phase-kicker">Phase one</div>
         <div class="phase-name">Map.</div>
-        <p class="phase-lead">A few weeks of remote sessions to capture how the property actually runs.</p>
-        <p class="phase-body">Video calls with each head of department. Screen-share walkthroughs of the systems they use day-to-day. Short photo or video clips from your team during the moments that stress the operation — morning rush, breakfast, late arrivals, night audit. Every workflow drawn out as it really happens, not as the SOP says. You see the maps mid-engagement so you can react before anything's locked in.</p>
-        <p class="phase-out">A clean set of process maps and a marked shortlist of where the friction sits.</p>
+        <p class="phase-lead">A few weeks of remote sessions to capture how the property really runs.</p>
+        <p class="phase-body">Video calls with each HoD. Screen-shares of the systems they actually use. Photo and video clips from your team during the busy moments. Every workflow drawn as it happens, not as the SOP says. You see the maps as we go, so you can push back early.</p>
+        <p class="phase-out">A clean set of process maps and a shortlist of where the friction sits.</p>
       </div>
 
       <div class="phase-row">
         <div class="phase-num">ii</div>
         <div class="phase-kicker">Phase two</div>
         <div class="phase-name">Decide.</div>
-        <p class="phase-lead">Sit down with you and pick the wins together.</p>
-        <p class="phase-body">Walk through what we found. Identify the low-hanging fruit. Choose what's worth doing first, based on impact and what you can move on without burning political capital. Some items get owned by your team, some by us.</p>
+        <p class="phase-lead">We sit down and pick the wins together.</p>
+        <p class="phase-body">Walk through what we found. Pick what's worth doing first — by impact, and by what you can push through without spending political capital. Some items your team owns. Some we do.</p>
         <p class="phase-out">A prioritised plan, agreed with you, not for you.</p>
       </div>
 
@@ -595,15 +534,15 @@
         <div class="phase-num">iii</div>
         <div class="phase-kicker">Phase three</div>
         <div class="phase-name">Build.</div>
-        <p class="phase-lead">Layer in the tools that lock the wins in for good.</p>
-        <p class="phase-body">WhatsApp guest assistant. AI-drafted review responses. Daily reports written for you. Predictive maintenance. Whichever the maps point at. Built brand-safe, integrated with what you already run, designed to be handed over and lived with by your own team.</p>
+        <p class="phase-lead">The tools that lock the wins in.</p>
+        <p class="phase-body">Whatever the maps pointed at. WhatsApp assistant. AI-drafted reviews. Daily reports. Predictive maintenance. Built brand-safe, designed to live with your team after we leave.</p>
         <p class="phase-out">Working tools, owned by you. No retainer. No vendor lock-in.</p>
       </div>
     </div>
 
     <div style="margin-top:2.5rem;padding:1.4rem 1.6rem;background:rgba(108,92,231,0.05);border-left:3px solid rgba(108,92,231,0.4);border-radius:10px;max-width:760px;">
       <div style="font-size:0.65rem;color:var(--a2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;">A note on access</div>
-      <p style="font-size:0.92rem;color:var(--td);line-height:1.7;margin:0;">We don't request access to OnQ, Honors, or Connect+. The maps are built from observation and conversations with your team. The tools we build run alongside the Hilton stack, not inside it. Anything that would need brand sign-off is flagged explicitly in the map so you can decide whether to push for it.</p>
+      <p style="font-size:0.92rem;color:var(--td);line-height:1.7;margin:0;">We don't ask for OnQ, Honors or Connect+ access. Maps come from observation and conversations with your team. The tools live alongside the Hilton stack, not inside it. Anything that needs brand sign-off gets flagged in the map. You decide whether to push for it.</p>
     </div>
 
   </div>
@@ -621,12 +560,12 @@
 
     <div style="margin-top:3rem;text-align:center;">
       <div style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(4.5rem,9vw,6.5rem);font-weight:600;font-style:italic;color:var(--t);line-height:1;letter-spacing:-0.04em;">£5,000</div>
-      <div style="margin-top:1.2rem;font-size:1rem;color:var(--td);">Guest journey &amp; back of house. End to end.</div>
+      <div style="margin-top:1.2rem;font-size:1rem;color:var(--td);">Guest journey, back of house, end to end.</div>
     </div>
 
     <div style="margin:3rem auto 0;width:60px;border-top:1px solid rgba(255,255,255,0.15);"></div>
 
-    <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;">Half on kickoff, half on delivery. Mutual NDA signed before we start.</p>
+    <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;">Half on kickoff. Half on delivery. Mutual NDA before we start.</p>
   </div>
 </section>
 
