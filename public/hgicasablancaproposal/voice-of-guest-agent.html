@@ -14,7 +14,7 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:-apple-system,'Inter','Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
   body{background:radial-gradient(1200px 600px at 80% -10%, rgba(123,122,247,.10), transparent 60%), radial-gradient(900px 500px at -10% 30%, rgba(94,227,213,.06), transparent 60%), var(--bg)}
-  .wrap{max-width:1040px;margin:0 auto;padding:40px 28px 56px}
+  .wrap{max-width:1200px;margin:0 auto;padding:40px 28px 56px}
 
   .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--accent-2);font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:18px}
   h1{font-size:44px;line-height:1.1;letter-spacing:-.025em;margin:0 0 14px;font-weight:700}
@@ -102,7 +102,7 @@
   .arch-head .meta{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
 
   .arch-flow{display:grid;grid-template-columns:1fr auto 1.4fr auto 1.6fr auto 1fr;gap:10px;align-items:stretch;position:relative;z-index:2}
-  .arch-flow.biz{grid-template-columns:0.9fr auto 1.3fr auto 1.4fr auto 0.95fr;align-items:stretch}
+  .arch-flow.biz{grid-template-columns:0.8fr auto 1.15fr auto 1.85fr auto 0.95fr;align-items:stretch}
   .arch-flow.biz .arch-arrow{align-self:center}
   .arch-stage{display:flex;flex-direction:column;gap:6px;min-width:0}
   .arch-stage > .stage-h{font-size:9.5px;letter-spacing:.16em;color:var(--accent-2);font-weight:700;text-transform:uppercase;margin-bottom:4px;text-align:center}
@@ -157,7 +157,7 @@
   .modal-bg.open{display:flex}
   .modal{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:760px;width:100%;padding:28px;position:relative;animation:modalIn .25s ease}
   @keyframes modalIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-  .modal-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+  .modal-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;gap:12px;flex-wrap:wrap;padding-right:44px}
   .modal-title{font-size:18px;font-weight:600;color:var(--text)}
   .modal-title .mt-pct{color:var(--mc, var(--accent-2));margin-right:10px;font-weight:700}
   .modal-meta{font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:600}
@@ -206,6 +206,20 @@
   .wf-step .wb .wd b{color:var(--accent);font-weight:600}
   .wf-step .wb .wd .who{color:var(--accent-2);font-weight:600}
   .wf-step .wb .wq{font-size:12px;color:var(--muted);font-style:italic;margin-top:6px;padding:8px 12px;background:rgba(255,255,255,.025);border-left:2px solid var(--accent);border-radius:0 4px 4px 0}
+  .wf-step .wb .email{margin-top:10px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:8px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .wf-step .wb .email .em-head{padding:10px 14px;background:rgba(255,255,255,.025);border-bottom:1px solid var(--line);font-size:11.5px;line-height:1.7;color:var(--muted)}
+  .wf-step .wb .email .em-head .em-k{color:var(--muted);opacity:.7;display:inline-block;width:54px}
+  .wf-step .wb .email .em-head .em-v{color:var(--text)}
+  .wf-step .wb .email .em-head .em-subj{color:var(--text);font-weight:600}
+  .wf-step .wb .email .em-body{padding:14px 16px;font-size:12.5px;line-height:1.6;color:var(--text)}
+  .wf-step .wb .email .em-body p{margin:0 0 10px}
+  .wf-step .wb .email .em-body p:last-child{margin-bottom:0}
+  .wf-step .wb .email .em-quote{font-style:italic;color:var(--muted);border-left:2px solid var(--accent-2);padding:6px 12px;margin:6px 0 10px;background:rgba(94,227,213,.04);border-radius:0 4px 4px 0}
+  .wf-step .wb .email .em-quote .em-meta{display:block;font-size:11px;color:var(--muted);opacity:.7;margin-top:4px;font-style:normal}
+  .wf-step .wb .email .em-list{margin:0 0 10px;padding-left:18px;color:var(--muted);font-size:12px;line-height:1.65}
+  .wf-step .wb .email .em-list li{margin-bottom:3px}
+  .wf-step .wb .email .em-list li b{color:var(--text);font-weight:500}
+  .wf-step .wb .email .em-cta{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(123,122,247,.12);border:1px solid rgba(123,122,247,.3);border-radius:5px;color:var(--accent-2);font-size:11.5px;font-weight:600;margin-top:4px}
 
   /* CONSTELLATION — bottlenecks + solutions in one view */
   .cons{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px;margin-bottom:32px;height:860px;overflow:hidden}
@@ -374,7 +388,18 @@
   .micro .l{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
 
   /* TREND */
-  .trend-row{display:grid;grid-template-columns:170px 1fr 60px;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .trend-row{display:grid;grid-template-columns:170px 1fr;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .bar-tip{position:fixed;pointer-events:none;background:rgba(20,16,40,.97);color:var(--text);padding:10px 14px;border-radius:8px;border:1px solid var(--line);font-size:11.5px;font-weight:500;white-space:nowrap;opacity:0;transition:opacity .12s;z-index:9999;font-variant-numeric:tabular-nums;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.4);max-width:280px;white-space:normal}
+  .bar-tip.show{opacity:1}
+  .bar-tip .bt-line1{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:4px}
+  .bar-tip .bt-line2{font-size:10.5px;color:var(--muted);margin-bottom:2px}
+  .bar-tip .bt-line3{font-size:10.5px;color:var(--accent-2);font-style:italic;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,.08)}
+  .bar-tip .bt-line3.crit{color:#FF85A8}
+  .bar-tip .bt-issues{margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,.08)}
+  .bar-tip .bt-issues-h{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .bar-tip .bt-issues ul{margin:0;padding:0;list-style:none;font-size:10.5px;color:var(--text);line-height:1.5;font-weight:500}
+  .bar-tip .bt-issues li{margin-bottom:2px;display:flex;justify-content:space-between;gap:14px}
+  .bar-tip .bt-issues li .bt-i-mo{color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
   .trend-row:last-child{border-bottom:0}
   .trend-name{font-size:13px;font-weight:500}
   .trend-svg{width:100%;height:36px}
@@ -419,7 +444,7 @@
     .resp-block{grid-template-columns:1fr}
     .issue{grid-template-columns:1fr}
     .play{grid-template-columns:1fr}
-    .trend-row{grid-template-columns:120px 1fr 50px}
+    .trend-row{grid-template-columns:110px 1fr}
     h1{font-size:28px}
   }
 
@@ -431,7 +456,7 @@
 <div class="wrap">
 
   <div class="reveal">
-    <div class="eyebrow">Worked example for Ajay Harjani · GM, HGI Casablanca Sud</div>
+    <div class="eyebrow">HGI Casablanca Sud</div>
     <h1>How we turn <span>guest reviews</span><br/>into an automation map</h1>
     <p class="sub">An example of our methodology, run on your data: <strong>raw reviews → AI patterns → concrete agents</strong>.</p>
   </div>
@@ -440,16 +465,21 @@
   <div class="section-title reveal" style="margin-top:8px">
     <h2>Step 1 · What we collected</h2>
   </div>
+  <p class="reveal" style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0 0 18px">
+    <strong>1 089 reviews</strong> from 4 OTAs (Booking, Google Maps, Hotels.com, TripAdvisor) — every review with text in the last 24 months. For each: rating, language, country, full text, review date, hotel reply + date. Then run through an <strong>LLM</strong> for sentiment, complaint intensity (0–1) and category (12 hotel-ops aspects).  </p>
   <div class="stats reveal" style="margin-bottom:48px">
-    <div class="stat s1"><div class="lbl">Reviews collected</div><div class="num" data-count="1089">0</div><div class="meta">~38 reviews/month</div></div>
-    <div class="stat s3"><div class="lbl">Platforms</div><div class="num">4</div><div class="meta">Booking · Google · Hotels.com · TripAdvisor</div></div>
-    <div class="stat s2"><div class="lbl">Contain complaints</div><div class="num" data-count="43" data-suffix="%">0</div><div class="meta">472 reviews · AI sentiment analysis</div></div>
-    <div class="stat s4"><div class="lbl">Analysis depth</div><div class="num">24 mo</div><div class="meta">May 2024 — May 2026</div></div>
+    <div class="stat s1"><div class="lbl">Reviews collected</div><div class="num" data-count="1089">0</div></div>
+    <div class="stat s3"><div class="lbl">Platforms</div><div class="num">4</div></div>
+    <div class="stat s2"><div class="lbl">Contain complaints</div><div class="num" data-count="43" data-suffix="%">0</div></div>
+    <div class="stat s4"><div class="lbl">Analysis depth</div><div class="num">24 mo</div></div>
   </div>
 
   <div class="section-title reveal">
     <h2>Step 2 · What we found</h2>
   </div>
+  <p class="reveal" style="color:var(--muted);font-size:13.5px;line-height:1.6;margin:0 0 18px">
+    Two patterns. <strong>Surface — reply pipeline is healthy</strong>: 95% answered, 97% of negatives, median &lt;3 days. <strong>Below — no resolution</strong>: same 5 categories repeat every month, no audit trail of what was actually fixed. That's the gap an agent closes.
+  </p>
 
   <div class="resp-block">
 
@@ -457,7 +487,7 @@
       <h3>✓ Reply pipeline in great shape</h3>
       <div class="micro-stats">
         <div class="micro"><div class="v pos">95%</div><div class="l">all replied</div></div>
-        <div class="micro"><div class="v pos">~99%</div><div class="l">low ratings replied</div></div>
+        <div class="micro"><div class="v pos">97%</div><div class="l">negative replied</div></div>
         <div class="micro"><div class="v pos">2.9d</div><div class="l">median</div></div>
         <div class="micro"><div class="v warn">20d</div><div class="l">P90 — long tail</div></div>
       </div>
@@ -465,31 +495,33 @@
         <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px">Response time distribution</div>
         <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
           <span style="color:var(--text);opacity:.85">≤ 1 day</span>
-          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:32%;background:var(--accent);border-radius:4px;opacity:.85"></span></span>
-          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~32%</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:27%;background:var(--accent);border-radius:4px;opacity:.85"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~27%</span>
         </div>
         <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
           <span style="color:var(--text);opacity:.85">1–3 days</span>
-          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:42%;background:var(--accent);border-radius:4px;opacity:.85"></span></span>
-          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~42%</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:27%;background:var(--accent);border-radius:4px;opacity:.85"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~27%</span>
         </div>
         <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
           <span style="color:var(--text);opacity:.85">3–7 days</span>
-          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:18%;background:var(--warn);border-radius:4px;opacity:.75"></span></span>
-          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~18%</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:21%;background:var(--warn);border-radius:4px;opacity:.75"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~21%</span>
         </div>
         <div style="display:grid;grid-template-columns:80px 1fr 44px;gap:10px;align-items:center;font-size:12px">
           <span style="color:var(--text);opacity:.85">&gt; 7 days</span>
-          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:8%;background:var(--neg);border-radius:4px;opacity:.7"></span></span>
-          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~8%</span>
+          <span style="height:8px;background:rgba(255,255,255,.05);border-radius:4px;position:relative;overflow:hidden"><span style="position:absolute;left:0;top:0;height:100%;width:25%;background:var(--neg);border-radius:4px;opacity:.7"></span></span>
+          <span style="color:var(--muted);font-variant-numeric:tabular-nums;text-align:right">~25%</span>
         </div>
       </div>
     </div>
 
     <div class="panel resp-bad reveal">
       <h3>✗ Resolution pipeline missing</h3>
-      <p class="desc" style="margin-bottom:14px">The reply soothes the guest — but never reaches F&amp;B, Front Office or Housekeeping. The same categories keep coming back month after month.</p>
+      <p class="desc" style="margin-bottom:14px"><b>Front Desk, Room and F&amp;B complaints appear in 12 of the last 12 months</b> — the same issues recur month after month. The reply soothes the guest, but there's no audit trail of what was actually fixed in F&amp;B, Front Office, or Housekeeping.</p>
+      <div class="hint" style="font-size:11px;color:var(--accent-2);margin:0 0 10px;display:flex;align-items:center;gap:6px"><span style="font-size:13px">ⓘ</span><span>Hover any bar for monthly count + recurring sub-issues</span></div>
       <div id="trend-rows"></div>
+      <div id="bar-tip" class="bar-tip"></div>
     </div>
 
   </div>
@@ -504,6 +536,8 @@
   </p>
 
 
+  <div class="hint reveal" style="font-size:11px;color:var(--accent-2);margin:0 0 10px;display:flex;align-items:center;gap:6px"><span style="font-size:13px">ⓘ</span><span>Click any card in <b>③ Who gets the signal</b> to see all the actual reviews</span></div>
+
   <!-- AGENT ARCHITECTURE — business-focused -->
   <div class="arch reveal">
     <div class="arch-flow biz">
@@ -511,12 +545,6 @@
       <div class="arch-stage">
         <div class="stage-h">① Where guests write</div>
         <div class="arch-node biz-src">
-          <div class="src-hero">
-            <div class="src-hero-num">1 089</div>
-            <div class="src-hero-lbl">reviews over 24 months</div>
-            <div class="src-hero-sub">~38 reviews/month</div>
-          </div>
-          <div class="src-divider"></div>
           <div class="src-row"><span class="src-name">Booking.com</span><span class="src-bar" style="--p:42%"></span><span class="src-num">455</span></div>
           <div class="src-row"><span class="src-name">Google Maps</span><span class="src-bar" style="--p:42%"></span><span class="src-num">455</span></div>
           <div class="src-row"><span class="src-name">Hotels.com</span><span class="src-bar" style="--p:10%"></span><span class="src-num">110</span></div>
@@ -534,9 +562,10 @@
           <div class="b-sub">semantic understanding + action</div>
           <div class="b-biz-row"><span class="num">1</span> Understands the complaint — category, intensity, context</div>
           <div class="b-biz-row"><span class="num">2</span> Alerts the manager + auto-publishes guest reply (1-click approve for critical ones)</div>
-          <div class="b-biz-row"><span class="num">3</span> Manager replies with one line: <b>what they did</b></div>
+          <div class="b-biz-row"><span class="num">3</span><span>Manager replies with one line: <b>what they did</b></span></div>
           <div class="b-biz-row"><span class="num">4</span> After 4 weeks: did the complaint stop? → case closed</div>
           <div class="b-biz-row"><span class="num">5</span> Unconfirmed / still recurring → GM escalation</div>
+          <div class="b-biz-row"><span class="num">6</span><span>On demand: generates analytics pack for execs / Hilton corporate in <b>1 sec</b></span></div>
         </div>
       </div>
 
@@ -546,33 +575,33 @@
       <div class="arch-stage wide">
         <div class="stage-h">③ Who gets the signal</div>
         <div class="arch-node dept" style="--c:#FF85A8" data-cat="Front Desk & Service" data-title="Front Desk & Service" data-owner="Front Office Manager">
-          <div class="d-row"><span class="d-pct">17%</span><span class="d-trend flat">→ flat</span></div>
+          <div class="d-row"><span class="d-pct">16%</span></div>
           <div class="d-cat">Front Desk &amp; Service</div>
-          <div class="d-owner">Front Office Manager · 143 complaints</div>
+          <div class="d-owner">Front Office Manager · 176 complaints</div>
           <div class="d-summary">rude staff, booking cancellations, long check-in waits</div>
         </div>
         <div class="arch-node dept" style="--c:#7B7AF7" data-cat="Room Condition" data-title="Room Condition" data-owner="Maintenance / Housekeeping">
-          <div class="d-row"><span class="d-pct">13%</span><span class="d-trend up">↑ +37%</span></div>
+          <div class="d-row"><span class="d-pct">11%</span></div>
           <div class="d-cat">Room Condition</div>
-          <div class="d-owner">Maintenance / Housekeeping · 112</div>
+          <div class="d-owner">Maintenance / Housekeeping · 120</div>
           <div class="d-summary">worn towels &amp; furniture, AC, sofa instead of bed</div>
         </div>
         <div class="arch-node dept" style="--c:#5EE3D5" data-cat="Food & Breakfast" data-title="Food & Breakfast" data-owner="F&B Manager">
-          <div class="d-row"><span class="d-pct">13%</span><span class="d-trend up">↑ +130%</span></div>
+          <div class="d-row"><span class="d-pct">10%</span></div>
           <div class="d-cat">Food &amp; Breakfast</div>
-          <div class="d-owner">F&amp;B Manager · 101</div>
+          <div class="d-owner">F&amp;B Manager · 113</div>
           <div class="d-summary">broken coffee machine, empty buffet by 9am, slow service</div>
         </div>
         <div class="arch-node dept" style="--c:#FFCC66" data-cat="Location" data-title="Location" data-owner="Sales / Marketing">
-          <div class="d-row"><span class="d-pct">7%</span><span class="d-trend down">↓ −88%</span></div>
+          <div class="d-row"><span class="d-pct">7%</span></div>
           <div class="d-cat">Location</div>
-          <div class="d-owner">Sales / Marketing · 64</div>
+          <div class="d-owner">Sales / Marketing · 79</div>
           <div class="d-summary">far from city centre, no shuttle, business district not tourist zone</div>
         </div>
         <div class="arch-node dept" style="--c:#9D9CE7" data-cat="Cleanliness & Housekeeping" data-title="Cleanliness" data-owner="Executive Housekeeper">
-          <div class="d-row"><span class="d-pct">6%</span><span class="d-trend up">↑ +100%</span></div>
+          <div class="d-row"><span class="d-pct">6%</span></div>
           <div class="d-cat">Cleanliness</div>
-          <div class="d-owner">Executive Housekeeper · 55</div>
+          <div class="d-owner">Executive Housekeeper · 60</div>
           <div class="d-summary">hair in bathroom, musty smell, dust on surfaces</div>
         </div>
       </div>
@@ -582,25 +611,25 @@
       <!-- Stage 4: Business outcomes -->
       <div class="arch-stage">
         <div class="stage-h">④ Business outcomes</div>
-        <div class="arch-node outcome">
-          <div class="o-val">24h → 2 min</div>
-          <div class="o-lbl">from review to ops team</div>
+        <div class="arch-node outcome highlight">
+          <div class="o-val">+0.1–0.3 ★</div>
+          <div class="o-lbl">rating uplift potential after closing Top-3 categories for 2 quarters</div>
         </div>
         <div class="arch-node outcome">
-          <div class="o-val">−12 h/wk</div>
-          <div class="o-lbl">GM + Duty Manager time</div>
+          <div class="o-val">+1 quarter</div>
+          <div class="o-lbl">lead time on SALT regression (earlier signal than corporate survey)</div>
+        </div>
+        <div class="arch-node outcome">
+          <div class="o-val">Auto-pack</div>
+          <div class="o-lbl">monthly review analytics for execs / Hilton corporate — zero manual prep</div>
         </div>
         <div class="arch-node outcome">
           <div class="o-val">100%</div>
           <div class="o-lbl">complaints with closed loop (fix or escalate)</div>
         </div>
         <div class="arch-node outcome">
-          <div class="o-val">+1 quarter</div>
-          <div class="o-lbl">lead time on SALT regression</div>
-        </div>
-        <div class="arch-node outcome highlight">
-          <div class="o-val">+0.1–0.3 ★</div>
-          <div class="o-lbl">rating uplift potential after closing Top-3 categories for 2 quarters</div>
+          <div class="o-val">−2 h/wk</div>
+          <div class="o-lbl">GM + Duty Manager time on review handling (~10 reviews/wk)</div>
         </div>
       </div>
     </div>
@@ -644,7 +673,27 @@
       <div class="wt">+ 30 sec</div>
       <div class="wb">
         <div class="wn">Email to <span class="who">F&amp;B Manager</span></div>
-        <div class="wd">Quote + 3 similar in past week + category trend <b>↑ +130%</b> vs last month</div>
+        <div class="wd">Quote + recurring pattern in this category + one-line reply request</div>
+        <div class="email">
+          <div class="em-head">
+            <div><span class="em-k">To</span><span class="em-v">F&amp;B Manager</span></div>
+            <div><span class="em-k">Subject</span><span class="em-subj">[F&amp;B · intensity 0.78] New complaint · coffee machine + buffet timing</span></div>
+          </div>
+          <div class="em-body">
+            <p>Hi,</p>
+            <p>New 2★ Booking review just came in flagging F&amp;B:</p>
+            <div class="em-quote">«Breakfast was not great — coffee machine broken, nothing left by 9am.»<span class="em-meta">Booking · 2026-05-12 · German guest · intensity 0.78</span></div>
+            <p>This isn't isolated. F&amp;B complaints have appeared <b>12 of the last 12 months</b>. Top recurring sub-issues:</p>
+            <ul class="em-list">
+              <li><b>Limited variety</b> — mentioned in 8/12 months</li>
+              <li><b>Buffet empty / runs out</b> — 5/12 months</li>
+              <li><b>Broken coffee machine</b> — 4/12 months</li>
+              <li><b>Slow service</b> — 3/12 months</li>
+            </ul>
+            <p>Please reply to this email in <b>one line</b>: <i>what action you took</i>. The agent will verify in 4 weeks whether complaints in this sub-category stopped.</p>
+            <p><span class="em-cta">↩ Reply with action</span></p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="wf-step">
@@ -685,11 +734,6 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div class="foot reveal">
-    <div><strong>Prepared by Jengu</strong></div>
-    <div class="pulse">Live · 1089 reviews · 4 sources</div>
-  </div>
 
 </div>
 
@@ -849,7 +893,7 @@ const SRC_LABEL_FULL = { booking: 'Booking.com', hotelscom: 'Hotels.com', tripad
 const modalBg = document.getElementById('modal-bg');
 const modalEl = modalBg ? modalBg.querySelector('.modal') : null;
 const openModal = (cat, title, owner, pct, color) => {
-  const list = FEEDS[cat] || [];
+  const list = [...(FEEDS[cat] || [])].sort((a,b) => (b.date || '').localeCompare(a.date || ''));
   document.getElementById('modal-title').textContent = title + ' · ' + owner;
   document.getElementById('modal-meta').textContent = list.length + ' reviews · ' + cat;
   const pctEl = document.getElementById('modal-pct');
@@ -897,31 +941,58 @@ document.querySelectorAll('.cn-spark[data-vals]').forEach(el => {
   const TREND = {
     months: ['06','07','08','09','10','11','12','01','02','03','04','05'],
     series: [
-      { name: 'Front Desk / Service', data: [6,8,9,3,4,5,2,3,7,5,5,2],  tag: 'flat',    label: 'flat' },
-      { name: 'Room Condition',       data: [3,6,6,9,4,4,2,2,4,2,6,3],  tag: 'rising',  label: '↑ rising' },
-      { name: 'Food & Breakfast',     data: [5,7,4,5,3,3,1,1,4,4,9,1],  tag: 'rising',  label: '↑ rising' },
-      { name: 'Location',             data: [3,6,3,1,3,1,4,3,2,0,1,0],  tag: 'falling', label: '↓ falling' },
-      { name: 'Cleanliness',          data: [0,4,6,4,1,1,1,1,1,1,3,2],  tag: 'rising',  label: '↑ rising' },
+      { name: 'Front Desk / Service', color: '#FF85A8', data: [6,8,9,3,4,5,2,3,7,5,5,2],  active: 12, issues: [['Rude / unhelpful staff','6/12'],['Long check-in waits','4/12'],['No problem-solving','2/12'],['Booking cancelled on arrival','1/12']] },
+      { name: 'Room Condition',       color: '#7B7AF7', data: [3,6,6,9,4,4,2,2,4,2,6,3],  active: 12, issues: [['Worn towels & furniture','5/12'],['Old / tired finishes','5/12'],['AC not working','1/12']] },
+      { name: 'Food & Breakfast',     color: '#5EE3D5', data: [5,7,4,5,3,3,1,1,4,4,9,1],  active: 12, issues: [['Limited variety','8/12'],['Buffet empty / runs out','5/12'],['Broken coffee machine','4/12'],['Slow service','3/12']] },
+      { name: 'Location',             color: '#FFCC66', data: [3,6,3,1,3,1,4,3,2,0,1,0],  active: 10, issues: [['Far from city centre','7/12'],['No shuttle','4/12']] },
+      { name: 'Cleanliness',          color: '#9D9CE7', data: [0,4,6,4,1,1,1,1,1,1,3,2],  active: 11, issues: [['Musty smell','3/12'],['Dust on surfaces','2/12']] },
     ]
   };
+  const MONTH_LABELS = ['Jun 2025','Jul 2025','Aug 2025','Sep 2025','Oct 2025','Nov 2025','Dec 2025','Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026'];
   const renderTrend = () => {
     const root = document.getElementById('trend-rows');
     const max = Math.max(...TREND.series.flatMap(s => s.data));
     root.innerHTML = TREND.series.map(s => {
       const W = 200, H = 36, n = s.data.length;
       const bw = (W - (n-1)*3) / n;
+      const color = s.color || (s.active >= 12 ? '#FF85A8' : '#FFCC66');
+      const isCrit = s.active >= 12;
+      const verdict = isCrit
+        ? 'Recurs every single month — no clean month, no resolution.'
+        : `Active ${s.active} of 12 months — recurring problem.`;
       const bars = s.data.map((v,i) => {
         const h = max ? (v/max)*(H-4) : 0;
         const x = i*(bw+3), y = H-h;
-        const color = s.tag === 'rising' ? '#FF85A8' : s.tag === 'falling' ? '#5EE3D5' : '#FFCC66';
-        return `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${color}" opacity="${v?0.85:0.15}"/>`;
+        const line1 = `${s.name} · ${MONTH_LABELS[i]}`;
+        const line2 = `${v} ${v===1?'complaint':'complaints'} this month · ${s.active}/12 mo active in last year`;
+        const tip = JSON.stringify({l1: line1, l2: line2, l3: verdict, crit: isCrit, issues: s.issues || []});
+        return `<g class="bar-hit" data-tip='${tip.replace(/'/g, "&#39;")}'>
+          <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${color}" opacity="${v?0.85:0.15}"/>
+          <rect x="${x.toFixed(1)}" y="0" width="${bw.toFixed(1)}" height="${H}" fill="transparent" style="cursor:pointer"/>
+        </g>`;
       }).join('');
       return `<div class="trend-row">
         <div class="trend-name">${s.name}</div>
         <svg class="trend-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${bars}</svg>
-        <div class="trend-tag ${s.tag}">${s.label}</div>
       </div>`;
     }).join('');
+    // Attach tooltip handlers
+    const tipEl = document.getElementById('bar-tip');
+    root.querySelectorAll('.bar-hit').forEach(g => {
+      g.addEventListener('mouseenter', () => {
+        const d = JSON.parse(g.dataset.tip);
+        const issuesHtml = (d.issues && d.issues.length)
+          ? `<div class="bt-issues"><div class="bt-issues-h">Top sub-issues (months with mention)</div><ul>${d.issues.map(it=>`<li><span>${it[0]}</span><span class="bt-i-mo">${it[1]}</span></li>`).join('')}</ul></div>`
+          : '';
+        tipEl.innerHTML = `<div class="bt-line1">${d.l1}</div><div class="bt-line2">${d.l2}</div><div class="bt-line3${d.crit?' crit':''}">${d.l3}</div>${issuesHtml}`;
+        tipEl.classList.add('show');
+      });
+      g.addEventListener('mousemove', e => {
+        tipEl.style.left = (e.clientX + 14) + 'px';
+        tipEl.style.top  = (e.clientY - 50) + 'px';
+      });
+      g.addEventListener('mouseleave', () => tipEl.classList.remove('show'));
+    });
   };
   renderTrend();
 

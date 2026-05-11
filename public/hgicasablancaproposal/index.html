@@ -99,14 +99,12 @@
     border-radius:12px;
     max-width:700px;
   }
-  .callout-teal{background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);}
   .callout-purple{background:rgba(108,92,231,0.05);border-left:3px solid rgba(108,92,231,0.4);}
   .callout-eye{
     font-size:0.65rem;font-weight:700;
     letter-spacing:2px;text-transform:uppercase;
     margin-bottom:0.5rem;
   }
-  .callout-teal .callout-eye{color:var(--a3);}
   .callout-purple .callout-eye{color:var(--a2);}
   .callout-body{font-size:0.92rem;color:var(--td);line-height:1.7;margin:0;}
 
@@ -131,38 +129,6 @@
   .rule-tiny{margin:2.8rem auto 0;width:60px;border-top:1px solid rgba(255,255,255,0.15);}
   .price-terms{margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;}
 
-  /* Worked-example pipeline */
-  .wk-loop{
-    background:var(--card);border:1px solid rgba(255,255,255,0.08);
-    border-radius:16px;padding:1.7rem 1.8rem;
-    margin:2.5rem 0;
-  }
-  .wk-loop .wk-loop-hd{
-    font-size:0.65rem;font-weight:700;letter-spacing:2px;
-    text-transform:uppercase;color:var(--a3);margin-bottom:1.2rem;
-  }
-  .wk-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0.6rem;align-items:stretch;}
-  .wk-st{
-    position:relative;padding:1rem 1rem;
-    background:rgba(255,255,255,0.02);
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:10px;
-  }
-  .wk-st .wk-st-n{
-    font-size:0.65rem;font-weight:700;letter-spacing:2px;
-    color:var(--a2);margin-bottom:0.45rem;text-transform:uppercase;
-  }
-  .wk-st .wk-st-t{font-size:0.86rem;color:var(--t);font-weight:500;line-height:1.45;}
-  .wk-st::after{
-    content:'→';position:absolute;right:-14px;top:50%;
-    transform:translateY(-50%);color:rgba(255,255,255,0.22);
-    font-size:0.95rem;z-index:2;
-  }
-  .wk-st:last-child::after{display:none;}
-  @media(max-width:760px){
-    .wk-steps{grid-template-columns:1fr;gap:0.7rem;}
-    .wk-st::after{content:'↓';right:auto;left:50%;top:auto;bottom:-16px;transform:translateX(-50%);}
-  }
   .wk-cta-btn{
     display:inline-flex;align-items:center;gap:0.7rem;
     padding:1.05rem 2rem;
@@ -249,114 +215,6 @@
     .phase-num { position: static; margin-bottom: 0.8rem; }
   }
 
-  /* Flow chart — five uniform-height boxes in a row, friction lives
-     INSIDE the broken boxes so the chart reads as one clean band */
-  .flow {
-    margin: 2.6rem 0 1.5rem;
-    width: 100%;
-  }
-  .flow-grid {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0,1fr));
-    gap: 1.6rem;
-    align-items: stretch;
-  }
-  .fl-col { position: relative; display: flex; min-width: 0; }
-  .fl-box {
-    position: relative;
-    width: 100%;
-    min-height: 200px;
-    background: var(--card);
-    border: 1.5px solid rgba(255,255,255,0.14);
-    border-radius: 12px;
-    padding: 1.2rem 1.1rem;
-    display: flex; flex-direction: column;
-    text-align: center;
-    min-width: 0;
-  }
-  .fl-box.fl-bad {
-    border-color: rgba(253,121,168,0.5);
-    background: linear-gradient(180deg, rgba(253,121,168,0.03), rgba(253,121,168,0.08));
-  }
-  .fl-actor {
-    font-size: 0.65rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 2px;
-    color: var(--a3);
-  }
-  .fl-box.fl-bad .fl-actor { color: var(--a4); }
-  .fl-act {
-    margin-top: 0.6rem;
-    font-size: 0.92rem; color: var(--t);
-    font-weight: 600; line-height: 1.4;
-    overflow-wrap: anywhere;
-  }
-  /* friction lives inside the bad box, anchored to its bottom */
-  .fl-issue {
-    margin-top: auto;
-    padding-top: 0.85rem;
-    border-top: 1px dashed rgba(253,121,168,0.35);
-    text-align: center;
-  }
-  .fl-issue-h {
-    display: block;
-    font-size: 0.6rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1.8px;
-    color: var(--a4);
-    margin-bottom: 0.3rem;
-  }
-  .fl-issue-t {
-    display: block;
-    font-size: 0.78rem; color: var(--td);
-    line-height: 1.5;
-  }
-  /* arrow connecting to next column */
-  .fl-col:not(:last-child) .fl-box::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -1.6rem;
-    width: 1.5rem; height: 1.5px;
-    background: rgba(255,255,255,0.25);
-    transform: translateY(-50%);
-  }
-  .fl-col:not(:last-child) .fl-box::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: -1.7rem;
-    width: 0; height: 0;
-    border-left: 6px solid rgba(255,255,255,0.55);
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    transform: translateY(-50%);
-    z-index: 2;
-  }
-
-  @media (max-width: 820px) {
-    .flow-grid {
-      grid-template-columns: 1fr;
-      gap: 1.4rem;
-      max-width: 420px;
-      margin: 0 auto;
-    }
-    .fl-box { min-height: 0; }
-    /* vertical arrows on mobile */
-    .fl-col:not(:last-child) .fl-box::after {
-      top: auto; right: 50%;
-      bottom: -1.05rem;
-      width: 1.5px; height: 0.8rem;
-      transform: translateX(50%);
-    }
-    .fl-col:not(:last-child) .fl-box::before {
-      top: auto; right: 50%;
-      bottom: -1.2rem;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 6px solid rgba(255,255,255,0.55);
-      border-bottom: 0;
-      transform: translateX(50%);
-    }
-  }
 </style>
 </head>
 <body>
@@ -371,7 +229,6 @@
     <a href="#s4"></a>
     <a href="#s5"></a>
     <a href="#s6"></a>
-    <a href="#s7"></a>
   </div>
 </nav>
 
@@ -405,65 +262,17 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 3 — WHAT WE ALREADY SEE      -->
-<!-- ════════════════════════════ -->
-<!-- 3 — HOW WE MAP               -->
+<!-- 3 — HOW WE MAP (worked example on your data) -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s3">
   <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
   <div class="s-in">
     <div class="tag">02 — How We Map</div>
-    <h2>One Process,<br><span class="g3">Sketched Out.</span></h2>
-    <p class="sub">A guest requests an extra towel. Five steps, two of them subtly broken.</p>
+    <h2>One We've Already<br><span class="g3">Run on Your Reviews</span></h2>
+    <p class="sub">Rather than walk through an abstract example, we ran our process on your actual data. 1,089 guest reviews from Booking, Google, Hotels.com and TripAdvisor — analysed, categorised, and turned into a map of where your team is losing time and money.</p>
 
-    <div class="flow">
-      <div class="flow-grid">
-        <div class="fl-col">
-          <div class="fl-box">
-            <span class="fl-actor">Guest</span>
-            <span class="fl-act">Calls reception</span>
-          </div>
-        </div>
-        <div class="fl-col">
-          <div class="fl-box">
-            <span class="fl-actor">Reception</span>
-            <span class="fl-act">Writes on a notepad</span>
-          </div>
-        </div>
-        <div class="fl-col">
-          <div class="fl-box fl-bad">
-            <span class="fl-actor">Reception</span>
-            <span class="fl-act">Radios housekeeping</span>
-            <div class="fl-issue">
-              <span class="fl-issue-h">Lost in radio noise</span>
-              <span class="fl-issue-t">No record. No-one's tracking it.</span>
-            </div>
-          </div>
-        </div>
-        <div class="fl-col">
-          <div class="fl-box fl-bad">
-            <span class="fl-actor">Housekeeping</span>
-            <span class="fl-act">Goes to the room when free</span>
-            <div class="fl-issue">
-              <span class="fl-issue-h">No SLA</span>
-              <span class="fl-issue-t">Could be five minutes. Could be an hour.</span>
-            </div>
-          </div>
-        </div>
-        <div class="fl-col">
-          <div class="fl-box">
-            <span class="fl-actor">Guest</span>
-            <span class="fl-act">Receives the towel</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p style="margin-top:2rem;font-size:1rem;color:var(--td);line-height:1.7;max-width:640px;">When sketched out, the broken segments are made visible. Multiply this by 50 events happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets, etc. — and you get a clear picture of where time and money are leaking. The fixes start to become apparent.</p>
-
-    <div class="callout callout-teal">
-      <div class="callout-eye">In this case the fix is</div>
-      <p class="callout-body">A central guest-request log (WhatsApp, app, or shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping highlights.</p>
+    <div style="margin-top:2.2rem;">
+      <a class="wk-cta-btn" href="voice-of-guest-agent.html" target="_blank" rel="noopener">Open the worked example</a>
     </div>
   </div>
 </section>
@@ -514,41 +323,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — WORKED EXAMPLE (CTA)     -->
+<!-- 5 — HOW IT GOES              -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s5">
-  <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-150px;"></div>
-  <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
-  <div class="s-in">
-    <div class="tag">04 — Worked Example</div>
-    <h2>One We've Already<br><span class="g1">Run on Your Reviews</span></h2>
-    <p class="sub" style="max-width:760px;">Built from 1,089 reviews of HGI Sud across Booking, Google, Hotels.com and TripAdvisor. The agent categorizes every complaint, alerts the right HoD, drafts the public reply, and checks four weeks later whether the same issue stopped recurring.</p>
-
-    <div class="wk-loop" style="margin-top:2.5rem;">
-      <div class="wk-loop-hd">What the agent does · 24/7</div>
-      <div class="wk-steps">
-        <div class="wk-st"><div class="wk-st-n">01</div><div class="wk-st-t">Reads &amp; categorizes the complaint</div></div>
-        <div class="wk-st"><div class="wk-st-n">02</div><div class="wk-st-t">Alerts the right manager + drafts the reply</div></div>
-        <div class="wk-st"><div class="wk-st-n">03</div><div class="wk-st-t">Manager confirms in one line what they did</div></div>
-        <div class="wk-st"><div class="wk-st-n">04</div><div class="wk-st-t">Checks four weeks later — did it stop?</div></div>
-        <div class="wk-st"><div class="wk-st-n">05</div><div class="wk-st-t">Closed, or escalated to the GM</div></div>
-      </div>
-    </div>
-
-    <div>
-      <a class="wk-cta-btn" href="voice-of-guest-agent.html" target="_blank" rel="noopener">Open the worked example</a>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════ -->
-<!-- 6 — HOW WE WORK              -->
-<!-- ════════════════════════════ -->
-<section class="s" id="s6">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">05 — How It Goes</div>
+    <div class="tag">04 — How It Goes</div>
     <h2 class="serif-h2">Three movements.<br><span class="g3 i">No black box.</span></h2>
     <p class="sub">You're involved in every step that matters. We map. You decide. Then we build.</p>
 
@@ -590,13 +371,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 7 — INVESTMENT               -->
+<!-- 6 — INVESTMENT               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s7">
+<section class="s" id="s6">
   <div class="orb" style="width:600px;height:600px;background:var(--a5);top:-200px;right:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a4);bottom:-100px;left:-100px;"></div>
   <div class="s-in">
-    <div class="tag">06 — Investment</div>
+    <div class="tag">05 — Investment</div>
     <h2 class="serif-h2">The map,<br><span class="g3 i">one price.</span></h2>
 
     <div class="price-block">
