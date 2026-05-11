@@ -160,12 +160,12 @@
     .phase-num { position: static; margin-bottom: 0.8rem; }
   }
 
-  /* Simple flow chart — single centred column, friction inline */
+  /* Simple flow chart — single left-aligned column, friction inline */
   .flowchart {
-    display: flex; flex-direction: column; align-items: center;
-    margin: 2.5rem auto;
+    display: flex; flex-direction: column; align-items: stretch;
+    margin: 2.5rem 0 1.5rem;
     width: 100%;
-    max-width: 480px;
+    max-width: 560px;
   }
   .fc-box {
     width: 100%;
@@ -332,10 +332,10 @@
       <div class="fc-box end">Guest gets towel — eventually</div>
     </div>
 
-    <p style="margin-top:1.5rem;font-size:0.95rem;color:var(--t);line-height:1.65;max-width:720px;margin-left:auto;margin-right:auto;text-align:center;">That's it. That's a flow chart.</p>
-    <p style="margin-top:1rem;font-size:0.95rem;color:var(--td);line-height:1.7;max-width:720px;margin-left:auto;margin-right:auto;text-align:center;">Once it's drawn out, the broken bits stop being invisible. Now multiply it by 50 things happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets — and you've got a clear picture of where time and money are actually leaking. The fixes start to look obvious.</p>
+    <p style="margin-top:1.5rem;font-size:1rem;color:var(--t);line-height:1.65;max-width:560px;font-weight:500;">That's it. That's a flow chart.</p>
+    <p style="margin-top:1rem;font-size:0.95rem;color:var(--td);line-height:1.7;max-width:560px;">Once it's drawn out, the broken bits stop being invisible. Now multiply it by 50 things happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets — and you've got a clear picture of where time and money are actually leaking. The fixes start to look obvious.</p>
 
-    <div style="margin-top:2rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:720px;margin-left:auto;margin-right:auto;">
+    <div style="margin-top:1.8rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:560px;">
       <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.4rem;">In this case the fix is</div>
       <p style="font-size:0.9rem;color:var(--td);line-height:1.6;margin:0;">A central guest-request log (WhatsApp / app / shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping points at.</p>
     </div>
