@@ -160,32 +160,82 @@
     .phase-num { position: static; margin-bottom: 0.8rem; }
   }
 
-  /* Simple flow chart */
-  .flowchart { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 2rem auto 1rem; max-width: 720px; }
-  .fc-row { display: grid; grid-template-columns: 1fr 280px 1fr; align-items: center; gap: 1rem; width: 100%; }
-  .fc-row > .fc-spacer { }
-  .fc-box {
-    background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px;
-    padding: 1.1rem 1.4rem; font-size: 0.95rem; color: var(--t); font-weight: 500;
-    text-align: center; line-height: 1.4; box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-    transition: all 0.3s;
+  /* Simple flow chart — responsive at every size */
+  .flowchart {
+    display: flex; flex-direction: column; align-items: center;
+    margin: 2.5rem auto;
+    width: 100%;
+    max-width: 920px;
   }
-  .fc-box.start { background: linear-gradient(135deg, rgba(108,92,231,0.18), rgba(0,206,201,0.18)); border-color: rgba(108,92,231,0.4); font-weight: 700; }
-  .fc-box.end { background: linear-gradient(135deg, rgba(0,206,201,0.18), rgba(162,155,254,0.18)); border-color: rgba(0,206,201,0.4); font-weight: 700; }
-  .fc-box.friction { background: rgba(253,121,168,0.08); border-color: rgba(253,121,168,0.4); border-style: dashed; }
-  .fc-arrow { color: var(--td); font-size: 1.6rem; line-height: 1; padding: 0.4rem 0; text-align: center; opacity: 0.6; }
+  .fc-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 360px) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 1.4rem;
+    width: 100%;
+  }
+  .fc-box {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 1.15rem 1.4rem;
+    font-size: 0.95rem;
+    color: var(--t);
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.4;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1;
+  }
+  .fc-box.start {
+    background: linear-gradient(135deg, rgba(108,92,231,0.20), rgba(0,206,201,0.14));
+    border-color: rgba(108,92,231,0.45); font-weight: 700;
+  }
+  .fc-box.end {
+    background: linear-gradient(135deg, rgba(0,206,201,0.20), rgba(162,155,254,0.15));
+    border-color: rgba(0,206,201,0.45); font-weight: 700;
+  }
+  .fc-box.friction {
+    background: rgba(253,121,168,0.08);
+    border-color: rgba(253,121,168,0.4);
+    border-style: dashed;
+  }
+  .fc-arrow {
+    color: rgba(160,160,184,0.55);
+    font-size: 1.5rem; line-height: 1;
+    padding: 0.5rem 0; text-align: center;
+    font-family: monospace;
+  }
   .fc-callout {
-    background: rgba(253,121,168,0.06); border-left: 3px solid var(--a4);
-    border-radius: 8px; padding: 0.65rem 0.9rem; font-size: 0.78rem; color: var(--td);
-    line-height: 1.5;
+    background: rgba(253,121,168,0.06);
+    border-left: 3px solid var(--a4);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: var(--td);
+    line-height: 1.55;
+    text-align: left;
   }
   .fc-callout strong { color: var(--a4); font-weight: 700; }
-  .fc-callout-r { text-align: left; }
-  .fc-callout-l { text-align: right; }
-  @media (max-width: 768px) {
-    .fc-row { grid-template-columns: 1fr; }
-    .fc-callout { text-align: left !important; }
+  .fc-spacer { /* takes grid space, invisible */ }
+
+  /* Tablet — when there's not enough room for callouts on the side */
+  @media (max-width: 880px) {
+    .fc-row { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin: 0 auto; }
     .fc-spacer { display: none; }
+    .fc-callout {
+      margin-top: 0.6rem;
+      text-align: left;
+    }
+  }
+
+  /* Mobile — tighter spacing, smaller text */
+  @media (max-width: 480px) {
+    .flowchart { margin: 1.5rem auto; }
+    .fc-box { font-size: 0.88rem; padding: 1rem 1.1rem; border-radius: 12px; }
+    .fc-arrow { font-size: 1.3rem; padding: 0.3rem 0; }
+    .fc-callout { font-size: 0.78rem; padding: 0.65rem 0.85rem; }
   }
 </style>
 </head>
@@ -389,18 +439,6 @@
       </div>
     </div>
 
-    <div class="closing-rule"></div>
-
-    <div style="text-align:center;">
-      <a href="https://www.jengu.ai/book" target="_blank" class="cta cta-primary">Book a slot &nbsp;→</a>
-      <a href="mailto:hello@jengu.ai?subject=HGI%20Casablanca%20Sud%20%E2%80%94%20process%20map" class="cta cta-secondary" style="margin-left:1rem;">Email us</a>
-    </div>
-
-    <div style="margin-top:2.5rem;text-align:center;font-size:0.9rem;color:var(--td);">
-      <a href="mailto:hello@jengu.ai" style="color:var(--a3);text-decoration:none;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">hello@jengu.ai</a>
-      <span style="margin:0 0.8rem;opacity:0.5;">·</span>
-      <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);text-decoration:none;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
-    </div>
   </div>
 </section>
 
