@@ -38,70 +38,104 @@
   .sub{font-size:1.15rem;color:var(--td);max-width:680px;line-height:1.7;}
 
   .examples{
-    margin-top:2rem;display:grid;grid-template-columns:1fr;gap:0.7rem;
+    margin-top:2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
   }
+  @media(max-width:760px){.examples{grid-template-columns:1fr;}}
   .ex{
-    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
-    padding:1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;
-    opacity:0;transform:translateX(-15px);transition:all 0.4s;
+    position:relative;
+    background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.005));
+    border:1px solid rgba(255,255,255,0.08);border-radius:14px;
+    padding:1.4rem 1.5rem 1.5rem;
+    display:flex;flex-direction:column;gap:0.7rem;
+    opacity:0;transform:translateY(12px);transition:all 0.45s ease;
+    transition-property:opacity,transform,border-color,transform;
   }
-  .ex.v{opacity:1;transform:translateX(0);}
+  .ex.v{opacity:1;transform:translateY(0);}
+  .ex:hover{border-color:rgba(108,92,231,0.35);transform:translateY(-2px);}
   .ex .num{
-    flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--a3);
-    letter-spacing:2px;margin-top:3px;min-width:28px;
+    font-size:0.6rem;font-weight:700;color:var(--a3);
+    letter-spacing:2px;text-transform:uppercase;
   }
+  .ex .ex-title{
+    font-size:1rem;color:var(--t);font-weight:700;line-height:1.35;
+  }
+  .ex .ex-body{font-size:0.88rem;color:var(--td);line-height:1.6;}
   .ex p{font-size:0.95rem;color:var(--t);line-height:1.55;}
   .ex p strong{color:var(--t);font-weight:600;}
   .ex p span{color:var(--td);}
 
-  /* Worked-example card linking to the live demo */
-  .worked{
-    margin:2rem 0 1.5rem;
-    display:flex;align-items:stretch;gap:0;
-    background:linear-gradient(135deg,rgba(108,92,231,0.10),rgba(0,206,201,0.05));
-    border:1px solid rgba(108,92,231,0.35);
-    border-radius:16px;overflow:hidden;
-    text-decoration:none;color:inherit;
-    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  /* Worked-example CTA section */
+  .wk-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 2.5rem;
   }
-  .worked:hover{transform:translateY(-2px);border-color:rgba(108,92,231,0.6);box-shadow:0 14px 40px rgba(108,92,231,0.18);}
-  .worked .wk-side{
-    flex-shrink:0;width:5.5rem;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:1.2rem 0.6rem;
-    background:rgba(108,92,231,0.12);
-    border-right:1px solid rgba(108,92,231,0.25);
-    text-align:center;gap:0.35rem;
+  .wk-stat{
+    background:linear-gradient(180deg,rgba(108,92,231,0.10),rgba(108,92,231,0.02));
+    border:1px solid rgba(108,92,231,0.28);
+    border-radius:14px;
+    padding:1.4rem 1.5rem;
   }
-  .worked .wk-side .wk-eye{
-    font-size:0.55rem;font-weight:700;letter-spacing:1.5px;
-    text-transform:uppercase;color:var(--a2);line-height:1.2;
+  .wk-stat .wk-num{
+    font-family:'Playfair Display',Georgia,serif;
+    font-style:italic;font-weight:600;
+    font-size:clamp(2.4rem,4.5vw,3.2rem);
+    line-height:1;color:var(--t);
+    background:linear-gradient(135deg,var(--a3),var(--a2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    letter-spacing:-0.02em;
+    font-variant-numeric:tabular-nums;
   }
-  .worked .wk-side .wk-num{
-    font-size:1.8rem;font-weight:900;color:var(--t);line-height:1;font-variant-numeric:tabular-nums;
+  .wk-stat .wk-lbl{
+    margin-top:0.6rem;font-size:0.7rem;font-weight:700;
+    letter-spacing:1.5px;text-transform:uppercase;color:var(--td);
   }
-  .worked .wk-side .wk-unit{font-size:0.62rem;color:var(--td);letter-spacing:0.5px;line-height:1.2;}
-  .worked .wk-body{flex:1;padding:1.1rem 1.4rem 1.15rem;}
-  .worked .wk-tag{
-    font-size:0.58rem;font-weight:700;letter-spacing:2px;
-    text-transform:uppercase;color:var(--a3);margin-bottom:0.35rem;
+  .wk-stat .wk-sub{
+    margin-top:0.35rem;font-size:0.82rem;color:var(--td);line-height:1.5;
   }
-  .worked .wk-title{
-    font-size:1.05rem;font-weight:700;color:var(--t);line-height:1.35;margin-bottom:0.45rem;
+  .wk-loop{
+    background:var(--card);border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:2.5rem;
   }
-  .worked .wk-desc{
-    font-size:0.88rem;color:var(--td);line-height:1.6;margin-bottom:0.6rem;
+  .wk-loop .wk-loop-hd{
+    font-size:0.65rem;font-weight:700;letter-spacing:2px;
+    text-transform:uppercase;color:var(--a3);margin-bottom:1.1rem;
   }
-  .worked .wk-cta{
-    display:inline-flex;align-items:center;gap:0.4rem;
-    font-size:0.78rem;font-weight:600;color:var(--a3);
-    border-bottom:1px solid rgba(0,206,201,0.35);padding-bottom:1px;
+  .wk-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;align-items:stretch;}
+  .wk-st{
+    position:relative;padding:0.95rem 1rem;
+    background:rgba(255,255,255,0.02);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:10px;
   }
-  .worked .wk-cta::after{content:'→';font-size:0.95rem;line-height:1;}
-  @media(max-width:560px){
-    .worked{flex-direction:column;}
-    .worked .wk-side{width:100%;flex-direction:row;justify-content:flex-start;gap:0.8rem;padding:0.85rem 1.1rem;border-right:none;border-bottom:1px solid rgba(108,92,231,0.25);}
-    .worked .wk-side .wk-num{font-size:1.4rem;}
+  .wk-st .wk-st-n{
+    font-size:0.6rem;font-weight:700;letter-spacing:1.5px;
+    color:var(--a2);margin-bottom:0.4rem;
+  }
+  .wk-st .wk-st-t{font-size:0.85rem;color:var(--t);font-weight:500;line-height:1.4;}
+  .wk-st::after{
+    content:'→';position:absolute;right:-12px;top:50%;
+    transform:translateY(-50%);color:rgba(255,255,255,0.18);
+    font-size:0.95rem;z-index:2;
+  }
+  .wk-st:last-child::after{display:none;}
+  @media(max-width:760px){
+    .wk-stats{grid-template-columns:1fr;gap:0.8rem;}
+    .wk-steps{grid-template-columns:1fr;gap:0.6rem;}
+    .wk-st::after{content:'↓';right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%);}
+  }
+  .wk-cta-btn{
+    display:inline-flex;align-items:center;gap:0.7rem;
+    padding:1.05rem 2rem;
+    background:linear-gradient(135deg,var(--a1),var(--a3));
+    color:#fff;font-weight:700;font-size:0.95rem;
+    border-radius:999px;text-decoration:none;letter-spacing:0.3px;
+    box-shadow:0 14px 38px rgba(108,92,231,0.3);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .wk-cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(108,92,231,0.4);}
+  .wk-cta-btn::after{content:'→';font-size:1.1rem;line-height:1;}
+  .wk-cta-meta{
+    display:block;margin-top:0.9rem;
+    font-size:0.78rem;color:var(--td);
   }
 
   .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
@@ -329,6 +363,7 @@
     <a href="#s4"></a>
     <a href="#s5"></a>
     <a href="#s6"></a>
+    <a href="#s7"></a>
   </div>
 </nav>
 
@@ -439,40 +474,101 @@
     <h2>Things We<br><span class="g2">Tend to Surface</span></h2>
     <p class="sub">Not a prediction list. Just things hotels are putting in right now and getting real value out of. Won't know which actually fit HGI Sud until we look.</p>
 
-    <a class="worked" href="voice-of-guest-agent.html" target="_blank" rel="noopener">
-      <div class="wk-side">
-        <div class="wk-eye">Live demo</div>
-        <div class="wk-num">1,089</div>
-        <div class="wk-unit">reviews · 24 months</div>
-      </div>
-      <div class="wk-body">
-        <div class="wk-tag">Worked example · run on your data</div>
-        <div class="wk-title">A Voice-of-Guest agent that closes the loop on every complaint.</div>
-        <p class="wk-desc">Reads Booking, Google, Hotels.com and TripAdvisor reviews. Categorises and scores intensity. Alerts the right department head. Auto-drafts the public reply (one-click approve on critical ones). Checks back four weeks later — if the same complaint stops, the case closes; if it doesn't, it escalates to the GM. Lives outside the Hilton stack.</p>
-        <span class="wk-cta">Open the worked example</span>
-      </div>
-    </a>
-
     <div class="examples">
-      <div class="ex"><div class="num">01</div><p><strong>WhatsApp guest assistant in three or four languages.</strong> <span>Arabic, French, English, plus one more if it helps. Pre-loaded with your hotel info, menu, local recs, FAQs. Handles the easy 70% — late-checkout asks, restaurant recs, breakfast hours, transfer info. Anything needing PMS data (room number, folio) hands off to your team. Lives on WhatsApp and web. No OnQ access required.</span></p></div>
-      <div class="ex"><div class="num">02</div><p><strong>AI-drafted review responses.</strong> <span>Reads from the public Booking, TripAdvisor and Google review pages. Drafts a reply in your voice within an hour of the review going up. Your team approves in batches and posts from your normal accounts. No Hilton system integration. Brings response time well inside the 48-hour brand standard.</span></p></div>
-      <div class="ex"><div class="num">03</div><p><strong>Pre-arrival upsell flow.</strong> <span>Reservations drops a list of upcoming arrivals into the tool (CSV, paste, or forwarded confirmation emails). It drafts personalised pre-arrival emails — upgrade offer, late checkout, breakfast, airport transfer. Your team approves in batches and sends from the normal email account. No PMS integration needed.</span></p></div>
-      <div class="ex"><div class="num">04</div><p><strong>Daily reports written for you.</strong> <span>Your night auditor exports the standard PMS reports they already run. The tool ingests those exports and writes the flash, the MTD and the owner update in your voice. In your inbox before the morning meeting. No OnQ integration — just augments the exports your team already does.</span></p></div>
-      <div class="ex"><div class="num">05</div><p><strong>Predictive maintenance on HVAC and key kit.</strong> <span>Smart sensors on HVAC units, boilers and lifts. Flags failures before guests do. Lives on the engineering side, fully independent from OnQ. Alerts route via WhatsApp or wherever your team already works. Especially useful at a property with a heavy A/C load.</span></p></div>
-      <div class="ex"><div class="num">06</div><p><strong>Quiet prep for the HotelKey rollout.</strong> <span>Hilton is replacing OnQ across all properties and HGI is in the first wave. The maps make the migration smoother. You'll already know which workflows depend on which systems and where the workarounds live.</span></p></div>
-      <div class="ex"><div class="num">07</div><p><strong>Centralising things scattered across tools.</strong> <span>Maintenance tickets, lost and found, supplier comms, shift notes. Into one place everyone can see. Lives outside the Hilton stack — no integration required. Boring. Always works.</span></p></div>
+      <div class="ex">
+        <div class="num">01</div>
+        <div class="ex-title">WhatsApp guest assistant in any language.</div>
+        <div class="ex-body">Pre-loaded with your hotel info, menu, local recs, FAQs. Replies in whichever language the guest writes in — Arabic, French, English, German, Russian, Mandarin, doesn't matter. Handles the easy 70% — late-checkout asks, restaurant recs, breakfast hours, transfer info. Anything needing PMS data (room number, folio) hands off to your team. Lives on WhatsApp and web. No OnQ access required.</div>
+      </div>
+      <div class="ex">
+        <div class="num">02</div>
+        <div class="ex-title">AI-drafted review responses.</div>
+        <div class="ex-body">Reads from the public Booking, TripAdvisor and Google review pages. Drafts a reply in your voice within an hour of the review going up. Your team approves in batches and posts from your normal accounts. No Hilton system integration. Brings response time well inside the 48-hour brand standard.</div>
+      </div>
+      <div class="ex">
+        <div class="num">03</div>
+        <div class="ex-title">Pre-arrival upsell flow.</div>
+        <div class="ex-body">Reservations drops a list of upcoming arrivals into the tool (CSV, paste, or forwarded confirmation emails). It drafts personalised pre-arrival emails — upgrade offer, late checkout, breakfast, airport transfer. Your team approves in batches and sends from the normal email account. No PMS integration needed.</div>
+      </div>
+      <div class="ex">
+        <div class="num">04</div>
+        <div class="ex-title">Daily reports written for you.</div>
+        <div class="ex-body">Your night auditor exports the standard PMS reports they already run. The tool ingests those exports and writes the flash, the MTD and the owner update in your voice. In your inbox before the morning meeting. No OnQ integration — just augments the exports your team already does.</div>
+      </div>
+      <div class="ex">
+        <div class="num">05</div>
+        <div class="ex-title">Predictive maintenance on HVAC and key kit.</div>
+        <div class="ex-body">Smart sensors on HVAC units, boilers and lifts. Flags failures before guests do. Lives on the engineering side, fully independent from OnQ. Alerts route via WhatsApp or wherever your team already works. Especially useful at a property with a heavy A/C load.</div>
+      </div>
+      <div class="ex">
+        <div class="num">06</div>
+        <div class="ex-title">Quiet prep for the HotelKey rollout.</div>
+        <div class="ex-body">Hilton is replacing OnQ across all properties and HGI is in the first wave. The maps make the migration smoother. You'll already know which workflows depend on which systems and where the workarounds live.</div>
+      </div>
+      <div class="ex">
+        <div class="num">07</div>
+        <div class="ex-title">Centralising things scattered across tools.</div>
+        <div class="ex-body">Maintenance tickets, lost and found, supplier comms, shift notes. Into one place everyone can see. Lives outside the Hilton stack — no integration required. Boring. Always works.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — HOW WE WORK              -->
+<!-- 5 — WORKED EXAMPLE (CTA)     -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s5">
+<section class="s" id="s5" style="min-height:auto;padding:6rem 3rem;">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-150px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
+  <div class="s-in" style="max-width:960px;">
+    <div class="tag">04 — Worked Example</div>
+    <h2>One We've Already<br><span class="g1">Run on Your Reviews</span></h2>
+    <p class="sub" style="max-width:760px;">A Voice-of-Guest agent built from 1,089 reviews of HGI Casablanca Sud across Booking, Google, Hotels.com and TripAdvisor. It categorises every complaint, alerts the right head of department, drafts the public reply, and checks four weeks later whether the same issue stopped recurring.</p>
+
+    <div class="wk-stats">
+      <div class="wk-stat">
+        <div class="wk-num">1,089</div>
+        <div class="wk-lbl">Reviews ingested</div>
+        <div class="wk-sub">Booking, Google, Hotels.com, TripAdvisor</div>
+      </div>
+      <div class="wk-stat">
+        <div class="wk-num">24 mo</div>
+        <div class="wk-lbl">Analysis depth</div>
+        <div class="wk-sub">May 2024 — May 2026</div>
+      </div>
+      <div class="wk-stat">
+        <div class="wk-num">43%</div>
+        <div class="wk-lbl">Contain complaints</div>
+        <div class="wk-sub">472 reviews flagged by sentiment</div>
+      </div>
+    </div>
+
+    <div class="wk-loop">
+      <div class="wk-loop-hd">What the agent does · 24/7</div>
+      <div class="wk-steps">
+        <div class="wk-st"><div class="wk-st-n">01</div><div class="wk-st-t">Reads &amp; categorises the complaint</div></div>
+        <div class="wk-st"><div class="wk-st-n">02</div><div class="wk-st-t">Alerts the right manager + drafts the reply</div></div>
+        <div class="wk-st"><div class="wk-st-n">03</div><div class="wk-st-t">Manager confirms in one line what they did</div></div>
+        <div class="wk-st"><div class="wk-st-n">04</div><div class="wk-st-t">Checks four weeks later — did it stop?</div></div>
+        <div class="wk-st"><div class="wk-st-n">05</div><div class="wk-st-t">Closed, or escalated to the GM</div></div>
+      </div>
+    </div>
+
+    <div>
+      <a class="wk-cta-btn" href="voice-of-guest-agent.html" target="_blank" rel="noopener">Open the worked example</a>
+      <small class="wk-cta-meta">Lives outside the Hilton stack. No OnQ, Honors or Connect+ access required.</small>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — HOW WE WORK              -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s6">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">04 — How It Goes</div>
+    <div class="tag">05 — How It Goes</div>
     <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">The engagement,<br><span class="g3" style="font-style:italic;">in three movements.</span></h2>
     <p class="sub" style="font-size:1.05rem;">No black box. You're in the room for every call that matters. We map, you decide what to act on, then we build it.</p>
 
@@ -514,13 +610,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 6 — INVESTMENT               -->
+<!-- 7 — INVESTMENT               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s6" style="min-height:auto;padding:6rem 3rem 7rem;">
+<section class="s" id="s7" style="min-height:auto;padding:6rem 3rem 7rem;">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;right:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-100px;left:-100px;"></div>
   <div class="s-in" style="max-width:880px;">
-    <div class="tag">05 — Investment</div>
+    <div class="tag">06 — Investment</div>
     <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">The map,<br><span class="g3" style="font-style:italic;">one price.</span></h2>
 
     <div style="margin-top:3rem;text-align:center;">

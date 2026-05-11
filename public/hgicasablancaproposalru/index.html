@@ -38,71 +38,78 @@
   .sub{font-size:1.15rem;color:var(--td);max-width:680px;line-height:1.7;}
 
   .examples{
-    margin-top:2rem;display:grid;grid-template-columns:1fr;gap:0.7rem;
+    margin-top:2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
   }
+  @media(max-width:760px){.examples{grid-template-columns:1fr;}}
   .ex{
-    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
-    padding:1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;
-    opacity:0;transform:translateX(-15px);transition:all 0.4s;
+    position:relative;
+    background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.005));
+    border:1px solid rgba(255,255,255,0.08);border-radius:14px;
+    padding:1.4rem 1.5rem 1.5rem;
+    display:flex;flex-direction:column;gap:0.7rem;
+    opacity:0;transform:translateY(12px);transition:all 0.45s ease;
   }
-  .ex.v{opacity:1;transform:translateX(0);}
+  .ex.v{opacity:1;transform:translateY(0);}
+  .ex:hover{border-color:rgba(108,92,231,0.35);transform:translateY(-2px);}
   .ex .num{
-    flex-shrink:0;font-size:0.65rem;font-weight:700;color:var(--a3);
-    letter-spacing:2px;margin-top:3px;min-width:28px;
+    font-size:0.6rem;font-weight:700;color:var(--a3);
+    letter-spacing:2px;text-transform:uppercase;
   }
+  .ex .ex-title{font-size:1rem;color:var(--t);font-weight:700;line-height:1.35;}
+  .ex .ex-body{font-size:0.88rem;color:var(--td);line-height:1.6;}
   .ex p{font-size:0.95rem;color:var(--t);line-height:1.55;}
   .ex p strong{color:var(--t);font-weight:600;}
   .ex p span{color:var(--td);}
 
-  /* Worked-example card linking to the live demo */
-  .worked{
-    margin:2rem 0 1.5rem;
-    display:flex;align-items:stretch;gap:0;
-    background:linear-gradient(135deg,rgba(108,92,231,0.10),rgba(0,206,201,0.05));
-    border:1px solid rgba(108,92,231,0.35);
-    border-radius:16px;overflow:hidden;
-    text-decoration:none;color:inherit;
-    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  /* Worked-example CTA section */
+  .wk-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 2.5rem;}
+  .wk-stat{
+    background:linear-gradient(180deg,rgba(108,92,231,0.10),rgba(108,92,231,0.02));
+    border:1px solid rgba(108,92,231,0.28);
+    border-radius:14px;padding:1.4rem 1.5rem;
   }
-  .worked:hover{transform:translateY(-2px);border-color:rgba(108,92,231,0.6);box-shadow:0 14px 40px rgba(108,92,231,0.18);}
-  .worked .wk-side{
-    flex-shrink:0;width:5.5rem;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:1.2rem 0.6rem;
-    background:rgba(108,92,231,0.12);
-    border-right:1px solid rgba(108,92,231,0.25);
-    text-align:center;gap:0.35rem;
+  .wk-stat .wk-num{
+    font-family:'Playfair Display',Georgia,serif;
+    font-style:italic;font-weight:600;
+    font-size:clamp(2.4rem,4.5vw,3.2rem);
+    line-height:1;color:var(--t);
+    background:linear-gradient(135deg,var(--a3),var(--a2));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    letter-spacing:-0.02em;font-variant-numeric:tabular-nums;
   }
-  .worked .wk-side .wk-eye{
-    font-size:0.55rem;font-weight:700;letter-spacing:1.5px;
-    text-transform:uppercase;color:var(--a2);line-height:1.2;
+  .wk-stat .wk-lbl{margin-top:0.6rem;font-size:0.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--td);}
+  .wk-stat .wk-sub{margin-top:0.35rem;font-size:0.82rem;color:var(--td);line-height:1.5;}
+  .wk-loop{
+    background:var(--card);border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:2.5rem;
   }
-  .worked .wk-side .wk-num{
-    font-size:1.8rem;font-weight:900;color:var(--t);line-height:1;font-variant-numeric:tabular-nums;
+  .wk-loop .wk-loop-hd{font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--a3);margin-bottom:1.1rem;}
+  .wk-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;align-items:stretch;}
+  .wk-st{
+    position:relative;padding:0.95rem 1rem;
+    background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
   }
-  .worked .wk-side .wk-unit{font-size:0.62rem;color:var(--td);letter-spacing:0.5px;line-height:1.2;}
-  .worked .wk-body{flex:1;padding:1.1rem 1.4rem 1.15rem;}
-  .worked .wk-tag{
-    font-size:0.58rem;font-weight:700;letter-spacing:2px;
-    text-transform:uppercase;color:var(--a3);margin-bottom:0.35rem;
+  .wk-st .wk-st-n{font-size:0.6rem;font-weight:700;letter-spacing:1.5px;color:var(--a2);margin-bottom:0.4rem;}
+  .wk-st .wk-st-t{font-size:0.85rem;color:var(--t);font-weight:500;line-height:1.4;}
+  .wk-st::after{content:'→';position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:rgba(255,255,255,0.18);font-size:0.95rem;z-index:2;}
+  .wk-st:last-child::after{display:none;}
+  @media(max-width:760px){
+    .wk-stats{grid-template-columns:1fr;gap:0.8rem;}
+    .wk-steps{grid-template-columns:1fr;gap:0.6rem;}
+    .wk-st::after{content:'↓';right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%);}
   }
-  .worked .wk-title{
-    font-size:1.05rem;font-weight:700;color:var(--t);line-height:1.35;margin-bottom:0.45rem;
+  .wk-cta-btn{
+    display:inline-flex;align-items:center;gap:0.7rem;
+    padding:1.05rem 2rem;
+    background:linear-gradient(135deg,var(--a1),var(--a3));
+    color:#fff;font-weight:700;font-size:0.95rem;
+    border-radius:999px;text-decoration:none;letter-spacing:0.3px;
+    box-shadow:0 14px 38px rgba(108,92,231,0.3);
+    transition:transform .25s ease, box-shadow .25s ease;
   }
-  .worked .wk-desc{
-    font-size:0.88rem;color:var(--td);line-height:1.6;margin-bottom:0.6rem;
-  }
-  .worked .wk-cta{
-    display:inline-flex;align-items:center;gap:0.4rem;
-    font-size:0.78rem;font-weight:600;color:var(--a3);
-    border-bottom:1px solid rgba(0,206,201,0.35);padding-bottom:1px;
-  }
-  .worked .wk-cta::after{content:'→';font-size:0.95rem;line-height:1;}
-  @media(max-width:560px){
-    .worked{flex-direction:column;}
-    .worked .wk-side{width:100%;flex-direction:row;justify-content:flex-start;gap:0.8rem;padding:0.85rem 1.1rem;border-right:none;border-bottom:1px solid rgba(108,92,231,0.25);}
-    .worked .wk-side .wk-num{font-size:1.4rem;}
-  }
+  .wk-cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(108,92,231,0.4);}
+  .wk-cta-btn::after{content:'→';font-size:1.1rem;line-height:1;}
+  .wk-cta-meta{display:block;margin-top:0.9rem;font-size:0.78rem;color:var(--td);}
 
   .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
   .price-table thead th{
@@ -329,6 +336,7 @@
     <a href="#s4"></a>
     <a href="#s5"></a>
     <a href="#s6"></a>
+    <a href="#s7"></a>
   </div>
 </nav>
 
@@ -437,40 +445,101 @@
     <h2>То, что мы<br><span class="g2">обычно находим</span></h2>
     <p class="sub">Не список предсказаний. Просто вещи, которые отели сейчас внедряют и получают реальную пользу. Что из этого подойдёт HGI Sud — узнаем только после анализа.</p>
 
-    <a class="worked" href="../hgicasablancaproposal/voice-of-guest-agent.html" target="_blank" rel="noopener">
-      <div class="wk-side">
-        <div class="wk-eye">Живая демо</div>
-        <div class="wk-num">1 089</div>
-        <div class="wk-unit">отзывов · 24 месяца</div>
-      </div>
-      <div class="wk-body">
-        <div class="wk-tag">Рабочий пример · построен на ваших данных</div>
-        <div class="wk-title">Voice-of-Guest агент, замыкающий контур по каждой жалобе.</div>
-        <p class="wk-desc">Читает отзывы с Booking, Google, Hotels.com и TripAdvisor. Категоризирует и оценивает остроту. Оповещает нужного руководителя отдела. Авто-черновик публичного ответа (один клик для критических). Через 4 недели проверяет: если жалоба больше не повторяется — кейс закрыт; если повторяется — эскалация на GM. Живёт вне стека Hilton.</p>
-        <span class="wk-cta">Открыть рабочий пример</span>
-      </div>
-    </a>
-
     <div class="examples">
-      <div class="ex"><div class="num">01</div><p><strong>WhatsApp-ассистент для гостей на трёх-четырёх языках.</strong> <span>Арабский, французский, английский — плюс ещё один при необходимости. Предзагружен информацией о вашем отеле, меню, локальными рекомендациями, FAQ. Берёт на себя простые 70% — поздний выезд, рекомендации ресторанов, часы завтрака, информация о трансфере. Всё, что требует данных PMS (номер комнаты, счёт), передаётся вашей команде. Живёт в WhatsApp и веб-чате. Доступ к OnQ не требуется.</span></p></div>
-      <div class="ex"><div class="num">02</div><p><strong>Ответы на отзывы, написанные ИИ.</strong> <span>Читает публичные страницы отзывов Booking, TripAdvisor и Google. Готовит ответ в вашем тоне в течение часа после публикации. Команда одобряет партиями и публикует с обычных аккаунтов. Никакой интеграции с системами Hilton. Сокращает время ответа значительно ниже бренд-стандарта в 48 часов.</span></p></div>
-      <div class="ex"><div class="num">03</div><p><strong>Поток допродаж перед заездом.</strong> <span>Отдел бронирования сбрасывает список предстоящих заездов в инструмент (CSV, копипаст или пересылка писем с подтверждениями). Он составляет персонализированные письма — апгрейд, поздний выезд, завтрак, трансфер из аэропорта. Команда одобряет партиями и отправляет с обычной почты. Интеграция с PMS не нужна.</span></p></div>
-      <div class="ex"><div class="num">04</div><p><strong>Ежедневные отчёты, написанные для вас.</strong> <span>Ночной аудитор выгружает стандартные отчёты PMS, которые он и так делает каждый день. Инструмент берёт эти выгрузки и пишет flash, MTD и отчёт для владельцев в вашем тоне. У вас в почте до утренней планёрки. Интеграции с OnQ нет — просто расширяет ту работу, которую команда уже делает.</span></p></div>
-      <div class="ex"><div class="num">05</div><p><strong>Предиктивное обслуживание HVAC и ключевого оборудования.</strong> <span>Умные датчики на кондиционерах, бойлерах и лифтах. Выявляют поломки раньше, чем гости. Живут на инженерной стороне, полностью независимо от OnQ. Оповещения идут через WhatsApp или туда, где работает ваша команда. Особенно полезно в отеле с высокой нагрузкой на кондиционирование.</span></p></div>
-      <div class="ex"><div class="num">06</div><p><strong>Тихая подготовка к переходу на HotelKey.</strong> <span>Hilton заменяет OnQ во всех объектах, и HGI в первой волне. Карты делают миграцию более гладкой. Вы уже будете знать, какие процессы зависят от каких систем и где живут обходные пути.</span></p></div>
-      <div class="ex"><div class="num">07</div><p><strong>Централизация разбросанных по инструментам данных.</strong> <span>Заявки на обслуживание, бюро находок, переписка с поставщиками, заметки смен. В одном месте, доступном всем. Живёт вне стека Hilton — интеграция не требуется. Скучно. Всегда работает.</span></p></div>
+      <div class="ex">
+        <div class="num">01</div>
+        <div class="ex-title">WhatsApp-ассистент для гостей на любом языке.</div>
+        <div class="ex-body">Предзагружен информацией о вашем отеле, меню, локальными рекомендациями, FAQ. Отвечает на том языке, на котором написал гость — арабский, французский, английский, немецкий, русский, мандарин, не важно. Берёт на себя простые 70% — поздний выезд, рекомендации ресторанов, часы завтрака, информация о трансфере. Всё, что требует данных PMS (номер комнаты, счёт), передаётся вашей команде. Живёт в WhatsApp и веб-чате. Доступ к OnQ не требуется.</div>
+      </div>
+      <div class="ex">
+        <div class="num">02</div>
+        <div class="ex-title">Ответы на отзывы, написанные ИИ.</div>
+        <div class="ex-body">Читает публичные страницы отзывов Booking, TripAdvisor и Google. Готовит ответ в вашем тоне в течение часа после публикации. Команда одобряет партиями и публикует с обычных аккаунтов. Никакой интеграции с системами Hilton. Сокращает время ответа значительно ниже бренд-стандарта в 48 часов.</div>
+      </div>
+      <div class="ex">
+        <div class="num">03</div>
+        <div class="ex-title">Поток допродаж перед заездом.</div>
+        <div class="ex-body">Отдел бронирования сбрасывает список предстоящих заездов в инструмент (CSV, копипаст или пересылка писем с подтверждениями). Он составляет персонализированные письма — апгрейд, поздний выезд, завтрак, трансфер из аэропорта. Команда одобряет партиями и отправляет с обычной почты. Интеграция с PMS не нужна.</div>
+      </div>
+      <div class="ex">
+        <div class="num">04</div>
+        <div class="ex-title">Ежедневные отчёты, написанные для вас.</div>
+        <div class="ex-body">Ночной аудитор выгружает стандартные отчёты PMS, которые он и так делает каждый день. Инструмент берёт эти выгрузки и пишет flash, MTD и отчёт для владельцев в вашем тоне. У вас в почте до утренней планёрки. Интеграции с OnQ нет — просто расширяет ту работу, которую команда уже делает.</div>
+      </div>
+      <div class="ex">
+        <div class="num">05</div>
+        <div class="ex-title">Предиктивное обслуживание HVAC и ключевого оборудования.</div>
+        <div class="ex-body">Умные датчики на кондиционерах, бойлерах и лифтах. Выявляют поломки раньше, чем гости. Живут на инженерной стороне, полностью независимо от OnQ. Оповещения идут через WhatsApp или туда, где работает ваша команда. Особенно полезно в отеле с высокой нагрузкой на кондиционирование.</div>
+      </div>
+      <div class="ex">
+        <div class="num">06</div>
+        <div class="ex-title">Тихая подготовка к переходу на HotelKey.</div>
+        <div class="ex-body">Hilton заменяет OnQ во всех объектах, и HGI в первой волне. Карты делают миграцию более гладкой. Вы уже будете знать, какие процессы зависят от каких систем и где живут обходные пути.</div>
+      </div>
+      <div class="ex">
+        <div class="num">07</div>
+        <div class="ex-title">Централизация разбросанных по инструментам данных.</div>
+        <div class="ex-body">Заявки на обслуживание, бюро находок, переписка с поставщиками, заметки смен. В одном месте, доступном всем. Живёт вне стека Hilton — интеграция не требуется. Скучно. Всегда работает.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 7 — HOW WE WORK              -->
+<!-- 5 — WORKED EXAMPLE (CTA)     -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s5">
+<section class="s" id="s5" style="min-height:auto;padding:6rem 3rem;">
+  <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-150px;"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
+  <div class="s-in" style="max-width:960px;">
+    <div class="tag">04 — Рабочий пример</div>
+    <h2>Один уже запущен<br><span class="g1">на ваших отзывах</span></h2>
+    <p class="sub" style="max-width:760px;">Voice-of-Guest агент, построенный по 1 089 отзывам HGI Casablanca Sud с Booking, Google, Hotels.com и TripAdvisor. Категоризирует каждую жалобу, оповещает нужного руководителя отдела, готовит публичный ответ, и через четыре недели проверяет — перестала ли повторяться та же проблема.</p>
+
+    <div class="wk-stats">
+      <div class="wk-stat">
+        <div class="wk-num">1 089</div>
+        <div class="wk-lbl">Отзывов проанализировано</div>
+        <div class="wk-sub">Booking, Google, Hotels.com, TripAdvisor</div>
+      </div>
+      <div class="wk-stat">
+        <div class="wk-num">24 мес</div>
+        <div class="wk-lbl">Глубина анализа</div>
+        <div class="wk-sub">Май 2024 — май 2026</div>
+      </div>
+      <div class="wk-stat">
+        <div class="wk-num">43%</div>
+        <div class="wk-lbl">Содержат жалобы</div>
+        <div class="wk-sub">472 отзыва · по AI-сентименту</div>
+      </div>
+    </div>
+
+    <div class="wk-loop">
+      <div class="wk-loop-hd">Что делает агент · 24/7</div>
+      <div class="wk-steps">
+        <div class="wk-st"><div class="wk-st-n">01</div><div class="wk-st-t">Читает и категоризирует жалобу</div></div>
+        <div class="wk-st"><div class="wk-st-n">02</div><div class="wk-st-t">Оповещает руководителя + готовит ответ</div></div>
+        <div class="wk-st"><div class="wk-st-n">03</div><div class="wk-st-t">Руководитель одной строкой подтверждает, что сделал</div></div>
+        <div class="wk-st"><div class="wk-st-n">04</div><div class="wk-st-t">Через 4 недели проверяет — прекратилось ли</div></div>
+        <div class="wk-st"><div class="wk-st-n">05</div><div class="wk-st-t">Закрыт или эскалирован на GM</div></div>
+      </div>
+    </div>
+
+    <div>
+      <a class="wk-cta-btn" href="../hgicasablancaproposal/voice-of-guest-agent.html" target="_blank" rel="noopener">Открыть рабочий пример</a>
+      <small class="wk-cta-meta">Живёт вне стека Hilton. Доступ к OnQ, Honors или Connect+ не требуется.</small>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — HOW WE WORK              -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s6">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">04 — Как это происходит</div>
+    <div class="tag">05 — Как это происходит</div>
     <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">Проект,<br><span class="g3" style="font-style:italic;">в трёх движениях.</span></h2>
     <p class="sub" style="font-size:1.05rem;">Никаких чёрных ящиков. Вы в комнате при каждом важном решении. Мы составляем карту, вы решаете, на что действовать, затем мы строим.</p>
 
@@ -512,13 +581,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 8 — INVESTMENT               -->
+<!-- 7 — INVESTMENT               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s6" style="min-height:auto;padding:6rem 3rem 7rem;">
+<section class="s" id="s7" style="min-height:auto;padding:6rem 3rem 7rem;">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;right:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-100px;left:-100px;"></div>
   <div class="s-in" style="max-width:880px;">
-    <div class="tag">05 — Стоимость</div>
+    <div class="tag">06 — Стоимость</div>
     <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">Карта,<br><span class="g3" style="font-style:italic;">одна цена.</span></h2>
 
     <div style="margin-top:3rem;text-align:center;">
