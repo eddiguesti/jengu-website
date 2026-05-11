@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hilton Garden Inn Casablanca Sud — Process Map | Jengu</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@1,500;1,600;1,700&display=swap');
   *{margin:0;padding:0;box-sizing:border-box;}
   :root{
     --bg:#0a0a0f;--card:#12121a;
@@ -15,12 +15,15 @@
   html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
   body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);overflow-x:hidden;}
 
+  /* Every section: same vertical rhythm. min-height ensures hero/why feel like
+     "moments"; padding ensures rich sections (s3/s5/s6/s7) have consistent breathing
+     room. Snap kept for natural scroll snapping on scroll-wheel/keyboard. */
   .s{
     min-height:100vh;display:flex;align-items:center;justify-content:center;
-    padding:4rem 3rem;position:relative;overflow:hidden;
+    padding:6rem 3rem;position:relative;overflow:hidden;
     scroll-snap-align:start;
   }
-  /* clean separator at the top of every section after the hero */
+  /* Subtle, narrow separator at the top of every section after the hero */
   .s + .s::before{
     content:'';
     position:absolute;
@@ -31,7 +34,7 @@
     pointer-events:none;
   }
   .s-in{
-    max-width:1000px;width:100%;
+    max-width:1040px;width:100%;
     opacity:0;transform:translateY(40px);
     transition:opacity 0.7s,transform 0.7s;
   }
@@ -39,26 +42,44 @@
 
   .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;pointer-events:none;}
 
-  .tag{font-size:0.7rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--a1);margin-bottom:0.8rem;}
-  h1{font-size:clamp(3rem,7vw,5.5rem);font-weight:900;line-height:1.02;margin-bottom:1.2rem;color:var(--t);}
-  h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;line-height:1.05;margin-bottom:1.2rem;color:var(--t);}
+  /* Type scale */
+  .tag{
+    font-size:0.7rem;font-weight:700;letter-spacing:4px;
+    text-transform:uppercase;color:var(--a1);
+    margin-bottom:1.1rem;
+  }
+  h1{
+    font-size:clamp(3rem,6.5vw,5.2rem);font-weight:900;
+    line-height:1.05;letter-spacing:-0.02em;
+    margin-bottom:1.4rem;color:var(--t);
+  }
+  h2{
+    font-size:clamp(2.2rem,4.8vw,3.4rem);font-weight:800;
+    line-height:1.08;letter-spacing:-0.015em;
+    margin-bottom:1.4rem;color:var(--t);
+  }
   .g1{background:linear-gradient(135deg,var(--a1),var(--a3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
   .g2{background:linear-gradient(135deg,var(--a4),var(--a5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
   .g3{background:linear-gradient(135deg,var(--a3),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-  .sub{font-size:1.15rem;color:var(--td);max-width:680px;line-height:1.7;}
+  .sub{
+    font-size:1.1rem;color:var(--td);
+    max-width:680px;line-height:1.7;
+  }
 
   .examples{
-    margin-top:2rem;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;
+    margin-top:2.5rem;
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:1rem;
   }
   @media(max-width:760px){.examples{grid-template-columns:1fr;}}
   .ex{
     position:relative;
     background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.005));
     border:1px solid rgba(255,255,255,0.08);border-radius:14px;
-    padding:1.4rem 1.5rem 1.5rem;
-    display:flex;flex-direction:column;gap:0.7rem;
-    opacity:0;transform:translateY(12px);transition:all 0.45s ease;
-    transition-property:opacity,transform,border-color,transform;
+    padding:1.5rem 1.6rem;
+    display:flex;flex-direction:column;gap:0.6rem;
+    opacity:0;transform:translateY(12px);
+    transition:opacity 0.45s ease,transform 0.45s ease,border-color 0.25s ease;
   }
   .ex.v{opacity:1;transform:translateY(0);}
   .ex:hover{border-color:rgba(108,92,231,0.35);transform:translateY(-2px);}
@@ -67,70 +88,80 @@
     letter-spacing:2px;text-transform:uppercase;
   }
   .ex .ex-title{
-    font-size:1rem;color:var(--t);font-weight:700;line-height:1.35;
+    font-size:1.02rem;color:var(--t);font-weight:700;line-height:1.35;
   }
-  .ex .ex-body{font-size:0.88rem;color:var(--td);line-height:1.6;}
-  .ex p{font-size:0.95rem;color:var(--t);line-height:1.55;}
-  .ex p strong{color:var(--t);font-weight:600;}
-  .ex p span{color:var(--td);}
+  .ex .ex-body{font-size:0.9rem;color:var(--td);line-height:1.65;}
 
-  /* Worked-example CTA section */
-  .wk-stats{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0 2.5rem;
+  /* Side-quote callout (used by How We Map + How It Goes) */
+  .callout{
+    margin-top:2rem;
+    padding:1.3rem 1.6rem;
+    border-radius:12px;
+    max-width:700px;
   }
-  .wk-stat{
-    background:linear-gradient(180deg,rgba(108,92,231,0.10),rgba(108,92,231,0.02));
-    border:1px solid rgba(108,92,231,0.28);
-    border-radius:14px;
-    padding:1.4rem 1.5rem;
+  .callout-teal{background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);}
+  .callout-purple{background:rgba(108,92,231,0.05);border-left:3px solid rgba(108,92,231,0.4);}
+  .callout-eye{
+    font-size:0.65rem;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;
+    margin-bottom:0.5rem;
   }
-  .wk-stat .wk-num{
+  .callout-teal .callout-eye{color:var(--a3);}
+  .callout-purple .callout-eye{color:var(--a2);}
+  .callout-body{font-size:0.92rem;color:var(--td);line-height:1.7;margin:0;}
+
+  /* Editorial italic H2 variant (How It Goes + Investment) */
+  .serif-h2{
     font-family:'Playfair Display',Georgia,serif;
     font-style:italic;font-weight:600;
-    font-size:clamp(2.4rem,4.5vw,3.2rem);
-    line-height:1;color:var(--t);
-    background:linear-gradient(135deg,var(--a3),var(--a2));
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
     letter-spacing:-0.02em;
-    font-variant-numeric:tabular-nums;
   }
-  .wk-stat .wk-lbl{
-    margin-top:0.6rem;font-size:0.7rem;font-weight:700;
-    letter-spacing:1.5px;text-transform:uppercase;color:var(--td);
+  .i{font-style:italic;}
+
+  /* Investment price block */
+  .price-block{margin-top:2.8rem;text-align:center;}
+  .price-val{
+    font-family:'Playfair Display',Georgia,serif;
+    font-size:clamp(4.5rem,9vw,6.5rem);
+    font-weight:600;font-style:italic;
+    color:var(--t);line-height:1;
+    letter-spacing:-0.04em;
   }
-  .wk-stat .wk-sub{
-    margin-top:0.35rem;font-size:0.82rem;color:var(--td);line-height:1.5;
-  }
+  .price-sub{margin-top:1.2rem;font-size:1rem;color:var(--td);}
+  .rule-tiny{margin:2.8rem auto 0;width:60px;border-top:1px solid rgba(255,255,255,0.15);}
+  .price-terms{margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;}
+
+  /* Worked-example pipeline */
   .wk-loop{
     background:var(--card);border:1px solid rgba(255,255,255,0.08);
-    border-radius:16px;padding:1.6rem 1.8rem;margin-bottom:2.5rem;
+    border-radius:16px;padding:1.7rem 1.8rem;
+    margin:2.5rem 0;
   }
   .wk-loop .wk-loop-hd{
     font-size:0.65rem;font-weight:700;letter-spacing:2px;
-    text-transform:uppercase;color:var(--a3);margin-bottom:1.1rem;
+    text-transform:uppercase;color:var(--a3);margin-bottom:1.2rem;
   }
-  .wk-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0.5rem;align-items:stretch;}
+  .wk-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0.6rem;align-items:stretch;}
   .wk-st{
-    position:relative;padding:0.95rem 1rem;
+    position:relative;padding:1rem 1rem;
     background:rgba(255,255,255,0.02);
     border:1px solid rgba(255,255,255,0.06);
     border-radius:10px;
   }
   .wk-st .wk-st-n{
     font-size:0.65rem;font-weight:700;letter-spacing:2px;
-    color:var(--a2);margin-bottom:0.4rem;text-transform:uppercase;
+    color:var(--a2);margin-bottom:0.45rem;text-transform:uppercase;
   }
-  .wk-st .wk-st-t{font-size:0.85rem;color:var(--t);font-weight:500;line-height:1.4;}
+  .wk-st .wk-st-t{font-size:0.86rem;color:var(--t);font-weight:500;line-height:1.45;}
   .wk-st::after{
-    content:'→';position:absolute;right:-12px;top:50%;
-    transform:translateY(-50%);color:rgba(255,255,255,0.18);
+    content:'→';position:absolute;right:-14px;top:50%;
+    transform:translateY(-50%);color:rgba(255,255,255,0.22);
     font-size:0.95rem;z-index:2;
   }
   .wk-st:last-child::after{display:none;}
   @media(max-width:760px){
-    .wk-stats{grid-template-columns:1fr;gap:0.8rem;}
-    .wk-steps{grid-template-columns:1fr;gap:0.6rem;}
-    .wk-st::after{content:'↓';right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%);}
+    .wk-steps{grid-template-columns:1fr;gap:0.7rem;}
+    .wk-st::after{content:'↓';right:auto;left:50%;top:auto;bottom:-16px;transform:translateX(-50%);}
   }
   .wk-cta-btn{
     display:inline-flex;align-items:center;gap:0.7rem;
@@ -143,35 +174,6 @@
   }
   .wk-cta-btn:hover{transform:translateY(-2px);box-shadow:0 20px 48px rgba(108,92,231,0.4);}
   .wk-cta-btn::after{content:'→';font-size:1.1rem;line-height:1;}
-  .wk-cta-meta{
-    display:block;margin-top:0.9rem;
-    font-size:0.78rem;color:var(--td);
-  }
-
-  .price-table{width:100%;border-collapse:separate;border-spacing:0;font-size:0.95rem;margin-top:1.5rem;}
-  .price-table thead th{
-    text-align:left;padding:0.8rem 1.2rem;font-size:0.6rem;font-weight:600;
-    letter-spacing:2px;text-transform:uppercase;color:var(--td);
-    border-bottom:1px solid rgba(255,255,255,0.08);
-  }
-  .price-table thead th:last-child{text-align:right;}
-  .price-table tbody td{
-    padding:1.1rem 1.2rem;border-bottom:1px solid rgba(255,255,255,0.05);
-    color:var(--t);font-weight:400;vertical-align:top;
-  }
-  .price-table tbody td:last-child{text-align:right;font-weight:600;white-space:nowrap;}
-  .price-table tbody td .td-sub{font-size:0.78rem;color:var(--td);font-weight:400;margin-top:0.3rem;line-height:1.55;}
-
-  .cta{
-    display:inline-block;padding:1.1rem 2.8rem;font-weight:800;font-size:1.05rem;
-    text-decoration:none;border-radius:60px;letter-spacing:0.02em;
-    transition:transform 0.2s,box-shadow 0.2s;
-  }
-  .cta-primary{background:linear-gradient(135deg,var(--a1),var(--a3));color:#fff;
-    box-shadow:0 6px 30px rgba(108,92,231,0.5),0 0 60px rgba(0,206,201,0.15);}
-  .cta-primary:hover{transform:translateY(-2px);}
-  .cta-secondary{background:transparent;color:var(--t);border:1px solid rgba(255,255,255,0.18);}
-  .cta-secondary:hover{background:rgba(255,255,255,0.04);}
 
   nav{
     position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:100;
@@ -187,14 +189,12 @@
   canvas#p{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
 
   @media(max-width:768px){
-    .s{padding:3rem 1.5rem;}
+    .s{padding:4.5rem 1.5rem;}
     nav{padding:0.5rem 1rem;gap:1rem;}
-    .price-table{font-size:0.85rem;}
-    .price-table thead th, .price-table tbody td{padding:0.7rem 0.9rem;}
   }
 
   /* Editorial three-phase timeline */
-  .phases-tl { position: relative; margin: 3.5rem 0 2.5rem; padding-left: 88px; max-width: 760px; }
+  .phases-tl { position: relative; margin: 3rem 0 2rem; padding-left: 88px; max-width: 760px; }
   .phases-tl::before {
     content: '';
     position: absolute;
@@ -202,7 +202,7 @@
     width: 1px;
     background: linear-gradient(180deg, rgba(0,206,201,0.6) 0%, rgba(0,206,201,0.2) 50%, rgba(0,206,201,0.05) 100%);
   }
-  .phase-row { position: relative; padding: 2rem 0 2.4rem; }
+  .phase-row { position: relative; padding: 2rem 0 2.2rem; }
   .phase-row + .phase-row { border-top: 1px solid rgba(255,255,255,0.04); }
   .phase-num {
     position: absolute;
@@ -217,36 +217,31 @@
     color: var(--a3);
     box-shadow: inset 0 0 0 4px rgba(0,206,201,0.04);
   }
-  .phase-kicker { font-size: 0.62rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--td); margin-bottom: 0.4rem; }
+  .phase-kicker { font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--td); margin-bottom: 0.5rem; }
   .phase-name {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2.1rem, 4vw, 2.8rem);
+    font-size: clamp(2rem, 3.6vw, 2.6rem);
     font-weight: 600; font-style: italic;
     color: var(--t);
-    line-height: 1; margin-bottom: 1.2rem;
+    line-height: 1; margin-bottom: 1.1rem;
     letter-spacing: -0.01em;
   }
   .phase-lead {
     color: var(--t);
-    font-size: 1.05rem; line-height: 1.7;
-    margin: 0 0 1rem;
-    font-weight: 400;
+    font-size: 1.02rem; line-height: 1.65;
+    margin: 0 0 0.9rem;
+    font-weight: 500;
   }
-  .phase-body { color: var(--td); font-size: 0.95rem; line-height: 1.75; margin: 0; }
+  .phase-body { color: var(--td); font-size: 0.94rem; line-height: 1.7; margin: 0; }
   .phase-out {
     font-family: 'Playfair Display', Georgia, serif;
     font-style: italic;
     color: var(--a3);
     font-size: 1rem;
     line-height: 1.6;
-    margin-top: 1.4rem;
+    margin-top: 1.3rem;
     padding-left: 1rem;
     border-left: 2px solid rgba(0,206,201,0.4);
-  }
-  .closing-rule {
-    margin: 4rem auto 2rem;
-    width: 60px;
-    border-top: 1px solid rgba(255,255,255,0.15);
   }
   @media (max-width: 700px) {
     .phases-tl { padding-left: 0; }
@@ -256,29 +251,27 @@
 
   /* Flow chart — horizontal, real boxes + arrows, friction nodes below */
   .flow {
-    margin: 2.8rem 0 1.5rem;
+    margin: 2.6rem 0 1.5rem;
     width: 100%;
-    overflow-x: auto;
     padding-bottom: 0.5rem;
   }
   .flow-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(170px, 1fr));
-    grid-auto-rows: minmax(0, auto);
-    gap: 2.2rem;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    gap: 1.6rem;
     align-items: stretch;
-    min-width: 980px;
   }
-  .fl-col { position: relative; display: grid; grid-template-rows: 130px auto; gap: 1.3rem; }
+  .fl-col { position: relative; display: grid; grid-template-rows: 124px auto; gap: 1.2rem; min-width: 0; }
   .fl-box {
     position: relative;
     background: var(--card);
     border: 1.5px solid rgba(255,255,255,0.14);
     border-radius: 12px;
-    padding: 1rem 1rem 1.1rem;
+    padding: 0.95rem 0.9rem 1rem;
     text-align: center;
     display: flex; flex-direction: column;
     justify-content: center; gap: 0.5rem;
+    min-width: 0;
   }
   .fl-box.fl-bad {
     border-color: rgba(253,121,168,0.55);
@@ -291,16 +284,17 @@
   }
   .fl-box.fl-bad .fl-actor { color: var(--a4); }
   .fl-act {
-    font-size: 0.92rem; color: var(--t);
+    font-size: 0.9rem; color: var(--t);
     font-weight: 600; line-height: 1.4;
+    overflow-wrap: anywhere;
   }
   /* arrow connecting to next column */
   .fl-col:not(:last-child) .fl-box::after {
     content: '';
     position: absolute;
     top: 50%;
-    right: -2.2rem;
-    width: 2rem; height: 1.5px;
+    right: -1.6rem;
+    width: 1.5rem; height: 1.5px;
     background: rgba(255,255,255,0.25);
     transform: translateY(-50%);
   }
@@ -308,7 +302,7 @@
     content: '';
     position: absolute;
     top: 50%;
-    right: -2.35rem;
+    right: -1.7rem;
     width: 0; height: 0;
     border-left: 6px solid rgba(255,255,255,0.55);
     border-top: 5px solid transparent;
@@ -329,8 +323,8 @@
   .fl-issue::before {
     content: '';
     position: absolute;
-    left: 50%; top: -1.3rem;
-    width: 1px; height: 1.3rem;
+    left: 50%; top: -1.2rem;
+    width: 1px; height: 1.2rem;
     background-image: repeating-linear-gradient(180deg, rgba(253,121,168,0.55) 0 4px, transparent 4px 8px);
   }
   .fl-issue-h {
@@ -345,12 +339,10 @@
     line-height: 1.55;
   }
 
-  @media (max-width: 920px) {
-    .flow { overflow-x: visible; padding-bottom: 0; }
+  @media (max-width: 820px) {
     .flow-grid {
       grid-template-columns: 1fr;
-      gap: 2.4rem;
-      min-width: 0;
+      gap: 2.3rem;
       max-width: 420px;
       margin: 0 auto;
     }
@@ -398,7 +390,7 @@
   <div class="s-in">
     <div class="tag">Prepared for Ajay Harjani · Hilton Garden Inn Casablanca Sud</div>
     <h1>A Process Map<br><span class="g1">for AI &amp; Automation</span></h1>
-    <p class="sub" style="font-size:1.3rem;max-width:720px;">Following on from our recent chat: As agreed, the appropriate first step is to build a process map of the hotel's operations to determine where AI and automation could best be implemented to save time and/or money.</p>
+    <p class="sub" style="font-size:1.25rem;max-width:720px;">Following on from our recent chat: As agreed, the appropriate first step is to build a process map of the hotel's operations to determine where AI and automation could best be implemented to save time and/or money.</p>
 
     <div style="margin-top:2.5rem;">
       <a href="https://www.jengu.ai" target="_blank" style="color:var(--a3);font-weight:600;text-decoration:none;font-size:1rem;border-bottom:1px solid rgba(0,206,201,0.3);padding-bottom:2px;">jengu.ai</a>
@@ -414,7 +406,7 @@
   <div class="s-in">
     <div class="tag">01 — Why This</div>
     <h2>Map First.<br><span class="g2">Build Second.</span></h2>
-    <p class="sub" style="font-size:1.1rem;">Most hotels buy tools first and ask questions later. A bundle of subscriptions, nobody using them, the team back to spreadsheets. Mapping first tells you where the true pain points and bottlenecks lie and, in turn, what's worth building. Not a product list but a clear overview of where the value can best be delivered.</p>
+    <p class="sub">Most hotels buy tools first and ask questions later. A bundle of subscriptions, nobody using them, the team back to spreadsheets. Mapping first tells you where the true pain points and bottlenecks lie and, in turn, what's worth building. Not a product list but a clear overview of where the value can best be delivered.</p>
   </div>
 </section>
 
@@ -423,9 +415,9 @@
 <!-- ════════════════════════════ -->
 <!-- 3 — HOW WE MAP               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s3" style="min-height:auto;padding:5rem 3rem;">
+<section class="s" id="s3">
   <div class="orb" style="width:500px;height:500px;background:var(--a3);top:-100px;left:-150px;"></div>
-  <div class="s-in" style="max-width:1100px;">
+  <div class="s-in">
     <div class="tag">02 — How We Map</div>
     <h2>One Process,<br><span class="g3">Sketched Out.</span></h2>
     <p class="sub">A guest requests an extra towel. Five steps, two of them subtly broken.</p>
@@ -475,9 +467,9 @@
 
     <p style="margin-top:2rem;font-size:1rem;color:var(--td);line-height:1.7;max-width:640px;">When sketched out, the broken segments are made visible. Multiply this by 50 events happening every day across the property — check-in, breakfast service, OTA bookings, complaints, room service, maintenance tickets, etc. — and you get a clear picture of where time and money are leaking. The fixes start to become apparent.</p>
 
-    <div style="margin-top:1.8rem;padding:1.2rem 1.5rem;background:rgba(0,206,201,0.06);border-left:3px solid var(--a3);border-radius:10px;max-width:640px;">
-      <div style="font-size:0.65rem;color:var(--a3);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;">In this case the fix is</div>
-      <p style="font-size:0.92rem;color:var(--td);line-height:1.6;margin:0;">A central guest-request log (WhatsApp, app, or shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping highlights.</p>
+    <div class="callout callout-teal">
+      <div class="callout-eye">In this case the fix is</div>
+      <p class="callout-body">A central guest-request log (WhatsApp, app, or shared dashboard) with SLA tracking. One change makes the same friction disappear from dozens of similar workflows. That's what process mapping highlights.</p>
     </div>
   </div>
 </section>
@@ -535,10 +527,10 @@
 <!-- ════════════════════════════ -->
 <!-- 5 — WORKED EXAMPLE (CTA)     -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s5" style="min-height:auto;padding:6rem 3rem;">
+<section class="s" id="s5">
   <div class="orb" style="width:600px;height:600px;background:var(--a1);top:-200px;right:-150px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a3);bottom:-100px;left:-100px;"></div>
-  <div class="s-in" style="max-width:960px;">
+  <div class="s-in">
     <div class="tag">04 — Worked Example</div>
     <h2>One We've Already<br><span class="g1">Run on Your Reviews</span></h2>
     <p class="sub" style="max-width:760px;">Built from 1,089 reviews of HGI Sud across Booking, Google, Hotels.com and TripAdvisor. The agent categorizes every complaint, alerts the right HoD, drafts the public reply, and checks four weeks later whether the same issue stopped recurring.</p>
@@ -568,8 +560,8 @@
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
     <div class="tag">05 — How It Goes</div>
-    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">Three movements.<br><span class="g3" style="font-style:italic;">No black box.</span></h2>
-    <p class="sub" style="font-size:1.05rem;">You're involved in every step that matters. We map. You decide. Then we build.</p>
+    <h2 class="serif-h2">Three movements.<br><span class="g3 i">No black box.</span></h2>
+    <p class="sub">You're involved in every step that matters. We map. You decide. Then we build.</p>
 
     <div class="phases-tl">
       <div class="phase-row">
@@ -600,9 +592,9 @@
       </div>
     </div>
 
-    <div style="margin-top:2.5rem;padding:1.4rem 1.6rem;background:rgba(108,92,231,0.05);border-left:3px solid rgba(108,92,231,0.4);border-radius:10px;max-width:760px;">
-      <div style="font-size:0.65rem;color:var(--a2);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.5rem;">A note on access</div>
-      <p style="font-size:0.92rem;color:var(--td);line-height:1.7;margin:0;">We don't ask for OnQ, Honors or Connect+ access. Maps come from observation and conversations with your team. The tools live alongside the Hilton stack, not inside it. Anything that needs brand sign-off gets flagged in the map. You decide whether to push for it.</p>
+    <div class="callout callout-purple">
+      <div class="callout-eye">A note on access</div>
+      <p class="callout-body">We don't ask for OnQ, Honors or Connect+ access. Maps come from observation and conversations with your team. The tools live alongside the Hilton stack, not inside it. Anything that needs brand sign-off gets flagged in the map. You decide whether to push for it.</p>
     </div>
 
   </div>
@@ -611,21 +603,21 @@
 <!-- ════════════════════════════ -->
 <!-- 7 — INVESTMENT               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s7" style="min-height:auto;padding:6rem 3rem 7rem;">
+<section class="s" id="s7">
   <div class="orb" style="width:600px;height:600px;background:var(--a5);top:-200px;right:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a4);bottom:-100px;left:-100px;"></div>
-  <div class="s-in" style="max-width:880px;">
+  <div class="s-in">
     <div class="tag">06 — Investment</div>
-    <h2 style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:600;letter-spacing:-0.02em;">The map,<br><span class="g3" style="font-style:italic;">one price.</span></h2>
+    <h2 class="serif-h2">The map,<br><span class="g3 i">one price.</span></h2>
 
-    <div style="margin-top:3rem;text-align:center;">
-      <div style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(4.5rem,9vw,6.5rem);font-weight:600;font-style:italic;color:var(--t);line-height:1;letter-spacing:-0.04em;">£5,000</div>
-      <div style="margin-top:1.2rem;font-size:1rem;color:var(--td);">Guest journey, back-of-house, end-to-end.</div>
+    <div class="price-block">
+      <div class="price-val">£5,000</div>
+      <div class="price-sub">Guest journey, back-of-house, end-to-end.</div>
     </div>
 
-    <div style="margin:3rem auto 0;width:60px;border-top:1px solid rgba(255,255,255,0.15);"></div>
+    <div class="rule-tiny"></div>
 
-    <p style="margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;">Half on kickoff, half on delivery. Mutual NDA before we start.</p>
+    <p class="price-terms">Half on kickoff, half on delivery. Mutual NDA before we start.</p>
   </div>
 </section>
 
@@ -648,400 +640,6 @@ ds.forEach(d=>d.addEventListener('click',e=>{e.preventDefault();document.querySe
 
 let cs=0;
 addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key===' '||e.key==='ArrowRight'){e.preventDefault();cs=Math.min(cs+1,ss.length-1);ss[cs].scrollIntoView({behavior:'smooth'});}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();cs=Math.max(cs-1,0);ss[cs].scrollIntoView({behavior:'smooth'});}});
-</script>
-
-<!-- Dashboard styles -->
-<style>
-  #reviewDashboard { font-family: 'Inter', sans-serif; color: var(--t); }
-  .dash-grid { display: grid; gap: 1rem; grid-template-columns: repeat(4, 1fr); }
-  .dash-tile { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.4rem 1.5rem; }
-  .dash-tile .lbl { font-size: 0.65rem; color: var(--td); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .dash-tile .val { font-size: 2rem; font-weight: 900; line-height: 1; }
-  .dash-tile .sub { font-size: 0.78rem; color: var(--td); margin-top: 0.4rem; }
-  .dash-row { display: grid; gap: 1rem; margin-top: 1rem; }
-  .dash-row.split { grid-template-columns: 2fr 1fr; }
-  .dash-card { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; padding: 1.5rem; }
-  .dash-card h4 { font-size: 0.72rem; color: var(--td); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 1rem; }
-  .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin: 1.5rem 0 1rem; }
-  .pill-btn { padding: 0.4rem 0.9rem; border-radius: 999px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--td); font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: all 0.15s; user-select: none; }
-  .pill-btn:hover { color: var(--t); border-color: rgba(255,255,255,0.25); }
-  .pill-btn.active { background: linear-gradient(135deg, var(--a1), var(--a3)); color: #fff; border-color: transparent; }
-  .search-box { padding: 0.55rem 1rem; border-radius: 999px; background: var(--card); border: 1px solid rgba(255,255,255,0.1); color: var(--t); font-size: 0.85rem; min-width: 220px; outline: none; }
-  .search-box:focus { border-color: var(--a3); }
-  .review-feed { max-height: 600px; overflow-y: auto; padding-right: 0.4rem; display: flex; flex-direction: column; gap: 0.7rem; }
-  .review-feed::-webkit-scrollbar { width: 6px; } .review-feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
-  .rev-item { background: var(--card); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 1rem 1.2rem; }
-  .rev-meta { display: flex; gap: 0.6rem; align-items: center; font-size: 0.7rem; color: var(--td); margin-bottom: 0.5rem; flex-wrap: wrap; }
-  .rev-source { padding: 0.15rem 0.55rem; border-radius: 999px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-size: 0.6rem; }
-  .rev-source.TripAdvisor { background: rgba(0,206,201,0.15); color: var(--a3); }
-  .rev-source.Booking { background: rgba(108,92,231,0.15); color: var(--a2); }
-  .rev-source.Google { background: rgba(253,121,168,0.15); color: var(--a4); }
-  .rev-stars { color: var(--a5); letter-spacing: 1px; font-size: 0.85rem; }
-  .rev-stars .empty { color: rgba(255,255,255,0.15); }
-  .rev-title { font-size: 0.95rem; font-weight: 600; color: var(--t); margin-bottom: 0.3rem; }
-  .rev-text { font-size: 0.82rem; color: var(--td); line-height: 1.55; }
-  .topic-row { display: grid; grid-template-columns: 180px 1fr 60px 60px; gap: 0.6rem; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.82rem; }
-  .topic-row .name { color: var(--t); }
-  .topic-row .bar-wrap { background: rgba(255,255,255,0.05); border-radius: 4px; height: 8px; overflow: hidden; }
-  .topic-row .bar { height: 100%; border-radius: 4px; }
-  .topic-row .neg { color: var(--a4); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
-  .topic-row .pos { color: var(--a3); font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
-  @media (max-width: 768px) {
-    .dash-grid { grid-template-columns: repeat(2, 1fr); }
-    .dash-row.split { grid-template-columns: 1fr; }
-    .topic-row { grid-template-columns: 110px 1fr 40px 40px; font-size: 0.72rem; }
-  }
-</style>
-
-<!-- Dashboard libs -->
-<script src="https://cdn.jsdelivr.net/npm/apexcharts@3.49.1/dist/apexcharts.min.js"></script>
-
-<script type="module">
-import { h, render } from 'https://esm.sh/preact@10.19.3';
-import { useState, useEffect, useMemo, useRef } from 'https://esm.sh/preact@10.19.3/hooks';
-import htm from 'https://esm.sh/htm@3.1.1';
-const html = htm.bind(h);
-
-const SOURCES = ['TripAdvisor', 'Booking', 'Google'];
-const SOURCE_COLORS = { TripAdvisor: '#00cec9', Booking: '#a29bfe', Google: '#fd79a8' };
-
-function Stars({ n }) {
-  const filled = '★'.repeat(n);
-  const empty = '☆'.repeat(5 - n);
-  return html`<span class="rev-stars">${filled}<span class="empty">${empty}</span></span>`;
-}
-
-function TimeChart({ trend }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!ref.current || !window.ApexCharts || trend.length === 0) return;
-    const months = trend.map(d => d.month);
-    const series = SOURCES.map(s => ({
-      name: s,
-      data: trend.map(d => d[s] != null ? Number(d[s].toFixed(2)) : null),
-    }));
-    const chart = new ApexCharts(ref.current, {
-      chart: { type: 'line', height: 280, background: 'transparent', toolbar: { show: false }, animations: { speed: 400 } },
-      theme: { mode: 'dark' },
-      stroke: { curve: 'smooth', width: 2.5 },
-      markers: { size: 4 },
-      colors: SOURCES.map(s => SOURCE_COLORS[s]),
-      series,
-      xaxis: { categories: months, labels: { style: { colors: '#a0a0b8', fontSize: '11px' }, rotate: -45 }, tickAmount: Math.min(12, months.length) },
-      yaxis: { min: 0, max: 5, labels: { style: { colors: '#a0a0b8' }, formatter: v => v.toFixed(1) + '★' } },
-      grid: { borderColor: 'rgba(255,255,255,0.05)' },
-      legend: { position: 'top', labels: { colors: '#ededf4' } },
-      tooltip: { theme: 'dark' },
-    });
-    chart.render();
-    return () => chart.destroy();
-  }, [trend]);
-  return html`<div ref=${ref}></div>`;
-}
-
-function DonutChart({ title, data, palette }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!ref.current || !window.ApexCharts) return;
-    const labels = Object.keys(data);
-    const series = Object.values(data);
-    const chart = new ApexCharts(ref.current, {
-      chart: { type: 'donut', height: 220, background: 'transparent' },
-      theme: { mode: 'dark' },
-      labels, series,
-      colors: palette || ['#6c5ce7', '#a29bfe', '#00cec9', '#fd79a8', '#fdcb6e', '#818cf8', '#22d3ee'],
-      legend: { position: 'bottom', labels: { colors: '#ededf4' }, fontSize: '11px' },
-      dataLabels: { enabled: false },
-      stroke: { width: 0 },
-      plotOptions: { pie: { donut: { size: '65%', labels: { show: true, total: { show: true, label: 'Total', color: '#ededf4', formatter: () => series.reduce((a,b)=>a+b, 0) } } } } },
-    });
-    chart.render();
-    return () => chart.destroy();
-  }, [data]);
-  return html`
-    <div class="dash-card">
-      <h4>${title}</h4>
-      <div ref=${ref}></div>
-    </div>`;
-}
-
-function TopicsCard({ topics }) {
-  const sorted = [...topics].sort((a, b) => b.neg - a.neg);
-  const max = Math.max(...sorted.map(t => t.total), 1);
-  return html`
-    <div class="dash-card">
-      <h4>Topics surfaced (sorted by negative mentions)</h4>
-      <div>
-        ${sorted.map(t => {
-          const pct = (t.total / max) * 100;
-          return html`
-            <div class="topic-row">
-              <div class="name">${t.topic}</div>
-              <div class="bar-wrap"><div class="bar" style=${`width:${pct}%;background:linear-gradient(90deg,#fd79a8 ${100*t.neg/Math.max(t.total,1)}%, #00cec9 ${100*t.neg/Math.max(t.total,1)}%);`}></div></div>
-              <div class="neg">${t.neg}<span style="color:#a0a0b8;font-weight:400;font-size:0.7rem;"> neg</span></div>
-              <div class="pos">${t.pos}<span style="color:#a0a0b8;font-weight:400;font-size:0.7rem;"> pos</span></div>
-            </div>`;
-        })}
-      </div>
-    </div>`;
-}
-
-function ResponseCard({ resp }) {
-  if (!resp || !resp.median_days) return null;
-  const total = resp.with_response;
-  const within48 = resp.within_48h;
-  const within7 = resp.within_7d;
-  const within30 = resp.within_30d;
-  const over30 = resp.over_30d;
-  const pct = (n) => Math.round(100 * n / total);
-  return html`
-    <div class="dash-card">
-      <h4>Owner response audit (TripAdvisor sample)</h4>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
-        <div style="flex:1;min-width:120px;background:rgba(253,121,168,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #fd79a8;">
-          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Median response</div>
-          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.median_days} <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">days</span></div>
-        </div>
-        <div style="flex:1;min-width:120px;background:rgba(253,203,110,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #fdcb6e;">
-          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">P90 response</div>
-          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.p90_days} <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">days</span></div>
-        </div>
-        <div style="flex:1;min-width:120px;background:rgba(255,77,77,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #ff4d4d;">
-          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Slowest response</div>
-          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">${resp.p99_days}<span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;"> d</span></div>
-        </div>
-        <div style="flex:1;min-width:120px;background:rgba(0,206,201,0.08);padding:0.8rem 1rem;border-radius:10px;border-left:3px solid #00cec9;">
-          <div style="font-size:0.65rem;color:#a0a0b8;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Hilton standard</div>
-          <div style="font-size:1.5rem;font-weight:900;color:#ededf4;">48 <span style="font-size:0.75rem;color:#a0a0b8;font-weight:400;">hours</span></div>
-        </div>
-      </div>
-      <div style="background:rgba(255,255,255,0.03);border-radius:10px;padding:1rem;">
-        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
-          <div style="color:#a0a0b8;">Within 48 hours</div>
-          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within48)}%;background:#00cec9;border-radius:4px;`}></div></div>
-          <div style="color:#00cec9;font-weight:700;text-align:right;">${pct(within48)}%</div>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
-          <div style="color:#a0a0b8;">Within 7 days</div>
-          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within7)}%;background:#fdcb6e;border-radius:4px;`}></div></div>
-          <div style="color:#fdcb6e;font-weight:700;text-align:right;">${pct(within7)}%</div>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;margin-bottom:0.5rem;">
-          <div style="color:#a0a0b8;">Within 30 days</div>
-          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(within30)}%;background:#a29bfe;border-radius:4px;`}></div></div>
-          <div style="color:#a29bfe;font-weight:700;text-align:right;">${pct(within30)}%</div>
-        </div>
-        <div style="display:grid;grid-template-columns:120px 1fr 60px;gap:0.6rem;align-items:center;font-size:0.78rem;">
-          <div style="color:#a0a0b8;">Took over 30 days</div>
-          <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${pct(over30)}%;background:#fd79a8;border-radius:4px;`}></div></div>
-          <div style="color:#fd79a8;font-weight:700;text-align:right;">${pct(over30)}%</div>
-        </div>
-      </div>
-      <p style="margin-top:0.9rem;font-size:0.75rem;color:#a0a0b8;line-height:1.5;">${pct(within48)}% of reviews get a response within Hilton's 48-hour brand standard. Average response time is ${resp.avg_days} days. AI-drafted replies bring this to under an hour.</p>
-    </div>`;
-}
-
-function VelocityChart({ velocity }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (!ref.current || !window.ApexCharts || !velocity) return;
-    const months = velocity.map(d => d.month);
-    const chart = new ApexCharts(ref.current, {
-      chart: { type: 'bar', height: 250, background: 'transparent', stacked: true, toolbar: { show: false } },
-      theme: { mode: 'dark' },
-      colors: ['#fd79a8', 'rgba(255,255,255,0.1)'],
-      series: [
-        { name: 'Negative (1-2★)', data: velocity.map(d => d.negative) },
-        { name: 'Other reviews', data: velocity.map(d => d.total - d.negative) },
-      ],
-      xaxis: { categories: months, labels: { style: { colors: '#a0a0b8', fontSize: '10px' }, rotate: -45 }, tickAmount: Math.min(12, months.length) },
-      yaxis: { labels: { style: { colors: '#a0a0b8' } } },
-      grid: { borderColor: 'rgba(255,255,255,0.05)' },
-      legend: { position: 'top', labels: { colors: '#ededf4' } },
-      plotOptions: { bar: { columnWidth: '70%' } },
-      tooltip: { theme: 'dark' },
-    });
-    chart.render();
-    return () => chart.destroy();
-  }, [velocity]);
-  return html`
-    <div class="dash-card">
-      <h4>Negative review velocity over time</h4>
-      <div ref=${ref}></div>
-      <p style="margin-top:0.6rem;font-size:0.75rem;color:#a0a0b8;font-style:italic;line-height:1.5;">Pink bars show 1-2★ reviews per month. Useful for spotting whether things are getting better or worse — and which periods to investigate.</p>
-    </div>`;
-}
-
-function CountryCard({ countries }) {
-  if (!countries || Object.keys(countries).length === 0) return null;
-  const flag = (cc) => {
-    if (!cc || cc.length !== 2) return '🌍';
-    return String.fromCodePoint(...cc.toUpperCase().split('').map(c => 0x1F1A5 + c.charCodeAt(0)));
-  };
-  const NAME = { MA: 'Morocco', FR: 'France', SA: 'Saudi Arabia', NL: 'Netherlands', AE: 'UAE', GB: 'United Kingdom', US: 'United States', QA: 'Qatar', BE: 'Belgium', EG: 'Egypt', CH: 'Switzerland', DE: 'Germany', TR: 'Turkey', KW: 'Kuwait', CA: 'Canada', TN: 'Tunisia', IT: 'Italy', ES: 'Spain' };
-  const sorted = Object.entries(countries).sort((a,b) => b[1] - a[1]).slice(0, 12);
-  const max = sorted[0][1];
-  return html`
-    <div class="dash-card">
-      <h4>Top guest origin countries (Booking data)</h4>
-      <div style="display:flex;flex-direction:column;gap:0.45rem;">
-        ${sorted.map(([cc, n]) => html`
-          <div style="display:grid;grid-template-columns:40px 130px 1fr 50px;gap:0.6rem;align-items:center;font-size:0.83rem;">
-            <div style="font-size:1.2rem;text-align:center;">${flag(cc)}</div>
-            <div style="color:#ededf4;">${NAME[cc] || cc}</div>
-            <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:8px;overflow:hidden;"><div style=${`height:100%;width:${100*n/max}%;background:linear-gradient(90deg,#6c5ce7,#00cec9);border-radius:4px;`}></div></div>
-            <div style="color:#a0a0b8;text-align:right;">${n}</div>
-          </div>`)}
-      </div>
-      <p style="margin-top:0.9rem;font-size:0.75rem;color:#a0a0b8;line-height:1.5;">Determines which languages a guest-messaging assistant should support. AR/FR/EN cover ~75% of guest base.</p>
-    </div>`;
-}
-
-function CompetitorCard({ competitors }) {
-  if (!competitors || competitors.length === 0) return null;
-  const sorted = [...competitors].sort((a, b) => b.avg_rating - a.avg_rating);
-  const labels = {
-    'movenpick': 'Movenpick Casablanca',
-    'hyatt': 'Hyatt Regency Casablanca',
-    'sofitel': 'Sofitel Tour Blanche',
-    'fourseasons': 'Four Seasons Casablanca',
-    'HGI Sud (you)': 'HGI Casablanca Sud (you)',
-  };
-  return html`
-    <div class="dash-card">
-      <h4>Casablanca competitor benchmark</h4>
-      <div style="display:flex;flex-direction:column;gap:0.6rem;">
-        ${sorted.map(c => {
-          const isYou = c.name === 'HGI Sud (you)';
-          const lbl = labels[c.name] || c.name;
-          const barPct = (c.avg_rating / 5) * 100;
-          const barColor = isYou ? 'linear-gradient(90deg,#6c5ce7,#00cec9)' : 'rgba(255,255,255,0.18)';
-          const txtColor = isYou ? '#ededf4' : '#a0a0b8';
-          return html`
-            <div style=${`display:grid;grid-template-columns:200px 1fr 60px 80px;gap:0.6rem;align-items:center;padding:0.5rem 0;${isYou ? 'background:rgba(108,92,231,0.06);border-radius:8px;padding:0.5rem 0.7rem;' : ''}`}>
-              <div style=${`color:${txtColor};font-weight:${isYou ? 700 : 500};font-size:0.85rem;`}>${lbl}</div>
-              <div style="background:rgba(255,255,255,0.05);border-radius:4px;height:10px;overflow:hidden;"><div style=${`height:100%;width:${barPct}%;background:${barColor};border-radius:4px;`}></div></div>
-              <div style=${`color:#fdcb6e;font-weight:700;font-size:0.85rem;text-align:right;`}>${c.avg_rating}<span style="color:#a0a0b8;font-size:0.7rem;font-weight:400;">/5</span></div>
-              <div style="color:#a0a0b8;font-size:0.72rem;text-align:right;">${c.total_reviews.toLocaleString()} rev</div>
-            </div>`;
-        })}
-      </div>
-      <p style="margin-top:0.9rem;font-size:0.7rem;color:#a0a0b8;font-style:italic;line-height:1.5;">Competitor ratings derived from a TripAdvisor sample. Total review counts are accurate. Use for directional comparison only.</p>
-    </div>`;
-}
-
-function Dashboard() {
-  const [data, setData] = useState(null);
-  const [competitors, setCompetitors] = useState(null);
-  const [filter, setFilter] = useState({ source: 'All', rating: 'All', q: '' });
-
-  useEffect(() => {
-    fetch('./dashboard-data.json').then(r => r.json()).then(setData);
-    fetch('./competitors.json').then(r => r.json()).then(setCompetitors).catch(() => {});
-  }, []);
-
-  const filtered = useMemo(() => {
-    if (!data) return [];
-    const q = filter.q.toLowerCase();
-    return data.reviews.filter(r => {
-      if (filter.source !== 'All' && r.source !== filter.source) return false;
-      if (filter.rating !== 'All' && r.rating !== Number(filter.rating)) return false;
-      if (q && !((r.title||'') + ' ' + (r.text||'') + ' ' + (r.reviewer||'')).toLowerCase().includes(q)) return false;
-      return true;
-    });
-  }, [data, filter]);
-
-  if (!data) return html`<div style="color:#a0a0b8;text-align:center;padding:3rem;">Loading reviews…</div>`;
-  const a = data.aggregates;
-
-  return html`
-    <div>
-      <div class="dash-grid">
-        <div class="dash-tile">
-          <div class="lbl">Total reviews</div>
-          <div class="val g1" style="background:linear-gradient(135deg,#6c5ce7,#00cec9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${a.total}</div>
-          <div class="sub">across 3 platforms</div>
-        </div>
-        <div class="dash-tile">
-          <div class="lbl">Average rating</div>
-          <div class="val" style="color:#fdcb6e;">${a.avg_rating}<span style="font-size:1rem;color:#a0a0b8;"> / 5</span></div>
-          <div class="sub">unweighted across all sources</div>
-        </div>
-        <div class="dash-tile">
-          <div class="lbl">Negative (1–2★)</div>
-          <div class="val" style="color:#fd79a8;">${a.negative_pct}%</div>
-          <div class="sub">${Math.round(a.negative_pct * a.total / 100)} reviews</div>
-        </div>
-        <div class="dash-tile">
-          <div class="lbl">Source mix</div>
-          <div style="display:flex;flex-direction:column;gap:0.3rem;margin-top:0.3rem;">
-            ${SOURCES.map(s => html`
-              <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
-                <span style="color:${SOURCE_COLORS[s]};font-weight:600;">${s}</span>
-                <span style="color:#ededf4;font-weight:700;">${a.by_source[s]||0}</span>
-              </div>`)}
-          </div>
-        </div>
-      </div>
-
-      <div class="dash-row split">
-        <div class="dash-card">
-          <h4>Rating trend over time</h4>
-          <${TimeChart} trend=${a.trend} />
-        </div>
-        <${DonutChart} title="Trip type" data=${a.by_trip_type} />
-      </div>
-
-      <div class="dash-row split">
-        <${TopicsCard} topics=${a.topics} />
-        <${DonutChart} title="Language of original review" data=${a.by_lang} palette=${['#6c5ce7','#00cec9','#fd79a8','#fdcb6e','#a29bfe','#818cf8','#22d3ee']} />
-      </div>
-
-      ${a.velocity ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${VelocityChart} velocity=${a.velocity} /></div>` : ''}
-
-      <div class="dash-row split">
-        ${a.response ? html`<${ResponseCard} resp=${a.response} />` : ''}
-        ${a.by_country ? html`<${CountryCard} countries=${a.by_country} />` : ''}
-      </div>
-
-      ${competitors ? html`<div class="dash-row" style="grid-template-columns:1fr;"><${CompetitorCard} competitors=${competitors} /></div>` : ''}
-
-      <div class="dash-card" style="margin-top:1rem;">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
-          <h4 style="margin-bottom:0;">Filterable review feed</h4>
-          <div style="font-size:0.8rem;color:#a0a0b8;">${filtered.length} of ${a.total} reviews shown</div>
-        </div>
-        <div class="filter-bar">
-          ${['All', ...SOURCES].map(s => html`
-            <button class=${'pill-btn ' + (filter.source === s ? 'active' : '')} onClick=${() => setFilter({...filter, source: s})}>${s}</button>`)}
-          <span style="opacity:0.3;">|</span>
-          ${['All', '1', '2', '3', '4', '5'].map(r => html`
-            <button class=${'pill-btn ' + (String(filter.rating) === r ? 'active' : '')} onClick=${() => setFilter({...filter, rating: r})}>${r === 'All' ? 'All ★' : r + '★'}</button>`)}
-          <input class="search-box" type="text" placeholder="Search reviews…" value=${filter.q} onInput=${e => setFilter({...filter, q: e.target.value})} />
-        </div>
-        <div class="review-feed">
-          ${filtered.length === 0 ? html`<div style="text-align:center;color:#a0a0b8;padding:2rem;">No reviews match these filters</div>` :
-            filtered.slice(0, 100).map(r => html`
-              <div class="rev-item">
-                <div class="rev-meta">
-                  <span class=${'rev-source ' + r.source}>${r.source}</span>
-                  <${Stars} n=${r.rating} />
-                  ${r.date ? html`<span>${r.date}</span>` : ''}
-                  ${r.trip_type ? html`<span>· ${r.trip_type}</span>` : ''}
-                  ${r.lang && r.lang !== 'en' ? html`<span>· ${r.lang}</span>` : ''}
-                  ${r.country ? html`<span>· ${r.country}</span>` : ''}
-                  ${r.reviewer ? html`<span style="margin-left:auto;">${r.reviewer}</span>` : ''}
-                </div>
-                ${r.title ? html`<div class="rev-title">${r.title}</div>` : ''}
-                <div class="rev-text">${r.text}</div>
-              </div>`)}
-          ${filtered.length > 100 ? html`<div style="text-align:center;color:#a0a0b8;padding:1rem;font-size:0.78rem;">Showing first 100 of ${filtered.length} matches. Refine filters to narrow.</div>` : ''}
-        </div>
-      </div>
-    </div>`;
-}
-
-render(html`<${Dashboard} />`, document.getElementById('reviewDashboard'));
 </script>
 
 </body>
