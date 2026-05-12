@@ -188,40 +188,6 @@
   .tier-card-full .tier-list li::before{background:var(--a2);}
   .tier-list li strong{color:var(--t);font-weight:600;}
 
-  /* At-a-glance summary table */
-  .glance{
-    margin-top:1.6rem;
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:14px;
-    overflow:hidden;
-  }
-  .glance-row{
-    display:grid;grid-template-columns:1.6fr 1fr 1fr;
-    border-bottom:1px solid rgba(255,255,255,0.04);
-  }
-  .glance-row:last-child{border-bottom:0;}
-  .glance-row.glance-head{
-    background:rgba(255,255,255,0.02);
-    border-bottom:1px solid rgba(255,255,255,0.08);
-  }
-  .glance-cell{
-    padding:0.95rem 1.2rem;
-    font-size:0.88rem;color:var(--td);
-    border-right:1px solid rgba(255,255,255,0.04);
-  }
-  .glance-cell:last-child{border-right:0;}
-  .glance-row.glance-head .glance-cell{
-    font-size:0.65rem;font-weight:700;
-    letter-spacing:2px;text-transform:uppercase;
-    color:var(--td);
-  }
-  .glance-row.glance-head .glance-cell:not(:first-child){text-align:center;color:var(--t);}
-  .glance-row:not(.glance-head) .glance-cell:first-child{color:var(--t);font-weight:500;}
-  .glance-row:not(.glance-head) .glance-cell:not(:first-child){text-align:center;color:var(--t);}
-  @media(max-width:560px){
-    .glance-row{grid-template-columns:1.4fr 0.8fr 0.8fr;}
-    .glance-cell{padding:0.75rem 0.8rem;font-size:0.82rem;}
-  }
 
   .wk-cta-btn{
     display:inline-flex;align-items:center;gap:0.7rem;
@@ -503,49 +469,6 @@
           <li><strong>More thorough findings:</strong> the long tail of smaller, less-obvious automations a fast pass misses</li>
           <li><strong>Sequenced output:</strong> a paced implementation roadmap layered over the deliverables</li>
         </ul>
-      </div>
-    </div>
-
-    <div class="glance">
-      <div class="glance-row glance-head">
-        <div class="glance-cell">At a glance</div>
-        <div class="glance-cell">Lean</div>
-        <div class="glance-cell">Full</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">KPI + labor analysis</div>
-        <div class="glance-cell">✓</div>
-        <div class="glance-cell">✓</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">Process maps + TO-BE designs</div>
-        <div class="glance-cell">✓</div>
-        <div class="glance-cell">✓</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">ROI sizing on every opportunity</div>
-        <div class="glance-cell">✓</div>
-        <div class="glance-cell">✓</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">Time spent</div>
-        <div class="glance-cell">Single pass</div>
-        <div class="glance-cell">Double</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">Operational coverage</div>
-        <div class="glance-cell">Core</div>
-        <div class="glance-cell">Wider</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">Opportunities surfaced</div>
-        <div class="glance-cell">Headline</div>
-        <div class="glance-cell">+ long tail</div>
-      </div>
-      <div class="glance-row">
-        <div class="glance-cell">Implementation roadmap</div>
-        <div class="glance-cell">Not included</div>
-        <div class="glance-cell">Phased plan with priorities</div>
       </div>
     </div>
 
