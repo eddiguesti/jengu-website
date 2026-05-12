@@ -121,6 +121,116 @@
   .rule-tiny{margin:2.8rem auto 0;width:60px;border-top:1px solid rgba(255,255,255,0.15);}
   .price-terms{margin-top:1.2rem;font-size:0.85rem;color:var(--td);text-align:center;}
 
+  /* Shared 'common to both tiers' note */
+  .invest-common{
+    margin:2.8rem auto 0;
+    max-width:760px;
+    padding:1.4rem 1.7rem;
+    background:rgba(108,92,231,0.04);
+    border:1px solid rgba(108,92,231,0.18);
+    border-radius:12px;
+  }
+  .invest-common-eye{
+    font-size:0.65rem;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;
+    color:var(--a2);
+    margin-bottom:0.55rem;
+  }
+  .invest-common p{
+    font-size:0.92rem;color:var(--td);
+    line-height:1.7;margin:0;
+  }
+
+  /* Two-tier grid */
+  .tier-grid{
+    margin-top:1.6rem;
+    display:grid;gap:1.2rem;
+    grid-template-columns:repeat(2,1fr);
+  }
+  @media(max-width:760px){.tier-grid{grid-template-columns:1fr;}}
+  .tier-card{
+    background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.005));
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
+    padding:1.8rem 1.7rem;
+    display:flex;flex-direction:column;
+  }
+  .tier-card-full{
+    border-color:rgba(108,92,231,0.3);
+    background:linear-gradient(180deg,rgba(108,92,231,0.06),rgba(108,92,231,0.01));
+  }
+  .tier-eye{
+    font-size:0.65rem;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;
+    color:var(--a3);margin-bottom:0.75rem;
+  }
+  .tier-card-full .tier-eye{color:var(--a2);}
+  .tier-price{
+    font-size:2.2rem;font-weight:800;
+    color:var(--t);line-height:1;
+    letter-spacing:-0.03em;
+    margin-bottom:0.9rem;
+    font-variant-numeric:tabular-nums;
+  }
+  .tier-tagline{
+    font-size:0.92rem;color:var(--td);
+    line-height:1.55;margin-bottom:1.4rem;
+  }
+  .tier-list{
+    list-style:none;padding:0;margin:0;
+    display:flex;flex-direction:column;gap:0.7rem;
+  }
+  .tier-list li{
+    font-size:0.88rem;color:var(--td);
+    line-height:1.55;
+    padding-left:1.2rem;
+    position:relative;
+  }
+  .tier-list li::before{
+    content:'';position:absolute;
+    left:0;top:0.55em;
+    width:6px;height:6px;
+    border-radius:50%;
+    background:var(--a3);
+  }
+  .tier-card-full .tier-list li::before{background:var(--a2);}
+  .tier-list li strong{color:var(--t);font-weight:600;}
+
+  /* At-a-glance summary table */
+  .glance{
+    margin-top:1.6rem;
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .glance-row{
+    display:grid;grid-template-columns:1.6fr 1fr 1fr;
+    border-bottom:1px solid rgba(255,255,255,0.04);
+  }
+  .glance-row:last-child{border-bottom:0;}
+  .glance-row.glance-head{
+    background:rgba(255,255,255,0.02);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .glance-cell{
+    padding:0.95rem 1.2rem;
+    font-size:0.88rem;color:var(--td);
+    border-right:1px solid rgba(255,255,255,0.04);
+  }
+  .glance-cell:last-child{border-right:0;}
+  .glance-row.glance-head .glance-cell{
+    font-size:0.65rem;font-weight:700;
+    letter-spacing:2px;text-transform:uppercase;
+    color:var(--td);
+  }
+  .glance-row.glance-head .glance-cell:not(:first-child){text-align:center;color:var(--t);}
+  .glance-row:not(.glance-head) .glance-cell:first-child{color:var(--t);font-weight:500;}
+  .glance-row:not(.glance-head) .glance-cell:not(:first-child){text-align:center;color:var(--t);}
+  @media(max-width:560px){
+    .glance-row{grid-template-columns:1.4fr 0.8fr 0.8fr;}
+    .glance-cell{padding:0.75rem 0.8rem;font-size:0.82rem;}
+  }
+
   .wk-cta-btn{
     display:inline-flex;align-items:center;gap:0.7rem;
     padding:1.05rem 2rem;
@@ -371,8 +481,85 @@
     <h2>The assessment,<br><span class="g3">scoped to fit.</span></h2>
 
     <div class="price-block">
-      <div class="price-val">£5k – £12k</div>
-      <div class="price-sub">Final number depends on depth, departments covered, and budget.</div>
+      <div class="price-val">£5k – £10k</div>
+      <div class="price-sub">Two tiers. Same approach. The difference is how much time we spend on the property.</div>
+    </div>
+
+    <div class="invest-common">
+      <div class="invest-common-eye">Anchored to your KPIs</div>
+      <p>We start by mapping to your existing KPIs and reporting cadence – RevPAR, GOPPAR, complaint volume, response time, whatever you already track. The assessment speaks your operating language, not ours, and every opportunity we surface is anchored to a metric you're already measuring.</p>
+    </div>
+
+    <div class="tier-grid">
+      <div class="tier-card">
+        <div class="tier-eye">Lean</div>
+        <div class="tier-price">£5k</div>
+        <p class="tier-tagline">The fast pass. Covers the operation broadly and surfaces the headline automation opportunities.</p>
+        <ul class="tier-list">
+          <li><strong>AS-IS process maps</strong> across the core operational processes – Front Office, Housekeeping, F&amp;B, Reservations, back-office essentials</li>
+          <li><strong>TO-BE designs</strong> for the surfaced opportunities</li>
+          <li><strong>KPI analysis</strong> – what you currently measure, where the gaps are, and which KPIs each automation moves</li>
+          <li><strong>Labour cost analysis</strong> – where hours go and where automation reclaims them</li>
+          <li><strong>ROI sizing</strong> on every opportunity, expressed against your KPIs</li>
+          <li>HoD interviews, gap analysis, executive readout. All remote.</li>
+        </ul>
+      </div>
+
+      <div class="tier-card tier-card-full">
+        <div class="tier-eye">Full</div>
+        <div class="tier-price">£10k</div>
+        <p class="tier-tagline">Same deliverables. Double the time, deeper coverage. We dig into the operation rather than skim it.</p>
+        <ul class="tier-list">
+          <li>Everything in Lean, with <strong>twice the time on the property</strong></li>
+          <li><strong>Deeper interviews</strong> – more sessions with HoDs to dig into edge cases and corner workflows</li>
+          <li><strong>Wider process coverage</strong> – same approach, applied beyond the core into the rest of the operation</li>
+          <li><strong>More thorough findings</strong> – the long tail of smaller, less-obvious automations a fast pass misses</li>
+          <li><strong>Sequenced output</strong> – a paced implementation roadmap layered over the deliverables</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="glance">
+      <div class="glance-row glance-head">
+        <div class="glance-cell">At a glance</div>
+        <div class="glance-cell">Lean</div>
+        <div class="glance-cell">Full</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">KPI + labour analysis</div>
+        <div class="glance-cell">✓</div>
+        <div class="glance-cell">✓</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">Process maps + TO-BE designs</div>
+        <div class="glance-cell">✓</div>
+        <div class="glance-cell">✓</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">ROI sizing on every opportunity</div>
+        <div class="glance-cell">✓</div>
+        <div class="glance-cell">✓</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">Time spent</div>
+        <div class="glance-cell">Single pass</div>
+        <div class="glance-cell">Double</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">Operational coverage</div>
+        <div class="glance-cell">Core</div>
+        <div class="glance-cell">Wider</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">Opportunities surfaced</div>
+        <div class="glance-cell">Headline</div>
+        <div class="glance-cell">+ long tail</div>
+      </div>
+      <div class="glance-row">
+        <div class="glance-cell">Implementation roadmap</div>
+        <div class="glance-cell">–</div>
+        <div class="glance-cell">Sequenced</div>
+      </div>
     </div>
 
     <div class="rule-tiny"></div>
