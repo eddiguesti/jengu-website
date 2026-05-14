@@ -261,9 +261,92 @@
 
   canvas#p{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
 
+  /* ───────── Mobile polish ───────── */
   @media(max-width:768px){
-    .s{padding:4.5rem 1.5rem;}
+    .s{padding:5rem 1.25rem 4rem;}
     nav{padding:0.5rem 1rem;gap:1rem;}
+    nav .logo{font-size:1rem;}
+    .dots{gap:5px;}
+    .dots a{width:6px;height:6px;}
+
+    /* Headings - tighter on phone */
+    .tag{font-size:0.6rem;letter-spacing:3px;margin-bottom:0.8rem;}
+    h1{font-size:clamp(2.4rem,11vw,3.4rem);margin-bottom:1.1rem;line-height:1.08;}
+    h2{font-size:clamp(1.9rem,7.5vw,2.6rem);margin-bottom:1.1rem;line-height:1.12;}
+    .sub{font-size:1rem;line-height:1.65;}
+
+    /* Hero sub override - hero is set inline to 1.25rem; bring it down on mobile */
+    section#s1 .sub{font-size:1.05rem !important;}
+
+    /* Ragged-right on mobile reads better than justify on narrow columns */
+    .sub, .ex-body, .tier-tagline, .tier-list li,
+    .phase-lead, .phase-body, .callout-body{
+      text-align:left;
+      hyphens:none;-webkit-hyphens:none;
+    }
+
+    /* Examples cards - tighter padding, smaller titles */
+    .examples{gap:0.8rem;margin-top:1.8rem;}
+    .ex{padding:1.2rem 1.3rem;}
+    .ex .ex-title{font-size:0.98rem;}
+    .ex .ex-body{font-size:0.86rem;line-height:1.6;}
+
+    /* Tier cards */
+    .tier-grid{gap:1rem;margin-top:2.2rem;}
+    .tier-card{padding:1.5rem 1.4rem;}
+    .tier-price{font-size:1.9rem;margin-bottom:0.7rem;}
+    .tier-tagline{font-size:0.88rem;margin-bottom:1.1rem;}
+    .tier-list li{font-size:0.85rem;line-height:1.55;}
+
+    /* Investment block */
+    .price-block{margin-top:2rem;}
+    .price-sub{font-size:0.92rem;line-height:1.55;padding:0 0.5rem;}
+    .rule-tiny{margin-top:2rem;}
+
+    /* Phase timeline already collapses at 700px; trim phase paddings */
+    .phase-row{padding:1.5rem 0 1.7rem;}
+    .phase-name{font-size:1.7rem;margin-bottom:0.9rem;}
+    .phase-lead{font-size:0.98rem;margin-bottom:0.8rem;}
+    .phase-body{font-size:0.9rem;line-height:1.65;}
+    .phase-out{font-size:0.92rem;margin-top:1.1rem;}
+
+    /* Callout */
+    .callout{padding:1.1rem 1.3rem;margin-top:1.8rem;}
+    .callout-body{font-size:0.88rem;line-height:1.65;}
+
+    /* Social Authority Bot - flow + cards + stats */
+    .flow{gap:0.6rem;margin-top:2rem;}
+    .flow-s{
+      width:100%;text-align:center;
+      padding:0.7rem 1rem;font-size:0.85rem;
+    }
+    .flow-a{
+      width:100%;text-align:center;
+      transform:none;line-height:1;
+      font-size:1.1rem;color:rgba(0,206,201,0.55);
+    }
+    .grid3{gap:0.8rem;margin-top:1.8rem;}
+    .card{padding:1.4rem 1.3rem;}
+    .card h3{font-size:1rem;margin-bottom:0.55rem;}
+    .card p{font-size:0.88rem;line-height:1.6;}
+    .bullets{margin-top:1.8rem;gap:0.85rem;}
+    .bullet{font-size:0.9rem;line-height:1.55;gap:0.85rem;}
+    .bullet .dot{margin-top:7px;}
+
+    /* Stat tiles - single column on phones */
+    .stat-row{gap:0.7rem;margin-top:1.6rem;flex-direction:column;}
+    .stat-row .stat{min-width:0;padding:1.2rem 1rem;}
+    .stat-row .stat-val{font-size:1.6rem;}
+
+    /* CTA button slightly tighter */
+    .wk-cta-btn{padding:0.95rem 1.6rem;font-size:0.9rem;}
+  }
+
+  @media(max-width:420px){
+    .s{padding:4.5rem 1.1rem 3.5rem;}
+    h1{font-size:clamp(2.1rem,9vw,2.8rem);}
+    h2{font-size:clamp(1.7rem,7vw,2.2rem);}
+    .price-val{font-size:clamp(3.4rem,14vw,4.2rem);}
   }
 
   /* Editorial three-phase timeline */
