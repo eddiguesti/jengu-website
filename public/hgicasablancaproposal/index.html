@@ -189,6 +189,53 @@
   .tier-list li strong{color:var(--t);font-weight:600;}
 
 
+  /* Social Authority Bot section */
+  .flow{display:flex;align-items:center;gap:0.8rem;margin-top:2.5rem;flex-wrap:wrap;}
+  .flow-s{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:10px;
+    padding:0.8rem 1.2rem;font-size:0.85rem;color:var(--t);font-weight:500;
+  }
+  .flow-a{color:var(--a3);font-weight:700;font-size:1rem;}
+  .grid3{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:1.2rem;margin-top:2.2rem;
+  }
+  .card{
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;
+    padding:1.8rem 1.7rem;
+  }
+  .card h3{font-size:1.05rem;font-weight:700;margin-bottom:0.6rem;color:var(--t);line-height:1.35;}
+  .card p{font-size:0.9rem;color:var(--td);line-height:1.6;}
+  .bullets{margin-top:2rem;display:flex;flex-direction:column;gap:1rem;}
+  .bullet{
+    display:flex;align-items:flex-start;gap:1rem;
+    font-size:0.95rem;line-height:1.55;color:var(--t);
+  }
+  .bullet .dot{
+    flex-shrink:0;width:8px;height:8px;border-radius:50%;margin-top:8px;
+    background:var(--a1);box-shadow:0 0 10px rgba(108,92,231,0.4);
+  }
+  .stat-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.8rem;}
+  .stat-row .stat{
+    flex:1;min-width:220px;
+    background:var(--card);border:1px solid rgba(255,255,255,0.06);
+    border-radius:14px;padding:1.5rem;text-align:center;
+  }
+  .stat-row .stat-eye{
+    font-size:0.6rem;font-weight:700;letter-spacing:2px;
+    text-transform:uppercase;color:var(--td);margin-bottom:0.5rem;
+  }
+  .stat-row .stat-val{font-size:1.8rem;font-weight:900;color:var(--t);}
+  .stat-row .stat-val.gradient{
+    background:linear-gradient(135deg,var(--a1),var(--a3));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .stat-row .stat-sub{font-size:0.72rem;color:var(--td);margin-top:0.3rem;}
+  @media(max-width:768px){
+    .flow{flex-direction:column;align-items:flex-start;}
+    .flow-a{transform:rotate(90deg);}
+  }
+
   .wk-cta-btn{
     display:inline-flex;align-items:center;gap:0.7rem;
     padding:1.05rem 2rem;
@@ -287,6 +334,7 @@
     <a href="#s4"></a>
     <a href="#s5"></a>
     <a href="#s6"></a>
+    <a href="#s7"></a>
   </div>
 </nav>
 
@@ -381,13 +429,75 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 5 — HOW IT GOES              -->
+<!-- 5 — SOCIAL AUTHORITY BOT     -->
 <!-- ════════════════════════════ -->
 <section class="s" id="s5">
+  <div class="orb" style="width:500px;height:500px;background:var(--a1);bottom:-150px;right:-150px;"></div>
+  <div class="s-in">
+    <div class="tag">04 – Social Authority Bot</div>
+    <h2>Get AI to<br><span class="g1">Recommend You</span></h2>
+    <p class="sub">When someone asks ChatGPT "where should I stay in Casablanca for business?", it pulls the answer from Reddit, Quora, and travel forums. If you're not showing up in those conversations, you basically don't exist to AI.</p>
+
+    <div class="flow">
+      <div class="flow-s">Scan Reddit, Quora, travel forums</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">AI writes authentic replies</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Post from multiple accounts</div>
+      <div class="flow-a">→</div>
+      <div class="flow-s">Monthly report</div>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <h3>Doesn't Sound Like a Bot</h3>
+        <p>Every reply reads like a real person sharing a genuine recommendation. Different accounts, different writing styles, natural language. It never sounds like a brand talking.</p>
+      </div>
+      <div class="card">
+        <h3>Completely Hands-Off</h3>
+        <p>We handle all of it. You just get a monthly report. What got posted, where, and how it performed. No accounts to manage, nothing to write.</p>
+      </div>
+      <div class="card">
+        <h3>Push Down the Negatives</h3>
+        <p>Old review threads about check-in waits or A/C noise? More positive, genuine mentions push them further down the page. AI surfaces the good stuff first.</p>
+      </div>
+    </div>
+
+    <div class="bullets">
+      <div class="bullet"><div class="dot" style="background:var(--a1);"></div><div><strong>Target keywords:</strong> Casablanca business hotel, Hilton Garden Inn Casablanca, Casa Anfa hotels, Casablanca airport hotel, Morocco business travel</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a3);"></div><div><strong>About 5 posts per week</strong> across Reddit, Quora, TripAdvisor forums, FlyerTalk, Lonely Planet, business-traveller communities</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a5);"></div><div><strong>2-month account warm-up at the start.</strong> Reddit and Quora flag fresh accounts as spam, so the first two months are spent building age, karma and topical history. Public posting on your behalf starts month 3.</div></div>
+      <div class="bullet"><div class="dot" style="background:var(--a4);"></div><div><strong>Keep it running as long as you want.</strong> Builds authority over time, like word-of-mouth but at scale. Cancel anytime.</div></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-eye">Monthly</div>
+        <div class="stat-val gradient">£2,000</div>
+        <div class="stat-sub">Per month, cancel anytime</div>
+      </div>
+      <div class="stat">
+        <div class="stat-eye">Posts</div>
+        <div class="stat-val">~20</div>
+        <div class="stat-sub">Per month, once warm-up is complete</div>
+      </div>
+      <div class="stat">
+        <div class="stat-eye">Reporting</div>
+        <div class="stat-val">Monthly</div>
+        <div class="stat-sub">Posts, platforms, engagement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ -->
+<!-- 6 — HOW IT GOES              -->
+<!-- ════════════════════════════ -->
+<section class="s" id="s6">
   <div class="orb" style="width:600px;height:600px;background:var(--a3);top:-200px;left:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a1);bottom:-150px;right:-100px;"></div>
   <div class="s-in">
-    <div class="tag">04 – How It Goes</div>
+    <div class="tag">05 – How It Goes</div>
     <h2>Three movements.<br><span class="g3">No black box.</span></h2>
     <p class="sub">You're involved in every step that matters. We assess. You decide. Then we build.</p>
 
@@ -429,13 +539,13 @@
 </section>
 
 <!-- ════════════════════════════ -->
-<!-- 6 — INVESTMENT               -->
+<!-- 7 — INVESTMENT               -->
 <!-- ════════════════════════════ -->
-<section class="s" id="s6">
+<section class="s" id="s7">
   <div class="orb" style="width:600px;height:600px;background:var(--a5);top:-200px;right:-200px;"></div>
   <div class="orb" style="width:400px;height:400px;background:var(--a4);bottom:-100px;left:-100px;"></div>
   <div class="s-in">
-    <div class="tag">05 – Investment</div>
+    <div class="tag">06 – Investment</div>
     <h2>The assessment,<br><span class="g3">scoped to fit.</span></h2>
 
     <div class="price-block">
