@@ -881,3 +881,20 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* ---------- metric sources ---------- */
+.v2-metric__src {
+  display: inline-block;
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 3px;
+  transition: color 0.3s;
+}
+.v2-metric__src:hover {
+  color: var(--fg);
+}

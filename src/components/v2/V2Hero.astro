@@ -8,13 +8,58 @@
  * The brand still render is the poster until WebGL is ready (or if absent).
  */
 const stats = [
-  { n: '30%', l: 'more direct bookings' },
-  { n: '40h+', l: 'saved every week' },
-  { n: '100+', l: 'languages, 24/7' },
+  { n: '76%', l: 'of travellers prefer their own language' },
+  { n: '65%', l: 'of hotels cannot fill open roles' },
+  { n: '7×', l: 'likelier to win an enquiry answered in an hour' },
 ];
 ---
 
 <section class="v2-hero" data-theme="dark" id="top">
+  <!-- Phones: the original full-screen video hero, restyled. The 3D stage is desktop only. -->
+  <div class="v2-hero-m">
+    <div class="v2-hero-m__stage">
+      <video
+        class="v2-hero-m__video"
+        muted
+        playsinline
+        loop
+        autoplay
+        preload="metadata"
+        poster="/images/mobile-hero-poster.jpg"
+        src="/videos/mobile-hero.mp4"
+        aria-hidden="true"
+      ></video>
+      <div class="v2-hero-m__grad" aria-hidden="true"></div>
+      <div class="v2-hero-m__content">
+        <p class="v2-eyebrow" data-reveal data-hero>AI agents for hotels, campsites and holiday parks</p>
+        <h1 class="v2-h1 v2-hero-m__title" data-split data-hero>Hospitality<br />is human.<br />The <em>admin</em> isn’t.</h1>
+        <p class="v2-hero-m__lead" data-reveal data-hero>
+          Agents that answer your guests, take bookings and keep the admin moving, day and night, in the guest’s
+          language.
+        </p>
+        <div class="v2-hero-m__cta" data-reveal data-hero>
+          <button class="v2-btn v2-btn--accent" onclick="openBookingModal()">
+            <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+            <span class="v2-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+            </span>
+          </button>
+          <a href="/calculator" class="v2-link">Work out what it would save you <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="v2-hero-m__stats">
+      {
+        stats.map((s) => (
+          <div class="v2-stat" data-reveal>
+            <b>{s.n}</b>
+            <span>{s.l}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
   <div class="v2-hero__pin">
     <div class="v2-hero__glow" aria-hidden="true"></div>
 
@@ -23,25 +68,25 @@ const stats = [
     </div>
 
     <div class="v2-hero__copy">
-      <p class="v2-eyebrow v2-hero__eyebrow" data-reveal data-hero>AI agents for hotels, resorts &amp; holiday parks</p>
+      <p class="v2-eyebrow v2-hero__eyebrow" data-reveal data-hero>AI agents for hotels, campsites and holiday parks</p>
 
       <h1 class="v2-h1 v2-hero__title" data-split data-hero>
         Hospitality<br />is human.<br />The <em>admin</em> isn't.
       </h1>
 
       <p class="v2-lead v2-hero__lead" data-reveal data-hero>
-        Custom AI agents that answer guests, confirm bookings and optimise rates around the clock, in
-        100+ languages, inside the systems you already run.
+        We build AI agents that answer your guests, take bookings and keep the admin moving, day and
+        night, in whatever language the guest writes in. They plug into the systems you already use.
       </p>
 
       <div class="v2-hero__cta" data-reveal data-hero>
         <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
-          <span class="v2-btn__label"><span>Book a free consultation</span><span>Book a free consultation</span></span>
+          <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
           <span class="v2-btn__icon" aria-hidden="true">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
           </span>
         </button>
-        <a href="/calculator" class="v2-link">See your ROI <span aria-hidden="true">→</span></a>
+        <a href="/calculator" class="v2-link">Work out what it would save you <span aria-hidden="true">→</span></a>
       </div>
     </div>
 
@@ -86,6 +131,8 @@ const stats = [
 
   async function boot(): Promise<void> {
     if (!host || !canvas) return;
+    // Phones use the video hero and never boot the 3D stage.
+    if (window.matchMedia('(max-width: 900px)').matches) return;
     if (!hasWebGL()) return;
     try {
       const { mountRobot } = await import('../../scripts/v2/robot/index');

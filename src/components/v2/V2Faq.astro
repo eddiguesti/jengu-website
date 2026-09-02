@@ -1,11 +1,29 @@
 ---
 const faqs = [
-  { q: 'What exactly does Jengu do?', a: 'We build and run AI agents for tourism and hospitality. They handle guest communication across chat, email, SMS, WhatsApp and phone, manage bookings and admin, and watch your operation, flagging demand swings, likely cancellations and churn before they cost you money.' },
-  { q: 'How long does setup take?', a: 'It depends on scope. A simple AI chatbot goes live in 2–3 weeks, an email automation system in 3–4, custom software in 6–12, and a complete automation suite in 8–16. Most clients start seeing time savings within the first month.' },
-  { q: 'Do AI agents replace our staff?', a: 'No. They augment your team. Agents take the repetitive, time-consuming work while your people focus on complex problem-solving, personal guest experiences and the decisions that need human judgement.' },
-  { q: 'What if the AI gets something wrong?', a: 'Every agent ships with confidence thresholds, clear boundaries set during setup, human oversight on critical decisions, and continuous learning from corrections, plus extensive testing before it ever goes live.' },
-  { q: 'What systems do you integrate with?', a: 'Virtually anything with an API: PMS platforms (Opera, Mews, Cloudbeds), booking engines and OTAs (Booking.com, Expedia, Airbnb), CRMs, payment processors and channel managers. Where there is no public API, we build a custom connector.' },
-  { q: 'Is our guest data secure?', a: 'Security is the priority: AES-256 encryption, GDPR compliance, secure API connections, role-based access and regular audits. Guest data is processed to international privacy standards, and we never share or sell it.' },
+  {
+    q: 'What does Jengu do?',
+    a: 'We build and run AI agents for hotels and tourism businesses. They handle guest messages across chat, email, SMS, WhatsApp and phone, take and change bookings, do the admin around them, and flag the things that deserve a person’s attention, like a booking that looks likely to cancel.',
+  },
+  {
+    q: 'How long does setup take?',
+    a: 'It depends what we are building. A simple chatbot goes live in two to three weeks, an email agent in three to four, custom software in six to twelve, and a full set of agents in eight to sixteen. Most clients feel the difference in the first month.',
+  },
+  {
+    q: 'Do the agents replace our staff?',
+    a: 'No. They take the repetitive work so your people have time for the guests in front of them and for the decisions that need judgement.',
+  },
+  {
+    q: 'What happens when the AI gets something wrong?',
+    a: 'Every agent has limits we set with you during setup. Anything it is unsure about goes to a person, and it learns from the corrections. We test it hard before it ever talks to a real guest.',
+  },
+  {
+    q: 'Which systems do you work with?',
+    a: 'Anything with an API. PMS platforms like Opera, Mews and Cloudbeds, booking engines and OTAs like Booking.com, Expedia and Airbnb, CRMs, payment providers and channel managers. Where there is no API, we build the connector.',
+  },
+  {
+    q: 'Is guest data safe with you?',
+    a: 'Yes. AES-256 encryption, GDPR compliance, secure API connections, role-based access and regular audits. We do not share or sell guest data.',
+  },
 ];
 ---
 
@@ -13,9 +31,9 @@ const faqs = [
   <div class="v2-container">
     <div class="v2-faq">
       <div class="v2-faq__left">
-        <span class="v2-eyebrow" data-reveal>Questions, answered</span>
-        <h2 class="v2-h2" data-split>Everything owners <em>ask us first.</em></h2>
-        <p class="v2-lead" data-reveal>Something else on your mind? <a href="/contact" class="v2-serif" style="color: var(--accent)">Just ask.</a></p>
+        <span class="v2-eyebrow" data-reveal>Questions</span>
+        <h2 class="v2-h2" data-split>What owners <em>ask us first.</em></h2>
+        <p class="v2-lead" data-reveal>Something else on your mind? <a href="/contact" class="v2-serif" style="color: var(--accent)">Ask us.</a></p>
       </div>
       <div data-reveal>
         {
