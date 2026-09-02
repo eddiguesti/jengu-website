@@ -32,6 +32,7 @@ const links = [
   <div>
     {links.map((l) => <a class="v2-menu__link" href={l.href}>{l.label}</a>)}
     <a class="v2-menu__link" href="/contact">Contact</a>
+    <button class="v2-menu__link" onclick="openBookingModal()">Book a <em>call</em></button>
   </div>
   <div class="v2-menu__foot">
     <span>info@jengu.ai</span>
