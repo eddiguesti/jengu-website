@@ -1,0 +1,133 @@
+---
+/**
+ * V2ProductVisual — bespoke product illustrations built in HTML/SVG so they
+ * match the design system instead of stock renders. Four variants:
+ * chat (guest communication), voice (booking bots), pricing, integrations.
+ */
+interface Props {
+  kind: 'chat' | 'voice' | 'pricing' | 'integrations';
+}
+const { kind } = Astro.props;
+
+const prices = [128, 132, 129, 141, 156, 168, 174, 162, 149, 138, 144, 158];
+const demand = [32, 36, 30, 48, 62, 78, 84, 70, 58, 44, 50, 66];
+const W = 300;
+const H = 120;
+const px = (i: number): number => 10 + (i * (W - 20)) / (prices.length - 1);
+const py = (v: number): number => H - 10 - ((v - 120) / 60) * (H - 30);
+const path = prices.map((v, i) => `${i === 0 ? 'M' : 'L'}${px(i).toFixed(1)} ${py(v).toFixed(1)}`).join(' ');
+const area = `${path} L${px(prices.length - 1).toFixed(1)} ${H} L${px(0).toFixed(1)} ${H} Z`;
+
+const nodes = [
+  { l: 'Opera', x: 18, y: 22 },
+  { l: 'Mews', x: 82, y: 18 },
+  { l: 'Cloudbeds', x: 14, y: 62 },
+  { l: 'Booking.com', x: 86, y: 58 },
+  { l: 'Airbnb', x: 30, y: 88 },
+  { l: 'Expedia', x: 70, y: 90 },
+  { l: 'Stripe', x: 50, y: 12 },
+];
+---
+
+<div class={`v2-vis v2-vis--${kind}`} aria-hidden="true">
+  {
+    kind === 'chat' && (
+      <div class="v2-vis__chat">
+        <div class="v2-vis__bar">
+          <span class="v2-vis__dot v2-vis__dot--green" />
+          WhatsApp · Casa Cascais
+          <span class="v2-vis__bar-right">Replied in 4s</span>
+        </div>
+        <div class="v2-vis__msg v2-vis__msg--in">
+          <span class="v2-vis__lang">FR → EN auto</span>
+          Bonjour! Avez-vous une chambre familiale du 12 au 14 août ?
+        </div>
+        <div class="v2-vis__msg v2-vis__msg--out">
+          Oui — la Suite Familiale est disponible du 12 au 14 août à 189 € / nuit, petit-déjeuner inclus. Je vous la réserve ?
+        </div>
+        <div class="v2-vis__msg v2-vis__msg--in v2-vis__opt">Oui, parfait 🙌</div>
+        <div class="v2-vis__msg v2-vis__msg--out v2-vis__msg--confirm">
+          <b>Réservation confirmée</b>
+          <span>#48213 · synced to Mews</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    kind === 'voice' && (
+      <div class="v2-vis__voice">
+        <div class="v2-vis__bar">
+          <span class="v2-vis__dot v2-vis__dot--red" />
+          Incoming · +44 7700 900 ***
+          <span class="v2-vis__bar-right">00:47</span>
+        </div>
+        <div class="v2-vis__wave">
+          {Array.from({ length: 28 }).map((_, i) => (
+            <i style={`--i:${i}; --h:${18 + Math.round(Math.abs(Math.sin(i * 1.7)) * 70)}%`} />
+          ))}
+        </div>
+        <div class="v2-vis__lines">
+          <p class="v2-vis__opt"><b>Guest</b> Do you have a sea-view double this Friday?</p>
+          <p><b>Jengu</b> Yes, a Sea View Double is available Friday to Sunday at £164 per night. Shall I book it?</p>
+          <p class="v2-vis__opt"><b>Guest</b> Please do.</p>
+        </div>
+        <div class="v2-vis__pill">
+          <span class="v2-vis__check">✓</span>
+          Booking confirmed · #48214 · PMS updated
+        </div>
+      </div>
+    )
+  }
+
+  {
+    kind === 'pricing' && (
+      <div class="v2-vis__pricing">
+        <div class="v2-vis__bar">
+          <span class="v2-vis__dot v2-vis__dot--blue" />
+          Pitch 14 · Aug rates
+          <span class="v2-vis__bar-right">+18% RevPAR</span>
+        </div>
+        <svg viewBox={`0 0 ${W} ${H}`} class="v2-vis__chart">
+          <defs>
+            <linearGradient id="v2-area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2e7cff" stop-opacity="0.45" />
+              <stop offset="1" stop-color="#2e7cff" stop-opacity="0" />
+            </linearGradient>
+          </defs>
+          {demand.map((d, i) => (
+            <rect x={px(i) - 6} y={H - 4 - d * 0.5} width="12" height={d * 0.5} rx="3" class="v2-vis__demand" />
+          ))}
+          <path d={area} fill="url(#v2-area)" />
+          <path d={path} class="v2-vis__line" />
+          <circle cx={px(6)} cy={py(prices[6])} r="4.5" class="v2-vis__point" />
+        </svg>
+        <div class="v2-vis__tip">
+          <span>Sat 16 Aug</span>
+          <b>£142 → £174</b>
+          <span class="v2-vis__opt">Competitor avg £151 · demand high</span>
+        </div>
+      </div>
+    )
+  }
+
+  {
+    kind === 'integrations' && (
+      <div class="v2-vis__net">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="v2-vis__edges">
+          {nodes.map((n) => (
+            <line x1="50" y1="52" x2={n.x} y2={n.y} class="v2-vis__edge" />
+          ))}
+        </svg>
+        <div class="v2-vis__core">
+          <span>Jengu</span>
+        </div>
+        {nodes.map((n) => (
+          <span class="v2-vis__node" style={`left:${n.x}%; top:${n.y}%`}>
+            {n.l}
+          </span>
+        ))}
+      </div>
+    )
+  }
+</div>

@@ -1,0 +1,52 @@
+---
+/** Cara — the white-label guest concierge. Video frame scales in on scroll. */
+const steps = [
+  { title: 'Scan', line: 'A single QR scan replaces the front desk. Guests land in your own branded concierge, in their language, on any device.' },
+  { title: 'Converse', line: 'Guests just talk. Cara understands “somewhere romantic for tomorrow” and actually books it.' },
+  { title: 'Plan', line: 'A full day-by-day itinerary mapped to your venues and partners. Guests tap to swap, Cara rewrites the plan.' },
+  { title: 'Reward', line: 'Quest passports, a daily spin and a social hub turn one-time guests into regulars.' },
+];
+---
+
+<section class="v2-section" data-theme="dark" id="cara">
+  <div class="v2-container">
+    <div class="v2-head">
+      <div>
+        <span class="v2-eyebrow" data-reveal>Product</span>
+        <h2 class="v2-h2" data-split>Meet <em>Cara.</em><br />The concierge your property runs on.</h2>
+      </div>
+      <div class="v2-head__right">
+        <p class="v2-lead" data-reveal>
+          A white-label AI concierge guests open with one scan. Live today at Casa Cascais, Portugal.
+        </p>
+      </div>
+    </div>
+
+    <div class="v2-cara__frame" data-scale-in>
+      <video muted playsinline loop autoplay preload="metadata" poster="/images/jengu-cara-poster.jpg" src="/videos/jengu-cara.mp4"></video>
+      <a class="v2-cara__chip" href="https://cara.jengu.ai" target="_blank" rel="noopener">Live · cara.jengu.ai ↗</a>
+    </div>
+
+    <div class="v2-cara__steps" data-stagger>
+      {
+        steps.map((s, i) => (
+          <div class="v2-step" data-reveal>
+            <span class="v2-step__n">0{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p class="v2-body">{s.line}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="v2-cara__cta" data-reveal>
+      <a class="v2-btn" href="https://cara.jengu.ai" target="_blank" rel="noopener" data-magnetic>
+        <span class="v2-btn__label"><span>Try the live demo</span><span>Try the live demo</span></span>
+        <span class="v2-btn__icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+        </span>
+      </a>
+      <button class="v2-link" onclick="openBookingModal()">Get Cara for your property <span aria-hidden="true">→</span></button>
+    </div>
+  </div>
+</section>

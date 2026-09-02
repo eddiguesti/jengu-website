@@ -1,0 +1,10 @@
+---
+const segments = ['Hotels', 'Resorts', 'Campsites', 'Holiday Parks', 'Tour Operators', 'DMCs', 'Guesthouses', 'Vacation Rentals'];
+const track = [...segments, ...segments];
+---
+
+<div class="v2-marquee" data-theme="dark" aria-label="Built for teams across tourism and hospitality">
+  <div class="v2-marquee__track">
+    {track.map((s) => <span class="v2-marquee__item">{s}</span>)}
+  </div>
+</div>

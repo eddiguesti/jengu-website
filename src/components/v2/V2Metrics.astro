@@ -1,0 +1,34 @@
+---
+const metrics = [
+  { value: 30, pre: 'up to', suffix: '%', title: 'more direct bookings', text: 'Instant 24/7 answers across web, WhatsApp and phone capture the reservations slow replies lose.' },
+  { value: 80, pre: '', suffix: '%', title: 'of inquiries automated', text: 'Availability, FAQs, confirmations: handled without a human touching them.' },
+  { value: 40, pre: '', suffix: 'h+', title: 'saved every week', text: 'Hours of manual admin handed to agents, freeing your team for the guests who need them.' },
+];
+---
+
+<section class="v2-section" data-theme="dark" id="results">
+  <div class="v2-container">
+    <div class="v2-head">
+      <div>
+        <span class="v2-eyebrow" data-reveal>Measured, not promised</span>
+        <h2 class="v2-h2" data-split>The numbers our clients <em>actually</em> see.</h2>
+      </div>
+    </div>
+
+    <div class="v2-metrics" data-stagger>
+      {
+        metrics.map((m) => (
+          <div class="v2-metric" data-reveal>
+            <div class="v2-metric__n">
+              {m.pre && <span class="pre">{m.pre}</span>}
+              <span data-count={m.value}>0</span>
+              <small>{m.suffix}</small>
+            </div>
+            <h3>{m.title}</h3>
+            <p class="v2-body">{m.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

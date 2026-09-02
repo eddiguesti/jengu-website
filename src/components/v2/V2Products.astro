@@ -1,0 +1,94 @@
+---
+/** What we build — editorial index list with a cursor-following product visual. */
+import V2ProductVisual from './V2ProductVisual.astro';
+
+type Kind = 'chat' | 'voice' | 'pricing' | 'integrations';
+const rows: { n: string; title: string; text: string; points: string[]; href: string; kind: Kind }[] = [
+  {
+    n: '01',
+    title: 'AI guest communication',
+    text: 'Chat, email, SMS and WhatsApp handled automatically. Natural, fluent replies in 100+ languages, all day and all night.',
+    points: ['Instant answers', '80% automated', 'Auto language detection'],
+    href: '/case-studies',
+    kind: 'chat',
+  },
+  {
+    n: '02',
+    title: 'Voice & booking bots',
+    text: 'Phone and chat agents that check availability, quote rates, capture details and process reservations while you sleep.',
+    points: ['24/7 phone answering', 'Real-time PMS booking', 'Modifications'],
+    href: '/case-studies',
+    kind: 'voice',
+  },
+  {
+    n: '03',
+    title: 'Dynamic pricing engine',
+    text: 'Rates that move with demand, season and competition. Built for campsites and holiday parks. Free until you earn more.',
+    points: ['Rate optimisation', 'Competitor monitoring', 'Performance-based'],
+    href: '/dynamic-pricing',
+    kind: 'pricing',
+  },
+  {
+    n: '04',
+    title: 'System integrations',
+    text: 'Opera, Mews, Cloudbeds, Booking.com, Expedia, Airbnb, your CRM and payments, connected. No more manual entry.',
+    points: ['PMS & channel managers', 'OTAs & booking engines', 'Custom APIs'],
+    href: '/services',
+    kind: 'integrations',
+  },
+];
+---
+
+<section class="v2-section" data-theme="light" id="build">
+  <div class="v2-container">
+    <div class="v2-head">
+      <div>
+        <span class="v2-eyebrow" data-reveal>What we build</span>
+        <h2 class="v2-h2" data-split>AI that actually works <em>for hospitality.</em></h2>
+      </div>
+      <div class="v2-head__right">
+        <p class="v2-lead" data-reveal>
+          Custom agents, integrations and automation, built for hotels, resorts, campsites, holiday parks and tour
+          operators. Never a template.
+        </p>
+      </div>
+    </div>
+
+    <div class="v2-index">
+      {
+        rows.map((r) => (
+          <a class="v2-row" href={r.href} data-reveal>
+            <span class="v2-row__num">{r.n}</span>
+            <h3 class="v2-h3 v2-row__title">{r.title}</h3>
+            <div class="v2-row__body">
+              <p class="v2-body">{r.text}</p>
+              <ul class="v2-row__points">
+                {r.points.map((p) => (
+                  <li>{p}</li>
+                ))}
+              </ul>
+            </div>
+            <span class="v2-row__arrow" aria-hidden="true">
+              <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 15L15 3M6 3h9v9" />
+              </svg>
+            </span>
+            <div class="v2-row__thumb">
+              <V2ProductVisual kind={r.kind} />
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="v2-follower" aria-hidden="true">
+    {
+      rows.map((r) => (
+        <div class="v2-follower__item">
+          <V2ProductVisual kind={r.kind} />
+        </div>
+      ))
+    }
+  </div>
+</section>

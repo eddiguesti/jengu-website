@@ -1,0 +1,48 @@
+---
+const year = new Date().getFullYear();
+const cols = [
+  { h: 'Company', links: [['/', 'Home'], ['/about', 'About'], ['/services', 'Services'], ['/case-studies', 'Case studies'], ['/team', 'Team']] },
+  { h: 'Resources', links: [['/blog', 'Journal'], ['/faq', 'FAQ'], ['/calculator', 'ROI calculator'], ['/dynamic-pricing', 'Dynamic pricing'], ['/contact', 'Contact']] },
+  { h: 'Legal', links: [['/terms', 'Terms'], ['/privacy', 'Privacy']] },
+];
+---
+
+<footer class="v2-footer" data-theme="dark">
+  <div class="v2-container">
+    <div class="v2-footer__grid">
+      <div>
+        <span class="v2-eyebrow">Jengu</span>
+        <p class="v2-footer__blurb" style="margin-top: 20px">
+          AI automation for tourism and hospitality. Custom chatbots, phone bots, software and API integrations, built
+          around how you actually operate.
+        </p>
+        <a class="v2-footer__mail" href="mailto:info@jengu.ai">info@jengu.ai</a>
+      </div>
+      {
+        cols.map((c) => (
+          <div class="v2-footer__col">
+            <h4>{c.h}</h4>
+            <ul>
+              {c.links.map(([href, label]) => (
+                <li>
+                  <a href={href}>{label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="v2-footer__mark" aria-hidden="true">JENGU</div>
+
+    <div class="v2-footer__bottom">
+      <span>© {year} Jengu. All rights reserved.</span>
+      <span data-clock>London --:--</span>
+      <span>
+        Crafted by <a href="https://www.hexcore.digital" target="_blank" rel="noopener noreferrer">hexcore.digital</a>
+      </span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>

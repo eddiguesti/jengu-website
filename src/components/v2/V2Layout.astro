@@ -1,0 +1,87 @@
+---
+/**
+ * V2Layout — the redesigned shell. Same SEO head + booking modal as
+ * BaseLayout, but with the v2 nav, preloader and footer. Legacy main.css is
+ * still imported because the booking modal is styled there; every v2 rule is
+ * namespaced (.v2-*, body.v2) so nothing leaks either way.
+ */
+import SEOHead from '../seo/SEOHead.astro';
+import JsonLd from '../seo/JsonLd.astro';
+import Hreflang from '../seo/Hreflang.astro';
+import Analytics from '../seo/Analytics.astro';
+import BookingModal from '../BookingModal.astro';
+import V2Nav from './V2Nav.astro';
+import V2Loader from './V2Loader.astro';
+import V2Footer from './V2Footer.astro';
+import { getLocaleFromUrl } from '../../i18n';
+import type { SEOConfig } from '../../lib/seo/metadata';
+import '../../styles/main.css';
+import '../../styles/v2/base.css';
+import '../../styles/v2/chrome.css';
+import '../../styles/v2/sections.css';
+import '../../styles/v2/visuals.css';
+
+interface Props {
+  seo: SEOConfig;
+  jsonLd?: object | object[];
+}
+
+const { seo, jsonLd } = Astro.props;
+const currentPath = Astro.url.pathname;
+const currentLocale = getLocaleFromUrl(currentPath);
+
+const FONTS =
+  'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Instrument+Serif:ital@0;1&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap';
+---
+
+<!doctype html>
+<html lang={currentLocale} class="v2-html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0a0a0c" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={FONTS} />
+
+    <!-- Font Awesome only for the booking modal's icons -->
+    <link
+      rel="preload"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+      crossorigin="anonymous"
+    />
+
+    <SEOHead seo={seo} />
+    <Hreflang currentPath={currentPath} />
+    {jsonLd && <JsonLd schema={jsonLd} />}
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable content" />
+    <link rel="alternate" type="application/rss+xml" title="Jengu Blog RSS Feed" href="/rss.xml" />
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body class="v2 is-loading" data-theme="dark">
+    <V2Loader />
+    <V2Nav />
+
+    <main class="v2-main">
+      <slot />
+    </main>
+
+    <V2Footer />
+
+    <BookingModal />
+    <Analytics />
+
+    <script>
+      import { initMotion } from '../../scripts/v2/motion';
+      initMotion();
+    </script>
+  </body>
+</html>

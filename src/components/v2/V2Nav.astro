@@ -1,0 +1,40 @@
+---
+/** Nav — sits in mix-blend difference so it survives the ink/bone swaps. */
+const links = [
+  { href: '#build', label: 'Product' },
+  { href: '#cara', label: 'Cara' },
+  { href: '#process', label: 'Process' },
+  { href: '/blog', label: 'Journal' },
+];
+---
+
+<header class="v2-nav">
+  <a href="/" class="v2-nav__brand" aria-label="Jengu home">Jengu<sup>®</sup></a>
+
+  <div class="v2-nav__links" role="navigation" aria-label="Primary">
+    {links.map((l) => <a href={l.href}>{l.label}</a>)}
+  </div>
+
+  <div class="v2-nav__right">
+    <span class="v2-nav__clock" data-clock>London --:--</span>
+    <button class="v2-nav__cta" onclick="openBookingModal()">
+      <span>Book a call</span>
+      <span>↗</span>
+    </button>
+    <button class="v2-nav__burger" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<div class="v2-menu" aria-label="Mobile menu">
+  <div>
+    {links.map((l) => <a class="v2-menu__link" href={l.href}>{l.label}</a>)}
+    <a class="v2-menu__link" href="/contact">Contact</a>
+  </div>
+  <div class="v2-menu__foot">
+    <span>info@jengu.ai</span>
+    <span data-clock>London --:--</span>
+  </div>
+</div>

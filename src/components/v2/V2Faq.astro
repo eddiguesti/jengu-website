@@ -1,0 +1,35 @@
+---
+const faqs = [
+  { q: 'What exactly does Jengu do?', a: 'We build and run AI agents for tourism and hospitality. They handle guest communication across chat, email, SMS, WhatsApp and phone, manage bookings and admin, and watch your operation, flagging demand swings, likely cancellations and churn before they cost you money.' },
+  { q: 'How long does setup take?', a: 'It depends on scope. A simple AI chatbot goes live in 2–3 weeks, an email automation system in 3–4, custom software in 6–12, and a complete automation suite in 8–16. Most clients start seeing time savings within the first month.' },
+  { q: 'Do AI agents replace our staff?', a: 'No. They augment your team. Agents take the repetitive, time-consuming work while your people focus on complex problem-solving, personal guest experiences and the decisions that need human judgement.' },
+  { q: 'What if the AI gets something wrong?', a: 'Every agent ships with confidence thresholds, clear boundaries set during setup, human oversight on critical decisions, and continuous learning from corrections, plus extensive testing before it ever goes live.' },
+  { q: 'What systems do you integrate with?', a: 'Virtually anything with an API: PMS platforms (Opera, Mews, Cloudbeds), booking engines and OTAs (Booking.com, Expedia, Airbnb), CRMs, payment processors and channel managers. Where there is no public API, we build a custom connector.' },
+  { q: 'Is our guest data secure?', a: 'Security is the priority: AES-256 encryption, GDPR compliance, secure API connections, role-based access and regular audits. Guest data is processed to international privacy standards, and we never share or sell it.' },
+];
+---
+
+<section class="v2-section" data-theme="light" id="faq">
+  <div class="v2-container">
+    <div class="v2-faq">
+      <div class="v2-faq__left">
+        <span class="v2-eyebrow" data-reveal>Questions, answered</span>
+        <h2 class="v2-h2" data-split>Everything owners <em>ask us first.</em></h2>
+        <p class="v2-lead" data-reveal>Something else on your mind? <a href="/contact" class="v2-serif" style="color: var(--accent)">Just ask.</a></p>
+      </div>
+      <div data-reveal>
+        {
+          faqs.map((f, i) => (
+            <details open={i === 0}>
+              <summary>
+                <span>{f.q}</span>
+                <i aria-hidden="true" />
+              </summary>
+              <p class="v2-faq__a">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

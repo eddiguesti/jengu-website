@@ -1,0 +1,110 @@
+---
+/**
+ * V2Hero — pinned editorial hero with the interactive 3D Jengu character
+ * (src/scripts/v2/robot). The character layer spans the whole hero, so he
+ * can be dragged, placed and played anywhere across the width; his home is
+ * the right-hand column. Scrolling the pin makes him present a hologram
+ * dashboard; tapping, dragging, double- and triple-tapping trigger reactions.
+ * The brand still render is the poster until WebGL is ready (or if absent).
+ */
+const stats = [
+  { n: '30%', l: 'more direct bookings' },
+  { n: '40h+', l: 'saved every week' },
+  { n: '100+', l: 'languages, 24/7' },
+];
+---
+
+<section class="v2-hero" data-theme="dark" id="top">
+  <div class="v2-hero__pin">
+    <div class="v2-hero__glow" aria-hidden="true"></div>
+
+    <div class="v2-hero__figure" id="robotHost">
+      <canvas class="v2-hero__canvas" id="robotCanvas" aria-label="Interactive 3D Jengu character. Tap to make it react, drag to move it, double-tap to fold it, triple-tap to play a game."></canvas>
+    </div>
+
+    <div class="v2-hero__copy">
+      <p class="v2-eyebrow v2-hero__eyebrow" data-reveal data-hero>AI agents for hotels, resorts &amp; holiday parks</p>
+
+      <h1 class="v2-h1 v2-hero__title" data-split data-hero>
+        Hospitality<br />is human.<br />The <em>admin</em> isn't.
+      </h1>
+
+      <p class="v2-lead v2-hero__lead" data-reveal data-hero>
+        Custom AI agents that answer guests, confirm bookings and optimise rates around the clock, in
+        100+ languages, inside the systems you already run.
+      </p>
+
+      <div class="v2-hero__cta" data-reveal data-hero>
+        <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
+          <span class="v2-btn__label"><span>Book a free consultation</span><span>Book a free consultation</span></span>
+          <span class="v2-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+          </span>
+        </button>
+        <a href="/calculator" class="v2-link">See your ROI <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="v2-hero__visual" data-reveal data-hero>
+      <img class="v2-hero__poster" src="/images/jengu-hero-poster.jpg" alt="Jengu, the AI concierge" width="1920" height="1080" />
+    </div>
+
+    <div class="v2-hero__foot">
+      <div class="v2-hero__stats" data-stagger>
+        {
+          stats.map((s) => (
+            <div class="v2-stat" data-reveal data-hero>
+              <b>{s.n}</b>
+              <span>{s.l}</span>
+            </div>
+          ))
+        }
+      </div>
+      <div class="v2-hero__foot-right">
+        <p class="v2-hero__hint" data-reveal data-hero>
+          <span>Tap</span> to react · <span>drag</span> to move him · <span>double-tap</span> to fold · <span>triple-tap</span> for a game
+        </p>
+        <div class="v2-scrollcue" data-reveal data-hero><i></i> Scroll to see it work</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const host = document.getElementById('robotHost');
+  const canvas = document.getElementById('robotCanvas') as HTMLCanvasElement | null;
+  const pin = host?.closest<HTMLElement>('.v2-hero__pin') ?? null;
+
+  const hasWebGL = (): boolean => {
+    try {
+      const c = document.createElement('canvas');
+      return Boolean(c.getContext('webgl2') || c.getContext('webgl'));
+    } catch {
+      return false;
+    }
+  };
+
+  async function boot(): Promise<void> {
+    if (!host || !canvas) return;
+    if (!hasWebGL()) return;
+    try {
+      const { mountRobot } = await import('../../scripts/v2/robot/index');
+      const handle = mountRobot(canvas, host);
+      requestAnimationFrame(() => {
+        host.classList.add('is-ready');
+        pin?.classList.add('is-3d');
+      });
+      const io = new IntersectionObserver((entries) => handle.setPaused(!entries[0].isIntersecting), { threshold: 0.02 });
+      io.observe(host);
+      document.addEventListener('visibilitychange', () => handle.setPaused(document.hidden));
+    } catch (err) {
+      console.error('[v2] character failed to mount', err);
+    }
+  }
+
+  if ('requestIdleCallback' in window) {
+    (window as Window).requestIdleCallback(() => boot(), { timeout: 1200 });
+  } else {
+    setTimeout(boot, 300);
+  }
+</script>
