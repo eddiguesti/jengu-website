@@ -235,6 +235,7 @@ function writeEcho(root: HTMLElement, i: Inputs, symbol: string): void {
     propertyType: TYPE_WORDS[i.propertyType],
     unitWord: UNIT_WORDS[i.propertyType],
     agentCount: String(Object.values(i.agents).filter(Boolean).length),
+    agentWord: Object.values(i.agents).filter(Boolean).length === 1 ? 'agent' : 'agents',
   };
   root.querySelectorAll<HTMLElement>('[data-echo]').forEach((el) => {
     const text = plain[el.dataset.echo ?? ''];
