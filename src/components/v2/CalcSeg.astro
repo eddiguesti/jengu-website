@@ -1,0 +1,21 @@
+---
+/** Segmented choice: one radio per option, each cell a full-height target. */
+interface Props {
+  name: string;
+  value: string;
+  options: ReadonlyArray<readonly [string, string]>;
+  label: string;
+}
+const { name, value, options, label } = Astro.props;
+---
+
+<div class="v2-seg" role="radiogroup" aria-label={label} style={`--n: ${options.length}`}>
+  {
+    options.map(([v, text]) => (
+      <label>
+        <input type="radio" name={name} value={v} checked={v === value} />
+        <span>{text}</span>
+      </label>
+    ))
+  }
+</div>

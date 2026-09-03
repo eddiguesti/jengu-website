@@ -1,0 +1,46 @@
+---
+/**
+ * One calculator input: a label, a slider with a large thumb, and a number
+ * box with minus and plus buttons. Every target is at least 44px tall.
+ * The slider and the box share a name and are kept in step by ui.ts.
+ */
+interface Props {
+  name: string;
+  label: string;
+  hint?: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  /** Text after the number, e.g. "%" or "min". */
+  unit?: string;
+  /** Show the currency symbol before the number (follows the currency control). */
+  cur?: boolean;
+  compact?: boolean;
+}
+const { name, label, hint, value, min, max, step = 1, unit, cur = false, compact = false } = Astro.props;
+const id = `fld-${name}`;
+---
+
+<div class:list={['v2-fld', { 'v2-fld--compact': compact }]} data-fld>
+  <div class="v2-fld__head">
+    <label for={id}>{label}</label>
+    {hint && <span>{hint}</span>}
+  </div>
+  <div class="v2-fld__row">
+    <input class="v2-fld__range" type="range" name={name} min={min} max={max} step={step} value={value} aria-label={`${label} (slider)`} tabindex="-1" />
+    <div class="v2-fld__box">
+      <button type="button" class="v2-fld__step" data-step="-1" aria-label={`Decrease ${label}`}>
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8" /></svg>
+      </button>
+      <span class="v2-fld__val">
+        {cur && <i data-cur>£</i>}
+        <input id={id} type="number" inputmode="decimal" name={name} min={min} max={max} step={step} value={value} aria-label={label} />
+        {unit && <i class="v2-fld__unit">{unit}</i>}
+      </span>
+      <button type="button" class="v2-fld__step" data-step="1" aria-label={`Increase ${label}`}>
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h8M6 2v8" /></svg>
+      </button>
+    </div>
+  </div>
+</div>

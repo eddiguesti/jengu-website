@@ -1,14 +1,14 @@
 ---
 /**
- * ROI calculator. The inputs are numbers inside plain sentences; the ledger
- * on the right recomputes as they change. Every figure comes from the
- * visitor's own numbers and from assumptions they can open and change below.
- * No benchmark data and no price of ours is baked in.
+ * ROI calculator. Sliders with number boxes on the left, a live ledger on
+ * the right. The sentence at the top reads the inputs back. Every figure
+ * comes from the visitor's own numbers and from assumptions they can change
+ * further down. No benchmark data and no price of ours is baked in.
  */
 import V2Layout from '../components/v2/V2Layout.astro';
 import V2PageHead from '../components/v2/V2PageHead.astro';
-import CalcNum from '../components/v2/CalcNum.astro';
-import CalcSel from '../components/v2/CalcSel.astro';
+import CalcField from '../components/v2/CalcField.astro';
+import CalcSeg from '../components/v2/CalcSeg.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema } from '../lib/seo/jsonld';
 import { DEFAULT_ASSUMPTIONS as A, DEFAULT_INPUTS as D } from '../scripts/v2/calculator/model';
@@ -22,16 +22,28 @@ const seo = generateSEO({
 const jsonLd = [generateOrganizationSchema()];
 
 const propertyTypes = [
-  ['hotel', 'hotel'],
-  ['resort', 'resort'],
-  ['campsite', 'campsite'],
-  ['tour', 'tour business'],
+  ['hotel', 'Hotel'],
+  ['resort', 'Resort'],
+  ['campsite', 'Campsite'],
+  ['tour', 'Tour business'],
 ] as const;
 const currencies = [
   ['£', '£ GBP'],
   ['€', '€ EUR'],
   ['$', '$ USD'],
 ] as const;
+
+const property = [
+  { name: 'units', label: 'Rooms, pitches or units', hint: 'Whatever you sell per night', min: 1, max: 600, step: 1, value: D.units },
+  { name: 'nightlyRate', label: 'Average price per night', hint: 'Across the year', min: 10, max: 800, step: 5, value: D.nightlyRate, cur: true },
+  { name: 'occupancy', label: 'Occupancy', hint: 'Annual average', min: 0, max: 100, step: 1, value: D.occupancy, unit: '%' },
+];
+const workload = [
+  { name: 'messagesPerDay', label: 'Guest messages per day', hint: 'Email, chat and WhatsApp together', min: 0, max: 500, step: 1, value: D.messagesPerDay },
+  { name: 'callsPerDay', label: 'Phone calls per day', hint: 'Enquiries and bookings', min: 0, max: 300, step: 1, value: D.callsPerDay },
+  { name: 'adminHoursPerWeek', label: 'Repetitive admin per week', hint: 'Retyping bookings, updating channels, reports', min: 0, max: 120, step: 1, value: D.adminHoursPerWeek, unit: 'h' },
+  { name: 'hourlyCost', label: 'Cost of an hour of staff time', hint: 'Fully loaded, with on-costs', min: 5, max: 80, step: 1, value: D.hourlyCost, cur: true },
+];
 
 const agents = [
   { key: 'messaging', title: 'Guest messages', text: 'Replies to email, chat and WhatsApp in the guest’s language.', on: D.agents.messaging },
@@ -41,6 +53,31 @@ const agents = [
 ] as const;
 
 const pct = (v: number): number => Math.round(v * 100);
+const assumptions = [
+  { group: 'Guest messages', fields: [
+    { name: 'a-minutesPerMessage', label: 'Minutes a person spends per message', min: 0, max: 60, step: 0.5, value: A.minutesPerMessage, unit: 'min' },
+    { name: 'a-messagingShare', label: 'Messages the agent resolves alone', min: 0, max: 100, step: 1, value: pct(A.messagingShare), unit: '%' },
+  ] },
+  { group: 'Phone bookings', fields: [
+    { name: 'a-minutesPerCall', label: 'Minutes per call', min: 0, max: 60, step: 0.5, value: A.minutesPerCall, unit: 'min' },
+    { name: 'a-callShare', label: 'Calls the agent handles end to end', min: 0, max: 100, step: 1, value: pct(A.callShare), unit: '%' },
+    { name: 'a-callsMissedShare', label: 'Calls you miss today', min: 0, max: 100, step: 1, value: pct(A.callsMissedShare), unit: '%' },
+    { name: 'a-callBookingRate', label: 'Answered enquiries that book', min: 0, max: 100, step: 1, value: pct(A.callBookingRate), unit: '%' },
+    { name: 'a-avgStayNights', label: 'Average stay', min: 0.5, max: 60, step: 0.5, value: A.avgStayNights, unit: 'nights' },
+  ] },
+  { group: 'Dynamic pricing', fields: [
+    { name: 'a-pricingUplift', label: 'Room revenue uplift', min: 0, max: 50, step: 1, value: pct(A.pricingUplift), unit: '%' },
+    { name: 'a-pricingFeeShare', label: 'Our share of that uplift', min: 0, max: 100, step: 1, value: pct(A.pricingFeeShare), unit: '%' },
+  ] },
+  { group: 'Integrations', fields: [
+    { name: 'a-integrationsShare', label: 'Admin hours integrations remove', min: 0, max: 100, step: 1, value: pct(A.integrationsShare), unit: '%' },
+  ] },
+  { group: 'Your quote from us', fields: [
+    { name: 'a-monthlyFee', label: 'Monthly fee', min: 0, max: 50000, step: 10, value: A.monthlyFee, cur: true },
+    { name: 'a-setupFee', label: 'Setup', min: 0, max: 200000, step: 100, value: A.setupFee, cur: true },
+  ] },
+];
+
 const working = [
   { key: 'messaging', title: 'Guest messages' },
   { key: 'phone', title: 'Phone bookings' },
@@ -54,8 +91,8 @@ const working = [
     <V2PageHead eyebrow="Calculator" compact>
       <Fragment slot="title">What would the agents <em>give you back?</em></Fragment>
       <p slot="lead" class="v2-lead">
-        Change any number in the sentences. Drag it sideways, or click it and type. The ledger recalculates
-        as you go, and every assumption behind it sits further down the page where you can change it too.
+        Put in your own numbers with the sliders, the boxes or the buttons. The ledger recalculates as you go,
+        and every assumption behind it sits further down the page where you can change it too.
       </p>
     </V2PageHead>
 
@@ -63,32 +100,29 @@ const working = [
       <div class="v2-container">
         <div class="v2-calc">
           <div class="v2-calc__story">
-            <p class="v2-calc__hint" data-reveal>Drag a number, or click it and type</p>
-
-            <p class="v2-calc__sent" data-reveal>
-              We run a <CalcSel name="propertyType" value={D.propertyType} options={propertyTypes} label="Type of property" /> with
-              <CalcNum name="units" value={D.units} min={1} max={600} label="Rooms, pitches or units" />
-              <span data-unit-word>rooms</span> at
-              <CalcNum name="nightlyRate" value={D.nightlyRate} min={10} max={800} step={5} label="Average price per night" cur />
-              a night, about <CalcNum name="occupancy" value={D.occupancy} min={0} max={100} label="Occupancy" unit="%" /> full across the year.
+            <p class="v2-calc__sent" data-reveal aria-live="polite">
+              We run a <b data-echo="propertyType">hotel</b> with <b data-echo="units">40</b> <span data-echo="unitWord">rooms</span> at
+              <b data-echo="nightlyRate">£120</b> a night, about <b data-echo="occupancy">70%</b> full. Guests send us around
+              <b data-echo="messagesPerDay">40</b> messages a day, the phone rings about <b data-echo="callsPerDay">15</b> times, and admin
+              takes <b data-echo="adminHoursPerWeek">10</b> hours a week at <b data-echo="hourlyCost">£14</b> an hour.
             </p>
 
-            <p class="v2-calc__sent" data-reveal>
-              Guests send us around <CalcNum name="messagesPerDay" value={D.messagesPerDay} min={0} max={500} label="Guest messages per day" />
-              messages a day, and the phone rings about <CalcNum name="callsPerDay" value={D.callsPerDay} min={0} max={300} label="Phone calls per day" /> times.
-            </p>
+            <div class="v2-calc__block" data-reveal>
+              <h3 class="v2-calc__block-title">Your property</h3>
+              <CalcSeg name="propertyType" value={D.propertyType} options={propertyTypes} label="Type of property" />
+              {property.map((f) => <CalcField {...f} />)}
+            </div>
 
-            <p class="v2-calc__sent" data-reveal>
-              Repetitive admin takes about <CalcNum name="adminHoursPerWeek" value={D.adminHoursPerWeek} min={0} max={120} label="Hours of repetitive admin per week" />
-              hours a week, and an hour of our time costs
-              <CalcNum name="hourlyCost" value={D.hourlyCost} min={5} max={80} label="Cost of an hour of staff time" cur /> all in.
-            </p>
+            <div class="v2-calc__block" data-reveal>
+              <h3 class="v2-calc__block-title">Your workload</h3>
+              {workload.map((f) => <CalcField {...f} />)}
+            </div>
 
-            <div class="v2-calc__agents">
-              <span class="v2-eyebrow" data-reveal>Count these agents</span>
+            <div class="v2-calc__block v2-calc__agents" data-reveal>
+              <h3 class="v2-calc__block-title">Count these agents</h3>
               {
                 agents.map((a, i) => (
-                  <label class="v2-agent" data-reveal>
+                  <label class="v2-agent">
                     <input type="checkbox" name={`agent-${a.key}`} checked={a.on} />
                     <span class="v2-agent__n">0{i + 1}</span>
                     <span class="v2-agent__body">
@@ -108,7 +142,7 @@ const working = [
           <aside class="v2-calc__ledger" id="ledger" aria-live="polite" data-mbar-target>
             <div class="v2-calc__ledger-head">
               <span class="v2-eyebrow">Your estimate</span>
-              <CalcSel name="currency" value="£" options={currencies} label="Currency" mono />
+              <CalcSeg name="currency" value="£" options={currencies} label="Currency" />
             </div>
 
             <div class="v2-calc__hero">
@@ -207,44 +241,20 @@ const working = [
           </div>
         </div>
 
-        <div class="v2-calc__rows">
-          <div class="v2-calc__row" data-reveal>
-            <span class="v2-list__n">01</span>
-            <p class="v2-calc__sent v2-calc__sent--s">
-              A person spends <CalcNum name="a-minutesPerMessage" value={A.minutesPerMessage} min={0} max={60} step={0.5} label="Minutes per message" unit="minutes" />
-              on a guest message, and the agent resolves <CalcNum name="a-messagingShare" value={pct(A.messagingShare)} min={0} max={100} label="Messages resolved by the agent" unit="%" /> of them without a person.
-            </p>
-          </div>
-          <div class="v2-calc__row" data-reveal>
-            <span class="v2-list__n">02</span>
-            <p class="v2-calc__sent v2-calc__sent--s">
-              A call takes <CalcNum name="a-minutesPerCall" value={A.minutesPerCall} min={0} max={60} step={0.5} label="Minutes per call" unit="minutes" />
-              and the agent handles <CalcNum name="a-callShare" value={pct(A.callShare)} min={0} max={100} label="Calls handled end to end" unit="%" /> of them end to end.
-              Today you miss <CalcNum name="a-callsMissedShare" value={pct(A.callsMissedShare)} min={0} max={100} label="Calls currently missed" unit="%" /> of calls, and
-              <CalcNum name="a-callBookingRate" value={pct(A.callBookingRate)} min={0} max={100} label="Answered enquiries that book" unit="%" /> of answered enquiries book a stay of
-              <CalcNum name="a-avgStayNights" value={A.avgStayNights} min={0.5} max={60} step={0.5} label="Average stay in nights" unit="nights" />.
-            </p>
-          </div>
-          <div class="v2-calc__row" data-reveal>
-            <span class="v2-list__n">03</span>
-            <p class="v2-calc__sent v2-calc__sent--s">
-              Dynamic pricing lifts room revenue by <CalcNum name="a-pricingUplift" value={pct(A.pricingUplift)} min={0} max={50} label="Revenue uplift from pricing" unit="%" />,
-              and we keep <CalcNum name="a-pricingFeeShare" value={pct(A.pricingFeeShare)} min={0} max={100} label="Our share of the uplift" unit="%" /> of that lift as our fee.
-            </p>
-          </div>
-          <div class="v2-calc__row" data-reveal>
-            <span class="v2-list__n">04</span>
-            <p class="v2-calc__sent v2-calc__sent--s">
-              Integrations remove <CalcNum name="a-integrationsShare" value={pct(A.integrationsShare)} min={0} max={100} label="Admin hours removed by integrations" unit="%" /> of the admin hours you entered.
-            </p>
-          </div>
-          <div class="v2-calc__row" data-reveal>
-            <span class="v2-list__n">05</span>
-            <p class="v2-calc__sent v2-calc__sent--s">
-              If you have a quote from us, it says <CalcNum name="a-monthlyFee" value={A.monthlyFee} min={0} max={50000} step={10} label="Monthly fee from your quote" cur />
-              a month and <CalcNum name="a-setupFee" value={A.setupFee} min={0} max={200000} step={100} label="Setup fee from your quote" cur /> to set up.
-            </p>
-          </div>
+        <div class="v2-calc__groups">
+          {
+            assumptions.map((g, i) => (
+              <div class="v2-calc__group" data-reveal>
+                <div class="v2-calc__group-head">
+                  <span class="v2-list__n">0{i + 1}</span>
+                  <h3>{g.group}</h3>
+                </div>
+                <div class="v2-calc__group-fields">
+                  {g.fields.map((f) => <CalcField {...f} compact />)}
+                </div>
+              </div>
+            ))
+          }
         </div>
       </div>
     </section>
