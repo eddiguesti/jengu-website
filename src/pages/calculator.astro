@@ -1,57 +1,60 @@
 ---
 /**
- * ROI calculator: one instrument on one dark stage. Inputs on the left,
- * live results and charts on the right. Every figure comes from the
- * visitor's own numbers and from assumptions they can change; the model
- * ramps up over the first months and shows a cautious-to-generous range.
- * No benchmark data and no price of ours is baked in.
+ * ROI calculator as a four-step flow, one thing per screen, on one dark
+ * stage: your property, what eats your time, a few sliders, the result.
+ * Every figure comes from the visitor's own numbers and from assumptions
+ * they can open and change on the results screen. No price of ours is
+ * baked in.
  */
 import V2Layout from '../components/v2/V2Layout.astro';
-import V2PageHead from '../components/v2/V2PageHead.astro';
 import CalcField from '../components/v2/CalcField.astro';
-import CalcSeg from '../components/v2/CalcSeg.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema } from '../lib/seo/jsonld';
-import { DEFAULT_ASSUMPTIONS as A, DEFAULT_INPUTS as D } from '../scripts/v2/calculator/model';
+import { DEFAULT_ASSUMPTIONS as A, DEFAULT_INPUTS as D, presetFor } from '../scripts/v2/calculator/model';
 
 const seo = generateSEO({
   title: 'ROI calculator: what AI agents would give you back',
   description:
-    'Put in your own numbers and see the hours and money AI agents could give back to your hotel, campsite or holiday park each month. Every assumption is visible and editable.',
+    'Answer four quick questions and see the hours and money AI agents could give back to your hotel, campsite or holiday park each month. Every assumption is visible and editable.',
   canonical: new URL('/calculator/', Astro.site).href,
 });
 const jsonLd = [generateOrganizationSchema()];
 
-const propertyTypes = [
-  ['hotel', 'Hotel'],
-  ['resort', 'Resort'],
-  ['campsite', 'Campsite'],
-  ['tour', 'Tour business'],
+const types = [
+  ['hotel', 'Hotel', 'Rooms, a front desk, a phone that rings'],
+  ['resort', 'Resort', 'Rooms plus restaurants, spa or activities'],
+  ['campsite', 'Campsite', 'Pitches, lodges and a busy season'],
+  ['park', 'Holiday park', 'Caravans, chalets and long weekends'],
+  ['tour', 'Tour business', 'Departures, guides and enquiries'],
+  ['other', 'Something else', 'We will use general starting points'],
+] as const;
+const sizes = [
+  ['small', 'Small', 'A handful of staff'],
+  ['medium', 'Medium', 'A team across shifts'],
+  ['large', 'Large', 'Several departments'],
+] as const;
+const agents = [
+  { key: 'messaging', title: 'Guest messages', text: 'Email, chat and WhatsApp, answered in the guest’s language.', on: true },
+  { key: 'phone', title: 'Phone bookings', text: 'Every call answered, rates quoted, bookings written into your PMS.', on: true },
+  { key: 'pricing', title: 'Rates and pricing', text: 'Prices that move with demand. Paid only as a share of the extra.', on: false },
+  { key: 'integrations', title: 'Retyping between systems', text: 'PMS, channels and payments connected so nothing is copied by hand.', on: false },
 ] as const;
 const currencies = [
-  ['£', '£ GBP'],
-  ['€', '€ EUR'],
-  ['$', '$ USD'],
+  ['£', 'GBP'],
+  ['€', 'EUR'],
+  ['$', 'USD'],
 ] as const;
 
-const property = [
-  { name: 'units', label: 'Rooms, pitches or units', hint: 'Whatever you sell per night', min: 1, max: 600, step: 1, value: D.units },
-  { name: 'nightlyRate', label: 'Average price per night', hint: 'Across the year', min: 10, max: 800, step: 5, value: D.nightlyRate, cur: true },
-  { name: 'occupancy', label: 'Occupancy', hint: 'Annual average', min: 0, max: 100, step: 1, value: D.occupancy, unit: '%' },
+const p = presetFor('hotel', 'medium');
+const fields = [
+  { needs: 'messaging', name: 'messagesPerDay', label: 'Guest messages per day', hint: 'Email, chat and WhatsApp together', min: 0, max: 500, step: 1, value: p.messagesPerDay ?? D.messagesPerDay },
+  { needs: 'phone', name: 'callsPerDay', label: 'Phone calls per day', hint: 'Enquiries and bookings', min: 0, max: 300, step: 1, value: p.callsPerDay ?? D.callsPerDay },
+  { needs: 'integrations', name: 'adminHoursPerWeek', label: 'Hours of repetitive admin per week', hint: 'Retyping bookings, updating channels, reports', min: 0, max: 120, step: 1, value: p.adminHoursPerWeek ?? D.adminHoursPerWeek, unit: 'h' },
+  { needs: 'pricing', name: 'units', label: 'Rooms, pitches or units', hint: 'Whatever you sell per night', min: 1, max: 600, step: 1, value: p.units ?? D.units },
+  { needs: 'phone pricing', name: 'nightlyRate', label: 'Average price per night', hint: 'Across the year', min: 10, max: 800, step: 5, value: p.nightlyRate ?? D.nightlyRate, cur: true },
+  { needs: 'pricing', name: 'occupancy', label: 'Occupancy', hint: 'Annual average', min: 0, max: 100, step: 1, value: p.occupancy ?? D.occupancy, unit: '%' },
+  { needs: 'messaging phone integrations', name: 'hourlyCost', label: 'Cost of an hour of staff time', hint: 'Fully loaded, with on-costs', min: 5, max: 80, step: 1, value: D.hourlyCost, cur: true },
 ];
-const workload = [
-  { name: 'messagesPerDay', label: 'Guest messages per day', hint: 'Email, chat and WhatsApp together', min: 0, max: 500, step: 1, value: D.messagesPerDay },
-  { name: 'callsPerDay', label: 'Phone calls per day', hint: 'Enquiries and bookings', min: 0, max: 300, step: 1, value: D.callsPerDay },
-  { name: 'adminHoursPerWeek', label: 'Repetitive admin per week', hint: 'Retyping bookings, updating channels, reports', min: 0, max: 120, step: 1, value: D.adminHoursPerWeek, unit: 'h' },
-  { name: 'hourlyCost', label: 'Cost of an hour of staff time', hint: 'Fully loaded, with on-costs', min: 5, max: 80, step: 1, value: D.hourlyCost, cur: true },
-];
-
-const agents = [
-  { key: 'messaging', title: 'Guest messages', text: 'Replies to email, chat and WhatsApp in the guest’s language.', on: D.agents.messaging },
-  { key: 'phone', title: 'Phone bookings', text: 'Answers every call, quotes a rate and books it into your PMS.', on: D.agents.phone },
-  { key: 'pricing', title: 'Dynamic pricing', text: 'Moves your rates with demand. Paid only as a share of the extra.', on: D.agents.pricing },
-  { key: 'integrations', title: 'Integrations', text: 'Connects PMS, channels and payments so nothing gets retyped.', on: D.agents.integrations },
-] as const;
 
 const pct = (v: number): number => Math.round(v * 100);
 const assumptions = [
@@ -66,11 +69,11 @@ const assumptions = [
     { name: 'a-callBookingRate', label: 'Answered enquiries that book', min: 0, max: 100, step: 1, value: pct(A.callBookingRate), unit: '%' },
     { name: 'a-avgStayNights', label: 'Average stay', min: 0.5, max: 60, step: 0.5, value: A.avgStayNights, unit: 'nights' },
   ] },
-  { group: 'Dynamic pricing', fields: [
+  { group: 'Rates and pricing', fields: [
     { name: 'a-pricingUplift', label: 'Room revenue uplift', min: 0, max: 50, step: 1, value: pct(A.pricingUplift), unit: '%' },
     { name: 'a-pricingFeeShare', label: 'Our share of that uplift', min: 0, max: 100, step: 1, value: pct(A.pricingFeeShare), unit: '%' },
   ] },
-  { group: 'Integrations', fields: [
+  { group: 'Retyping between systems', fields: [
     { name: 'a-integrationsShare', label: 'Admin hours integrations remove', min: 0, max: 100, step: 1, value: pct(A.integrationsShare), unit: '%' },
   ] },
   { group: 'Ramp-up and your quote', fields: [
@@ -79,139 +82,207 @@ const assumptions = [
     { name: 'a-setupFee', label: 'Setup from your quote', min: 0, max: 200000, step: 100, value: A.setupFee, cur: true },
   ] },
 ];
-
 const working = [
   { key: 'messaging', title: 'Guest messages' },
   { key: 'phone', title: 'Phone bookings' },
-  { key: 'pricing', title: 'Dynamic pricing' },
-  { key: 'integrations', title: 'Integrations' },
+  { key: 'pricing', title: 'Rates and pricing' },
+  { key: 'integrations', title: 'Retyping between systems' },
 ] as const;
+
+const arrow = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>';
 ---
 
 <V2Layout seo={seo} jsonLd={jsonLd}>
-  <div data-calc="full" data-fees="no" data-payback="now">
-    <V2PageHead eyebrow="Calculator" compact>
-      <Fragment slot="title">What would the agents <em>give you back?</em></Fragment>
-      <p slot="lead" class="v2-lead">
-        Your numbers on the left, the answer on the right. Everything recalculates as you go, the first months
-        ramp up rather than land at full effect, and every assumption is yours to change.
-      </p>
-    </V2PageHead>
+  <section class="v2-section v2-wiz-stage" data-theme="dark" id="calc">
+    <div class="v2-container">
+      <div class="v2-wiz" data-calc="full" data-fees="no" data-payback="now" data-step="1" data-scenario="1">
+        <header class="v2-wiz__head">
+          <span class="v2-eyebrow">Calculator</span>
+          <div class="v2-wiz__progress" aria-hidden="true"><i></i></div>
+          <div class="v2-wiz__meta">
+            <span>Step <b data-step-n>1</b> of 4</span>
+            <span data-step-name>Your property</span>
+          </div>
+        </header>
 
-    <section class="v2-section v2-inst-stage" data-theme="dark" id="calc">
-      <div class="v2-container">
-        <div class="v2-inst">
-          <div class="v2-inst__in">
-            <p class="v2-calc__sent" aria-live="polite">
-              We run a <b data-echo="propertyType">hotel</b> with <b data-echo="units">40</b> <span data-echo="unitWord">rooms</span> at
-              <b data-echo="nightlyRate">£120</b> a night, about <b data-echo="occupancy">70%</b> full. Guests send us around
-              <b data-echo="messagesPerDay">40</b> messages a day, the phone rings about <b data-echo="callsPerDay">15</b> times, and admin
-              takes <b data-echo="adminHoursPerWeek">10</b> hours a week at <b data-echo="hourlyCost">£14</b> an hour.
-            </p>
+        <!-- Step 1 -->
+        <div class="v2-wiz__step is-active" data-step-panel="1">
+          <h1 class="v2-h2" data-split>Tell us about <em>your place.</em></h1>
+          <p class="v2-lead">Two taps. We use them to pick sensible starting points, which you can change later.</p>
 
-            <div class="v2-inst__group">
-              <div class="v2-inst__group-head"><h3>Your property</h3><span>01</span></div>
-              <CalcSeg name="propertyType" value={D.propertyType} options={propertyTypes} label="Type of property" />
-              {property.map((f) => <CalcField {...f} />)}
-            </div>
+          <p class="v2-wiz__q">What kind of business is it?</p>
+          <div class="v2-tiles v2-tiles--3" role="radiogroup" aria-label="Type of business">
+            {
+              types.map(([v, title, sub], i) => (
+                <label class="v2-tile">
+                  <input type="radio" name="propertyType" value={v} checked={v === 'hotel'} />
+                  <span class="v2-tile__n">0{i + 1}</span>
+                  <span class="v2-tile__t">{title}</span>
+                  <span class="v2-tile__s">{sub}</span>
+                </label>
+              ))
+            }
+          </div>
 
-            <div class="v2-inst__group">
-              <div class="v2-inst__group-head"><h3>Your workload</h3><span>02</span></div>
-              {workload.map((f) => <CalcField {...f} />)}
-            </div>
+          <p class="v2-wiz__q">How big is it?</p>
+          <div class="v2-tiles v2-tiles--3" role="radiogroup" aria-label="Size of business">
+            {
+              sizes.map(([v, title, sub]) => (
+                <label class="v2-tile">
+                  <input type="radio" name="size" value={v} checked={v === 'medium'} />
+                  <span class="v2-tile__t">{title}</span>
+                  <span class="v2-tile__s">{sub}</span>
+                </label>
+              ))
+            }
+          </div>
 
-            <div class="v2-inst__group v2-calc__agents">
-              <div class="v2-inst__group-head"><h3>Count these agents</h3><span>03</span></div>
-              {
-                agents.map((a, i) => (
-                  <label class="v2-agent">
-                    <input type="checkbox" name={`agent-${a.key}`} checked={a.on} />
-                    <span class="v2-agent__n" style={`--sw: var(--c-${a.key})`}>0{i + 1}</span>
-                    <span class="v2-agent__body">
-                      <b>{a.title}</b>
-                      <small>{a.text}</small>
-                    </span>
-                    <span class="v2-agent__val" data-line={a.key}>off</span>
-                    <span class="v2-agent__sw" aria-hidden="true">
-                      <i />
-                    </span>
-                  </label>
-                ))
-              }
-              <label class="v2-agent v2-agent--plain">
-                <input type="checkbox" name="hoursAsCash" checked={D.hoursAsCash} />
-                <span class="v2-agent__n"></span>
-                <span class="v2-agent__body">
-                  <b>Count freed hours as money</b>
-                  <small>On: hours saved × your hourly cost. Off: the hours stay as capacity and only revenue counts.</small>
-                </span>
-                <span class="v2-agent__val"></span>
-                <span class="v2-agent__sw" aria-hidden="true">
-                  <i />
-                </span>
-              </label>
-            </div>
+          <div class="v2-wiz__nav">
+            <span class="v2-wiz__note">Takes about a minute. Nothing is stored unless you email yourself the result.</span>
+            <button class="v2-btn v2-btn--accent" type="button" data-next>
+              <span class="v2-btn__label"><span>Continue</span><span>Continue</span></span>
+              <span class="v2-btn__icon" aria-hidden="true" set:html={arrow} />
+            </button>
+          </div>
+        </div>
 
-            <div class="v2-inst__group">
-              <div class="v2-inst__group-head"><h3>Assumptions</h3><span>04</span></div>
-              <p class="v2-body">Our starting points, and the levers behind every figure on the right. Change any of them.</p>
-              {
-                assumptions.map((g) => (
-                  <details class="v2-inst__details">
-                    <summary><span>{g.group}</span><i aria-hidden="true">+</i></summary>
-                    <div class="v2-inst__details-body">{g.fields.map((f) => <CalcField {...f} compact />)}</div>
-                  </details>
-                ))
-              }
-              <button class="v2-link" type="button" data-reset>Back to our starting points <span aria-hidden="true">→</span></button>
+        <!-- Step 2 -->
+        <div class="v2-wiz__step" data-step-panel="2">
+          <h2 class="v2-h2" data-split>What eats <em>your time?</em></h2>
+          <p class="v2-lead">Pick everything that applies. Each one is an agent we build.</p>
+
+          <div class="v2-tiles v2-tiles--2">
+            {
+              agents.map((a, i) => (
+                <label class="v2-tile v2-tile--check" style={`--sw: var(--c-${a.key})`}>
+                  <input type="checkbox" name={`agent-${a.key}`} checked={a.on} />
+                  <span class="v2-tile__n">0{i + 1}</span>
+                  <span class="v2-tile__t">{a.title}</span>
+                  <span class="v2-tile__s">{a.text}</span>
+                  <span class="v2-tile__tick" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8.5l3.2 3L13 4.5" /></svg></span>
+                </label>
+              ))
+            }
+          </div>
+          <p class="v2-form__status" data-agents-status></p>
+
+          <div class="v2-wiz__nav">
+            <button class="v2-link" type="button" data-prev><span aria-hidden="true">←</span> Back</button>
+            <button class="v2-btn v2-btn--accent" type="button" data-next>
+              <span class="v2-btn__label"><span>Continue</span><span>Continue</span></span>
+              <span class="v2-btn__icon" aria-hidden="true" set:html={arrow} />
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="v2-wiz__step" data-step-panel="3">
+          <h2 class="v2-h2" data-split>A few <em>numbers.</em></h2>
+          <p class="v2-lead">Rough is fine. Drag, type or use the buttons. We only ask for what the agents you picked need.</p>
+
+          <div class="v2-wiz__fields">
+            {
+              fields.map((f) => (
+                <div data-needs={f.needs}>
+                  <CalcField {...f} />
+                </div>
+              ))
+            }
+            <div class="v2-wiz__currency">
+              <span class="v2-fld__head"><label>Currency</label></span>
+              <div class="v2-seg" role="radiogroup" aria-label="Currency" style="--n: 3">
+                {
+                  currencies.map(([v, text]) => (
+                    <label>
+                      <input type="radio" name="currency" value={v} checked={v === '£'} />
+                      <span>{v} {text}</span>
+                    </label>
+                  ))
+                }
+              </div>
             </div>
           </div>
 
-          <aside class="v2-inst__out" id="ledger" aria-live="polite" data-mbar-target>
-            <div class="v2-calc__ledger-head">
-              <span class="v2-eyebrow">Your estimate</span>
-              <CalcSeg name="currency" value="£" options={currencies} label="Currency" />
-            </div>
+          <div class="v2-wiz__nav">
+            <button class="v2-link" type="button" data-prev><span aria-hidden="true">←</span> Back</button>
+            <button class="v2-btn v2-btn--accent" type="button" data-next>
+              <span class="v2-btn__label"><span>See the result</span><span>See the result</span></span>
+              <span class="v2-btn__icon" aria-hidden="true" set:html={arrow} />
+            </button>
+          </div>
+        </div>
 
+        <!-- Step 4 -->
+        <div class="v2-wiz__step" data-step-panel="4" id="results">
+          <div class="v2-res__head">
+            <div>
+              <h2 class="v2-h2" data-split>What the agents <em>give back.</em></h2>
+              <p class="v2-lead">For a <span data-echo="propertyType">hotel</span> with <span data-echo="units">60</span> <span data-echo="unitWord">rooms</span>, with <span data-echo="agentCount">2</span> agents. Every figure comes from your numbers and the assumptions below.</p>
+            </div>
+            <button class="v2-link" type="button" data-prev><span aria-hidden="true">←</span> Change my numbers</button>
+          </div>
+
+          <div class="v2-res__hero">
             <div class="v2-calc__hero">
               <b><span data-out="monthlyBenefit">£0</span><small>a month</small></b>
-              <p class="v2-inst__range">Likely between <span data-out="low">£0</span> and <span data-out="high">£0</span>, at full effect and before any fee.</p>
+              <p>Time back plus revenue you stop missing, at full effect and before any fee.</p>
             </div>
-
-            <div class="v2-kpis">
-              <div class="v2-kpi">
-                <b><span data-out="hoursPerWeek">0</span><small>h</small></b>
-                <span>Hours back each week</span>
-              </div>
-              <div class="v2-kpi">
-                <b><span data-out="revenue">£0</span></b>
-                <span>Revenue you stop missing, a month</span>
-              </div>
-              <div class="v2-kpi">
-                <b><span data-out="costSaved">£0</span></b>
-                <span>Staff time, valued at your hourly cost</span>
-              </div>
-              <div class="v2-kpi needs-fees">
-                <b class="if-months"><span data-out="payback">0</span><small data-out="payback-unit">months</small></b>
-                <b class="if-now">Now</b>
-                <b class="if-never">Never</b>
-                <span>Until the setup is repaid</span>
-              </div>
-              <div class="v2-kpi no-fees">
-                <b><span data-out="yearNet">£0</span></b>
-                <span>Over the first year, with ramp-up</span>
-              </div>
+            <div class="v2-scen" role="radiogroup" aria-label="Scenario">
+              <label class="v2-scen__opt">
+                <input type="radio" name="scenario" value="0.7" />
+                <span class="v2-scen__t">Cautious</span>
+                <span class="v2-scen__v" data-out="low">£0</span>
+                <span class="v2-scen__s">every share assumption down a third</span>
+              </label>
+              <label class="v2-scen__opt">
+                <input type="radio" name="scenario" value="1" checked />
+                <span class="v2-scen__t">Likely</span>
+                <span class="v2-scen__v" data-out="base">£0</span>
+                <span class="v2-scen__s">our starting assumptions</span>
+              </label>
+              <label class="v2-scen__opt">
+                <input type="radio" name="scenario" value="1.25" />
+                <span class="v2-scen__t">Generous</span>
+                <span class="v2-scen__v" data-out="high">£0</span>
+                <span class="v2-scen__s">every share assumption up a quarter</span>
+              </label>
             </div>
+          </div>
 
+          <div class="v2-kpis">
+            <div class="v2-kpi">
+              <b><span data-out="hoursPerWeek">0</span><small>h</small></b>
+              <span>Hours back each week</span>
+            </div>
+            <div class="v2-kpi">
+              <b><span data-out="revenue">£0</span></b>
+              <span>Revenue you stop missing, a month</span>
+            </div>
+            <div class="v2-kpi">
+              <b><span data-out="costSaved">£0</span></b>
+              <span>Staff time, valued at your hourly cost</span>
+            </div>
+            <div class="v2-kpi needs-fees">
+              <b class="if-months"><span data-out="payback">0</span><small data-out="payback-unit">months</small></b>
+              <b class="if-now">Now</b>
+              <b class="if-never">Never</b>
+              <span>Until the setup is repaid</span>
+            </div>
+            <div class="v2-kpi no-fees">
+              <b><span data-out="yearNet">£0</span></b>
+              <span>Over the first year, with ramp-up</span>
+            </div>
+          </div>
+
+          <div class="v2-res__charts">
             <div class="v2-chart">
               <div class="v2-chart__head">
                 <span>Cumulative net gain, first twelve months</span>
-                <span class="v2-chart__key"><i style="background: var(--c-messaging)"></i> base case <i class="is-band" style="background: var(--c-messaging)"></i> cautious to generous</span>
+                <span class="v2-chart__key"><i style="background: var(--c-messaging)"></i> chosen case <i class="is-band" style="background: var(--c-messaging)"></i> cautious to generous</span>
               </div>
               <div class="v2-chart__plot" data-chart="cumulative"></div>
-              <p class="v2-chart__tip" data-tip-for="cumulative">Move across the chart for any month. The line starts below zero when there is a setup fee.</p>
+              <p class="v2-chart__tip" data-tip-for="cumulative">Move across the chart for any month.</p>
             </div>
-
             <div class="v2-chart">
               <div class="v2-chart__head">
                 <span>A month at full effect, by agent</span>
@@ -220,111 +291,96 @@ const working = [
               <div class="v2-chart__plot" data-chart="split"></div>
               <p class="v2-chart__tip" data-tip-for="split">Point at a bar for the split.</p>
             </div>
-
-            <div class="v2-calc__fees needs-fees">
-              <div><span>Monthly fee from your quote</span><span data-out="monthlyFee">£0</span></div>
-              <div><span>Setup from your quote</span><span data-out="setupFee">£0</span></div>
-              <div class="is-total"><span>Net gain per month at full effect</span><span data-out="netMonthly">£0</span></div>
-            </div>
-            <p class="v2-calc__note no-fees">
-              Have a quote from us? Put it into the assumptions and the chart shows the fees, the net gain and the month the setup is repaid.
-            </p>
-            <p class="v2-calc__note">An estimate from your inputs, not a promise. The working for every line is at the foot of the page.</p>
-
-            <details class="v2-calc__send">
-              <summary><span>Email me this estimate</span><i aria-hidden="true">+</i></summary>
-              <form class="v2-form" data-send>
-                <div class="v2-form__row">
-                  <div class="v2-field">
-                    <label for="est-name">Name</label>
-                    <input id="est-name" name="name" type="text" required autocomplete="name" />
-                  </div>
-                  <div class="v2-field">
-                    <label for="est-company">Property</label>
-                    <input id="est-company" name="company" type="text" autocomplete="organization" />
-                  </div>
-                </div>
-                <div class="v2-field">
-                  <label for="est-email">Email</label>
-                  <input id="est-email" name="email" type="email" required autocomplete="email" />
-                </div>
-                <div class="v2-form__status" data-send-status></div>
-                <button class="v2-btn" type="submit">
-                  <span class="v2-btn__label"><span>Send it to me</span><span>Send it to me</span></span>
-                  <span class="v2-btn__icon" aria-hidden="true">
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
-                  </span>
-                </button>
-                <p class="v2-form__note">We send the estimate and keep your email for one follow-up. Nothing else.</p>
-              </form>
-            </details>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="v2-section" data-theme="dark" id="how">
-      <div class="v2-container">
-        <div class="v2-head">
-          <div>
-            <span class="v2-eyebrow" data-reveal>The working</span>
-            <h2 class="v2-h2" data-split>Shown <em>in full.</em></h2>
           </div>
-          <div class="v2-head__right">
-            <p class="v2-lead" data-reveal>
-              Each agent adds one line, written out with the numbers you gave us. The range takes every share
-              assumption down by thirty percent for the cautious case and up by a quarter for the generous one.
-            </p>
-          </div>
-        </div>
-        <div class="v2-list">
-          {
-            working.map((w, i) => (
-              <div class="v2-list__row" data-reveal>
-                <span class="v2-list__n">0{i + 1}</span>
-                <h3 class="v2-list__title">{w.title}</h3>
-                <div class="v2-list__body">
-                  <p class="v2-body v2-calc__working" data-explain={w.key}>…</p>
-                </div>
+
+          <div class="v2-res__foot">
+            <div class="v2-res__fees">
+              <div class="v2-calc__fees needs-fees">
+                <div><span>Monthly fee from your quote</span><span data-out="monthlyFee">£0</span></div>
+                <div><span>Setup from your quote</span><span data-out="setupFee">£0</span></div>
+                <div class="is-total"><span>Net gain per month at full effect</span><span data-out="netMonthly">£0</span></div>
               </div>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section class="v2-section" data-theme="dark" id="next">
-      <div class="v2-container">
-        <div class="v2-head">
-          <div>
-            <span class="v2-eyebrow" data-reveal>Next</span>
-            <h2 class="v2-h2" data-split>Want the real <em>number?</em></h2>
-          </div>
-          <div class="v2-head__right">
-            <p class="v2-lead" data-reveal>
-              Book a call and we will go through your property together, then send you a quote you can put back
-              into this page.
-            </p>
-            <div class="v2-cara__cta">
-              <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
-                <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
-                <span class="v2-btn__icon" aria-hidden="true">
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              <p class="v2-calc__note no-fees">Have a quote from us? Put it in under assumptions and the chart shows the fees, the net gain and the month the setup is repaid.</p>
+              <p class="v2-calc__note">An estimate from your inputs, not a promise.</p>
+              <label class="v2-agent v2-agent--plain v2-res__cash">
+                <input type="checkbox" name="hoursAsCash" checked={D.hoursAsCash} />
+                <span class="v2-agent__n"></span>
+                <span class="v2-agent__body">
+                  <b>Count freed hours as money</b>
+                  <small>On: hours saved × your hourly cost. Off: the hours stay as capacity and only revenue counts.</small>
                 </span>
-              </button>
-              <a href="/#build" class="v2-link">See what each agent does <span aria-hidden="true">→</span></a>
+                <span class="v2-agent__val"></span>
+                <span class="v2-agent__sw" aria-hidden="true"><i /></span>
+              </label>
+            </div>
+
+            <div class="v2-res__more">
+              <details class="v2-inst__details">
+                <summary><span>Assumptions and your quote</span><i aria-hidden="true">+</i></summary>
+                <div class="v2-inst__details-body">
+                  {
+                    assumptions.map((g) => (
+                      <div class="v2-res__group">
+                        <span class="v2-eyebrow v2-eyebrow--plain">{g.group}</span>
+                        {g.fields.map((f) => <CalcField {...f} compact />)}
+                      </div>
+                    ))
+                  }
+                  <button class="v2-link" type="button" data-reset>Back to our starting points <span aria-hidden="true">→</span></button>
+                </div>
+              </details>
+              <details class="v2-inst__details">
+                <summary><span>The working, written out</span><i aria-hidden="true">+</i></summary>
+                <div class="v2-inst__details-body">
+                  {
+                    working.map((w) => (
+                      <div class="v2-res__work" data-needs={w.key}>
+                        <span class="v2-eyebrow v2-eyebrow--plain">{w.title}</span>
+                        <p class="v2-body v2-calc__working" data-explain={w.key}>…</p>
+                      </div>
+                    ))
+                  }
+                </div>
+              </details>
+              <details class="v2-inst__details v2-calc__send">
+                <summary><span>Email me this estimate</span><i aria-hidden="true">+</i></summary>
+                <form class="v2-form" data-send>
+                  <div class="v2-form__row">
+                    <div class="v2-field">
+                      <label for="est-name">Name</label>
+                      <input id="est-name" name="name" type="text" required autocomplete="name" />
+                    </div>
+                    <div class="v2-field">
+                      <label for="est-company">Property</label>
+                      <input id="est-company" name="company" type="text" autocomplete="organization" />
+                    </div>
+                  </div>
+                  <div class="v2-field">
+                    <label for="est-email">Email</label>
+                    <input id="est-email" name="email" type="email" required autocomplete="email" />
+                  </div>
+                  <div class="v2-form__status" data-send-status></div>
+                  <button class="v2-btn" type="submit">
+                    <span class="v2-btn__label"><span>Send it to me</span><span>Send it to me</span></span>
+                    <span class="v2-btn__icon" aria-hidden="true" set:html={arrow} />
+                  </button>
+                  <p class="v2-form__note">We send the estimate and keep your email for one follow-up. Nothing else.</p>
+                </form>
+              </details>
             </div>
           </div>
+
+          <div class="v2-wiz__nav v2-wiz__nav--end">
+            <button class="v2-link" type="button" data-restart>Start again <span aria-hidden="true">↺</span></button>
+            <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
+              <span class="v2-btn__label"><span>Book a call about this</span><span>Book a call about this</span></span>
+              <span class="v2-btn__icon" aria-hidden="true" set:html={arrow} />
+            </button>
+          </div>
         </div>
       </div>
-    </section>
-
-    <a class="v2-calc__mbar" href="#ledger" data-mbar>
-      <span><b data-out="monthlyBenefit">£0</b> a month</span>
-      <span><b data-out="hoursPerWeek">0</b> h a week</span>
-      <span class="v2-calc__mbar-go">Results ↓</span>
-    </a>
-  </div>
+    </div>
+  </section>
 
   <script>
     import '../scripts/v2/calculator/ui';

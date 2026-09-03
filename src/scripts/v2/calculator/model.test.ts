@@ -7,6 +7,8 @@ import {
   formatCompact,
   formatHours,
   formatMoney,
+  presetFor,
+  PRESETS,
   rampFactor,
   roomRevenuePerMonth,
   sanitiseAssumptions,
@@ -135,6 +137,16 @@ describe('totals and payback', () => {
     expect(DEFAULT_ASSUMPTIONS.setupFee).toBe(0);
     const r = compute(DEFAULT_INPUTS);
     expect(r.netMonthly).toBe(r.monthlyBenefit);
+  });
+});
+
+describe('presets', () => {
+  it('combines the type price with the size band', () => {
+    const p = presetFor('campsite', 'large');
+    expect(p.units).toBe(400);
+    expect(p.nightlyRate).toBe(45);
+    expect(p.messagesPerDay).toBe(110);
+    expect(PRESETS.hotel.units).toBe(60);
   });
 });
 

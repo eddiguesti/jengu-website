@@ -14,7 +14,10 @@ import {
   compute,
   DEFAULT_ASSUMPTIONS,
   GENEROUS,
+  presetFor,
   projectionFor,
+  scaleShares,
+  type PropertySize,
   DEFAULT_INPUTS,
   formatHours,
   formatMoney,
@@ -28,8 +31,8 @@ import {
 import { Tweener } from './tween';
 
 const AGENT_KEYS: Array<keyof Agents> = ['messaging', 'phone', 'pricing', 'integrations'];
-const UNIT_WORDS: Record<PropertyType, string> = { hotel: 'rooms', resort: 'rooms', campsite: 'pitches', tour: 'places' };
-const TYPE_WORDS: Record<PropertyType, string> = { hotel: 'hotel', resort: 'resort', campsite: 'campsite', tour: 'tour business' };
+const UNIT_WORDS: Record<PropertyType, string> = { hotel: 'rooms', resort: 'rooms', campsite: 'pitches', park: 'units', tour: 'places', other: 'units' };
+const TYPE_WORDS: Record<PropertyType, string> = { hotel: 'hotel', resort: 'resort', campsite: 'campsite', park: 'holiday park', tour: 'tour business', other: 'business' };
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- reading the form ---------- */
@@ -158,6 +161,7 @@ const FORMATTERS: Record<string, Formatter> = {
   setupFee: (v, s) => formatMoney(v, s),
   netMonthly: (v, s) => formatMoney(v, s),
   low: (v, s) => formatMoney(v, s),
+  base: (v, s) => formatMoney(v, s),
   high: (v, s) => formatMoney(v, s),
   yearNet: (v, s) => formatMoney(v, s),
   hoursPerWeek: (v) => formatHours(v),
@@ -175,6 +179,7 @@ function numericOutputs(r: Results): Record<string, number> {
     setupFee: r.setupFee,
     netMonthly: r.netMonthly,
     low: r.range.low,
+    base: (r as Results & { baseBenefit?: number }).baseBenefit ?? r.monthlyBenefit,
     high: r.range.high,
     yearNet: r.monthly[r.monthly.length - 1]?.cumulativeNet ?? 0,
     hoursPerWeek: r.hoursPerWeek,
@@ -229,6 +234,7 @@ function writeEcho(root: HTMLElement, i: Inputs, symbol: string): void {
     hourlyCost: formatMoney(i.hourlyCost, symbol),
     propertyType: TYPE_WORDS[i.propertyType],
     unitWord: UNIT_WORDS[i.propertyType],
+    agentCount: String(Object.values(i.agents).filter(Boolean).length),
   };
   root.querySelectorAll<HTMLElement>('[data-echo]').forEach((el) => {
     const text = plain[el.dataset.echo ?? ''];
@@ -335,8 +341,66 @@ function wireChartHover(root: HTMLElement, state: ChartState): void {
 /* ---------- presets, currency, reset ---------- */
 
 function applyPreset(root: HTMLElement, type: PropertyType): void {
-  Object.entries(PRESETS[type]).forEach(([key, value]) => {
+  const size = checked(root, 'size') as PropertySize | undefined;
+  const preset = size ? presetFor(type, size) : PRESETS[type];
+  Object.entries(preset).forEach(([key, value]) => {
     if (typeof value === 'number') setByName(root, key, value);
+  });
+}
+
+/** Hide the fields and working that no chosen agent needs. */
+function applyNeeds(root: HTMLElement, agents: Agents): void {
+  root.querySelectorAll<HTMLElement>('[data-needs]').forEach((el) => {
+    const needs = (el.dataset.needs ?? '').split(/\s+/).filter(Boolean) as Array<keyof Agents>;
+    el.hidden = needs.length > 0 && !needs.some((k) => agents[k]);
+  });
+}
+
+/* ---------- four-step flow ---------- */
+
+const STEP_NAMES = ['Your property', 'What eats your time', 'A few numbers', 'The result'];
+
+function wireWizard(root: HTMLElement, onEnter: (step: number) => void): void {
+  const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-step-panel]'));
+  if (!panels.length) return;
+  const bar = root.querySelector<HTMLElement>('.v2-wiz__progress i');
+  const stepN = root.querySelector<HTMLElement>('[data-step-n]');
+  const stepName = root.querySelector<HTMLElement>('[data-step-name]');
+  const status = root.querySelector<HTMLElement>('[data-agents-status]');
+  const count = panels.length;
+  let current = 1;
+
+  const show = (step: number): void => {
+    current = Math.min(count, Math.max(1, step));
+    panels.forEach((p) => p.classList.toggle('is-active', Number(p.dataset.stepPanel) === current));
+    root.dataset.step = String(current);
+    if (bar) bar.style.transform = `scaleX(${current / count})`;
+    if (stepN) stepN.textContent = String(current);
+    if (stepName) stepName.textContent = STEP_NAMES[current - 1] ?? '';
+    onEnter(current);
+    const top = root.getBoundingClientRect().top + window.scrollY - 72;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  const canLeave = (step: number): boolean => {
+    if (step !== 2) return true;
+    const any = AGENT_KEYS.some((k) => root.querySelector<HTMLInputElement>(`[name="agent-${k}"]`)?.checked);
+    if (status) {
+      status.textContent = any ? '' : 'Pick at least one to carry on.';
+      status.className = `v2-form__status${any ? '' : ' is-error'}`;
+    }
+    return any;
+  };
+
+  root.querySelectorAll<HTMLElement>('[data-next]').forEach((b) =>
+    b.addEventListener('click', () => {
+      if (canLeave(current)) show(current + 1);
+    })
+  );
+  root.querySelectorAll<HTMLElement>('[data-prev]').forEach((b) => b.addEventListener('click', () => show(current - 1)));
+  root.querySelectorAll<HTMLElement>('[data-restart]').forEach((b) => b.addEventListener('click', () => show(1)));
+  root.addEventListener('change', (e) => {
+    if ((e.target as HTMLInputElement).name?.startsWith('agent-') && status) status.textContent = '';
   });
 }
 
@@ -450,22 +514,26 @@ export function initCalculator(root: HTMLElement): void {
   const update = (): void => {
     const inputs = readInputs(root);
     const assumptions = readAssumptions(root);
-    const results = compute(inputs, assumptions);
+    const scenario = Number(checked(root, 'scenario') ?? '1') || 1;
+    const shown = compute(inputs, scenario === 1 ? assumptions : scaleShares(assumptions, scenario));
+    const base = scenario === 1 ? shown : compute(inputs, assumptions);
     const symbol = currentSymbol(root);
-    latest = { inputs, results, symbol };
-    writeOutputs(root, out, results, symbol);
+    latest = { inputs, results: shown, symbol };
+    writeOutputs(root, out, { ...shown, range: base.range, baseBenefit: base.monthlyBenefit } as Results & { baseBenefit: number }, symbol);
     writeEcho(root, inputs, symbol);
-    writeLines(root, results, inputs, assumptions, symbol);
-    renderCharts(root, results, inputs, assumptions, symbol, chartState);
+    writeLines(root, shown, inputs, assumptions, symbol);
+    applyNeeds(root, inputs.agents);
+    renderCharts(root, shown, inputs, assumptions, symbol, chartState);
   };
 
   root.addEventListener('input', update);
   root.addEventListener('change', (e) => {
     const t = e.target as HTMLInputElement;
-    if (t.name === 'propertyType') applyPreset(root, t.value as PropertyType);
+    if (t.name === 'propertyType' || t.name === 'size') applyPreset(root, (checked(root, 'propertyType') as PropertyType | undefined) ?? 'hotel');
     if (t.name === 'currency') applyCurrency(root, t.value);
     update();
   });
+  wireWizard(root, () => update());
   root.querySelector<HTMLElement>('[data-reset]')?.addEventListener('click', (e) => {
     e.preventDefault();
     resetAll(root);

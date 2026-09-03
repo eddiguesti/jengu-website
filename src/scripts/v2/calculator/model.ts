@@ -5,7 +5,8 @@
  * or an assumption they can change.
  */
 
-export type PropertyType = 'hotel' | 'resort' | 'campsite' | 'tour';
+export type PropertyType = 'hotel' | 'resort' | 'campsite' | 'park' | 'tour' | 'other';
+export type PropertySize = 'small' | 'medium' | 'large';
 
 export interface Agents {
   messaging: boolean;
@@ -137,13 +138,42 @@ export const DEFAULT_INPUTS: Inputs = Object.freeze({
   agents: Object.freeze({ messaging: true, phone: true, pricing: false, integrations: false }),
 }) as Inputs;
 
-/** Property-type presets for the input defaults (nothing else depends on type). */
-export const PRESETS: Record<PropertyType, Partial<Inputs>> = {
-  hotel: { units: 40, nightlyRate: 120, occupancy: 70, messagesPerDay: 40, callsPerDay: 15, adminHoursPerWeek: 10 },
-  resort: { units: 120, nightlyRate: 220, occupancy: 65, messagesPerDay: 90, callsPerDay: 30, adminHoursPerWeek: 20 },
-  campsite: { units: 150, nightlyRate: 45, occupancy: 55, messagesPerDay: 35, callsPerDay: 20, adminHoursPerWeek: 12 },
-  tour: { units: 12, nightlyRate: 180, occupancy: 60, messagesPerDay: 30, callsPerDay: 10, adminHoursPerWeek: 8 },
+/** Starting points per property type: a typical nightly price and occupancy. */
+export const TYPE_PRESETS: Record<PropertyType, { nightlyRate: number; occupancy: number }> = {
+  hotel: { nightlyRate: 120, occupancy: 70 },
+  resort: { nightlyRate: 220, occupancy: 65 },
+  campsite: { nightlyRate: 45, occupancy: 55 },
+  park: { nightlyRate: 90, occupancy: 60 },
+  tour: { nightlyRate: 180, occupancy: 60 },
+  other: { nightlyRate: 100, occupancy: 65 },
 };
+
+/** Units per size band, per property type. */
+export const SIZE_PRESETS: Record<PropertyType, Record<PropertySize, number>> = {
+  hotel: { small: 20, medium: 60, large: 150 },
+  resort: { small: 40, medium: 120, large: 300 },
+  campsite: { small: 60, medium: 150, large: 400 },
+  park: { small: 60, medium: 150, large: 400 },
+  tour: { small: 8, medium: 20, large: 50 },
+  other: { small: 20, medium: 60, large: 150 },
+};
+
+/** Workload starting points scale with the size band. */
+export const WORKLOAD_PRESETS: Record<PropertySize, { messagesPerDay: number; callsPerDay: number; adminHoursPerWeek: number }> = {
+  small: { messagesPerDay: 20, callsPerDay: 8, adminHoursPerWeek: 6 },
+  medium: { messagesPerDay: 45, callsPerDay: 18, adminHoursPerWeek: 12 },
+  large: { messagesPerDay: 110, callsPerDay: 40, adminHoursPerWeek: 25 },
+};
+
+/** Everything a type and size band imply, as a partial set of inputs. */
+export function presetFor(type: PropertyType, size: PropertySize): Partial<Inputs> {
+  return { ...TYPE_PRESETS[type], units: SIZE_PRESETS[type][size], ...WORKLOAD_PRESETS[size] };
+}
+
+/** Kept for the home page estimate, which only knows the type. */
+export const PRESETS: Record<PropertyType, Partial<Inputs>> = Object.fromEntries(
+  (Object.keys(TYPE_PRESETS) as PropertyType[]).map((t) => [t, presetFor(t, 'medium')])
+) as Record<PropertyType, Partial<Inputs>>;
 
 const clamp = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, Number.isFinite(v) ? v : lo));
 const share = (v: number): number => clamp(v, 0, 1);
