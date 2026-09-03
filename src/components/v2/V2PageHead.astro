@@ -1,0 +1,29 @@
+---
+/**
+ * V2PageHead — the opening block of every inner page: eyebrow, headline
+ * (with an optional italic accent via <em> in the `title` slot), a lead
+ * paragraph and an optional aside on the right.
+ */
+interface Props {
+  eyebrow: string;
+  theme?: 'dark' | 'light';
+  /** Section id for in-page anchors. */
+  id?: string;
+  /** Tighter top padding when the page has no hero visual. */
+  compact?: boolean;
+}
+const { eyebrow, theme = 'dark', id, compact = false } = Astro.props;
+---
+
+<section class:list={['v2-pagehead', { 'v2-pagehead--compact': compact }]} data-theme={theme} id={id}>
+  <div class="v2-container">
+    <span class="v2-eyebrow" data-reveal>{eyebrow}</span>
+    <div class="v2-pagehead__grid">
+      <h1 class="v2-h1 v2-pagehead__title" data-split><slot name="title" /></h1>
+      <div class="v2-pagehead__aside" data-reveal>
+        <slot name="lead" />
+        <slot name="aside" />
+      </div>
+    </div>
+  </div>
+</section>

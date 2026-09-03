@@ -1,337 +1,408 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
+/**
+ * Case studies: Campasun, told as one long editorial case study. Built on
+ * the v2 design system. Keeps the screenshot lightbox (#imageModal).
+ */
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
   title: 'AI Automation Success Stories - Tourism Case Studies',
-  description: 'How Campasuns reduced admin by 35% with AI-powered competitor tracking & dynamic pricing. Real results from hospitality businesses using AI automation. Read the full case study.',
+  description:
+    'How Campasun reduced admin by 35% with AI-powered competitor tracking & dynamic pricing. Real results from hospitality businesses using AI automation. Read the full case study.',
   canonical: `${Astro.site}case-studies/`,
-  ogType: 'website'
+  ogType: 'website',
 });
 
 const jsonLd = [
   generateOrganizationSchema(),
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
-    { name: 'Case Studies', url: `${Astro.site}case-studies/` }
-  ])
+    { name: 'Case Studies', url: `${Astro.site}case-studies/` },
+  ]),
+];
+
+const ATTRIBUTION = 'As reported by Campasun';
+
+const figures = [
+  { value: '35%', label: 'Less admin work' },
+  { value: '20%', label: 'More revenue' },
+  { value: '25%', label: 'Higher guest satisfaction' },
+];
+
+const challenge = [
+  {
+    n: '01',
+    title: 'Emails answered by hand',
+    text: 'Staff read and replied to every email themselves. Replies were slow and uneven, and in peak season the team could not keep up.',
+  },
+  {
+    n: '02',
+    title: 'Prices set once and left',
+    text: 'Fixed prices could not respond to competitor changes, the weather or local events, so revenue was left on the table.',
+  },
+  {
+    n: '03',
+    title: 'A different process at each site',
+    text: 'Each of the eight campsites did things its own way, which made the group harder to run and harder to grow.',
+  },
+];
+
+const built = [
+  {
+    n: '01',
+    title: 'Process mapping',
+    text: 'We mapped every business process across the campsites in Miro, found the slow spots and agreed one standard way of working.',
+  },
+  {
+    n: '02',
+    title: 'Email automation',
+    text: 'A custom Python application, connected to the OpenAI API, that reads, sorts and answers customer emails around the clock.',
+  },
+  {
+    n: '03',
+    title: 'Operations automation',
+    text: 'We automated the repetitive admin tasks and put the same workflows in place at all eight sites.',
+  },
+  {
+    n: '04',
+    title: 'A dynamic pricing engine',
+    text: 'Pricing software built for campsites. It watches competitors, weather, local events and booking history, and suggests prices.',
+  },
+];
+
+const engine = [
+  {
+    n: '01',
+    title: 'Competitor tracking',
+    text: 'The engine finds competitor campsites within a radius you set, using camping-and-co.com data, and tracks their prices and availability. For Campasun it follows more than ten competitors.',
+  },
+  {
+    n: '02',
+    title: 'Data enrichment',
+    text: 'Booking history is enriched with weather (temperature, rainfall and sunshine hours), holiday calendars, school breaks and calendar features such as day of week and season.',
+  },
+  {
+    n: '03',
+    title: 'Price predictions',
+    text: 'A machine learning model reads the booking history, capacity and market conditions and predicts prices 14 to 60 days ahead, against the occupancy target you set.',
+  },
+  {
+    n: '04',
+    title: 'Pricing strategies',
+    text: 'Pick Conservative, Balanced or Aggressive, then tune demand sensitivity (30 to 90%), price aggression (40 to 100%) and the occupancy target (65 to 90%).',
+  },
+];
+
+const screenshots = [
+  { src: '/images/competitor-discovery.webp', alt: 'Competitor discovery screen', caption: 'Competitor discovery' },
+  { src: '/images/data-enrichment.webp', alt: 'Data enrichment dashboard', caption: 'Data enrichment' },
+  { src: '/images/pricing-strategy.webp', alt: 'Pricing strategy controls', caption: 'Pricing strategy controls' },
+  { src: '/images/price-optimization.webp', alt: 'Price optimisation timeline', caption: 'Price optimisation timeline' },
+  { src: '/images/forecasting.webp', alt: 'Revenue and occupancy forecasts', caption: 'Revenue and occupancy forecasts' },
 ];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Case Studies -->
-  <section class="case-studies-section">
-    <div class="section-container">
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="Case study" compact>
+    <Fragment slot="title">Campasun: eight campsites, <em>one pricing engine.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      How a campsite operator in the South of France cut its admin, put one process in place across its
+      sites and got a dynamic pricing tool built for campsites.
+    </p>
+    <dl slot="aside" class="meta">
+      <dt>Client</dt>
+      <dd>Campasun</dd>
+      <dt>Sector</dt>
+      <dd>Campsite hospitality</dd>
+      <dt>Location</dt>
+      <dd>South of France, 8 sites</dd>
+    </dl>
+  </V2PageHead>
 
-      <!-- Case Study 1 - Campasuns -->
-      <div class="case-study">
-        <div class="case-study-header">
-          <div class="case-study-info">
-            <span class="case-study-badge">Campsite Hospitality</span>
-            <h2>Campasuns</h2>
-            <p class="case-study-subtitle">
-              How a multi-location campsite operator achieved 35% reduction in admin workload and 20% revenue increase through AI-powered automation and dynamic pricing
-            </p>
-            <div class="case-study-meta">
-              <div class="meta-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>France</span>
-              </div>
-              <div class="meta-item">
-                <i class="fas fa-building"></i>
-                <span>Multiple Locations</span>
-              </div>
-              <div class="meta-item">
-                <i class="fas fa-users"></i>
-                <span>Campsite Hospitality</span>
-              </div>
+  <section class="v2-section figures" data-theme="dark" id="results">
+    <div class="v2-container">
+      <div class="v2-case__figures" data-stagger>
+        {
+          figures.map((f) => (
+            <div class="v2-case__figure" data-reveal>
+              <b>{f.value}</b>
+              <span>{f.label}</span>
+              <small>{ATTRIBUTION}</small>
             </div>
-          </div>
-          <div class="case-study-stats">
-            <div class="stat-box">
-              <span class="stat-value">35%</span>
-              <span class="stat-label">Admin Reduction</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-value">20%</span>
-              <span class="stat-label">Revenue Increase</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-value">25%</span>
-              <span class="stat-label">Satisfaction Boost</span>
-            </div>
-          </div>
+          ))
+        }
+      </div>
+      <p class="v2-body figures__note" data-reveal>
+        These are the figures Campasun reported to us after the work. Results at another business will depend
+        on what it does today.
+      </p>
+    </div>
+  </section>
+
+  <section class="v2-section" data-theme="light" id="challenge">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>The challenge</span>
+          <h2 class="v2-h2" data-split>Eight sites, <em>too much typing.</em></h2>
         </div>
-
-        <div class="case-study-content">
-          <div class="case-study-section">
-            <h3>The Challenge</h3>
-            <p>
-              Managing 8 campsites across the South of France, Campasuns faced significant operational inefficiencies that were holding back growth and profitability.
-            </p>
-            <div class="solutions-list">
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-envelope"></i>
-                </div>
-                <div>
-                  <h4>Communication Bottlenecks</h4>
-                  <p>Manual email handling led to delayed responses, inconsistent communication quality, and overwhelmed staff during peak seasons</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-tags"></i>
-                </div>
-                <div>
-                  <h4>Static Pricing Limitations</h4>
-                  <p>Fixed pricing models couldn't adapt to market fluctuations, competitor changes, weather patterns, or local events—leaving revenue on the table</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-cogs"></i>
-                </div>
-                <div>
-                  <h4>Operational Inconsistencies</h4>
-                  <p>Varying processes across different campsite locations created inefficiencies and made scaling difficult</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="case-study-section">
-            <h3>Our Solution</h3>
-            <p>
-              We implemented a comprehensive automation and optimization strategy that addressed each challenge systematically:
-            </p>
-            <div class="solutions-list">
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-project-diagram"></i>
-                </div>
-                <div>
-                  <h4>Process Mapping & Optimization</h4>
-                  <p>Used Miro to map out all business processes across campsites, identifying inefficiencies and standardizing best practices</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-envelope-open-text"></i>
-                </div>
-                <div>
-                  <h4>AI Email Automation</h4>
-                  <p>Developed custom Python application integrated with OpenAI API to automatically handle, categorize, and respond to customer emails 24/7</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-cog"></i>
-                </div>
-                <div>
-                  <h4>Operational Systems Automation</h4>
-                  <p>Automated repetitive administrative tasks and created consistent workflows across all 8 campsite locations</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-brain"></i>
-                </div>
-                <div>
-                  <h4>Custom Dynamic Pricing Software</h4>
-                  <p>Built the industry's first AI-powered dynamic pricing engine specifically designed for campsites—monitoring competitors, weather, events, and historical data to optimize revenue</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="case-study-section">
-            <h3>Dynamic Pricing Innovation</h3>
-            <p>
-              The crown jewel of this transformation was our custom-built dynamic pricing platform—a sophisticated ML system that doesn't exist anywhere else in the campsite industry. Traditional pricing tools couldn't handle the unique complexities of campsite management, so we built one from the ground up.
-            </p>
-            <div class="solutions-list">
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-binoculars"></i>
-                </div>
-                <div>
-                  <h4>Competitor Intelligence</h4>
-                  <p>Automated competitor discovery and price tracking using camping-and-co.com, monitoring market rates within customizable radius zones</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-cloud-sun-rain"></i>
-                </div>
-                <div>
-                  <h4>Multi-Source Data Enrichment</h4>
-                  <p>Real-time integration of weather forecasts, holiday calendars, local events, and temporal features to identify pricing correlations</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-chart-line"></i>
-                </div>
-                <div>
-                  <h4>Machine Learning Predictions</h4>
-                  <p>Advanced ML algorithms analyze historical patterns, capacity management, and market conditions to predict optimal prices aligned with business goals</p>
-                </div>
-              </div>
-              <div class="solution-item">
-                <div class="solution-icon">
-                  <i class="fas fa-sliders-h"></i>
-                </div>
-                <div>
-                  <h4>Flexible Pricing Strategies</h4>
-                  <p>Choose from Conservative, Balanced, or Aggressive pricing approaches with fine-tuned controls for demand sensitivity and price aggression</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="case-study-section">
-            <h3>The Platform Features</h3>
-            <div class="results-grid">
-              <div class="result-card">
-                <h4>Intelligent Pricing Engine</h4>
-                <ul>
-                  <li>Multi-strategy pricing (Conservative, Balanced, Aggressive)</li>
-                  <li>Customizable demand sensitivity and price aggression</li>
-                  <li>Occupancy target optimization (65%-90%)</li>
-                  <li>14-day to 60-day forecast horizons</li>
-                  <li>Real-time price optimization timeline visualization</li>
-                </ul>
-              </div>
-              <div class="result-card">
-                <h4>Data-Driven Intelligence</h4>
-                <ul>
-                  <li>Automatic competitor discovery within custom radius</li>
-                  <li>Weather data integration (temperature, precipitation, sunshine)</li>
-                  <li>Holiday and school break overlays</li>
-                  <li>Historical booking pattern analysis</li>
-                  <li>Revenue and occupancy forecasting</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <p class="testimonial-quote">
-            "Jengu built something that simply didn't exist in the campsite industry—an AI-powered pricing engine that actually understands our market. The system monitors competitors, overlays weather and holiday data, analyzes years of booking patterns, and uses machine learning to predict optimal prices. It's transformed how we manage pricing across our 8 locations. This level of intelligence was previously only available to hotels, and now we have it tailored specifically for campsites."
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            Campasun runs eight campsites across the South of France. Three things were holding the group
+            back.
           </p>
-          <div class="testimonial-author">
-            <div class="author-avatar">C</div>
-            <div class="author-info">
-              <h5>Campasuns Management</h5>
-              <p>Multi-location Campsite Operations, South of France</p>
-            </div>
-          </div>
         </div>
-
-        <!-- Platform Showcase -->
-        <div class="platform-showcase">
-          <div class="showcase-header">
-            <h3>Inside the Platform</h3>
-            <p>Explore the AI-powered features that make intelligent campsite pricing possible</p>
-          </div>
-
-          <div class="screenshot-grid">
-            <!-- Competitor Discovery -->
-            <div class="screenshot-item">
-              <img src="/images/competitor-discovery.png" alt="Competitor Discovery Interface" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-              <div class="screenshot-caption">
-                <h4><i class="fas fa-binoculars"></i> Competitor Discovery</h4>
-                <p>Automatically discover and track competitor campsites within a customizable radius using camping-and-co.com data. The system monitors 10+ competitors in real-time, tracking their pricing strategies and availability to inform intelligent pricing decisions.</p>
+      </div>
+      <div class="v2-list" data-stagger>
+        {
+          challenge.map((r) => (
+            <div class="v2-list__row" data-reveal>
+              <span class="v2-list__n">{r.n}</span>
+              <h3 class="v2-list__title">{r.title}</h3>
+              <div class="v2-list__body">
+                <p class="v2-body">{r.text}</p>
               </div>
             </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-            <!-- Data Enrichment -->
-            <div class="screenshot-item">
-              <img src="/images/data-enrichment.png" alt="Data Enrichment Dashboard" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-              <div class="screenshot-caption">
-                <h4><i class="fas fa-database"></i> Multi-Source Data Enrichment</h4>
-                <p>The platform enriches historical booking data with weather information (temperature, precipitation, sunshine hours), holiday calendars, school breaks, and temporal features (day of week, season, weekend indicators). All data sources are automatically synchronized and processed for ML analysis.</p>
+  <section class="v2-section" data-theme="dark" id="what-we-built">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>What we built</span>
+          <h2 class="v2-h2" data-split>Map it, automate it, <em>then price it.</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            We took the problems one at a time, starting with the processes and ending with the pricing.
+          </p>
+        </div>
+      </div>
+      <div class="v2-list" data-stagger>
+        {
+          built.map((r) => (
+            <div class="v2-list__row" data-reveal>
+              <span class="v2-list__n">{r.n}</span>
+              <h3 class="v2-list__title">{r.title}</h3>
+              <div class="v2-list__body">
+                <p class="v2-body">{r.text}</p>
               </div>
             </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-            <!-- Pricing Strategy -->
-            <div class="screenshot-item">
-              <img src="/images/pricing-strategy.png" alt="Pricing Strategy Selection" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-              <div class="screenshot-caption">
-                <h4><i class="fas fa-sliders-h"></i> Strategic Pricing Controls</h4>
-                <p>Choose from Conservative, Balanced, or Aggressive pricing strategies with fine-tuned controls for demand sensitivity (30%-90%), price aggression (40%-100%), and occupancy targets (65%-90%). Each strategy adapts dynamically based on forecasted demand and market conditions.</p>
+  <section class="v2-section" data-theme="light" id="pricing-engine">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>The pricing engine</span>
+          <h2 class="v2-h2" data-split>Built for campsites, <em>from scratch.</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            Pricing tools made for hotels did not fit how campsites work, so we built one. It is the
+            biggest piece of the project.
+          </p>
+        </div>
+      </div>
+      <div class="v2-list" data-stagger>
+        {
+          engine.map((r) => (
+            <div class="v2-list__row" data-reveal>
+              <span class="v2-list__n">{r.n}</span>
+              <h3 class="v2-list__title">{r.title}</h3>
+              <div class="v2-list__body">
+                <p class="v2-body">{r.text}</p>
               </div>
             </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-            <!-- Price Optimization -->
-            <div class="screenshot-item">
-              <img src="/images/price-optimization.png" alt="Price Optimization Timeline" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-              <div class="screenshot-caption">
-                <h4><i class="fas fa-chart-area"></i> ML-Powered Price Optimization</h4>
-                <p>Advanced machine learning algorithms analyze demand forecasts, competitor pricing, weather patterns, and historical correlations to predict optimal prices up to 60 days ahead. The visualization shows current vs. optimized pricing overlaid with demand forecasts, enabling data-driven pricing decisions.</p>
-              </div>
-            </div>
+  <section class="v2-section" data-theme="dark" id="platform">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>Inside the platform</span>
+          <h2 class="v2-h2" data-split>Five screens <em>from the tool.</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            Competitor discovery, data enrichment, strategy controls, the price timeline and the forecasts.
+            Click a screenshot to enlarge it.
+          </p>
+        </div>
+      </div>
+      <div class="v2-gallery" data-stagger>
+        {
+          screenshots.map((s) => (
+            <figure data-reveal>
+              <button type="button" class="shot" onclick={`openImageModal('${s.src}', '${s.alt}')`} aria-label={`Enlarge: ${s.caption}`}>
+                <img src={s.src} alt={s.alt} loading="lazy" />
+              </button>
+              <figcaption>{s.caption}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-            <!-- Revenue & Occupancy Forecasts -->
-            <div class="screenshot-item">
-              <img src="/images/forecasting.png" alt="Revenue and Occupancy Forecasting" class="screenshot-img" loading="lazy" onclick="openImageModal(this.src)">
-              <div class="screenshot-caption">
-                <h4><i class="fas fa-chart-line"></i> Revenue & Occupancy Forecasting</h4>
-                <p>Dual forecasting charts compare current revenue/occupancy projections against ML-optimized predictions. The system provides 14-day forecasts showing potential revenue uplift and occupancy improvements, helping managers make informed capacity and pricing decisions.</p>
-              </div>
-            </div>
+  <section class="v2-section" data-theme="light" id="quote">
+    <div class="v2-container">
+      <blockquote class="v2-quote" data-reveal>
+        "Jengu built something that simply didn't exist in the campsite industry: an AI-powered pricing engine
+        that actually understands our market. The system monitors competitors, overlays weather and holiday
+        data, analyzes years of booking patterns, and uses machine learning to predict optimal prices. It's
+        transformed how we manage pricing across our 8 locations. This level of intelligence was previously
+        only available to hotels, and now we have it tailored specifically for campsites."
+      </blockquote>
+      <p class="v2-quote__by" data-reveal>Campasun management, South of France</p>
+    </div>
+  </section>
+
+  <section class="v2-section" data-theme="dark" id="cta">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>Your numbers</span>
+          <h2 class="v2-h2" data-split>What would this look like <em>at your place?</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            The calculator gives you a rough estimate of the hours and money automation could save you. Or
+            book a call and we will talk it through.
+          </p>
+          <div class="cta__actions" data-reveal>
+            <a class="v2-btn v2-btn--accent" href="/calculator" data-magnetic>
+              <span class="v2-btn__label"><span>Try the calculator</span><span>Try the calculator</span></span>
+              <span class="v2-btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              </span>
+            </a>
+            <button class="v2-btn" onclick="openBookingModal()" data-magnetic>
+              <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+              <span class="v2-btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              </span>
+            </button>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- Image Modal -->
-  <div class="image-modal" id="imageModal" onclick="closeImageModal()">
-    <button class="modal-close" onclick="closeImageModal()">
-      <i class="fas fa-times"></i>
-    </button>
-    <img src="" alt="Platform Screenshot" class="modal-content-img" id="modalImage">
+  <!-- Screenshot lightbox -->
+  <div class="lightbox" id="imageModal" onclick="closeImageModal()" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+    <button type="button" class="lightbox__close v2-link" onclick="closeImageModal()">Close <span aria-hidden="true">×</span></button>
+    <img src="" alt="" id="modalImage" />
   </div>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="section-container">
-      <h2>Ready to Write Your <span class="gradient-text">Success Story?</span></h2>
-      <p>
-        See how much time and money AI automation can save your business. Get your personalized ROI calculation in 2 minutes.
-      </p>
-      <a href="/calculator" class="cta-button">
-        <i class="fas fa-calculator"></i> Free ROI Analysis
-      </a>
-    </div>
-  </section>
-
-  <!-- JavaScript for Image Modal -->
   <script is:inline>
-    function openImageModal(src) {
+    function openImageModal(src, alt) {
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImage');
-      modal.classList.add('active');
+      if (!modal || !modalImg) return;
       modalImg.src = src;
+      modalImg.alt = alt || 'Platform screenshot';
+      modal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
     function closeImageModal() {
       const modal = document.getElementById('imageModal');
+      if (!modal) return;
       modal.classList.remove('active');
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
     }
 
-    // Close modal on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeImageModal();
-      }
+      if (e.key === 'Escape') closeImageModal();
     });
   </script>
-</BaseLayout>
+</V2Layout>
+
+<style>
+  .meta {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 10px 16px;
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+    font-size: 14.5px;
+  }
+  .meta dt {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+  .meta dd {
+    margin: 0;
+  }
+  .figures {
+    padding-top: 0;
+  }
+  .figures__note {
+    margin-top: 20px;
+    max-width: 60ch;
+  }
+  .shot {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+  }
+  .shot img {
+    display: block;
+  }
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9500;
+    display: none;
+    place-items: center;
+    padding: 72px var(--gutter) 40px;
+    background: rgba(10, 10, 12, 0.94);
+    cursor: zoom-out;
+  }
+  .lightbox.active {
+    display: grid;
+  }
+  .lightbox img {
+    max-width: 100%;
+    max-height: calc(100vh - 112px);
+    object-fit: contain;
+  }
+  .lightbox__close {
+    position: absolute;
+    top: 28px;
+    right: var(--gutter);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #f4f3ef;
+    cursor: pointer;
+  }
+</style>

@@ -1,757 +1,101 @@
 ---
-import BaseLayout from '../../components/layout/BaseLayout.astro';
+/**
+ * /book/chris-wood: private booking link for Chris. The booking widget is the
+ * BookingModal that V2Layout already renders (one set of ids per page), so this
+ * page opens it on load and keeps a button on the page for anyone who closes it.
+ */
+import V2Layout from '../../components/v2/V2Layout.astro';
+import V2PageHead from '../../components/v2/V2PageHead.astro';
 import { generateSEO } from '../../lib/seo/metadata';
 import { getTranslations } from '../../i18n';
 
 const t = getTranslations('en');
 
-const seo = generateSEO({
-  title: 'Book with Chris Wood | Jengu AI',
-  description: 'Schedule a consultation with Chris Wood, AI Solutions Architect at Jengu. Discover how AI can transform your hospitality operations.',
-  canonical: '/book/chris-wood',
-  ogType: 'website',
-  robots: 'noindex, nofollow' // Private page
-});
-
-// Team member info
 const teamMember = {
   name: 'Chris Wood',
   role: 'AI Solutions Architect',
-  email: 'chris@jengu.ai',
-  image: '/images/team/chris-wood.webp' // Will fall back to initials if not found
+  email: 'chris@jengu.ai'
 };
+
+const initials = teamMember.name
+  .split(' ')
+  .map((part) => part.charAt(0))
+  .join('');
+
+const seo = generateSEO({
+  // generateSEO appends " | Jengu" itself.
+  title: `Book with ${teamMember.name}`,
+  description: 'Schedule a consultation with Chris Wood, AI Solutions Architect at Jengu. Discover how AI can transform your hospitality operations.',
+  canonical: '/book/chris-wood',
+  ogType: 'website',
+  // Private page: keep it out of search results.
+  noindex: true,
+  nofollow: true
+});
 ---
 
-<BaseLayout seo={seo}>
-  <section class="booking-page private-booking">
-    <div class="booking-page-container">
-      <!-- Page Header with Team Member Info -->
-      <div class="booking-page-header">
-        <a href="/" class="back-link">
-          <i class="fas fa-arrow-left"></i>
-          Back to Home
-        </a>
+<V2Layout seo={seo}>
+  <V2PageHead eyebrow="Book a call" compact>
+    <Fragment slot="title">Book a call with <em>{teamMember.name}.</em></Fragment>
+    <p slot="lead" class="v2-lead">{t.booking.subtitle}</p>
+  </V2PageHead>
 
-        <!-- Personal Profile Card -->
-        <div class="profile-card">
-          <div class="profile-avatar">
-            <span class="avatar-initials">CW</span>
+  <section class="v2-section" data-theme="dark">
+    <div class="v2-container">
+      <div class="v2-split">
+        <div class="v2-split__left">
+          <span class="v2-person__photo" aria-hidden="true" data-reveal>{initials}</span>
+          <div data-reveal>
+            <h2 class="v2-h3">{teamMember.name}</h2>
+            <span class="v2-person__role">{teamMember.role}</span>
+            <span class="v2-mono host__duration">{t.booking.duration}</span>
           </div>
-          <div class="profile-info">
-            <h1 class="profile-name">{teamMember.name}</h1>
-            <p class="profile-role">{teamMember.role}</p>
-          </div>
+          <a href={`mailto:${teamMember.email}`} class="v2-link" data-reveal>{teamMember.email} <span aria-hidden="true">→</span></a>
         </div>
 
-        <p class="booking-page-subtitle">Book a personal consultation to discuss your AI automation needs</p>
-        <span class="booking-duration-badge">
-          <i class="fas fa-clock"></i>
-          {t.booking.duration}
-        </span>
-      </div>
-
-      <!-- Main Content -->
-      <div class="booking-page-content">
-        <!-- Left Column: Calendar & Time -->
-        <div class="booking-left">
-          <!-- Calendar Section -->
-          <div class="booking-section">
-            <div class="section-header">
-              <span class="section-number">1</span>
-              <span class="section-title">{t.booking.step1}</span>
-            </div>
-
-            <div class="calendar-container">
-              <div class="calendar-nav-row">
-                <button type="button" id="prevMonthBtn" class="cal-nav-btn" aria-label="Previous month">
-                  <i class="fas fa-chevron-left"></i>
-                </button>
-                <span id="calendarMonthLabel" class="calendar-month">Month 2025</span>
-                <button type="button" id="nextMonthBtn" class="cal-nav-btn" aria-label="Next month">
-                  <i class="fas fa-chevron-right"></i>
-                </button>
-              </div>
-
-              <div class="calendar-weekdays">
-                <span>{t.booking.weekdays.mon}</span>
-                <span>{t.booking.weekdays.tue}</span>
-                <span>{t.booking.weekdays.wed}</span>
-                <span>{t.booking.weekdays.thu}</span>
-                <span>{t.booking.weekdays.fri}</span>
-                <span>{t.booking.weekdays.sat}</span>
-                <span>{t.booking.weekdays.sun}</span>
-              </div>
-
-              <div class="calendar-grid" id="calendarGrid"></div>
-            </div>
-          </div>
-
-          <!-- Time Slots Section -->
-          <div class="booking-section">
-            <div class="section-header">
-              <span class="section-number">2</span>
-              <span class="section-title">{t.booking.step2}</span>
-            </div>
-
-            <div class="timezone-picker">
-              <i class="fas fa-globe"></i>
-              <select id="timezoneSelect" class="timezone-select">
-                <option value="local">{t.booking.timezones.local}</option>
-                <option value="Europe/Madrid">{t.booking.timezones.madrid}</option>
-                <option value="Europe/London">{t.booking.timezones.london}</option>
-                <option value="America/New_York">{t.booking.timezones.newYork}</option>
-                <option value="America/Los_Angeles">{t.booking.timezones.losAngeles}</option>
-              </select>
-            </div>
-
-            <div class="time-slots" id="slotsContainer"></div>
-          </div>
-        </div>
-
-        <!-- Right Column: Form -->
-        <div class="booking-right">
-          <div class="booking-section">
-            <div class="section-header">
-              <span class="section-number">3</span>
-              <span class="section-title">{t.booking.step3}</span>
-            </div>
-
-            <!-- Selection Summary -->
-            <div class="selection-summary" id="selectionSummary">
-              <div class="summary-icon">
-                <i class="fas fa-calendar-check"></i>
-              </div>
-              <div class="summary-text">
-                <span class="summary-main" id="summaryMain">{t.booking.chooseDateAndTime}</span>
-                <span class="summary-sub" id="summarySecondary">Meeting with {teamMember.name}</span>
-              </div>
-            </div>
-
-            <!-- Form Fields -->
-            <div class="booking-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="userName">{t.booking.form.name} *</label>
-                  <input type="text" id="userName" placeholder="John Smith" required />
-                </div>
-                <div class="form-group">
-                  <label for="companyName">{t.booking.form.company}</label>
-                  <input type="text" id="companyName" placeholder="Acme Inc." />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="userEmail">{t.booking.form.email} *</label>
-                  <input type="email" id="userEmail" placeholder="john@company.com" required />
-                </div>
-                <div class="form-group">
-                  <label for="userPhone">{t.booking.form.phone}</label>
-                  <input type="tel" id="userPhone" placeholder="+44 123 456 7890" />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <div class="meeting-platform-indicator">
-                  <i class="fab fa-microsoft"></i>
-                  <div>
-                    <strong>Microsoft Teams</strong>
-                    <span>A secure Teams meeting link will be in your invite.</span>
-                  </div>
-                </div>
-                <input type="hidden" id="contactMethod" value="Microsoft Teams" />
-              </div>
-
-              <div class="form-group">
-                <label for="extraInfo">{t.booking.form.extraInfoLabel}</label>
-                <textarea id="extraInfo" rows="3" placeholder={t.booking.form.extraInfoPlaceholder}></textarea>
-              </div>
-
-              <!-- Hidden field for team member -->
-              <input type="hidden" id="bookingHost" value={teamMember.name} />
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="booking-actions">
-              <button type="button" class="btn-reset" id="clearBtn">
-                <i class="fas fa-redo"></i> {t.booking.buttons.reset}
-              </button>
-              <button type="button" class="btn-confirm" id="confirmBtn" disabled>
-                <i class="fas fa-check"></i> {t.booking.buttons.confirm}
-              </button>
-            </div>
-
-            <!-- Status Message -->
-            <div class="booking-message" id="summaryMessage"></div>
-          </div>
+        <div class="host__body" data-reveal>
+          <p class="v2-body">
+            The booking form opens on its own when this page loads. Choose a day and a time, add your name and email, and pick how you would like to take the call. The meeting is with {teamMember.name}.
+          </p>
+          <p class="v2-body">
+            If the form has not appeared, or you closed it, open it again here.
+          </p>
+          <button class="v2-btn v2-btn--accent" type="button" onclick="openBookingModal()" data-magnetic>
+            <span class="v2-btn__label"><span>Open the booking form</span><span>Open the booking form</span></span>
+            <span class="v2-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Initialize booking page flag BEFORE loading script -->
+  <!-- Tells /scripts/booking-modal-deferred.js (loaded by the layout's BookingModal) to initialise straight away, and names the host. -->
   <script is:inline>
     window.isBookingPage = true;
     window.bookingHost = 'Chris Wood';
   </script>
 
-  <!-- Translations available globally for the booking page -->
-  <script is:inline define:vars={{ translations: t.booking }}>
-    window.bookingTranslations = translations;
+  <!-- Open the layout's booking modal once everything has loaded. -->
+  <script is:inline>
+    window.addEventListener('load', () => setTimeout(() => window.openBookingModal?.(), 400));
   </script>
-
-  <!-- Booking logic - loaded deferred -->
-  <script is:inline src="/scripts/booking-modal-deferred.js" defer></script>
-</BaseLayout>
+</V2Layout>
 
 <style>
-  .booking-page {
-    min-height: 100vh;
-    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
-    padding: 2rem 1.5rem 4rem;
-  }
-
-  .booking-page-container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* Page Header */
-  .booking-page-header {
-    text-align: center;
-    padding: 2rem 0 3rem;
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #9ca3af;
-    font-size: 0.9rem;
-    text-decoration: none;
-    margin-bottom: 2rem;
-    transition: color 0.2s ease;
-  }
-
-  .back-link:hover {
-    color: #a5b4fc;
-  }
-
-  /* Profile Card */
-  .profile-card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #10b981, #059669);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px solid rgba(16, 185, 129, 0.3);
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
-  }
-
-  .avatar-initials {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.02em;
-  }
-
-  .profile-info {
-    text-align: left;
-  }
-
-  .profile-name {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.25rem;
-    letter-spacing: -0.02em;
-  }
-
-  .profile-role {
-    font-size: 1rem;
-    color: #6ee7b7;
-    margin: 0;
-    font-weight: 500;
-  }
-
-  .booking-page-subtitle {
-    font-size: 1.1rem;
-    color: #9ca3af;
-    margin: 0 0 1.5rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .booking-duration-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    border-radius: 100px;
-    font-size: 0.9rem;
-    color: #6ee7b7;
-  }
-
-  /* Main Content Layout */
-  .booking-page-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    background: linear-gradient(180deg, #1a1a2e 0%, #16162a 100%);
-    border-radius: 24px;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    overflow: hidden;
-  }
-
-  .booking-left {
-    padding: 32px;
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .booking-right {
-    padding: 32px;
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  /* Section Styling */
-  .booking-section {
-    margin-bottom: 28px;
-  }
-
-  .booking-section:last-child {
-    margin-bottom: 0;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .section-number {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .section-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #e5e7eb;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* Calendar Container */
-  .calendar-container {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 16px;
-    padding: 24px;
-  }
-
-  .calendar-nav-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .cal-nav-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: transparent;
-    color: #9ca3af;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
-
-  .cal-nav-btn:hover {
-    background: rgba(16, 185, 129, 0.1);
-    border-color: rgba(16, 185, 129, 0.3);
-    color: #6ee7b7;
-  }
-
-  .calendar-month {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  .calendar-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-    margin-bottom: 10px;
-  }
-
-  .calendar-weekdays span {
-    text-align: center;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 10px 0;
-  }
-
-  /* Timezone Picker */
-  .timezone-picker {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 12px;
-    margin-bottom: 18px;
-  }
-
-  .timezone-picker i {
-    color: #6b7280;
-    font-size: 1rem;
-  }
-
-  .timezone-picker .timezone-select {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: #d1d5db;
-    font-size: 0.95rem;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .timezone-picker .timezone-select option {
-    background: #1a1a2e;
-    color: #d1d5db;
-  }
-
-  /* Time Slots */
-  .time-slots {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    max-height: 240px;
-    overflow-y: auto;
-    padding-right: 8px;
-  }
-
-  .time-slots::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .time-slots::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 4px;
-  }
-
-  .time-slots::-webkit-scrollbar-thumb {
-    background: rgba(16, 185, 129, 0.3);
-    border-radius: 4px;
-  }
-
-  /* Selection Summary */
-  .selection-summary {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 18px;
-    background: rgba(16, 185, 129, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 14px;
-    margin-bottom: 24px;
-  }
-
-  .summary-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #10b981, #059669);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-size: 1.3rem;
-  }
-
-  .summary-text {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .summary-main {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #fff;
-  }
-
-  .summary-sub {
-    font-size: 0.9rem;
-    color: #9ca3af;
-  }
-
-  /* Form Styles */
-  .booking-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .form-group label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #9ca3af;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    padding: 14px 18px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    color: #fff;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    outline: none;
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: #6b7280;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: rgba(16, 185, 129, 0.5);
-    background: rgba(16, 185, 129, 0.05);
-  }
-
-  .form-group textarea {
-    resize: vertical;
-    min-height: 90px;
-  }
-
-  /* Meeting Platform Indicator (Teams) */
-  .meeting-platform-indicator {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 18px;
-    border-radius: 12px;
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08));
-  }
-  .meeting-platform-indicator > i { font-size: 1.5rem; color: #10b981; flex-shrink: 0; }
-  .meeting-platform-indicator > div { display: flex; flex-direction: column; gap: 2px; line-height: 1.35; }
-  .meeting-platform-indicator strong { color: #f3f4f6; font-size: 0.95rem; font-weight: 600; }
-  .meeting-platform-indicator span { color: #9ca3af; font-size: 0.85rem; }
-
-  /* Action Buttons */
-  .booking-actions {
-    display: flex;
-    gap: 14px;
-    margin-top: 24px;
-  }
-
-  .btn-reset {
-    flex: 1;
-    padding: 16px 22px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: transparent;
-    color: #9ca3af;
-    font-size: 0.95rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.2s ease;
-  }
-
-  .btn-reset:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: #fff;
-  }
-
-  .btn-confirm {
-    flex: 2;
-    padding: 16px 26px;
-    border-radius: 12px;
-    border: none;
-    background: linear-gradient(135deg, #10b981, #059669);
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
-  }
-
-  .btn-confirm:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
-  }
-
-  .btn-confirm:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  /* Status Message */
-  .booking-message {
-    margin-top: 18px;
-    padding: 14px 18px;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    display: none;
-  }
-
-  .booking-message.visible {
+  .host__duration {
     display: block;
+    color: var(--muted);
   }
-
-  .booking-message.error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
+  .host__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    max-width: 60ch;
   }
-
-  .booking-message.success {
-    background: rgba(34, 197, 94, 0.1);
-    border: 1px solid rgba(34, 197, 94, 0.3);
-    color: #86efac;
-  }
-
-  .booking-message.info {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    color: #6ee7b7;
-  }
-
-  /* Tablet Responsive */
-  @media (max-width: 1024px) {
-    .booking-page-content {
-      grid-template-columns: 1fr;
-    }
-
-    .booking-left {
-      border-right: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-  }
-
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .booking-page {
-      padding: 1rem 1rem 3rem;
-    }
-
-    .booking-page-header {
-      padding: 1rem 0 2rem;
-    }
-
-    .profile-card {
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .profile-info {
-      text-align: center;
-    }
-
-    .profile-name {
-      font-size: 1.5rem;
-    }
-
-    .booking-page-subtitle {
-      font-size: 1rem;
-    }
-
-    .booking-page-content {
-      border-radius: 20px;
-    }
-
-    .booking-left,
-    .booking-right {
-      padding: 24px 20px;
-    }
-
-    .calendar-container {
-      padding: 18px;
-    }
-
-    .form-row {
-      grid-template-columns: 1fr;
-    }
-
-    .time-slots {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .form-group input,
-    .form-group textarea {
-      font-size: 16px;
-    }
-
-    .booking-actions {
-      flex-direction: column;
-    }
-
-    .btn-reset,
-    .btn-confirm {
-      flex: none;
-      width: 100%;
-    }
+  .host__body .v2-btn {
+    margin-top: 8px;
   }
 </style>

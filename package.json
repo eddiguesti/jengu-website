@@ -10,7 +10,9 @@
     "check": "astro check",
     "cf:optimize": "node cloudflare-api-setup.mjs",
     "optimize-images": "node optimize-images.mjs",
-    "generate-blog": "node scripts/generate-daily-blog.mjs"
+    "generate-blog": "node scripts/generate-daily-blog.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^11.2.0",
@@ -25,6 +27,7 @@
     "@types/node": "^20.10.0",
     "@types/three": "^0.170.0",
     "terser": "^5.44.1",
-    "typescript": "^5.3.0"
+    "typescript": "^5.3.0",
+    "vitest": "^2.1.9"
   }
 }

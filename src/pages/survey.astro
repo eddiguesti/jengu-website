@@ -1,5 +1,10 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
+/**
+ * Survey: why we ask on the left, the form on the right. Field names, option
+ * values and required flags match what /api/survey expects; do not rename them.
+ */
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
@@ -19,268 +24,292 @@ const jsonLd = [
 ];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <section class="contact-section survey-section">
-    <div class="contact-container survey-container">
-      <div class="contact-info survey-intro">
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-clipboard-list"></i>
-          </div>
-          <h1>AI in Travel & Hospitality Survey</h1>
-          <p>
-            Help us understand the current landscape of AI adoption in the travel and hospitality industry. Your insights matter.
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="Survey" compact>
+    <Fragment slot="title">AI in travel and <em>hospitality.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      A short survey on how travel and hospitality companies are approaching AI and automation. It takes 4 to 6 minutes.
+    </p>
+  </V2PageHead>
+
+  <section class="v2-section" data-theme="dark">
+    <div class="v2-container">
+      <div class="v2-split">
+        <div class="v2-split__left">
+          <h2 class="v2-h3" data-split>Why we ask</h2>
+          <p class="v2-body" data-reveal>
+            We are researching how companies in travel and hospitality are approaching AI and automation. Your answers show us which priorities and problems are real for teams like yours.
           </p>
+          <p class="v2-body" data-reveal>
+            There are five short sections. Fields marked with an asterisk are required. Most people finish in 4 to 6 minutes.
+          </p>
+          <a href="/book/" class="v2-link" data-reveal>Prefer a conversation? Book a call <span aria-hidden="true">→</span></a>
         </div>
 
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-question-circle"></i>
-          </div>
-          <h3>Why we're asking</h3>
-          <p>We're researching how travel and hospitality companies are approaching AI and automation.</p>
-          <p>Your honest feedback helps us understand real-world priorities and challenges.</p>
-          <p>This survey takes 4-6 minutes to complete.</p>
-        </div>
-      </div>
+        <form id="fairSurveyForm" class="v2-form" onsubmit="submitSurvey(event)" data-reveal>
+          <div class="v2-form__group">
+            <h3 class="v2-form__group-title">About you</h3>
 
-      <div class="contact-form-wrapper survey-form-wrapper">
-        <h2>Survey</h2>
-        <p class="survey-lead">Please share your information and insights. Fields marked with * are required.</p>
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="contactName">Your name *</label>
+                <input type="text" id="contactName" name="contactName" required />
+              </div>
+              <div class="v2-field">
+                <label for="role">Job title</label>
+                <input type="text" id="role" name="role" placeholder="General manager, head of operations, revenue lead" />
+              </div>
+            </div>
 
-        <form id="fairSurveyForm" onsubmit="submitSurvey(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="contactName">Your Name *</label>
-              <input type="text" id="contactName" name="contactName" required />
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="company">Company *</label>
+                <input type="text" id="company" name="company" required />
+              </div>
+              <div class="v2-field">
+                <label for="country">Country or region</label>
+                <input type="text" id="country" name="country" placeholder="United Kingdom, Spain, Europe" />
+              </div>
             </div>
-            <div class="form-group">
-              <label for="role">Job Title</label>
-              <input type="text" id="role" name="role" placeholder="CEO, Operations Manager, Revenue Lead..." />
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="company">Company Name *</label>
-              <input type="text" id="company" name="company" required />
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="email">Work email *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="v2-field">
+                <label for="phone">Phone or WhatsApp</label>
+                <input type="tel" id="phone" name="phone" />
+              </div>
             </div>
-            <div class="form-group">
-              <label for="country">Primary Country / Region</label>
-              <input type="text" id="country" name="country" placeholder="United States, UK, Europe..." />
-            </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Work Email *</label>
-              <input type="email" id="email" name="email" required />
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone / WhatsApp</label>
-              <input type="tel" id="phone" name="phone" />
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="businessModel">Business Type *</label>
-              <select id="businessModel" name="businessModel" required>
-                <option value="">Select one</option>
-                <option value="hotel">Hotel</option>
-                <option value="hotel-group">Hotel Group</option>
-                <option value="resort">Resort</option>
-                <option value="vacation-rentals">Vacation Rentals</option>
-                <option value="travel-agency">Travel Agency</option>
-                <option value="tour-operator">Tour Operator</option>
-                <option value="destination-management">Destination Management Company</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="companySize">Company Size *</label>
-              <select id="companySize" name="companySize" required>
-                <option value="">Select one</option>
-                <option value="1-10">1-10 employees</option>
-                <option value="11-50">11-50 employees</option>
-                <option value="51-200">51-200 employees</option>
-                <option value="201-500">201-500 employees</option>
-                <option value="500-plus">500+ employees</option>
-              </select>
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="businessModel">Business type *</label>
+                <select id="businessModel" name="businessModel" required>
+                  <option value="">Choose one</option>
+                  <option value="hotel">Hotel</option>
+                  <option value="hotel-group">Hotel group</option>
+                  <option value="resort">Resort</option>
+                  <option value="vacation-rentals">Holiday rentals</option>
+                  <option value="travel-agency">Travel agency</option>
+                  <option value="tour-operator">Tour operator</option>
+                  <option value="destination-management">Destination management company</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="v2-field">
+                <label for="companySize">Company size *</label>
+                <select id="companySize" name="companySize" required>
+                  <option value="">Choose one</option>
+                  <option value="1-10">1 to 10 employees</option>
+                  <option value="11-50">11 to 50 employees</option>
+                  <option value="51-200">51 to 200 employees</option>
+                  <option value="201-500">201 to 500 employees</option>
+                  <option value="500-plus">500+ employees</option>
+                </select>
+              </div>
             </div>
           </div>
 
-          <h3 class="section-title">Your Current Situation</h3>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="monthlyBookingVolume">Monthly Booking / Lead Volume *</label>
-              <select id="monthlyBookingVolume" name="monthlyBookingVolume" required>
-                <option value="">Select one</option>
-                <option value="under-500">Under 500</option>
-                <option value="500-2000">500-2,000</option>
-                <option value="2000-10000">2,000-10,000</option>
-                <option value="10000-plus">10,000+</option>
-                <option value="unknown">Not sure</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="stakeholderCount">People involved in this decision *</label>
-              <select id="stakeholderCount" name="stakeholderCount" required>
-                <option value="">Select one</option>
-                <option value="1-2">1-2 people</option>
-                <option value="3-5">3-5 people</option>
-                <option value="6-10">6-10 people</option>
-                <option value="10-plus">10+ people</option>
-              </select>
-            </div>
-          </div>
+          <div class="v2-form__group">
+            <h3 class="v2-form__group-title">Your current situation</h3>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="currentResponseTime">Current Average Response Time *</label>
-              <select id="currentResponseTime" name="currentResponseTime" required>
-                <option value="">Select one</option>
-                <option value="under-5-min">Under 5 minutes</option>
-                <option value="5-30-min">5-30 minutes</option>
-                <option value="30-min-2-hours">30 minutes to 2 hours</option>
-                <option value="2-24-hours">2-24 hours</option>
-                <option value="over-24-hours">Over 24 hours</option>
-              </select>
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="monthlyBookingVolume">Monthly bookings or leads *</label>
+                <select id="monthlyBookingVolume" name="monthlyBookingVolume" required>
+                  <option value="">Choose one</option>
+                  <option value="under-500">Under 500</option>
+                  <option value="500-2000">500 to 2,000</option>
+                  <option value="2000-10000">2,000 to 10,000</option>
+                  <option value="10000-plus">10,000+</option>
+                  <option value="unknown">Not sure</option>
+                </select>
+              </div>
+              <div class="v2-field">
+                <label for="stakeholderCount">People involved in this decision *</label>
+                <select id="stakeholderCount" name="stakeholderCount" required>
+                  <option value="">Choose one</option>
+                  <option value="1-2">1 to 2 people</option>
+                  <option value="3-5">3 to 5 people</option>
+                  <option value="6-10">6 to 10 people</option>
+                  <option value="10-plus">10+ people</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="decisionOwner">Who leads this area in your organization?</label>
-              <input type="text" id="decisionOwner" name="decisionOwner" placeholder="Role is enough (GM, COO, Head of Operations...)" />
+
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="currentResponseTime">Current average response time *</label>
+                <select id="currentResponseTime" name="currentResponseTime" required>
+                  <option value="">Choose one</option>
+                  <option value="under-5-min">Under 5 minutes</option>
+                  <option value="5-30-min">5 to 30 minutes</option>
+                  <option value="30-min-2-hours">30 minutes to 2 hours</option>
+                  <option value="2-24-hours">2 to 24 hours</option>
+                  <option value="over-24-hours">Over 24 hours</option>
+                </select>
+              </div>
+              <div class="v2-field">
+                <label for="decisionOwner">Who leads this area in your organisation?</label>
+                <input type="text" id="decisionOwner" name="decisionOwner" placeholder="A role is enough: GM, COO, head of operations" />
+              </div>
             </div>
-          </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for=\"channelPreference\">Preferred contact method *</label>
-              <select id="channelPreference" name="channelPreference" required>
-                <option value="">Select one</option>
-                <option value="video-call">Video call</option>
-                <option value="in-person">In-person</option>
-                <option value="email-summary-first">Email summary first</option>
-                <option value="whatsapp-first">WhatsApp first</option>
-              </select>
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="channelPreference">Preferred contact method *</label>
+                <select id="channelPreference" name="channelPreference" required>
+                  <option value="">Choose one</option>
+                  <option value="video-call">Video call</option>
+                  <option value="in-person">In person</option>
+                  <option value="email-summary-first">Email summary first</option>
+                  <option value="whatsapp-first">WhatsApp first</option>
+                </select>
+              </div>
+              <div class="v2-field">
+                <label for="alignmentRisk">How aligned is your team on this? *</label>
+                <select id="alignmentRisk" name="alignmentRisk" required>
+                  <option value="">Choose one</option>
+                  <option value="highly-aligned">Highly aligned</option>
+                  <option value="mostly-aligned">Mostly aligned</option>
+                  <option value="mixed-priorities">Mixed priorities</option>
+                  <option value="not-aligned-yet">Not aligned yet</option>
+                </select>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="alignmentRisk">How aligned is your team on this topic? *</label>
-              <select id="alignmentRisk" name="alignmentRisk" required>
-                <option value="">Select one</option>
-                <option value="highly-aligned">Highly aligned</option>
-                <option value="mostly-aligned">Mostly aligned</option>
-                <option value="mixed-priorities">Mixed priorities</option>
-                <option value="not-aligned-yet">Not aligned yet</option>
-              </select>
+
+            <div class="v2-field">
+              <label for="currentSetup">Your current setup in one sentence *</label>
+              <textarea id="currentSetup" name="currentSetup" required placeholder="How your team handles enquiries, bookings, pricing and guest messages today."></textarea>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="currentSetup">Current setup in one sentence *</label>
-            <textarea id="currentSetup" name="currentSetup" required placeholder="How your team currently handles enquiries, bookings, pricing, and guest communication."></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>Top Challenges Right Now * (Select up to 3)</label>
-            <div class="checkbox-grid">
-              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="slow-reply-times" /> Slow guest response times</label>
-              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="low-direct-bookings" /> Low direct bookings</label>
-              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="high-manual-work" /> Too much manual admin work</label>
-              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="fragmented-systems" /> Systems do not talk to each other</label>
-              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="pricing-uncertainty" /> Pricing and forecasting challenges</label>
-              <label class="checkbox-item"><input type="checkbox" name="painPoints" value="staff-shortage" /> Staffing constraints</label>
-            </div>
-          </div>
-
-          <h3 class="section-title">Key Challenges</h3>
-          <div class="form-group">
-            <label for="problemDetail">What is your biggest operational constraint today? *</label>
-            <textarea id="problemDetail" name="problemDetail" required placeholder="What's the main process or workflow that needs improvement?"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label>AI & Automation Areas of Interest * (Select all that apply)</label>
-            <div class="checkbox-grid">
-              <label class="checkbox-item"><input type="checkbox" name="priorities" value="ai-chatbot" /> AI chatbot for website/WhatsApp</label>
-              <label class="checkbox-item"><input type="checkbox" name="priorities" value="voice-bot" /> AI phone/voice bot</label>
-              <label class="checkbox-item"><input type="checkbox" name="priorities" value="dynamic-pricing" /> Dynamic pricing and demand forecasting</label>
-              <label class="checkbox-item"><input type="checkbox" name="priorities" value="crm-automation" /> CRM and email automation</label>
-              <label class="checkbox-item"><input type="checkbox" name="priorities" value="pms-integration" /> PMS / channel manager integrations</label>
-              <label class="checkbox-item"><input type="checkbox" name="priorities" value="custom-software" /> Custom AI software development</label>
+            <div class="v2-field">
+              <span class="v2-field__label">Top challenges right now * (choose up to 3)</span>
+              <div class="v2-checks">
+                <label class="v2-check"><input type="checkbox" name="painPoints" value="slow-reply-times" /> <span>Slow replies to guests</span></label>
+                <label class="v2-check"><input type="checkbox" name="painPoints" value="low-direct-bookings" /> <span>Low direct bookings</span></label>
+                <label class="v2-check"><input type="checkbox" name="painPoints" value="high-manual-work" /> <span>Too much manual admin</span></label>
+                <label class="v2-check"><input type="checkbox" name="painPoints" value="fragmented-systems" /> <span>Systems that do not talk to each other</span></label>
+                <label class="v2-check"><input type="checkbox" name="painPoints" value="pricing-uncertainty" /> <span>Pricing and forecasting</span></label>
+                <label class="v2-check"><input type="checkbox" name="painPoints" value="staff-shortage" /> <span>Staffing constraints</span></label>
+              </div>
             </div>
           </div>
 
-          <h3 class="section-title">Business Impact</h3>
-          <div class="form-group">
-            <label for="implicationDetail">What happens if this is not solved in the next 6-12 months? *</label>
-            <textarea id="implicationDetail" name="implicationDetail" required placeholder="Example: lost direct bookings, slower growth, higher staffing cost, weaker guest experience."></textarea>
+          <div class="v2-form__group">
+            <h3 class="v2-form__group-title">What is getting in the way</h3>
+
+            <div class="v2-field">
+              <label for="problemDetail">What is your biggest operational constraint today? *</label>
+              <textarea id="problemDetail" name="problemDetail" required placeholder="The process or workflow that most needs to improve."></textarea>
+            </div>
+
+            <div class="v2-field">
+              <span class="v2-field__label">AI and automation areas of interest * (choose all that apply)</span>
+              <div class="v2-checks">
+                <label class="v2-check"><input type="checkbox" name="priorities" value="ai-chatbot" /> <span>AI chatbot for website or WhatsApp</span></label>
+                <label class="v2-check"><input type="checkbox" name="priorities" value="voice-bot" /> <span>AI phone or voice bot</span></label>
+                <label class="v2-check"><input type="checkbox" name="priorities" value="dynamic-pricing" /> <span>Dynamic pricing and demand forecasting</span></label>
+                <label class="v2-check"><input type="checkbox" name="priorities" value="crm-automation" /> <span>CRM and email automation</span></label>
+                <label class="v2-check"><input type="checkbox" name="priorities" value="pms-integration" /> <span>PMS or channel manager integrations</span></label>
+                <label class="v2-check"><input type="checkbox" name="priorities" value="custom-software" /> <span>Custom AI software</span></label>
+              </div>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="currentTools">Current Systems / Tools</label>
-            <input type="text" id="currentTools" name="currentTools" placeholder="PMS, CRM, booking engine, channel manager, call center tools..." />
+          <div class="v2-form__group">
+            <h3 class="v2-form__group-title">What is at stake</h3>
+
+            <div class="v2-field">
+              <label for="implicationDetail">What happens if this is not solved in the next 6 to 12 months? *</label>
+              <textarea id="implicationDetail" name="implicationDetail" required placeholder="For example: lost direct bookings, slower growth, higher staffing cost, a weaker guest experience."></textarea>
+            </div>
+
+            <div class="v2-field">
+              <label for="currentTools">Current systems and tools</label>
+              <input type="text" id="currentTools" name="currentTools" placeholder="PMS, CRM, booking engine, channel manager, call centre tools" />
+            </div>
+
+            <div class="v2-field">
+              <label for="goals">What outcomes matter most to you? *</label>
+              <textarea id="goals" name="goals" required placeholder="For example: more direct bookings, replies in under two minutes, fewer repetitive tasks."></textarea>
+            </div>
           </div>
 
+          <div class="v2-form__group">
+            <h3 class="v2-form__group-title">What good looks like</h3>
 
+            <div class="v2-field">
+              <label for="successDefinition">What would a meaningful improvement look like for your business? *</label>
+              <textarea id="successDefinition" name="successDefinition" required placeholder="The specific outcomes your team would notice."></textarea>
+            </div>
 
-          <div class="form-group">
-            <label for="goals">What outcomes matter most to you? *</label>
-            <textarea id="goals" name="goals" required placeholder="Example: increase direct bookings by 20%, reduce response time to under 2 minutes, automate repetitive tasks..."></textarea>
-          </div>
+            <div class="v2-field">
+              <label for="decisionCriteria">Anything else we should know? *</label>
+              <textarea id="decisionCriteria" name="decisionCriteria" required placeholder="Any other detail about your priorities or situation."></textarea>
+            </div>
 
-          <h3 class="section-title">Success Criteria</h3>
-          <div class="form-group">
-            <label for="successDefinition">What would meaningful improvement look like for your business? *</label>
-            <textarea id="successDefinition" name="successDefinition" required placeholder="What specific outcomes would matter most to your team?"></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="decisionCriteria">Any additional context or notes? *</label>
-            <textarea id="decisionCriteria" name="decisionCriteria" required placeholder="Feel free to share any other relevant details about your priorities or situation."></textarea>
-          </div>
-
-          <div class="form-group compact">
-            <label class="checkbox-item consent-item">
+            <label class="v2-check">
               <input type="checkbox" id="consent" name="consent" required />
-              I want to share this survey response. *
+              <span>I am happy to share this survey response with Jengu. *</span>
             </label>
           </div>
 
-          <button type="submit" class="submit-btn" id="surveySubmitBtn">
-            <i class="fas fa-paper-plane"></i> Submit Survey
+          <button type="submit" class="v2-btn v2-btn--accent" id="surveySubmitBtn" data-magnetic>
+            <span class="v2-btn__label"><span>Send my answers</span><span>Send my answers</span></span>
+            <span class="v2-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+            </span>
           </button>
-        </form>
 
-        <div id="surveyStatus" class="survey-status" role="status" aria-live="polite"></div>
+          <p class="v2-form__note">We only use your answers for this research and to follow up if you ask us to.</p>
+          <div id="surveyStatus" class="v2-form__status" role="status" aria-live="polite"></div>
+        </form>
       </div>
     </div>
   </section>
 
   <script is:inline>
+    const SURVEY_ENDPOINT = '/api/survey';
+    const MAX_PAIN_POINTS = 3;
+
+    function setStatus(status, kind, text) {
+      status.className = kind ? `v2-form__status ${kind}` : 'v2-form__status';
+      status.textContent = text;
+    }
+
+    function setButtonLabel(button, text) {
+      button.querySelectorAll('.v2-btn__label span').forEach((span) => {
+        span.textContent = text;
+      });
+    }
+
+    function checkedValues(form, name) {
+      return Array.from(form.querySelectorAll(`input[name="${name}"]:checked`)).map((item) => item.value);
+    }
+
     async function submitSurvey(event) {
       event.preventDefault();
 
       const form = event.target;
       const submitButton = document.getElementById('surveySubmitBtn');
       const status = document.getElementById('surveyStatus');
-      const originalButtonText = submitButton.innerHTML;
+      const originalLabel = submitButton.querySelector('.v2-btn__label span').textContent;
 
-      status.className = 'survey-status';
-      status.textContent = '';
+      setStatus(status, '', '');
 
-      const painPoints = Array.from(form.querySelectorAll('input[name="painPoints"]:checked')).map((item) => item.value);
-      const priorities = Array.from(form.querySelectorAll('input[name="priorities"]:checked')).map((item) => item.value);
+      const painPoints = checkedValues(form, 'painPoints');
+      const priorities = checkedValues(form, 'priorities');
 
-      if (painPoints.length === 0 || painPoints.length > 3) {
-        status.classList.add('error', 'visible');
-        status.textContent = 'Please choose 1 to 3 current challenges.';
+      if (painPoints.length === 0 || painPoints.length > MAX_PAIN_POINTS) {
+        setStatus(status, 'is-error', 'Please choose between 1 and 3 challenges.');
         return;
       }
 
       if (priorities.length === 0) {
-        status.classList.add('error', 'visible');
-        status.textContent = 'Please select at least one solution to explore.';
+        setStatus(status, 'is-error', 'Please choose at least one area of interest.');
         return;
       }
 
@@ -311,475 +340,39 @@ const jsonLd = [
         consent: form.consent.checked
       };
 
-      try {
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+      submitButton.disabled = true;
+      setButtonLabel(submitButton, 'Sending');
 
-        const response = await fetch('/api/survey', {
+      try {
+        const response = await fetch(SURVEY_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-          throw new Error(result.error || 'Survey submission failed');
+          throw new Error(result.error || 'The survey could not be sent.');
         }
 
         form.reset();
-        status.classList.add('success', 'visible');
-        status.textContent = result.message || 'Thank you for completing the survey. Your response has been recorded.';
+        setStatus(status, 'is-ok', result.message || 'Thank you. Your answers have been recorded.');
       } catch (error) {
-        status.classList.add('error', 'visible');
-        status.textContent = error.message || 'Something went wrong. Please try again.';
+        setStatus(status, 'is-error', error.message || 'Something went wrong. Please try again.');
       } finally {
         submitButton.disabled = false;
-        submitButton.innerHTML = originalButtonText;
+        setButtonLabel(submitButton, originalLabel);
       }
     }
+
+    window.submitSurvey = submitSurvey;
   </script>
-
-  <style>
-    /* ===== LAYOUT & SPACING ===== */
-    @media (min-width: 769px) {
-      .survey-section {
-        padding-top: 100px !important;
-        margin-top: 0 !important;
-      }
-    }
-
-    .survey-container {
-      align-items: start;
-      gap: 2rem;
-    }
-
-    .survey-form-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    /* ===== INTRO SECTION ===== */
-    .survey-intro h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      line-height: 1.2;
-    }
-
-    .survey-intro .contact-card {
-      margin-bottom: 1.5rem;
-    }
-
-    .survey-intro .contact-card:last-child {
-      margin-bottom: 0;
-    }
-
-    .survey-intro .contact-card h3 {
-      margin-bottom: 0.75rem;
-      font-size: 1.1rem;
-    }
-
-    .survey-intro .contact-card p {
-      margin: 0.5rem 0;
-      font-size: 0.95rem;
-    }
-
-    .survey-intro .contact-card p:first-of-type {
-      margin-top: 0;
-    }
-
-    /* ===== FORM TITLE & LEAD ===== */
-    .survey-form-wrapper h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.75rem;
-      margin-top: 0;
-    }
-
-    .survey-lead {
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      font-size: 0.9rem;
-    }
-
-    /* ===== FORM STRUCTURE ===== */
-    form {
-      width: 100%;
-    }
-
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-    }
-
-    .form-group label {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      margin-bottom: 0.25rem;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 0.75rem 1rem;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: all 0.2s ease;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: var(--text-secondary);
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--primary-cta);
-      background: var(--bg-elevated);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 100px;
-      line-height: 1.5;
-    }
-
-    .form-group select {
-      cursor: pointer;
-    }
-
-    /* ===== SECTION TITLES ===== */
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 2rem 0 1.25rem 0;
-      color: var(--text-primary);
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      padding-bottom: 0.75rem;
-      border-bottom: 2px solid var(--border-light);
-    }
-
-    .section-title:first-of-type {
-      margin-top: 0;
-    }
-
-    /* ===== CHECKBOX GRID ===== */
-    .checkbox-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-      width: 100%;
-    }
-
-    .checkbox-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 1rem;
-      border: 1px solid var(--border-light);
-      border-radius: 10px;
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      line-height: 1.4;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .checkbox-item:hover {
-      border-color: var(--primary-cta);
-      background: var(--bg-elevated);
-    }
-
-    .checkbox-item input {
-      width: 18px;
-      height: 18px;
-      margin-top: 0.15rem;
-      accent-color: var(--primary-cta);
-      flex: 0 0 auto;
-      cursor: pointer;
-    }
-
-    /* ===== CHOICE ROW (RADIO BUTTONS) ===== */
-    .choice-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      width: 100%;
-    }
-
-    .choice-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1.25rem;
-      border: 1px solid var(--border-light);
-      border-radius: 999px;
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      white-space: nowrap;
-    }
-
-    .choice-item:hover {
-      border-color: var(--primary-cta);
-      background: var(--bg-elevated);
-    }
-
-    .choice-item input {
-      accent-color: var(--primary-cta);
-      cursor: pointer;
-    }
-
-    /* ===== FORM GROUP VARIANTS ===== */
-    .form-group.compact {
-      margin-bottom: 1.75rem;
-    }
-
-    .consent-item {
-      padding: 1rem;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-    }
-
-    .consent-item input {
-      cursor: pointer;
-      margin-right: 0.5rem;
-    }
-
-    /* ===== SUBMIT BUTTON ===== */
-    .submit-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      padding: 1rem 2rem;
-      margin-top: 1.5rem;
-      background: var(--primary-cta);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-
-    .submit-btn:hover:not(:disabled) {
-      background: var(--primary-cta);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
-    .submit-btn:active:not(:disabled) {
-      transform: translateY(0);
-    }
-
-    .submit-btn:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
-    /* ===== STATUS MESSAGES ===== */
-    .survey-status {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 8px;
-      font-size: 0.95rem;
-      display: none;
-      width: 100%;
-    }
-
-    .survey-status.visible {
-      display: block;
-    }
-
-    .survey-status.success {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #d1fae5;
-    }
-
-    .survey-status.error {
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #fecaca;
-    }
-
-    /* ===== TABLET BREAKPOINT (768px) ===== */
-    @media (max-width: 1024px) {
-      .survey-container {
-        gap: 1.5rem;
-      }
-
-      .checkbox-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .survey-form-wrapper h2 {
-        font-size: 1.35rem;
-      }
-    }
-
-    /* ===== MOBILE BREAKPOINT (768px) ===== */
-    @media (max-width: 768px) {
-      .survey-section {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-      }
-
-      .survey-container {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem;
-      }
-
-      .survey-intro {
-        padding-right: 0 !important;
-      }
-
-      .survey-intro h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .survey-intro .contact-card {
-        margin-bottom: 1rem;
-      }
-
-      .survey-form-wrapper h2 {
-        font-size: 1.25rem;
-      }
-
-      .form-row {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
-        margin-bottom: 1.5rem;
-      }
-
-      .choice-row {
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .choice-item {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .checkbox-grid {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-      }
-
-      .section-title {
-        font-size: 1rem;
-        margin: 1.75rem 0 1rem 0;
-      }
-
-      .survey-lead {
-        margin-bottom: 1.5rem;
-        font-size: 0.9rem;
-      }
-
-      .form-group label {
-        font-size: 0.9rem;
-      }
-
-      .form-group input,
-      .form-group select,
-      .form-group textarea {
-        font-size: 16px;
-        padding: 0.7rem 0.9rem;
-      }
-
-      .submit-btn {
-        padding: 0.9rem 1.5rem;
-        font-size: 0.95rem;
-        margin-top: 1.25rem;
-      }
-
-      .checkbox-item {
-        padding: 0.9rem;
-        gap: 0.6rem;
-      }
-
-      .checkbox-item input {
-        width: 16px;
-        height: 16px;
-      }
-
-      .choice-item {
-        padding: 0.65rem 1rem;
-        font-size: 0.9rem;
-      }
-    }
-
-    /* ===== SMALL MOBILE BREAKPOINT (480px) ===== */
-    @media (max-width: 480px) {
-      .survey-intro h1 {
-        font-size: 1.35rem;
-      }
-
-      .survey-form-wrapper h2 {
-        font-size: 1.1rem;
-      }
-
-      .section-title {
-        font-size: 0.95rem;
-        margin: 1.5rem 0 0.875rem 0;
-      }
-
-      .form-group label {
-        font-size: 0.85rem;
-      }
-
-      .form-group input,
-      .form-group select,
-      .form-group textarea {
-        font-size: 16px;
-        padding: 0.65rem 0.8rem;
-      }
-
-      .checkbox-item {
-        padding: 0.8rem;
-        font-size: 0.9rem;
-      }
-
-      .choice-item {
-        padding: 0.6rem 0.9rem;
-        font-size: 0.85rem;
-      }
-
-      .submit-btn {
-        padding: 0.85rem 1.25rem;
-        font-size: 0.9rem;
-      }
-
-      .survey-status {
-        font-size: 0.9rem;
-        padding: 0.85rem;
-      }
-    }
-  </style>
-</BaseLayout>
+</V2Layout>
+
+<style>
+  .v2-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+</style>

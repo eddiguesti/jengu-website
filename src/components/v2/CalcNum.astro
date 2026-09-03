@@ -1,0 +1,28 @@
+---
+/**
+ * A number that lives inside a sentence. Drag it sideways to change it, or
+ * click it and type. The ghost span sizes the field to its own digits.
+ */
+interface Props {
+  name: string;
+  value: number;
+  min: number;
+  max: number;
+  step?: number;
+  label: string;
+  /** Show the currency symbol in front (kept in step with the currency select). */
+  cur?: boolean;
+  /** Text after the number, e.g. "%" or "minutes". */
+  unit?: string;
+}
+const { name, value, min, max, step = 1, label, cur = false, unit } = Astro.props;
+---
+
+<span class="v2-num" data-num title="Drag sideways, or click to type">
+  {cur && <i class="v2-num__pre" data-cur>£</i>}
+  <span class="v2-num__box">
+    <span class="v2-num__ghost" aria-hidden="true">{value}</span>
+    <input type="number" inputmode="decimal" name={name} value={value} min={min} max={max} step={step} aria-label={label} />
+  </span>
+  {unit && <i class="v2-num__unit">{unit}</i>}
+</span>

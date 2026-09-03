@@ -1,196 +1,224 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
+/**
+ * Contact: ways to reach us on the left, the message form on the right.
+ * Built on the v2 design system. The form posts to /api/contact.
+ */
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
   title: 'Contact Us - Book Your Free AI Consultation',
-  description: 'Schedule a free 30-minute consultation to discuss AI automation for your tourism business. Email us at info@jengu.ai or book a video call. Get expert advice on chatbots, automation & ROI.',
+  description:
+    'Schedule a free 30-minute consultation to discuss AI automation for your tourism business. Email us at info@jengu.ai or book a video call. Get expert advice on chatbots, automation & ROI.',
   canonical: `${Astro.site}contact/`,
-  ogType: 'website'
+  ogType: 'website',
 });
 
 const jsonLd = [
   generateOrganizationSchema(),
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
-    { name: 'Contact', url: `${Astro.site}contact/` }
-  ])
+    { name: 'Contact', url: `${Astro.site}contact/` },
+  ]),
 ];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <div class="contact-container">
-      <!-- Contact Info -->
-      <div class="contact-info">
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-envelope"></i>
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="Contact" compact>
+    <Fragment slot="title">Tell us what is <em>slowing you down.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      Email us, book a call or send the form. Whichever you pick, you will hear back from one of the team.
+    </p>
+  </V2PageHead>
+
+  <section class="v2-section" data-theme="dark" id="reach-us">
+    <div class="v2-container">
+      <div class="v2-split">
+        <div class="v2-split__left">
+          <span class="v2-eyebrow" data-reveal>Ways to reach us</span>
+          <div class="v2-ways" data-stagger>
+            <a class="v2-way" href="mailto:info@jengu.ai" data-reveal>
+              <span class="v2-way__k">Email</span>
+              <span class="v2-way__v">info@jengu.ai</span>
+              <span aria-hidden="true">→</span>
+            </a>
+            <button type="button" class="v2-way way-btn" onclick="openBookingModal()" data-reveal>
+              <span class="v2-way__k">Call</span>
+              <span class="v2-way__v">Book a free 30-minute call</span>
+              <span aria-hidden="true">→</span>
+            </button>
+            <a class="v2-way" href="/calculator" data-reveal>
+              <span class="v2-way__k">Calculator</span>
+              <span class="v2-way__v">Estimate your savings</span>
+              <span aria-hidden="true">→</span>
+            </a>
           </div>
-          <h3>Email Us</h3>
-          <p>For general inquiries and support</p>
-          <a href="mailto:info@jengu.ai">info@jengu.ai</a>
+          <p class="v2-body" data-reveal>
+            Email is best for general questions and support. The call is 30 minutes with one of the team
+            about what you want to automate. The calculator takes about two minutes.
+          </p>
         </div>
 
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-calendar-alt"></i>
-          </div>
-          <h3>Book a Demo</h3>
-          <p>Schedule a personalized 30-minute consultation to discuss your automation needs</p>
-          <a href="#" onclick="openBookingModal(); return false;">Schedule Now →</a>
+        <div>
+          <h2 class="v2-h3" data-split>Send a message</h2>
+          <p class="v2-body form-intro" data-reveal>Fill in the form and we will get back to you within 24 hours.</p>
+
+          <form id="contactForm" class="v2-form" onsubmit="handleSubmit(event)" data-reveal>
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="firstName">First name *</label>
+                <input type="text" id="firstName" name="firstName" required autocomplete="given-name" />
+              </div>
+              <div class="v2-field">
+                <label for="lastName">Last name *</label>
+                <input type="text" id="lastName" name="lastName" required autocomplete="family-name" />
+              </div>
+            </div>
+
+            <div class="v2-form__row">
+              <div class="v2-field">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required autocomplete="email" />
+              </div>
+              <div class="v2-field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" />
+              </div>
+            </div>
+
+            <div class="v2-field">
+              <label for="businessType">Business type *</label>
+              <select id="businessType" name="businessType" required>
+                <option value="">Select your business type</option>
+                <option value="hotel">Hotel</option>
+                <option value="resort">Resort</option>
+                <option value="campsite">Campsite/Holiday Park</option>
+                <option value="bnb">B&amp;B / Guesthouse</option>
+                <option value="travel-agency">Travel Agency</option>
+                <option value="tour-operator">Tour Operator</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="v2-field">
+              <label for="interest">What are you interested in? *</label>
+              <select id="interest" name="interest" required>
+                <option value="">Select a service</option>
+                <option value="chatbot">AI Chatbots &amp; Phone Bots</option>
+                <option value="software">Custom Software Development</option>
+                <option value="api">API Integrations</option>
+                <option value="email">Email Automation</option>
+                <option value="pricing">Dynamic Pricing</option>
+                <option value="full">Complete Automation Suite</option>
+                <option value="consultation">Just Exploring / Consultation</option>
+              </select>
+            </div>
+
+            <div class="v2-field">
+              <label for="message">Tell us about your needs *</label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                placeholder="What takes up your team's time today, and what would you like to change?"></textarea>
+            </div>
+
+            <button type="submit" class="v2-btn v2-btn--accent" data-magnetic>
+              <span class="v2-btn__label"><span>Send message</span><span>Send message</span></span>
+              <span class="v2-btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              </span>
+            </button>
+            <p class="v2-form__status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
         </div>
-
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-calculator"></i>
-          </div>
-          <h3>Calculate Your ROI</h3>
-          <p>See your potential savings in 2 minutes</p>
-          <a href="/calculator">Free ROI Analysis →</a>
-        </div>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="contact-form-wrapper">
-        <h2>Send Us a Message</h2>
-        <p style="color: var(--gray); margin-bottom: 2rem;">Fill out the form below and we'll get back to you within 24 hours</p>
-
-        <form id="contactForm" onsubmit="handleSubmit(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="firstName">First Name *</label>
-              <input type="text" id="firstName" name="firstName" required>
-            </div>
-            <div class="form-group">
-              <label for="lastName">Last Name *</label>
-              <input type="text" id="lastName" name="lastName" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="email">Email *</label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="tel" id="phone" name="phone">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="businessType">Business Type *</label>
-            <select id="businessType" name="businessType" required>
-              <option value="">Select your business type</option>
-              <option value="hotel">Hotel</option>
-              <option value="resort">Resort</option>
-              <option value="campsite">Campsite/Holiday Park</option>
-              <option value="bnb">B&B / Guesthouse</option>
-              <option value="travel-agency">Travel Agency</option>
-              <option value="tour-operator">Tour Operator</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="interest">What are you interested in? *</label>
-            <select id="interest" name="interest" required>
-              <option value="">Select a service</option>
-              <option value="chatbot">AI Chatbots & Phone Bots</option>
-              <option value="software">Custom Software Development</option>
-              <option value="api">API Integrations</option>
-              <option value="email">Email Automation</option>
-              <option value="pricing">Dynamic Pricing</option>
-              <option value="full">Complete Automation Suite</option>
-              <option value="consultation">Just Exploring / Consultation</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="message">Tell us about your needs *</label>
-            <textarea id="message" name="message" required placeholder="Describe your current challenges and what you're looking to achieve..."></textarea>
-          </div>
-
-          <button type="submit" class="submit-btn">
-            <i class="fas fa-paper-plane"></i> Send Message
-          </button>
-        </form>
       </div>
     </div>
   </section>
 
-  <!-- Booking CTA -->
-  <section class="calendly-section">
-    <div class="calendly-container">
-      <h2>Prefer to Talk? <span class="gradient-text">Book a Call</span></h2>
-      <p>
-        Schedule a 30-minute video consultation with our team. We'll discuss your specific needs, walk through examples, and show you exactly how AI automation can transform your business.
-      </p>
-      <button onclick="openBookingModal()" class="calendly-btn">
-        <i class="fas fa-video"></i> Book Your Free Consultation
-      </button>
+  <section class="v2-section" data-theme="light" id="book">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>Prefer to talk?</span>
+          <h2 class="v2-h2" data-split>Thirty minutes <em>on a video call.</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            We will go through what you need, show you examples of similar work and say what we would build
+            for you. The call is free.
+          </p>
+          <div data-reveal>
+            <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
+              <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+              <span class="v2-btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Form Submission Script -->
   <script is:inline>
     async function handleSubmit(event) {
       event.preventDefault();
 
-      const submitButton = event.target.querySelector('button[type="submit"]');
-      const originalButtonText = submitButton.innerHTML;
+      const form = event.target;
+      const submitButton = form.querySelector('button[type="submit"]');
+      const status = document.getElementById('formStatus');
+      const FALLBACK_ERROR = 'Something went wrong. Please try again or email info@jengu.ai';
+
+      const setStatus = (text, kind) => {
+        if (!status) return;
+        status.textContent = text;
+        status.className = 'v2-form__status' + (kind ? ' is-' + kind : '');
+      };
+
+      submitButton.disabled = true;
+      setStatus('Sending', '');
 
       try {
-        // Disable button and show loading state
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        const data = Object.fromEntries(new FormData(form));
 
-        // Get form data
-        const formData = new FormData(event.target);
-        const data = Object.fromEntries(formData);
-
-        // Send to API
         const response = await fetch('/api/contact', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(data)
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
         });
 
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
 
         if (!response.ok) {
           throw new Error(result.error || 'Failed to send message');
         }
 
-        // Show success message
-        alert('✅ ' + result.message);
-
-        // Reset form
-        event.target.reset();
-
+        setStatus(result.message || 'Message sent. We will reply within 24 hours.', 'ok');
+        form.reset();
       } catch (error) {
         console.error('Form submission error:', error);
-        alert('❌ ' + (error.message || 'An error occurred. Please try again or email us directly at info@jengu.ai'));
+        setStatus((error && error.message) || FALLBACK_ERROR, 'error');
       } finally {
-        // Re-enable button
         submitButton.disabled = false;
-        submitButton.innerHTML = originalButtonText;
       }
     }
   </script>
+</V2Layout>
 
-  <style>
-    /* Contact Page - Start at top of viewport on desktop */
-    @media (min-width: 769px) {
-      .contact-section {
-        padding-top: 100px !important;
-        margin-top: 0 !important;
-      }
-    }
-  </style>
-</BaseLayout>
+<style>
+  .way-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--line);
+    font: inherit;
+    cursor: pointer;
+  }
+  .form-intro {
+    margin: 12px 0 32px;
+  }
+</style>

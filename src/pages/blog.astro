@@ -1,13 +1,19 @@
 ---
+/**
+ * Blog index: the Jengu journal on AI in hospitality. The newest post leads,
+ * then every other post gets its own row so each one has an internal link
+ * from /blog (crawlability).
+ */
 import { getCollection } from 'astro:content';
-import BaseLayout from '../components/layout/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
-import CTASection from '../components/sections/CTASection.astro';
+import type { CollectionEntry } from 'astro:content';
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'Blog & News - Latest AI Automation Insights | Jengu',
+  // generateSEO appends " | Jengu" itself.
+  title: 'Blog & News - Latest AI Automation Insights',
   description: 'Stay updated with the latest AI automation trends, case studies, and industry insights for tourism and hospitality businesses.',
   canonical: `${Astro.site}blog/`,
   ogType: 'website'
@@ -21,633 +27,105 @@ const jsonLd = [
   ])
 ];
 
-// Get all blog posts and news from content collections
+// Get all blog posts (the `news` collection is legacy and has no routes, so
+// listing it here produced /news/* links that 301 to non-existent /blog/*
+// pages and 404. It is intentionally excluded).
 const blogPosts = await getCollection('blog', ({ data }) => {
   return data.draft !== true && data.archived !== true;
 });
 
-const newsArticles = await getCollection('news', ({ data }) => {
-  return data.draft !== true && data.archived !== true;
-});
-
-// Combine and sort all content by publish date (newest first)
-const allContent = [...blogPosts, ...newsArticles].sort((a, b) => {
+// Sort by publish date (newest first)
+const allContent = [...blogPosts].sort((a, b) => {
   return b.data.publishedOn.getTime() - a.data.publishedOn.getTime();
 });
 
-// Helper function to generate image URL
-const getImageUrl = (entry) => {
-  // If post has an image, use it
-  if (entry.data.mainImage || entry.data.thumbnail) {
-    return entry.data.mainImage || entry.data.thumbnail;
-  }
+type BlogEntry = CollectionEntry<'blog'>;
 
-  // Otherwise, generate a relevant AI image using Pollinations API (free, no API key required)
-  const title = entry.data.title;
-  const description = entry.data.description;
-  const isNews = entry.collection === 'news';
+const WORDS_PER_MINUTE = 220;
 
-  // Build a specific prompt for news vs blog content
-  let prompt;
+const readMinutes = (body: string): number =>
+  Math.max(1, Math.round(body.trim().split(/\s+/).length / WORDS_PER_MINUTE));
 
-  if (isNews) {
-    // News images: More editorial, current events, breaking news style
-    prompt = `Professional news article header image: ${title}. Editorial photography style, journalistic, current events, modern newsroom aesthetic. Clean composition, sharp focus, professional journalism. ${description}. Photorealistic, high-quality news media image.`;
-  } else {
-    // Blog images: More conceptual, technology-focused, business oriented
-    prompt = `Professional business blog header image: ${title}. Modern technology concept, AI and automation themes, corporate professional setting. ${description}. Clean modern design, vibrant corporate colors, futuristic business aesthetic, photorealistic, high quality.`;
-  }
+const formatDate = (date: Date): string =>
+  date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
-  const encodedPrompt = encodeURIComponent(prompt);
-  return `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1200&height=630&nologo=true&enhance=true&model=flux`;
-};
-
-// Get featured post (most recent)
-const featuredEntry = allContent[0];
-const featuredPost = {
-  title: featuredEntry.data.title,
-  excerpt: featuredEntry.data.description.substring(0, 200) + '...',
-  date: featuredEntry.data.publishedOn.toISOString().split('T')[0],
-  category: featuredEntry.collection === 'news' ? 'News' : 'Blog',
-  image: getImageUrl(featuredEntry),
-  url: featuredEntry.collection === 'blog' ? `/blog/${featuredEntry.slug}` : `/news/${featuredEntry.slug}`,
-  readTime: '5 min read'
-};
-
-// Get remaining posts (next 20 for performance)
-const posts = allContent.slice(1, 21).map(entry => ({
+const toPost = (entry: BlogEntry) => ({
   title: entry.data.title,
-  excerpt: entry.data.description.substring(0, 150) + '...',
-  date: entry.data.publishedOn.toISOString().split('T')[0],
-  category: entry.collection === 'news' ? 'News' : 'Blog',
-  image: getImageUrl(entry),
-  url: entry.collection === 'blog' ? `/blog/${entry.slug}` : `/news/${entry.slug}`,
-  readTime: '5 min read'
-}));
+  excerpt: entry.data.description,
+  dateIso: entry.data.publishedOn.toISOString().split('T')[0],
+  dateLabel: formatDate(entry.data.publishedOn),
+  image: entry.data.thumbnail || entry.data.mainImage || '',
+  alt: entry.data.altText || '',
+  url: `/blog/${entry.slug}/`,
+  readTime: readMinutes(entry.body)
+});
+
+const [leadEntry, ...restEntries] = allContent;
+const lead = leadEntry ? toPost(leadEntry) : null;
+const posts = restEntries.map(toPost);
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Newspaper Header -->
-  <section class="blog-header">
-    <div class="newspaper-masthead">
-      <div class="masthead-line"></div>
-      <h2 class="masthead-title">The Jengu Times</h2>
-      <div class="masthead-tagline">Where Innovation Meets Hospitality</div>
-      <div class="masthead-line"></div>
-    </div>
-  </section>
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="Journal" compact>
+    <Fragment slot="title">Notes on AI in <em>hospitality.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      What we are learning about automation in hotels, campsites and holiday parks, written up as we go.
+    </p>
+  </V2PageHead>
 
-  <!-- Featured Article (Above the Fold) -->
-  <section class="featured-article">
-    <div class="section-container">
-      <div class="featured-grid">
-        <div class="featured-content">
-          <span class="article-category featured-category">{featuredPost.category}</span>
-          <h2 class="featured-title">{featuredPost.title}</h2>
-          <div class="article-meta">
-            <time datetime={featuredPost.date}>
-              {new Date(featuredPost.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-            </time>
-            <span class="meta-separator">•</span>
-            <span>{featuredPost.readTime}</span>
+  <section class="v2-section" data-theme="dark">
+    <div class="v2-container">
+      {lead && (
+        <a href={lead.url} class="v2-post v2-post--lead" data-reveal>
+          <div>
+            <span class="v2-post__date">
+              <time datetime={lead.dateIso}>{lead.dateLabel}</time> · {lead.readTime} min read
+            </span>
+            <h2 class="v2-post__title">{lead.title}</h2>
+            <p class="v2-post__excerpt">{lead.excerpt}</p>
           </div>
-          <p class="featured-excerpt">{featuredPost.excerpt}</p>
-          <a href={featuredPost.url} class="read-more-btn">
-            Read Full Article <i class="fas fa-arrow-right"></i>
-          </a>
+          {lead.image ? (
+            <img class="v2-post__thumb" src={lead.image} alt={lead.alt} loading="eager" decoding="async" />
+          ) : (
+            <span class="v2-post__thumb" aria-hidden="true"></span>
+          )}
+        </a>
+      )}
+
+      {posts.length > 0 && (
+        <div class="v2-posts journal__list">
+          {posts.map((post) => (
+            <a href={post.url} class="v2-post" data-reveal>
+              <span class="v2-post__date">
+                <time datetime={post.dateIso}>{post.dateLabel}</time>
+                <br />
+                {post.readTime} min read
+              </span>
+              <h3 class="v2-post__title">{post.title}</h3>
+              {post.image ? (
+                <img class="v2-post__thumb" src={post.image} alt="" loading="lazy" decoding="async" />
+              ) : (
+                <span class="v2-post__thumb" aria-hidden="true"></span>
+              )}
+            </a>
+          ))}
         </div>
-        <div class="featured-image-container">
-          <div class="featured-badge">Featured Story</div>
-          <div class="featured-image" style={`background-image: url('${featuredPost.image}')`}></div>
-        </div>
-      </div>
+      )}
     </div>
   </section>
-
-  <!-- Latest Articles Grid -->
-  <section class="articles-grid-section">
-    <div class="section-container">
-      <div class="section-divider">
-        <span class="divider-text">Latest Articles</span>
-      </div>
-
-      <div class="articles-grid">
-        {posts.map((post, index) => (
-          <article class="article-card" style={`animation-delay: ${index * 0.1}s`}>
-            <div class="article-image" style={`background-image: url('${post.image}')`}></div>
-            <div class="article-content">
-              <span class="article-category">{post.category}</span>
-              <h3 class="article-title">{post.title}</h3>
-              <p class="article-excerpt">{post.excerpt}</p>
-              <div class="article-footer">
-                <time datetime={post.date}>
-                  {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                </time>
-                <span class="meta-separator">•</span>
-                <span>{post.readTime}</span>
-              </div>
-              <a href={post.url} class="article-link">
-                Continue Reading <i class="fas fa-arrow-right"></i>
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter Signup -->
-  <section class="newsletter-section">
-    <div class="section-container">
-      <div class="newsletter-card">
-        <div class="newsletter-icon">
-          <i class="fas fa-newspaper"></i>
-        </div>
-        <h3>Subscribe to The Jengu Times</h3>
-        <p>Get weekly insights on AI automation, industry trends, and exclusive case studies delivered to your inbox.</p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Enter your email address" class="newsletter-input" required>
-          <button type="submit" class="newsletter-btn">
-            Subscribe <i class="fas fa-paper-plane"></i>
-          </button>
-        </form>
-        <p class="newsletter-note">No spam. Unsubscribe anytime.</p>
-      </div>
-    </div>
-  </section>
-
-  <CTASection
-    title="Ready to Transform Your Business?"
-    description="Calculate your ROI potential in just 2 minutes"
-  />
-</BaseLayout>
-
-<!-- Navbar uses default dark styling on this page which works well with white background -->
+</V2Layout>
 
 <style>
-  /* Newspaper Masthead */
-  .blog-header {
-    background: #ffffff;
-    padding: 8rem 0 3rem;
-    border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+  /* The lead post already closes with a hairline, so the list does not open with one. */
+  .journal__list {
+    border-top: 0;
   }
-
-  .newspaper-masthead {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
+  .v2-post--lead .v2-post__date {
+    display: block;
+    margin-bottom: 16px;
   }
-
-  .masthead-line {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--secondary-brand), transparent);
-    margin: 1rem 0;
-  }
-
-  .masthead-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-variation-settings: "opsz" 144, "SOFT" 60;
-    font-size: 3.5rem;
-    font-weight: 500;
-    color: var(--ink, #fff);
-    margin: 0.5rem 0;
-    letter-spacing: -0.02em;
-  }
-
-  .masthead-tagline {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 1rem;
-    font-style: italic;
-    color: #64748b;
-    letter-spacing: 1px;
-  }
-
-  /* Featured Article */
-  .featured-article {
-    padding: 4rem 0;
-    background: #ffffff;
-  }
-
-  .featured-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  .featured-category {
-    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-
-  .featured-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #0f172a;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    animation: fadeInUp 0.6s ease-out;
-  }
-
-  .article-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #64748b;
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .meta-separator {
-    color: var(--secondary-brand);
-  }
-
-  .featured-excerpt {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #475569;
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.6s ease-out 0.2s backwards;
-  }
-
-  .read-more-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
-    color: white;
-    text-decoration: none;
-    border-radius: 12px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    animation: fadeInUp 0.6s ease-out 0.4s backwards;
-  }
-
-  .read-more-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
-  }
-
-  .read-more-btn i {
-    transition: transform 0.3s ease;
-  }
-
-  .read-more-btn:hover i {
-    transform: translateX(5px);
-  }
-
-  .featured-image-container {
-    position: relative;
-    height: 500px;
-    border-radius: 20px;
-    overflow: hidden;
-    animation: fadeInRight 0.8s ease-out 0.3s backwards;
-    border: 1px solid rgba(6, 182, 212, 0.1);
-  }
-
-  .featured-badge {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    z-index: 10;
-    backdrop-filter: blur(10px);
-  }
-
-  .featured-image {
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 0.5s ease;
-  }
-
-  .featured-image-container:hover .featured-image {
-    transform: scale(1.05);
-  }
-
-  /* Section Divider */
-  .section-divider {
-    text-align: center;
-    margin: 3rem 0 2rem;
-    position: relative;
-  }
-
-  .section-divider::before,
-  .section-divider::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 40%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--secondary-brand), transparent);
-  }
-
-  .section-divider::before {
-    left: 0;
-  }
-
-  .section-divider::after {
-    right: 0;
-  }
-
-  .divider-text {
-    background: #ffffff;
-    padding: 0 2rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #0f172a;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  /* Articles Grid */
-  .articles-grid-section {
-    padding: 4rem 0;
-    background: #f8fafc;
-  }
-
-  .articles-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .article-card {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    animation: fadeInUp 0.6s ease-out backwards;
-    border: 1px solid rgba(6, 182, 212, 0.1);
-  }
-
-  .article-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(6, 182, 212, 0.15);
-  }
-
-  .article-image {
-    width: 100%;
-    height: 220px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 0.5s ease;
-  }
-
-  .article-card:hover .article-image {
-    transform: scale(1.1);
-  }
-
-  .article-content {
-    padding: 1.5rem;
-  }
-
-  .article-category {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(8, 145, 178, 0.1));
-    color: var(--secondary-brand);
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: inline-block;
-    margin-bottom: 1rem;
-  }
-
-  .article-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #0f172a;
-    line-height: 1.4;
-    margin-bottom: 0.75rem;
-  }
-
-  .article-excerpt {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #475569;
-    margin-bottom: 1rem;
-  }
-
-  .article-footer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #64748b;
-    font-size: 0.85rem;
-    margin-bottom: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(6, 182, 212, 0.1);
-  }
-
-  .article-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--secondary-brand);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-  }
-
-  .article-link:hover {
-    gap: 0.75rem;
-  }
-
-  .article-link i {
-    transition: transform 0.3s ease;
-  }
-
-  .article-link:hover i {
-    transform: translateX(3px);
-  }
-
-  /* Newsletter Section */
-  .newsletter-section {
-    padding: 4rem 0;
-    background: #ffffff;
-  }
-
-  .newsletter-card {
-    background: linear-gradient(135deg, rgba(6, 182, 212, 0.03), rgba(8, 145, 178, 0.05));
-    border: 2px solid rgba(6, 182, 212, 0.15);
-    border-radius: 24px;
-    padding: 3rem;
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto;
-    animation: fadeInUp 0.8s ease-out;
-  }
-
-  .newsletter-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-  }
-
-  .newsletter-icon i {
-    font-size: 2rem;
-    color: white;
-  }
-
-  .newsletter-card h3 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 1rem;
-  }
-
-  .newsletter-card > p {
-    font-size: 1.1rem;
-    color: #475569;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-
-  .newsletter-form {
-    display: flex;
-    gap: 1rem;
-    max-width: 500px;
-    margin: 0 auto 1rem;
-  }
-
-  .newsletter-input {
-    flex: 1;
-    padding: 1rem 1.5rem;
-    border: 2px solid rgba(6, 182, 212, 0.2);
-    border-radius: 12px;
-    background: #ffffff;
-    color: #0f172a;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-  }
-
-  .newsletter-input::placeholder {
-    color: #94a3b8;
-  }
-
-  .newsletter-input:focus {
-    outline: none;
-    border-color: var(--secondary-brand);
-    background: #ffffff;
-  }
-
-  .newsletter-btn {
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--secondary-brand), #0891b2);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .newsletter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(6, 182, 212, 0.3);
-  }
-
-  .newsletter-note {
-    color: #64748b;
-    font-size: 0.85rem;
-  }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .masthead-title {
-      font-size: 2.5rem;
-    }
-
-    .featured-article,
-    .articles-grid-section {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-
-    .featured-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-
-    .featured-title {
-      font-size: 2rem;
-    }
-
-    .featured-image-container {
-      height: 300px;
-      order: -1;
-    }
-
-    .articles-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .newsletter-form {
-      flex-direction: column;
-    }
-
-    .newsletter-btn {
-      justify-content: center;
-    }
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    .articles-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  /* Posts without an image keep their column with an empty placeholder. */
+  span.v2-post__thumb {
+    display: block;
   }
 </style>

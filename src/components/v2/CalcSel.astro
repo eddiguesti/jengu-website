@@ -1,0 +1,22 @@
+---
+/** A choice that lives inside a sentence. The native select sits on top, invisible. */
+interface Props {
+  name: string;
+  value: string;
+  options: ReadonlyArray<readonly [string, string]>;
+  label: string;
+  mono?: boolean;
+}
+const { name, value, options, label, mono = false } = Astro.props;
+const current = options.find(([v]) => v === value)?.[1] ?? options[0]?.[1] ?? '';
+---
+
+<span class:list={['v2-sel', { 'v2-sel--mono': mono }]}>
+  <span class="v2-sel__ghost" aria-hidden="true">{current}</span>
+  <i class="v2-sel__chev" aria-hidden="true">
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 4.5L6 8l3.5-3.5" /></svg>
+  </i>
+  <select name={name} aria-label={label}>
+    {options.map(([v, text]) => <option value={v} selected={v === value}>{text}</option>)}
+  </select>
+</span>

@@ -1,74 +1,77 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
+/** Privacy policy : page head plus legal prose on the v2 design system. */
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
   title: 'Privacy Policy',
-  description: 'Jengu Ltd Privacy Policy - How we collect, use, and protect your personal data.',
+  description: 'Jengu Ltd privacy policy: how we collect, use and protect your personal data.',
   canonical: `${Astro.site}privacy/`,
   ogType: 'website',
-  noindex: false
+  noindex: false,
 });
 
 const jsonLd = [
   generateOrganizationSchema(),
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
-    { name: 'Privacy Policy', url: `${Astro.site}privacy/` }
-  ])
+    { name: 'Privacy Policy', url: `${Astro.site}privacy/` },
+  ]),
 ];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <section class="hero">
-    <div class="hero-container">
-      <h1>Privacy <span class="gradient-text">Policy</span></h1>
-      <p>Your privacy and data security are our top priorities</p>
-    </div>
-  </section>
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="Legal" compact>
+    <Fragment slot="title">Privacy <em>policy.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      What we collect when you use www.jengu.ai or contact us, what we do with it, and the rights you have over it.
+    </p>
+    <p slot="aside" class="v2-prose__meta">Last updated: January 2025</p>
+  </V2PageHead>
 
-  <section class="legal-content-section">
-    <div class="legal-container">
-      <div class="legal-content">
+  <section class="v2-section" data-theme="light" id="policy">
+    <div class="v2-container">
+      <div class="v2-prose v2-prose--legal" data-reveal>
         <h2>1. Introduction</h2>
         <p>
-          JENGU LTD operates www.jengu.ai to provide information about AI automation services. This policy explains data collection, usage, storage, and protection practices.
+          Jengu Ltd runs www.jengu.ai to tell people about our AI automation services. This policy explains what data
+          we collect, how we use it, where we keep it and how we protect it.
         </p>
 
-        <h2>2. Data Collection</h2>
-        <p>We collect the following types of information:</p>
-        <h3>Contact Information</h3>
+        <h2>2. What we collect</h2>
+        <h3>Contact information</h3>
         <p>
-          Name, email, phone number, and voluntarily shared details from inquiries submitted through our contact forms or email communication.
+          Your name, email address, phone number and anything else you choose to tell us when you contact us through a
+          form on the site or by email.
         </p>
-
-        <h3>Cookies & Analytics</h3>
+        <h3>Cookies and analytics</h3>
         <p>
-          Non-personal usage data through Google tracking technologies, including pages visited, time spent on site, browser type, and referring URLs.
+          Non-personal usage data collected through Google tracking technologies, such as the pages you visit, how
+          long you spend on the site, your browser type and the site that sent you here.
         </p>
 
-        <h2>3. Data Usage</h2>
-        <p>We use your data for the following purposes:</p>
+        <h2>3. How we use it</h2>
         <ul>
-          <li><strong>Responding to Inquiries:</strong> To answer your questions and provide information about our services</li>
-          <li><strong>Service Delivery:</strong> To provide quotes, consultations, and deliver our AI automation solutions</li>
-          <li><strong>Analytics:</strong> To analyze user behavior and enhance site performance and overall user experience</li>
-          <li><strong>Communication:</strong> To send updates about our services (only if you've opted in)</li>
+          <li>To answer your questions and give you information about our services.</li>
+          <li>To provide quotes and consultations and to deliver our AI automation work.</li>
+          <li>To analyse how visitors use the site and improve how it performs.</li>
+          <li>To send you updates about our services, only if you have opted in.</li>
         </ul>
 
-        <h2>4. Data Sharing</h2>
-        <p class="highlight">
-          <strong>We do NOT share, sell, or trade your personal data with third parties for marketing or other purposes.</strong>
+        <h2>4. Sharing</h2>
+        <p>
+          <strong>We do not share, sell or trade your personal data with third parties, for marketing or for any other
+          purpose.</strong>
         </p>
         <p>
-          Personal data resides in encrypted CRM systems accessible only to authorized staff. Anonymized or aggregated data may be shared with service providers for analytics purposes only.
+          Personal data is kept in encrypted CRM systems that only authorised staff can access. We may share anonymised
+          or aggregated data with service providers for analytics only.
         </p>
 
-        <h2>5. Data Security</h2>
-        <p>
-          We implement reasonable and appropriate measures to protect your personal data from unauthorized access, including:
-        </p>
+        <h2>5. Security</h2>
+        <p>We take reasonable and appropriate measures to protect your personal data from unauthorised access, including:</p>
         <ul>
           <li>AES-256 encryption for data at rest</li>
           <li>TLS 1.3 encryption for data in transit</li>
@@ -77,185 +80,73 @@ const jsonLd = [
           <li>Regular security audits and updates</li>
         </ul>
 
-        <h2>6. Data Retention</h2>
+        <h2>6. How long we keep it</h2>
         <p>
-          Personal information is kept only as long as necessary for the purposes for which it was collected or as required by legal obligations. Typically, we retain:
+          We keep personal information only as long as we need it for the purpose it was collected for, or as long as
+          the law requires. Typically that means:
         </p>
         <ul>
-          <li>Contact inquiry data: 3 years from last contact</li>
-          <li>Client project data: Duration of engagement + 7 years (UK tax requirements)</li>
-          <li>Analytics data: 26 months (Google Analytics default)</li>
+          <li>Contact enquiry data: 3 years from last contact</li>
+          <li>Client project data: the length of the engagement plus 7 years (UK tax requirements)</li>
+          <li>Analytics data: 26 months (the Google Analytics default)</li>
         </ul>
 
-        <h2>7. Your Rights Under UK Data Protection Law</h2>
-        <p>You have the following rights regarding your personal data:</p>
+        <h2>7. Your rights under UK data protection law</h2>
+        <p>You have the following rights over your personal data:</p>
         <ul>
-          <li><strong>Right of Access:</strong> Request a copy of the personal data we hold about you</li>
-          <li><strong>Right to Rectification:</strong> Request correction of inaccurate data</li>
-          <li><strong>Right to Erasure:</strong> Request deletion of your personal data</li>
-          <li><strong>Right to Restrict Processing:</strong> Request limitations on how we use your data</li>
-          <li><strong>Right to Data Portability:</strong> Receive your data in a machine-readable format</li>
-          <li><strong>Right to Object:</strong> Object to processing of your data</li>
-          <li><strong>Right to Withdraw Consent:</strong> Withdraw consent at any time</li>
+          <li>Access: ask for a copy of the personal data we hold about you.</li>
+          <li>Rectification: ask us to correct inaccurate data.</li>
+          <li>Erasure: ask us to delete your personal data.</li>
+          <li>Restriction: ask us to limit how we use your data.</li>
+          <li>Portability: receive your data in a machine-readable format.</li>
+          <li>Objection: object to our processing of your data.</li>
+          <li>Withdrawal of consent: withdraw your consent at any time.</li>
         </ul>
         <p>
-          To exercise any of these rights, please contact us at <a href="mailto:info@jengu.ai">info@jengu.ai</a>
+          To exercise any of these rights, email us at <a href="mailto:info@jengu.ai">info@jengu.ai</a>.
         </p>
 
-        <h2>8. Cookies & Tracking Technologies</h2>
+        <h2>8. Cookies and tracking</h2>
         <p>
-          We use cookies and similar tracking technologies to improve your experience on our website. You can manage or disable cookies via your browser settings, though this may limit some site functionality.
+          We use cookies and similar technologies to improve your experience on the site. You can manage or disable
+          cookies in your browser settings, though some parts of the site may not work as well without them.
         </p>
-        <h3>Types of Cookies We Use:</h3>
+        <h3>The cookies we use</h3>
         <ul>
-          <li><strong>Essential Cookies:</strong> Required for website functionality</li>
-          <li><strong>Analytics Cookies:</strong> Help us understand how visitors use our site</li>
-          <li><strong>Preference Cookies:</strong> Remember your settings and preferences</li>
+          <li>Essential cookies, which the site needs in order to work.</li>
+          <li>Analytics cookies, which help us understand how visitors use the site.</li>
+          <li>Preference cookies, which remember your settings.</li>
         </ul>
 
-        <h2>9. Children's Privacy</h2>
+        <h2>9. Children</h2>
         <p>
-          Our services target businesses, not individuals under 16. We do not knowingly collect data from children. If you believe we have collected information from a child, please contact us immediately.
+          Our services are for businesses, not for anyone under 16. We do not knowingly collect data from children. If
+          you believe we have collected information from a child, please contact us straight away.
         </p>
 
-        <h2>10. International Data Transfers</h2>
+        <h2>10. International transfers</h2>
         <p>
-          Your data may be processed in the UK, EU, or other countries where our service providers operate. We ensure appropriate safeguards are in place for any international transfers.
+          Your data may be processed in the UK, the EU or other countries where our service providers operate. We make
+          sure appropriate safeguards are in place for any international transfer.
         </p>
 
-        <h2>11. Policy Updates</h2>
+        <h2>11. Changes to this policy</h2>
         <p>
-          We may update this Privacy Policy from time to time. Changes become effective upon posting with updated dates. We encourage you to review this policy periodically.
+          We may update this policy from time to time. Changes take effect when we post them here with a new date. We
+          encourage you to check back now and then.
         </p>
 
-        <h2>12. Contact Information</h2>
+        <h2>12. Contact</h2>
+        <p>For questions about this policy, or to exercise your data rights, contact us:</p>
         <p>
-          For questions about this Privacy Policy or to exercise your data rights, please contact us:
+          Jengu Ltd<br />
+          Company number: 14157991<br />
+          Email: <a href="mailto:info@jengu.ai">info@jengu.ai</a><br />
+          Website: <a href="https://www.jengu.ai">www.jengu.ai</a>
         </p>
-        <div class="contact-box">
-          <p><strong>JENGU LTD</strong></p>
-          <p>Company Number: 14157991</p>
-          <p>Email: <a href="mailto:info@jengu.ai">info@jengu.ai</a></p>
-          <p>Website: <a href="https://www.jengu.ai">www.jengu.ai</a></p>
-        </div>
 
-        <div class="last-updated">
-          <p><em>Last updated: January 2025</em></p>
-        </div>
+        <p class="v2-prose__meta">Last updated: January 2025</p>
       </div>
     </div>
   </section>
-
-  <style>
-    .legal-content-section {
-      padding: 4rem 2rem;
-      background: var(--bg-light);
-      min-height: 60vh;
-    }
-
-    .legal-container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .legal-content {
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 3rem;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .legal-content h2 {
-      font-size: 1.8rem;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .legal-content h2:first-of-type {
-      margin-top: 0;
-    }
-
-    .legal-content h3 {
-      font-size: 1.4rem;
-      margin-top: 1.5rem;
-      margin-bottom: 0.75rem;
-      color: var(--text-primary);
-    }
-
-    .legal-content p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-    }
-
-    .legal-content p.highlight {
-      background: var(--bg-elevated);
-      padding: 1rem 1.5rem;
-      border-left: 4px solid var(--primary-cta);
-      border-radius: 8px;
-    }
-
-    .legal-content ul {
-      list-style: disc;
-      padding-left: 2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .legal-content li {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      margin-bottom: 0.75rem;
-    }
-
-    .legal-content a {
-      color: var(--primary-cta);
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .legal-content a:hover {
-      color: var(--primary-cta-hover);
-      text-decoration: underline;
-    }
-
-    .contact-box {
-      background: var(--bg-elevated);
-      padding: 1.5rem;
-      border-radius: 12px;
-      margin: 1.5rem 0;
-    }
-
-    .contact-box p {
-      margin-bottom: 0.5rem;
-    }
-
-    .last-updated {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-light);
-      text-align: center;
-    }
-
-    .last-updated p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 768px) {
-      .legal-content {
-        padding: 2rem;
-      }
-
-      .legal-content h2 {
-        font-size: 1.5rem;
-      }
-
-      .legal-content h3 {
-        font-size: 1.2rem;
-      }
-    }
-  </style>
-</BaseLayout>
+</V2Layout>

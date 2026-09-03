@@ -1,487 +1,184 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
-import Hero from '../components/sections/Hero.astro';
-import CTASection from '../components/sections/CTASection.astro';
+/**
+ * FAQ : one accordion. The `faqs` array feeds both the markup and the
+ * FAQPage schema so the two cannot drift.
+ */
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema, generateFAQSchema } from '../lib/seo/jsonld';
 
-// FAQ data for schema markup
-const faqData = [
+type Faq = { q: string; a: string; link?: { href: string; label: string } };
+
+const faqs: Faq[] = [
   {
-    question: "What is an AI agent?",
-    answer: "An AI agent is an intelligent software system that can understand natural language, make decisions, and take actions autonomously. In tourism and hospitality, AI agents handle tasks like responding to guest inquiries, processing bookings, managing reservations, and automating repetitive administrative work—all without human intervention. They work 24/7, learn from interactions, and can handle multiple conversations simultaneously."
+    q: 'What is an AI agent?',
+    a: 'Software that reads a message, works out what is being asked and acts on it. In a hotel or holiday park that means answering guest questions, taking and changing bookings, and doing the admin around them. Agents run around the clock, hold many conversations at once and improve from the corrections your team makes.',
   },
   {
-    question: "Who do you help?",
-    answer: "We specialize in helping tourism and hospitality businesses, including hotels, resorts, and boutique accommodations, campsites and holiday parks, travel agencies and tour operators, Destination Management Companies (DMCs), Bed & Breakfasts and guesthouses, and vacation rental management companies."
+    q: 'Who do you help?',
+    a: 'Tourism and hospitality businesses: hotels, resorts and boutique properties, campsites and holiday parks, travel agencies and tour operators, destination management companies, B&Bs and guesthouses, and holiday rental managers. If your team spends its day on enquiries, bookings and admin, we can help.',
   },
   {
-    question: "What tasks can AI agents automate?",
-    answer: "AI agents can handle customer communication (chat, email, SMS, phone), booking management, information delivery, email management, lead qualification, administrative tasks, multilingual support in 100+ languages, and automated follow-ups."
+    q: 'What tasks can AI agents automate?',
+    a: 'Guest communication over chat, email, SMS and phone. Bookings, changes and cancellations. Questions about prices, availability, policies and the local area. Sorting and answering email. Picking out the enquiries worth a person’s time. Data entry, reports and calendar admin. Reminders, confirmations and feedback requests. All of it in 100+ languages.',
   },
   {
-    question: "How long does setup take?",
-    answer: "Setup timelines vary: Simple AI Chatbot takes 2-3 weeks, Email Automation System takes 3-4 weeks, Custom Software Development takes 6-12 weeks, and Complete Automation Suite takes 8-16 weeks. Most clients start seeing time savings within the first month."
+    q: 'How long does setup take?',
+    a: 'A simple chatbot takes two to three weeks, covering consultation, training, testing and launch. An email agent takes three to four weeks, including process mapping and integration. Custom software takes six to twelve weeks. A full suite of agents takes eight to sixteen weeks. We work in phases, so the first pieces go live while we build the rest.',
   },
   {
-    question: "Do AI agents replace human staff?",
-    answer: "No—AI agents augment your team, not replace them. AI agents handle repetitive, time-consuming tasks while your team focuses on complex problem-solving, personalized guest experiences, relationship building, and strategic decisions requiring human empathy and judgment."
+    q: 'Do AI agents replace human staff?',
+    a: 'No. The agents take the repetitive work: routine questions, standard bookings, sorting email and instant replies to common enquiries. Your team keeps the work that needs judgement and a human touch, such as difficult problems, personal requests and relationships with regular guests.',
   },
   {
-    question: "How do you measure ROI?",
-    answer: "We track ROI across multiple dimensions: time savings (typically 40+ hours per week), response speed (from 15-20 minutes to seconds), conversion rate (typically 20-30% increase), cost reduction, revenue growth from 24/7 availability, and improved customer satisfaction scores."
+    q: 'How do you measure ROI?',
+    a: 'We track hours saved on admin each week, how quickly guests get a reply, how many enquiries turn into bookings, staff time spent on routine work, extra bookings from being reachable at night and weekends, and guest satisfaction scores. For an estimate based on your own numbers, use the calculator at /calculator.',
+    link: { href: '/calculator', label: 'Open the calculator' },
   },
   {
-    question: "What if the AI makes a mistake?",
-    answer: "We design AI systems with multiple safety measures including confidence thresholds, human oversight for critical decisions, continuous learning from corrections, clear boundaries defined during setup, and extensive testing before launch."
+    q: 'What if the AI makes a mistake?',
+    a: 'Every agent has limits we set with you during setup, so it knows what it can and cannot do. When it is unsure it hands over to a person. Cancellations, refunds and policy exceptions always go to your team. It learns from corrections, and we test it thoroughly before it talks to a real guest. You can review any conversation and change how it answers.',
   },
   {
-    question: "How much does it cost?",
-    answer: "Pricing varies based on your specific needs and solution complexity. Options include AI Chatbot, Email Automation, Custom Software, and Complete Automation Suite packages. Most clients see full ROI within 6-12 months."
+    q: 'How much does it cost?',
+    a: 'It depends on what we build. The options are a chatbot, email automation, custom software or a full automation suite, and each is priced on its scope. Book a free call and we will quote for your business. For a rough idea of what automation could save you first, use the calculator at /calculator.',
+    link: { href: '/calculator', label: 'Open the calculator' },
   },
   {
-    question: "Can AI handle multiple languages?",
-    answer: "Yes! Our AI agents support 100+ languages with natural, fluent communication. AI automatically detects and responds in the guest's preferred language, making it particularly valuable for tourism businesses serving international travelers."
+    q: 'Can AI handle multiple languages?',
+    a: 'Yes. The agents work in 100+ languages. They detect the language a guest writes in and reply in the same one, so you do not need multilingual staff for routine enquiries, and the quality is the same in every language. That matters most if you host international travellers.',
   },
   {
-    question: "What integrations do you support?",
-    answer: "We integrate with virtually any system including Property Management Systems (Opera, Mews, Cloudbeds), Booking Engines (Booking.com, Expedia, Airbnb), Email & Communication tools, CRM Systems, Payment Processors, and Channel Managers. Custom API integrations are also available."
+    q: 'What integrations do you support?',
+    a: 'Property management systems such as Opera, Mews, Cloudbeds and Guesty. Booking engines and OTAs including Booking.com, Expedia and Airbnb. Gmail, Outlook, WhatsApp Business and SMS providers. CRMs such as Salesforce, HubSpot and Zoho. Payment processors including Stripe, PayPal and Square. Channel managers such as SiteMinder, Channex and RoomRaccoon. If your system is not on that list, we build the connection.',
   },
   {
-    question: "Is AI automation secure for guest data?",
-    answer: "Yes, security is our top priority. We implement enterprise-grade encryption (AES-256), GDPR compliance, secure API connections, role-based access controls, and regular security audits. All guest data is processed according to international privacy standards, and we never share or sell customer information."
+    q: 'Is AI automation secure for guest data?',
+    a: 'Yes. Data is encrypted with AES-256 at rest and in transit. We comply with GDPR. API connections use OAuth 2.0 and encrypted endpoints. Access is role based, and we run regular security audits and penetration tests. We never share or sell guest data.',
   },
   {
-    question: "What's the ROI of hotel chatbots?",
-    answer: "Hotel chatbots typically deliver ROI within 3-6 months. Expected returns include: 40+ hours saved weekly on repetitive inquiries, 60% faster response times, 20-30% increase in direct bookings, 40% reduction in front desk call volume, and improved guest satisfaction scores. Use our ROI Calculator for a personalized estimate."
+    q: 'What is the ROI of hotel chatbots?',
+    a: 'It comes from a few places: hours your front desk no longer spends on repeated questions, faster replies to enquiries, more direct bookings from guests who get an answer straight away, and fewer calls to reception. How much that adds up to depends on your size and how many enquiries you get. The calculator at /calculator gives an estimate from your own figures.',
+    link: { href: '/calculator', label: 'Open the calculator' },
   },
   {
-    question: "How much does AI cost for a hotel?",
-    answer: "AI costs for hotels vary by solution: AI Chatbots start from $500-1,500/month, Email Automation from $300-800/month, and comprehensive automation suites from $2,000-5,000/month. Most hotels achieve full ROI within 6-12 months through staff time savings and increased bookings. Implementation costs are typically $5,000-25,000 depending on complexity."
+    q: 'How much does AI cost for a hotel?',
+    a: 'It depends on which agents you need and how many systems we connect. A chatbot costs less than a full automation suite, and integration work is priced on the systems involved. We do not publish a price list because every property is different. Book a free call and we will give you a quote.',
   },
   {
-    question: "Can AI chatbots handle hotel bookings?",
-    answer: "Yes, AI chatbots can handle the complete booking process including checking availability, displaying rates, capturing guest details, processing reservations, sending confirmations, and managing modifications or cancellations. They integrate with your PMS and booking engine for real-time accuracy."
+    q: 'Can AI chatbots handle hotel bookings?',
+    a: 'Yes, from start to finish. The agent checks live availability in your PMS, shows rates, packages and offers, collects the guest’s name, dates and requests, creates the booking in your system, sends the confirmation, and handles changes and cancellations. Because it is connected to your PMS and booking engine, what it quotes is accurate.',
   },
-  {
-    question: "What is the best AI for hotels in 2025?",
-    answer: "The best AI for hotels in 2025 depends on your needs. For guest communication, WhatsApp chatbots with multilingual support lead the market. For operations, AI email automation and PMS integration deliver the highest ROI. Jengu specializes in hospitality-specific AI that combines chatbots, email automation, and system integrations tailored to hotels."
-  }
 ];
 
 const seo = generateSEO({
   title: 'AI Automation FAQ for Tourism Businesses',
-  description: 'Answers to common questions about AI agents, chatbots, setup time, pricing & ROI. Learn how AI automation transforms hotels, travel agencies & hospitality operations. Free consultation available.',
+  description:
+    'Answers to common questions about AI agents and chatbots for hotels and tourism businesses: setup time, cost, security, integrations and what the agents can do.',
   canonical: `${Astro.site}faq/`,
-  ogType: 'website'
+  ogType: 'website',
 });
 
 const jsonLd = [
   generateOrganizationSchema(),
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
-    { name: 'FAQ', url: `${Astro.site}faq/` }
+    { name: 'FAQ', url: `${Astro.site}faq/` },
   ]),
-  generateFAQSchema(faqData)
+  generateFAQSchema(faqs.map((f) => ({ question: f.q, answer: f.a }))),
 ];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <Hero
-    title="Frequently Asked"
-    highlight="Questions"
-    description="Everything you need to know about AI automation for tourism businesses"
-  />
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="FAQ" compact>
+    <Fragment slot="title">Questions owners <em>ask us first.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      What the agents do, how long setup takes, what it costs and how we look after guest data. If yours is not here,
+      ask us.
+    </p>
+  </V2PageHead>
 
-  <!-- FAQ Section -->
-  <section class="content-section bg-light">
-    <div class="section-container">
-      <div class="faq-container">
-
-        <!-- FAQ Item 1 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>What is an AI agent?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              An AI agent is an intelligent software system that can understand natural language, make decisions, and take actions autonomously. In tourism and hospitality, AI agents handle tasks like responding to guest inquiries, processing bookings, managing reservations, and automating repetitive administrative work—all without human intervention. They work 24/7, learn from interactions, and can handle multiple conversations simultaneously.
-            </p>
+  <section class="v2-section" data-theme="light" id="questions">
+    <div class="v2-container">
+      <div class="v2-faq">
+        <div class="v2-faq__left">
+          <span class="v2-eyebrow" data-reveal>{faqs.length} questions</span>
+          <h2 class="v2-h2" data-split>Plain answers, <em>no small print.</em></h2>
+          <p class="v2-lead" data-reveal>
+            Something else on your mind? <a href="/contact" class="v2-serif" style="color: var(--accent)">Ask us.</a>
+          </p>
+          <div data-reveal>
+            <button class="v2-btn" onclick="openBookingModal()" data-magnetic>
+              <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+              <span class="v2-btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              </span>
+            </button>
           </div>
         </div>
 
-        <!-- FAQ Item 2 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>Who do you help?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              We specialize in helping tourism and hospitality businesses, including:
-            </p>
-            <ul>
-              <li>Hotels, resorts, and boutique accommodations</li>
-              <li>Campsites and holiday parks</li>
-              <li>Travel agencies and tour operators</li>
-              <li>Destination Management Companies (DMCs)</li>
-              <li>Bed & Breakfasts and guesthouses</li>
-              <li>Vacation rental management companies</li>
-            </ul>
-            <p>
-              If you handle customer inquiries, bookings, or administrative tasks in the tourism industry, we can help automate your operations.
-            </p>
-          </div>
+        <div data-reveal>
+          {
+            faqs.map((f, i) => (
+              <details open={i === 0}>
+                <summary>
+                  <span>{f.q}</span>
+                  <i aria-hidden="true" />
+                </summary>
+                <div class="v2-faq__a">
+                  <p>{f.a}</p>
+                  {f.link && (
+                    <a class="v2-link faq-link" href={f.link.href}>
+                      {f.link.label} <span aria-hidden="true">→</span>
+                    </a>
+                  )}
+                </div>
+              </details>
+            ))
+          }
         </div>
-
-        <!-- FAQ Item 3 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>What tasks can AI agents automate?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              AI agents can handle a wide range of tasks, including:
-            </p>
-            <ul>
-              <li><strong>Customer Communication:</strong> Answering inquiries via chat, email, SMS, and phone</li>
-              <li><strong>Booking Management:</strong> Processing reservations, cancellations, and modifications</li>
-              <li><strong>Information Delivery:</strong> Providing pricing, availability, policies, and local recommendations</li>
-              <li><strong>Email Management:</strong> Sorting, categorizing, and responding to emails automatically</li>
-              <li><strong>Lead Qualification:</strong> Identifying and prioritizing high-value prospects</li>
-              <li><strong>Administrative Tasks:</strong> Data entry, report generation, calendar management</li>
-              <li><strong>Multilingual Support:</strong> Communicating in 100+ languages</li>
-              <li><strong>Follow-ups:</strong> Automated reminders, confirmations, and feedback requests</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- FAQ Item 4 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>How long does setup take?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Setup timelines vary based on complexity, but typical projects follow this schedule:
-            </p>
-            <ul>
-              <li><strong>Simple AI Chatbot:</strong> 2-3 weeks (consultation, training, testing, deployment)</li>
-              <li><strong>Email Automation System:</strong> 3-4 weeks (process mapping, integration, testing)</li>
-              <li><strong>Custom Software Development:</strong> 6-12 weeks (design, development, training)</li>
-              <li><strong>Complete Automation Suite:</strong> 8-16 weeks (comprehensive workflow transformation)</li>
-            </ul>
-            <p>
-              We work in phases, so you'll see results quickly while we continue building more advanced features. Most clients start seeing time savings within the first month.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 5 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>Do AI agents replace human staff?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              No—AI agents augment your team, not replace them. Here's how it works:
-            </p>
-            <p>
-              <strong>AI agents handle:</strong> Repetitive, time-consuming tasks like answering basic questions, processing standard bookings, sorting emails, and providing instant responses to common inquiries.
-            </p>
-            <p>
-              <strong>Your team focuses on:</strong> Complex problem-solving, personalized guest experiences, relationship building, strategic decisions, and situations requiring human empathy and judgment.
-            </p>
-            <p>
-              Think of AI agents as your team's assistant—handling the routine work so your staff can focus on high-value activities that truly require human expertise. Most clients report that their teams feel less overwhelmed and more engaged after implementing AI automation.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 6 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>How do you measure ROI?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              We track ROI across multiple dimensions:
-            </p>
-            <ul>
-              <li><strong>Time Savings:</strong> Hours saved per week on administrative tasks (typically 40+ hours)</li>
-              <li><strong>Response Speed:</strong> Reduction in response time (from 15-20 minutes to seconds)</li>
-              <li><strong>Conversion Rate:</strong> Increase in booking conversions (typically 20-30%)</li>
-              <li><strong>Cost Reduction:</strong> Decreased staffing costs for routine tasks</li>
-              <li><strong>Revenue Growth:</strong> Additional bookings from 24/7 availability and faster responses</li>
-              <li><strong>Customer Satisfaction:</strong> Improved CSAT scores and review ratings</li>
-            </ul>
-            <p>
-              Use our <a href="/calculator" style="color: var(--primary-cta); text-decoration: underline;">ROI Calculator</a> to get a personalized estimate based on your business metrics.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 7 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>What if the AI makes a mistake?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              We design AI systems with multiple safety measures:
-            </p>
-            <ul>
-              <li><strong>Confidence Thresholds:</strong> AI escalates to humans when uncertain about a response</li>
-              <li><strong>Human Oversight:</strong> All critical decisions (cancellations, refunds, policy exceptions) route to your team</li>
-              <li><strong>Continuous Learning:</strong> AI improves from corrections and feedback</li>
-              <li><strong>Clear Boundaries:</strong> We define exactly what AI can and cannot do during setup</li>
-              <li><strong>Testing & Training:</strong> Extensive testing before launch to minimize errors</li>
-            </ul>
-            <p>
-              Our AI systems are transparent—you can always review conversations, adjust responses, and maintain full control over your customer interactions.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 8 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>How much does it cost?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Pricing varies based on your specific needs and the complexity of the solution. Here's a general guide:
-            </p>
-            <ul>
-              <li><strong>AI Chatbot:</strong> Starting from £X/month (includes setup, training, hosting, support)</li>
-              <li><strong>Email Automation:</strong> Starting from £X/month (includes integration, ongoing optimization)</li>
-              <li><strong>Custom Software:</strong> Project-based pricing (£X-£X depending on scope)</li>
-              <li><strong>Complete Automation Suite:</strong> Custom packages (typically £X-£X/month)</li>
-            </ul>
-            <p>
-              Most clients see full ROI within 6-12 months. Book a <a href="/contact" style="color: var(--primary-cta); text-decoration: underline;">free consultation</a> for a detailed quote tailored to your business.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 9 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>Can AI handle multiple languages?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Yes! Our AI agents support 100+ languages with natural, fluent communication. This means:
-            </p>
-            <ul>
-              <li>Guests can communicate in their preferred language</li>
-              <li>AI automatically detects and responds in the same language</li>
-              <li>No need to hire multilingual staff for basic inquiries</li>
-              <li>Expand into new markets without language barriers</li>
-              <li>Maintain consistent quality across all languages</li>
-            </ul>
-            <p>
-              This is particularly valuable for tourism businesses serving international travelers.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 10 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>What integrations do you support?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              We integrate with virtually any system your business uses:
-            </p>
-            <ul>
-              <li><strong>Property Management Systems (PMS):</strong> Opera, Mews, Cloudbeds, Guesty, etc.</li>
-              <li><strong>Booking Engines:</strong> Booking.com, Expedia, Airbnb, direct booking platforms</li>
-              <li><strong>Email & Communication:</strong> Gmail, Outlook, WhatsApp Business, SMS providers</li>
-              <li><strong>CRM Systems:</strong> Salesforce, HubSpot, Zoho, custom CRMs</li>
-              <li><strong>Payment Processors:</strong> Stripe, PayPal, Square</li>
-              <li><strong>Channel Managers:</strong> SiteMinder, Channex, RoomRaccoon</li>
-            </ul>
-            <p>
-              If you use a system not listed here, we can build custom API integrations to connect everything seamlessly.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 11 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>Is AI automation secure for guest data?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Yes, security is our top priority. We implement:
-            </p>
-            <ul>
-              <li><strong>Enterprise-grade encryption:</strong> AES-256 for all data at rest and in transit</li>
-              <li><strong>GDPR compliance:</strong> Full adherence to international privacy regulations</li>
-              <li><strong>Secure API connections:</strong> OAuth 2.0 and encrypted endpoints</li>
-              <li><strong>Role-based access:</strong> Granular permission controls for your team</li>
-              <li><strong>Regular audits:</strong> Ongoing security assessments and penetration testing</li>
-            </ul>
-            <p>
-              All guest data is processed according to international privacy standards, and we never share or sell customer information.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 12 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>What's the ROI of hotel chatbots?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Hotel chatbots typically deliver ROI within 3-6 months. Expected returns include:
-            </p>
-            <ul>
-              <li><strong>40+ hours saved weekly</strong> on repetitive inquiries</li>
-              <li><strong>60% faster response times</strong> (from minutes to seconds)</li>
-              <li><strong>20-30% increase</strong> in direct bookings</li>
-              <li><strong>40% reduction</strong> in front desk call volume</li>
-              <li><strong>Improved guest satisfaction</strong> scores and reviews</li>
-            </ul>
-            <p>
-              Use our <a href="/calculator" style="color: var(--primary-cta); text-decoration: underline;">ROI Calculator</a> for a personalized estimate based on your property size.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 13 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>How much does AI cost for a hotel?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              AI costs for hotels vary by solution complexity:
-            </p>
-            <ul>
-              <li><strong>AI Chatbots:</strong> $500-1,500/month (includes WhatsApp, web chat, multilingual)</li>
-              <li><strong>Email Automation:</strong> $300-800/month (smart inbox, auto-responses)</li>
-              <li><strong>Comprehensive Suites:</strong> $2,000-5,000/month (full automation package)</li>
-              <li><strong>Implementation:</strong> $5,000-25,000 one-time (depending on integrations)</li>
-            </ul>
-            <p>
-              Most hotels achieve full ROI within 6-12 months through staff time savings and increased direct bookings. Book a <a href="/contact" style="color: var(--primary-cta); text-decoration: underline;">free consultation</a> for custom pricing.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 14 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>Can AI chatbots handle hotel bookings?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              Yes, AI chatbots can handle the complete booking journey:
-            </p>
-            <ul>
-              <li><strong>Availability checks:</strong> Real-time room availability from your PMS</li>
-              <li><strong>Rate display:</strong> Show pricing, packages, and promotions</li>
-              <li><strong>Guest capture:</strong> Collect names, dates, preferences, special requests</li>
-              <li><strong>Reservation creation:</strong> Process bookings directly in your system</li>
-              <li><strong>Confirmations:</strong> Send instant booking confirmations</li>
-              <li><strong>Modifications:</strong> Handle changes and cancellations</li>
-            </ul>
-            <p>
-              Chatbots integrate with your PMS and booking engine for real-time accuracy and seamless guest experience.
-            </p>
-          </div>
-        </div>
-
-        <!-- FAQ Item 15 -->
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            <span>What is the best AI for hotels in 2025?</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>
-              The best AI for hotels in 2025 depends on your specific needs:
-            </p>
-            <ul>
-              <li><strong>Guest Communication:</strong> WhatsApp chatbots with multilingual support lead the market</li>
-              <li><strong>Email Management:</strong> AI email automation delivers highest ROI for busy properties</li>
-              <li><strong>Operations:</strong> PMS integration and dynamic pricing optimize revenue</li>
-              <li><strong>Full Automation:</strong> Comprehensive suites combine all capabilities</li>
-            </ul>
-            <p>
-              Jengu specializes in hospitality-specific AI that combines chatbots, email automation, and system integrations—all tailored specifically for hotels and tourism businesses.
-            </p>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
 
-  <CTASection
-    title="Still Have Questions?"
-    description="Book a free 30-minute consultation to discuss your specific needs"
-    buttonText="Schedule a Call"
-    buttonHref="/contact"
-    onClick=""
-  />
+  <section class="v2-section" data-theme="dark" id="start">
+    <div class="v2-container">
+      <div class="faq-cta">
+        <span class="v2-eyebrow" data-reveal>Still wondering</span>
+        <h2 class="v2-h2" data-split>Ask on a <em>thirty-minute call.</em></h2>
+        <p class="v2-lead" data-reveal>
+          Bring the job that takes up most of your week. We will tell you whether it is worth automating and what it
+          would take.
+        </p>
+        <div class="faq-actions" data-reveal>
+          <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
+            <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+            <span class="v2-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+            </span>
+          </button>
+          <a class="v2-link" href="mailto:info@jengu.ai">or email us <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</V2Layout>
 
-  <!-- FAQ Toggle Script -->
-  <script is:inline>
-    function toggleFAQ(button) {
-      const faqItem = button.parentElement;
-      const answer = faqItem.querySelector('.faq-answer');
-      const icon = button.querySelector('i');
-      const isActive = faqItem.classList.contains('active');
-
-      // Close all other FAQs
-      document.querySelectorAll('.faq-item').forEach(item => {
-        if (item !== faqItem && item.classList.contains('active')) {
-          item.classList.remove('active');
-          const otherAnswer = item.querySelector('.faq-answer');
-          const otherIcon = item.querySelector('i');
-          if (otherAnswer) otherAnswer.style.maxHeight = '0';
-          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
-        }
-      });
-
-      // Toggle current FAQ
-      if (isActive) {
-        // Close this FAQ
-        faqItem.classList.remove('active');
-        answer.style.maxHeight = '0';
-        icon.style.transform = 'rotate(0deg)';
-      } else {
-        // Open this FAQ - answer pops out underneath
-        faqItem.classList.add('active');
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-        icon.style.transform = 'rotate(180deg)';
-      }
-    }
-
-    // Initialize on page load - ensure all answers start closed
-    document.addEventListener('DOMContentLoaded', function() {
-      document.querySelectorAll('.faq-answer').forEach(answer => {
-        answer.style.maxHeight = '0';
-      });
-    });
-  </script>
-</BaseLayout>
+<style>
+  .faq-link {
+    margin-top: 16px;
+  }
+  .faq-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    max-width: 760px;
+  }
+  .faq-actions {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+</style>

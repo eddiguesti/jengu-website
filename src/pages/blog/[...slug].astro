@@ -1,8 +1,12 @@
 ---
+/**
+ * Blog post: a light reading page with a sticky rail (dates, author, read
+ * time), the rendered post in .v2-prose, and related posts on a dark section.
+ */
 import { getCollection } from 'astro:content';
-import BaseLayout from '../../components/layout/BaseLayout.astro';
+import V2Layout from '../../components/v2/V2Layout.astro';
 import { generateSEO } from '../../lib/seo/metadata';
-import { generateArticleSchema } from '../../lib/seo/jsonld';
+import { generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo/jsonld';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog', ({ data }) => {
@@ -19,7 +23,8 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 
 const seo = generateSEO({
-  title: `${entry.data.title} | Jengu Blog`,
+  // generateSEO already appends " | Jengu", so the title stays unbranded here.
+  title: entry.data.title,
   description: entry.data.description,
   canonical: `${Astro.site}blog/${entry.slug}/`,
   ogType: 'article',
@@ -40,617 +45,170 @@ const jsonLd = [
     image: entry.data.mainImage || entry.data.thumbnail || '',
     authorName: entry.data.author || 'Jengu Team',
     url: `${Astro.site}blog/${entry.slug}/`
-  })
+  }),
+  generateBreadcrumbSchema([
+    { name: 'Home', url: `${Astro.site}` },
+    { name: 'Blog', url: `${Astro.site}blog/` },
+    { name: entry.data.title, url: `${Astro.site}blog/${entry.slug}/` }
+  ])
 ];
 
-const formattedDate = entry.data.publishedOn.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric'
-});
+const DATE_FORMAT: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+const SHORT_DATE_FORMAT: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+const WORDS_PER_MINUTE = 220;
+
+const formattedDate = entry.data.publishedOn.toLocaleDateString('en-GB', DATE_FORMAT);
+const updatedOn = entry.data.updatedOn;
+const wasUpdated = Boolean(updatedOn && updatedOn.getTime() !== entry.data.publishedOn.getTime());
+const updatedDate = wasUpdated && updatedOn ? updatedOn.toLocaleDateString('en-GB', DATE_FORMAT) : null;
+const author = entry.data.author || 'Jengu Team';
+const readTime = Math.max(1, Math.round(entry.body.trim().split(/\s+/).length / WORDS_PER_MINUTE));
+
+// Related posts: score other posts by shared slug keywords so every article
+// links out to 3 relevant ones. This builds an internal link graph that helps
+// Google discover and index the deeper posts (fixes "Discovered, not indexed").
+const STOP_WORDS = new Set([
+  'the', 'for', 'and', 'with', 'your', 'how', 'ai', 'to', 'in', 'of', 'a',
+  'guide', 'best', 'top', '2024', '2025', '2026', 'business', 'businesses'
+]);
+const tokensOf = (slug: string) =>
+  new Set(slug.split('-').filter((t) => t.length > 2 && !STOP_WORDS.has(t)));
+const currentTokens = tokensOf(entry.slug);
+
+const allPosts = await getCollection('blog', ({ data }) => data.draft !== true && data.archived !== true);
+const relatedPosts = allPosts
+  .filter((p) => p.slug !== entry.slug)
+  .map((p) => {
+    const t = tokensOf(p.slug);
+    let score = 0;
+    for (const tok of currentTokens) if (t.has(tok)) score += 1;
+    return { post: p, score };
+  })
+  .sort((a, b) => b.score - a.score || b.post.data.publishedOn.getTime() - a.post.data.publishedOn.getTime())
+  .slice(0, 3)
+  .map(({ post }) => ({
+    title: post.data.title,
+    url: `/blog/${post.slug}/`,
+    image: post.data.thumbnail || post.data.mainImage || '',
+    dateIso: post.data.publishedOn.toISOString().split('T')[0],
+    dateLabel: post.data.publishedOn.toLocaleDateString('en-GB', SHORT_DATE_FORMAT)
+  }));
 ---
 
-<style is:global>
-  /* Override dark theme for blog article pages */
-  body {
-    background: #fffef9 !important;
-  }
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <article class="v2-article" data-theme="light">
+    <div class="v2-container">
+      <header class="v2-article__head">
+        <a href="/blog/" class="v2-eyebrow" data-reveal>Journal</a>
+        <h1 class="v2-h1" data-split>{entry.data.title}</h1>
+        {entry.data.subtitle && (
+          <p class="v2-article__sub" data-reveal>{entry.data.subtitle}</p>
+        )}
+      </header>
 
-  /* Make navbar work on light background */
-  .nav-right {
-    background: rgba(255, 254, 249, 0.98) !important;
-    border: 1px solid rgba(0, 0, 0, 0.12) !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-  }
-
-  /* Dark text for navbar elements */
-  .nav-right a:not(.nav-consultation-cta),
-  .nav-right button:not(.nav-consultation-cta) {
-    color: #1a1a1a !important;
-  }
-
-  /* Burger menu lines - dark on light background */
-  .burger-line {
-    background-color: #1a1a1a !important;
-  }
-
-  /* Language switcher styling for light theme */
-  .language-switcher .lang-toggle {
-    color: #1a1a1a !important;
-    border-color: rgba(0, 0, 0, 0.15) !important;
-    background: rgba(0, 0, 0, 0.03) !important;
-  }
-
-  .language-switcher .lang-toggle:hover {
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-  }
-
-  .language-switcher .lang-dropdown {
-    background: rgba(255, 254, 249, 0.98) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
-  }
-
-  .language-switcher .lang-option {
-    color: #1a1a1a !important;
-    border-color: rgba(0, 0, 0, 0.08) !important;
-  }
-
-  .language-switcher .lang-option:hover {
-    background: rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .language-switcher .lang-option.active {
-    background: rgba(6, 182, 212, 0.1) !important;
-    color: #0891b2 !important;
-  }
-
-  /* Keep consultation button styled */
-  .nav-consultation-cta {
-    background: #FFB95A !important;
-    color: #050816 !important;
-  }
-
-  .nav-consultation-cta:hover {
-    background: #FFC875 !important;
-  }
-
-  /* Keep burger dropdown dark (overlay style) */
-  .burger-dropdown {
-    background: rgba(0, 0, 0, 0.95) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
-  }
-
-  .burger-dropdown a,
-  .burger-dropdown a span {
-    color: white !important;
-    opacity: 1 !important;
-  }
-
-  .burger-dropdown a i {
-    color: rgba(255, 255, 255, 0.8) !important;
-    opacity: 1 !important;
-  }
-
-  .burger-dropdown a:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-  }
-
-  .burger-dropdown a:hover,
-  .burger-dropdown a:hover span,
-  .burger-dropdown a:hover i {
-    color: white !important;
-  }
-
-  /* Footer styling for light theme */
-  footer {
-    background: #1a1a1a !important;
-    color: white !important;
-  }
-
-  footer a {
-    color: rgba(255, 255, 255, 0.8) !important;
-  }
-
-  footer h4 {
-    color: white !important;
-  }
-</style>
-
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <link
-    slot="head"
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap"
-    rel="stylesheet"
-  />
-
-  <article class="newspaper-article">
-    <!-- Newspaper Masthead -->
-    <div class="newspaper-masthead">
-      <div class="masthead-line"></div>
-      <div class="newspaper-name">THE JENGU JOURNAL</div>
-      <div class="masthead-tagline">AI & Tourism Intelligence</div>
-      <div class="masthead-line"></div>
-    </div>
-
-    <!-- Hero Section -->
-    <header class="blog-post-header">
-      <div class="blog-post-meta">
-        <span class="edition-label">FEATURE ARTICLE</span>
-        <span class="meta-divider">|</span>
-        <time datetime={entry.data.publishedOn.toISOString()}>
-          {formattedDate}
-        </time>
-        <span class="meta-divider">|</span>
-        <span class="author-byline">By {entry.data.author || 'Jengu Team'}</span>
-      </div>
-      <h1 class="blog-post-title">{entry.data.title}</h1>
-      {entry.data.subtitle && (
-        <p class="blog-post-subtitle">{entry.data.subtitle}</p>
+      {entry.data.mainImage && (
+        <figure class="post-hero" data-reveal>
+          <img
+            class="v2-article__hero"
+            src={entry.data.mainImage}
+            alt={entry.data.altText || ''}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+          {entry.data.altText && <figcaption class="v2-mono">{entry.data.altText}</figcaption>}
+        </figure>
       )}
-    </header>
 
-    <!-- Featured Image -->
-    {entry.data.mainImage && (
-      <div class="blog-post-image">
-        <img
-          src={entry.data.mainImage}
-          alt={entry.data.altText || entry.data.title}
-          loading="eager"
-        />
-        <p class="image-caption">{entry.data.altText || entry.data.title}</p>
+      <div class="v2-article__grid">
+        <aside class="v2-article__rail" data-reveal>
+          <div class="rail__item">
+            <span class="rail__key">Published</span>
+            <time class="v2-mono" datetime={entry.data.publishedOn.toISOString()}>{formattedDate}</time>
+          </div>
+          {updatedDate && (
+            <div class="rail__item">
+              <span class="rail__key">Updated</span>
+              <time class="v2-mono" datetime={updatedOn?.toISOString()}>{updatedDate}</time>
+            </div>
+          )}
+          <div class="rail__item">
+            <span class="rail__key">Written by</span>
+            <span class="v2-mono">{author}</span>
+          </div>
+          <div class="rail__item">
+            <span class="rail__key">Reading time</span>
+            <span class="v2-mono">{readTime} min</span>
+          </div>
+          <a href="/blog/" class="v2-link">All posts <span aria-hidden="true">→</span></a>
+        </aside>
+
+        <div class="v2-prose">
+          <Content />
+        </div>
       </div>
-    )}
-
-    <!-- Content -->
-    <div class="blog-post-content prose">
-      <Content />
-    </div>
-
-    <!-- Back to Blog -->
-    <div class="blog-post-footer">
-      <div class="footer-ornament">❧</div>
-      <a href="/blog" class="back-to-blog">
-        ← Return to All Articles
-      </a>
     </div>
   </article>
-</BaseLayout>
+
+  {relatedPosts.length > 0 && (
+    <section class="v2-section" data-theme="dark" aria-labelledby="related-title">
+      <div class="v2-container">
+        <aside class="v2-related">
+          <span class="v2-eyebrow" data-reveal>Keep reading</span>
+          <h2 id="related-title" class="v2-h3 related__title" data-split>More from the journal.</h2>
+          <div class="v2-posts">
+            {relatedPosts.map((rp) => (
+              <a href={rp.url} class="v2-post" data-reveal>
+                <span class="v2-post__date"><time datetime={rp.dateIso}>{rp.dateLabel}</time></span>
+                <h3 class="v2-post__title">{rp.title}</h3>
+                {rp.image ? (
+                  <img class="v2-post__thumb" src={rp.image} alt="" loading="lazy" decoding="async" />
+                ) : (
+                  <span class="v2-post__thumb" aria-hidden="true"></span>
+                )}
+              </a>
+            ))}
+          </div>
+        </aside>
+      </div>
+    </section>
+  )}
+</V2Layout>
 
 <style>
-  .newspaper-article {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 6rem 2rem 4rem;
-    background: #fffef9;
-    min-height: 100vh;
+  .post-hero {
+    margin: 0 0 clamp(40px, 5vw, 72px);
   }
-
-  /* Newspaper Masthead */
-  .newspaper-masthead {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
+  .post-hero .v2-article__hero {
+    margin: 0;
   }
-
-  .masthead-line {
-    height: 2px;
-    background: #1a1a1a;
-    margin: 0.5rem 0;
+  .post-hero figcaption {
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--muted);
   }
-
-  .newspaper-name {
-    font-family: 'Old Standard TT', 'Times New Roman', serif;
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: #1a1a1a;
-    margin: 0.75rem 0;
-  }
-
-  .masthead-tagline {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    font-size: 0.85rem;
-    font-style: italic;
-    color: #666;
-    letter-spacing: 0.1em;
-  }
-
-  /* Article Header */
-  .blog-post-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid #1a1a1a;
-    border-bottom: 1px solid #1a1a1a;
-  }
-
-  .blog-post-meta {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    color: #555;
-    font-size: 0.8rem;
-    margin-bottom: 1.25rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
+  .rail__item {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-direction: column;
+    gap: 6px;
   }
-
-  .edition-label {
-    font-weight: 700;
-    color: #1a1a1a;
+  .rail__key {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
   }
-
-  .meta-divider {
-    color: #999;
+  /* Related posts sit in their own section here, so the in-article divider is not needed. */
+  .v2-related {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
   }
-
-  .author-byline {
-    font-style: italic;
-    text-transform: none;
-    letter-spacing: 0.02em;
+  .related__title {
+    margin: 20px 0 clamp(32px, 4vw, 56px);
   }
-
-  .blog-post-title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-    color: #1a1a1a;
-    letter-spacing: -0.01em;
-  }
-
-  .blog-post-subtitle {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    font-size: 1.15rem;
-    color: #444;
-    line-height: 1.5;
-    font-style: italic;
-    font-weight: 400;
-    max-width: 650px;
-    margin: 0 auto;
-  }
-
-  /* Featured Image */
-  .blog-post-image {
-    margin-bottom: 2rem;
-    border: 1px solid #ddd;
-    background: #fff;
-    padding: 0.5rem;
-  }
-
-  .blog-post-image img {
-    width: 100%;
-    height: auto;
+  span.v2-post__thumb {
     display: block;
-    filter: contrast(1.02);
-  }
-
-  .image-caption {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    font-size: 0.8rem;
-    color: #666;
-    font-style: italic;
-    text-align: center;
-    margin: 0.75rem 0 0 0;
-    padding-top: 0.5rem;
-    border-top: 1px solid #eee;
-  }
-
-  /* Main Content */
-  .blog-post-content {
-    font-family: 'Libre Baskerville', Georgia, serif;
-    font-size: 1.05rem;
-    line-height: 1.9;
-    color: #222;
-    column-gap: 2.5rem;
-  }
-
-  /* Drop cap for first paragraph only - not in lists or other elements */
-  .prose :global(> p:first-of-type::first-letter) {
-    font-family: 'Playfair Display', Georgia, serif;
-    float: left;
-    font-size: 4.5rem;
-    line-height: 0.75;
-    padding-right: 0.1em;
-    padding-top: 0.05em;
-    color: #1a1a1a;
-    font-weight: 900;
-  }
-
-  /* Ensure list items don't get drop caps */
-  .prose :global(li p::first-letter),
-  .prose :global(blockquote p::first-letter) {
-    float: none;
-    font-size: inherit;
-    line-height: inherit;
-    padding: 0;
-    font-weight: inherit;
-  }
-
-  /* Hide H1 since we show title in header */
-  .prose :global(h1) {
-    display: none;
-  }
-
-  .prose :global(h2) {
-    font-size: 1.6rem;
-    font-weight: 700;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    color: #1a1a1a;
-    font-family: 'Playfair Display', Georgia, serif;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #1a1a1a;
-  }
-
-  .prose :global(h3) {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-    color: #1a1a1a;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-style: italic;
-  }
-
-  .prose :global(h4) {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-top: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #333;
-    font-family: 'Libre Baskerville', Georgia, serif;
-  }
-
-  .prose :global(p) {
-    margin-bottom: 1.25rem;
-    color: #222;
-    text-align: justify;
-    hyphens: auto;
-  }
-
-  .prose :global(a) {
-    color: #1a1a1a;
-    text-decoration: none;
-    border-bottom: 1px solid #1a1a1a;
-    transition: all 0.2s ease;
-  }
-
-  .prose :global(a:hover) {
-    background: #f5f5dc;
-  }
-
-  .prose :global(ul), .prose :global(ol) {
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-    color: #222;
-  }
-
-  .prose :global(li) {
-    margin-bottom: 0.5rem;
-    padding-left: 0.25rem;
-  }
-
-  .prose :global(li::marker) {
-    color: #666;
-  }
-
-  /* Newspaper pullquote style blockquotes */
-  .prose :global(blockquote) {
-    border: none;
-    border-top: 3px double #1a1a1a;
-    border-bottom: 3px double #1a1a1a;
-    padding: 1.25rem 1rem;
-    margin: 2rem 0;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: #1a1a1a;
-    text-align: center;
-    font-family: 'Playfair Display', Georgia, serif;
-    background: #faf9f4;
-  }
-
-  .prose :global(blockquote p) {
-    text-align: center;
-    margin-bottom: 0;
-  }
-
-  .prose :global(strong) {
-    font-weight: 700;
-    color: #1a1a1a;
-  }
-
-  .prose :global(em) {
-    font-style: italic;
-  }
-
-  .prose :global(code) {
-    background: #f5f5dc;
-    padding: 0.15em 0.35em;
-    border-radius: 2px;
-    font-size: 0.85em;
-    color: #333;
-    font-family: 'Courier New', monospace;
-  }
-
-  .prose :global(pre) {
-    background: #1a1a1a;
-    padding: 1.25rem;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-    border: 1px solid #333;
-  }
-
-  .prose :global(pre code) {
-    background: none;
-    padding: 0;
-    color: #f5f5dc;
-  }
-
-  /* Images in content - newspaper photo style */
-  .prose :global(img) {
-    margin: 2rem auto;
-    display: block;
-    max-width: 100%;
-    border: 1px solid #ddd;
-    padding: 0.35rem;
-    background: #fff;
-  }
-
-  /* Tables - newspaper data style */
-  .prose :global(table) {
-    width: 100%;
-    margin: 1.5rem 0;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    font-family: 'Libre Baskerville', Georgia, serif;
-  }
-
-  .prose :global(th) {
-    background: #f5f5dc;
-    font-weight: 700;
-    text-align: left;
-    padding: 0.65rem 0.75rem;
-    border-top: 2px solid #1a1a1a;
-    border-bottom: 2px solid #1a1a1a;
-    color: #1a1a1a;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
-  }
-
-  .prose :global(td) {
-    padding: 0.6rem 0.75rem;
-    border-bottom: 1px solid #ddd;
-    color: #333;
-    vertical-align: top;
-  }
-
-  .prose :global(tr:last-child td) {
-    border-bottom: 2px solid #1a1a1a;
-  }
-
-  /* Section dividers */
-  .prose :global(hr) {
-    border: none;
-    height: 0;
-    border-top: 1px solid #999;
-    margin: 2.5rem auto;
-    width: 40%;
-    position: relative;
-  }
-
-  .prose :global(hr)::after {
-    content: '❧';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #fffef9;
-    padding: 0 0.75rem;
-    color: #666;
-    font-size: 1rem;
-  }
-
-  /* Footer */
-  .blog-post-footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 2px solid #1a1a1a;
-    font-family: 'Libre Baskerville', Georgia, serif;
-    text-align: center;
-  }
-
-  .footer-ornament {
-    font-size: 1.5rem;
-    color: #666;
-    margin-bottom: 1rem;
-  }
-
-  .back-to-blog {
-    display: inline-block;
-    color: #1a1a1a;
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 0.5rem 1rem;
-    border: 1px solid #1a1a1a;
-    transition: all 0.2s ease;
-  }
-
-  .back-to-blog:hover {
-    background: #1a1a1a;
-    color: #fffef9;
-  }
-
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .newspaper-article {
-      padding: 5rem 1.25rem 3rem;
-    }
-
-    .newspaper-name {
-      font-size: 1.5rem;
-      letter-spacing: 0.15em;
-    }
-
-    .blog-post-meta {
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .meta-divider {
-      display: none;
-    }
-
-    .blog-post-content {
-      font-size: 1rem;
-      columns: 1;
-    }
-
-    .prose :global(p) {
-      text-align: left;
-      hyphens: none;
-    }
-
-    .prose :global(> p:first-of-type::first-letter) {
-      font-size: 3.25rem;
-    }
-
-    .prose :global(blockquote) {
-      font-size: 1.1rem;
-      margin: 1.5rem 0;
-    }
-
-    .prose :global(h2) {
-      font-size: 1.35rem;
-    }
-
-    .prose :global(table) {
-      font-size: 0.8rem;
-    }
-
-    .prose :global(th), .prose :global(td) {
-      padding: 0.4rem 0.5rem;
-    }
-  }
-
-  /* Print-like appearance enhancement */
-  @media (min-width: 769px) {
-    .blog-post-content {
-      columns: 1;
-    }
   }
 </style>

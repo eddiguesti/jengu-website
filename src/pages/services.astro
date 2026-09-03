@@ -1,924 +1,274 @@
 ---
-import BaseLayout from '../components/layout/BaseLayout.astro';
-import CTASection from '../components/sections/CTASection.astro';
+/**
+ * Services : what we build, how a project runs, what we look after and a
+ * closing call to action. Built on the v2 design system (V2Layout, V2PageHead,
+ * primitives in src/styles/v2/pages.css and sections.css).
+ */
+import V2Layout from '../components/v2/V2Layout.astro';
+import V2PageHead from '../components/v2/V2PageHead.astro';
 import { generateSEO } from '../lib/seo/metadata';
 import { generateOrganizationSchema, generateBreadcrumbSchema, generateServiceSchema } from '../lib/seo/jsonld';
 
 const seo = generateSEO({
-  title: 'AI Services for Hotels, Campsites & Tour Operators',
-  description: 'Bespoke AI for hospitality. Chatbots, voice agents, custom software, and integrations built around the way your team already works.',
+  title: 'AI Automation Services for Tourism Businesses',
+  description:
+    'AI chat and phone agents, email handling, custom software and API integrations for tourism businesses. Guest support around the clock, dynamic pricing and PMS integration.',
   canonical: `${Astro.site}services/`,
-  ogType: 'website'
+  ogType: 'website',
 });
 
 const services = [
   {
-    number: '01',
-    icon: 'fa-comments',
-    title: 'Chatbots & Voice Agents',
-    description: 'Conversational agents that handle guest enquiries by chat, phone, and WhatsApp — in over 100 languages, around the clock.',
-    features: [
-      'Bookings, FAQs, and pre-arrival questions answered without staff time',
-      'Voice assistants with natural turn-taking on inbound calls',
-      'Web chat, WhatsApp, SMS — same brain, every channel',
-      'Hands the call to your team the moment something needs human judgement'
-    ]
+    n: '01',
+    title: 'Guest messaging agents',
+    text: 'Chat on your website, WhatsApp and SMS, answered around the clock in 100+ languages. The agent takes bookings, answers questions and deals with support requests, and passes the conversation to a person when it should.',
+    points: ['Website chat, WhatsApp and SMS', 'Replies in 100+ languages', 'Bookings, enquiries and support', 'Handover to your team when needed'],
   },
   {
-    number: '02',
-    icon: 'fa-pen-ruler',
-    title: 'Custom Software',
-    description: 'Internal tools built around your operation, not generic SaaS shoehorned into it. Owned by you, hosted by you, extensible by you.',
-    features: [
-      'Pricing engines that reflect your seasons, not someone else\'s',
-      'Booking and reservation flows tailored to your room types and policies',
-      'Operations dashboards built for the data you actually look at',
-      'Staff and guest mobile apps where the off-the-shelf options don\'t fit'
-    ]
+    n: '02',
+    title: 'Voice and booking agents',
+    text: 'A voice agent that picks up the phone, quotes the right rate, takes the guest’s details and puts the booking into your PMS. It handles changes and cancellations too.',
+    points: ['Answers every call', 'Quotes rates and takes bookings', 'Writes straight into your PMS', 'Changes and cancellations'],
   },
   {
-    number: '03',
-    icon: 'fa-diagram-project',
-    title: 'Integrations',
-    description: 'Wire your PMS, channel manager, accounting system, and inbox together so the same booking doesn\'t get re-keyed three times.',
-    features: [
-      'PMS, CRM, and booking-engine connections (Mews, Cloudbeds, Opera, and more)',
-      'Channel manager and OTA sync without a nightly export',
-      'Stripe, Xero, QuickBooks — payment and accounting tied in',
-      'Custom middleware where the legacy system doesn\'t have an API yet'
-    ]
+    n: '03',
+    title: 'Email handling',
+    text: 'An agent that sorts your inbox, files each message, routes it to the right person and drafts replies in your tone of voice. It reads for tone as well, so an unhappy guest goes to the top of the pile.',
+    points: ['Sorting and prioritising', 'Replies in your voice', 'Routing to the right person', 'Flags urgent messages', 'Works with your ticketing system'],
   },
   {
-    number: '04',
-    icon: 'fa-envelope-open-text',
-    title: 'Inbox AI',
-    description: 'An inbox that reads, sorts, and drafts replies in your tone of voice. Nothing sends without a human signing off.',
-    features: [
-      'Sorting and prioritisation based on what your team actually treats as urgent',
-      'Drafted replies written in your hotel\'s voice',
-      'Automatic routing to the right team member',
-      'Picks up sentiment so complaints don\'t get buried'
-    ]
+    n: '04',
+    title: 'Integrations and automation',
+    text: 'We connect the systems you already run so nobody retypes a reservation: PMS, CRM and booking engine, payments and accounting, channel managers and OTAs, email and messaging. Where an older system has no API, we write the middleware.',
+    points: ['PMS, CRM and booking engine', 'Payments and accounting', 'Channel managers and OTAs', 'Email and messaging platforms', 'Middleware for legacy systems'],
   },
   {
-    number: '05',
-    icon: 'fa-map',
-    title: 'Process Mapping',
-    description: 'Before we build anything, we walk through your operation, document what actually happens, and show you where automation will help — and where it won\'t.',
-    features: [
-      'Workflow walkthroughs with your team, not from a template',
-      'Bottleneck and double-handling analysis',
-      'Honest assessment of what\'s worth automating',
-      'A written plan you can act on with or without us'
-    ]
+    n: '05',
+    title: 'Custom software',
+    text: 'Applications built for how your business works: pricing engines, booking and reservation systems, tools for managing stock and resources, reporting dashboards, and mobile apps for staff and guests.',
+    points: ['Dynamic pricing engines', 'Booking and reservation systems', 'Stock and resource tools', 'Dashboards and reporting', 'Apps for staff and guests'],
   },
   {
-    number: '06',
-    icon: 'fa-graduation-cap',
-    title: 'Training & Support',
-    description: 'Your team gets hands-on training, written docs in plain English, and a real person on call after launch.',
-    features: [
-      'Live training sessions for front-of-house and managers',
-      'Custom documentation and short video walkthroughs',
-      'Direct support during business hours',
-      'Quarterly reviews to tune what\'s in production'
-    ]
-  }
+    n: '06',
+    title: 'Process mapping',
+    text: 'Before we automate anything we write down how the work gets done today. That shows where messages pile up, what gets retyped and which steps are worth automating. You get the map, an estimate of what each change is worth, and a plan for the order to do it in.',
+    points: ['Workflow documentation', 'Finding the bottlenecks', 'What is worth automating', 'What each change is worth', 'A plan and an order of work'],
+  },
 ];
 
-const processSteps = [
+const steps = [
   {
-    number: '01',
+    n: '01',
+    meta: 'You get a process map',
     title: 'Discovery',
-    description: 'We sit with your team and map what really happens day-to-day. No assumptions, no templates.'
+    text: 'We sit with your team, map how the work gets done and find the jobs where automation would pay back first.',
   },
   {
-    number: '02',
+    n: '02',
+    meta: 'You get a plan',
     title: 'Design',
-    description: 'You see what we\'ll build, what it\'ll cost, and what success looks like — in writing — before any code is touched.'
+    text: 'We design the solution around your workflows and what you want out of it, and agree the scope with you.',
   },
   {
-    number: '03',
+    n: '03',
+    meta: 'You get a working system',
     title: 'Build',
-    description: 'Iterative builds with you in the loop weekly. Nothing is launched as a surprise.'
+    text: 'We build in short cycles with regular check-ins, so you see progress as it happens and can steer.',
   },
   {
-    number: '04',
-    title: 'Launch & Tune',
-    description: 'Smooth handover, training for your team, and us on call after go-live to fix the things only real use surfaces.'
-  }
+    n: '04',
+    meta: 'Ongoing',
+    title: 'Launch and support',
+    text: 'We roll it out, train your team and keep tuning the system after it goes live.',
+  },
 ];
 
-const serviceSchemaData = services.map(s => ({ name: s.title, description: s.description }));
+const care = [
+  { title: 'GDPR', text: 'UK and EU data protection compliance on every project.' },
+  { title: 'Encryption', text: 'AES-256 encryption for all data.' },
+  { title: 'Training', text: 'Hands-on training for every level of staff, with written documentation and video tutorials made for your setup.' },
+  { title: 'Support', text: 'A support team during business hours, regular reviews of how the system is doing, and updates as we add features.' },
+];
 
 const jsonLd = [
   generateOrganizationSchema(),
   generateBreadcrumbSchema([
     { name: 'Home', url: Astro.site?.href || '' },
-    { name: 'Services', url: `${Astro.site}services/` }
+    { name: 'Services', url: `${Astro.site}services/` },
   ]),
-  ...generateServiceSchema(serviceSchemaData)
+  ...generateServiceSchema(services.map((s) => ({ name: s.title, description: s.text }))),
 ];
 ---
 
-<BaseLayout seo={seo} jsonLd={jsonLd}>
-  <!-- Desktop Hero — Editorial -->
-  <section class="srv-hero desktop-only">
-    <div class="srv-hero-inner">
-      <p class="srv-eyebrow">Services</p>
-      <h1 class="srv-hero-title">
-        AI tools, built for the way<br />
-        hospitality <span class="srv-accent-word">actually works</span>.
-      </h1>
-      <p class="srv-hero-lede">
-        Chatbots, voice agents, integrations, and custom software for hotels,
-        campsites, and tour operators. Bespoke. Owned by you. Made to last beyond
-        the demo.
-      </p>
-      <div class="srv-hero-actions">
-        <button onclick="openBookingModal()" class="srv-btn srv-btn-primary">
-          Book a consultation
-        </button>
-        <a href="#calculator" class="srv-btn srv-btn-ghost">
-          See the ROI calculator
-          <i class="fas fa-arrow-right"></i>
-        </a>
-      </div>
-
-      <div class="srv-hero-meta">
-        <div>
-          <span class="srv-meta-label">Available in</span>
-          <span class="srv-meta-value">100+ languages</span>
-        </div>
-        <div>
-          <span class="srv-meta-label">Typical timeline</span>
-          <span class="srv-meta-value">2–6 weeks to live</span>
-        </div>
-        <div>
-          <span class="srv-meta-label">Hosting</span>
-          <span class="srv-meta-value">Yours, ours, or hybrid</span>
-        </div>
-      </div>
+<V2Layout seo={seo} jsonLd={jsonLd}>
+  <V2PageHead eyebrow="Services">
+    <Fragment slot="title">Six things we build <em>for hospitality.</em></Fragment>
+    <p slot="lead" class="v2-lead">
+      Guest messages, phone bookings, email, and the copy-paste between your systems. We build each one around how
+      your property already runs.
+    </p>
+    <div slot="aside" class="svc-actions">
+      <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
+        <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+        <span class="v2-btn__icon" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+        </span>
+      </button>
+      <a class="v2-link" href="#build">What we build <span aria-hidden="true">→</span></a>
     </div>
-  </section>
+  </V2PageHead>
 
-  <!-- Mobile Hero — Video Background (kept; tints removed) -->
-  <section class="services-mobile-hero mobile-only">
-    <div class="services-video-bg">
-      <video autoplay muted playsinline loop id="services-bg-video" preload="metadata" poster="/images/mobile-hero-poster.jpg">
-        <source src="/videos/mobile-hero.mp4" type="video/mp4">
-      </video>
-      <script is:inline>
-        const servicesBgVideo = document.getElementById('services-bg-video');
-        if (servicesBgVideo) {
-          servicesBgVideo.addEventListener('loadedmetadata', function() {
-            servicesBgVideo.currentTime = 7;
-          });
-        }
-      </script>
-
-      <div class="services-hero-gradient"></div>
-
-      <div class="services-hero-overlay">
-        <p class="srv-eyebrow srv-eyebrow-light">Services</p>
-        <h1 class="services-hero-headline">
-          AI for the way hospitality <em>actually works</em>.
-        </h1>
-        <p class="services-hero-subhead">
-          Chatbots, voice agents, integrations, and custom software — bespoke, and owned by you.
-        </p>
-        <div class="services-hero-actions">
-          <button onclick="openBookingModal()" class="services-hero-btn services-hero-btn-primary">
-            Book a consultation
-          </button>
-          <a href="#calculator" class="services-hero-btn services-hero-btn-secondary">
-            ROI calculator
-          </a>
+  <section class="v2-section" data-theme="light" id="build">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>What we build</span>
+          <h2 class="v2-h2" data-split>Agents, software and <em>the glue between them.</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            For hotels, resorts, campsites, holiday parks, DMCs and tour operators. Every project starts with one job
+            and grows from there.
+          </p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- What we build — editorial list -->
-  <section class="srv-section">
-    <div class="srv-container">
-      <header class="srv-section-head">
-        <p class="srv-eyebrow">What we build</p>
-        <h2 class="srv-section-title">
-          Six things we do well, instead of fifty things badly.
-        </h2>
-      </header>
-
-      <ol class="srv-list">
-        {services.map((service) => (
-          <li class="srv-item">
-            <div class="srv-item-number" aria-hidden="true">{service.number}</div>
-            <div class="srv-item-body">
-              <div class="srv-item-head">
-                <i class={`fas ${service.icon} srv-item-icon`} aria-hidden="true"></i>
-                <h3 class="srv-item-title">{service.title}</h3>
+      <div class="v2-list">
+        {
+          services.map((s) => (
+            <div class="v2-list__row" data-reveal>
+              <span class="v2-list__n">{s.n}</span>
+              <h3 class="v2-list__title">{s.title}</h3>
+              <div class="v2-list__body">
+                <p class="v2-body">{s.text}</p>
+                <ul class="svc-points">
+                  {s.points.map((p) => (
+                    <li>{p}</li>
+                  ))}
+                </ul>
               </div>
-              <p class="srv-item-desc">{service.description}</p>
-              <ul class="srv-item-features">
-                {service.features.map((feature) => (
-                  <li>{feature}</li>
-                ))}
-              </ul>
             </div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- How we work — process -->
-  <section class="srv-section srv-section-tinted">
-    <div class="srv-container">
-      <header class="srv-section-head">
-        <p class="srv-eyebrow">How we work</p>
-        <h2 class="srv-section-title">
-          Four steps. No big-bang launches.
-        </h2>
-      </header>
-
-      <div class="srv-process">
-        {processSteps.map((step) => (
-          <article class="srv-process-step">
-            <div class="srv-step-number">{step.number}</div>
-            <h4 class="srv-step-title">{step.title}</h4>
-            <p class="srv-step-desc">{step.description}</p>
-          </article>
-        ))}
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- ROI Calculator -->
-  <section class="srv-section" id="calculator">
-    <div class="srv-container">
-      <header class="srv-section-head">
-        <p class="srv-eyebrow">Free analysis</p>
-        <h2 class="srv-section-title">
-          A rough number, before any sales call.
-        </h2>
-        <p class="srv-section-lede">
-          Plug in your numbers. The calculator gives a defensible estimate of where
-          AI and automation move the needle for your operation.
+  <section class="v2-section" data-theme="dark" id="process">
+    <div class="v2-container">
+      <div class="v2-process">
+        <div class="v2-process__left">
+          <span class="v2-eyebrow" data-reveal>How a project runs</span>
+          <h2 class="v2-h2" data-split>Four steps, <em>in that order.</em></h2>
+          <p class="v2-lead" data-reveal>
+            We start small: one painful job, automated and measured, before you commit to anything bigger.
+          </p>
+          <div data-reveal>
+            <button class="v2-btn" onclick="openBookingModal()" data-magnetic>
+              <span class="v2-btn__label"><span>Talk about a pilot</span><span>Talk about a pilot</span></span>
+              <span class="v2-btn__icon" aria-hidden="true">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          {
+            steps.map((s) => (
+              <div class="v2-pstep" data-reveal>
+                <span class="v2-pstep__n">{s.n}</span>
+                <div>
+                  <span class="v2-pstep__meta">{s.meta}</span>
+                  <h3>{s.title}</h3>
+                  <p class="v2-body">{s.text}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="v2-section" data-theme="light" id="care">
+    <div class="v2-container">
+      <div class="v2-head">
+        <div>
+          <span class="v2-eyebrow" data-reveal>What we look after</span>
+          <h2 class="v2-h2" data-split>Your data, your team, <em>and the system after launch.</em></h2>
+        </div>
+        <div class="v2-head__right">
+          <p class="v2-lead" data-reveal>
+            Guest data is handled under UK and EU rules and encrypted throughout. Your staff are trained on what we
+            build, and we stay around after it goes live.
+          </p>
+        </div>
+      </div>
+
+      <div class="v2-pillars" data-stagger>
+        {
+          care.map((c, i) => (
+            <div class="v2-pillar" data-reveal>
+              <span class="v2-pillar__n">0{i + 1}</span>
+              <div>
+                <h3>{c.title}</h3>
+                <p class="v2-body">{c.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="v2-section" data-theme="dark" id="start">
+    <div class="v2-container">
+      <div class="svc-cta">
+        <span class="v2-eyebrow" data-reveal>Next step</span>
+        <h2 class="v2-h2" data-split>Start with <em>one workflow.</em></h2>
+        <p class="v2-lead" data-reveal>
+          Tell us which job eats the most of your week. We will map it, quote it and tell you plainly whether it is
+          worth automating. If you want a rough figure first, the calculator works from your own numbers.
         </p>
-      </header>
-
-      <div class="srv-calc">
-        <iframe
-          src="/mobile-calculator.html?embed=true"
-          class="srv-calc-iframe"
-          title="ROI Calculator"
-          loading="lazy"
-        ></iframe>
-      </div>
-
-      <div class="srv-calc-link-row">
-        <a href="/calculator" class="srv-text-link">
-          Open the full calculator
-          <i class="fas fa-arrow-right"></i>
-        </a>
+        <div class="svc-actions" data-reveal>
+          <button class="v2-btn v2-btn--accent" onclick="openBookingModal()" data-magnetic>
+            <span class="v2-btn__label"><span>Book a call</span><span>Book a call</span></span>
+            <span class="v2-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+            </span>
+          </button>
+          <a class="v2-link" href="/calculator">Estimate your savings <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </div>
   </section>
-
-  <!-- Trust strip -->
-  <section class="srv-trust">
-    <div class="srv-container">
-      <ul class="srv-trust-grid">
-        <li>
-          <h4>GDPR-compliant</h4>
-          <p>UK and EU data protection by default. Data residency on request.</p>
-        </li>
-        <li>
-          <h4>Encrypted at rest</h4>
-          <p>AES-256 storage, TLS 1.3 in transit, secrets in a managed vault.</p>
-        </li>
-        <li>
-          <h4>Owned by you</h4>
-          <p>You keep the source code, the data, and the right to walk away.</p>
-        </li>
-        <li>
-          <h4>Real support</h4>
-          <p>Direct line to the engineer who built it. Not a ticketing queue.</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <CTASection
-    title="Quietly better operations, starting with one conversation."
-    description="Book a free consultation. We'll listen first, scope honestly, and only build the things worth building."
-  />
-</BaseLayout>
+</V2Layout>
 
 <style>
-  /* ============================================================
-     SERVICES PAGE — Editorial redesign
-     Single accent (--accent), Fraunces display, Inter body.
-     No gradients on text. No animated orbs. No glow halos.
-     ============================================================ */
-
-  :root {
-    --srv-bg: #0B0B0C;
-    --srv-bg-alt: #131315;
-    --srv-ink: #F5F1EA;
-    --srv-ink-muted: rgba(245, 241, 234, 0.62);
-    --srv-ink-faint: rgba(245, 241, 234, 0.38);
-    --srv-hairline: rgba(245, 241, 234, 0.10);
-    --srv-hairline-strong: rgba(245, 241, 234, 0.18);
-    --srv-accent: #FFB95A;
-    --srv-accent-strong: #FFA438;
-  }
-
-  /* ---------- Hero (desktop) ---------- */
-  .srv-hero {
-    position: relative;
-    background: var(--srv-bg);
-    color: var(--srv-ink);
-    padding: 11rem 2rem 6rem;
-    overflow: hidden;
-    border-bottom: 1px solid var(--srv-hairline);
-  }
-
-  .srv-hero-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .srv-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--srv-accent);
-    margin: 0 0 1.5rem;
-  }
-
-  .srv-eyebrow-light { color: rgba(255, 255, 255, 0.85); }
-
-  .srv-hero-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-variation-settings: "opsz" 144, "SOFT" 60;
-    font-weight: 400;
-    font-size: clamp(2.75rem, 6.5vw, 5.25rem);
-    line-height: 1.02;
-    letter-spacing: -0.025em;
-    color: var(--srv-ink);
-    margin: 0 0 2rem;
-    max-width: 14ch;
-  }
-
-  .srv-accent-word {
-    color: var(--srv-accent);
-    font-style: italic;
-    font-variation-settings: "opsz" 144, "SOFT" 100;
-  }
-
-  .srv-hero-lede {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.18rem;
-    font-weight: 400;
-    line-height: 1.55;
-    color: var(--srv-ink-muted);
-    max-width: 56ch;
-    margin: 0 0 2.5rem;
-  }
-
-  .srv-hero-actions {
+  .svc-actions {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 28px;
     flex-wrap: wrap;
-    align-items: center;
-    margin-bottom: 5rem;
   }
-
-  .srv-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.95rem 1.5rem;
-    border-radius: 999px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 500;
-    text-decoration: none;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-  }
-
-  .srv-btn-primary {
-    background: var(--srv-accent);
-    color: #1a1500;
-  }
-
-  .srv-btn-primary:hover {
-    background: var(--srv-accent-strong);
-    transform: translateY(-1px);
-  }
-
-  .srv-btn-ghost {
-    background: transparent;
-    color: var(--srv-ink);
-    border-color: var(--srv-hairline-strong);
-  }
-
-  .srv-btn-ghost:hover {
-    border-color: var(--srv-ink);
-    background: rgba(255, 255, 255, 0.04);
-  }
-
-  .srv-btn-ghost i {
-    font-size: 0.75rem;
-    transition: transform 0.2s ease;
-  }
-
-  .srv-btn-ghost:hover i { transform: translateX(2px); }
-
-  .srv-hero-meta {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--srv-hairline);
-    max-width: 720px;
-  }
-
-  .srv-hero-meta div {
+  .svc-points {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
   }
-
-  .srv-meta-label {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--srv-ink-faint);
+  .svc-points li {
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--muted);
   }
-
-  .srv-meta-value {
-    font-family: 'Fraunces', serif;
-    font-variation-settings: "opsz" 24;
-    font-weight: 400;
-    font-size: 1.1rem;
-    color: var(--srv-ink);
-    letter-spacing: -0.01em;
+  .svc-points li:last-child {
+    border-bottom: 1px solid var(--line);
   }
-
-  /* ---------- Sections ---------- */
-  .srv-section {
-    background: var(--srv-bg);
-    color: var(--srv-ink);
-    padding: 7rem 2rem;
-    border-bottom: 1px solid var(--srv-hairline);
-  }
-
-  .srv-section-tinted {
-    background: var(--srv-bg-alt);
-  }
-
-  .srv-container {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .srv-section-head {
-    margin: 0 0 4rem;
-    max-width: 720px;
-  }
-
-  .srv-section-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-variation-settings: "opsz" 144, "SOFT" 60;
-    font-weight: 400;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    color: var(--srv-ink);
-    margin: 0.75rem 0 0;
-  }
-
-  .srv-section-lede {
-    margin: 1.25rem 0 0;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: var(--srv-ink-muted);
-    max-width: 60ch;
-  }
-
-  /* ---------- Services list (numbered editorial rows) ---------- */
-  .srv-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border-top: 1px solid var(--srv-hairline);
-  }
-
-  .srv-item {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 3rem;
-    padding: 3rem 0;
-    border-bottom: 1px solid var(--srv-hairline);
-  }
-
-  .srv-item-number {
-    font-family: 'Fraunces', Georgia, serif;
-    font-variation-settings: "opsz" 144, "SOFT" 60;
-    font-weight: 300;
-    font-size: 2.25rem;
-    color: var(--srv-ink-faint);
-    line-height: 1;
-    letter-spacing: -0.02em;
-    padding-top: 0.35rem;
-  }
-
-  .srv-item-body {
-    max-width: 720px;
-  }
-
-  .srv-item-head {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    margin: 0 0 1.1rem;
-  }
-
-  .srv-item-icon {
-    font-size: 1rem;
-    color: var(--srv-accent);
-    width: 28px;
-    height: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--srv-hairline-strong);
-    border-radius: 8px;
-  }
-
-  .srv-item-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    color: var(--srv-ink);
-    margin: 0;
-  }
-
-  .srv-item-desc {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: var(--srv-ink-muted);
-    margin: 0 0 1.5rem;
-    max-width: 60ch;
-  }
-
-  .srv-item-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.7rem 2rem;
-  }
-
-  .srv-item-features li {
-    position: relative;
-    padding-left: 1.3rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: var(--srv-ink);
-  }
-
-  .srv-item-features li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.65em;
-    width: 0.5rem;
-    height: 1px;
-    background: var(--srv-accent);
-  }
-
-  /* ---------- Process ---------- */
-  .srv-process {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
-    border-top: 1px solid var(--srv-hairline);
-    padding-top: 3rem;
-  }
-
-  .srv-process-step {
+  .svc-cta {
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-  }
-
-  .srv-step-number {
-    font-family: 'Fraunces', Georgia, serif;
-    font-variation-settings: "opsz" 144, "SOFT" 60;
-    font-weight: 300;
-    font-size: 2.5rem;
-    line-height: 1;
-    color: var(--srv-accent);
-    letter-spacing: -0.02em;
-  }
-
-  .srv-step-title {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--srv-ink);
-    margin: 0;
-    letter-spacing: -0.015em;
-  }
-
-  .srv-step-desc {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    color: var(--srv-ink-muted);
-    margin: 0;
-  }
-
-  /* ---------- Calculator ---------- */
-  .srv-calc {
-    background: var(--srv-bg-alt);
-    border: 1px solid var(--srv-hairline);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.6);
-  }
-
-  .srv-calc-iframe {
-    width: 100%;
-    min-height: 1200px;
-    border: none;
-    display: block;
-    background: var(--srv-bg-alt);
-  }
-
-  .srv-calc-link-row {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  .srv-text-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--srv-ink-muted);
-    text-decoration: none;
-    font-size: 0.95rem;
-    border-bottom: 1px solid var(--srv-hairline-strong);
-    padding: 0.4rem 0;
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .srv-text-link:hover {
-    color: var(--srv-accent);
-    border-bottom-color: var(--srv-accent);
-  }
-
-  .srv-text-link i {
-    font-size: 0.7rem;
-    transition: transform 0.2s ease;
-  }
-
-  .srv-text-link:hover i { transform: translateX(3px); }
-
-  /* ---------- Trust strip ---------- */
-  .srv-trust {
-    background: var(--srv-bg);
-    padding: 4.5rem 2rem 5.5rem;
-    border-bottom: 1px solid var(--srv-hairline);
-  }
-
-  .srv-trust-grid {
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
-    max-width: 1100px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    border-top: 1px solid var(--srv-hairline);
-  }
-
-  .srv-trust-grid li {
-    padding: 2rem 1.5rem 0;
-    border-right: 1px solid var(--srv-hairline);
-  }
-
-  .srv-trust-grid li:last-child { border-right: none; }
-
-  .srv-trust-grid h4 {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--srv-ink);
-    letter-spacing: -0.01em;
-    margin: 0 0 0.6rem;
-  }
-
-  .srv-trust-grid p {
-    font-size: 0.85rem;
-    line-height: 1.55;
-    color: var(--srv-ink-muted);
-    margin: 0;
-  }
-
-  /* ============================================================
-     Mobile hero (video) — kept structurally; tints removed
-     ============================================================ */
-
-  .desktop-only { display: block; }
-  .mobile-only { display: none !important; }
-
-  @media (max-width: 768px) {
-    .desktop-only { display: none !important; }
-    .mobile-only { display: block !important; }
-  }
-
-  .services-mobile-hero { display: none; }
-
-  @media (max-width: 768px) {
-    .services-mobile-hero {
-      display: block !important;
-      position: relative;
-      width: 100%;
-      min-height: 100vh;
-      background: #000;
-    }
-
-    .services-video-bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .services-video-bg video {
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-    }
-
-    .services-hero-gradient {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 65%;
-      background: linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.4) 20%,
-        rgba(0, 0, 0, 0.78) 50%,
-        rgba(0, 0, 0, 0.95) 80%,
-        rgba(0, 0, 0, 0.99) 100%
-      );
-      z-index: 2;
-    }
-
-    .services-hero-overlay {
-      position: absolute;
-      bottom: 7rem;
-      left: 0; right: 0;
-      padding: 0 1.5rem;
-      padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
-      z-index: 3;
-      animation: srvFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
-    }
-
-    .services-hero-headline {
-      font-family: 'Fraunces', Georgia, serif;
-      font-variation-settings: "opsz" 144, "SOFT" 60;
-      font-size: 2.5rem;
-      line-height: 1.05;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      color: white;
-      margin: 0.75rem 0 0.85rem;
-    }
-
-    .services-hero-headline em {
-      color: var(--srv-accent);
-      font-style: italic;
-      font-variation-settings: "opsz" 144, "SOFT" 100;
-    }
-
-    .services-hero-subhead {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.82);
-      margin-bottom: 1.5rem;
-    }
-
-    .services-hero-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: nowrap;
-    }
-
-    .services-hero-btn {
-      padding: 0.85rem 1.1rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      border: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .services-hero-btn-primary {
-      background: var(--srv-accent);
-      color: #1a1500;
-    }
-
-    .services-hero-btn-primary:active { opacity: 0.85; }
-
-    .services-hero-btn-secondary {
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .services-hero-btn-secondary:active { background: rgba(255, 255, 255, 0.08); }
-
-    @keyframes srvFadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-  }
-
-  /* ============================================================
-     Responsive
-     ============================================================ */
-
-  @media (max-width: 900px) {
-    .srv-hero { padding: 8rem 1.5rem 4rem; }
-    .srv-hero-meta { grid-template-columns: 1fr; gap: 1rem; }
-    .srv-section { padding: 4.5rem 1.5rem; }
-    .srv-section-head { margin-bottom: 2.5rem; }
-    .srv-item {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 2.25rem 0;
-    }
-    .srv-item-number { font-size: 1.5rem; padding-top: 0; }
-    .srv-item-features { grid-template-columns: 1fr; gap: 0.5rem; }
-    .srv-process {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
-      padding-top: 2rem;
-    }
-    .srv-trust-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .srv-trust-grid li {
-      padding: 1.75rem 1.25rem;
-      border-right: 1px solid var(--srv-hairline);
-      border-bottom: 1px solid var(--srv-hairline);
-    }
-    .srv-trust-grid li:nth-child(2n) { border-right: none; }
-    .srv-trust-grid li:nth-last-child(-n+2) { border-bottom: none; }
-  }
-
-  @media (max-width: 768px) {
-    .srv-section { padding: 3rem 1.25rem; }
-    .srv-section-head { margin-bottom: 2rem; }
-    .srv-item-title { font-size: 1.3rem; }
-    .srv-item-desc { font-size: 0.95rem; }
-    .srv-process { grid-template-columns: 1fr; gap: 1.75rem; padding-top: 1.5rem; }
-    .srv-step-number { font-size: 2rem; }
-    .srv-calc-iframe { min-height: 700px; }
-    .srv-trust { padding: 3rem 1.25rem; }
-    .srv-trust-grid {
-      grid-template-columns: 1fr;
-    }
-    .srv-trust-grid li {
-      border-right: none;
-      padding: 1.5rem 0;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .srv-hero-actions { flex-direction: column; align-items: stretch; }
-    .srv-btn { justify-content: center; width: 100%; }
+    gap: 28px;
+    max-width: 760px;
   }
 </style>

@@ -1,0 +1,63 @@
+---
+/**
+ * Quick estimate on the home page: one sentence with three numbers in it,
+ * two figures back, and a link to the full calculator. Same model and
+ * defaults as the full page for everything else.
+ */
+import CalcNum from './CalcNum.astro';
+import { DEFAULT_INPUTS as D } from '../../scripts/v2/calculator/model';
+---
+
+<section class="v2-section" data-theme="light" id="estimate">
+  <div class="v2-container">
+    <div class="v2-head">
+      <div>
+        <span class="v2-eyebrow" data-reveal>Quick estimate</span>
+        <h2 class="v2-h2" data-split>Three numbers from you, <em>two back.</em></h2>
+      </div>
+      <div class="v2-head__right">
+        <p class="v2-lead" data-reveal>
+          Messaging and phone agents only, with our starting assumptions. The full calculator lets you change every
+          one of them.
+        </p>
+      </div>
+    </div>
+
+    <div class="v2-est" data-calc="quick">
+      <div class="v2-est__story">
+        <p class="v2-calc__hint" data-reveal>Drag a number, or click it and type</p>
+        <p class="v2-calc__sent" data-reveal>
+          Guests send us around <CalcNum name="messagesPerDay" value={D.messagesPerDay} min={0} max={500} label="Guest messages per day" />
+          messages a day, and the phone rings about <CalcNum name="callsPerDay" value={D.callsPerDay} min={0} max={300} label="Phone calls per day" /> times.
+          An hour of our time costs <CalcNum name="hourlyCost" value={D.hourlyCost} min={5} max={80} label="Cost of an hour of staff time" cur /> all in.
+        </p>
+        <input type="checkbox" name="agent-messaging" checked hidden />
+        <input type="checkbox" name="agent-phone" checked hidden />
+      </div>
+
+      <div class="v2-est__out" aria-live="polite">
+        <div class="v2-est__fig">
+          <b><span data-out="hoursPerWeek">0</span><small>h a week</small></b>
+          <span>back for the team</span>
+        </div>
+        <div class="v2-est__fig">
+          <b><span data-out="monthlyBenefit">£0</span><small>a month</small></b>
+          <span>time saved plus calls you stop missing</span>
+        </div>
+        <div class="v2-est__cta">
+          <a class="v2-btn" href="/calculator" data-magnetic>
+            <span class="v2-btn__label"><span>Open the full calculator</span><span>Open the full calculator</span></span>
+            <span class="v2-btn__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 13L13 3M5 3h8v8" /></svg>
+            </span>
+          </a>
+          <p class="v2-form__note">Add your rooms and rates there, switch pricing and integrations on, and change any assumption.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/v2/calculator/ui';
+</script>
