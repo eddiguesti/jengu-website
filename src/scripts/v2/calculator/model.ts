@@ -30,6 +30,8 @@ export interface Inputs {
   adminHoursPerWeek: number;
   /** Fully loaded cost of an hour of staff time. */
   hourlyCost: number;
+  /** Count freed staff hours as cash. Off means they stay capacity, not savings. */
+  hoursAsCash: boolean;
   agents: Agents;
 }
 
@@ -56,6 +58,8 @@ export interface Assumptions {
   monthlyFee: number;
   /** One-off setup from the visitor's quote. Zero until they have one. */
   setupFee: number;
+  /** Months until an agent delivers its full effect; month 1 delivers 1/ramp. */
+  rampMonths: number;
 }
 
 export interface LineItem {
@@ -66,18 +70,37 @@ export interface LineItem {
   revenuePerMonth: number;
 }
 
+export interface MonthPoint {
+  month: number;
+  /** Benefit earned in this month after ramp-up. */
+  benefit: number;
+  cumulativeBenefit: number;
+  /** Cumulative benefit less monthly fees and the setup fee. */
+  cumulativeNet: number;
+}
+
+export interface Range {
+  low: number;
+  high: number;
+}
+
 export interface Results {
   lines: LineItem[];
   hoursPerMonth: number;
   hoursPerWeek: number;
   costSavedPerMonth: number;
   revenuePerMonth: number;
+  /** Revenue plus, when hours count as cash, staff cost saved. At full effect. */
   monthlyBenefit: number;
   annualBenefit: number;
+  /** Monthly benefit under cautious and generous versions of the share assumptions. */
+  range: Range;
+  /** Twelve months from go-live, with ramp-up and fees. */
+  monthly: MonthPoint[];
   monthlyFee: number;
   setupFee: number;
   netMonthly: number;
-  /** Months to earn back the setup fee from net monthly gain; null if never. */
+  /** First month in which cumulative net gain covers the setup fee; null if it never does within three years. */
   paybackMonths: number | null;
   roomRevenuePerMonth: number;
 }
@@ -98,6 +121,7 @@ export const DEFAULT_ASSUMPTIONS: Assumptions = Object.freeze({
   integrationsShare: 0.6,
   monthlyFee: 0,
   setupFee: 0,
+  rampMonths: 3,
 });
 
 export const DEFAULT_INPUTS: Inputs = Object.freeze({
@@ -109,6 +133,7 @@ export const DEFAULT_INPUTS: Inputs = Object.freeze({
   callsPerDay: 15,
   adminHoursPerWeek: 10,
   hourlyCost: 14,
+  hoursAsCash: true,
   agents: Object.freeze({ messaging: true, phone: true, pricing: false, integrations: false }),
 }) as Inputs;
 
@@ -153,8 +178,30 @@ export function sanitiseAssumptions(raw: Assumptions): Assumptions {
     integrationsShare: share(raw.integrationsShare),
     monthlyFee: nonNeg(raw.monthlyFee),
     setupFee: nonNeg(raw.setupFee),
+    rampMonths: clamp(raw.rampMonths, 1, 12),
   };
 }
+
+/** Scale every share-type assumption by k, for the cautious and generous cases. */
+export function scaleShares(a: Assumptions, k: number): Assumptions {
+  return sanitiseAssumptions({
+    ...a,
+    messagingShare: a.messagingShare * k,
+    callShare: a.callShare * k,
+    callsMissedShare: a.callsMissedShare * k,
+    callBookingRate: a.callBookingRate * k,
+    pricingUplift: a.pricingUplift * k,
+    integrationsShare: a.integrationsShare * k,
+  });
+}
+
+/** Share of full effect delivered in a given month (1-based). */
+export const rampFactor = (month: number, rampMonths: number): number => Math.min(1, month / Math.max(1, rampMonths));
+
+export const HORIZON_MONTHS = 12;
+const PAYBACK_HORIZON_MONTHS = 36;
+export const CAUTIOUS = 0.7;
+export const GENEROUS = 1.25;
 
 export function roomRevenuePerMonth(i: Inputs): number {
   return i.units * i.nightlyRate * (i.occupancy / 100) * DAYS_PER_MONTH;
@@ -184,10 +231,15 @@ function integrationsLine(i: Inputs, a: Assumptions): LineItem {
   return { key: 'integrations', label: 'Integrations and admin', hoursPerMonth: hours, costSavedPerMonth: hours * i.hourlyCost, revenuePerMonth: 0 };
 }
 
-export function compute(rawInputs: Inputs, rawAssumptions: Assumptions = DEFAULT_ASSUMPTIONS): Results {
-  const i = sanitiseInputs(rawInputs);
-  const a = sanitiseAssumptions(rawAssumptions);
+interface Tally {
+  lines: LineItem[];
+  hoursPerMonth: number;
+  costSavedPerMonth: number;
+  revenuePerMonth: number;
+  benefit: number;
+}
 
+function tally(i: Inputs, a: Assumptions): Tally {
   const candidates: Array<[keyof Agents, (x: Inputs, y: Assumptions) => LineItem]> = [
     ['messaging', messagingLine],
     ['phone', phoneLine],
@@ -195,30 +247,70 @@ export function compute(rawInputs: Inputs, rawAssumptions: Assumptions = DEFAULT
     ['integrations', integrationsLine],
   ];
   const lines = candidates.filter(([key]) => i.agents[key]).map(([, fn]) => fn(i, a));
-
   const hoursPerMonth = lines.reduce((s, l) => s + l.hoursPerMonth, 0);
   const costSavedPerMonth = lines.reduce((s, l) => s + l.costSavedPerMonth, 0);
   const revenuePerMonth = lines.reduce((s, l) => s + l.revenuePerMonth, 0);
-  const monthlyBenefit = costSavedPerMonth + revenuePerMonth;
-  const monthlyFee = lines.length ? a.monthlyFee : 0;
-  const setupFee = lines.length ? a.setupFee : 0;
-  const netMonthly = monthlyBenefit - monthlyFee;
-  const paybackMonths = netMonthly > 0 && setupFee > 0 ? Math.ceil(setupFee / netMonthly) : netMonthly > 0 ? 0 : null;
+  const benefit = revenuePerMonth + (i.hoursAsCash ? costSavedPerMonth : 0);
+  return { lines, hoursPerMonth, costSavedPerMonth, revenuePerMonth, benefit };
+}
+
+function projection(benefit: number, a: Assumptions, monthlyFee: number, setupFee: number, months: number): MonthPoint[] {
+  const out: MonthPoint[] = [];
+  let cumulativeBenefit = 0;
+  let cumulativeNet = -setupFee;
+  for (let month = 1; month <= months; month++) {
+    const earned = benefit * rampFactor(month, a.rampMonths);
+    cumulativeBenefit += earned;
+    cumulativeNet += earned - monthlyFee;
+    out.push({ month, benefit: earned, cumulativeBenefit, cumulativeNet });
+  }
+  return out;
+}
+
+function paybackFrom(benefit: number, a: Assumptions, monthlyFee: number, setupFee: number, active: boolean): number | null {
+  if (!active || benefit - monthlyFee <= 0) return null;
+  if (setupFee <= 0) return 0;
+  const hit = projection(benefit, a, monthlyFee, setupFee, PAYBACK_HORIZON_MONTHS).find((p) => p.cumulativeNet >= 0);
+  return hit ? hit.month : null;
+}
+
+export function compute(rawInputs: Inputs, rawAssumptions: Assumptions = DEFAULT_ASSUMPTIONS): Results {
+  const i = sanitiseInputs(rawInputs);
+  const a = sanitiseAssumptions(rawAssumptions);
+
+  const base = tally(i, a);
+  const low = tally(i, scaleShares(a, CAUTIOUS));
+  const high = tally(i, scaleShares(a, GENEROUS));
+  const active = base.lines.length > 0;
+  const monthlyFee = active ? a.monthlyFee : 0;
+  const setupFee = active ? a.setupFee : 0;
+  const netMonthly = base.benefit - monthlyFee;
 
   return {
-    lines,
-    hoursPerMonth,
-    hoursPerWeek: hoursPerMonth / WEEKS_PER_MONTH,
-    costSavedPerMonth,
-    revenuePerMonth,
-    monthlyBenefit,
-    annualBenefit: monthlyBenefit * 12,
+    lines: base.lines,
+    hoursPerMonth: base.hoursPerMonth,
+    hoursPerWeek: base.hoursPerMonth / WEEKS_PER_MONTH,
+    costSavedPerMonth: base.costSavedPerMonth,
+    revenuePerMonth: base.revenuePerMonth,
+    monthlyBenefit: base.benefit,
+    annualBenefit: base.benefit * 12,
+    range: { low: low.benefit, high: high.benefit },
+    monthly: projection(base.benefit, a, monthlyFee, setupFee, HORIZON_MONTHS),
     monthlyFee,
     setupFee,
     netMonthly,
-    paybackMonths,
+    paybackMonths: paybackFrom(base.benefit, a, monthlyFee, setupFee, active),
     roomRevenuePerMonth: roomRevenuePerMonth(i),
   };
+}
+
+/** Projection under the cautious or generous case, for chart bands. */
+export function projectionFor(rawInputs: Inputs, rawAssumptions: Assumptions, k: number): MonthPoint[] {
+  const i = sanitiseInputs(rawInputs);
+  const a = scaleShares(sanitiseAssumptions(rawAssumptions), k);
+  const t = tally(i, a);
+  const active = t.lines.length > 0;
+  return projection(t.benefit, a, active ? a.monthlyFee : 0, active ? a.setupFee : 0, HORIZON_MONTHS);
 }
 
 /** Compact currency formatting for the UI: 1,234 → "1,234"; 12345 → "12,345". */
@@ -229,4 +321,13 @@ export function formatMoney(value: number, symbol = '£'): string {
 
 export function formatHours(value: number): string {
   return value >= 100 ? String(Math.round(value)) : value.toFixed(value >= 10 ? 0 : 1);
+}
+
+/** Short money for axes and tiles: £950, £61k, £1.2m. */
+export function formatCompact(value: number, symbol = '£'): string {
+  const abs = Math.abs(value);
+  const sign = value < 0 ? '-' : '';
+  if (abs >= 1_000_000) return `${sign}${symbol}${(abs / 1_000_000).toFixed(abs >= 10_000_000 ? 0 : 1)}m`;
+  if (abs >= 1_000) return `${sign}${symbol}${(abs / 1_000).toFixed(abs >= 10_000 ? 0 : 1)}k`;
+  return `${sign}${symbol}${Math.round(abs)}`;
 }

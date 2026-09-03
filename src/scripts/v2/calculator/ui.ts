@@ -7,10 +7,14 @@
  * (`[data-calc="quick"]`), which only has a few inputs and falls back to the
  * model defaults for everything else.
  */
+import { cumulativeChart, cumulativeTip, splitBars } from './charts';
 import { explainLines, lineSummary } from './explain';
 import {
+  CAUTIOUS,
   compute,
   DEFAULT_ASSUMPTIONS,
+  GENEROUS,
+  projectionFor,
   DEFAULT_INPUTS,
   formatHours,
   formatMoney,
@@ -56,6 +60,7 @@ function readInputs(root: HTMLElement): Inputs {
     callsPerDay: num(root, 'callsPerDay', DEFAULT_INPUTS.callsPerDay),
     adminHoursPerWeek: num(root, 'adminHoursPerWeek', DEFAULT_INPUTS.adminHoursPerWeek),
     hourlyCost: num(root, 'hourlyCost', DEFAULT_INPUTS.hourlyCost),
+    hoursAsCash: bool(root, 'hoursAsCash', DEFAULT_INPUTS.hoursAsCash),
     agents: {
       messaging: bool(root, 'agent-messaging', DEFAULT_INPUTS.agents.messaging),
       phone: bool(root, 'agent-phone', DEFAULT_INPUTS.agents.phone),
@@ -82,6 +87,7 @@ function readAssumptions(root: HTMLElement): Assumptions {
     integrationsShare: pct('a-integrationsShare', d.integrationsShare),
     monthlyFee: num(root, 'a-monthlyFee', d.monthlyFee),
     setupFee: num(root, 'a-setupFee', d.setupFee),
+    rampMonths: num(root, 'a-rampMonths', d.rampMonths),
   };
 }
 
@@ -151,6 +157,9 @@ const FORMATTERS: Record<string, Formatter> = {
   monthlyFee: (v, s) => formatMoney(v, s),
   setupFee: (v, s) => formatMoney(v, s),
   netMonthly: (v, s) => formatMoney(v, s),
+  low: (v, s) => formatMoney(v, s),
+  high: (v, s) => formatMoney(v, s),
+  yearNet: (v, s) => formatMoney(v, s),
   hoursPerWeek: (v) => formatHours(v),
   hoursPerMonth: (v) => formatHours(v),
   payback: (v) => String(Math.round(v)),
@@ -165,6 +174,9 @@ function numericOutputs(r: Results): Record<string, number> {
     monthlyFee: r.monthlyFee,
     setupFee: r.setupFee,
     netMonthly: r.netMonthly,
+    low: r.range.low,
+    high: r.range.high,
+    yearNet: r.monthly[r.monthly.length - 1]?.cumulativeNet ?? 0,
     hoursPerWeek: r.hoursPerWeek,
     hoursPerMonth: r.hoursPerMonth,
     payback: r.paybackMonths ?? 0,
@@ -252,6 +264,74 @@ function writeLines(root: HTMLElement, r: Results, inputs: Inputs, assumptions: 
   }
 }
 
+/* ---------- charts ---------- */
+
+interface ChartState {
+  low: ReturnType<typeof projectionFor>;
+  high: ReturnType<typeof projectionFor>;
+  results: Results;
+  symbol: string;
+}
+
+function renderCharts(root: HTMLElement, r: Results, inputs: Inputs, assumptions: Assumptions, symbol: string, state: ChartState): void {
+  const cum = root.querySelector<HTMLElement>('[data-chart="cumulative"]');
+  const split = root.querySelector<HTMLElement>('[data-chart="split"]');
+  if (!cum && !split) return;
+  state.low = projectionFor(inputs, assumptions, CAUTIOUS);
+  state.high = projectionFor(inputs, assumptions, GENEROUS);
+  state.results = r;
+  state.symbol = symbol;
+  if (cum) {
+    cum.innerHTML = cumulativeChart({ base: r.monthly, low: state.low, high: state.high, setupFee: r.setupFee, payback: r.paybackMonths, symbol });
+  }
+  if (split) {
+    split.innerHTML = splitBars({ lines: r.lines, on: inputs.agents, hoursAsCash: inputs.hoursAsCash, symbol });
+  }
+}
+
+function wireChartHover(root: HTMLElement, state: ChartState): void {
+  const cum = root.querySelector<HTMLElement>('[data-chart="cumulative"]');
+  const cumTip = root.querySelector<HTMLElement>('[data-tip-for="cumulative"]');
+  if (cum && cumTip) {
+    const idle = cumTip.textContent ?? '';
+    cum.addEventListener('pointermove', (e) => {
+      const hit = (e.target as Element).closest<SVGRectElement>('.hit');
+      const cross = cum.querySelector<SVGGElement>('.cross');
+      if (!hit || !cross) return;
+      const m = Number(hit.dataset.m);
+      const x = hit.dataset.x ?? '0';
+      const y = hit.dataset.y ?? '0';
+      cross.querySelector('line')?.setAttribute('x1', x);
+      cross.querySelector('line')?.setAttribute('x2', x);
+      cross.querySelectorAll('circle').forEach((c) => {
+        c.setAttribute('cx', x);
+        c.setAttribute('cy', y);
+      });
+      cross.removeAttribute('hidden');
+      const base = state.results.monthly[m - 1];
+      const low = state.low[m - 1];
+      const high = state.high[m - 1];
+      if (base && low && high) cumTip.textContent = cumulativeTip(base, low, high, state.symbol);
+    });
+    cum.addEventListener('pointerleave', () => {
+      cum.querySelector('.cross')?.setAttribute('hidden', '');
+      cumTip.textContent = idle;
+    });
+  }
+  const split = root.querySelector<HTMLElement>('[data-chart="split"]');
+  const splitTip = root.querySelector<HTMLElement>('[data-tip-for="split"]');
+  if (split && splitTip) {
+    const idle = splitTip.textContent ?? '';
+    split.addEventListener('pointermove', (e) => {
+      const row = (e.target as Element).closest<SVGGElement>('.row[data-tip]');
+      splitTip.textContent = row?.dataset.tip ?? idle;
+    });
+    split.addEventListener('pointerleave', () => {
+      splitTip.textContent = idle;
+    });
+  }
+}
+
 /* ---------- presets, currency, reset ---------- */
 
 function applyPreset(root: HTMLElement, type: PropertyType): void {
@@ -281,6 +361,7 @@ function resetAll(root: HTMLElement): void {
     'a-integrationsShare': d.integrationsShare * 100,
     'a-monthlyFee': d.monthlyFee,
     'a-setupFee': d.setupFee,
+    'a-rampMonths': d.rampMonths,
     hourlyCost: DEFAULT_INPUTS.hourlyCost,
   };
   Object.entries(defaults).forEach(([name, value]) => setByName(root, name, value));
@@ -331,6 +412,23 @@ function wireSend(root: HTMLElement, latest: () => { inputs: Inputs; results: Re
   });
 }
 
+/* ---------- sticky results taller than the viewport ---------- */
+
+/** Pin the results column so its bottom stays in view once it is taller than the window. */
+function wireStickyPanel(root: HTMLElement): void {
+  const panel = root.querySelector<HTMLElement>('.v2-inst__out');
+  if (!panel) return;
+  const TOP = 96;
+  const GAP = 24;
+  const place = (): void => {
+    const room = window.innerHeight - panel.offsetHeight - GAP;
+    panel.style.top = `${Math.min(TOP, room)}px`;
+  };
+  new ResizeObserver(place).observe(panel);
+  window.addEventListener('resize', place);
+  place();
+}
+
 /* ---------- mobile summary bar ---------- */
 
 function wireMobileBar(root: HTMLElement): void {
@@ -347,6 +445,7 @@ export function initCalculator(root: HTMLElement): void {
   root.querySelectorAll<HTMLElement>('[data-fld]').forEach(wireField);
   const out = bindOutputs(root);
   let latest = { inputs: DEFAULT_INPUTS, results: compute(DEFAULT_INPUTS), symbol: '£' };
+  const chartState: ChartState = { low: [], high: [], results: latest.results, symbol: '£' };
 
   const update = (): void => {
     const inputs = readInputs(root);
@@ -357,6 +456,7 @@ export function initCalculator(root: HTMLElement): void {
     writeOutputs(root, out, results, symbol);
     writeEcho(root, inputs, symbol);
     writeLines(root, results, inputs, assumptions, symbol);
+    renderCharts(root, results, inputs, assumptions, symbol, chartState);
   };
 
   root.addEventListener('input', update);
@@ -374,6 +474,8 @@ export function initCalculator(root: HTMLElement): void {
 
   wireSend(root, () => latest);
   wireMobileBar(root);
+  wireChartHover(root, chartState);
+  wireStickyPanel(root);
   applyCurrency(root, currentSymbol(root));
   update();
 }

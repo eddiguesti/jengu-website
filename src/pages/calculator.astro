@@ -1,9 +1,10 @@
 ---
 /**
- * ROI calculator. Sliders with number boxes on the left, a live ledger on
- * the right. The sentence at the top reads the inputs back. Every figure
- * comes from the visitor's own numbers and from assumptions they can change
- * further down. No benchmark data and no price of ours is baked in.
+ * ROI calculator: one instrument on one dark stage. Inputs on the left,
+ * live results and charts on the right. Every figure comes from the
+ * visitor's own numbers and from assumptions they can change; the model
+ * ramps up over the first months and shows a cautious-to-generous range.
+ * No benchmark data and no price of ours is baked in.
  */
 import V2Layout from '../components/v2/V2Layout.astro';
 import V2PageHead from '../components/v2/V2PageHead.astro';
@@ -72,9 +73,10 @@ const assumptions = [
   { group: 'Integrations', fields: [
     { name: 'a-integrationsShare', label: 'Admin hours integrations remove', min: 0, max: 100, step: 1, value: pct(A.integrationsShare), unit: '%' },
   ] },
-  { group: 'Your quote from us', fields: [
-    { name: 'a-monthlyFee', label: 'Monthly fee', min: 0, max: 50000, step: 10, value: A.monthlyFee, cur: true },
-    { name: 'a-setupFee', label: 'Setup', min: 0, max: 200000, step: 100, value: A.setupFee, cur: true },
+  { group: 'Ramp-up and your quote', fields: [
+    { name: 'a-rampMonths', label: 'Months to reach full effect', min: 1, max: 12, step: 1, value: A.rampMonths, unit: 'months' },
+    { name: 'a-monthlyFee', label: 'Monthly fee from your quote', min: 0, max: 50000, step: 10, value: A.monthlyFee, cur: true },
+    { name: 'a-setupFee', label: 'Setup from your quote', min: 0, max: 200000, step: 100, value: A.setupFee, cur: true },
   ] },
 ];
 
@@ -91,40 +93,40 @@ const working = [
     <V2PageHead eyebrow="Calculator" compact>
       <Fragment slot="title">What would the agents <em>give you back?</em></Fragment>
       <p slot="lead" class="v2-lead">
-        Put in your own numbers with the sliders, the boxes or the buttons. The ledger recalculates as you go,
-        and every assumption behind it sits further down the page where you can change it too.
+        Your numbers on the left, the answer on the right. Everything recalculates as you go, the first months
+        ramp up rather than land at full effect, and every assumption is yours to change.
       </p>
     </V2PageHead>
 
-    <section class="v2-section v2-calc-stage" data-theme="light" id="calc">
+    <section class="v2-section v2-inst-stage" data-theme="dark" id="calc">
       <div class="v2-container">
-        <div class="v2-calc">
-          <div class="v2-calc__story">
-            <p class="v2-calc__sent" data-reveal aria-live="polite">
+        <div class="v2-inst">
+          <div class="v2-inst__in">
+            <p class="v2-calc__sent" aria-live="polite">
               We run a <b data-echo="propertyType">hotel</b> with <b data-echo="units">40</b> <span data-echo="unitWord">rooms</span> at
               <b data-echo="nightlyRate">£120</b> a night, about <b data-echo="occupancy">70%</b> full. Guests send us around
               <b data-echo="messagesPerDay">40</b> messages a day, the phone rings about <b data-echo="callsPerDay">15</b> times, and admin
               takes <b data-echo="adminHoursPerWeek">10</b> hours a week at <b data-echo="hourlyCost">£14</b> an hour.
             </p>
 
-            <div class="v2-calc__block" data-reveal>
-              <h3 class="v2-calc__block-title">Your property</h3>
+            <div class="v2-inst__group">
+              <div class="v2-inst__group-head"><h3>Your property</h3><span>01</span></div>
               <CalcSeg name="propertyType" value={D.propertyType} options={propertyTypes} label="Type of property" />
               {property.map((f) => <CalcField {...f} />)}
             </div>
 
-            <div class="v2-calc__block" data-reveal>
-              <h3 class="v2-calc__block-title">Your workload</h3>
+            <div class="v2-inst__group">
+              <div class="v2-inst__group-head"><h3>Your workload</h3><span>02</span></div>
               {workload.map((f) => <CalcField {...f} />)}
             </div>
 
-            <div class="v2-calc__block v2-calc__agents" data-reveal>
-              <h3 class="v2-calc__block-title">Count these agents</h3>
+            <div class="v2-inst__group v2-calc__agents">
+              <div class="v2-inst__group-head"><h3>Count these agents</h3><span>03</span></div>
               {
                 agents.map((a, i) => (
                   <label class="v2-agent">
                     <input type="checkbox" name={`agent-${a.key}`} checked={a.on} />
-                    <span class="v2-agent__n">0{i + 1}</span>
+                    <span class="v2-agent__n" style={`--sw: var(--c-${a.key})`}>0{i + 1}</span>
                     <span class="v2-agent__body">
                       <b>{a.title}</b>
                       <small>{a.text}</small>
@@ -136,10 +138,36 @@ const working = [
                   </label>
                 ))
               }
+              <label class="v2-agent v2-agent--plain">
+                <input type="checkbox" name="hoursAsCash" checked={D.hoursAsCash} />
+                <span class="v2-agent__n"></span>
+                <span class="v2-agent__body">
+                  <b>Count freed hours as money</b>
+                  <small>On: hours saved × your hourly cost. Off: the hours stay as capacity and only revenue counts.</small>
+                </span>
+                <span class="v2-agent__val"></span>
+                <span class="v2-agent__sw" aria-hidden="true">
+                  <i />
+                </span>
+              </label>
+            </div>
+
+            <div class="v2-inst__group">
+              <div class="v2-inst__group-head"><h3>Assumptions</h3><span>04</span></div>
+              <p class="v2-body">Our starting points, and the levers behind every figure on the right. Change any of them.</p>
+              {
+                assumptions.map((g) => (
+                  <details class="v2-inst__details">
+                    <summary><span>{g.group}</span><i aria-hidden="true">+</i></summary>
+                    <div class="v2-inst__details-body">{g.fields.map((f) => <CalcField {...f} compact />)}</div>
+                  </details>
+                ))
+              }
+              <button class="v2-link" type="button" data-reset>Back to our starting points <span aria-hidden="true">→</span></button>
             </div>
           </div>
 
-          <aside class="v2-calc__ledger" id="ledger" aria-live="polite" data-mbar-target>
+          <aside class="v2-inst__out" id="ledger" aria-live="polite" data-mbar-target>
             <div class="v2-calc__ledger-head">
               <span class="v2-eyebrow">Your estimate</span>
               <CalcSeg name="currency" value="£" options={currencies} label="Currency" />
@@ -147,49 +175,59 @@ const working = [
 
             <div class="v2-calc__hero">
               <b><span data-out="monthlyBenefit">£0</span><small>a month</small></b>
-              <p>Staff time back plus revenue you stop missing, before any fee.</p>
+              <p class="v2-inst__range">Likely between <span data-out="low">£0</span> and <span data-out="high">£0</span>, at full effect and before any fee.</p>
             </div>
 
-            <div class="v2-calc__pair">
-              <div>
-                <b><span data-out="hoursPerWeek">0</span><small>h a week</small></b>
-                <span>back for the team</span>
+            <div class="v2-kpis">
+              <div class="v2-kpi">
+                <b><span data-out="hoursPerWeek">0</span><small>h</small></b>
+                <span>Hours back each week</span>
               </div>
-              <div class="no-fees">
-                <b><span data-out="annualBenefit">£0</span><small>a year</small></b>
-                <span>before any fee</span>
+              <div class="v2-kpi">
+                <b><span data-out="revenue">£0</span></b>
+                <span>Revenue you stop missing, a month</span>
               </div>
-              <div class="needs-fees">
+              <div class="v2-kpi">
+                <b><span data-out="costSaved">£0</span></b>
+                <span>Staff time, valued at your hourly cost</span>
+              </div>
+              <div class="v2-kpi needs-fees">
                 <b class="if-months"><span data-out="payback">0</span><small data-out="payback-unit">months</small></b>
                 <b class="if-now">Now</b>
                 <b class="if-never">Never</b>
-                <span>to earn back the setup</span>
+                <span>Until the setup is repaid</span>
+              </div>
+              <div class="v2-kpi no-fees">
+                <b><span data-out="yearNet">£0</span></b>
+                <span>Over the first year, with ramp-up</span>
               </div>
             </div>
 
-            <div class="v2-calc__bars">
-              <div class="v2-calc__track" aria-hidden="true">
-                <i data-bar="messaging"></i><i data-bar="phone"></i><i data-bar="pricing"></i><i data-bar="integrations"></i>
+            <div class="v2-chart">
+              <div class="v2-chart__head">
+                <span>Cumulative net gain, first twelve months</span>
+                <span class="v2-chart__key"><i style="background: var(--c-messaging)"></i> base case <i class="is-band" style="background: var(--c-messaging)"></i> cautious to generous</span>
               </div>
-              <ul class="v2-calc__legend">
-                {
-                  agents.map((a) => (
-                    <li data-legend={a.key}>
-                      <span>{a.title}</span>
-                      <span data-line-money={a.key}>off</span>
-                    </li>
-                  ))
-                }
-              </ul>
+              <div class="v2-chart__plot" data-chart="cumulative"></div>
+              <p class="v2-chart__tip" data-tip-for="cumulative">Move across the chart for any month. The line starts below zero when there is a setup fee.</p>
+            </div>
+
+            <div class="v2-chart">
+              <div class="v2-chart__head">
+                <span>A month at full effect, by agent</span>
+                <span class="v2-chart__key"><i class="is-solid"></i> staff time <i class="is-light"></i> revenue</span>
+              </div>
+              <div class="v2-chart__plot" data-chart="split"></div>
+              <p class="v2-chart__tip" data-tip-for="split">Point at a bar for the split.</p>
             </div>
 
             <div class="v2-calc__fees needs-fees">
               <div><span>Monthly fee from your quote</span><span data-out="monthlyFee">£0</span></div>
               <div><span>Setup from your quote</span><span data-out="setupFee">£0</span></div>
-              <div class="is-total"><span>Net gain per month</span><span data-out="netMonthly">£0</span></div>
+              <div class="is-total"><span>Net gain per month at full effect</span><span data-out="netMonthly">£0</span></div>
             </div>
             <p class="v2-calc__note no-fees">
-              Have a quote from us? Put it into the assumptions below and the ledger shows the net gain and the payback.
+              Have a quote from us? Put it into the assumptions and the chart shows the fees, the net gain and the month the setup is repaid.
             </p>
             <p class="v2-calc__note">An estimate from your inputs, not a promise. The working for every line is at the foot of the page.</p>
 
@@ -225,41 +263,7 @@ const working = [
       </div>
     </section>
 
-    <section class="v2-section" data-theme="dark" id="assumptions">
-      <div class="v2-container">
-        <div class="v2-head">
-          <div>
-            <span class="v2-eyebrow" data-reveal>Assumptions</span>
-            <h2 class="v2-h2" data-split>Every number <em>behind it.</em></h2>
-          </div>
-          <div class="v2-head__right">
-            <p class="v2-lead" data-reveal>
-              These are our starting points, and they move the ledger above as you change them. Nothing here is a
-              benchmark we are asking you to trust.
-            </p>
-            <button class="v2-link" type="button" data-reset>Back to our starting points <span aria-hidden="true">→</span></button>
-          </div>
-        </div>
-
-        <div class="v2-calc__groups">
-          {
-            assumptions.map((g, i) => (
-              <div class="v2-calc__group" data-reveal>
-                <div class="v2-calc__group-head">
-                  <span class="v2-list__n">0{i + 1}</span>
-                  <h3>{g.group}</h3>
-                </div>
-                <div class="v2-calc__group-fields">
-                  {g.fields.map((f) => <CalcField {...f} compact />)}
-                </div>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    </section>
-
-    <section class="v2-section" data-theme="light" id="how">
+    <section class="v2-section" data-theme="dark" id="how">
       <div class="v2-container">
         <div class="v2-head">
           <div>
@@ -267,7 +271,10 @@ const working = [
             <h2 class="v2-h2" data-split>Shown <em>in full.</em></h2>
           </div>
           <div class="v2-head__right">
-            <p class="v2-lead" data-reveal>Each agent adds one line, written out with the numbers you gave us.</p>
+            <p class="v2-lead" data-reveal>
+              Each agent adds one line, written out with the numbers you gave us. The range takes every share
+              assumption down by thirty percent for the cautious case and up by a quarter for the generous one.
+            </p>
           </div>
         </div>
         <div class="v2-list">
@@ -315,7 +322,7 @@ const working = [
     <a class="v2-calc__mbar" href="#ledger" data-mbar>
       <span><b data-out="monthlyBenefit">£0</b> a month</span>
       <span><b data-out="hoursPerWeek">0</b> h a week</span>
-      <span class="v2-calc__mbar-go">Ledger ↓</span>
+      <span class="v2-calc__mbar-go">Results ↓</span>
     </a>
   </div>
 
